@@ -3,6 +3,6 @@ The 42Viral Project
 
 Libraries
 ---------
-jQuery
-jQuery UI
-HTMLPurifier
+*jQuery
+*jQuery UI
+*HTMLPurifier
