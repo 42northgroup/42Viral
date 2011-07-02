@@ -1,8 +1,12 @@
 The 42Viral Project
 ===================
 
-Libraries
----------
-*jQuery
-*jQuery UI
-*HTMLPurifier
+Libraries and Concepts
+----------------------
+* CakePHP
+* HTMLPurifier
+* jQuery
+* jQuery UI
+* HTMLBOILERPLATE
+* Modernizr
+
