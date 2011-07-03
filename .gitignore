@@ -1,3 +1,6 @@
 /nbproject
 
 /app/tmp
+
+/app/Config/database.php
+/app/Config/email.php
