@@ -4,3 +4,7 @@
 
 /app/Config/database.php
 /app/Config/email.php
+
+/app/Controller/app_test_controller.php
+/app/View/AppTest
+
