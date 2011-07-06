@@ -9,6 +9,21 @@ App::uses('AppModel', 'Model');
  */
 class Person extends AppModel
 {
+    var $useTable = 'People';
+    /**
+     *
+     * @var array
+     */
+    public $actsAs = array(
+        'Picklist' => array(
+            'ObjectTypes'=>array(
+                'prospect'=>'Prospect',
+                'lead'=>'Lead',
+                'contact'=>'Contact'
+            )
+        )
+    );
+    
     /**
      * Returns the data for a single person
      * @param string $id
