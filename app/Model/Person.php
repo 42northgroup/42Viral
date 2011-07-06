@@ -3,7 +3,9 @@
 App::uses('AppModel', 'Model');
 
 /**
- *
+ * Mangages the person object
+ * @package App
+ * @subpackage App.core
  */
 class Person extends AppModel
 {
@@ -39,7 +41,7 @@ class Person extends AppModel
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
-    public function __dupEmail($data)
+    protected function _dupEmail($data)
     {
         
     }   
@@ -50,7 +52,7 @@ class Person extends AppModel
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
-    public function __dupScreenName($data)
+    protected function _dupScreenName($data)
     {
         
     } 
@@ -61,7 +63,7 @@ class Person extends AppModel
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
-    public function __dupNames(){
+    protected function _dupNames(){
         
     }
 }
