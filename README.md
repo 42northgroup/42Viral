@@ -10,6 +10,24 @@ Libraries and Concepts
 * HTMLBOILERPLATE
 * Modernizr
 
+Development
+-----------
+
+#Configuration  
+
+Any file containing configuration variables should be added to the .gitignore file. The current "Configuration" files 
+are as follows:
+
+* app/Config/core.php
+* app/Config/database.php
+* app/Config/email.php
+
+Once ignored we need to put a ".default" in place:
+
+* app/Config/core.php.default
+* app/Config/database.php.default
+* app/Config/email.php.default
+
 Installation
 ------------
 
