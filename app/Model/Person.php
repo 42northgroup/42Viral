@@ -7,9 +7,9 @@ App::uses('AppModel', 'Model');
  * @package App
  * @subpackage App.core
  */
-class Person extends AppModel
+abstract class Person extends AppModel
 {
-    var $useTable = 'People';
+    var $useTable = 'people';
     /**
      *
      * @var array
@@ -33,7 +33,7 @@ class Person extends AppModel
      */
     public function getPerson($id)
     {
-        $person = $this->find('first', array('conditions'=>array('Person.id' => $id)));
+        $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
         return $person;
     }
     

@@ -7,13 +7,23 @@ App::uses('Person', 'Model');
  */
 class Contact extends Person
 {
-    var $useTable = 'People';
-    /*
-    public function beforeFind($conditions) {
-        
-        $conditions['conditions']['Contact.id'] = 'c9510606-a5bf-11e0-8563-000c29ae9eb4';
-        
-        return $conditions;
-    } */
+    /**
+     * Set the name of the class, this is needed when working with inheirited methods
+     * @var string
+     */
+    var $name = 'Contact';
+    
+    /**
+     * Inject all "finds" against the Contact object with contact filtering criteria
+     * @param array $query
+     * @return type 
+     */
+    public function beforeFind(&$query) 
+    {
+        $contactFilter = array('Contact.object_type' =>'contact');
+        $query['conditions'] = array_merge($query['conditions'], $contactFilter);
+        return true;
+    }
+    
 }
 ?>
