@@ -7,7 +7,7 @@ App::uses('AppModel', 'Model');
  * @package App
  * @subpackage App.core
  */
-abstract class Person extends AppModel
+class Person extends AppModel
 {
     var $useTable = 'people';
     /**

@@ -1,5 +1,7 @@
 /nbproject
 
+/lib
+
 /app/tmp
 
 /app/Config/database.php

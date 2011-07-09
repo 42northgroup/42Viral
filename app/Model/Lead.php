@@ -22,6 +22,7 @@ class Lead extends Person
      */
     public function beforeFind(&$query) 
     {
+        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
         $leadFilter = array('Lead.object_type' =>'lead');
         $query['conditions'] = array_merge($query['conditions'], $leadFilter);
         return true;

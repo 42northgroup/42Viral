@@ -22,6 +22,7 @@ class Prospect extends Person
      */
     public function beforeFind(&$query) 
     {
+        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
         $prospectFilter = array('Prospect.object_type' =>'prospect');
         $query['conditions'] = array_merge($query['conditions'], $prospectFilter);
         return true;

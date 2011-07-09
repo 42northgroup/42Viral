@@ -1,4 +1,4 @@
-<?php
+<?php 
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -25,6 +25,11 @@
 
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', array('engine' => 'File'));
+
+define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
+define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
+define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
+define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.

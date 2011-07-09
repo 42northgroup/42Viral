@@ -1,8 +1,15 @@
 The 42Viral Project
 ===================
 
+Goals
+-----
+
+Provide a scalable and robust "kick start" for projects of any size.
+
+
 Libraries and Concepts
 ----------------------
+
 * CakePHP
 * HTMLPurifier
 * jQuery
@@ -12,6 +19,12 @@ Libraries and Concepts
 
 Development
 -----------
+
+Agile, Test Driven Development.
+
+Models, Components, Helpers and Behaviors, should be responsible for everything. While the project will provide UI and 
+work-flows we should be able to drop all of the controllers (except those that provide web services) and views without 
+losing the ability to manage the data.
 
 #Configuration  
 

@@ -20,8 +20,10 @@ class Contact extends Person
      */
     public function beforeFind(&$query) 
     {
+        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
         $contactFilter = array('Contact.object_type' =>'contact');
-        $query['conditions'] = array_merge($query['conditions'], $contactFilter);
+        $query['conditions'] =array_merge($query['conditions'], $contactFilter);
+        
         return true;
     }
     
