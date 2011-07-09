@@ -6,6 +6,7 @@
 
 /app/Config/database.php
 /app/Config/email.php
+/app/Config/core.php
 
 /app/Controller/AppTestController.php
 /app/View/AppTest
