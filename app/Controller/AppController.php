@@ -13,7 +13,7 @@ class AppController extends Controller
      * @var type 
      * @access public
      */
-    public $components = array('Auth', 'RequestHandler', 'Security');
+    public $components = array('Auth', 'RequestHandler', 'Security', 'Session');
     
     /**
      * Application-wide helpers
@@ -29,6 +29,17 @@ class AppController extends Controller
     public function beforeFilter()
     {
         
+        //We only want to pull a custom theme if it's not a "Special Document" type
+        if(in_array($this->RequestHandler->ext, Router::extensions())){
+            $this->layoutPath = $this->RequestHandler->ext;
+        }else{
+           $this->layout = 'Themes' . DS . 'Default' . DS . 'default'; 
+        }       
+        
+        if($this->Session->check('Auth.User.User.id')){
+            $this->Auth->allow('*');
+        }
+
     }
      
     /**
@@ -37,6 +48,20 @@ class AppController extends Controller
      */
     public function beforeRender()
     {
-        
-    }   
+
+    }  
+    
+    /**
+     * Formats a setFlash()
+     * @param string $message
+     * @param string $class
+     * @return string
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     */
+    public function message($message, $class='fail')
+    {
+        return "<div class=\"$class\">$message</div>";
+    }      
+    
 }

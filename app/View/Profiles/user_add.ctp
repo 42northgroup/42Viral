@@ -1,6 +1,12 @@
+<h1>Create an Account</h1>
 <?php
 
-    echo $this->Form->create('User', array('url'=>$this->here));
+    echo $this->Form->create('User', 
+                array(
+                    'url'=>$this->here, 
+                    'class'=>'default'
+                )
+            );
     
     echo $this->Form->input('email');
     echo $this->Form->input('username');

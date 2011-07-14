@@ -78,7 +78,8 @@ class Person extends AppModel
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
-    protected function _dupNames(){
+    protected function _dupNames()
+    {
         
     }
 }

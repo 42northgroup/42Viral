@@ -13,5 +13,6 @@ class AppModel extends Model
      * @var array
      * @access public
      */
-    public $actsAs = array('Containable');
+    public $actsAs = array('Containable', 'Log');
+
 }

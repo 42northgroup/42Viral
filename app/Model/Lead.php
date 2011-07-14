@@ -19,6 +19,8 @@ class Lead extends Person
      * Inject all "finds" against the Lead object with lead filtering criteria
      * @param array $query
      * @return type 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
      */
     public function beforeFind(&$query) 
     {

@@ -2,23 +2,23 @@
 /**
  * A placeholder for experimenting
  */
+
+App::uses('Security42', 'Lib');
+
 class AppTestsController extends AppController {
     
     var $uses = array();
     
+    /**
+     * @access public
+     */
+    public function beforeFilter(){
+        parent::beforeFilter();
+    }
+    
     public function index(){
         
-        $this->loadModel('User'); 
-        
-        $data['User']['username'] = 'bob';
-        $data['User']['email'] = 'bob@demo.com';
-        $data['User']['password'] = '12345';
-
-          
-        $this->User->createUser($data['User']);
     }  
     
 
 }
-
-?>

@@ -32,10 +32,36 @@ class PagesController extends AppController {
     public $uses = array();
 
 
+    /**
+     * @access public
+     */
     public function beforeFilter(){
         parent::beforeFilter();
+        
+        $this->Auth->allow('*');
     }
-
+    /**
+     * Displays a list of blogs
+     *
+     * @param array
+     */
+    public function index() {
+        $this->loadModel('Page');
+        $pages = $this->Page->find('all');
+        $this->set('pages', $pages);
+    } 
+    
+    /**
+     * Displays a blog post
+     *
+     * @param array
+     */
+    public function view($slug) {
+        $this->loadModel('Page');
+        $page = $this->Page->findBySlug($slug);
+        $this->set('page', $page);
+    }  
+    
     /**
      * Displays a view
      *
