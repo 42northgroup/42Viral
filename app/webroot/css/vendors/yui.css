@@ -1,0 +1,252 @@
+/* YUI Reset
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 3.3.0
+build: 3167
+*/
+/*e
+    TODO will need to remove settings on HTML since we can't namespace it.
+    TODO with the prefix, should I group by selector or property for weight savings?
+*/
+.yui3-cssreset html{
+    color:#000;
+    background:#FFF;
+}
+/*
+    TODO remove settings on BODY since we can't namespace it.
+*/
+/*
+    TODO test putting a class on HEAD.
+            - Fails on FF. 
+*/
+.yui3-cssreset body,
+.yui3-cssreset div,
+.yui3-cssreset dl,
+.yui3-cssreset dt,
+.yui3-cssreset dd,
+.yui3-cssreset ul,
+.yui3-cssreset ol,
+.yui3-cssreset li,
+.yui3-cssreset h1,
+.yui3-cssreset h2,
+.yui3-cssreset h3,
+.yui3-cssreset h4,
+.yui3-cssreset h5,
+.yui3-cssreset h6,
+.yui3-cssreset pre,
+.yui3-cssreset code,
+.yui3-cssreset form,
+.yui3-cssreset fieldset,
+.yui3-cssreset legend,
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset p,
+.yui3-cssreset blockquote,
+.yui3-cssreset th,
+.yui3-cssreset td {
+    margin:0;
+    padding:0;
+}
+.yui3-cssreset table {
+    border-collapse:collapse;
+    border-spacing:0;
+}
+.yui3-cssreset fieldset,
+.yui3-cssreset img {
+    border:0;
+}
+/*
+    TODO think about hanlding inheritence differently, maybe letting IE6 fail a bit...
+*/
+.yui3-cssreset address,
+.yui3-cssreset caption,
+.yui3-cssreset cite,
+.yui3-cssreset code,
+.yui3-cssreset dfn,
+.yui3-cssreset em,
+.yui3-cssreset strong,
+.yui3-cssreset th,
+.yui3-cssreset var {
+    font-style:normal;
+    font-weight:normal;
+}
+/*
+    TODO Figure out where this list-style rule is best set. Hedger has a request to investigate.
+*/
+.yui3-cssreset li {
+    list-style:none;
+}
+
+.yui3-cssreset caption,
+.yui3-cssreset th {
+    text-align:left;
+}
+.yui3-cssreset h1,
+.yui3-cssreset h2,
+.yui3-cssreset h3,
+.yui3-cssreset h4,
+.yui3-cssreset h5,
+.yui3-cssreset h6 {
+    font-size:100%;
+    font-weight:normal;
+}
+.yui3-cssreset q:before,
+.yui3-cssreset q:after {
+    content:'';
+}
+.yui3-cssreset abbr,
+.yui3-cssreset acronym {
+    border:0;
+    font-variant:normal;
+}
+/* to preserve line-height and selector appearance */
+.yui3-cssreset sup {
+    vertical-align:text-top;
+}
+.yui3-cssreset sub {
+    vertical-align:text-bottom;
+}
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset select {
+    font-family:inherit;
+    font-size:inherit;
+    font-weight:inherit;
+}
+/*to enable resizing for IE*/
+.yui3-cssreset input,
+.yui3-cssreset textarea,
+.yui3-cssreset select {
+    *font-size:100%;
+}
+/*because legend doesn't inherit in IE */
+.yui3-cssreset legend {
+    color:#000;
+}      
+
+/* YUI Base
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 3.3.0
+build: 3167
+*/
+/* base.css, part of YUI's CSS Foundation */
+h1 {
+    /*18px via YUI Fonts CSS foundation*/
+    font-size:138.5%;  
+}
+h2 {
+    /*16px via YUI Fonts CSS foundation*/
+    font-size:123.1%; 
+}
+h3 {
+    /*14px via YUI Fonts CSS foundation*/
+    font-size:108%;  
+}
+h1,h2,h3 {
+    /* top & bottom margin based on font size */
+    margin:1em 0;
+}
+h1,h2,h3,h4,h5,h6,strong {
+    /*bringing boldness back to headers and the strong element*/
+    font-weight:bold; 
+}
+abbr,acronym {
+    /*indicating to users that more info is available */
+    border-bottom:1px dotted #000;
+    cursor:help;
+} 
+em {
+    /*bringing italics back to the em element*/
+    font-style:italic;
+}
+blockquote,ul,ol,dl {
+    /*giving blockquotes and lists room to breath*/
+    margin:1em;
+}
+ol,ul,dl {
+    /*bringing lists on to the page with breathing room */
+    margin-left:2em;
+}
+ol li {
+    /*giving OL's LIs generated numbers*/
+    list-style: decimal outside;	
+}
+ul li {
+    /*giving UL's LIs generated disc markers*/
+    list-style: disc outside;
+}
+dl dd {
+    /*providing spacing for definition terms*/
+    margin-left:1em;
+}
+th,td {
+    /*borders and padding to make the table readable*/
+    border:1px solid #000;
+    padding:.5em;
+}
+th {
+    /*distinguishing table headers from data cells*/
+    font-weight:bold;
+    text-align:center;
+}
+caption {
+    /*coordinated margin to match cell's padding*/
+    margin-bottom:.5em;
+    /*centered so it doesn't blend in to other content*/
+    text-align:center;
+}
+p,fieldset,table,pre {
+    /*so things don't run into each other*/
+    margin-bottom:1em;
+}
+
+/* YUI Fonts
+Copyright (c) 2010, Yahoo! Inc. All rights reserved.
+Code licensed under the BSD License:
+http://developer.yahoo.com/yui/license.html
+version: 3.3.0
+build: 3167
+*/
+/**
+* Percents could work for IE, but for backCompat purposes, we are using keywords.
+* x-small is for IE6/7 quirks mode.
+*/
+body {
+    font:13px/1.231 arial,helvetica,clean,sans-serif;
+    *font-size:small; /* for IE */
+    *font:x-small; /* for IE in quirks mode */
+}
+
+/**
+* Nudge down to get to 13px equivalent for these form elements
+*/ 
+select,
+input,
+button,
+textarea {
+    font:99% arial,helvetica,clean,sans-serif;
+}
+
+/**
+* To help tables remember to inherit
+*/
+table {
+    font-size:inherit;
+    font:100%;
+}
+
+/**
+* Bump up IE to get to 13px equivalent for these fixed-width elements
+*/
+pre,
+code,
+kbd,
+samp,
+tt {
+    font-family:monospace;
+    *font-size:108%;
+    line-height:100%;
+}
