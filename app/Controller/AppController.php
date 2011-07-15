@@ -48,20 +48,6 @@ class AppController extends Controller
      */
     public function beforeRender()
     {
-
-    }  
-    
-    /**
-     * Formats a setFlash()
-     * @param string $message
-     * @param string $class
-     * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     */
-    public function message($message, $class='fail')
-    {
-        return "<div class=\"$class\">$message</div>";
-    }      
-    
+        
+    }    
 }

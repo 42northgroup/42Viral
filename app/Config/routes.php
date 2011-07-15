@@ -34,6 +34,15 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home
 //Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         
 /**
+ * We want the object_type be able to resolve content views
+ */
+Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
+
+Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));
+ 
+Router::connect('/post/:slug', array('controller' => 'blogs', 'action' => 'post'), array('pass' => array('slug')));
+
+/**
  * Setup extension parsing to prepare for web services.
  */
 Router::parseExtensions('rss', 'json', 'xml');
