@@ -7,7 +7,7 @@ App::uses('ContentAbstract', 'Model');
  * @package App
  * @subpackage App.crm
  */
-class PageAbstract extends ContentAbstract
+abstract class PageAbstract extends ContentAbstract
 {
     /**
      * Set the name of the class, this is needed when working with inheirited methods

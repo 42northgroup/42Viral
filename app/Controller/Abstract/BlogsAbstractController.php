@@ -6,7 +6,7 @@ App::uses('AppController', 'Controller');
  * @package app
  * @subpackage app.core
  */
-class BlogsAbstractController extends AppController {
+abstract class BlogsAbstractController extends AppController {
 
     /**
      * This controller does not use a model

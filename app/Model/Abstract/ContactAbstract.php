@@ -5,7 +5,7 @@ App::uses('PersonAbstract', 'Model');
 /**
  * Mangages the person object from the POV of a contact
  */
-class ContactAbstract extends PersonAbstract
+abstract class ContactAbstract extends PersonAbstract
 {
     /**
      * Set the name of the class, this is needed when working with inheirited methods

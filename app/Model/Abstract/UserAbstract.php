@@ -9,7 +9,7 @@ App::uses('Security42', 'Lib');
  * @package App
  * @subpackage App.core
  */
-class UserAbstract extends PersonAbstract
+abstract class UserAbstract extends PersonAbstract
 {
     
     /**
