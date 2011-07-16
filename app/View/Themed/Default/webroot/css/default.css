@@ -1,0 +1,177 @@
+/**
+ * Default theme for The 42Viral Project
+ *
+ * The 42Viral Project(tm) 
+ * Copyright 2009-2011, MicroTrain Technologies
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, MicroTrain Technologies
+ * @link          https://www.microtrain.net The 42Viral Project
+ * @package       app
+ * @subpackage    app.theme.default
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+ 
+body{
+    margin: 0 0;
+}
+
+#Header{
+    height: 30px;
+    background: #000;
+}
+
+#Banner{
+    background: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+    height: 71px;
+}
+
+#Content,
+#BannerContent{
+    width: 800px;
+    float: left;
+    overflow: hidden;
+    padding: 0 12px 12px;
+}
+
+#BannerContent{
+    text-align: center;
+}
+
+#Left,
+#BannerLeft{
+    width: 175px; 
+    float: left;
+}   
+
+#Right,
+#BannerRight{
+    float: left;
+}  
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td{
+    border: 1px solid #E5E5E5;
+    border-left: none;
+    border-right: none;
+}
+
+/* The Magnificent Clearfix: Updated to prevent margin-collapsing on child elements.
+   j.mp/bestclearfix */
+.clearfix:before, 
+.clearfix:after { 
+    content: "\0020"; 
+    display: block; 
+    height: 0; 
+    overflow: hidden; 
+}
+
+.clearfix:after { 
+    clear: both; 
+}
+
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { 
+    zoom: 1; 
+}
+
+/* Flash messages*/
+#SetFlash, #flashMessage{
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    font-size: 18px;
+}
+#FlashError{
+    background: #900;
+    padding:6px;            
+}
+
+#FlashSuccess{
+    background: green;
+    padding:6px;            
+}
+
+#FlashError:after{
+    content: ' :(';           
+}
+
+#FlashSuccess:after{
+    content: ' :)';           
+}        
+
+pre,
+code{
+    overflow: auto;
+}
+
+/* FORMS */
+
+/* At this level we can't worry about speocifics, only the most general of concepts */
+form{}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea{
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size:16px;
+    padding: 6px;
+}
+
+label{}
+
+
+form.default{
+    width: 300px;
+}
+
+form.default input[type="text"],
+form.default input[type="password"],
+form.default select,
+form.default textarea{
+    border: 1px solid #000;
+    border-radius: 2px;
+    width: 176px;
+    padding: 2px;
+}
+
+form.default label{
+    display: inline-block;
+    width: 106px;
+    padding-right: 12px;
+    text-align: right;
+}
+
+
+
+form.content{
+    width: 100%;
+}
+
+form.content label{
+    display: block;
+}
+
+form.contnet input[type="text"],
+form.contnet input[type="password"],
+form.content select,
+form.contnet textarea{}
+
+
+.submit{
+    text-align:right;
+}
+
+input[type="submit"]{
+    padding: 8px 12px;
+    font-size: 16px;
+}
