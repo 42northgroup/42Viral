@@ -1,6 +1,6 @@
 <?php
 App::import('Prospect', 'Model');
-require(TEST_MODEL . 'PersonTest.php');
+require('PersonTest.php');
 
 class ProspectTestCase extends PersonTestCase {
     /**

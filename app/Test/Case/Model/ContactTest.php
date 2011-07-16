@@ -1,6 +1,6 @@
 <?php
 App::import('Contact', 'Model');
-require(TEST_MODEL . 'PersonTest.php');
+require('PersonTest.php');
 
 class ContactTestCase extends PersonTestCase {
     /**

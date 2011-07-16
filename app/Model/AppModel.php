@@ -1,18 +1,8 @@
 <?php
 
-App::uses('Model', 'Model');
+App::uses('AppAbstractModel', 'Model');
 
 /**
  *
  */
-class AppModel extends Model 
-{
-    
-    /**
-     * Application-wide behaviors
-     * @var array
-     * @access public
-     */
-    public $actsAs = array('Containable', 'Log');
-
-}
+class AppModel extends AppAbstractModel {}

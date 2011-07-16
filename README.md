@@ -26,6 +26,14 @@ Models, Components, Helpers and Behaviors, should be responsible for everything.
 work-flows we should be able to drop all of the controllers (except those that provide web services) and views without 
 losing the ability to manage the data.
 
+Abstract Classes
+----------------
+
+I've added an abstract layer that sits between Controller [Some]Controller and Model [Some]Model. These follow the 
+naming convention of SomeAbstractController and SomeController extends SomeAbstractController. All of the core 42viral
+methods, actions, etc live in the abstract models, the running application extends these for use. Never build inside 
+of an core 42viral abstract, always build in the inherited class. This will make upgrading far more feasible.
+
 #Configuration  
 
 Any file containing configuration variables should be added to the .gitignore file. The current "Configuration" files 

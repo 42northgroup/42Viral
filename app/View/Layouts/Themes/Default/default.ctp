@@ -11,7 +11,7 @@
         echo $this->Html->meta('icon');
 
         //echo $this->Html->css('cake.generic');
-        echo $this->Html->css('yui');
+        echo $this->Html->css('vendors/yui');
 
         echo $scripts_for_layout;
     ?>
@@ -155,8 +155,9 @@
         }
 
         
-        form.default{
-            width: 780px;
+        
+        form.content{
+            width: 100%;
         }
         
         form.content label{
@@ -215,6 +216,14 @@
                         <li><a href="/profiles/post_create">Post</a></li>
                         <li><a href="/profiles/page_create">Page</a></li>
                     </ul>
+                    
+                    <hr />
+                    <ul>
+                        <li><a href="/users/login">login</a></li>
+                        <li><a href="/users/logout">logout</a></li>
+                        <li><a href="/profiles/view/jasonsnider">Private</a></li>
+                        <li><a href="/profiles/pub/jasonsnider">Public</a></li>
+                    </ul>                    
                 </div>
                 
                 <div id="Content"><?php echo $content_for_layout; ?></div>
