@@ -31,9 +31,17 @@ abstract class ContentAbstract extends AppModel
             
         ),
         
+        'Scrub'=>array(
+            'Filters'=>array(
+                'trim'=>'*',
+                'html'=>array('body', 'tease'),
+                'plainTextNoHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 'syntax'),
+            )
+        ),
+        
         'Seo'
     );
-    
+        
     /**
      * @access public
      */

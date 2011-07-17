@@ -2,7 +2,7 @@
 App::uses('PersonAbstract', 'Model');
 App::uses('Security', 'Utility'); 
 
-App::uses('Security42', 'Lib'); 
+App::uses('Sec', 'Lib'); 
         
 /**
  * Mangages the person object from the POV of a contact
@@ -51,13 +51,13 @@ abstract class UserAbstract extends PersonAbstract
     {
         
         //Create a salt value for the user
-        $salt = Security42::makeSalt();
+        $salt = Sec::makeSalt();
         
         //Load salt into the data array
         $data['User']['salt'] = $salt;
         
         //Hash the password and load it into the data array
-        $data['User']['password'] = Security42::hashPassword($data['User']['password'], $salt);
+        $data['User']['password'] = Sec::hashPassword($data['User']['password'], $salt);
 
         //Try to save the new user record
         if($this->save($data)){

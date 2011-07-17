@@ -13,6 +13,6 @@ class AppAbstractModel extends Model
      * @var array
      * @access public
      */
-    public $actsAs = array('Containable', 'Log');
+    public $actsAs = array('Containable', 'Log', 'Null');
 
 }

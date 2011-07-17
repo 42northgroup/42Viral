@@ -46,7 +46,7 @@ abstract class UsersAbstractController extends AppController
                 $error = true;
             }else{
                 
-                $hash = Security42::hashPassword($this->data['User']['password'], $user['User']['salt']);
+                $hash = Sec::hashPassword($this->data['User']['password'], $user['User']['salt']);
                 if($hash == $user['User']['password']){
                     
                     if($this->Auth->login($user)){

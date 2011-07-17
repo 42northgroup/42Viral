@@ -3,13 +3,15 @@
 App::uses('Security','Utility');
 App::uses('String','Utility');
 
+//namespace FortyTwoViral\Lib\Sec;
+
 /**
  * Additional security methods
  *
  * @package app
  * @subpackage app.core
  */
-class Security42 {
+class Sec {
 
     /**
      * Creates some pseudo random jibberish to be used as a salt value.

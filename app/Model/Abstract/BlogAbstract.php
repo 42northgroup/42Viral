@@ -1,7 +1,7 @@
 <?php
 
 App::uses('ContentAbstract', 'Model');
-
+App::uses('Scrub', 'Lib');
 /**
  * Mangages the person object from the POV of a Lead
  * @package App
@@ -13,9 +13,9 @@ abstract class BlogAbstract extends ContentAbstract
      * Set the name of the class, this is needed when working with inheirited methods
      * @var string
      */
-    var $name = 'Blog';
+    public $name = 'Blog';
     
-    var $hasMany = array(
+    public $hasMany = array(
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
@@ -36,6 +36,7 @@ abstract class BlogAbstract extends ContentAbstract
      */
     public function beforeSave()
     {     
+        
         $this->data['Blog']['object_type'] = 'blog';
         return true;
     }  

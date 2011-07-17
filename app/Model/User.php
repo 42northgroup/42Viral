@@ -2,7 +2,7 @@
 App::uses('UserAbstract', 'Model');
 App::uses('Security', 'Utility'); 
 
-App::uses('Security42', 'Lib'); 
+App::uses('Sec', 'Lib'); 
         
 /**
  * Mangages the person object from the POV of a contact
