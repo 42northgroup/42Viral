@@ -43,9 +43,8 @@ abstract class ProfilesAbstractController extends AppController {
     public function index()
     {
         $this->loadModel('User');
-        $profiles = $this->User->find('all', array('conditions'=>array(), 'contain'=>array()));
-        $this->set('profiles', $profiles);
-        
+        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array()));
+        $this->set('users', $users);
     }
     
     /**
@@ -60,8 +59,8 @@ abstract class ProfilesAbstractController extends AppController {
     public function view($token)
     {
         $this->loadModel('User');
-        $profile = $this->User->getProfile($token);
-        $this->set('profile', $profile);
+        $user = $this->User->getProfile($token);
+        $this->set('user', $user);
     } 
     
     /**
@@ -76,8 +75,8 @@ abstract class ProfilesAbstractController extends AppController {
     public function pub($token)
     {
         $this->loadModel('User');
-        $profile = $this->User->getProfile($token);
-        $this->set('profile', $profile);
+        $user = $this->User->getProfile($token);
+        $this->set('user', $user);
         
     }  
     
@@ -135,11 +134,37 @@ abstract class ProfilesAbstractController extends AppController {
             
             if($this->Blog->save($this->data)){
                 $this->Session->setFlash(__('Your blog has been created'), 'success');
+                $this->redirect("/profiles/blog_edit/{$this->Blog->id}");
             }else{
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
     }
+    
+    /**
+     * Creates a blog - a blog contains a collection of posts
+     * 
+     * @param string $id
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     * @todo TestCase
+     */
+    public function blog_edit($id)
+    {
+        $this->loadModel('Blog');
+        
+        if(!empty($this->data)){
+            
+            if($this->Blog->save($this->data)){
+                $this->Session->setFlash(__('Your blog has been created'), 'success');
+            }else{
+                $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
+            }
+        }
+        
+        $this->data = $this->Blog->findById($id);
+    }    
     
     /**
      * Removes a post
@@ -186,6 +211,7 @@ abstract class ProfilesAbstractController extends AppController {
 
                 if($this->Post->save($this->data)){
                     $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
+                    $this->redirect("/profiles/post_edit/{$this->Post->id}");
                 }else{
                     $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
                 }
@@ -193,6 +219,30 @@ abstract class ProfilesAbstractController extends AppController {
             }     
             
         }
+    }
+    
+    /**
+     * Creates a post or blog entry
+     * 
+     * @param string $id
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     * @todo TestCase
+     */
+    public function post_edit($id)
+    {
+        $this->loadModel('Post'); 
+        if(!empty($this->data)){
+
+            if($this->Post->save($this->data)){
+                $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
+            }else{
+                $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
+            }
+        }  
+        
+        $this->data = $this->Post->findById($id);
     }
     
     /**
@@ -233,11 +283,38 @@ abstract class ProfilesAbstractController extends AppController {
 
             if($this->Page->save($this->data)){
                 $this->Session->setFlash(__('Your page has been created'), 'success');
+                $this->redirect("/profiles/page_edit/{$this->Page->id}");
             }else{
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
         }
     }
+ 
+    
+    /**
+     * Updates a web page
+     * 
+     * @param string $id
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     * @todo TestCase
+     */
+    public function page_edit($id)
+    {
+        $this->loadModel('Page');
+
+        if(!empty($this->data)){
+
+            if($this->Page->save($this->data)){
+                $this->Session->setFlash(__('Your page has been updated'), 'success');
+            }else{
+                $this->Session->setFlash(__('There was a problem updating your page'), 'error');
+            }
+        }
+        
+        $this->data = $this->Page->findById($id);
+    }    
     
     /**
      * Displays a list of all content created by a single user

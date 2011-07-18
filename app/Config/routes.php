@@ -42,6 +42,9 @@ Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'
  
 Router::connect('/post/:slug', array('controller' => 'blogs', 'action' => 'post'), array('pass' => array('slug')));
 
+Router::connect('/profile/:username', 
+        array('controller' => 'profiles', 'action' => 'pub'), array('pass' => array('username')));
+
 /**
  * Setup extension parsing to prepare for web services.
  */

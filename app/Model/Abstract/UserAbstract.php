@@ -11,6 +11,46 @@ App::uses('Sec', 'Lib');
  */
 abstract class UserAbstract extends PersonAbstract
 {
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $name = 'User';
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'username' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter username",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"This username is already in use",
+                'last' => true                
+            )         
+        ),
+        'password' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter a password",
+                'last' => true
+            )        
+        ),
+        'salt' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"There was a problem creating your salt",
+                'last' => true
+            )        
+        ),
+    );
     
     /**
      * @access public
@@ -31,7 +71,6 @@ abstract class UserAbstract extends PersonAbstract
         $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
         $userFilter = array( 
                 "not"=>array(
-                    "User.email" => null,
                     "User.username" => null
                 )
             );

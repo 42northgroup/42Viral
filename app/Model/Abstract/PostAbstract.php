@@ -15,6 +15,31 @@ abstract class PostAbstract extends ContentAbstract
      */
     var $name = 'Post';
     
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'title' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter a title",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"There is a problem with the slug",
+                'last' => true                
+            ),
+            'parent_content_id' => array(
+                'rule' => 'notEmpty',
+                'message' =>"You need to have a blog attached",
+                'last' => true
+            ),            
+        )
+    );
+    
    /**
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public

@@ -16,6 +16,26 @@ abstract class PageAbstract extends ContentAbstract
     var $name = 'Page';
     
     /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'title' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter a title",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"There is a problem with the slug",
+                'last' => true                
+            )
+        )
+    );
+    
+    /**
      * @access public
      */
     public function __construct() 

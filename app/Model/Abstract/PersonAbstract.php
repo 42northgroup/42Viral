@@ -25,6 +25,19 @@ abstract class PersonAbstract extends AppModel
     );
     
     /**
+     * @access public
+     */
+    public function __construct() 
+    {
+        parent::__construct();
+        
+        $this->virtualFields = array(
+            'url'=>"CONCAT('/profile/',`{$this->alias}`.`username`)",
+            'private_url'=>"CONCAT('/profiles/view/',`{$this->alias}`.`username`)"
+        );        
+    }
+    
+    /**
      * Returns the data for a single person
      * @param string $id
      * @return array 

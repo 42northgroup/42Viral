@@ -27,6 +27,12 @@ abstract class ContentAbstract extends AppModel
             'Syntax'=>array(
                 'html'=>'HTML',
                 'markdown'=>'Markdown'
+            ),
+        
+            'Status'=>array(
+                'draft'=>'Draft',
+                'pending_review'=>'Pending Review',
+                'published'=>'Published'
             )
             
         ),

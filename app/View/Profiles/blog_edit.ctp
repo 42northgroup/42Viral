@@ -1,4 +1,4 @@
-<h1>Create a blog</h1>
+<h1>Edit your blog</h1>
 <?php
 
     echo $this->Form->create('Blog', 

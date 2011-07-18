@@ -25,6 +25,8 @@ abstract class UsersAbstractController extends AppController
         parent::beforeFilter();
         
         $this->Auth->allow('create', 'login'); 
+        $this->Auth->autoRedirect = true;
+        $this->Auth->loginRedirect = array('controller' => 'profiles', 'action' => 'content');
     }
     /**
      * The public action for loging into the system
@@ -51,6 +53,10 @@ abstract class UsersAbstractController extends AppController
                     
                     if($this->Auth->login($user)){
                         $this->Session->setFlash('You have been authenticated', 'success');
+                        
+                        $this->redirect($this->Auth->redirect());
+                        
+                        
                         $error = false;
                     }else{
                         $error = true;

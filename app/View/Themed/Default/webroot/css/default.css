@@ -21,6 +21,17 @@ body{
 #Header{
     height: 30px;
     background: #000;
+    color: #fff;
+    padding: 4px 6px 0;
+    font-weight: bold;
+}
+
+#HeaderRight a:link,
+#HeaderRight a:hover,
+#HeaderRight a:visited{
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 #Banner{
@@ -30,7 +41,8 @@ body{
 }
 
 #Content,
-#BannerContent{
+#BannerContent,
+#HeaderContent{
     width: 800px;
     float: left;
     overflow: hidden;
@@ -42,7 +54,8 @@ body{
 }
 
 #Left,
-#BannerLeft{
+#BannerLeft,
+#HeaderLeft{
     width: 175px; 
     float: left;
 }   
@@ -51,6 +64,11 @@ body{
 #BannerRight{
     float: left;
 }  
+
+#HeaderRight{
+    float: right;
+    text-align: right;    
+}
 
 table{
     border-collapse: collapse;
@@ -63,6 +81,7 @@ td{
     border-right: none;
 }
 
+/* Clearfix VIA HTML Boilerplate */
 /* The Magnificent Clearfix: Updated to prevent margin-collapsing on child elements.
    j.mp/bestclearfix */
 .clearfix:before, 
@@ -175,3 +194,27 @@ input[type="submit"]{
     padding: 8px 12px;
     font-size: 16px;
 }
+
+ul.side-navigation{
+    font-size: 15px;
+    list-style-type: none;
+    margin-left: 0;
+}
+
+
+ul.side-navigation li{
+    list-style-type: none;
+    margin-left: 0;
+}
+
+ul.side-navigation li a:link,
+ul.side-navigation li a:visited{
+    font-weight: bold;
+    color: #D14836;
+    text-decoration: none;
+}
+
+ul.side-navigation li a:hover{
+    color: #444;
+}
+

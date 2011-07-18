@@ -1,4 +1,4 @@
-<h1>Create a page</h1>
+<h1>Edit your page</h1>
 <?php
 
     echo $this->Form->create('Page', 
