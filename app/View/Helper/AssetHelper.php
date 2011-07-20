@@ -68,7 +68,8 @@ define('YUI', SERVER_LIBRARY . DS . 'apps' . DS . 'yui' . DS . 'build' . DS . 'y
  * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
  *
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
- * @package Optimization
+ * @package app
+ * @subpackage app.core
  * @author Jason Snider <jsnider77@gmail.com>
  * @author Zubin Khavarian <zubin.khavarian@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -703,5 +704,3 @@ class AssetHelper extends Helper
     }
 
 }
-
-?>

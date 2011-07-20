@@ -24,10 +24,11 @@ abstract class UsersAbstractController extends AppController
     public function beforeFilter(){
         parent::beforeFilter();
         
-        $this->Auth->allow('create', 'login'); 
+        $this->Auth->allow('create', 'login');
         $this->Auth->autoRedirect = true;
-        $this->Auth->loginRedirect = array('controller' => 'profiles', 'action' => 'content');
+        $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
     }
+    
     /**
      * The public action for loging into the system
      * 
@@ -95,18 +96,29 @@ abstract class UsersAbstractController extends AppController
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      * @todo TestCase
+     * @todo Complete and harden
      */
     public function create()
     {
-        if(!empty($this->data)){
-            
-            $this->loadModel('User'); 
+        $this->loadModel('User'); 
+        
+        if(!empty($this->data)){    
 
-            $this->User->createUser($data['User']);
+            if($this->User->createUser($this->data['User'])){
             
-            $user = $this->User->findByUsername($data['User']['username']);
-            
-            $this->Auth->login($user);
+                $user = $this->User->findByUsername($this->data['User']['username']);
+
+                if($this->Auth->login($user)){
+                    $this->Session->setFlash('Your account has been created and you have been logged in','success');
+                    $this->redirect($this->Auth->redirect());
+                }else{
+                    $this->Session->setFlash('Your account has been created, you may now log in','error');
+                    $this->redirect('/users/login');
+                }
+                
+            }else{
+                $this->Session->setFlash('Your account could not be created','error');
+            }
 
         }
     }    

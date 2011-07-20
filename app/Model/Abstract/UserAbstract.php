@@ -1,6 +1,7 @@
 <?php
 App::uses('PersonAbstract', 'Model');
 App::uses('Security', 'Utility'); 
+App::uses('Folder', 'Utility');
 
 App::uses('Sec', 'Lib'); 
         
@@ -20,8 +21,17 @@ abstract class UserAbstract extends PersonAbstract
     
     /**
      * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'User';
+    
+    /**
+     * 
      * @var array
      * @access public
+     * @todo Write custom validation rules for determinging if the hased password is the hash of an empty string. 
+     * This must consider the use of system salt 
      */
     public $validate = array(
         'username' => array(
@@ -36,6 +46,18 @@ abstract class UserAbstract extends PersonAbstract
                 'last' => true                
             )         
         ),
+        'email' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter an email address",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"This email address is already in use",
+                'last' => true                
+            )      
+        ),        
         'password' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',
@@ -85,27 +107,44 @@ abstract class UserAbstract extends PersonAbstract
      * @return boolean
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
+     * @todo Complete and harden
      */
     public function createUser($data)
     {
-        
         //Create a salt value for the user
         $salt = Sec::makeSalt();
         
         //Load salt into the data array
-        $data['User']['salt'] = $salt;
+        $data['salt'] = $salt;
         
         //Hash the password and load it into the data array
-        $data['User']['password'] = Sec::hashPassword($data['User']['password'], $salt);
-
+        $data['password'] = Sec::hashPassword($data['password'], $salt);
+        
         //Try to save the new user record
         if($this->save($data)){
+            $this->__buildUserPaths($this->id);
             return true;
         }else{
             return false;
         }
 
     }  
+    
+    /**
+     * Builds the file paths for a new user
+     * @param string $id 
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     * @todo Complete and harden
+     */
+    public function __buildUserPaths($id)
+    {
+        @Folder::create(ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS . $id);
+
+        @Folder::create(ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS . $id);
+
+    }      
     
     /**
      * Finds a user by username or email
@@ -148,7 +187,9 @@ abstract class UserAbstract extends PersonAbstract
                                 'User.id'=>$token
                             ),
                         ),
-                        'contain'=>array()
+                        'contain'=>array(
+                            'Content' => array()
+                        )
                     )
                 );
         
@@ -156,4 +197,3 @@ abstract class UserAbstract extends PersonAbstract
     }    
     
 }
-?>

@@ -10,10 +10,18 @@ App::uses('ContentAbstract', 'Model');
 abstract class PostAbstract extends ContentAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Post';
+    public $name = 'Post';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Post';
     
     /**
      * 
@@ -66,4 +74,3 @@ abstract class PostAbstract extends ContentAbstract
         return true;
     }
 }
-?>

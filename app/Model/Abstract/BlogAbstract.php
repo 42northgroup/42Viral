@@ -9,12 +9,20 @@ App::uses('Scrub', 'Lib');
  */
 abstract class BlogAbstract extends ContentAbstract
 {
+    
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
      * @access public
      */
     public $name = 'Blog';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Blog';
     
     /**
      * 
@@ -35,6 +43,7 @@ abstract class BlogAbstract extends ContentAbstract
      * @access public
      */
     public $validate = array(
+        
         'title' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',
@@ -46,11 +55,19 @@ abstract class BlogAbstract extends ContentAbstract
                 'message' =>"There is a problem with the slug",
                 'last' => true                
             )
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"Your blog is not ready to be published",
+                'last' => true
+            )
         )
+        
     );
     
-    
-    function __construct($id=false, $table=null, $ds=null) {
+    public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
             'url' => "CONCAT('/blog/',`{$this->alias}`.`slug`)"
@@ -58,12 +75,12 @@ abstract class BlogAbstract extends ContentAbstract
     }    
     
    /**
+     * 
+     * @author Jason D Snider <jsnider@jsnider77@gmail.com> 
      * @access public
-     * @author Jason D Snider <jsnider@microtrain.net> 
      */
     public function beforeSave()
-    {     
-        
+    {             
         $this->data['Blog']['object_type'] = 'blog';
         return true;
     }  
@@ -83,4 +100,3 @@ abstract class BlogAbstract extends ContentAbstract
         return true;
     }    
 }
-?>

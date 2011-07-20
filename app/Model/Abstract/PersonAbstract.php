@@ -9,7 +9,27 @@ App::uses('AppModel', 'Model');
  */
 abstract class PersonAbstract extends AppModel
 {
-    var $useTable = 'people';
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $name = 'Person';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Person';
+    
+    /**
+     *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'people';
+    
     /**
      *
      * @var array
@@ -20,8 +40,49 @@ abstract class PersonAbstract extends AppModel
                 'prospect'=>'Prospect',
                 'lead'=>'Lead',
                 'contact'=>'Contact'
+            ),
+            
+            'DisplayName' => array(
+                'name' => 'Name',
+                'username' => 'Username',
+                'id' => 'User Id'
+            )
+        ),
+        
+        'Scrub'=>array(
+            'Filters'=>array(
+                'trim'=>'*',
+                'safe'=>'*'
             )
         )
+    );
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $hasMany = array(
+        'Content' => array(
+            'className' => 'Content',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
+        'Blog' => array(
+            'className' => 'Blog',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),        
+        'Post' => array(
+            'className' => 'Post',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),        
+        'Page' => array(
+            'className' => 'Page',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
     );
     
     /**
@@ -33,7 +94,7 @@ abstract class PersonAbstract extends AppModel
         
         $this->virtualFields = array(
             'url'=>"CONCAT('/profile/',`{$this->alias}`.`username`)",
-            'private_url'=>"CONCAT('/profiles/view/',`{$this->alias}`.`username`)"
+            'private_url'=>"CONCAT('/members/view/',`{$this->alias}`.`username`)"
         );        
     }
     
@@ -51,49 +112,11 @@ abstract class PersonAbstract extends AppModel
     }
     
     /**
-     * Creates a single person
-     * @param array $data 
-     * @param string $scope
-     * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
+     * Parses an array of user data and returns the desired display name
+     * @param type $data
+     * @return type 
      */
-    public function newPerson($data)
-    {
-        
-    }
-    
-    /**
-     * Checks for duplicates by email
-     * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
-     */
-    protected function _dupEmail($data)
-    {
-        
-    }   
-    
-    /**
-     * Checks for duplicates by screen name
-     * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
-     */
-    protected function _dupScreenName($data)
-    {
-        
-    } 
-    
-    /**
-     * Checks for duplicates by name
-     * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
-     */
-    protected function _dupNames()
-    {
-        
+    public function getDisplayName($data){
+        return $data[$data['display_name']];
     }
 }
-?>

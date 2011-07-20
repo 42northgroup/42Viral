@@ -5,14 +5,14 @@ App::uses('AppController', 'Controller');
 /**
  *
  */
-abstract class ProfilesAbstractController extends AppController {
+abstract class ContentsAbstractController extends AppController {
 
     /**
      * Controller name
      * @var string
      * @access public
      */
-    public $name = 'Profiles';
+    public $name = 'Contents';
     
     /**
      * This controller does not use a model
@@ -28,58 +28,9 @@ abstract class ProfilesAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-     
-        $this->Auth->allow('pub');
+    
     }
 
-    /**
-     * Provides an index of all system profiles
-     * 
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     * @todo TestCase
-     */
-    public function index()
-    {
-        $this->loadModel('User');
-        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array()));
-        $this->set('users', $users);
-    }
-    
-    /**
-     * My profile
-     * 
-     * @param string $finder
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     * @todo TestCase
-     */
-    public function view($token)
-    {
-        $this->loadModel('User');
-        $user = $this->User->getProfile($token);
-        $this->set('user', $user);
-    } 
-    
-    /**
-     * My public profile
-     * 
-     * @param string $token
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     * @todo TestCase
-     */
-    public function pub($token)
-    {
-        $this->loadModel('User');
-        $user = $this->User->getProfile($token);
-        $this->set('user', $user);
-        
-    }  
-    
     /* === Blog Management ========================================================================================== */
     
     /**
@@ -134,7 +85,7 @@ abstract class ProfilesAbstractController extends AppController {
             
             if($this->Blog->save($this->data)){
                 $this->Session->setFlash(__('Your blog has been created'), 'success');
-                $this->redirect("/profiles/blog_edit/{$this->Blog->id}");
+                $this->redirect("/Contents/blog_edit/{$this->Blog->id}");
             }else{
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
@@ -164,6 +115,8 @@ abstract class ProfilesAbstractController extends AppController {
         }
         
         $this->data = $this->Blog->findById($id);
+
+        $this->set('statuses', $this->Blog->picklist('Status'));
     }    
     
     /**
@@ -211,7 +164,7 @@ abstract class ProfilesAbstractController extends AppController {
 
                 if($this->Post->save($this->data)){
                     $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
-                    $this->redirect("/profiles/post_edit/{$this->Post->id}");
+                    $this->redirect("/Contents/post_edit/{$this->Post->id}");
                 }else{
                     $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
                 }
@@ -283,7 +236,7 @@ abstract class ProfilesAbstractController extends AppController {
 
             if($this->Page->save($this->data)){
                 $this->Session->setFlash(__('Your page has been created'), 'success');
-                $this->redirect("/profiles/page_edit/{$this->Page->id}");
+                $this->redirect("/Contents/page_edit/{$this->Page->id}");
             }else{
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
@@ -325,15 +278,15 @@ abstract class ProfilesAbstractController extends AppController {
      * @todo TestCase
      */
     public function content() {
-        $this->loadModel('Content');
         
+        $this->loadModel('Content');
         $contents = $this->Content->find('all', 
-                array('conditions'=>array(
-                    'Content.created_person_id' => $this->Session->read('Auth.User.User.id'))));
+                array(
+                    'conditions'=>array(
+                        'Content.created_person_id' => $this->Session->read('Auth.User.User.id')
+                )));
                 
         $this->set('contents', $contents);
     }   
-    
-    
     
 }

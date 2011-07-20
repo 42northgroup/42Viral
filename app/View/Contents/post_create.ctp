@@ -26,10 +26,9 @@
             <tr>
                 <td>
                     <?php echo $this->Html->link(
-                            $blog['Blog']['title'], "/profiles/post_create/{$blog['Blog']['id']}"); ?>
+                            $blog['Blog']['title'], "/contents/post_create/{$blog['Blog']['id']}"); ?>
                 </td>
             </tr>
-
         <?php endforeach; ?>
         </tbody>
     </table>

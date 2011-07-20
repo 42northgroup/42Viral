@@ -52,16 +52,13 @@ App::build(array(
     ));
 
 
-
+/**
+ * Set the paths for running test cases
+ */
 define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
 define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
 define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
 define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
-
-//set_include_path (ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
-//set_include_path ('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS); 
-//set_include_path ('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS); 
-//set_include_path ('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS); 
 
 /**
  * As of 1.3, additional rules for the inflector are added below

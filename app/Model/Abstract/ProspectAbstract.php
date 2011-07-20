@@ -10,10 +10,18 @@ App::uses('PersonAbstract', 'Model');
 abstract class ProspectAbstract extends PersonAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Contact';
+    public $name = 'Prospect';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Prospect';
     
     /**
      * Inject all "finds" against the Prospect object with prospect filtering criteria
@@ -30,4 +38,3 @@ abstract class ProspectAbstract extends PersonAbstract
         return true;
     }    
 }
-?>

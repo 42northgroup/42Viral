@@ -10,10 +10,18 @@ App::uses('ContentAbstract', 'Model');
 abstract class PageAbstract extends ContentAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Page';
+    public $name = 'Page';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Page';
     
     /**
      * 
@@ -71,4 +79,3 @@ abstract class PageAbstract extends ContentAbstract
     }
   
 }
-?>

@@ -1,16 +1,20 @@
 <div id="Header" class="clearfix">
 
-    <div id="HeaderLeft"></div>
+    <div id="HeaderLeft">
+        <?php if($this->Session->check('Auth.User.User.id')): ?>
+            <?php echo $this->Html->link('CMS', '/Contents/content'); ?>
+        <?php endif; ?>
+    </div>
 
-    <div id="HeaderContent">The 42Viral Project</div>
+    <div id="HeaderContent"></div>
 
     <div id="HeaderRight">
         <?php if($this->Session->check('Auth.User.User.id')): ?>
             <?php echo $this->Html->link('My Account', $this->Session->read('Auth.User.User.private_url')); ?>
             <?php echo " | "; ?>
-            <a class="header-right" href="/users/logout">Logout</a>
+            <?php echo $this->Html->link('Logout', '/users/logout'); ?>
         <?php else: ?>
-            <a class="header-right" href="/users/login">Login</a>
+            <?php echo $this->Html->link('Login', '/users/login'); ?>
         <?php endif; ?>
     </div>
 

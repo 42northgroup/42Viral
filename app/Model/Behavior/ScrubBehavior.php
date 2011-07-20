@@ -5,10 +5,9 @@ App::uses('Sanitize', 'Utility');
 /**
  * Provides data filtering at the model level
  * trim
- * nl2br
  * html
  * plainText
- * plainTextStripAll
+ * plainTextNoHtml
  *
  * Copyright (c) 2011,  MicroTrain Technologies  (http://www.microtrain.net)
  * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
@@ -92,8 +91,8 @@ class ScrubBehavior extends ModelBehavior
      * @return string 
      * @author Jason D Snider <jsnider77@gmail.com>
      */   
-    public function plainText($value){
-        return Scrub::plainText($value);
+    public function safe($value){
+        return Scrub::safe($value);
     }    
     
     /**
@@ -102,18 +101,8 @@ class ScrubBehavior extends ModelBehavior
      * @return string 
      * @author Jason D Snider <jsnider77@gmail.com>
      */    
-    public function plainTextNoHTML($value){
+    public function noHTML($value){
         return Scrub::plainTextNoHTML($value);
     }  
-    
-    /**
-     * A wrapper for Scrub.nl2br
-     * @param string $value
-     * @return string 
-     * @author Jason D Snider <jsnider77@gmail.com>
-     */   
-    public function nl2br($value){
-        return Scrub::nl2br($value);
-    }    
     
 }
