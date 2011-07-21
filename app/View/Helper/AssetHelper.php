@@ -162,6 +162,7 @@ class AssetHelper extends AppHelper
      * 
      * @access private
      * @param boolean $overRide 
+     * @todo is the depricated?
      */
     private function __overRide($overRide){
         if($overRide){
@@ -196,6 +197,7 @@ class AssetHelper extends AppHelper
      * @access private
      * @param array $assets
      * @return string 
+     * @todo Add compatibility with native CakePHP themes
      */
     private function __hashAssets($assets)
     {
