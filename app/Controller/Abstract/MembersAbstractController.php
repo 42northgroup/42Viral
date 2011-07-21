@@ -71,4 +71,14 @@ abstract class MembersAbstractController extends AppController {
         $user = $this->User->getProfile($token);
         $this->set('user', $user);
     } 
+    
+    /**
+     * Sets a user's profile image
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public 
+     */
+    public function set_profile_image(){
+        $this->loadModel('User');
+    }    
 }

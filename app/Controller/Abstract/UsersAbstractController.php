@@ -121,5 +121,5 @@ abstract class UsersAbstractController extends AppController
             }
 
         }
-    }    
+    } 
 }

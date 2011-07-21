@@ -1,7 +1,7 @@
 <?php
 App::uses('PersonAbstract', 'Model');
 App::uses('Security', 'Utility'); 
-App::uses('Folder', 'Utility');
+App::uses('File','Utility');
 
 App::uses('Sec', 'Lib'); 
         
@@ -135,16 +135,35 @@ abstract class UserAbstract extends PersonAbstract
      * @param string $id 
      * @return void
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
+     * @access private
      * @todo Complete and harden
      */
-    public function __buildUserPaths($id)
+    private function __buildUserPaths($id)
     {
-        @Folder::create(ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS . $id);
+        //Calling the same method twice seems to make the app angry for no good reason, thus @
+        @Folder::create(FILE_WRITE_PATH . DS . $id);
 
-        @Folder::create(ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS . $id);
+        @Folder::create(IMAGE_WRITE_PATH . DS . $id);
 
-    }      
+    }   
+    
+    /**
+     * Sets a new profile image by writing any image under a users controll to profile.png
+     * @param type $path
+     * @return type 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     */
+    public function setProfileImage($path){
+        
+        $file = new File($path);
+        
+        if($file->copy(IMAGE_WRITE_PATH . DS . 'profile.png')){
+            return true;
+        }else{
+            return false;
+        }             
+    }
     
     /**
      * Finds a user by username or email

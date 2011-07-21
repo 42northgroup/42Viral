@@ -1,6 +1,7 @@
 <?php
 
 App::uses('Controller', 'Controller');
+App::uses('File', 'Utility');
 
 /**
  *
@@ -28,11 +29,9 @@ abstract class AppAbstractController extends Controller
      */
     public function beforeFilter()
     {
-        
         if($this->Session->check('Auth.User.User.id')){
             $this->Auth->allow('*');
-        }
-
+        }   
     }
      
     /**

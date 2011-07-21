@@ -92,9 +92,20 @@ abstract class PersonAbstract extends AppModel
     {
         parent::__construct();
         
+        $fileWritePath = FILE_WRITE_PATH;
+        $imageWritePath = IMAGE_WRITE_PATH;
+        $fileReadPath = FILE_READ_PATH;
+        $imageReadPath = IMAGE_READ_PATH;
+        $ds = DS;
+        
         $this->virtualFields = array(
+            'name'=>"CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
             'url'=>"CONCAT('/profile/',`{$this->alias}`.`username`)",
-            'private_url'=>"CONCAT('/members/view/',`{$this->alias}`.`username`)"
+            'private_url'=>"CONCAT('/members/view/',`{$this->alias}`.`username`)",
+            'file_write_path'=>"CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
+            'image_write_path'=>"CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
+            'file_read_path'=>"CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",        
+            'image_read_path'=>"CONCAT('{$imageReadPath}',`{$this->alias}`.`id` , '/')"  
         );        
     }
     

@@ -52,6 +52,12 @@ App::build(array(
     ));
 
 
+define('IMAGE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
+define('FILE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
+
+define('IMAGE_READ_PATH', '/img/people/');
+define('FILE_READ_PATH', '/files/people/');
+
 /**
  * Set the paths for running test cases
  */
