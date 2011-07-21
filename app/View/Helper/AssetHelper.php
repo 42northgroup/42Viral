@@ -1,4 +1,6 @@
 <?php
+App::uses('AppHelper', 'View/Helper');
+
 /**
  * The server write path to external libraries and appilications
  */
@@ -11,7 +13,7 @@ define('SERVER_LIBRARY', DS . 'var' . DS . 'www' . DS . 'server-libraries');
  *     closureLocal  - Uses a local clouser complier.jar
  *     yuiLocal      - Uses a local yui jar file
  */
-define('JS_METHOD', 'closureRemote');
+define('JS_METHOD', 'jsMin');
 
 /**
  * CSS_METHOD: (CSS minification method to use)
@@ -19,18 +21,18 @@ define('JS_METHOD', 'closureRemote');
  *     yuiLocal      - Uses a local yui jar file
  * 
  */
-define('CSS_METHOD', 'yuiLocal');
+define('CSS_METHOD', 'cssMin');
 
 /**
  * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server 
  * path) 
  */
-define('ASSET_CACHE', ROOT . DS . 'cache');
+define('ASSET_CACHE', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'cache');
 
 /**
  * ASSET_FILES (The top level directory to the client assest via the server path)
  */
-define('ASSET_FILES', ROOT);
+define('ASSET_FILES', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS);
 
 /**
  * JAVA (Sets the location of the Java binary
@@ -47,6 +49,15 @@ define('CLOSURE',  SERVER_LIBRARY . DS  .'apps' . DS . 'closure' . DS . 'compile
  */
 define('YUI', SERVER_LIBRARY . DS . 'apps' . DS . 'yui' . DS . 'build' . DS . 'yuicompressor-2.4.6.jar');
 
+/**
+ * Allows us to choose not to minify, good for debugging
+ */
+define('MINIFY_ASSETS', true);
+
+/**
+ * When set to true this overrides the native hash checking functionality and forces a new asset build 
+ */
+define('FORCE_NEW_ASSETS', false);
 
 /**
  * Helper class for merging client side assets
@@ -74,7 +85,7 @@ define('YUI', SERVER_LIBRARY . DS . 'apps' . DS . 'yui' . DS . 'build' . DS . 'y
  * @author Zubin Khavarian <zubin.khavarian@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-class AssetHelper extends Helper
+class AssetHelper extends AppHelper
 {
 
     /**
@@ -84,48 +95,7 @@ class AssetHelper extends Helper
      * @var string 
      */
     private $__assetType;
-    /**
-     * Allows us to turn off minification
-     * 
-     * @access private 
-     * @var boolean 
-     */
-    private $__doMinify = true;
-    /**
-     * Specifies the proper javascript minification solution
-     * 
-     * @access private
-     * @var string 
-     */
-    private $__jsMethod;
-    /**
-     * Specifies the proper css minification solution
-     * 
-     * @access private
-     * @var string
-     */
-    private $__cssMethod;
-    /**
-     * The location of your web accessable cache directory. typically this is webroot/cache
-     * webroot
-     * |-cache
-     *  |-js
-     *  |-css
-     * 
-     * @access private
-     * @var string
-     */
-    private $__assetCache;
-    /**
-     * The the location of your assets top level directory, typically this is webroot. 
-     * webroot
-     * |-js
-     * |-css
-     * 
-     * @access private
-     * @var string
-     */
-    private $__assetFiles;
+
     /**
      * 
      * 
@@ -139,27 +109,6 @@ class AssetHelper extends Helper
      * @var array()
      */
     private $__assetContainer_Js = array();
-    /**
-     * Defines the path to the JAVA binary, typically /usr/bin/java
-     * 
-     * @access private
-     * @var string 
-     */
-    private $_java;
-    /**
-     * Defines the path to the YUI Compressor jar file. This MUST be accessable by the web server
-     * 
-     * @access private
-     * @var type 
-     */
-    private $_yui;
-    /**
-     * Defines the path to the Closure Compiler jar file. This MUST be accessable by the web server
-     * 
-     * @access private
-     * @var type 
-     */
-    private $_closure;
     
     /**
      * Allows us to shut off doMinify in very rare situations
@@ -176,96 +125,6 @@ class AssetHelper extends Helper
      * @var array
      */
     private $__packageDef = null;
-
-
-    /**
-     * This doesn't really do much, but it does allow us to break the connection to core.php, and for that matter
-     * 
-     * CakePHP all togeather.
-     * @access public
-     */
-    public function __construct()
-    {
-        parent::__construct();
-        
-        //Use the asset_packages.php config file to initialize the package definitions
-        require(APP . '/config/asset_packages.php');
-        $this->__packageDef = $assetPackages;
-
-        if (defined('MINIFY_ASSETS')) {
-            $this->__doMinify = MINIFY_ASSETS;
-        }
-
-        if (defined('JS_METHOD')) {
-            $this->__jsMethod = JS_METHOD;
-        }
-
-        if (defined('CSS_METHOD')) {
-            $this->__cssMethod = CSS_METHOD;
-        }
-
-        if (defined('ASSET_CACHE')) {
-            $this->__assetCache = ASSET_CACHE;
-        }
-
-        if (defined('ASSET_FILES')) {
-            $this->__assetFiles = ASSET_FILES;
-        }
-
-        if (defined('JAVA')) {
-            $this->_java = JAVA;
-        }
-
-        if (defined('CLOSURE')) {
-            $this->_closure = CLOSURE;
-        }
-
-        if (defined('YUI')) {
-            $this->_yui = YUI;
-        }
-    }
-
-    /**
-     * Set the minify boolean to allow us to turn minification on and off
-     * 
-     * @param type $status 
-     */
-    public function setDoMinify($status)
-    {
-        $this->__doMinify = ($status) ? true : false;
-    }
-
-    /**
-     * Returns the value of the minify boolean
-     * 
-     * @return boolean
-     */
-    public function getDoMinify()
-    {
-        return ($this->__doMinify) ? true : false;
-    }
-
-    /**
-     * Allows us to set a different means of minification
-     * 
-     * @param string $method
-     * @param string $type 
-     */
-    public function setMinifyMethod($method, $type = 'js')
-    {
-        ($type == 'js') ? $this->__jsMethod = $method : $this->__cssMethod = $method;
-    }
-
-    /**
-     * Retruns the current minification method for any 
-     * 
-     * @param string $type
-     * @return string 
-     */
-    public function getMinifyMethod($type = 'js')
-    {
-        return ($type == 'js') ? $this->__jsMethod : $this->__cssMethod;
-    }
 
     /**
      * Builds the asset queues
@@ -345,17 +204,17 @@ class AssetHelper extends Helper
         $stringToHash = '';
 
         for ($i = 0; $i < count($assets); $i++) {
-            $file = $this->__assetFiles . DS . $this->__assetType . DS . $assets[$i];
-            $ctime = filectime($this->__assetFiles . DS . $assets[$i]);
+            $file = ASSET_FILES . $this->__assetType . DS . $assets[$i];
+            $ctime = filectime(ASSET_FILES . $assets[$i]);
             $stringToHash .= "{$file}{$ctime}";
         }
 
-        if ($this->__doMinify) {
+        if (MINIFY_ASSETS) {
             /* Append different string based on requested minification state and method to use in order to generate
              * unique hashes for different combinations to avoid caching problems when switching things
              */
             $stringToHash .= 'minified';
-            $stringToHash .= ( $this->__assetType == 'js') ? $this->__jsMethod : $this->__cssMethod;
+            $stringToHash .= ( $this->__assetType == 'js') ? JS_METHOD : CSS_METHOD;
             if (FORCE_NEW_ASSETS) {
                 $stringToHash .= rand('0', '9999');
             }
@@ -377,7 +236,7 @@ class AssetHelper extends Helper
         $contents = '';
         $fh = fopen($file, 'w') or $this->log("Can't create a cache file", 'AssetHelper');
         for ($i = 0; $i < count($assets); $i++) {
-            $file = $this->__assetFiles . DS . $assets[$i];
+            $file = ASSET_FILES . $assets[$i];
             $contents .= ' ' . file_get_contents($file) or $this->log("Can't read a cached file", 'AssetHelper');
         }
                 
@@ -397,10 +256,10 @@ class AssetHelper extends Helper
     private function __minify($contents)
     {
         //So long as we all agree we are minifing and we do not need to over ride the configuration, go ahead
-        if ($this->__doMinify && !$this->__overRide) { 
+        if (MINIFY_ASSETS && !$this->__overRide) { 
             if ($this->__assetType == 'js') {
 
-                switch ($this->__jsMethod) {
+                switch (JS_METHOD) {
 
                     case 'closureRemote':
                         $minifiedContent = $this->__closureRemote($contents);
@@ -424,7 +283,7 @@ class AssetHelper extends Helper
                 }
             } else {
 
-                switch ($this->__cssMethod) {
+                switch (CSS_METHOD) {
 
                     case 'yuiLocal':
                         $minifiedContent = $this->__yuiLocal($contents, 'css');
@@ -581,7 +440,7 @@ class AssetHelper extends Helper
      */
     private function __addTmpFile($contents, $type)
     {
-        $tmpFile = $this->__assetCache . DS . 'tmp' . DS . "tmp" . rand(1000, 9999) . ".{$type}";
+        $tmpFile = ASSET_CACHE . DS . 'tmp' . DS . "tmp" . rand(1000, 9999) . ".{$type}";
         $fh = fopen($tmpFile, 'w') or die("can't open file");
         fwrite($fh, $contents);
         fclose($fh);
@@ -654,7 +513,7 @@ class AssetHelper extends Helper
         }
 
         $fileName = $this->__hashAssets($assets) . ".{$this->__assetType}";
-        $file = $this->__assetCache . DS . $this->__assetType . DS . $fileName;
+        $file = ASSET_CACHE . DS . $this->__assetType . DS . $fileName;
 
         $write = true;
         
