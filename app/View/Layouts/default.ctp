@@ -10,10 +10,6 @@
     <?php
         echo $this->Html->meta('icon');
         
-        //echo $this->Html->css('vendors/yui');
-        //echo $this->Html->css('cake.stripped');
-        //echo $this->Html->css('default');
-        
         $this->Asset->addAssets(array(
                     'css' . DS . 'vendors' . DS . 'yui.css',
                     'css' . DS . 'cake.stripped.css',
