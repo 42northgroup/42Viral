@@ -44,7 +44,6 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  *
  */
-
 App::build(array(
         'Controller' => array(ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS ),
         'Model' => array(ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS )
@@ -52,9 +51,15 @@ App::build(array(
     ));
 
 
+/**
+ * Image and File system write paths
+ */
 define('IMAGE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
 define('FILE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
 
+/**
+ * Image and File web read paths
+ */
 define('IMAGE_READ_PATH', '/img/people/');
 define('FILE_READ_PATH', '/files/people/');
 
