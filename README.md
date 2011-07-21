@@ -45,6 +45,10 @@ Once ignored we need to put a ".default" in place:
 
 ## Installation
 
+Currently, installation is written for Ubuntu Linux. Installation on other Linux distros is pretty similar; typically 
+this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
+accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
+
 ### Writable Paths
 
 The following paths must be writable by the server.
@@ -73,8 +77,6 @@ is less secure. If you have a root shell you'll want to remove the sudo command.
 
 ### Installing PHPUnit
 
-#### Ubuntu Linux
-
     sudo apt-get install php-pear
     sudo pear channel-discover pear.phpunit.de
     sudo pear channel-discover components.ez.no
@@ -82,32 +84,25 @@ is less secure. If you have a root shell you'll want to remove the sudo command.
     sudo pear install phpunit/PHPUnit
     sudo apt-get install phpunit
 
-#### Ubuntu 11-4
-
-There seems to bea version bugin in Ubuntu 11.04, running this will force a new
+There seems to be a version bug in in Ubuntu 11.04, running this will force a new
 version pear and fix the issue.
 
     sudo pear upgrade pear
     sudo pear install -a phpunit/PHPUnit
 
-#### Debian/GNU Linux
+### Installing x-debug
 
-    su root
-    apt-get install php-pear
-    pear channel-discover pear.phpunit.de
-    pear channel-discover components.ez.no
-    pear channel-discover pear.symfony-project.com
-    pear install phpunit/PHPUnit
-    apt-get install phpunit
+    sudo apt-get install php5-xdebug
 
-#### REDHAT/FEDORA Linux
+    sudo vim /etc/php5/apache2/conf.d/xdebug.ini
 
-    su root
-    yum install php-pear
-    pear channel-discover pear.phpunit.de
-    pear channel-discover components.ez.no
-    pear channel-discover pear.symfony-project.com
-    pear install phpunit/PHPUnit
-    yum install php-unit
+    ; configuration for php xdebug module
+    zend_extension="/usr/lib/php5/20090626/xdebug.so"
+    xdebug.remote_enable=1
+    xdebug.remote_handler=dbgp
+    xdebug.remote_mode=req
+    xdebug.remote_host=127.0.0.1
+    xdebug.remote_port=9000
 
+    sudo /etc/init.d/apache2 restart
 
