@@ -7,13 +7,41 @@ App::uses('ContentAbstract', 'Model');
  * @package App
  * @subpackage App.crm
  */
-class PageAbstract extends ContentAbstract
+abstract class PageAbstract extends ContentAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Page';
+    public $name = 'Page';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Page';
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'title' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter a title",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"There is a problem with the slug",
+                'last' => true                
+            )
+        )
+    );
     
     /**
      * @access public
@@ -51,4 +79,3 @@ class PageAbstract extends ContentAbstract
     }
   
 }
-?>

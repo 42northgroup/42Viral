@@ -3,12 +3,14 @@
 /lib
 
 /app/tmp
+/vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 
 /app/Config/database.php
 /app/Config/email.php
 /app/Config/core.php
 
-
 /app/Controller/AppTestController.php
 /app/View/AppTest
+
+
 

@@ -6,7 +6,7 @@ App::uses('AppController', 'Controller');
  * @package app
  * @subpackage app.core
  */
-class BlogsAbstractController extends AppController {
+abstract class BlogsAbstractController extends AppController {
 
     /**
      * This controller does not use a model
@@ -45,6 +45,13 @@ class BlogsAbstractController extends AppController {
     public function view($slug) {
         $this->loadModel('Blog');
         $blog = $this->Blog->findBySlug($slug);
+        
+        if(empty($blog)){
+           $this->redirect('/', '404');
+        }
+        
+        $this->set('title_for_layout', $blog['Blog']['title']);     
+        
         $this->set('blog', $blog);
     } 
     
@@ -56,6 +63,13 @@ class BlogsAbstractController extends AppController {
     public function post($slug) {
         $this->loadModel('Post');
         $post = $this->Post->findBySlug($slug);
+        
+        if(empty($post)){
+           $this->redirect('/', '404');
+        }
+        
+        $this->set('title_for_layout', $post['Post']['title']);
+        
         $this->set('post', $post);
     }       
     

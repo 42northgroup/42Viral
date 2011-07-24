@@ -7,9 +7,30 @@ App::uses('AppModel', 'Model');
  * @package App
  * @subpackage App.core
  */
-class ContentAbstract extends AppModel
+abstract class ContentAbstract extends AppModel
 {
-    var $useTable = 'contents';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $name = 'Content';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Content';
+    
+    /**
+     *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'contents';
+    
     /**
      *
      * @var array
@@ -27,13 +48,28 @@ class ContentAbstract extends AppModel
             'Syntax'=>array(
                 'html'=>'HTML',
                 'markdown'=>'Markdown'
+            ),
+        
+            'Status'=>array(
+                'draft'=>'Draft',
+                'pending_review'=>'Pending Review',
+                'published'=>'Published',
+                'archived'=>'Archived' 
             )
             
         ),
         
+        'Scrub'=>array(
+            'Filters'=>array(
+                'trim'=>'*',
+                'html'=>array('body', 'tease'),
+                'noHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 'syntax'),
+            )
+        ),
+        
         'Seo'
     );
-    
+        
     /**
      * @access public
      */
@@ -43,11 +79,42 @@ class ContentAbstract extends AppModel
         
         $this->virtualFields = array(
             'url'=>"CONCAT('/',`{$this->alias}`.`object_type`,'/',`{$this->alias}`.`slug`)",
-            'edit_url'=>"CONCAT('/profiles/',`{$this->alias}`.`object_type`,'_edit/',`{$this->alias}`.`id`)",
-            'delete_url'=>"CONCAT('/profiles/',`{$this->alias}`.`object_type`,'_delete/',`{$this->alias}`.`id`)",
+            'edit_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_edit/',`{$this->alias}`.`id`)",
+            'delete_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_delete/',`{$this->alias}`.`id`)",
         );        
     }
+    
+    /* === Content Validation Methods =============================================================================== */
+    
+    /**
+     * Returns true if the blog is ready to be published
+     * @return boolean 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     */
+    public function publishable(){
+       
+        $error = 0;
         
+        if (strlen($this->data[$this->alias]['title']) == 0){
+            $error++;
+        }
+        
+        if (strlen($this->data[$this->alias]['body']) < 10) {
+            $error++;
+        }        
+        
+        if (strlen($this->data[$this->alias]['tease']) < 10) {
+            $error++;
+        }  
+        
+        if($error == 0){
+            return true;
+        }else{
+            return false;
+        }
+        
+        
+    }
     
 }
-?>

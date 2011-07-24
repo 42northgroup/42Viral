@@ -1,21 +1,35 @@
 <?php
 
 App::uses('ContentAbstract', 'Model');
-
+App::uses('Scrub', 'Lib');
 /**
  * Mangages the person object from the POV of a Lead
  * @package App
  * @subpackage App.crm
  */
-class BlogAbstract extends ContentAbstract
+abstract class BlogAbstract extends ContentAbstract
 {
-    /**
-     * Set the name of the class, this is needed when working with inheirited methods
-     * @var string
-     */
-    var $name = 'Blog';
     
-    var $hasMany = array(
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $name = 'Blog';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Blog';
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $hasMany = array(
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
@@ -23,7 +37,37 @@ class BlogAbstract extends ContentAbstract
         ),
     );
     
-    function __construct($id=false, $table=null, $ds=null) {
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        
+        'title' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter a title",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"There is a problem with the slug",
+                'last' => true                
+            )
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"Your blog is not ready to be published",
+                'last' => true
+            )
+        )
+        
+    );
+    
+    public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
             'url' => "CONCAT('/blog/',`{$this->alias}`.`slug`)"
@@ -31,11 +75,12 @@ class BlogAbstract extends ContentAbstract
     }    
     
    /**
+     * 
+     * @author Jason D Snider <jsnider@jsnider77@gmail.com> 
      * @access public
-     * @author Jason D Snider <jsnider@microtrain.net> 
      */
     public function beforeSave()
-    {     
+    {             
         $this->data['Blog']['object_type'] = 'blog';
         return true;
     }  
@@ -55,4 +100,3 @@ class BlogAbstract extends ContentAbstract
         return true;
     }    
 }
-?>

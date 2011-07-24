@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 /**
  *
  */
-class PagesAbstractController extends AppController {
+abstract class PagesAbstractController extends AppController {
 
     /**
      * Controller name
@@ -46,8 +46,10 @@ class PagesAbstractController extends AppController {
      * @param array
      */
     public function index() {
+        
         $this->loadModel('Page');
         $pages = $this->Page->find('all');
+        
         $this->set('pages', $pages);
     } 
     
@@ -59,6 +61,13 @@ class PagesAbstractController extends AppController {
     public function view($slug) {
         $this->loadModel('Page');
         $page = $this->Page->findBySlug($slug);
+        
+        if(empty($page)){
+           $this->redirect('/', '404');
+        }
+        
+        $this->set('title_for_layout', $page['Page']['title']);        
+        
         $this->set('page', $page);
     }  
     
