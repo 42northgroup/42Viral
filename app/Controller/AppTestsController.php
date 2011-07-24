@@ -3,7 +3,7 @@
  * A placeholder for experimenting
  */
 
-App::uses('Security42', 'Lib');
+App::uses('Sec', 'Lib');
 
 class AppTestsController extends AppController {
     

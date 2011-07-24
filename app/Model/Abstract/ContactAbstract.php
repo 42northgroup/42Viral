@@ -5,13 +5,21 @@ App::uses('PersonAbstract', 'Model');
 /**
  * Mangages the person object from the POV of a contact
  */
-class ContactAbstract extends PersonAbstract
+abstract class ContactAbstract extends PersonAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Contact';
+    public $name = 'Contact';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Contact';
     
     /**
      * Inject all "finds" against the Contact object with contact filtering criteria
@@ -30,4 +38,3 @@ class ContactAbstract extends PersonAbstract
     }
     
 }
-?>

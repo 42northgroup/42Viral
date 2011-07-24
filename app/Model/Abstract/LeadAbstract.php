@@ -7,13 +7,21 @@ App::uses('PersonAbstract', 'Model');
  * @package App
  * @subpackage App.crm
  */
-class LeadAbstract extends PersonAbstract
+abstract class LeadAbstract extends PersonAbstract
 {
     /**
-     * Set the name of the class, this is needed when working with inheirited methods
+     * 
      * @var string
+     * @access public
      */
-    var $name = 'Lead';
+    public $name = 'Lead';
+    
+    /**
+     * 
+     * @var string
+     * @access public
+     */
+    public $alias = 'Lead';
     
     /**
      * Inject all "finds" against the Lead object with lead filtering criteria
@@ -30,4 +38,3 @@ class LeadAbstract extends PersonAbstract
         return true;
     }
 }
-?>

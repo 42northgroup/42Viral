@@ -31,6 +31,7 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home
 /**
  * ...and connect the rest of 'Pages' controller's urls.
  */
+
 //Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
         
 /**
@@ -41,6 +42,9 @@ Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'
 Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));
  
 Router::connect('/post/:slug', array('controller' => 'blogs', 'action' => 'post'), array('pass' => array('slug')));
+
+Router::connect('/profile/:username', 
+        array('controller' => 'members', 'action' => 'view'), array('pass' => array('username')));
 
 /**
  * Setup extension parsing to prepare for web services.

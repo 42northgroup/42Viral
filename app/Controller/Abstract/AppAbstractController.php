@@ -1,13 +1,13 @@
 <?php
 
 App::uses('Controller', 'Controller');
+App::uses('File', 'Utility');
 
 /**
  *
  */
-class AppAbstractController extends Controller 
+abstract class AppAbstractController extends Controller 
 {
-    
     /**
      * Application wide components
      * @var type 
@@ -20,34 +20,28 @@ class AppAbstractController extends Controller
      * @var array
      * @access public
      */
-    public $helpers = array('Form', 'Html', 'Session', 'Text');
+    public $helpers = array('Asset', 'Form', 'Html', 'Session', 'Text');
     
     /**
      * Fires before AppController
+     * This is a good place for loading data and running security checks
      * @access public
      */
     public function beforeFilter()
     {
-        
-        //We only want to pull a custom theme if it's not a "Special Document" type
-        if(in_array($this->RequestHandler->ext, Router::extensions())){
-            $this->layoutPath = $this->RequestHandler->ext;
-        }else{
-           $this->layout = 'Themes' . DS . 'Default' . DS . 'default'; 
-        }       
-        
         if($this->Session->check('Auth.User.User.id')){
             $this->Auth->allow('*');
-        }
-
+        }   
     }
      
     /**
      * Fires after AppController but before the action
+     * This is a good place for calling themes
      * @access public
      */
     public function beforeRender()
     {
-        
+        $this->viewClass = 'Theme';
+        $this->theme = 'Default';
     }    
 }
