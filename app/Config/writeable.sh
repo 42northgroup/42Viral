@@ -1,1 +1,0 @@
-/vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
