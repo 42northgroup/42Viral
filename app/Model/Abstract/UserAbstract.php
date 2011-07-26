@@ -63,8 +63,25 @@ abstract class UserAbstract extends PersonAbstract
                 'rule' => 'notEmpty',
                 'message' =>"Please enter a password",
                 'last' => true
-            )        
+            ),
+            'verifyPassword' => array(
+                'rule' => 'verifyPassword',
+                'message' => 'Your passwords do not match',
+                'last' => true
+            )
         ),
+        'verify_password' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please varfiy your password",
+                'last' => true
+            ),
+            'verifyPassword' => array(
+                'rule' => 'verifyPassword',
+                'message' => 'Your passwords do not match',
+                'last' => true
+            )
+        ),        
         'salt' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',
@@ -100,6 +117,22 @@ abstract class UserAbstract extends PersonAbstract
 
         return true;
     }
+    
+
+    /**
+     * Returns true if the user has submitted the same password twice.
+     * @return boolean 
+     * @author Jason D Snider <jsnider@microtain.net>
+     * @access public
+     */
+    public function verifyPassword()
+    {
+        $valid = false;
+        if ($this->data[$this->alias]['password'] == $this->data[$this->alias]['verify_password']) {
+            $valid = true;
+        }
+        return $valid;
+    }
 
     /**
      *
@@ -117,12 +150,13 @@ abstract class UserAbstract extends PersonAbstract
         //Load salt into the data array
         $data['salt'] = $salt;
         
-        //Hash the password and load it into the data array
+        //Hash the password and its verifcation then load it into the data array
         $data['password'] = Sec::hashPassword($data['password'], $salt);
+        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
         
         //Try to save the new user record
         if($this->save($data)){
-            $this->__buildUserPaths($this->id);
+            $this->buildUserPaths($this->id);
             return true;
         }else{
             return false;
@@ -135,16 +169,20 @@ abstract class UserAbstract extends PersonAbstract
      * @param string $id 
      * @return void
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access private
-     * @todo Complete and harden
+     * @access public
      */
-    private function __buildUserPaths($id)
+    public function __buildUserPaths($id)
     {
-        //Calling the same method twice seems to make the app angry for no good reason, thus @
-        @Folder::create(FILE_WRITE_PATH . DS . $id);
-
-        @Folder::create(IMAGE_WRITE_PATH . DS . $id);
-
+        
+        //Create the users file directory
+        if(!is_dir(FILE_WRITE_PATH . DS . $id)){
+            mkdir(FILE_WRITE_PATH . DS . $id);
+        }
+        
+        //Create the users image directory
+        if(!is_dir(IMAGE_WRITE_PATH . DS . $id)){
+            mkdir(IMAGE_WRITE_PATH . DS . $id);
+        }
     }   
     
     /**

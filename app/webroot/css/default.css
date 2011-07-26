@@ -18,6 +18,29 @@ body{
     margin: 0 0;
 }
 
+/* this is a pretty basic layout, header, banner, footer, left, right, middle
+ *  ------------------------------------------------------------------------
+ *  |            |                                       |                 |
+ *  ------------------------------------------------------------------------
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  ------------------------------------------------------------------------
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  |            |                                       |                 |
+ *  ------------------------------------------------------------------------
+ *  |                                                                      |
+ *  ------------------------------------------------------------------------
+ */
+ 
 #Header{
     height: 30px;
     background: #000;
@@ -151,7 +174,10 @@ code{
 
 /* FORMS */
 
-/* At this level we can't worry about speocifics, only the most general of concepts */
+/* At this level we can't worry about speocifics, only the most general of concepts
+ * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
+ * form classes
+ */
 form{}
 
 input[type="text"],
@@ -168,7 +194,7 @@ label{}
 
 
 form.default{
-    width: 300px;
+    width: 320px;
 }
 
 form.default input[type="text"],
@@ -183,7 +209,7 @@ form.default textarea{
 
 form.default label{
     display: inline-block;
-    width: 106px;
+    width: 126px;
     padding-right: 12px;
     text-align: right;
 }
