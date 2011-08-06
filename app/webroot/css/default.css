@@ -11,12 +11,27 @@
  * @link          https://www.microtrain.net The 42Viral Project
  * @package       app
  * @subpackage    app.theme.default
+ * @author        Jason D Snider <jsnider77@gmail.com>
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
- 
+
+ * { cursor: auto; }
+
 body{
     margin: 0 0;
 }
+
+body, 
+input,
+textarea,
+select{ 
+    font-family: "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; 
+    font-size: 10pt; 
+    color: #444; 
+    font-weight: normal;
+}
+
+
 
 #Header{
     height: 30px;
@@ -78,6 +93,22 @@ body{
 #HeaderRight{
     float: right;
     text-align: right;    
+}
+
+a, 
+a *{ 
+    cursor:pointer; 
+    outline: none;
+}
+
+p, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5{ 
+    margin: 0 0 1em 0; 
+    line-height: 1.6em;
 }
 
 table{
@@ -151,7 +182,10 @@ code{
 
 /* FORMS */
 
-/* At this level we can't worry about speocifics, only the most general of concepts */
+/* At this level we can't worry about speocifics, only the most general of concepts
+ * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
+ * form classes
+ */
 form{}
 
 input[type="text"],
@@ -168,7 +202,7 @@ label{}
 
 
 form.default{
-    width: 300px;
+    width: 320px;
 }
 
 form.default input[type="text"],
@@ -183,7 +217,7 @@ form.default textarea{
 
 form.default label{
     display: inline-block;
-    width: 106px;
+    width: 126px;
     padding-right: 12px;
     text-align: right;
 }
@@ -251,9 +285,3 @@ div.error-message {
     border: 1px dotted #900;    
     padding:2px;
 }
-
-
-
-
-
-

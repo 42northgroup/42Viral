@@ -41,7 +41,6 @@ class LogBehavior extends ModelBehavior
      */ 
     private function __appendLogFields(&$model)
     {
-        echo $this->__getUser();
         if(!isset($model->data[$model->name]['id'])) {
             $model->data[$model->name]['created_person_id'] = $this->__getUser();
         }

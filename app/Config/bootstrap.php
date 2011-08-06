@@ -1,4 +1,4 @@
-<?php 
+<?php
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
@@ -44,6 +44,26 @@ Cache::config('default', array('engine' => 'File'));
  * ));
  *
  */
+
+/**
+ * Custom Inflector rules, can be set to correctly pluralize or singularize table, model, controller names or whatever other
+ * string is passed to the inflection functions
+ *
+ * Inflector::rules('singular', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
+ * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
+ *
+ */
+
+/**
+ * Plugins need to be loaded manually, you can either load them one by one or all of them in a single call
+ * Uncomment one of the lines below, as you need. make sure you read the documentation on CakePlugin to use more
+ * advanced ways of loading plugins
+ *
+ * CakePlugin::loadAll(); // Loads all plugins at once
+ * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
+ *
+ */
+
 App::build(array(
         'Controller' => array(ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS ),
         'Model' => array(ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS )
@@ -70,11 +90,3 @@ define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
 define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
 define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
 define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
-
-/**
- * As of 1.3, additional rules for the inflector are added below
- *
- * Inflector::rules('singular', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
- * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
- *
- */

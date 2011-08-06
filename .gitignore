@@ -1,6 +1,6 @@
 /nbproject
 
-/lib
+# /lib
 
 /app/tmp
 /vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer

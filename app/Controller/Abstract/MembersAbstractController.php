@@ -20,7 +20,13 @@ abstract class MembersAbstractController extends AppController {
      * @access public
      */
     public $uses = array();
-
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array('Member');
+    
     /**
      * @return void
      * @access public
@@ -58,6 +64,19 @@ abstract class MembersAbstractController extends AppController {
      */
     public function view($token = null)
     {
+
+        $ext = pathinfo($this->data['Upload']['file']['name'], PATHINFO_EXTENSION);
+        /*
+        if($this->response->getMimeType($ext)){
+            echo 'true';
+        }else{
+            echo 'false';
+        }
+        */
+        pr($ext);
+        pr($this->data);
+        
+
         //If we have no token, we will use the logged in user.
         if(is_null($token)){
             $token = $this->Session->read('Auth.User.User.username');
