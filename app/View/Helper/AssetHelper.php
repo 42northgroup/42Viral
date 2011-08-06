@@ -134,6 +134,7 @@ class AssetHelper extends AppHelper
      */
     public function addAssets($assets, $group='default')
     { 
+
         for ($i = 0; $i < count($assets); $i++) {
             $assetType = $this->__findAssetType($assets[$i]);
 
@@ -204,10 +205,23 @@ class AssetHelper extends AppHelper
         $file = '';
         $ctime = '';
         $stringToHash = '';
+        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
 
         for ($i = 0; $i < count($assets); $i++) {
-            $file = ASSET_FILES . $this->__assetType . DS . $assets[$i];
-            $ctime = filectime(ASSET_FILES . $assets[$i]);
+            
+            if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
+                
+                $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
+                $ctime = filectime($themePath . WEBROOT_DIR . DS . $assets[$i]);
+                
+            }else{
+                
+                $file = ASSET_FILES . $this->__assetType . DS . $assets[$i];
+                $ctime = filectime(ASSET_FILES . $assets[$i]);
+                
+            }
+            
+            
             $stringToHash .= "{$file}{$ctime}";
         }
 
@@ -235,10 +249,19 @@ class AssetHelper extends AppHelper
      */
     private function __write($assets, $file)
     {
+                
+        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
+        
         $contents = '';
         $fh = fopen($file, 'w') or $this->log("Can't create a cache file", 'AssetHelper');
         for ($i = 0; $i < count($assets); $i++) {
-            $file = ASSET_FILES . $assets[$i];
+            
+           if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
+                $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
+            }else{
+                $file = ASSET_FILES . $assets[$i];
+            }
+            
             $contents .= ' ' . file_get_contents($file) or $this->log("Can't read a cached file", 'AssetHelper');
         }
                 

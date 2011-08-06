@@ -22,16 +22,12 @@
      
     <div class="profile-column-left">
         <div class="profile-pic">
-            <?php echo $this->Html->image(
-                    'https://secure.gravatar.com/avatar/' 
-                        . md5( strtolower( trim( $user['User']['email'] ) ) ) . '?r=pg&amp;s=128'
-                    );
-            ?>
+            <?php echo $this->Member->avatar($user['User']) ?>
         </div>
     </div>
     
     <div class="profile-column-right">
-        <h1><?php echo $user['User']['name']; ?></h1>
+        <h1><?php echo $this->Member->displayName($user['User']) ?></h1>
         <?php echo $user['User']['bio']; ?>
 
         <table>
@@ -55,6 +51,12 @@
             <?php endforeach; ?>
             </tbody>
         </table>
+      
+        <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
+        <?php echo $this->Form->input('Upload.file', array('type'=>'file')); ?>
+        <?php echo $this->Form->submit(); ?>
+        <?php echo $this->Form->end(); ?>
+
     </div>
     
 </div>

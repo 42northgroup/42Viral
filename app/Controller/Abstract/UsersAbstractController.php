@@ -27,6 +27,7 @@ abstract class UsersAbstractController extends AppController
         $this->Auth->allow('create', 'login');
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
+        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
     }
     
     /**
@@ -113,7 +114,7 @@ abstract class UsersAbstractController extends AppController
                     $this->redirect($this->Auth->redirect());
                 }else{
                     $this->Session->setFlash('Your account has been created, you may now log in','error');
-                    $this->redirect('/users/login');
+                    $this->redirect($this->Auth->redirect());
                 }
                 
             }else{
