@@ -18,7 +18,7 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.config
+ * @package       app.Config
  * @since         CakePHP(tm) v 0.10.8.2117
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -63,30 +63,3 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  *
  */
-
-App::build(array(
-        'Controller' => array(ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS ),
-        'Model' => array(ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS )
-    
-    ));
-
-
-/**
- * Image and File system write paths
- */
-define('IMAGE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
-define('FILE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
-
-/**
- * Image and File web read paths
- */
-define('IMAGE_READ_PATH', '/img/people/');
-define('FILE_READ_PATH', '/files/people/');
-
-/**
- * Set the paths for running test cases
- */
-define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
-define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
-define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
-define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
