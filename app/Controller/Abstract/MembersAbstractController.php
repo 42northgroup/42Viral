@@ -64,18 +64,16 @@ abstract class MembersAbstractController extends AppController {
      */
     public function view($token = null)
     {
-
-        $ext = pathinfo($this->data['Upload']['file']['name'], PATHINFO_EXTENSION);
-        /*
-        if($this->response->getMimeType($ext)){
-            echo 'true';
-        }else{
-            echo 'false';
-        }
-        */
-        pr($ext);
-        pr($this->data);
         
+        if(!empty($this->data)){
+            
+            $this->loadModel('Image');
+            if($this->Image->upload($this->data)){
+                $this->Session->setFlash('Saved!', 'success');
+            }else{
+                $this->Session->setFlash('Failed!', 'error');
+            }
+        }
 
         //If we have no token, we will use the logged in user.
         if(is_null($token)){
@@ -89,6 +87,7 @@ abstract class MembersAbstractController extends AppController {
         $this->loadModel('User');
         $user = $this->User->getProfile($token);
         $this->set('user', $user);
+        
     } 
     
     /**

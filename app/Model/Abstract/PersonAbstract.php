@@ -83,6 +83,21 @@ abstract class PersonAbstract extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
+        'Upload' => array(
+            'className' => 'Upload',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
+        'File' => array(
+            'className' => 'File',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),        
+        'Image' => array(
+            'className' => 'Image',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
     );
     
     /**
