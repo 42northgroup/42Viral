@@ -52,8 +52,32 @@
             </tbody>
         </table>
       
+        <table>
+            <caption>Images</caption>
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Name</th>
+                </tr>
+            </thead>
+            <tbody>
+            <?php foreach($user['Upload'] as $upload):?>
+                <tr>        
+                    <td>
+                        <?php echo Inflector::humanize($upload['object_type']); ?>
+                    </td>
+                    <td>
+                       <?php echo $this->Html->link($upload['name'], $upload['url']); ?> 
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>        
+        
+        
+        
         <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
-        <?php echo $this->Form->input('Upload.file', array('type'=>'file')); ?>
+        <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
         <?php echo $this->Form->submit(); ?>
         <?php echo $this->Form->end(); ?>
 
