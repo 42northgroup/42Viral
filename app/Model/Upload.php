@@ -6,4 +6,4 @@ App::uses('UploadAbstract', 'Model');
  * @package App
  * @subpackage App.core
  */
-abstract class Upload extends UploadAbstract {}
+class Upload extends UploadAbstract {}

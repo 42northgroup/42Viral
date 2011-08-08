@@ -96,18 +96,7 @@ abstract class UserAbstract extends PersonAbstract
             )        
         ),
     );
-    
-    /**
-     * @access public
-     */
-    public function __construct() 
-    {
-        parent::__construct();
-        $this->response = new CakeResponse();
-        pr($this->response->getMimeType('xml'));
-        pr($this->response->getMimeType('docx'));
-    }
-    
+       
     /**
      * To be a user, you must have an email and username
      * @author Jason D Snider <jsnider77@gmail.com>
@@ -164,10 +153,7 @@ abstract class UserAbstract extends PersonAbstract
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
         
         //Try to save the new user record
-        if($this->save($data)){
-
-            Upload::userWritePaths($this->id);
-            
+        if($this->save($data)){          
             return true;
         }else{
             return false;
@@ -235,7 +221,8 @@ abstract class UserAbstract extends PersonAbstract
                             ),
                         ),
                         'contain'=>array(
-                            'Content' => array()
+                            'Content' => array(),
+                            'Upload' => array()
                         )
                     )
                 );

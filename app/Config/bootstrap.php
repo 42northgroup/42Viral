@@ -65,8 +65,15 @@ Cache::config('default', array('engine' => 'File'));
  */
 
 App::build(array(
-        'Controller' => array(ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS ),
-        'Model' => array(ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS )
+        'Controller' => array(
+            ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS,
+            ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Interface' . DS 
+        ),
+    
+        'Model' => array(
+            ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS ,
+            ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Interface' . DS 
+        )
     
     ));
 
