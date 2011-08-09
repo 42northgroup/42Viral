@@ -89,6 +89,25 @@ abstract class MembersAbstractController extends AppController {
         $this->set('user', $user);
         
     } 
+
+    /**
+     * Sets a user's profile image
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public 
+     */
+    public function set_avatar($personId, $imageId){
+        $this->loadModel('User');
+        $this->loadModel('Image');
+        
+        $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$imageId)));
+        
+        $path = IMAGE_WRITE_PATH . $personId . DS . $image['Image']['name'];
+        
+        $this->Image->setProfileImage($path, $personId);
+        
+        $this->redirect($this->referer());
+    }       
     
     /**
      * Sets a user's profile image
