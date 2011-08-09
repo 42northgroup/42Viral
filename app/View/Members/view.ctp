@@ -56,7 +56,7 @@
             <caption>Images</caption>
             <thead>
                 <tr>
-                    <th></th>
+                    <th>Type</th>
                     <th>Name</th>
                 </tr>
             </thead>
@@ -69,6 +69,9 @@
                     <td>
                        <?php echo $this->Html->link($upload['name'], $upload['url']); ?> 
                     </td>
+                    <td>
+                       <?php echo $this->Html->link('Set Avatar', "/members/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?> 
+                    </td>                    
                 </tr>
             <?php endforeach; ?>
             </tbody>
