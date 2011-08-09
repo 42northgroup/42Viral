@@ -1,15 +1,9 @@
 <?php
 App::uses('PersonAbstract', 'Model');
 
-App::uses('Upload', 'Model');
-
 App::uses('Security', 'Utility'); 
 
-App::uses('File','Utility');
-
 App::uses('Sec', 'Lib'); 
-
-App::uses('CakeResponse', 'Network');
         
 /**
  * Mangages the person object from the POV of a contact
@@ -160,24 +154,6 @@ abstract class UserAbstract extends PersonAbstract
         }
 
     }  
-    
-    /**
-     * Sets a new profile image by writing any image under a users controll to profile.png
-     * @param type $path
-     * @return type 
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     */
-    public function setProfileImage($path){
-        
-        $file = new File($path);
-        
-        if($file->copy(IMAGE_WRITE_PATH . DS . 'profile.png')){
-            return true;
-        }else{
-            return false;
-        }             
-    }
     
     /**
      * Finds a user by username or email

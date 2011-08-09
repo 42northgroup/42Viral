@@ -5,6 +5,9 @@ App::uses('AppModel', 'Model');
  * Mangages file uploads
  * @package App
  * @subpackage App.core
+ * 
+ * @todo Name disambiguation
+ * @todo Improve whitelist/blacklist data and functionality
  */
 abstract class UploadAbstract extends AppModel
 {
@@ -64,30 +67,19 @@ abstract class UploadAbstract extends AppModel
      */
     
     protected $_blacklist = array();    
+    
     /**
-     * 
+     *
      * @var array
      * @access public
      */
+    public $validate = array();
     
-    /*
-    public $validate = array(
-        'name' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' =>"error",
-                'last' => true
-            ),
-            'isUnique' => array(
-                'rule' => 'isUnique',
-                'message' =>"error",
-                'last' => true                
-            )         
-        ),
-    );
-   */
-    
-    function __construct() {
+    /**
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     */
+    public function __construct() {
         parent::__construct();
         
         $this->_setBlacklist();
@@ -103,6 +95,9 @@ abstract class UploadAbstract extends AppModel
     
     /**
      * Creates a whitelist of allowable file extensions
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access protected
      */
     protected function _setWhitelist(){
         switch($this->alias){
@@ -131,6 +126,9 @@ abstract class UploadAbstract extends AppModel
 
     /**
      * Returns a whitelist of allowable file extensions
+     * @return array
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
      */
     public function getWhitelist(){
         return $this->_whitelist;
@@ -138,6 +136,9 @@ abstract class UploadAbstract extends AppModel
     
     /**
      * Creates a blacklist of forbidden file extensions
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access protected
      */    
     protected function _setBlacklist(){
 
@@ -149,6 +150,9 @@ abstract class UploadAbstract extends AppModel
     
     /**
      * Returns a blacklist of forbidden file extensions
+     * @retrun array
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
      */
     public function getBlacklist(){
         return $this->_whitelist;
@@ -159,8 +163,10 @@ abstract class UploadAbstract extends AppModel
      * @param type $type
      * @param type $name
      * @return type 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
      */
-    function allowed($name){
+    public function allowed($name){
 
         $ext = pathinfo($name, PATHINFO_EXTENSION);
         
@@ -181,8 +187,10 @@ abstract class UploadAbstract extends AppModel
      * Manages the process of uploading a file to the server and recording it's existance in the database
      * @param type $data
      * @return type 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public 
      */
-    function upload($data){
+    public function upload($data){
 
         $this->data = $data;
         //Check against allowable file types
@@ -196,19 +204,19 @@ abstract class UploadAbstract extends AppModel
 
                 $upload = $this->findById($this->id);
 
-                $this->__writePath($_SESSION['Auth']['User']['User']['id']);
+                $this->_writePath($_SESSION['Auth']['User']['User']['id']);
 
                 $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['User']['id'] 
                     . DS . basename($upload[$this->alias]['name']); 
 
                 //Try to write the file, remove the DB entry on fail
-                if(!$this->__writeFile($tmpName, $path)){
+                if(!$this->_writeFile($tmpName, $path)){
                     $this->delete($this->id);
                     return false;
                 }
 
                 //Try to find the file, remove the DB entry on fail
-                if(!$this->__checkWrite($path)){
+                if(!$this->_checkWrite($path)){
                     $this->delete($this->id);
                     return false;
                 }            
@@ -233,8 +241,10 @@ abstract class UploadAbstract extends AppModel
      * Checks for the existance of a target file
      * @param type $path
      * @return type 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access protected
      */
-    private function __checkWrite($path){
+    protected function _checkWrite($path){
         if(is_file($path)){
             return true;
         }else{
@@ -248,9 +258,9 @@ abstract class UploadAbstract extends AppModel
      * @param string $path
      * @return boolean
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access private
+     * @access protected
      */
-    private function __writeFile($tmpName, $path){
+    protected function _writeFile($tmpName, $path){
         if(move_uploaded_file($tmpName, $path)) {
             return true;
         }else{
@@ -263,22 +273,44 @@ abstract class UploadAbstract extends AppModel
      * @param string $id 
      * @return void
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access private
+     * @access protected
      */
-    private function __writePath($id){
-        //Create the users file directory
+    protected function _writePath($id){
+        
+        //Create the users file directories
         switch($this->alias){
+            
             case 'Image':
                 if(!is_dir(IMAGE_WRITE_PATH . DS . $id)){
                     mkdir(IMAGE_WRITE_PATH . DS . $id);
                 }
+                
+                if(!is_dir(IMAGE_WRITE_PATH . DS . $id . DS . 'avatar')){
+                    mkdir(IMAGE_WRITE_PATH . DS . $id . DS . 'avatar');
+                }
+                
+                if(!is_dir(IMAGE_WRITE_PATH . DS . $id . DS . 'thumbnails')){
+                    mkdir(IMAGE_WRITE_PATH . DS . $id . DS . 'thumbnails');
+                }                
             break;
             
             case 'File':
                 if(!is_dir(FILE_WRITE_PATH . DS . $id)){
                     mkdir(FILE_WRITE_PATH . DS . $id);
                 }
-            break;            
+            break;
+            
         }
-    }    
+    }  
+    
+    /**
+     * Returns a given files ext.
+     * @param string $path
+     * @return string
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public
+     */
+    public function getExt($path){
+        return pathinfo($path, PATHINFO_EXTENSION);
+    }
 }

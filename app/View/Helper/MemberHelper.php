@@ -35,9 +35,24 @@ class MemberHelper extends AppHelper
         
         extract($data);
         
-        if(is_file(IMAGE_WRITE_PATH . $id . DS . 'profile.png')){
-            return $this->Html->image(IMAGE_READ_PATH . $userId . DS . 'profile.png');
+        $avatarPath = IMAGE_WRITE_PATH . $id . DS . 'avatar';
+        
+        //Scan the avatar directory for an avatar having been set
+        foreach(scandir($avatarPath) as $key => $value){
+            if(is_file($avatarPath . DS . $value)){
+                $avatar = $value;
+                break;
+            }else{
+                $avatar = false;
+            }
+        }
+        
+        //Has the user picked an uploaded image as an avatar?
+        if($avatar){
+            //Yes, use it
+            return $this->Html->image(IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar);
         }else{
+            //No, fallback to gravatar
             return $this->Html->image(
                 'https://secure.gravatar.com/avatar/' . md5( strtolower(trim($email))) . '?r=pg&amp;s=128'
             );
