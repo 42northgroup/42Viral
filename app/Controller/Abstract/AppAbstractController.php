@@ -42,6 +42,7 @@ abstract class AppAbstractController extends Controller
     public function beforeRender()
     {
         $this->viewClass = 'Theme';
-        $this->theme = 'Default';
+        $this->theme = THEME_SET;
+        
     }    
 }

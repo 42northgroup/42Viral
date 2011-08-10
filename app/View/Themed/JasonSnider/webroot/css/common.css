@@ -1,0 +1,71 @@
+pre{
+    overflow:auto;
+    background:#EFEFEF;
+}
+pre code{
+    font-family: Courier, monospace;
+    padding: 20px;
+    display: block;
+}
+
+a#SiteTitle, a#SiteTitle:link, a#SiteTitle:visited{
+    font-family: 'Reenie Beanie';
+    font-size:200%;
+    padding:18px 0;
+    border:none;
+    color:#FFF;
+}
+a#SiteTitle:hover{
+    color:#000;
+}
+
+#Wrapper{
+    background:#fff;
+    
+}
+
+#Wrapper div{
+    border: 1px solid #000;
+}
+
+
+.headline{
+    font-size: 16px;
+    font-weight:bold;
+}
+ul.follow-me{
+    width:50px;
+    margin-left:2em;
+}
+ul.follow-me li{
+    margin-bottom:8px;
+}
+ul.follow-me a,
+ul.follow-me a:link,
+ul.follow-me a:visited{
+    color:#900;
+    display:inline;
+    padding-left:18px;
+}
+ul.follow-me a:hover{
+    color:#900;
+    text-decoration:underline;
+}
+a.github{
+    background:url(/img/icons/github.png) no-repeat;
+}
+a.delicious{
+    background:url(/img/icons/delicious.png) no-repeat;
+}
+a.twitter{
+    background:url(/img/icons/twitter.png) no-repeat;
+}
+a.facebook{
+    background:url(/img/icons/facebook.png) no-repeat;
+}
+a.flickr{
+    background:url(/img/icons/flickr.png) no-repeat;
+}
+a.linkedin{
+    background:url(/img/icons/linkedin.png) no-repeat;
+}

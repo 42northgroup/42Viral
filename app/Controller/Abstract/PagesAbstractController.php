@@ -97,4 +97,12 @@ abstract class PagesAbstractController extends AppController {
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         $this->render(implode('/', $path));
     }
+    
+    /**
+     * 
+     */
+    public function home(){
+        $this->layout = 'home';
+        $this->set('title_for_layout', HOME_TITLE);
+    }
 }
