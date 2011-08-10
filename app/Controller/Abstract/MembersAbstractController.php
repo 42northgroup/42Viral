@@ -64,18 +64,8 @@ abstract class MembersAbstractController extends AppController {
      */
     public function view($token = null)
     {
-        
-        if(!empty($this->data)){
-            
-            $this->loadModel('Image');
-            if($this->Image->upload($this->data)){
-                $this->Session->setFlash('Saved!', 'success');
-            }else{
-                $this->Session->setFlash('Failed!', 'error');
-            }
-        }
 
-        //If we have no token, we will use the logged in user.
+        // If we have no token, we will use the logged in user.
         if(is_null($token)){
             $token = $this->Session->read('Auth.User.User.username');
             if(empty($token)):
@@ -84,12 +74,41 @@ abstract class MembersAbstractController extends AppController {
             endif;
         }
         
+        // Mine
+        if($this->Session->read('Auth.User.User.username') == $token){
+            $this->set('mine', true);
+        }else{
+            $this->set('mine', false);
+        }
+        
         $this->loadModel('User');
         $user = $this->User->getProfile($token);
         $this->set('user', $user);
         
     } 
 
+
+    /**
+     * Uploads an image to a users profile
+     * @return void
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public 
+     */
+    public function upload_image($personId){
+        $this->loadModel('Image');
+        
+        if(!empty($this->data)){
+         
+            if($this->Image->upload($this->data)){
+                $this->Session->setFlash('Saved!', 'success');
+            }else{
+                $this->Session->setFlash('Failed!', 'error');
+            }
+        }
+        
+        $this->redirect($this->referer());
+    }     
+    
     /**
      * Sets a user's profile image
      * @return void

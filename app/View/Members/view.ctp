@@ -58,6 +58,9 @@
                 <tr>
                     <th>Type</th>
                     <th>Name</th>
+                    <?php if($mine): ?>
+                        <th>Actions</th>
+                    <?php endif; ?>
                 </tr>
             </thead>
             <tbody>
@@ -69,20 +72,25 @@
                     <td>
                        <?php echo $this->Html->link($upload['name'], $upload['url']); ?> 
                     </td>
+                    <?php if($mine): ?>
                     <td>
-                       <?php echo $this->Html->link('Set Avatar', "/members/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?> 
-                    </td>                    
+                       <?php echo $this->Html->link('Set Avatar', 
+                               "/members/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?> 
+                    </td> 
+                    <?php endif; ?>
+                    
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>        
         
         
-        
-        <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
-        <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
-        <?php echo $this->Form->submit(); ?>
-        <?php echo $this->Form->end(); ?>
+        <?php if($mine): ?>
+            <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
+            <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
+            <?php echo $this->Form->submit(); ?>
+            <?php echo $this->Form->end(); ?>
+        <?php endif; ?>
 
     </div>
     
