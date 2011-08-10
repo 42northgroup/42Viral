@@ -28,20 +28,30 @@ naming convention of SomeAbstractController and SomeController extends SomeAbstr
 methods, actions, etc live in the abstract models, the running application extends these for use. Never build inside 
 of an core 42viral abstract, always build in the inherited class. This will make upgrading far more feasible.
 
+## Interfaces
+
+Both models and controllers have interface directories, to use an interface drop the interface into one of these 
+directories with the naming convention SomelInterface for models or SomeInterfaceController for controllers. Then
+implement as you would with any OO class. 
+
 ##  Configuration  
 
 Any file containing configuration variables should be added to the .gitignore file. The current "Configuration" files 
 are as follows:
 
 * app/Config/core.php
+* app/Config/app.php
 * app/Config/database.php
 * app/Config/email.php
+* /app/Config/routes.php
 
 Once ignored we need to put a ".default" in place:
 
 * app/Config/core.php.default
+* app/Config/app.php.default
 * app/Config/database.php.default
 * app/Config/email.php.default
+* app/Config/routes.php.default
 
 ## Installation
 
@@ -74,6 +84,15 @@ is less secure. If you have a root shell you'll want to remove the sudo command.
     sudo chmod 777 -fR app/webroot/cache
     sudo chown 777 -fR app/webroot/img/people
     sudo chown 777 -fR app/webroot/files/people 
+
+We have a few default config files, don't forget to account for these. The follow commands will copy the default files 
+into a production ready state.
+
+    cp /app/Config/app.php.default /app/Config/app.php
+    cp /app/Config/database.php.default /app/Config/database.php
+    cp /app/Config/email.php.default /app/Config/email.php
+    cp /app/Config/core.php.default /app/Config/core.php
+    cp /app/Config/routes.php.default /app/Config/routes.php
 
 ### Installing PHPUnit
 

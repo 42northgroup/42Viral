@@ -32,9 +32,11 @@
  */
 //Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
-//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
+Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
-Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
+//Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
+
+Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
 Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
 

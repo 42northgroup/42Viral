@@ -37,14 +37,18 @@ class MemberHelper extends AppHelper
         
         $avatarPath = IMAGE_WRITE_PATH . $id . DS . 'avatar';
         
-        //Scan the avatar directory for an avatar having been set
-        foreach(scandir($avatarPath) as $key => $value){
-            if(is_file($avatarPath . DS . $value)){
-                $avatar = $value;
-                break;
-            }else{
-                $avatar = false;
+        if(is_dir($avatarPath)){
+            //Scan the avatar directory for an avatar having been set
+            foreach(scandir($avatarPath) as $key => $value){
+                if(is_file($avatarPath . DS . $value)){
+                    $avatar = $value;
+                    break;
+                }else{
+                    $avatar = false;
+                }
             }
+        }else{
+            $avatar = false;
         }
         
         //Has the user picked an uploaded image as an avatar?
@@ -71,6 +75,7 @@ class MemberHelper extends AppHelper
         
         extract($data);
         
+        //Currently this is just looking to see if you have entered your name.
         if(strlen(trim($name)) == 0){
             return $username;
         }else{
