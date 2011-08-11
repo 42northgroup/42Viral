@@ -18,13 +18,6 @@ abstract class ContentAbstract extends AppModel
     public $name = 'Content';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Content';
-    
-    /**
      *
      * @var string
      * @access public
@@ -73,9 +66,9 @@ abstract class ContentAbstract extends AppModel
     /**
      * @access public
      */
-    public function __construct() 
-    {
-        parent::__construct();
+    public function __construct($id = false, $table = null, $ds = null) 
+    { 
+        parent::__construct($id, $table, $ds);
         
         $this->virtualFields = array(
             'url'=>"CONCAT('/',`{$this->alias}`.`object_type`,'/',`{$this->alias}`.`slug`)",
@@ -96,17 +89,19 @@ abstract class ContentAbstract extends AppModel
        
         $error = 0;
         
-        if (strlen($this->data[$this->alias]['title']) == 0){
-            $error++;
+        if($this->data[$this->alias]['status'] != 'draft'){
+            if (strlen($this->data[$this->alias]['title']) == 0){
+                $error++;
+            }
+
+            if (strlen($this->data[$this->alias]['body']) < 10) {
+                $error++;
+            }        
+
+            if (strlen($this->data[$this->alias]['tease']) < 10) {
+                $error++;
+            }  
         }
-        
-        if (strlen($this->data[$this->alias]['body']) < 10) {
-            $error++;
-        }        
-        
-        if (strlen($this->data[$this->alias]['tease']) < 10) {
-            $error++;
-        }  
         
         if($error == 0){
             return true;

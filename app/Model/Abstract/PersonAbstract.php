@@ -17,20 +17,6 @@ abstract class PersonAbstract extends AppModel
     public $name = 'Person';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Person';
-    
-    /**
-     *
-     * @var string
-     * @access public
-     */
-    public $useTable = 'people';
-    
-    /**
      *
      * @var array
      */
@@ -103,16 +89,16 @@ abstract class PersonAbstract extends AppModel
     /**
      * @access public
      */
-    public function __construct() 
-    {
-        parent::__construct();
-        
+    public function __construct($id = false, $table = null, $ds = null) 
+    { 
+        parent::__construct($id, $table, $ds);
+
         $fileWritePath = FILE_WRITE_PATH;
         $imageWritePath = IMAGE_WRITE_PATH;
         $fileReadPath = FILE_READ_PATH;
         $imageReadPath = IMAGE_READ_PATH;
         $ds = DS;
-        
+
         $this->virtualFields = array(
             'name'=>"CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
             'url'=>"CONCAT('/profile/',`{$this->alias}`.`username`)",
@@ -121,7 +107,8 @@ abstract class PersonAbstract extends AppModel
             'image_write_path'=>"CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'file_read_path'=>"CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",        
             'image_read_path'=>"CONCAT('{$imageReadPath}',`{$this->alias}`.`id` , '/')"  
-        );        
+        );  
+            
     }
     
     /**

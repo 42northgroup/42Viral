@@ -17,13 +17,6 @@ abstract class ImageAbstract extends UploadAbstract
     public $name = 'Image';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */    
-    public $alias = 'Image';
-    
-    /**
      * Inject all "finds" against the Upload object with image filtering criteria
      * @param array $query
      * @return type 

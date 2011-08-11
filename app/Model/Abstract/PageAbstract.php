@@ -18,13 +18,6 @@ abstract class PageAbstract extends ContentAbstract
     
     /**
      * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Page';
-    
-    /**
-     * 
      * @var array
      * @access public
      */

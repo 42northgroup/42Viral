@@ -19,17 +19,10 @@ abstract class BlogAbstract extends ContentAbstract
     
     /**
      * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Blog';
-    
-    /**
-     * 
      * @var array
      * @access public
      */
-    public $hasMany = array(
+    public $belongsTo = array(
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
@@ -98,5 +91,18 @@ abstract class BlogAbstract extends ContentAbstract
         $blogFilter = array('Blog.object_type' =>'blog');
         $query['conditions'] = array_merge($query['conditions'], $blogFilter);
         return true;
-    }    
+    } 
+    
+    function fetchPublished($slug){
+        
+        $blog = $this->find('first', 
+                array(  'conditions'=>array('Blog.slug' => $slug, 'Blog.status'=>'published'), 
+                        'contain'=>array(
+                            'Post'=>array('conditions'=>array('Post.status'=>'published')),
+                        )
+                    )
+                );
+        
+        return $blog;
+    }
 }

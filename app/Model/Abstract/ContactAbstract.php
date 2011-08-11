@@ -15,13 +15,6 @@ abstract class ContactAbstract extends PersonAbstract
     public $name = 'Contact';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Contact';
-    
-    /**
      * Inject all "finds" against the Contact object with contact filtering criteria
      * @param array $query
      * @return type 

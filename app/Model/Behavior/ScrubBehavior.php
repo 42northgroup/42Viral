@@ -86,7 +86,7 @@ class ScrubBehavior extends ModelBehavior
     }
     
     /**
-     * A wrapper for Scrub.plainText
+     * A wrapper for Scrub.safe
      * @param string $value
      * @return string 
      * @author Jason D Snider <jsnider77@gmail.com>
@@ -96,13 +96,13 @@ class ScrubBehavior extends ModelBehavior
     }    
     
     /**
-     * A wrapper for Scrub.plainTextScrubAll
+     * A wrapper for Scrub.noHTML
      * @param string $value
      * @return string 
      * @author Jason D Snider <jsnider77@gmail.com>
      */    
     public function noHTML($value){
-        return Scrub::plainTextNoHTML($value);
+        return Scrub::noHTML($value);
     }  
     
 }

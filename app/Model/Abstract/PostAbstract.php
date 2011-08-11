@@ -18,10 +18,16 @@ abstract class PostAbstract extends ContentAbstract
     
     /**
      * 
-     * @var string
+     * @var array
      * @access public
      */
-    public $alias = 'Post';
+    public $belongsTo = array(
+        'CreatedPerson' => array(
+            'className' => 'Person',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
+    );    
     
     /**
      * 
@@ -73,4 +79,18 @@ abstract class PostAbstract extends ContentAbstract
         $query['conditions'] = array_merge($query['conditions'], $postFilter);
         return true;
     }
+
+        
+    function fetchPost($slug){
+        
+        $post = $this->find('first', 
+                array(  'conditions'=>array('Post.slug' => $slug, 'Post.status'=>'published'), 
+                        'contain'=>array(
+                            'CreatedPerson'=>array(),
+                        )
+                    )
+                );
+        
+        return $post;
+    }    
 }
