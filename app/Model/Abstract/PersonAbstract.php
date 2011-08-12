@@ -18,6 +18,13 @@ abstract class PersonAbstract extends AppModel
     
     /**
      *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'people';
+    
+    /**
+     *
      * @var array
      */
     public $actsAs = array(

@@ -22,7 +22,7 @@ abstract class BlogAbstract extends ContentAbstract
      * @var array
      * @access public
      */
-    public $belongsTo = array(
+    public $hasMany = array(
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
