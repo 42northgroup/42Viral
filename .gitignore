@@ -8,8 +8,8 @@
 /app/Config/core.php
 /app/Config/routes.php
 /app/Config/app.php
-/app/acl.ini.php
-/app/bootstrap.php
+/app/Config/acl.ini.php
+/app/COnfig/bootstrap.php
 
 /app/Controller/AppTestController.php
 /app/View/AppTest
