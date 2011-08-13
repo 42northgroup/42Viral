@@ -1,6 +1,8 @@
 /nbproject
 
 /app/tmp
+/app/tmp/*
+
 /vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 
 /app/Config/database.php
@@ -9,7 +11,10 @@
 /app/Config/routes.php
 /app/Config/app.php
 /app/Config/acl.ini.php
-/app/COnfig/bootstrap.php
+/app/Config/bootstrap.php
+
+app/webroot/img/people/
+app/webroot/files/people/
 
 /app/Controller/AppTestController.php
 /app/View/AppTest
