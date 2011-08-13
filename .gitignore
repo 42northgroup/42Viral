@@ -10,9 +10,6 @@
 /app/Config/acl.ini.php
 /app/Config/bootstrap.php
 
-app/webroot/img/people/
-app/webroot/files/people/
-
 /app/Controller/AppTestController.php
 /app/View/AppTest
 
