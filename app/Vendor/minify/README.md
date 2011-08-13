@@ -16,3 +16,12 @@ JSMin
 2008 Ryan Grove <ryan@wonko.com> (PHP port)
 
 https://github.com/rgrove/jsmin-php/
+
+clousre
+--------
+Google
+
+yui
+---
+Copyright (c) 2010, Yahoo! Inc.
+All rights reserved.

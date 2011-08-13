@@ -21,13 +21,6 @@ abstract class UserAbstract extends PersonAbstract
     
     /**
      * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'User';
-    
-    /**
-     * 
      * @var array
      * @access public
      * @todo Write custom validation rules for determinging if the hased password is the hash of an empty string. 

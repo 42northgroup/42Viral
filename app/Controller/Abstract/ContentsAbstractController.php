@@ -19,8 +19,14 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array();
-
+    public $uses = array('Blog', 'Content', 'Page', 'Post');
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array('Member');
+    
     /**
      * @return void
      * @access public
@@ -42,7 +48,6 @@ abstract class ContentsAbstractController extends AppController {
      * @todo TestCase
      */
     public function blogs(){
-        $this->loadModel('Blog');
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
     }    
@@ -56,8 +61,6 @@ abstract class ContentsAbstractController extends AppController {
      * @todo TestCase
      */
     public function blog_delete($id){
-        
-        $this->loadModel('Blog');
         
         if($this->Blog->delete($id)){
             $this->Session->setFlash(__('Your blog and blog posts have been removed'), 'success');
@@ -79,7 +82,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function blog_create()
     {
-        $this->loadModel('Blog');
         
         if(!empty($this->data)){
             
@@ -103,7 +105,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function blog_edit($id)
     {
-        $this->loadModel('Blog');
         
         if(!empty($this->data)){
             
@@ -128,9 +129,7 @@ abstract class ContentsAbstractController extends AppController {
      * @todo TestCase
      */
     public function post_delete($id){
-        
-        $this->loadModel('Post');
-        
+
         if($this->Post->delete($id)){
             $this->Session->setFlash(__('Your post has been removed'), 'success');
             $this->redirect($this->referer());
@@ -153,13 +152,12 @@ abstract class ContentsAbstractController extends AppController {
     {
         
         if(is_null($blogId)){
-            
-            $this->loadModel('Blog');
+
             $blogs = $this->Blog->find('all');
             $this->set('blogs', $blogs);
             
         }else{
-            $this->loadModel('Post'); 
+
             if(!empty($this->data)){
 
                 if($this->Post->save($this->data)){
@@ -185,7 +183,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function post_edit($id)
     {
-        $this->loadModel('Post'); 
         if(!empty($this->data)){
 
             if($this->Post->save($this->data)){
@@ -196,6 +193,8 @@ abstract class ContentsAbstractController extends AppController {
         }  
         
         $this->data = $this->Post->findById($id);
+        
+        $this->set('statuses', $this->Post->picklist('Status'));
     }
     
     /**
@@ -207,9 +206,7 @@ abstract class ContentsAbstractController extends AppController {
      * @todo TestCase
      */
     public function page_delete($id){
-        
-        $this->loadModel('Page');
-        
+
         if($this->Page->delete($id)){
             $this->Session->setFlash(__('Your page has been removed'), 'success');
             $this->redirect($this->referer());
@@ -230,7 +227,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function page_create()
     {
-        $this->loadModel('Page');
 
         if(!empty($this->data)){
 
@@ -255,8 +251,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function page_edit($id)
     {
-        $this->loadModel('Page');
-
         if(!empty($this->data)){
 
             if($this->Page->save($this->data)){
@@ -267,6 +261,8 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->data = $this->Page->findById($id);
+        
+        $this->set('statuses', $this->Page->picklist('Status'));
     }    
     
     /**
@@ -279,7 +275,6 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function content() {
         
-        $this->loadModel('Content');
         $contents = $this->Content->find('all', 
                 array(
                     'conditions'=>array(
@@ -287,6 +282,7 @@ abstract class ContentsAbstractController extends AppController {
                 )));
                 
         $this->set('contents', $contents);
+        
     }   
     
 }

@@ -31,14 +31,21 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
+/* =====================
+ * == Post Feedback ====
+ * ===================*/
+
+/**
+ * Uncommeting and defining DISQUS_SHORTNAME and DISQUS_DEVELOPER will turn on disquss comments
+ * @see http://disqus.com/
+ */
+// define('DISQUS_SHORTNAME', '');
+// define('DISQUS_DEVELOPER', 1);
+
 /* ====================
  * == Asset Helper ====
  * ==================*/
 //Configuration options for asset management and optimization
-/**
- * The server write path to external libraries and appilications
- */
-define('SERVER_LIBRARY', DS . 'var' . DS . 'www' . DS . 'server-libraries');
 
 /*
  * JS_METHOD: (JavaScript minification method to use)
@@ -47,7 +54,7 @@ define('SERVER_LIBRARY', DS . 'var' . DS . 'www' . DS . 'server-libraries');
  *     closureLocal  - Uses a local clouser complier.jar
  *     yuiLocal      - Uses a local yui jar file
  */
-define('JS_METHOD', 'jsMin');
+define('JS_METHOD', 'closureLocal');
 
 /**
  * CSS_METHOD: (CSS minification method to use)
@@ -55,7 +62,7 @@ define('JS_METHOD', 'jsMin');
  *     yuiLocal      - Uses a local yui jar file
  * 
  */
-define('CSS_METHOD', 'cssMin');
+define('CSS_METHOD', 'yuiLocal');
 
 /**
  * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server 
@@ -76,12 +83,12 @@ define('JAVA', DS . 'usr' . DS . 'bin' . DS . 'java');
 /**
  * CLOSURE (Sets the location of the closure-compiler jar file)
  */
-define('CLOSURE',  SERVER_LIBRARY . DS  .'apps' . DS . 'closure' . DS . 'compiler.jar');
+define('CLOSURE',  ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'closure' . DS . 'compiler.jar');
 
 /**
  * YUI (Sets the location of the YUI Compressor jar file)
  */
-define('YUI', SERVER_LIBRARY . DS . 'apps' . DS . 'yui' . DS . 'build' . DS . 'yuicompressor-2.4.6.jar');
+define('YUI',   ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'yui' . DS . 'yuicompressor-2.4.6.jar');
 
 /**
  * Allows us to choose not to minify, good for debugging
