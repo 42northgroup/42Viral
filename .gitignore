@@ -1,15 +1,15 @@
 /nbproject
 
-# /lib
-
 /app/tmp
 /vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 
-# /app/Config/database.php
-# /app/Config/email.php
-# /app/Config/core.php
-# /app/Config/routes.php
-# /app/Config/app.php
+/app/Config/database.php
+/app/Config/email.php
+/app/Config/core.php
+/app/Config/routes.php
+/app/Config/app.php
+/app/acl.ini.php
+/app/bootstrap.php
 
 /app/Controller/AppTestController.php
 /app/View/AppTest
