@@ -15,7 +15,12 @@ abstract class BlogsAbstractController extends AppController {
      * @access public
      */
     public $uses = array();
-
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array('Member');
 
     /**
      * @access public

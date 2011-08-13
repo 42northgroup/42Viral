@@ -31,6 +31,17 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
+/* =====================
+ * == Post Feedback ====
+ * ===================*/
+
+/**
+ * Uncommeting and defining DISQUS_SHORTNAME and DISQUS_DEVELOPER will turn on disquss comments
+ * @see http://disqus.com/
+ */
+// define('DISQUS_SHORTNAME', '');
+// define('DISQUS_DEVELOPER', 1);
+
 /* ====================
  * == Asset Helper ====
  * ==================*/

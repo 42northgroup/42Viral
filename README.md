@@ -13,6 +13,11 @@ Provide a scalable and robust "kick start" for projects of any size.
 * HTMLBOILERPLATE
 * Modernizr
 
+## Third party support
+
+* Gravatar (Currently only avatars)
+* Disqus
+
 ## Development
 
 Agile, Test Driven Development.

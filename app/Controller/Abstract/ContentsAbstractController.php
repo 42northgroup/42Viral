@@ -20,7 +20,13 @@ abstract class ContentsAbstractController extends AppController {
      * @access public
      */
     public $uses = array('Blog', 'Content', 'Page', 'Post');
-
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array('Member');
+    
     /**
      * @return void
      * @access public
