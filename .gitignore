@@ -1,10 +1,5 @@
 /nbproject
 
-/app/tmp/cache
-/app/tmp/logs
-/app/tmp/sessions
-/app/tmp/tests
-
 /vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 
 /app/Config/database.php
