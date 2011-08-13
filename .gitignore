@@ -1,6 +1,9 @@
 /nbproject
 
+<<<<<<< HEAD
 /app/tmp
+=======
+>>>>>>> 83a3d3642bae4dc6680981a3187421b2e1f0dc7c
 /vendors/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer
 
 /app/Config/database.php
@@ -8,8 +11,13 @@
 /app/Config/core.php
 /app/Config/routes.php
 /app/Config/app.php
+<<<<<<< HEAD
 /app/acl.ini.php
 /app/bootstrap.php
+=======
+/app/Config/acl.ini.php
+/app/Config/bootstrap.php
+>>>>>>> 83a3d3642bae4dc6680981a3187421b2e1f0dc7c
 
 /app/Controller/AppTestController.php
 /app/View/AppTest
