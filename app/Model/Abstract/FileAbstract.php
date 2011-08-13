@@ -17,13 +17,6 @@ abstract class FileAbstract extends UploadAbstract
     public $name = 'File';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */    
-    public $alias = 'File';
-    
-    /**
      * Inject all "finds" against the Upload object with file filtering criteria
      * @param array $query
      * @return type 

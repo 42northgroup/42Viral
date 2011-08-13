@@ -17,13 +17,6 @@ abstract class ProspectAbstract extends PersonAbstract
     public $name = 'Prospect';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Prospect';
-    
-    /**
      * Inject all "finds" against the Prospect object with prospect filtering criteria
      * @param array $query
      * @return type 

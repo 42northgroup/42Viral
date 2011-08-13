@@ -17,13 +17,6 @@ abstract class LeadAbstract extends PersonAbstract
     public $name = 'Lead';
     
     /**
-     * 
-     * @var string
-     * @access public
-     */
-    public $alias = 'Lead';
-    
-    /**
      * Inject all "finds" against the Lead object with lead filtering criteria
      * @param array $query
      * @return type 

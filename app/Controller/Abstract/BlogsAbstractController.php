@@ -15,7 +15,12 @@ abstract class BlogsAbstractController extends AppController {
      * @access public
      */
     public $uses = array();
-
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array('Member');
 
     /**
      * @access public
@@ -43,8 +48,10 @@ abstract class BlogsAbstractController extends AppController {
      * @param array
      */
     public function view($slug) {
+        
         $this->loadModel('Blog');
-        $blog = $this->Blog->findBySlug($slug);
+        
+        $blog = $this->Blog->fetchPublished($slug);
         
         if(empty($blog)){
            $this->redirect('/', '404');
@@ -62,8 +69,8 @@ abstract class BlogsAbstractController extends AppController {
      */
     public function post($slug) {
         $this->loadModel('Post');
-        $post = $this->Post->findBySlug($slug);
-        
+        $post = $this->Post->fetchPost($slug);
+
         if(empty($post)){
            $this->redirect('/', '404');
         }

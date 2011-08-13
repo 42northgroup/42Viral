@@ -21,13 +21,6 @@ abstract class UploadAbstract extends AppModel
     /**
      * 
      * @var string
-     * @access public
-     */
-    public $alias = 'Upload';
-    
-    /**
-     * 
-     * @var string
      * @access public 
      */
     public $useTable = 'uploads';
@@ -79,8 +72,9 @@ abstract class UploadAbstract extends AppModel
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
-    public function __construct() {
-        parent::__construct();
+    public function __construct($id = false, $table = null, $ds = null) 
+    { 
+        parent::__construct($id, $table, $ds);
         
         $this->_setBlacklist();
         $this->_setWhitelist();
