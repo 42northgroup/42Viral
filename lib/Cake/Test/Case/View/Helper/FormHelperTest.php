@@ -1703,7 +1703,7 @@ class FormHelperTest extends CakeTestCase {
 			'label' => array('for'),
 			'Balance',
 			'/label',
-			'input' => array('name', 'type' => 'text', 'maxlength' => 8, 'id'),
+			'input' => array('name', 'type' => 'number', 'maxlength' => 8, 'id'),
 			'/div',
 		);
 		$this->assertTags($result, $expected);
@@ -2508,6 +2508,8 @@ class FormHelperTest extends CakeTestCase {
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
 			'*/div',
+			array('div' => array('class' => 'input number')),
+			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
 		);
@@ -2530,6 +2532,8 @@ class FormHelperTest extends CakeTestCase {
 			array('div' => array('class' => 'input date')),
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
+			'*/div',
+			array('div' => array('class' => 'input number')),
 			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
@@ -2555,6 +2559,8 @@ class FormHelperTest extends CakeTestCase {
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
 			'*/div',
+			array('div' => array('class' => 'input number')),
+			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
 			'/fieldset'
@@ -2578,6 +2584,8 @@ class FormHelperTest extends CakeTestCase {
 			array('div' => array('class' => 'input date')),
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
+			'*/div',
+			array('div' => array('class' => 'input number')),
 			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
@@ -2606,6 +2614,8 @@ class FormHelperTest extends CakeTestCase {
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
 			'*/div',
+			array('div' => array('class' => 'input number')),
+			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
 			'/fieldset'
@@ -2633,6 +2643,8 @@ class FormHelperTest extends CakeTestCase {
 			array('div' => array('class' => 'input date')),
 			'*/div',
 			array('div' => array('class' => 'input datetime')),
+			'*/div',
+			array('div' => array('class' => 'input number')),
 			'*/div',
 			array('div' => array('class' => 'input select')),
 			'*/div',
@@ -5690,6 +5702,35 @@ class FormHelperTest extends CakeTestCase {
 	}
 
 /**
+ * Test that postButton adds _Token fields.
+ *
+ * @return void
+ */
+	public function testSecurePostButton() {
+		$this->Form->request->params['_Token'] = array('key' => 'testkey');
+
+		$result = $this->Form->postButton('Delete', '/posts/delete/1');
+		$expected = array(
+			'form' => array(
+				'method' => 'post', 'action' => '/posts/delete/1', 'accept-charset' => 'utf-8',
+				'style' => 'display:none;'
+			),
+			array('div' => array('style' => 'display:none;')),
+			array('input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST')),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][key]', 'value' => 'testkey', 'id' => 'preg:/Token\d+/')),
+			'/div',
+			'button' => array('type' => 'submit'),
+			'Delete',
+			'/button',
+			array('div' => array('style' => 'display:none;')),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][fields]', 'value' => 'preg:/[\w\d%]+/', 'id' => 'preg:/TokenFields\d+/')),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][unlocked]', 'value' => '', 'id' => 'preg:/TokenUnlocked\d+/')),
+			'/div',
+			'/form',
+		);
+		$this->assertTags($result, $expected);
+	}
+/**
  * testPostLink method
  *
  * @return void
@@ -5701,9 +5742,7 @@ class FormHelperTest extends CakeTestCase {
 				'method' => 'post', 'action' => '/posts/delete/1',
 				'name' => 'preg:/post_\w+/', 'id' => 'preg:/post_\w+/', 'style' => 'display:none;'
 			),
-			'div' => array('style' => 'display:none;'),
 			'input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST'),
-			'/div',
 			'/form',
 			'a' => array('href' => '#', 'onclick' => 'preg:/document\.post_\w+\.submit\(\); event\.returnValue = false; return false;/'),
 			'Delete',
@@ -5716,9 +5755,7 @@ class FormHelperTest extends CakeTestCase {
 				'method' => 'post', 'action' => '/posts/delete/1',
 				'name' => 'preg:/post_\w+/', 'id' => 'preg:/post_\w+/', 'style' => 'display:none;'
 			),
-			'div' => array('style' => 'display:none;'),
 			'input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST'),
-			'/div',
 			'/form',
 			'a' => array('href' => '#', 'onclick' => 'preg:/if \(confirm\(&#039;Confirm\?&#039;\)\) \{ document\.post_\w+\.submit\(\); \} event\.returnValue = false; return false;/'),
 			'Delete',
@@ -5726,7 +5763,35 @@ class FormHelperTest extends CakeTestCase {
 		));
 
 		$result = $this->Form->postLink('Delete', '/posts/delete', array('data' => array('id' => 1)));
-		$this->assertTrue(strpos($result, '<input type="hidden" name="data[id]" value="1"/>') !== false);
+		$this->assertContains('<input type="hidden" name="data[id]" value="1"/>', $result);
+	}
+
+/**
+ * Test that postLink adds _Token fields.
+ *
+ * @return void
+ */
+	public function testSecurePostLink() {
+		$this->Form->request->params['_Token'] = array('key' => 'testkey');
+
+		$result = $this->Form->postLink('Delete', '/posts/delete/1');
+		$expected = array(
+			'form' => array(
+				'method' => 'post', 'action' => '/posts/delete/1',
+				'name' => 'preg:/post_\w+/', 'id' => 'preg:/post_\w+/', 'style' => 'display:none;'
+			),
+			array('input' => array('type' => 'hidden', 'name' => '_method', 'value' => 'POST')),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][key]', 'value' => 'testkey', 'id' => 'preg:/Token\d+/')),
+			'div' => array('style' => 'display:none;'),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][fields]', 'value' => 'preg:/[\w\d%]+/', 'id' => 'preg:/TokenFields\d+/')),
+			array('input' => array('type' => 'hidden', 'name' => 'data[_Token][unlocked]', 'value' => '', 'id' => 'preg:/TokenUnlocked\d+/')),
+			'/div',
+			'/form',
+			'a' => array('href' => '#', 'onclick' => 'preg:/document\.post_\w+\.submit\(\); event\.returnValue = false; return false;/'),
+			'Delete',
+			'/a'
+		);
+		$this->assertTags($result, $expected);
 	}
 
 /**
@@ -7316,6 +7381,12 @@ class FormHelperTest extends CakeTestCase {
 		$result = $this->Form->search('User.query', array('type' => 'text', 'value' => 'test'));
 		$expected = array(
 			'input' => array('type' => 'text', 'name' => 'data[User][query]', 'id' => 'UserQuery', 'value' => 'test')
+		);
+		$this->assertTags($result, $expected);
+		
+		$result = $this->Form->input('User.website', array('type' => 'url', 'value' => 'http://domain.tld', 'div' => false, 'label' => false));
+		$expected = array(
+			'input' => array('type' => 'url', 'name' => 'data[User][website]', 'id' => 'UserWebsite', 'value' => 'http://domain.tld')
 		);
 		$this->assertTags($result, $expected);
 	}
