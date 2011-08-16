@@ -39,6 +39,11 @@ class SeoBehavior extends ModelBehavior
         $baseSlug = $this->__baseSlug($model, $model->data[$model->name]['title']);
         $model->data[$model->name]['base_slug'] = $baseSlug;
         $model->data[$model->name]['slug'] = $this->__slug($model, $baseSlug);
+        
+        if(!isset($model->data[$model->name]['id'])) {
+            $model->data[$model->name]['canonical'] = $this->__canonical($model, $model->data[$model->name]['slug']);
+        }
+        
         return true;
     }
         
@@ -94,6 +99,18 @@ class SeoBehavior extends ModelBehavior
         }
         
         return $slug;
+    }
+    
+    /**
+     * Sets a default canonical reference for newly created content
+     * @param object $model
+     * @param string $slug
+     * @return string 
+     * @access private 
+     * @author Jason D Snider <jsnider@microtrain.net> 
+     */
+    private function __canonical(&$model, $slug){
+        return strtolower("/{$model->alias}/{$slug}"); 
     }
 
 }
