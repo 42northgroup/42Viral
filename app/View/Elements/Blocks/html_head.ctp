@@ -18,5 +18,5 @@
 <?php endif; ?>
     
 <?php if(defined('GOOGLE_SET_ACCOUNT')): ?>   
-    <meta name="google-site-verification" content="GOOGLE_SITE_VERIFICATION" />
+    <meta name="google-site-verification" content="<?php echo GOOGLE_SITE_VERIFICATION ?>" />
 <?php endif; ?> 
