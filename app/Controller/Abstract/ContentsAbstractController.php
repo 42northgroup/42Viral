@@ -25,6 +25,12 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
+    public $components = array('File');  
+    
+    /**
+     * @var array
+     * @access public
+     */
     public $helpers = array('Member');
     
     /**
@@ -195,6 +201,34 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Post->findById($id);
         
         $this->set('statuses', $this->Post->picklist('Status'));
+        
+        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . THEME_SET . DS;
+        $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
+        $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS; 
+        
+        $themed = $themePath . $relativeCustomPath;
+        $unthemed = $unthemedPath . $relativeCustomPath;
+        
+        $paths = array();
+        
+        if(is_dir($themed)){
+            foreach($this->File->scan($themed) as $key => $value){
+                if(is_file($themed . $value . '.ctp')){
+                    $paths[$key] = $value;
+                }
+            }
+        }
+        
+        if(is_dir($unthemed)){
+            foreach($this->File->scan($unthemed) as $key => $value){
+                if(is_file($unthemed . $value . '.ctp')){
+                    $paths[$key] = $value;
+                }
+            }
+        }
+
+        $this->set('customFiles', $paths);
+     
     }
     
     /**

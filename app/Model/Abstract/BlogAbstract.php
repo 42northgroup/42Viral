@@ -98,7 +98,8 @@ abstract class BlogAbstract extends ContentAbstract
         $blog = $this->find('first', 
                 array(  'conditions'=>array('Blog.slug' => $slug, 'Blog.status'=>'published'), 
                         'contain'=>array(
-                            'Post'=>array('conditions'=>array('Post.status'=>'published')),
+                            'Post'=>array('conditions'=>array('Post.status'=>'published'), 
+                                'order'=>array('Post.created DESC')),
                         )
                     )
                 );

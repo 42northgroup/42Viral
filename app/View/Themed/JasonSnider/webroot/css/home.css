@@ -50,6 +50,14 @@ pre code{
     text-align: right;    
 }
 
+#Footer{
+    text-align: center;
+    color: #fff;
+    font-weight:bold;
+    padding: 6px;
+    background: #444;
+}
+
 a#SiteTitle, a#SiteTitle:link, a#SiteTitle:visited{
     font-family: 'Reenie Beanie';
     font-size:200%;

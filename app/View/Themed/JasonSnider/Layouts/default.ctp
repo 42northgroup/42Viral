@@ -2,10 +2,8 @@
 <html lang="en">
 <head>
     
-    <?php echo $this->Html->charset(); ?>
-    <title><?php echo $title_for_layout; ?></title>
-
-    <?php //echo View::getVar('canonical_for_layout'); ?>
+    <?php echo $this->element('Blocks' . DS . 'html_head'); ?>
+    
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Allan:bold">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Just+Another+Hand">
     <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Reenie+Beanie">
@@ -13,22 +11,25 @@
         echo $this->Html->meta('icon');
         
         $this->Asset->addAssets(array(
+                    'js' . DS . 'vendors' . DS . 'modernizr.js',
+                    'js' . DS . 'vendors' . DS . 'jquery.js',
+                    'js' . DS . 'engine.js',
+            
                     'css' . DS . 'vendors' . DS . 'yui.css',
                     'css' . DS . 'cake.stripped.css',
-                    'css' . DS . 'default.css'
+                    'css' . DS . 'default.css',
                 ));
 
+        echo $this->Asset->buildAssets('js');
         echo $this->Asset->buildAssets('css');
-        
-        echo $scripts_for_layout;
     ?>
 </head>
     <body>
         <div id="Container">
             <?php echo $this->Session->flash(); ?>
             
-            <?php echo $this->element('Blocks' . DS . 'header'); ?>
             
+            <?php echo $this->element('Blocks' . DS . 'header'); ?>
             <div id="Wrapper" class="clearfix">
                 
                 <div id="Left"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
