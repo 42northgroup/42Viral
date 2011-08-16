@@ -317,3 +317,16 @@ a#SiteTitle, a#SiteTitle:link, a#SiteTitle:visited{
 a#SiteTitle:hover{
     color:#000;
 }
+
+/* results pages */
+#ResultsPage h1{
+    margin-bottom:6px;
+}
+
+#ResultsPage h2{
+    margin-bottom:2px;
+}
+
+.tease{
+    margin-bottom: 4px;
+}
