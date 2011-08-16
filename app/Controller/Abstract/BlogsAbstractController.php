@@ -69,7 +69,7 @@ abstract class BlogsAbstractController extends AppController {
      */
     public function post($slug) {
         $this->loadModel('Post');
-        $post = $this->Post->fetchPost($slug);
+        $post = $this->Post->fetchPost($slug);    
 
         if(empty($post)){
            $this->redirect('/', '404');
