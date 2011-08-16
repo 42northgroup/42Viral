@@ -2,23 +2,23 @@
 <html lang="en">
 <head>
     
-    <?php echo $this->Html->charset(); ?>
-    <title><?php echo $title_for_layout; ?></title>
-
-    <?php //echo View::getVar('canonical_for_layout'); ?>
+    <?php echo $this->element('Blocks' . DS . 'html_head'); ?>
 
     <?php
         echo $this->Html->meta('icon');
         
         $this->Asset->addAssets(array(
+                    'js' . DS . 'vendors' . DS . 'modernizer.js',
+                    'js' . DS . 'vendors' . DS . 'jquery.js',
+                    'js' . DS . 'engine.js',
+            
                     'css' . DS . 'vendors' . DS . 'yui.css',
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'default.css',
                 ));
 
+        echo $this->Asset->buildAssets('js');
         echo $this->Asset->buildAssets('css');
-        
-        echo $scripts_for_layout;
     ?>
 </head>
     <body>
@@ -41,6 +41,7 @@
             </div>
             
             <div id="Footer"><?php echo $this->element('Blocks' . DS . 'footer'); ?></div>
+            
         </div> 
         <?php echo $this->element('sql_dump'); ?>
     </body>

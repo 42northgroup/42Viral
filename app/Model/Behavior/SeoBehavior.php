@@ -89,7 +89,7 @@ class SeoBehavior extends ModelBehavior
         
         $ambiguity = $this->__ambiguity(&$model, $baseSlug);
         
-        if($ambiguity > 0){
+        if($ambiguity > 1){
             $slug .= '-' . $ambiguity;
         }
         

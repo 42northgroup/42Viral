@@ -1,7 +1,6 @@
 <ul class="side-navigation">
-    <li><a href="/pages">Pages</a></li>
-    <li><a href="/blogs">Blogs</a></li>
-    <li><a href="/members">Members</a></li>
+    <li><a href="/blog/the-incessant-ramblings-of-an-over-caffeinated-web-developer">Blog</a></li>
+    <li><a href="/pges">Pages</a></li>
 </ul>
 
 <?php if($this->Session->check('Auth.User.User.id')): ?>

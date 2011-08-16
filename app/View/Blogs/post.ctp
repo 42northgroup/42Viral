@@ -37,7 +37,29 @@
         &nbsp;<?php echo $post['Post']['created']; ?>
 
     </div>
-    <div class="post-body"><?php echo $post['Post']['body']; ?></div>
+    <div class="post-body">
+    <?php
+        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . THEME_SET . DS;
+        $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
+        $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS;
+        
+        $file = 'accessing-phpmyadmin-after-apt-get-install.ctp';
+        
+        
+        $file = $post['Post']['custom_file'] . '.ctp';
+
+        if(is_file( $themePath .$relativeCustomPath . $file)){
+
+            require($themePath .$relativeCustomPath . $file);
+
+        }elseif(is_file( $unthemedPath .$relativeCustomPath . $file)){
+
+            require($unthemedPath .$relativeCustomPath . $file);         
+
+        }    
+    ?>
+    <?php echo $post['Post']['body']; ?>
+    </div>
 </div>
 
 <div class="meta" style="margin: 6px 0;">
