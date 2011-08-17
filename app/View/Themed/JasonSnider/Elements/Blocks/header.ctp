@@ -8,7 +8,7 @@
 
     <div id="HeaderRight">
         <?php echo $this->Html->link('Blog', '/blogs/'); ?>
-        <?php echo $this->Html->link('Resume', '/page/jason-sniders-resume/'); ?>
+        <?php echo $this->Html->link('Resume', '/page/jason-snider-s-resume/'); ?>
     </div>
 
 </div>
