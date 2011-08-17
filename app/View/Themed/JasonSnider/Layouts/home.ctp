@@ -4,9 +4,9 @@
 
         <?php echo $this->element('Blocks' . DS . 'html_head'); ?>
         
-        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Allan:bold">
-        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Just+Another+Hand">
-        <link type="text/css" rel="stylesheet" href="http://fonts.googleapis.com/css?family=Reenie+Beanie">
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Allan:bold">
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Just+Another+Hand">
+        <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Reenie+Beanie">
         <?php
             echo $this->Html->meta('icon');
 

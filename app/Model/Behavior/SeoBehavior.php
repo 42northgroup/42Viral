@@ -1,4 +1,3 @@
-
 <?php
 /**
  * Auto-magically populate deals with slug creation and basic SEO behaviors
@@ -40,6 +39,7 @@ class SeoBehavior extends ModelBehavior
         $model->data[$model->name]['base_slug'] = $baseSlug;
         $model->data[$model->name]['slug'] = $this->__slug($model, $baseSlug);
         
+        //We only auto-gen on creation
         if(!isset($model->data[$model->name]['id'])) {
             $model->data[$model->name]['canonical'] = $this->__canonical($model, $model->data[$model->name]['slug']);
         }
@@ -53,7 +53,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __baseSlug(&$model, $title)
     {
@@ -73,7 +73,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $baseSlug
      * @return array 
      * @access private 
-     * @author Jason D Snider <jsnider@microtrain.net>  
+     * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __ambiguity(&$model,$baseSlug)
     {
@@ -86,7 +86,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __slug(&$model, $baseSlug)
     {
@@ -104,10 +104,11 @@ class SeoBehavior extends ModelBehavior
     /**
      * Sets a default canonical reference for newly created content
      * @param object $model
+     * 
      * @param string $slug
      * @return string 
      * @access private 
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __canonical(&$model, $slug){
         return strtolower("/{$model->alias}/{$slug}"); 
