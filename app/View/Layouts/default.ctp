@@ -8,7 +8,7 @@
         echo $this->Html->meta('icon');
         
         $this->Asset->addAssets(array(
-                    'js' . DS . 'vendors' . DS . 'modernizer.js',
+                    'js' . DS . 'vendors' . DS . 'modernizr.js',
                     'js' . DS . 'vendors' . DS . 'jquery.js',
                     'js' . DS . 'engine.js',
             
