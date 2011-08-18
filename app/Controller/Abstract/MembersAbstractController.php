@@ -136,5 +136,5 @@ abstract class MembersAbstractController extends AppController {
      */
     public function set_profile_image(){
         $this->loadModel('User');
-    }    
+    }
 }
