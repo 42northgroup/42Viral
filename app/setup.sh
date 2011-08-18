@@ -9,21 +9,21 @@ SCRIPT_PATH=`dirname $SCRIPT`
 # We'll start off with 0 errors
 ERROR=0
 
-APACE_PROCESS="www-data"
+# APACHE_PROCESS="www-data"
+# USER="jasonsnider"
 
-USER="jasonsnider"
+APACHE_PROCESS="$1"
+USER="$2"
 
-# WHY DOESN'T THIS WORK
-# if [ "$APACHE_PROCESS" == "" ]
-# then
-#     echo "Please set the value for your APACHE_PROCESS, this is often www-data"
-#     exit 0
-# fi
+if [ $# -ne 2 ]
+then
+echo "Usage: $0 {USER} {APACHE_PROCESS}"
+        echo "Enter the name your web server runs under - probably www-data"
+        echo "Enter the group that will have write acces to the server - probably your user name"
+        exit 1
+fi
 
-# if [ "$USER" == "" ]; then
-#     echo "Please set the value for USER, this should be the user that could log on and update files"
-#     exit 0
-# fi
+
 
 # An array of all of the config files we need to create
 CONFIG_PATHS="
@@ -75,23 +75,25 @@ echo 'Setting permissions'
 
 for CONFIG_PATH in $CONFIG_PATHS
 do
-    chown "$USER":"$USER" -fR "$SCRIPT_PATH$CONFIG_PATH" && chmod 775 -fR "$SCRIPT_PATH$CONFIG_PATH" 
+    chown "$USER":"$USER" -fR "$SCRIPT_PATH$CONFIG_PATH" && chmod 775 -fR "$SCRIPT_PATH$CONFIG_PATH"
+    echo "+++$SCRIPT_PATH$CONFIG_PATH" 
 done
 
-chown "$APACHE_PROCESS":"$USER" -fR tmp  
-chmod 775 -fR tmp 
-
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"  
+chmod 775 -fR "$SCRIPT_PATH/tmp"
+echo ">>>$SCRIPT_PATH/tmp" 
+ 
 chown "$APACHE_PROCESS":"$USER" -fR webroot/cache
-chmod 775 -fR /webroot/cache
+chmod 775 -fR "$SCRIPT_PATH/webroot/cache"
+echo ">>>$SCRIPT_PATH/webroot/cache" 
 
 chown "$APACHE_PROCESS":"$USER" -fR webroot/img/people
-chmod 775 -fR webroot/img/people
+chmod 775 -fR "$SCRIPT_PATH/webroot/img/people"
+echo ">>>$SCRIPT_PATH/img/people" 
 
 chown "$APACHE_PROCESS":"$USER" -fR webroot/files/people
-chmod 775 -fR webroot/files/people 
+chmod 775 -fR "$SCRIPT_PATH/webroot/files/people" 
+echo ">>>$SCRIPT_PATH/webroot/files/people"
 
 echo 'Permissions set'
-
-
-
 
