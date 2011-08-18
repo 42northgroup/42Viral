@@ -1,1 +1,1 @@
-Powered by The 42 Viral Project
+<div>Powered by The 42 Viral Project</div>
