@@ -69,15 +69,15 @@ echo 'Setting permissions'
 
 # Set proper permissions to the newly created files
 
-# TODO - LOOP
-# TODO - Request Feedback - apaches process user?
-# TODO - Request Feedback - human user?
-
 for CONFIG_PATH in $CONFIG_PATHS
 do
     chown "$USER":"$USER" -fR "$SCRIPT_PATH$CONFIG_PATH" && chmod 775 -fR "$SCRIPT_PATH$CONFIG_PATH"
     echo "+++$SCRIPT_PATH$CONFIG_PATH" 
 done
+
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializerendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"  
+chmod 775 -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+echo ">>>$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer" 
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"  
 chmod 775 -fR "$SCRIPT_PATH/tmp"
