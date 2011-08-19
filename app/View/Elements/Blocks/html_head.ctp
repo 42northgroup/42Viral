@@ -1,4 +1,5 @@
 <?php echo $this->Html->charset(); ?>
+
 <title><?php echo $title_for_layout; ?></title>
 
 <?php if(defined('GOOGLE_SET_ACCOUNT')): ?>

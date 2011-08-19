@@ -14,7 +14,7 @@
             
                     'css' . DS . 'vendors' . DS . 'yui.css',
                     'css' . DS . 'cake.stripped.css',
-                    'css' . DS . 'default.css',
+                    'css' . DS . 'layout.css',
                 ));
 
         echo $this->Asset->buildAssets('js');
@@ -28,15 +28,14 @@
             <?php echo $this->element('Blocks' . DS . 'header'); ?>
             
             <?php echo $this->element('Blocks' . DS . 'banner'); ?>
-            
-            <div id="Wrapper" class="clearfix">
+
+            <div id="Main">
                 
+                <div id="MainLeft"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
                 
-                <div id="Left"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
+                <div id="MainContent"><?php echo $content_for_layout; ?></div>
                 
-                <div id="Content"><?php echo $content_for_layout; ?></div>
-                
-                <div id="Right"><?php echo $this->element('Blocks' . DS . 'right'); ?></div>
+                <div id="MainRight"><?php echo $this->element('Blocks' . DS . 'right'); ?></div>
                 
             </div>
             
