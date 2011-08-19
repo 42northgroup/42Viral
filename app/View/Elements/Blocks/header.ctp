@@ -4,7 +4,6 @@
         <?php if($this->Session->check('Auth.User.User.id')): ?>
             <?php echo $this->Html->link('CMS', '/Contents/content'); ?>
         <?php endif; ?>
-        al;skdfj;alskfjd
     </div>
 
     <div id="HeaderContent"></div>

@@ -15,6 +15,11 @@
                     'css' . DS . 'vendors' . DS . 'yui.css',
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'layout.css',
+                    'css' . DS . 'basics.css',
+                    'css' . DS . 'forms.css',
+                    'css' . DS . 'tables.css',
+                    'css' . DS . 'messages.css',
+                    'css' . DS . 'navigation.css'
                 ));
 
         echo $this->Asset->buildAssets('js');
