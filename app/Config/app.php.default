@@ -31,9 +31,15 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
-/* =====================
- * == Post Feedback ====
- * ===================*/
+/* =========================
+ * == Thrid Party API's ====
+ * =======================*/
+
+/**
+ * Twitter OAuth
+ */
+// Configure::write('Twitter.consumer_key', '');
+// Configure::write('Twitter.consumer_secret', '');  
 
 /**
  * Uncommeting and defining DISQUS_SHORTNAME and DISQUS_DEVELOPER will turn on disquss comments
