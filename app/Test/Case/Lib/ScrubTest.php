@@ -16,5 +16,13 @@ class ScrubTestCase extends CakeTestCase {
         parent::__construct();
        
     }
+    
+    /**
+     * @todo Test against ha.ckers.org xxs sheetsheet
+     */
+    public function testXXS(){
+
+        return true;
+    }
  
 }
