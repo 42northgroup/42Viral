@@ -1,0 +1,56 @@
+/**
+ * Default theme for The 42Viral Project
+ *
+ * The 42Viral Project(tm) 
+ * Copyright 2009-2011, MicroTrain Technologies
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, MicroTrain Technologies
+ * @link          https://www.microtrain.net The 42Viral Project
+ * @package       app
+ * @subpackage    app.theme.default
+ * @author        Jason D Snider <jsnider77@gmail.com>
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+a, 
+a *{ 
+    cursor:pointer; 
+    outline: none;
+}
+
+p, 
+h1, 
+h2, 
+h3, 
+h4, 
+h5{ 
+    margin: 0 0 1em 0; 
+    line-height: 1.6em;
+}
+
+/* Clearfix VIA HTML Boilerplate */
+/* The Magnificent Clearfix: Updated to prevent margin-collapsing on child elements.
+   j.mp/bestclearfix */
+.clearfix:before, 
+.clearfix:after { 
+    content: "\0020"; 
+    display: block; 
+    height: 0; 
+    overflow: hidden; 
+}
+
+.clearfix:after { 
+    clear: both; 
+}
+
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { 
+    zoom: 1; 
+}      
+
+pre,
+code{
+    overflow: auto;
+}

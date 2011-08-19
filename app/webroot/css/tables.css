@@ -1,0 +1,35 @@
+/**
+ * Default theme for The 42Viral Project
+ *
+ * The 42Viral Project(tm) 
+ * Copyright 2009-2011, MicroTrain Technologies
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, MicroTrain Technologies
+ * @link          https://www.microtrain.net The 42Viral Project
+ * @package       app
+ * @subpackage    app.theme.default
+ * @author        Jason D Snider <jsnider77@gmail.com>
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th{
+    border-bottom: 1px solid #C5C5C5;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    text-align: left;
+}
+
+td{
+    border: 1px solid #E5E5E5;
+    border-left: none;
+    border-right: none;
+}

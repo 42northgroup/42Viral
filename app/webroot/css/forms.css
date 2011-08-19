@@ -1,0 +1,98 @@
+/**
+ * Default theme for The 42Viral Project
+ *
+ * The 42Viral Project(tm) 
+ * Copyright 2009-2011, MicroTrain Technologies
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, MicroTrain Technologies
+ * @link          https://www.microtrain.net The 42Viral Project
+ * @package       app
+ * @subpackage    app.theme.default
+ * @author        Jason D Snider <jsnider77@gmail.com>
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+input,
+textarea,
+select{ 
+    font-family: "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; 
+    font-size: 10pt; 
+    color: #444; 
+    font-weight: normal;
+}
+
+/* At this level we can't worry about speocifics, only the most general of concepts
+ * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
+ * form classes
+ */
+form{}
+
+input[type="text"],
+input[type="password"],
+select,
+textarea{
+    border: 1px solid #000;
+    border-radius: 2px;
+    font-size:16px;
+    padding: 6px;
+}
+
+label{}
+
+
+form.default{
+    width: 320px;
+}
+
+form.default input[type="text"],
+form.default input[type="password"],
+form.default select,
+form.default textarea{
+    border: 1px solid #000;
+    border-radius: 2px;
+    width: 176px;
+    padding: 2px;
+}
+
+form.default label{
+    display: inline-block;
+    width: 126px;
+    padding-right: 12px;
+    text-align: right;
+}
+
+
+
+form.content{
+    width: 100%;
+}
+
+form.content label{
+    display: block;
+}
+
+form.contnet input[type="text"],
+form.contnet input[type="password"],
+form.content select,
+form.contnet textarea{}
+
+form .required {
+	font-weight: bold;
+}
+form .required label:after {
+	color: #900;
+	content: ' *';
+	display:inline;
+}
+
+.submit{
+    text-align:right;
+}
+
+input[type="submit"]{
+    padding: 8px 12px;
+    font-size: 16px;
+}

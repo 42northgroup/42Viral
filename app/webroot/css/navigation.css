@@ -1,0 +1,48 @@
+#Header a:link,
+#Header a:hover,
+#Header a:visited{
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+#Left h4{
+    padding: 0;
+    margin: 0 0 0 10px;
+}
+
+#Left ul{
+    margin: 1px 0 6px 10px;
+    padding: 0;
+}
+
+ul.side-navigation{
+    font-size: 15px;
+    list-style-type: none;
+    margin-left: 0;
+}
+
+
+ul.side-navigation li{
+    list-style-type: none;
+    margin-left: 0;
+}
+
+ul.side-navigation li a:link,
+ul.side-navigation li a:visited{
+    font-weight: bold;
+    color: #D14836;
+    text-decoration: none;
+}
+
+ul.side-navigation li a:hover{
+    color: #444;
+}
+
+div.error-message {
+    clear: both;
+    color: #900;
+    text-align: center;
+    border: 1px dotted #900;    
+    padding:2px;
+}

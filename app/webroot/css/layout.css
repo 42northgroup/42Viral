@@ -1,0 +1,103 @@
+/**
+ * Default theme for The 42Viral Project
+ *
+ * The 42Viral Project(tm) 
+ * Copyright 2009-2011, MicroTrain Technologies
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, MicroTrain Technologies
+ * @link          https://www.microtrain.net The 42Viral Project
+ * @package       app
+ * @subpackage    app.theme.default
+ * @author        Jason D Snider <jsnider77@gmail.com>
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+body{
+    font-family: "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; 
+    font-size: 10pt; 
+    color: #444; 
+    font-weight: normal;    
+    margin: 0 0;
+} 
+ 
+#Header{
+    position:relative;
+    height: 30px;
+    background: #000;
+    color: #fff;
+    font-weight: bold;
+    margin:0 225px 0 175px ;   
+}
+
+#HeaderLeft{
+    position:absolute;
+    left: -175px;
+    top: 0;
+    width:175px; 
+    height:30px;
+    background: #000;
+}
+
+#HeaderRight{
+    position:absolute;
+    right: -225px;
+    top: 0;
+    width:225px; 
+    height:30px;
+    text-align:right;
+    background: #000;
+}
+
+#Banner{
+    position:relative;
+    font-weight: bold;
+    background: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;
+    height: 71px;    
+    margin:0 225px 0 175px ;    
+}
+
+#BannerLeft{
+    position:absolute;
+    left: -175px;
+    top:0;
+    width:175px; 
+    height: 71px;  
+    background: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;    
+}
+
+#BannerRight{
+    position:absolute;
+    right: -225px;
+    top: 0;
+    width:225px; 
+    height:200px;
+    height: 71px; 
+    background: #f5f5f5;
+    border-bottom: 1px solid #e5e5e5;    
+}
+
+#Main{
+    position:relative;
+    font-weight: bold;
+    margin:0 225px 0 175px ;
+}
+
+
+#MainLeft{
+    position:absolute;
+    left: -175px;
+    top: 0;
+    width:175px; 
+}
+
+#MainRight{
+    position:absolute;
+    right: -225px;
+    top: 0;
+    width:225px;    
+}
