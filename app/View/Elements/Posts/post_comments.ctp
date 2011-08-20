@@ -12,8 +12,10 @@
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 
-if(defined('DISQUS_SHORTNAME')):
-    echo $this->element('Posts' . DS . 'PostComments' . DS .  'disqus'); 
+$commentEngine = Configure::read('Comment.engine');
+
+if(isset($commentEngine)):
+    echo $this->element('Posts' . DS . 'PostComments' . DS .  $commentEngine);
 endif; 
 
 ?>

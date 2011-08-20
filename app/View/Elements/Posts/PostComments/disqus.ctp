@@ -1,3 +1,9 @@
+<?php
+$disqusShortname = Configure::read('Disqus.shortname');
+$disqusDeveloper = Configure::read('Disqus.developer');
+$requestURI = $_SERVER['REQUEST_URI'];
+?>
+
 <div id="disqus_thread"></div>
 <noscript>Please enable JavaScript to view the 
     <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a>
@@ -6,9 +12,9 @@
 
 <script type="text/javascript">
     /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-    var disqus_shortname = '<?php echo DISQUS_SHORTNAME; ?>'// required: replace example with your forum shortname
-    var disqus_developer = <?php echo DISQUS_DEVELOPER; ?>
-    var disqus_identifer = '<?php echo $_SERVER['REQUEST_URI']; ?>';
+    var disqus_shortname = '<?php echo $disqusShortname; ?>';// required: replace example with your forum shortname
+    var disqus_developer = <?php echo $disqusDeveloper; ?>;
+    var disqus_identifer = '<?php echo $requestURI; ?>';
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function() {

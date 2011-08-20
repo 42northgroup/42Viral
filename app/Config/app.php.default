@@ -1,5 +1,9 @@
 <?php
 
+/* ==============
+ * == Themes ====
+ *=============*/
+
 /**
  * Define the default theme set
  */
@@ -31,32 +35,45 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
+/* ================
+ * == Comments ====
+ *===============*/
+
+/**
+ * Configure the systems default commenting engine
+ * Comment engines
+ *     native - 42Viral's native comment engine (Default)
+ *     //See Thrid Party API's for additional configuration
+ *     disqus - @link http://disqus.com/
+ */   
+Configure::write('Comment.engine', 'native');
+
 /* =========================
  * == Thrid Party API's ====
  * =======================*/
 
 /**
- * Twitter OAuth
- */
-// Configure::write('Twitter.consumer_key', '');
-// Configure::write('Twitter.consumer_secret', '');  
-
-/**
- * Uncommeting and defining DISQUS_SHORTNAME and DISQUS_DEVELOPER will turn on disquss comments
+ * Disqus configuration
  * @see http://disqus.com/
  */
-// define('DISQUS_SHORTNAME', '');
-// define('DISQUS_DEVELOPER', 1);
+    ## Configure::write('Disqus.shortname', '');
+    ## Configure::write('Disqus.developer', 1);
 
 /**
  * Google Analytics tracking code
  */
-# define('GOOGLE_SET_ACCOUNT', '');
 
+    ## Configure::write('Google.setAccount');
 /**
  * Google Webmaster Tools verification code
  */
-# define('GOOGLE_SITE_VERIFICATION', '');
+    ## Configure::write('Google.SiteVerification', '');
+
+/**
+ * Twitter OAuth
+ */
+    ## Configure::write('Twitter.consumer_key', '');
+    ## Configure::write('Twitter.consumer_secret', '');  
 
 /* ====================
  * == Asset Helper ====
