@@ -66,39 +66,41 @@ Cache::config('default', array('engine' => 'File'));
 
 
 App::build(array(
-        'Behavior' => array( ## Not working
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS
-        ),
-    
-        'Component' => array( ## Not working
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS
-        ),
     
         'Controller' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Abstract' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Interface' . DS 
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Interface' . DS,
         ),
     
-        'Helper' => array( ## Not working
-            //We want the native cake structure to ovverride 42Viral's views
-            ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS
-        ),   
+        'Controller/Component' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS,
+        ),
     
          'Lib' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS
+            ROOT . DS . APP_DIR . DS . 'Lib' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
         ),   
     
         'Model' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Abstract' . DS ,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Interface' . DS 
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Interface' . DS,
+        ),
+    
+        'Model/Behavior' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS,
         ),
     
         'View' => array(
             //We want the native cake structure to ovverride 42Viral's views
             ROOT . DS . APP_DIR . DS . 'View' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS,
         ),    
+    
+        'View/Helper' => array(
+            //We want the native cake structure to ovverride 42Viral's views
+            ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
+        ),   
     
     ));
 
