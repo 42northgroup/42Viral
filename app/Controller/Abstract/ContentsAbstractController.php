@@ -19,7 +19,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Page', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Page', 'Post');
     
     /**
      * @var array
@@ -230,6 +230,20 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('customFiles', $paths);
      
     }
+    
+    
+    public function post_comment(){
+        if($this->data){
+            if($this->Conversation->save($this->data)){
+                $this->Session->setFlash(_('Your comment has been saved') ,'success');
+                $this->redirect($this->referer());
+            }else{
+                $this->Session->setFlash(_('Your comment could not be saved') ,'error');
+                $this->redirect($this->referer());
+            }
+        }
+    }
+    
     
     /**
      * Removes a web page
