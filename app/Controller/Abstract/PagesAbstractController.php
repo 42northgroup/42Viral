@@ -67,7 +67,7 @@ abstract class PagesAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', $page['Page']['title']);        
-        
+        $this->set('canonical_for_layout', $page['Page']['canonical']);
         $this->set('page', $page);
     }  
     

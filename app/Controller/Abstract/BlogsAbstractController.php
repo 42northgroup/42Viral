@@ -57,7 +57,8 @@ abstract class BlogsAbstractController extends AppController {
            $this->redirect('/', '404');
         }
         
-        $this->set('title_for_layout', $blog['Blog']['title']);     
+        $this->set('title_for_layout', $blog['Blog']['title']);
+        $this->set('canonical_for_layout', $blog['Blog']['canonical']);
         
         $this->set('blog', $blog);
     } 
@@ -74,8 +75,9 @@ abstract class BlogsAbstractController extends AppController {
         if(empty($post)){
            $this->redirect('/', '404');
         }
-        
+
         $this->set('title_for_layout', $post['Post']['title']);
+        $this->set('canonical_for_layout', $post['Post']['canonical']);
         
         $this->set('post', $post);
     }       
