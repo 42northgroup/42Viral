@@ -148,13 +148,19 @@ class AssetHelper extends AppHelper
         $ctime = '';
         $stringToHash = '';
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
-
+        $themePath42 = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
+        
         for ($i = 0; $i < count($assets); $i++) {
             
             if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
                 
                 $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
                 $ctime = filectime($themePath . WEBROOT_DIR . DS . $assets[$i]);
+                
+            }elseif(is_file( $themePath42 . WEBROOT_DIR . DS . $assets[$i])){
+                
+                $file = $themePath42 . WEBROOT_DIR . DS . $assets[$i];
+                $ctime = filectime($themePath42 . WEBROOT_DIR . DS . $assets[$i]);
                 
             }else{
                 
@@ -193,6 +199,7 @@ class AssetHelper extends AppHelper
     {
                 
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
+        $themePath42 = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
         
         $contents = '';
         $fh = fopen($file, 'w') or $this->log("Can't create a cache file", 'AssetHelper');
@@ -200,6 +207,8 @@ class AssetHelper extends AppHelper
             
            if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
                 $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
+            }if(is_file( $themePath42 . WEBROOT_DIR . DS . $assets[$i])){
+                $file = $themePath42 . WEBROOT_DIR . DS . $assets[$i];
             }else{
                 $file = ASSET_FILES . $assets[$i];
             }

@@ -64,18 +64,42 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
+
 App::build(array(
-        'Controller' => array(
-            ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Abstract' . DS,
-            ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Interface' . DS 
+        'Behavior' => array( ## Not working
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS
         ),
     
+        'Component' => array( ## Not working
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS
+        ),
+    
+        'Controller' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Abstract' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Interface' . DS 
+        ),
+    
+        'Helper' => array( ## Not working
+            //We want the native cake structure to ovverride 42Viral's views
+            ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS
+        ),   
+    
+         'Lib' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS
+        ),   
+    
         'Model' => array(
-            ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Abstract' . DS ,
-            ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Interface' . DS 
-        )
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Abstract' . DS ,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Interface' . DS 
+        ),
+    
+        'View' => array(
+            //We want the native cake structure to ovverride 42Viral's views
+            ROOT . DS . APP_DIR . DS . 'View' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS
+        ),    
     
     ));
-
 
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php');
