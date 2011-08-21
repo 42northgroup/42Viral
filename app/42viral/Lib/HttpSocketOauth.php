@@ -62,7 +62,8 @@ class HttpSocketOauth extends HttpSocket{
     // Twitter includes an Authorization Header as required by twitter's verify
     // credentials API in the X-Verify-Credentials-Authorization header.
     $request['header']['Authorization'] = $this->authorizationHeader($request);
-
+    
+pr($request);
     // Now the Authorization header is built, fire the request off to the parent
     // HttpSocket class request method that we intercepted earlier.
     return parent::request($request);
