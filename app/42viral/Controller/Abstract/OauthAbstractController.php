@@ -31,9 +31,7 @@ abstract class OauthAbstractController extends AppController
      */
     public function beforeFilter(){
         parent::beforeFilter();
-        
         $this->Auth->allow('*');
-
     }
 
     /**
@@ -120,11 +118,11 @@ abstract class OauthAbstractController extends AppController
             'method' => 'POST',
             'auth' => array(
             'method' => 'OAuth',
-            'oauth_callback' => 'http://loc.build.42viral.org/oauth/linkedin_callback',
-            'oauth_consumer_key' => '9DyXW-5Tgwgt3dn76H4_FrjeEyGwuQSrX1r3o6G1_QyIJyfNDgJeHHW9Mf7T2ib0',
-            'oauth_consumer_secret' => 'oyp8wH0WigXPw2rAAysWUSGio0ggVtl-V36xfz8KFiTV4Qsb9Bq8ih3tsN9CW40b'
-            //'oauth_nonce'=>sha1(microtime()),
-            //'oauth_timestamp'=>time(),
+            'oauth_callback' => Configure::read('LinkedIn.callback'),
+            'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
+            'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
+            'oauth_nonce'=>sha1(microtime()),
+            'oauth_timestamp'=>time(),
             ),
             //Linked in was  complaining about the header not including the Content-Length
             'header' => array(
@@ -148,6 +146,7 @@ abstract class OauthAbstractController extends AppController
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
      * @author Jason D Snider <jsnider77@gmail.com>
+     * @author Lyubomir R Dimov <ldimov@microtrain.net>
      * @author Neil Crookes <http://www.neilcrookes.com/>
      * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
@@ -165,24 +164,19 @@ abstract class OauthAbstractController extends AppController
             'method' => 'POST',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_consumer_key' => '9DyXW-5Tgwgt3dn76H4_FrjeEyGwuQSrX1r3o6G1_QyIJyfNDgJeHHW9Mf7T2ib0',
-                'oauth_consumer_secret' => 'oyp8wH0WigXPw2rAAysWUSGio0ggVtl-V36xfz8KFiTV4Qsb9Bq8ih3tsN9CW40b',
+                'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
+                'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
                 'oauth_token' => $this->params['url']['oauth_token'],
                 'oauth_verifier' => $this->params['url']['oauth_verifier'],
-                'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
-                //'oauth_nonce'=>sha1(microtime()),
-                //'oauth_timestamp'=>time(),                
+                'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')    
             ),
             'header' => array(
                 'Content-Length' => 0
             ),
         );
 
-       
         $response = $this->HttpSocketOauth->request($request);
-        pr($response);
-        
-        $response = parse_str($response, $response);
+        parse_str($response, $response);
         
         // Save data in $response to database or session as it contains the access token and access token secret that 
         // you'll need later to interact with the LinkedIn API
