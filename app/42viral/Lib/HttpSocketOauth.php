@@ -63,7 +63,6 @@ class HttpSocketOauth extends HttpSocket{
     // credentials API in the X-Verify-Credentials-Authorization header.
     $request['header']['Authorization'] = $this->authorizationHeader($request);
     
-pr($request);
     // Now the Authorization header is built, fire the request off to the parent
     // HttpSocket class request method that we intercepted earlier.
     return parent::request($request);
@@ -151,25 +150,29 @@ pr($request);
       $requestParams = array_merge($requestParams, $this->assocToNumericNameValue($request['uri']['query']));
     }
 
+         
     // Now we can sort them by name then value
     usort($requestParams, array($this, 'sortByNameThenByValue'));
-
+   
     // Now we concatenate them together in name=value pairs separated by &
     $normalisedRequestParams = '';
-    foreach ($requestParams as $k => $requestParam) {
+    foreach ($requestParams as $k => $requestParam) {        
       if ($k) {
         $normalisedRequestParams .= '&';
       }
-      $normalisedRequestParams .= $requestParam['name'] . '=' . $this->parameterEncode($requestParam['value']);
+      $normalisedRequestParams .= $this->parameterEncode($requestParam['name']) . '=' . $this->parameterEncode($requestParam['value']);        
     }
-
+    
+    
+        
     // The signature base string consists of the request method (uppercased) and
     // concatenated with the request URL and normalised request parameters
     // string, both encoded, and separated by &
     $signatureBaseString = strtoupper($request['method']) . '&'
                          . $this->parameterEncode($requestUrl) . '&'
                          . $this->parameterEncode($normalisedRequestParams);
-
+    
+    
     // The signature base string is hashed with a key which is the consumer
     // secret (assigned to your application by the provider) and the token
     // secret (also known as the access token secret, if you've got it yet),
@@ -182,7 +185,7 @@ pr($request);
     if (isset($request['auth']['oauth_token_secret'])) {
       $key .= $this->parameterEncode($request['auth']['oauth_token_secret']);
     }
-
+    
     // Finally construct the signature according to the value of the
     // oauth_signature_method auth param in the request array.
     switch ($request['auth']['oauth_signature_method']) {
@@ -193,7 +196,7 @@ pr($request);
         // @todo implement the other 2 hashing methods
         break;
     }
-
+    
     // Finally, we have all the Authorization header parameters so we can build
     // the header string.
     $authorizationHeader = 'OAuth';
@@ -290,8 +293,9 @@ pr($request);
     if ($encoding != 'UTF-8') {
       $param = mb_convert_encoding($param, 'UTF-8', $encoding);
     }
-    $param = rawurlencode($param);
-    $param = str_replace('%7E', '~', $param);
+    //$param = rawurlencode($param);
+    //$param = str_replace('%7E', '~', $param);
+    $param = str_replace('+',' ',str_replace('%7E','~',rawurlencode($param)));
     return $param;
   }
 

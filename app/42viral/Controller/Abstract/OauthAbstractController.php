@@ -102,6 +102,7 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
+     * @see http://www.slideshare.net/episod/linkedin-oauth-zero-to-hero for oauth_token_secret
      * @author Jason D Snider <jsnider77@gmail.com>
      * @author Neil Crookes <http://www.neilcrookes.com/>
      * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
@@ -119,11 +120,11 @@ abstract class OauthAbstractController extends AppController
             'method' => 'POST',
             'auth' => array(
             'method' => 'OAuth',
-            'oauth_callback' => Configure::read('LinkedIn.callback'),
-            'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
-            'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
-            'oauth_nonce'=>sha1(microtime()),
-            'oauth_timestamp'=>time(),
+            'oauth_callback' => 'http://loc.build.42viral.org/oauth/linkedin_callback',
+            'oauth_consumer_key' => '9DyXW-5Tgwgt3dn76H4_FrjeEyGwuQSrX1r3o6G1_QyIJyfNDgJeHHW9Mf7T2ib0',
+            'oauth_consumer_secret' => 'oyp8wH0WigXPw2rAAysWUSGio0ggVtl-V36xfz8KFiTV4Qsb9Bq8ih3tsN9CW40b'
+            //'oauth_nonce'=>sha1(microtime()),
+            //'oauth_timestamp'=>time(),
             ),
             //Linked in was  complaining about the header not including the Content-Length
             'header' => array(
@@ -132,9 +133,13 @@ abstract class OauthAbstractController extends AppController
         );
 
         $response = $this->HttpSocketOauth->request($request);
-
+        
         // Redirect user to LinkedIn to authorize  my application
         parse_str($response, $response);
+        
+        //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
+        //so that we can use it when we are signing the oauth_access_token request
+        $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
         //$this->redirect('https://www.linkedin.com/uas/oauth/authorize');
         $this->redirect('https://www.linkedin.com/uas/oauth/authorize?oauth_token=' . $response['oauth_token']);
     }  
@@ -149,7 +154,7 @@ abstract class OauthAbstractController extends AppController
      * @access public
      */
     public function linkedin_callback()
-    {
+    {        
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -160,24 +165,29 @@ abstract class OauthAbstractController extends AppController
             'method' => 'POST',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
-                'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
+                'oauth_consumer_key' => '9DyXW-5Tgwgt3dn76H4_FrjeEyGwuQSrX1r3o6G1_QyIJyfNDgJeHHW9Mf7T2ib0',
+                'oauth_consumer_secret' => 'oyp8wH0WigXPw2rAAysWUSGio0ggVtl-V36xfz8KFiTV4Qsb9Bq8ih3tsN9CW40b',
                 'oauth_token' => $this->params['url']['oauth_token'],
                 'oauth_verifier' => $this->params['url']['oauth_verifier'],
-                'oauth_nonce'=>sha1(microtime()),
-                'oauth_timestamp'=>time(),                
+                'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
+                //'oauth_nonce'=>sha1(microtime()),
+                //'oauth_timestamp'=>time(),                
             ),
             'header' => array(
                 'Content-Length' => 0
             ),
         );
 
+       
         $response = $this->HttpSocketOauth->request($request);
+        pr($response);
+        
         $response = parse_str($response, $response);
         
         // Save data in $response to database or session as it contains the access token and access token secret that 
         // you'll need later to interact with the LinkedIn API
         $this->Session->write('LinkedIn', $response);
+        
     } 
     
  
