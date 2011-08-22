@@ -34,6 +34,19 @@ abstract class PostAbstract extends ContentAbstract
      * @var array
      * @access public
      */
+    public $hasMany = array(
+        'Conversation' => array(
+            'className' => 'Conversation',
+            'foreignKey' => 'content_id',
+            'dependent' => true
+        ),
+    );
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
     public $validate = array(
         'title' => array(
             'notEmpty' => array(
@@ -86,6 +99,7 @@ abstract class PostAbstract extends ContentAbstract
         $post = $this->find('first', 
                 array(  'conditions'=>array('Post.slug' => $slug, 'Post.status'=>'published'), 
                         'contain'=>array(
+                            'Conversation'=>array(),
                             'CreatedPerson'=>array(),
                         )
                     )

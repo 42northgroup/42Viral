@@ -68,4 +68,8 @@
     <?php echo $post['Post']['modified']; ?>
 </div>
 
+<?php foreach($post['Conversation'] as $conversation): ?>
+    <div><?php echo $conversation['body']; ?></div>
+<?php endforeach; ?>
+
 <?php echo $this->element('Posts' . DS . 'post_comments'); ?>

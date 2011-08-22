@@ -53,27 +53,34 @@ Configure::write('Comment.engine', 'native');
  * =======================*/
 
 /**
- * Disqus configuration
+ * Disqus
  * @see http://disqus.com/
  */
     ## Configure::write('Disqus.shortname', '');
     ## Configure::write('Disqus.developer', 1);
 
 /**
- * Google Analytics tracking code
+ * Google
  */
 
+//Analytics tracking code
     ## Configure::write('Google.setAccount');
-/**
- * Google Webmaster Tools verification code
- */
+    
+// Webmaster Tools verification code
     ## Configure::write('Google.SiteVerification', '');
 
 /**
- * Twitter OAuth
+ * Twitter
  */
     ## Configure::write('Twitter.consumer_key', '');
     ## Configure::write('Twitter.consumer_secret', '');  
+
+/**
+ * LinkedIn
+ */
+    ## Configure::write('LinkedIn.consumer_key', '');
+    ## Configure::write('LinkedIn.consumer_secret', '');  
+    ## Configure::write('LinkedIn.callback', '/oauth/linkedin_callback'); 
 
 /* ====================
  * == Asset Helper ====
