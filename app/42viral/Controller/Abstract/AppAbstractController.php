@@ -13,7 +13,9 @@ abstract class AppAbstractController extends Controller
      * @var type
      * @access public
      */
-    public $components = array('Auth', 'RequestHandler', 'Security', 'Session');
+
+    public $components = array('Auth', 'RequestHandler', 'Security', 'Session', 'Acl');
+    
 
     /**
      * Application-wide helpers

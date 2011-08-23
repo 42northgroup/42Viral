@@ -35,16 +35,15 @@ class NullBehavior extends ModelBehavior
      */
     public function beforeSave(&$model)
     {  
-       //Loop all incomming data fields 
+       //Loop all incomming data fields         
        foreach($model->data[$model->name] as $key => $value){
            
            //Is the field empty?
             if($value == ''){
                 //Yes, check the schema
-                $schema = $model->schema($key);
-
+                $schema = $model->schema($key);                
                 //Is the schema default NULL ?
-                if(is_null($schema['default'])){
+                if(isset($schema['default']) && is_null($schema['default'])){
                     //Yes, set the value to NULL instead of ''
                     $model->data[$model->name][$key] = NULL;
                 }

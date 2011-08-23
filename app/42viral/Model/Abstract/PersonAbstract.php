@@ -126,8 +126,21 @@ abstract class PersonAbstract extends AppModel
      * @access public 
      */
     public function getPerson($id)
-    {
+    {        
         $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
+        return $person;
+    }
+    
+    /**
+     * Returns the data for a single person
+     * @param string $username
+     * @return array 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     * @access public 
+     */
+    public function getPersonByUsername($username)
+    {
+        $person = $this->find('first', array('conditions'=>array($this->name.'.username' => $username)));
         return $person;
     }
     
