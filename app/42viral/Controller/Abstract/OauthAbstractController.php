@@ -18,7 +18,7 @@ abstract class OauthAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array('People', 'User');
     
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -47,7 +47,8 @@ abstract class OauthAbstractController extends AppController
      * @access public
      */
     public function twitter_connect()
-    {
+    { 
+
         $request = array(
             'uri' => array(
                 'host' => 'api.twitter.com',
@@ -66,6 +67,7 @@ abstract class OauthAbstractController extends AppController
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
         $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
+
     }   
 
     /**
@@ -95,11 +97,9 @@ abstract class OauthAbstractController extends AppController
         );
 
         $response = $this->HttpSocketOauth->request($request);
-        $response = parse_str($response, $response);
-        
-        // Save data in $response to database or session as it contains the access token and access token secret that 
-        // you'll need later to interact with the twitter API
-        $this->Session->write('Auth.Twitter', $response);
+        parse_str($response, $response);
+
+        $this->__auth('4e52e07f-c8fc-4e8d-ac31-20774bb83359', $reponse, 'Auth.User.Twitter');
     } 
 
     /**
@@ -179,10 +179,26 @@ abstract class OauthAbstractController extends AppController
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
         
-        // Save data in $response to database or session as it contains the access token and access token secret that 
-        // you'll need later to interact with the LinkedIn API
-        $this->Session->write('LinkedIn', $response);
+        $this->__auth('4e52e07f-c8fc-4e8d-ac31-20774bb83359', $reponse, 'Auth.User.LinkedIn');
         
     } 
+    
+    /**
+     * A wrapper for common authentication and session functionality
+     * @param type $userId
+     * @param type $response
+     * @param type $key 
+     */
+    public function __auth($userId, $response, $key){
+        $user = $this->User->getProfile($userId);
+        
+        if($this->Auth->login($user['User'])){
+            $this->Session->setFlash('You have been authenticated', 'success');
+            // Save data in $response to database or session as it contains the access token and access token secret 
+            // that you'll need later to interact with the LinkedIn API
+            $this->Session->write($key, $response);
+            $this->redirect($this->Auth->redirect());
+        }
+    }
     
 }

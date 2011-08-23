@@ -56,7 +56,7 @@ abstract class UsersAbstractController extends AppController
                 $hash = Sec::hashPassword($this->data['User']['password'], $user['User']['salt']);
                 if($hash == $user['User']['password']){
                     
-                    if($this->Auth->login($user)){
+                    if($this->Auth->login($user['User'])){
                         $this->Session->setFlash('You have been authenticated', 'success');
                         
                         $this->redirect($this->Auth->redirect());
