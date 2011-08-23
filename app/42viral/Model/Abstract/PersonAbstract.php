@@ -90,7 +90,7 @@ abstract class PersonAbstract extends AppModel
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),
+        )
     );
     
     /**

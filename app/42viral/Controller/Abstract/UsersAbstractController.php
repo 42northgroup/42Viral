@@ -26,6 +26,7 @@ abstract class UsersAbstractController extends AppController
         
         $this->Auth->allow('create', 'login');
         
+        //Allows us to login against either the username or email
         $this->Auth->fields = array('username' => array('username', 'email'));
         
         $this->Auth->autoRedirect = true;

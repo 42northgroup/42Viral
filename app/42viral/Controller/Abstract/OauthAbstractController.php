@@ -18,7 +18,7 @@ abstract class OauthAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('People', 'User');
+    public $uses = array('Oauth', 'People', 'User');
     
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -32,7 +32,10 @@ abstract class OauthAbstractController extends AppController
     public function beforeFilter(){
         parent::beforeFilter();
         $this->Auth->allow('*');
+        
+        //Allows us to login against a user id
         $this->Auth->fields = array('username' => array('id'));
+        
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');        
@@ -81,6 +84,7 @@ abstract class OauthAbstractController extends AppController
     public function twitter_callback()
     {
         // Issue request for access token
+        /*
         $request = array(
             'uri' => array(
                 'host' => 'api.twitter.com',
@@ -98,8 +102,18 @@ abstract class OauthAbstractController extends AppController
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
+        */
+        
+        $response = array(
+            'oauth_token' => "thisisafakeoauthtokenstring",
+            'oauth_token_secret' => "thisisafakeoauthtokensecretstring",
+            'user_id' => "12345678",
+            'screen_name' => "Fake_User"
+        );
+        
+        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id'], 'Auth.User.Twitter');
 
-        $this->__auth('4e52e07f-c8fc-4e8d-ac31-20774bb83359', $reponse, 'Auth.User.Twitter');
+        $this->__auth($oauthUserId, $response, 'Auth.User.Twitter');
     } 
 
     /**
