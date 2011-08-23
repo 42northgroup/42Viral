@@ -32,6 +32,10 @@ abstract class OauthAbstractController extends AppController
     public function beforeFilter(){
         parent::beforeFilter();
         $this->Auth->allow('*');
+        $this->Auth->fields = array('username' => array('id'));
+        $this->Auth->autoRedirect = true;
+        $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
+        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');        
     }
 
     /**
@@ -121,8 +125,6 @@ abstract class OauthAbstractController extends AppController
             'oauth_callback' => Configure::read('LinkedIn.callback'),
             'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
             'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
-            'oauth_nonce'=>sha1(microtime()),
-            'oauth_timestamp'=>time(),
             ),
             //Linked in was  complaining about the header not including the Content-Length
             'header' => array(
@@ -138,7 +140,6 @@ abstract class OauthAbstractController extends AppController
         //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
         //so that we can use it when we are signing the oauth_access_token request
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
-        //$this->redirect('https://www.linkedin.com/uas/oauth/authorize');
         $this->redirect('https://www.linkedin.com/uas/oauth/authorize?oauth_token=' . $response['oauth_token']);
     }  
     
@@ -183,7 +184,5 @@ abstract class OauthAbstractController extends AppController
         $this->Session->write('LinkedIn', $response);
         
     } 
-    
- 
     
 }
