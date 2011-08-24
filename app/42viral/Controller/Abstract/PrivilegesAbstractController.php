@@ -23,6 +23,10 @@ abstract class PrivilegesAbstractController extends AppController {
     public function admin_build_initial_acl()
     {
        $controllers = $this->ControllerList->get();
+       pr($controllers);
+       
+       $this->Acl->Aco->create(array('alias'=>'root',0,0));
+       $this->Acl->Aco->save();
        
        foreach($controllers as $key => $value){
             foreach($controllers[$key] as $action){
@@ -41,7 +45,7 @@ abstract class PrivilegesAbstractController extends AppController {
         
         $this->Acl->Aro->save();
         
-        $this->redirect('/admin/privileges/user_privileges/root');
+        //$this->redirect('/admin/privileges/user_privileges/root');
     }
     
     public function admin_user_privileges($username){
