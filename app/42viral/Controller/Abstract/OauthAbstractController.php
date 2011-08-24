@@ -190,12 +190,34 @@ abstract class OauthAbstractController extends AppController
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
 
-        /*
-        $response1 = $this->HttpSocket->request("http://api.linkedin.com/v1/people-search?keywords=Hacker");
+        pr($response);
+        
+        $request1 = array(
+            'uri' => array(
+                'scheme' => 'http',
+                'host' => 'api.linkedin.com',
+                'path' => '/v1/people/~'
+            ),
+            'method' => 'GET',
+            'auth' => array(
+                'method' => 'OAuth',
+                'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
+                'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
+                'oauth_token' => $response['oauth_token'],
+                //'oauth_verifier' => $this->params['url']['oauth_verifier'],
+                'oauth_token_secret' => $response['oauth_token_secret']    
+            ),
+            'header' => array(
+                'Content-Length' => 0
+            ),
+        );
+        
+        $response1 = $this->HttpSocketOauth->request($request1);
+
         parse_str($response1, $response1);
         pr($response1);
-        */
         
+        $response1['user_id'] = $response1['amp;key'];
         /*
         $repsponse = array
         (
@@ -206,7 +228,7 @@ abstract class OauthAbstractController extends AppController
         );
         */
         
-        $oauthUserId = $this->Oauth->oauthed('linked_in', $response['user_id'], 'LinkedIn');
+        $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id'], 'LinkedIn');
         $this->__auth($oauthUserId, $response, 'LinkedIn'); 
         
     } 
