@@ -19,11 +19,12 @@ abstract class PrivilegesAbstractController extends AppController {
 
     }
     
-    
+    /**
+     * @todo - Come up with some kind of run once logic
+     */
     public function admin_build_initial_acl()
     {
        $controllers = $this->ControllerList->get();
-       pr($controllers);
        
        $this->Acl->Aco->create(array('alias'=>'root',0,0));
        $this->Acl->Aco->save();
@@ -44,8 +45,6 @@ abstract class PrivilegesAbstractController extends AppController {
             'alias'=>'root', 0, 0));
         
         $this->Acl->Aro->save();
-        
-        //$this->redirect('/admin/privileges/user_privileges/root');
     }
     
     public function admin_user_privileges($username){
