@@ -12,6 +12,12 @@ class CompaniesController extends CompaniesAbstractController
 
     /**
      *
+     * @var type
+     */
+    public $uses = array('Company');
+
+    /**
+     *
      *
      * @return void
      * @author Zubin Khavarian <zkhavarian@microtrain.net>
@@ -21,10 +27,24 @@ class CompaniesController extends CompaniesAbstractController
     {
         //$this->Session->read('Auth.User.User.id');
 
-        $yahooResults = $this->__profileDoYahoo();
+        $userId = null;
+
+        if($this->Session->check('Auth.User.User.id')) {
+            $userId = $this->Session->read('Auth.User.User.id');
+        }
+
+        if(!is_null($userId)) {
+            $company = $this->Company->fetchUserCompany($userId);
+        }
+
+        $yahooResults = $this->__profileDoYahoo($company);
+        $yelpResults = array();
+        $googleResults = array();
 
         $results = array(
-            'yahoo' => $yahooResults
+            'yahoo' => $yahooResults,
+            'yelp' => $yelpResults,
+            'google' => $googleResults
         );
 
         $this->set('results', $results);
@@ -36,17 +56,35 @@ class CompaniesController extends CompaniesAbstractController
      * @access public
      * @return type
      */
-    private function __profileDoYahoo()
+    private function __profileDoYahoo($company)
     {
-        $requestObject = array(
-            'requestUrl' => 'http://local.yahooapis.com/LocalSearchService/V3/localSearch',
-            'params' => array(
+        if(
+            isset($company['Company']['yahoo_listing_id']) &&
+            !empty($company['Company']['yahoo_listing_id'])
+        ) {
+            $requestParams = array(
                 'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
                 'output' => 'php',
-                'query' => 'computer training',
-                'zip' => '60606',
-            //'listing_id' => '40830988'
-            )
+                'query' => '*',
+                'listing_id' => '40830988'
+            );
+        } else {
+            $requestParams = array(
+                'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
+                'output' => 'php',
+                'query' => $company['Company']['name'],
+                'street' => $company['Company']['addr_street'],
+                'city' => $company['Company']['addr_city'],
+                'state' => $company['Company']['addr_state'],
+                'zip' => $company['Company']['addr_zip'],
+            );
+        }
+
+        //pr($requestParams);
+
+        $requestObject = array(
+            'requestUrl' => 'http://local.yahooapis.com/LocalSearchService/V3/localSearch',
+            'params' => $requestParams
         );
 
         $HttpSocket = new HttpSocket();

@@ -7,4 +7,16 @@ App::uses('CompanyAbstract', 'Model');
  */
 class Company extends CompanyAbstract {
     //public $name = 'Company';
+
+    public function fetchUserCompany($userId)
+    {
+
+        $companies = $this->find('first', array(
+            'conditions' => array(
+                'owner_person_id' => $userId
+            )
+        ));
+
+        return $companies;
+    }
 }
