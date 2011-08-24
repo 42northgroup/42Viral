@@ -1,4 +1,4 @@
-<?php if($this->Session->check('Auth.User.User.id')): ?>
+<?php if($this->Session->check('Auth.User.id')): ?>
 
     <h4>Content Management</h4>
     

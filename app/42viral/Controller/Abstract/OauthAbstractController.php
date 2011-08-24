@@ -33,9 +33,6 @@ abstract class OauthAbstractController extends AppController
         parent::beforeFilter();
         $this->Auth->allow('*');
         
-        //Allows us to login against a user id
-        $this->Auth->fields = array('username' => array('id'));
-        
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');        
@@ -111,9 +108,9 @@ abstract class OauthAbstractController extends AppController
             'screen_name' => "Fake_User"
         );
         
-        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id'], 'Auth.User.Twitter');
+        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id'], 'Twitter');
 
-        $this->__auth($oauthUserId, $response, 'Auth.User.Twitter');
+        $this->__auth($oauthUserId, $response, 'Twitter'); 
     } 
 
     /**
@@ -203,16 +200,55 @@ abstract class OauthAbstractController extends AppController
      * @param type $response
      * @param type $key 
      */
-    public function __auth($userId, $response, $key){
-        $user = $this->User->getProfile($userId);
+    public function __auth($userId, $response, $oauthKey){
+
+
+        $user = $this->User->getUser($userId);
         
-        if($this->Auth->login($user['User'])){
-            $this->Session->setFlash('You have been authenticated', 'success');
-            // Save data in $response to database or session as it contains the access token and access token secret 
-            // that you'll need later to interact with the LinkedIn API
-            $this->Session->write($key, $response);
+        if(empty($user)){
+            $this->log("User not found {$user['User']['username']}", 'weekly_user_login');
+            $error = true;
+        }else{
+
+            $hash = Sec::hashPassword(Configure::read('Oauth.password'), $user['User']['salt']);
+            if($hash == $user['User']['password']){
+
+                if($this->Auth->login($user['User'])){
+                    $this->Session->setFlash('You have been authenticated', 'success');
+
+                    $this->redirect($this->Auth->redirect());
+
+                    $error = false;
+                }else{
+                    $error = true;
+                }
+
+            }else{
+                $this->log("Password mismatch {$this->data['User']['username']}", 'weekly_user_login');
+                $error = true;
+            }
+        }      
+        
+        
+        
+        
+        /*
+        if($this->Auth->login($userId)){
+            
+            $this->Session->setFlash('You have been authenticated', 'success');          
+            
+            $session = array(
+                'User'=>$user,
+                $oauthKey => $response
+            );
+            
+            $this->Session->write('Auth', $session);
+            
             $this->redirect($this->Auth->redirect());
         }
+         * */
+       
+        
     }
     
 }

@@ -95,7 +95,7 @@ abstract class UserAbstract extends PersonAbstract
         $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
         $userFilter = array( 
                 "not"=>array(
-                    "User.username" => null
+                    "Username" => null
                 )
             );
         $query['conditions'] = array_merge($query['conditions'], $userFilter);
@@ -161,14 +161,15 @@ abstract class UserAbstract extends PersonAbstract
                     array(
                         'conditions'=>array(
                             'or'=>array(
-                                'User.username'=>$token,
-                                'User.email'=>$token
+                                'Username'=>$token,
+                                'User.email'=>$token,
+                                'User.id'=>$token
                             )
                         ),
                         'contain'=>array()
                     )
                 );
-        
+
         return $user;
     }
     
@@ -185,7 +186,7 @@ abstract class UserAbstract extends PersonAbstract
                     array(
                         'conditions'=>array(
                             'or'=>array(
-                                'User.username'=>$token,
+                                'Username'=>$token,
                                 'User.id'=>$token
                             ),
                         ),

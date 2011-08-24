@@ -326,7 +326,7 @@ abstract class ContentsAbstractController extends AppController {
         $contents = $this->Content->find('all', 
                 array(
                     'conditions'=>array(
-                        'Content.created_person_id' => $this->Session->read('Auth.User.User.id')
+                        'Content.created_person_id' => $this->Session->read('Auth.User.id')
                 )));
                 
         $this->set('contents', $contents);

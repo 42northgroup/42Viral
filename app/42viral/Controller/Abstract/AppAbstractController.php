@@ -29,7 +29,7 @@ abstract class AppAbstractController extends Controller
      */
     public function beforeFilter()
     {
-        if($this->Session->check('Auth.User.User.id')){
+        if($this->Session->check('Auth.User.id')){
             $this->Auth->allow('*');
         }   
     }
@@ -40,7 +40,7 @@ abstract class AppAbstractController extends Controller
      * @access public
      */
     public function beforeRender()
-    {
+    { pr($_SESSION);
         $this->viewClass = 'Theme';
         $this->theme = THEME_SET;
         

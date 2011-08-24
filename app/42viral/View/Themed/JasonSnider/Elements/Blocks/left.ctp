@@ -3,6 +3,6 @@
     <li><a href="/pages">Pages</a></li>
 </ul>
 
-<?php if($this->Session->check('Auth.User.User.id')): ?>
+<?php if($this->Session->check('Auth.User.id')): ?>
     <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'contents'); ?>
 <?php endif; ?>

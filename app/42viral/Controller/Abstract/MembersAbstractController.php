@@ -19,7 +19,7 @@ abstract class MembersAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array('User');
     
     /**
      * @var array
@@ -64,10 +64,10 @@ abstract class MembersAbstractController extends AppController {
      */
     public function view($token = null)
     {
-
+pr($this->User->getProfile($token));
         // If we have no token, we will use the logged in user.
         if(is_null($token)){
-            $token = $this->Session->read('Auth.User.User.username');
+            $token = $this->Session->read('Auth.Username');
             if(empty($token)):
                 $this->Session->setFlash(__('An invalid profile was requested') ,'error');
                 $this->redirect('/users/login');
@@ -75,13 +75,12 @@ abstract class MembersAbstractController extends AppController {
         }
         
         // Mine
-        if($this->Session->read('Auth.User.User.username') == $token){
+        if($this->Session->read('Auth.User.username') == $token){
             $this->set('mine', true);
         }else{
             $this->set('mine', false);
         }
         
-        $this->loadModel('User');
         $user = $this->User->getProfile($token);
         $this->set('user', $user);
         
