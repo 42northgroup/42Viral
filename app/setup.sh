@@ -1,4 +1,4 @@
-#!/bin/bash 
+#!/bin/bash
 
 # Absolute path to this script, e.g. /var/www/htdocs/app/setup.sh
 SCRIPT=`readlink -f $0`
@@ -40,7 +40,7 @@ CONFIG_PATHS="
 # Are all of the config paths in place?
 for CONFIG_PATH in $CONFIG_PATHS
 do
-    if [ ! -f "$SCRIPT_PATH$CONFIG_PATH.default" ] 
+    if [ ! -f "$SCRIPT_PATH$CONFIG_PATH.default" ]
     then
         echo "*** Missing default config file $SCRIPT_PATH$CONFIG_PATH.default"
         ERROR=1
@@ -60,39 +60,42 @@ then
         cp "$SCRIPT_PATH$CONFIG_PATH.default" "$SCRIPT_PATH$CONFIG_PATH"
     done
 
-else 
+else
     echo '*** Error - The indicated default config files are missing, exiting setup'
     exit 0
 fi
 
 echo 'Setting permissions'
 
+touch $SCRIPT_PATH/tmp/logs/error.log
+touch $SCRIPT_PATH/tmp/logs/debug.log
+
 # Set proper permissions to the newly created files
 
 for CONFIG_PATH in $CONFIG_PATHS
 do
     chown "$USER":"$USER" -fR "$SCRIPT_PATH$CONFIG_PATH" && chmod 775 -fR "$SCRIPT_PATH$CONFIG_PATH"
-    echo "+++$SCRIPT_PATH$CONFIG_PATH" 
+    echo "+++$SCRIPT_PATH$CONFIG_PATH"
 done
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializerendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"  
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializerendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 chmod 775 -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
-echo ">>>$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer" 
+echo ">>>$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"  
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"
 chmod 775 -fR "$SCRIPT_PATH/tmp"
-echo ">>>$SCRIPT_PATH/tmp" 
- 
+echo ">>>$SCRIPT_PATH/tmp"
+
 chown "$APACHE_PROCESS":"$USER" -fR webroot/cache
 chmod 775 -fR "$SCRIPT_PATH/webroot/cache"
-echo ">>>$SCRIPT_PATH/webroot/cache" 
+echo ">>>$SCRIPT_PATH/webroot/cache"
 
 chown "$APACHE_PROCESS":"$USER" -fR webroot/img/people
 chmod 775 -fR "$SCRIPT_PATH/webroot/img/people"
-echo ">>>$SCRIPT_PATH/img/people" 
+echo ">>>$SCRIPT_PATH/img/people"
 
 chown "$APACHE_PROCESS":"$USER" -fR webroot/files/people
-chmod 775 -fR "$SCRIPT_PATH/webroot/files/people" 
+chmod 775 -fR "$SCRIPT_PATH/webroot/files/people"
 echo ">>>$SCRIPT_PATH/webroot/files/people"
 
 echo 'Permissions set'

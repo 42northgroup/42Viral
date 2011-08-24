@@ -59,7 +59,7 @@ define('FILE_READ_PATH', '/files/people/');
  * Comment engines
  *     native - 42Viral's native comment engine (Default)
  *     //See Thrid Party API's for additional configuration
- */   
+ */
 Configure::write('Comment.engine', 'native');
 
 /* =========================
@@ -85,6 +85,7 @@ Configure::write('Comment.engine', 'native');
     ## Configure::write('Google.setAccount');
 
 //Webmaster Tools verification code
+
     ## Configure::write('Google.SiteVerification', '');
     
 // Apps
@@ -97,12 +98,14 @@ Configure::write('Comment.engine', 'native');
     ## Configure::write('Twitter.consumer_secret', '');
     ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
 
+
 /**
  * LinkedIn
  */
     ## Configure::write('LinkedIn.consumer_key', '');
-    ## Configure::write('LinkedIn.consumer_secret', '');  
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback'); 
+    ## Configure::write('LinkedIn.consumer_secret', '');
+    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
+
 
 /* ====================
  * == Asset Helper ====
@@ -122,13 +125,13 @@ define('JS_METHOD', 'closureLocal');
  * CSS_METHOD: (CSS minification method to use)
  *     cssMin - http://code.google.com/p/cssmin/
  *     yuiLocal      - Uses a local yui jar file
- * 
+ *
  */
 define('CSS_METHOD', 'yuiLocal');
 
 /**
- * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server 
- * path) 
+ * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server
+ * path)
  */
 define('ASSET_CACHE', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'cache');
 
@@ -158,7 +161,7 @@ define('YUI',   ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'yui' 
 define('MINIFY_ASSETS', true);
 
 /**
- * When set to true this overrides the native hash checking functionality and forces a new asset build 
+ * When set to true this overrides the native hash checking functionality and forces a new asset build
  */
 define('FORCE_NEW_ASSETS', false);
 
@@ -167,22 +170,28 @@ define('FORCE_NEW_ASSETS', false);
  * ================*/
 // Test Case common constants
 /**
- * 
+ *
  */
 define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
 
 /**
- * 
+ *
  */
 define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
 
 /**
- * 
+ *
  */
 define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
 
 /**
- * 
+ *
  */
 define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
+
+
+/**
+ *
+ */
+define('APP_ID_YAHOO_LOCAL_SEARCH', '');
 ?>
