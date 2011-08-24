@@ -59,7 +59,6 @@ define('FILE_READ_PATH', '/files/people/');
  * Comment engines
  *     native - 42Viral's native comment engine (Default)
  *     //See Thrid Party API's for additional configuration
- *     disqus - @link http://disqus.com/
  */   
 Configure::write('Comment.engine', 'native');
 

@@ -81,23 +81,11 @@ body{
     border-bottom: 1px solid #e5e5e5;    
 }
 
-#Main{
-    position:relative;
-    font-weight: bold;
-    margin:0 225px 0 175px ;
+#MainContent{
+    float:left;
 }
-
 
 #MainLeft{
-    position:absolute;
-    left: -175px;
-    top: 0;
-    width:175px; 
-}
-
-#MainRight{
-    position:absolute;
-    right: -225px;
-    top: 0;
-    width:225px;    
+    float:left;
+    width:175px;    
 }

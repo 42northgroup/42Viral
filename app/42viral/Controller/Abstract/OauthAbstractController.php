@@ -189,7 +189,7 @@ abstract class OauthAbstractController extends AppController
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-        
+
         /*
         $response1 = $this->HttpSocket->request("http://api.linkedin.com/v1/people-search?keywords=Hacker");
         parse_str($response1, $response1);
