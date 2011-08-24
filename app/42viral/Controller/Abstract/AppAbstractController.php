@@ -40,7 +40,7 @@ abstract class AppAbstractController extends Controller
      * @access public
      */
     public function beforeRender()
-    { pr($_SESSION);
+    { 
         $this->viewClass = 'Theme';
         $this->theme = THEME_SET;
         

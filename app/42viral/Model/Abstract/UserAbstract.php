@@ -128,7 +128,7 @@ abstract class UserAbstract extends PersonAbstract
      * @todo Complete and harden
      */
     public function createUser($data)
-    {
+    {pr($data);
         //Create a salt value for the user
         $salt = Sec::makeSalt();
         
@@ -181,12 +181,12 @@ abstract class UserAbstract extends PersonAbstract
      * @access public
      */
     public function getProfile($token)
-    {
+    {   
         $user = $this->find('first', 
                     array(
                         'conditions'=>array(
                             'or'=>array(
-                                'Username'=>$token,
+                                'User.username'=>$token,
                                 'User.id'=>$token
                             ),
                         ),

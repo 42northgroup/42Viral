@@ -81,7 +81,6 @@ abstract class OauthAbstractController extends AppController
     public function twitter_callback()
     {
         // Issue request for access token
-        /*
         $request = array(
             'uri' => array(
                 'host' => 'api.twitter.com',
@@ -99,17 +98,16 @@ abstract class OauthAbstractController extends AppController
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-        */
-        
+
+        /*
         $response = array(
             'oauth_token' => "thisisafakeoauthtokenstring",
             'oauth_token_secret' => "thisisafakeoauthtokensecretstring",
             'user_id' => "12345678",
             'screen_name' => "Fake_User"
         );
-        
+        */
         $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id'], 'Twitter');
-
         $this->__auth($oauthUserId, $response, 'Twitter'); 
     } 
 
@@ -147,11 +145,11 @@ abstract class OauthAbstractController extends AppController
         
         // Redirect user to LinkedIn to authorize  my application
         parse_str($response, $response);
-        
+        //pr($response); die();
         //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
         //so that we can use it when we are signing the oauth_access_token request
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
-        $this->redirect('https://www.linkedin.com/uas/oauth/authorize?oauth_token=' . $response['oauth_token']);
+        $this->redirect('https://www.linkedin.com/uas/oauth/authenticate?oauth_token=' . $response['oauth_token']);
     }  
     
 
@@ -163,6 +161,7 @@ abstract class OauthAbstractController extends AppController
      * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
+     * @todo How do we get a unique identifier to tie this to a person?
      */
     public function linkedin_callback()
     {        
@@ -190,7 +189,20 @@ abstract class OauthAbstractController extends AppController
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
         
-        $this->__auth('4e52e07f-c8fc-4e8d-ac31-20774bb83359', $reponse, 'Auth.User.LinkedIn');
+        //pr($response);
+        
+        /*
+        $repsponse = array
+        (
+            'oauth_token' => 'some-fake-token',
+            'oauth_token_secret' => 'some-fake-token-secret',
+            'oauth_expires_in' => 0,
+            'oauth_authorization_expires_in' => 0
+        );
+        */
+        
+        $oauthUserId = $this->Oauth->oauthed('linked_in', $response['user_id'], 'LinkedIn');
+        $this->__auth($oauthUserId, $response, 'LinkedIn'); 
         
     } 
     
@@ -199,6 +211,8 @@ abstract class OauthAbstractController extends AppController
      * @param type $userId
      * @param type $response
      * @param type $key 
+     * @todo Generalize this with User::login()
+     * @todo make use of or remove $error
      */
     public function __auth($userId, $response, $oauthKey){
 
@@ -214,8 +228,13 @@ abstract class OauthAbstractController extends AppController
             if($hash == $user['User']['password']){
 
                 if($this->Auth->login($user['User'])){
-                    $this->Session->setFlash('You have been authenticated', 'success');
+                    
+                    $session = $this->Session->read('Auth');
+                    $oauthData = array($oauthKey => $response);
 
+                    $this->Session->write('Auth', array_merge($session, $oauthData));
+                    
+                    $this->Session->setFlash('You have been authenticated', 'success');
                     $this->redirect($this->Auth->redirect());
 
                     $error = false;
@@ -228,27 +247,7 @@ abstract class OauthAbstractController extends AppController
                 $error = true;
             }
         }      
-        
-        
-        
-        
-        /*
-        if($this->Auth->login($userId)){
-            
-            $this->Session->setFlash('You have been authenticated', 'success');          
-            
-            $session = array(
-                'User'=>$user,
-                $oauthKey => $response
-            );
-            
-            $this->Session->write('Auth', $session);
-            
-            $this->redirect($this->Auth->redirect());
-        }
-         * */
-       
-        
+  
     }
     
 }

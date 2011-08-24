@@ -1,6 +1,7 @@
 <?php
 App::uses('AppModel', 'Model');
-App::uses('Person', 'Model');
+App::uses('User', 'Model');
+App::uses('Sec', 'Utility');
 /**
  * 
  * @package App
@@ -31,7 +32,7 @@ abstract class OauthAbstract extends AppModel
     public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
         
-        $this->Person = new Person();
+        $this->User = new User();
     }
     
     /**
@@ -79,7 +80,7 @@ abstract class OauthAbstract extends AppModel
     /**
      * Creates a new OAuth entry and person
      * @param string $service
-     * @param string $oauthId
+     * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
      * @return string 
      */
     public function createOauthed($service, $oauthId){
@@ -98,13 +99,13 @@ abstract class OauthAbstract extends AppModel
             $newOuathId = $this->id;
             
             //Build the Person reocrd
-            $oauthedPerson = array();
-            $oauthedPerson['Person']['id'] = $personId;
-            $oauthedPerson['Person']['username'] = "{$service}_{$oauthId}";
-            $hash = Sec::hashPassword(Configure::read('Oauth.password'), $user['User']['salt']);
-            $ouathedPerson['Person']['password'] = Security::hash();
+            $oauthedUser = array();
+            $oauthedUser['User']['id'] = $personId;
+            $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
+            $oauthedUser['User']['password'] = Configure::read('Oauth.password');
+            $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
             
-            if($this->Person->save($oauthedPerson)){
+            if($this->User->createUser($oauthedUser['User'])){
                 return $personId;
             }else{
                 //If the Person record fails, roll back the Oauth record
