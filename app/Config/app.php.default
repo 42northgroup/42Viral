@@ -84,8 +84,8 @@ Configure::write('Comment.engine', 'native');
 
 //Analytics tracking code
     ## Configure::write('Google.setAccount');
-    
-// Webmaster Tools verification code
+
+//Webmaster Tools verification code
     ## Configure::write('Google.SiteVerification', '');
 
 /**
@@ -93,14 +93,14 @@ Configure::write('Comment.engine', 'native');
  */
     ## Configure::write('Twitter.consumer_key', '');
     ## Configure::write('Twitter.consumer_secret', '');
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . '/oauth/twitter_callback');
+    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
 
 /**
  * LinkedIn
  */
     ## Configure::write('LinkedIn.consumer_key', '');
     ## Configure::write('LinkedIn.consumer_secret', '');  
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . '/oauth/linkedin_callback'); 
+    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback'); 
 
 /* ====================
  * == Asset Helper ====

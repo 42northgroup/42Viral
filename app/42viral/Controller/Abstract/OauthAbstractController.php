@@ -2,7 +2,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('HttpSocketOauth', 'Lib');
-
+App::uses('HttpSocket', 'Network/Http');
 /**
  * @author Jason D Snider <jsnider77@gmail.com>
  * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
@@ -22,8 +22,9 @@ abstract class OauthAbstractController extends AppController
     
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
-        // Get a request token from twitter
+
         $this->HttpSocketOauth = new HttpSocketOauth();
+        $this->HttpSocket = new HttpSocket();
     }
 
     /**
@@ -189,7 +190,11 @@ abstract class OauthAbstractController extends AppController
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
         
-        //pr($response);
+        /*
+        $response1 = $this->HttpSocket->request("http://api.linkedin.com/v1/people-search?keywords=Hacker");
+        parse_str($response1, $response1);
+        pr($response1);
+        */
         
         /*
         $repsponse = array
