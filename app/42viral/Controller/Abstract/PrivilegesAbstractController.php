@@ -8,7 +8,7 @@ App::uses('AppController', 'Controller');
 abstract class PrivilegesAbstractController extends AppController {
     
     public $components = array('ControllerList');
-    public $uses = array('Person', 'Aro', 'Aco');
+    public $uses = array('Person', 'Aro', 'Aco', 'AclGroup');
     
 
     public function beforeFilter()
@@ -49,13 +49,18 @@ abstract class PrivilegesAbstractController extends AppController {
         $controllers = $this->ControllerList->get();
         $this->set('username', $username);
         $this->set('controllers', $controllers);
-        $this->set('person', $this->Person->getPersonByUsername($username));
-        
-        $aro = $this->Aro->findByAlias($username);
+        $this->set('person', $this->Person->findByUsername($username));
         
         $acos = $this->Aco->find('list', array(
             'fields' => array('Aco.id', 'Aco.alias')
         ));
+        
+        $acl_groups = $this->Aro->find('list', array(
+            'conditions' => array('Aro.model' => 'AclGroup'),
+            'fields' => array('Aro.id', 'Aro.alias')
+        ));
+        
+        $this->set('acl_groups', $acl_groups);
         
         foreach($controllers as $key => $val){
             foreach($controllers[$key] as $index => $action){
@@ -71,23 +76,8 @@ abstract class PrivilegesAbstractController extends AppController {
             }
         }
         
-        foreach ($aro['Aco'] as $aco){
-            foreach($aco['Permission'] as $key => $val){
-                
-                if(!in_array($key, array('id', 'aro_id', 'aco_id'))){
-                    
-                    $controller_action = explode('-',$aco['alias']);
-                    $perm = str_ireplace('_', '', $key);
-                    $privileges[$controller_action[0]][$controller_action[1]][$perm] = $val;
-                }
-            }
-        }
+        $this->set('privileges', $this->fetchPrivileges($username));
         
-        if(isset($privileges)){
-            $this->set('privileges', $privileges);
-        }
-        
-         
         if(!empty ($this->data)){
             foreach($this->data as $controller => $action){
                 if($controller != '_Token'){
@@ -107,6 +97,69 @@ abstract class PrivilegesAbstractController extends AppController {
             }
             $this->redirect('/admin/privileges/user_privileges/'.$username);
         }
+    }
+    
+    public function admin_join_group(){
+        
+        if(!empty ($this->data)){
+            $aro = $this->Aro->findByAlias($this->data['JoinGroup']['user_alias']);
+            $aro['Aro']['parent_id'] = $this->data['JoinGroup']['groups'];
+            
+            unset($aro['Aro']['lft']);
+            unset($aro['Aro']['rght']);
+            
+            $this->Acl->Aro->save($aro['Aro']);
+            
+            $controllers = $this->ControllerList->get();
+            
+            foreach($controllers as $key => $val){
+                foreach($controllers[$key] as $index => $action){
+                    
+                    $this->Acl->inherit($this->data['JoinGroup']['user_alias'],$key.'-'.$action,'*');
+                }
+            }
+            
+            $this->redirect('/admin/privileges/user_privileges/'.$this->data['JoinGroup']['user_alias']);            
+            
+        }
+        
+        
+    }
+    
+    public function fetchPrivileges($username)
+    {
+        $aro = $this->Aro->findByAlias($username);
+        if( $aro['Aro']['model']=='AclGroup' ){
+            $this->set('is_group',1);
+        }
+                
+        if( $aro['Aro']['parent_id'] != null ){
+            $aro_group = $this->Aro->findById($aro['Aro']['parent_id']);            
+        }
+        
+        $privileges = array();
+        if(!empty ($aro)){
+            for ($x=0; $x<count($aro['Aco']); $x++){
+                foreach($aro['Aco'][$x]['Permission'] as $key => $val){
+                    
+                    if(!in_array($key, array('id', 'aro_id', 'aco_id'))){
+
+                        $controller_action = explode('-', $aro['Aco'][$x]['alias']);
+                        $perm = str_ireplace('_', '', $key);
+                        
+                        if($val != 0){
+                            $privileges[$controller_action[0]][$controller_action[1]][$perm] = $val;
+                        }else{
+                            $privileges[$controller_action[0]][$controller_action[1]][$perm] = 
+                                            isset($aro_group['Aco'][$x])?$aro_group['Aco'][$x]['Permission'][$key]:0;
+                        }
+                    }
+                }
+            }
+            
+        }
+        
+        return $privileges;
     }
     
 }

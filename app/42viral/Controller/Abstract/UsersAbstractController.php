@@ -15,8 +15,8 @@ abstract class UsersAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array();
-
+    public $uses = array('Person', 'User', 'AclGroup');
+    
 
     /**
      * @access public
@@ -112,6 +112,13 @@ abstract class UsersAbstractController extends AppController
             if($this->User->createUser($this->data['User'])){
             
                 $user = $this->User->findByUsername($this->data['User']['username']);
+                
+                $this->Acl->Aro->create(array(            
+                    'model'=>'User',
+                    'foreign_key'=>$user['User']['id'],
+                    'alias'=>$user['User']['username'], 0, 0));
+
+                $this->Acl->Aro->save();
 
                 if($this->Auth->login($user)){
                     $this->Session->setFlash('Your account has been created and you have been logged in','success');
@@ -126,5 +133,38 @@ abstract class UsersAbstractController extends AppController
             }
 
         }
-    } 
+    }
+    
+    public function admin_create_group()
+    {
+        
+        if(!empty($this->data)){    
+
+            if($this->AclGroup->save($this->data['AclGroup'])){
+            
+                $acl_group = $this->AclGroup->findByAlias($this->data['AclGroup']['alias']);
+                
+                $this->Acl->Aro->create(array(            
+                    'model'=>'AclGroup',
+                    'foreign_key'=>$acl_group['AclGroup']['id'],
+                    'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
+
+                $this->Acl->Aro->save();
+
+                $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
+            }else{
+                $this->Session->setFlash('Your account could not be created','error');
+            }
+
+        }
+    }
+    
+    public function admin_index()
+    {
+        $people = $this->Person->find('all');
+        $acl_groups = $this->AclGroup->find('all');
+        
+        $this->set('acl_groups', $acl_groups);        
+        $this->set('people', $people);
+    }
 }

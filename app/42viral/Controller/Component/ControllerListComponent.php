@@ -12,7 +12,7 @@ class ControllerListComponent extends Component {
         
         foreach($controllerClasses as $controller) {
             
-            if (strpos($controller,'App') === false) {
+            if (strpos($controller,'App') === false && strpos($controller,'Abstract') === false) {
                 $controller = str_ireplace('Controller', '', $controller);
                 App::import('Controller', $controller);
                 $actions = get_class_methods($controller.'Controller');

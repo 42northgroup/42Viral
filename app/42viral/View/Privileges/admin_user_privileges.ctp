@@ -1,5 +1,11 @@
 <script type="text/javascript">
     $(function(){
+        
+        $("#JoinGroup").click(function(event){
+            event.preventDefault();
+            $("#JoinGroupList").toggle();
+        });
+        
         $('table').delegate('a', 'click', function(e){
             e.preventDefault();
             var range = $(this).attr('id');
@@ -32,6 +38,30 @@
     });
 </script>
 <h1>User Privileges</h1>
+
+<?php if(!isset($is_group)): ?>
+    <a href="" id="JoinGroup" >Join Group</a>
+
+    <div id="JoinGroupList" style="display: none">
+        Groups<br/>
+        <?php
+        echo $this->Form->create('JoinGroup', array('url'=>'/admin/privileges/join_group'));
+        echo $this->Form->input('user_alias', array(
+            'type'=>'hidden',
+            'value'=>$username
+        ));    
+        echo $this->Form->input('groups', array(
+            'options'=>$acl_groups,
+            'empty'=>true,
+            'label'=>false,
+            'style'=>'float:left'
+            ));
+        echo $this->Form->submit('Submit', array('style'=>'float:left; margin-left:10px;'));
+        echo $this->Form->end();
+        ?>
+    </div>
+    <div style="clear:both"></div>
+<?php endif; ?>    
 
 <?php echo $this->Form->create('UserPrivs', array('url'=>'/admin/privileges/user_privileges/'.$username)); ?>
 
