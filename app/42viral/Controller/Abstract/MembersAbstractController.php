@@ -19,7 +19,7 @@ abstract class MembersAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('User');
+    public $uses = array('Image', 'User');
     
     /**
      * @var array
@@ -64,24 +64,28 @@ abstract class MembersAbstractController extends AppController {
      */
     public function view($token = null)
     {
-pr($this->User->getProfile($token));
+
         // If we have no token, we will use the logged in user.
-        if(is_null($token)){
-            $token = $this->Session->read('Auth.Username');
-            if(empty($token)):
-                $this->Session->setFlash(__('An invalid profile was requested') ,'error');
-                $this->redirect('/users/login');
-            endif;
-        }
+        if(is_null($token)):
+            $token = $this->Session->read('Auth.User.username');
+        endif;
         
+        //Get the user data
+        $user = $this->User->getProfile($token);
+        
+        //Does the user really exist?
+        if(empty($user)):
+            $this->Session->setFlash(__('An invalid profile was requested') ,'error');
+            //$this->redirect('/', 404);
+        endif;
+
         // Mine
         if($this->Session->read('Auth.User.username') == $token){
             $this->set('mine', true);
         }else{
             $this->set('mine', false);
         }
-        
-        $user = $this->User->getProfile($token);
+
         $this->set('user', $user);
         
     } 
@@ -94,7 +98,6 @@ pr($this->User->getProfile($token));
      * @access public 
      */
     public function upload_image($personId){
-        $this->loadModel('Image');
         
         if(!empty($this->data)){
          
@@ -115,9 +118,7 @@ pr($this->User->getProfile($token));
      * @access public 
      */
     public function set_avatar($personId, $imageId){
-        $this->loadModel('User');
-        $this->loadModel('Image');
-        
+
         $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$imageId)));
         
         $path = IMAGE_WRITE_PATH . $personId . DS . $image['Image']['name'];
@@ -134,6 +135,6 @@ pr($this->User->getProfile($token));
      * @access public 
      */
     public function set_profile_image(){
-        $this->loadModel('User');
+
     }
 }

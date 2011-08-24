@@ -11,6 +11,21 @@ define('THEME_SET', 'Default');
 
 //define('HOME_TITLE', 'Default Home Page');
 
+/**
+ * Do we prefer http or https?
+ */
+Configure::write('Domain.scheme', 'http');
+
+/**
+ * Do we prefer http or https?
+ */
+Configure::write('Domain.host', 'build.42viral.org');
+
+/**
+ * The domains fully configured base url
+ */
+Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Configure::read('Domain.host') . '/');
+
 /* ====================
  * == File Uploads ====
  * ==================*/
@@ -55,8 +70,7 @@ Configure::write('Comment.engine', 'native');
  * The standard password for authed users. This is simply used to keep the auth component happy
  * as the User has already been authenticated via Oauth
  */
-    ## Configure::write('Oauth.password', '');
-
+    Configure::write('Oauth.password', 'asdfkh^fdasui');
 /**
  * Disqus
  * @see http://disqus.com/
@@ -78,14 +92,15 @@ Configure::write('Comment.engine', 'native');
  * Twitter
  */
     ## Configure::write('Twitter.consumer_key', '');
-    ## Configure::write('Twitter.consumer_secret', '');  
+    ## Configure::write('Twitter.consumer_secret', '');
+    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . '/oauth/twitter_callback');
 
 /**
  * LinkedIn
  */
     ## Configure::write('LinkedIn.consumer_key', '');
     ## Configure::write('LinkedIn.consumer_secret', '');  
-    ## Configure::write('LinkedIn.callback', '/oauth/linkedin_callback'); 
+    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . '/oauth/linkedin_callback'); 
 
 /* ====================
  * == Asset Helper ====
