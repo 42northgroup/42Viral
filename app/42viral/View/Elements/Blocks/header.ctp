@@ -6,7 +6,8 @@
             <?php 
                 $googleAppsDomain = Configure::read('Google.Apps.domain');
                 if(isset($googleAppsDomain)):
-                    echo $this->Html->link('Email', 'https://www.google.com/a/' . Configure::read('Google.Apps.domain')); 
+                    echo ' | ';
+                    echo $this->Html->link('Google Apps', 'https://www.google.com/a/' . Configure::read('Google.Apps.domain')); 
                 endif;
             ?>
         <?php endif; ?>
