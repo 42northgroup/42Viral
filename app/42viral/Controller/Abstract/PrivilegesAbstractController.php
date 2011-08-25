@@ -15,7 +15,7 @@ abstract class PrivilegesAbstractController extends AppController {
     {
         parent::beforeFilter();
         
-        $this->Auth->allow('*');
+        //$this->Auth->allow('*');
 
     }
     

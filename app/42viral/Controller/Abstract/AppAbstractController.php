@@ -30,10 +30,14 @@ abstract class AppAbstractController extends Controller
      * @access public
      */
     public function beforeFilter()
-    {
-        if($this->Session->check('Auth.User.id')){
-            $this->Auth->allow('*');
+    {        
+        if($this->Acl->check(
+                $this->Session->read('Auth.User.User.username'),
+                ucfirst($this->params['controller']). '-' .$this->params['action'], '*'
+                )){
+            $this->Auth->allow('*');            
         }
+        
     }
 
     /**

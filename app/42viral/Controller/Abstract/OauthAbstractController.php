@@ -108,7 +108,7 @@ abstract class OauthAbstractController extends AppController
             'screen_name' => "Fake_User"
         );
         */
-        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id'], 'Twitter');
+        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
         $this->__auth($oauthUserId, $response, 'Twitter'); 
     } 
 
@@ -153,7 +153,7 @@ abstract class OauthAbstractController extends AppController
         $this->redirect('https://www.linkedin.com/uas/oauth/authenticate?oauth_token=' . $response['oauth_token']);
     }  
     
-
+    
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
      * @author Jason D Snider <jsnider77@gmail.com>
@@ -162,7 +162,6 @@ abstract class OauthAbstractController extends AppController
      * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
-     * @todo How do we get a unique identifier to tie this to a person?
      */
     public function linkedin_callback()
     {        
@@ -216,7 +215,7 @@ abstract class OauthAbstractController extends AppController
 
         parse_str($response1, $response1);
         pr($response1);
-        
+                        
         $response1['user_id'] = $response1['amp;key'];
         /*
         $repsponse = array
@@ -228,8 +227,54 @@ abstract class OauthAbstractController extends AppController
         );
         */
         
-        $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id'], 'LinkedIn');
+        $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
         $this->__auth($oauthUserId, $response, 'LinkedIn'); 
+        
+    } 
+    
+    /**
+     * The Facebook connect page. Authorizes "this" application against a users Facebook account
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @return void
+     * @access public
+     */
+    public function facebook_connect()
+    {
+        
+        $this->redirect("https://www.facebook.com/dialog/oauth?client_id=".Configure::read('Facebook.consumer_key')
+                                                    ."&redirect_uri=".urlencode(Configure::read('Facebook.callback'))
+                                                    ."&scope=read_stream,offline_access,publish_stream");
+        
+    }  
+    
+
+    /**
+     * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
+     * @author Lyubomir R Dimov <ldimov@microtrain.net>php-oauth-extension-to-httpsocket/
+     * @return void
+     * @access public
+     */
+    public function facebook_callback()
+    {        
+        
+        $token_url = "https://graph.facebook.com/oauth/access_token?"
+        . "client_id=" . Configure::read('Facebook.consumer_key') 
+        . "&redirect_uri=" . urlencode(Configure::read('Facebook.callback'))
+        . "&client_secret=" . Configure::read('Facebook.consumer_secret') 
+        . "&code=" . $this->params['url']['code'];
+
+         $response = file_get_contents($token_url);
+         $params = null;
+         parse_str($response, $params);
+
+         $graph_url = "https://graph.facebook.com/me?access_token=" 
+           . $params['access_token'];
+
+         $user = json_decode(file_get_contents($graph_url));
+         pr($user);
+                          
+        $oauthUserId = $this->Oauth->oauthed('facebook', $user->id, $params['access_token']);
+        $this->__auth($oauthUserId, $response, 'Facebook'); 
         
     } 
     

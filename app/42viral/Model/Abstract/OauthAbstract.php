@@ -41,7 +41,7 @@ abstract class OauthAbstract extends AppModel
      * @param string $oauthId
      * @return string 
      */
-    public function oauthed($service, $oauthId){
+    public function oauthed($service, $oauthId, $token=null){
         $theOauthed = $this->fetchOauthed($service, $oauthId);
         if($theOauthed){
  
@@ -49,7 +49,7 @@ abstract class OauthAbstract extends AppModel
             
         }else{
 
-            return $this->createOauthed($service, $oauthId);
+            return $this->createOauthed($service, $oauthId, $token);
         }
     }
     
@@ -83,7 +83,7 @@ abstract class OauthAbstract extends AppModel
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
      * @return string 
      */
-    public function createOauthed($service, $oauthId){
+    public function createOauthed($service, $oauthId, $token=null){
         
         //We need an ID for the new Person reocrd
         $personId = String::uuid();
@@ -93,6 +93,7 @@ abstract class OauthAbstract extends AppModel
         $oauthed['Oauth']['person_id'] = $personId;
         $oauthed['Oauth']['oauth_id'] = $oauthId;
         $oauthed['Oauth']['service'] = $service;
+        $oauthed['Oauth']['token'] = $token;
 
         if($this->save($oauthed)){
 
