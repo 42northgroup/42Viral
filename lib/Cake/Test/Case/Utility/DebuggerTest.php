@@ -197,6 +197,85 @@ class DebuggerTest extends CakeTestCase {
 	}
 
 /**
+ * Test that outputAs works.
+ *
+ * @return void
+ */
+	public function testOutputAs() {
+		Debugger::outputAs('html');
+		$this->assertEquals('html', Debugger::outputAs());
+	}
+
+/**
+ * Test that choosing a non-existant format causes an exception
+ *
+ * @expectedException CakeException
+ * @return void
+ */
+	public function testOutputAsException() {
+		Debugger::outputAs('Invalid junk');
+	}
+
+/**
+ * Tests that changes in output formats using Debugger::output() change the templates used.
+ *
+ * @return void
+ */
+	public function testAddFormat() {
+		set_error_handler('Debugger::showError');
+		$this->_restoreError = true;
+
+		Debugger::addFormat('js', array(
+			'traceLine' => '{:reference} - <a href="txmt://open?url=file://{:file}' .
+			               '&line={:line}">{:path}</a>, line {:line}'
+		));
+		Debugger::outputAs('js');
+
+		$result = Debugger::trace();
+		$this->assertPattern('/' . preg_quote('txmt://open?url=file://', '/') . '(\/|[A-Z]:\\\\)' . '/', $result);
+
+		Debugger::addFormat('xml', array(
+			'error' => '<error><code>{:code}</code><file>{:file}</file><line>{:line}</line>' .
+			           '{:description}</error>',
+		));
+		Debugger::outputAs('xml');
+
+		ob_start();
+		$foo .= '';
+		$result = ob_get_clean();
+
+		$data = array(
+			'<error',
+			'<code', '8', '/code',
+			'<file', 'preg:/[^<]+/', '/file',
+			'<line', '' . (intval(__LINE__) - 7), '/line',
+			'preg:/Undefined variable:\s+foo/',
+			'/error'
+		);
+		$this->assertTags($result, $data, true);
+	}
+
+	public function testAddFormatCallback() {
+		set_error_handler('Debugger::showError');
+		$this->_restoreError = true;
+
+		Debugger::addFormat('callback', array('callback' => array($this, 'customFormat')));
+		Debugger::outputAs('callback');
+
+		ob_start();
+		$foo .= '';
+		$result = ob_get_clean();
+		$this->assertEquals('Notice: I eated an error CORE/Cake/Test/Case/Utility/DebuggerTest.php', $result);
+	}
+
+/**
+ * Test method for testing addFormat with callbacks.
+ */
+	public function customFormat($error, $strings) {
+		return $error['error'] . ': I eated an error ' . $error['path'];
+	}
+
+/**
  * testTrimPath method
  *
  * @access public

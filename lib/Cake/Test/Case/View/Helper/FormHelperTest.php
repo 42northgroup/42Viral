@@ -859,7 +859,7 @@ class FormHelperTest extends CakeTestCase {
 	}
 
 /**
- * Tests correct generation of text fields for double and float fields
+ * Tests correct generation of number fields for double and float fields
  *
  * @access public
  * @return void
@@ -876,20 +876,39 @@ class FormHelperTest extends CakeTestCase {
 		$this->Form->create('Contact');
 		$result = $this->Form->input('foo');
 		$expected = array(
-			'div' => array('class' => 'input text'),
+			'div' => array('class' => 'input number'),
 			'label' => array('for' => 'ContactFoo'),
 			'Foo',
 			'/label',
 			array('input' => array(
-				'type' => 'text', 'name' => 'data[Contact][foo]',
-				'id' => 'ContactFoo'
+				'type' => 'number',
+				'name' => 'data[Contact][foo]',
+				'id' => 'ContactFoo',
+				'step' => 'any'
 			)),
 			'/div'
 		);
+		$this->assertTags($result, $expected);
+
+		$result = $this->Form->input('foo', array('step' => 0.5));
+		$expected = array(
+			'div' => array('class' => 'input number'),
+			'label' => array('for' => 'ContactFoo'),
+			'Foo',
+			'/label',
+			array('input' => array(
+				'type' => 'number',
+				'name' => 'data[Contact][foo]',
+				'id' => 'ContactFoo',
+				'step' => '0.5'
+			)),
+			'/div'
+		);
+		$this->assertTags($result, $expected);
 	}
 	
 /**
- * Tests correct generation of text fields for double and float fields
+ * Tests correct generation of number fields for integer fields
  *
  * @access public
  * @return void
@@ -906,7 +925,7 @@ class FormHelperTest extends CakeTestCase {
 		$this->Form->create('Contact');
 		$result = $this->Form->input('foo');
 		$expected = array(
-			'div' => array('class' => 'input text'),
+			'div' => array('class' => 'input number'),
 			'label' => array('for' => 'ContactFoo'),
 			'Foo',
 			'/label',
@@ -916,6 +935,7 @@ class FormHelperTest extends CakeTestCase {
 			)),
 			'/div'
 		);
+		$this->assertTags($result, $expected);
 	}
 
 /**
@@ -4720,13 +4740,14 @@ class FormHelperTest extends CakeTestCase {
 		);
 		$this->assertTags($result, $expected);
 
-		$selected = strtotime('2008-10-26 10:33:00');
+		$selected = strtotime('2008-10-26 12:33:00');
 		$result = $this->Form->dateTime('Model.field', 'DMY', '12', array('value' => $selected));
 		$this->assertPattern('/<option[^<>]+value="2008"[^<>]+selected="selected"[^>]*>2008<\/option>/', $result);
-		$this->assertPattern('/<option[^<>]+value="10"[^<>]+selected="selected"[^>]*>10<\/option>/', $result);
+		$this->assertPattern('/<option[^<>]+value="10"[^<>]+selected="selected"[^>]*>October<\/option>/', $result);
 		$this->assertPattern('/<option[^<>]+value="26"[^<>]+selected="selected"[^>]*>26<\/option>/', $result);
-		$this->assertPattern('/<option[^<>]+value="10"[^<>]+selected="selected"[^>]*>10<\/option>/', $result);
+		$this->assertPattern('/<option[^<>]+value="12"[^<>]+selected="selected"[^>]*>12<\/option>/', $result);
 		$this->assertPattern('/<option[^<>]+value="33"[^<>]+selected="selected"[^>]*>33<\/option>/', $result);
+		$this->assertPattern('/<option[^<>]+value="pm"[^<>]+selected="selected"[^>]*>pm<\/option>/', $result);
 
 		$this->Form->create('Contact');
 		$result = $this->Form->input('published');

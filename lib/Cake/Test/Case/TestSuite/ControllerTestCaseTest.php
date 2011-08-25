@@ -99,11 +99,6 @@ class ControllerTestCaseTestController extends AppController {
 }
 
 /**
- * Used to get a testable concrete class of the test subject
- */
-class TestingControllerTestCase extends ControllerTestCase {}
-
-/**
  * ControllerTestCaseTest
  *
  * @package       Cake.Test.Case.TestSuite
@@ -132,7 +127,7 @@ class ControllerTestCaseTest extends CakeTestCase {
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
 		));
 		CakePlugin::loadAll();
-		$this->Case = new TestingControllerTestCase();
+		$this->Case = $this->getMockForAbstractClass('ControllerTestCase');
 		Router::reload();
 	}
 
@@ -274,7 +269,20 @@ class ControllerTestCaseTest extends CakeTestCase {
 	}
 
 /**
+ * Make sure testAction() can hit plugin controllers.
+ *
+ * @return void
+ */
+	public function testTestActionWithPlugin() {
+		$Controller = $this->Case->generate('TestPlugin.Tests');
+		$this->Case->testAction('/test_plugin/tests/index');
+		$this->assertEquals('It is a variable', $this->Case->controller->viewVars['test_value']);
+	}
+
+/**
  * Tests using loaded routes during tests
+ *
+ * @return void
  */
 	public function testUseRoutes() {
 		Router::connect('/:controller/:action/*');

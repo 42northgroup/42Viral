@@ -939,6 +939,13 @@ class FormHelper extends AppHelper {
 				if ($fieldKey == $primaryKey) {
 					$options['type'] = 'hidden';
 				}
+				if (
+					$options['type'] === 'number' && 
+					$type === 'float' &&
+					!isset($options['step'])
+				) {
+					$options['step'] = 'any';
+				}
 			}
 			if (preg_match('/_id$/', $fieldKey) && $options['type'] !== 'hidden') {
 				$options['type'] = 'select';
@@ -2102,6 +2109,8 @@ class FormHelper extends AppHelper {
 
 					if (($time[0] > 12) && $timeFormat == '12') {
 						$time[0] = $time[0] - 12;
+						$meridian = 'pm';
+					} elseif ($time[0] == '12' && $timeFormat == '12') {
 						$meridian = 'pm';
 					} elseif ($time[0] == '00' && $timeFormat == '12') {
 						$time[0] = 12;

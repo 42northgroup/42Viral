@@ -334,7 +334,7 @@ class HttpSocket extends CakeSocket {
 		$this->request['raw'] .= "\r\n";
 		$this->request['raw'] .= $this->request['body'];
 		$this->write($this->request['raw']);
-                
+
 		$response = null;
 		$inHeader = true;
 		while ($data = $this->read()) {
