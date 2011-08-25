@@ -75,7 +75,19 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS,
         ),
     
-         'Lib' => array(
+        'Console' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS
+        ),
+    
+        'Console/Command' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS
+        ),
+    
+        'Console/Command/Task' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS
+        ),
+    
+        'Lib' => array(
             ROOT . DS . APP_DIR . DS . 'Lib' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
         ),   
