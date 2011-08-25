@@ -12,7 +12,6 @@
         </tr>
     </thead>
 
-
     <tbody>
         <?php foreach($companies as $tempCompany): ?>
             <tr>
@@ -23,7 +22,15 @@
                 </td>
 
                 <td>
-                    <?php echo $tempCompany['Company']['_full_address']; ?>
+                    <?php if(isset($tempCompany['Address']) && !empty($tempCompany['Address'])): ?>
+                        <table>
+                            <?php foreach($tempCompany['Address'] as $tempAddress): ?>
+                                <tr>
+                                    <td><?php echo $tempAddress['_us_full_address']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        </table>
+                    <?php endif; ?>
                 </td>
 
                 <td>

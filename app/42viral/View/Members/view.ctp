@@ -95,7 +95,7 @@
     </div>
 
     <div>
-        <a href="/companies/profile_create">Create Company Profile</a>
+        <a href="/companies/create">Create Company</a>
     </div>
 
 </div>

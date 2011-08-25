@@ -5,21 +5,17 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the company object
  */
-abstract class CompanyAbstract extends Model
+abstract class CompanyAbstract extends AppModel
 {
     public $name = 'Company';
 
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
+        /*
         $this->virtualFields = array(
-            '_full_address' => "CONCAT(
-                `{$this->alias}`.`addr_line1`, ' ',
-                `{$this->alias}`.`addr_line2`, ' ',
-                `{$this->alias}`.`addr_city`, ', ',
-                `{$this->alias}`.`addr_state`, ' ',
-                `{$this->alias}`.`addr_zip`
-            )"
+            '_sample_virtual_field' => "CONCAT(`{$this->alias}`.`name`)"
         );
+        */
     }
 
     /**
@@ -67,7 +63,7 @@ abstract class CompanyAbstract extends Model
      */
     public function fetchCompanyByName($companyName)
     {
-        $normalizedCompanyName = strtolower($companyName);
+        $normalizedCompanyName = Inflector::underscore($companyName);
 
         $company = $this->find('first', array(
             'contain' => array(),
@@ -86,18 +82,17 @@ abstract class CompanyAbstract extends Model
      *
      * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
+     * @param type $companyName
      * @return type
      */
-    public function beforeSave()
+    public function findCompanyIdFromName($companyName)
     {
-        parent::beforeSave();
+        $company = $this->fetchCompanyByName($companyName);
 
-        /*
-        if(isset($this->data['Company']['name'])) {
-            $this->data['Company']['name_normalized'] = strtolower($this->data['Company']['name']);
+        if(!empty($company)) {
+            return $company['Company']['id'];
+        } else {
+            return false;
         }
-        */
-
-        return true;
     }
 }

@@ -10,11 +10,8 @@ App::uses('HttpSocket', 'Network/Http');
 class CompaniesController extends CompaniesAbstractController
 {
 
-    /**
-     *
-     * @var type
-     */
-    public $uses = array('Company');
+    public $uses = array('Company', 'Address');
+
 
 
     /**
@@ -25,10 +22,9 @@ class CompaniesController extends CompaniesAbstractController
      */
     public function index()
     {
-        $companies = $this->Company->fetchAllCompanies();
+        $companies = $this->Company->fetchAllCompaniesWith(array('Address'));
         $this->set('companies', $companies);
     }
-
 
     /**
      *
@@ -38,7 +34,8 @@ class CompaniesController extends CompaniesAbstractController
      */
     public function view($companyName)
     {
-        $company = $this->Company->fetchCompanyByName($companyName);
+        //$company = $this->Company->fetchCompanyByNameWith($companyName);
+        $company = $this->Company->fetchCompanyByNameWith($companyName, array('Address'));
 
         $yahooResults = null;
         $yelpResults = null;
@@ -60,7 +57,6 @@ class CompaniesController extends CompaniesAbstractController
         $this->set('company', $company);
     }
 
-
     /**
      *
      *
@@ -68,7 +64,7 @@ class CompaniesController extends CompaniesAbstractController
      * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
-    public function profile()
+    public function my_companies()
     {
         $userId = null;
         $company = null;
@@ -101,6 +97,39 @@ class CompaniesController extends CompaniesAbstractController
     /**
      * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
+     */
+    public function save()
+    {
+
+        $companyData = $this->data;
+        $generatedCompanyId = String::uuid();
+
+        $companyData['Company']['id'] = $generatedCompanyId;
+        $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
+
+        $companyAddress = $companyData['Address'];
+        $companyAddress['model'] = 'Company';
+        $companyAddress['model_id'] = $generatedCompanyId;
+
+        if(isset($this->data['Company']['name'])) {
+            $companyData['Company']['name_normalized'] = Inflector::underscore($this->data['Company']['name']);
+        }
+
+        if($this->Company->save($companyData)) {
+            $this->Address->save($companyAddress);
+
+            $this->Session->setFlash(__('The company details were saved successfully'), 'success');
+            $this->redirect('/companies/index');
+        } else {
+            $this->Session->setFlash(__('There was a problem saving the company details'), 'error');
+            $this->redirect('/companies/create');
+        }
+    }
+
+
+    /**
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access public
      * @return type
      */
     private function __profileDoYahoo($company)
@@ -116,18 +145,24 @@ class CompaniesController extends CompaniesAbstractController
                 'listing_id' => $company['Company']['yahoo_listing_id']
             );
         } else {
-            $requestParams = array(
-                'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
-                'output' => 'php',
-                'query' => $company['Company']['name'],
-                'street' => $company['Company']['addr_line1'] .' '. $company['Company']['addr_line2'],
-                'city' => $company['Company']['addr_city'],
-                'state' => $company['Company']['addr_state'],
-                'zip' => $company['Company']['addr_zip'],
-            );
+
+            if(isset($company['Address']) && !empty($company['Address'])) {
+                $requestParams = array(
+                    'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
+                    'output' => 'php',
+                    'query' => $company['Company']['name'],
+                    'location' => $company['Address'][0]['_us_full_address']
+                );
+            } else {
+                $requestParams = array(
+                    'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
+                    'output' => 'php',
+                    'query' => $company['Company']['name']
+                );
+            }
+
         }
 
-        //pr($requestParams);
 
         $requestObject = array(
             'requestUrl' => 'http://local.yahooapis.com/LocalSearchService/V3/localSearch',
@@ -144,41 +179,4 @@ class CompaniesController extends CompaniesAbstractController
 
         return $resultsObject['ResultSet'];
     }
-
-
-    /**
-     *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
-     * @access public
-     */
-    public function profile_create()
-    {
-
-    }
-
-
-    /**
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
-     * @access public
-     */
-    public function profile_save()
-    {
-
-        $tempData = $this->data;
-        $tempData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
-
-        if(isset($this->data['Company']['name'])) {
-            $tempData['Company']['name_normalized'] = Inflector::underscore($this->data['Company']['name']);
-        }
-
-        if($this->Company->save($tempData)) {
-            $this->Session->setFlash(__('The company details were saved successfully'), 'success');
-            $this->redirect('/companies/profile');
-        } else {
-            $this->Session->setFlash(__('There was a problem saving the company details'), 'error');
-            $this->redirect('/companies/profile_create');
-        }
-    }
-
 }

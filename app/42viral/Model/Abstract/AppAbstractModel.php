@@ -5,9 +5,9 @@ App::uses('Model', 'Model');
 /**
  *
  */
-class AppAbstractModel extends Model 
+class AppAbstractModel extends Model
 {
-    
+
     /**
      * Application-wide behaviors
      * @var array
