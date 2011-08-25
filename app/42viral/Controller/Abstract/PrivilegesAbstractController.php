@@ -20,7 +20,10 @@ abstract class PrivilegesAbstractController extends AppController {
     }
     
     /**
-     * @todo - Come up with some kind of run once logic
+     * Build the initial ACOs table, create an ARO entry for 
+     * user "root" and gives him all permissions
+     * 
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      */
     public function admin_build_initial_acl()
     {
@@ -29,6 +32,13 @@ abstract class PrivilegesAbstractController extends AppController {
        $this->Acl->Aco->create(array('alias'=>'root',0,0));
        $this->Acl->Aco->save();
        
+       $this->Acl->Aro->create(array(            
+            'model'=>'User',
+            'foreign_key'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
+            'alias'=>'root', 0, 0));
+        
+        $this->Acl->Aro->save();
+       
        foreach($controllers as $key => $value){
             foreach($controllers[$key] as $action){
                 $this->Acl->Aco->create(array(
@@ -36,17 +46,33 @@ abstract class PrivilegesAbstractController extends AppController {
                     'alias'=>$key.'-'.$action,0,0
                 ));
                 $this->Acl->Aco->save();
+                
+                $this->Acl->allow('root', $key.'-'.$action, '*');
+                
             }
         }
         
+
         $this->Acl->Aro->create(array(            
             'model'=>'User',
             'foreign_key'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
             'alias'=>'root', 0, 0));
         
         $this->Acl->Aro->save();
+
+                
+        $this->redirect('/admin/privileges/user_privileges/root');
+
     }
     
+    
+    /**
+     * Builds a permissions grid for a specific user and allows for permissions
+     * to be granted and denied to said user
+     * 
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @param String $username 
+     */
     public function admin_user_privileges($username){
         
         $controllers = $this->ControllerList->get();
@@ -102,6 +128,12 @@ abstract class PrivilegesAbstractController extends AppController {
         }
     }
     
+    /**
+     * Attaches a user to an acl_group and has him inherit the 
+     * permissions of the group 
+     * 
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     */
     public function admin_join_group(){
         
         if(!empty ($this->data)){
@@ -129,6 +161,13 @@ abstract class PrivilegesAbstractController extends AppController {
         
     }
     
+    /**
+     * Returns all ACL privileges for a given user
+     * 
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @param String $username
+     * @return array 
+     */
     public function fetchPrivileges($username)
     {
         $aro = $this->Aro->findByAlias($username);
