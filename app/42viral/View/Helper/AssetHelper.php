@@ -520,7 +520,7 @@ class AssetHelper extends AppHelper
     /**
      * Fetch a predefined asset package from config and automatically build and output css and js components
      * 
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param type $packageName 
      * @return string

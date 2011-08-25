@@ -16,11 +16,38 @@ class CompaniesController extends CompaniesAbstractController
      */
     public $uses = array('Company');
 
+
+    /**
+     *
+     *
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access public
+     */
+    public function index()
+    {
+        $companies = $this->Company->fetchAllCompanies();
+        $this->set('companies', $companies);
+    }
+
+
+    /**
+     *
+     *
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access public
+     */
+    public function view($companyName)
+    {
+        $company = $this->Company->fetchCompanyByName($companyName);
+        $this->set('company', $company);
+    }
+
+
     /**
      *
      *
      * @return void
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function profile()
@@ -52,7 +79,7 @@ class CompaniesController extends CompaniesAbstractController
 
 
     /**
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @return type
      */
@@ -73,7 +100,7 @@ class CompaniesController extends CompaniesAbstractController
                 'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
                 'output' => 'php',
                 'query' => $company['Company']['name'],
-                'street' => $company['Company']['addr_street'],
+                'street' => $company['Company']['addr_line1'] .' '. $company['Company']['addr_line2'],
                 'city' => $company['Company']['addr_city'],
                 'state' => $company['Company']['addr_state'],
                 'zip' => $company['Company']['addr_zip'],
@@ -102,7 +129,7 @@ class CompaniesController extends CompaniesAbstractController
     /**
      *
      *
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function profile_create()
@@ -112,7 +139,7 @@ class CompaniesController extends CompaniesAbstractController
 
 
     /**
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function profile_save()

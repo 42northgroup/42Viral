@@ -4,7 +4,7 @@
  * 
  * @package app
  * @subpackage app.core
- * @author Zubin Khavarian <zkhavarian@microtrain.net>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 class LogBehavior extends ModelBehavior
 {
@@ -21,7 +21,7 @@ class LogBehavior extends ModelBehavior
     /**
      *
      * @return string
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access private
      */
     private function __getUser()
@@ -36,7 +36,7 @@ class LogBehavior extends ModelBehavior
     /**
      * @param object $model
      * @return void
-     * @author Zubin Khavarian <zkhavarian@microtrain.net>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access private
      */ 
     private function __appendLogFields(&$model)
