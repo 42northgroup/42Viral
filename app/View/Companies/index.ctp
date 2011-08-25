@@ -17,7 +17,9 @@
         <?php foreach($companies as $tempCompany): ?>
             <tr>
                 <td>
-                    <?php echo $tempCompany['Company']['name']; ?>
+                    <a href="/company_profile/<?php echo $tempCompany['Company']['name_normalized']; ?>">
+                        <?php echo $tempCompany['Company']['name']; ?>
+                    </a>
                 </td>
 
                 <td>

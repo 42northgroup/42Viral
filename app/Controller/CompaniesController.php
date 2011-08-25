@@ -39,6 +39,24 @@ class CompaniesController extends CompaniesAbstractController
     public function view($companyName)
     {
         $company = $this->Company->fetchCompanyByName($companyName);
+
+        $yahooResults = null;
+        $yelpResults = null;
+        $googleResults = null;
+
+        if(!empty($company)) {
+            $yahooResults = $this->__profileDoYahoo($company);
+            $yelpResults = array();
+            $googleResults = array();
+        }
+
+        $webResults = array(
+            'yahoo' => $yahooResults,
+            'yelp' => $yelpResults,
+            'google' => $googleResults
+        );
+
+        $this->set('web_results', $webResults);
         $this->set('company', $company);
     }
 
@@ -52,21 +70,23 @@ class CompaniesController extends CompaniesAbstractController
      */
     public function profile()
     {
-        //$this->Session->read('Auth.User.User.id');
-
         $userId = null;
+        $company = null;
+        $yahooResults = null;
+        $yelpResults = null;
+        $googleResults = null;
 
-        if($this->Session->check('Auth.User.User.id')) {
-            $userId = $this->Session->read('Auth.User.User.id');
+        if($this->Session->check('Auth.User.id')) {
+            $userId = $this->Session->read('Auth.User.id');
         }
 
         if(!is_null($userId)) {
             $company = $this->Company->fetchUserCompany($userId);
-        }
 
-        $yahooResults = $this->__profileDoYahoo($company);
-        $yelpResults = array();
-        $googleResults = array();
+            $yahooResults = $this->__profileDoYahoo($company);
+            $yelpResults = array();
+            $googleResults = array();
+        }
 
         $results = array(
             'yahoo' => $yahooResults,
@@ -93,7 +113,7 @@ class CompaniesController extends CompaniesAbstractController
                 'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
                 'output' => 'php',
                 'query' => '*',
-                'listing_id' => '40830988'
+                'listing_id' => $company['Company']['yahoo_listing_id']
             );
         } else {
             $requestParams = array(
@@ -146,7 +166,11 @@ class CompaniesController extends CompaniesAbstractController
     {
 
         $tempData = $this->data;
-        $tempData['Company']['owner_person_id'] = $this->Session->read('Auth.User.User.id');
+        $tempData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
+
+        if(isset($this->data['Company']['name'])) {
+            $tempData['Company']['name_normalized'] = Inflector::underscore($this->data['Company']['name']);
+        }
 
         if($this->Company->save($tempData)) {
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');

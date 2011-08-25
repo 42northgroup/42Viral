@@ -1,31 +1,31 @@
 <style type="text/css">
-    
+
     div.profile-pic{
         width: 128px;
         height: 128px;
         margin: 20px 0 0;
     }
-    
+
     div.profile-column-left{
         float: left;
         width: 150px;
     }
-    
+
     div.profile-column-right{
         float: left;
         width: 640px;
     }
-    
+
 </style>
 
 <div class="clearfix">
-     
+
     <div class="profile-column-left">
         <div class="profile-pic">
             <?php echo $this->Member->avatar($user['User']) ?>
         </div>
     </div>
-    
+
     <div class="profile-column-right">
         <h1><?php echo $this->Member->displayName($user['User']) ?></h1>
         <?php echo $user['User']['bio']; ?>
@@ -40,18 +40,18 @@
             </thead>
             <tbody>
             <?php foreach($user['Content'] as $content):?>
-                <tr>        
+                <tr>
                     <td>
                         <?php echo Inflector::humanize($content['object_type']); ?>
                     </td>
                     <td>
-                       <?php echo $this->Html->link($content['title'], $content['url']); ?> 
+                       <?php echo $this->Html->link($content['title'], $content['url']); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
             </tbody>
         </table>
-      
+
         <table>
             <caption>Images</caption>
             <thead>
@@ -65,26 +65,26 @@
             </thead>
             <tbody>
             <?php foreach($user['Upload'] as $upload):?>
-                <tr>        
+                <tr>
                     <td>
                         <?php echo Inflector::humanize($upload['object_type']); ?>
                     </td>
                     <td>
-                       <?php echo $this->Html->link($upload['name'], $upload['url']); ?> 
+                       <?php echo $this->Html->link($upload['name'], $upload['url']); ?>
                     </td>
                     <?php if($mine): ?>
                     <td>
-                       <?php echo $this->Html->link('Set Avatar', 
-                               "/members/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?> 
-                    </td> 
+                       <?php echo $this->Html->link('Set Avatar',
+                               "/members/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?>
+                    </td>
                     <?php endif; ?>
-                    
+
                 </tr>
             <?php endforeach; ?>
             </tbody>
-        </table>        
-        
-        
+        </table>
+
+
         <?php if($mine): ?>
             <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
             <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
@@ -93,5 +93,9 @@
         <?php endif; ?>
 
     </div>
-    
+
+    <div>
+        <a href="/companies/profile_create">Create Company Profile</a>
+    </div>
+
 </div>
