@@ -62,7 +62,7 @@ abstract class UsersAbstractController extends AppController
                     if($this->Auth->login($user['User'])){
                         $this->Session->setFlash('You have been authenticated', 'success');
                         
-                        $this->Session->write('Auth.User', array());
+                        $this->Session->write('Auth.User', $user['User']);
                         
                         $this->redirect($this->Auth->redirect());
                         
@@ -124,6 +124,9 @@ abstract class UsersAbstractController extends AppController
                 $this->Acl->Aro->save();
 
                 if($this->Auth->login($user)){
+                    
+                    $this->Session->write('Auth.User', $user['User']);
+                    
                     $this->Session->setFlash('Your account has been created and you have been logged in','success');
                     $this->redirect($this->Auth->redirect());
                 }else{
