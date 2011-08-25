@@ -128,7 +128,9 @@ abstract class UserAbstract extends PersonAbstract
      * @todo Complete and harden
      */
     public function createUser($data)
-    {pr($data);
+    {
+        $this->create();
+        
         //Create a salt value for the user
         $salt = Sec::makeSalt();
         
@@ -138,7 +140,7 @@ abstract class UserAbstract extends PersonAbstract
         //Hash the password and its verifcation then load it into the data array
         $data['password'] = Sec::hashPassword($data['password'], $salt);
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
-        
+
         //Try to save the new user record
         if($this->save($data)){          
             return true;
@@ -147,7 +149,7 @@ abstract class UserAbstract extends PersonAbstract
         }
 
     }  
-    
+
     /**
      * Finds a user by username or email
      * @param string $token

@@ -5,4 +5,4 @@ App::uses('FirstRunAbstractController', 'Controller');
 /**
  *
  */
-abstract class FirstRunController extends FirstRunAbstractController {}
+class FirstRunController extends FirstRunAbstractController {}

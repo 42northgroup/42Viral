@@ -16,54 +16,7 @@ abstract class PrivilegesAbstractController extends AppController {
     {
         $this->auth(array());
     }
-    
-    /**
-     * Build the initial ACOs table, create an ARO entry for 
-     * user "root" and gives him all permissions
-     * 
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
-     */
-    public function admin_build_initial_acl()
-    {
-       $controllers = $this->ControllerList->get();
-       
-       $this->Acl->Aco->create(array('alias'=>'root',0,0));
-       $this->Acl->Aco->save();
-       
-       $this->Acl->Aro->create(array(            
-            'model'=>'User',
-            'foreign_key'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
-            'alias'=>'root', 0, 0));
-        
-        $this->Acl->Aro->save();
-       
-       foreach($controllers as $key => $value){
-            foreach($controllers[$key] as $action){
-                $this->Acl->Aco->create(array(
-                    'parent_id'=>1,
-                    'alias'=>$key.'-'.$action,0,0
-                ));
-                $this->Acl->Aco->save();
-                
-                $this->Acl->allow('root', $key.'-'.$action, '*');
-                
-            }
-        }
-        
 
-        $this->Acl->Aro->create(array(            
-            'model'=>'User',
-            'foreign_key'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
-            'alias'=>'root', 0, 0));
-        
-        $this->Acl->Aro->save();
-
-                
-        $this->redirect('/admin/privileges/user_privileges/root');
-
-    }
-    
-    
     /**
      * Builds a permissions grid for a specific user and allows for permissions
      * to be granted and denied to said user
