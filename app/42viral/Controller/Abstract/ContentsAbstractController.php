@@ -40,7 +40,7 @@ abstract class ContentsAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-    
+        $this->auth();
     }
 
     /* === Blog Management ========================================================================================== */

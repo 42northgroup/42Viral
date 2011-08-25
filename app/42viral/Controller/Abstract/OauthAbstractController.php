@@ -32,7 +32,7 @@ abstract class OauthAbstractController extends AppController
      */
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->Auth->allow('*');
+        $this->auth(array('*'));
         
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');

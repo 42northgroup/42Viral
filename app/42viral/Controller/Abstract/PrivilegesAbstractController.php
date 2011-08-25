@@ -8,15 +8,13 @@ App::uses('AppController', 'Controller');
 abstract class PrivilegesAbstractController extends AppController {
     
     public $components = array('ControllerList');
+    
     public $uses = array('Person', 'Aro', 'Aco', 'AclGroup');
     
 
     public function beforeFilter()
     {
-        parent::beforeFilter();
-        
-        //$this->Auth->allow('*');
-
+        $this->auth(array());
     }
     
     /**

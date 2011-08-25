@@ -34,8 +34,7 @@ abstract class MembersAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-     
-        $this->Auth->allow('view');
+        $this->auth(array('view'));
     }
 
     /**

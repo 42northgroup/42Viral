@@ -38,7 +38,7 @@ abstract class PagesAbstractController extends AppController {
     public function beforeFilter(){
         parent::beforeFilter();
         
-        $this->Auth->allow('*');
+        $this->auth(array('*'));
     }
     /**
      * Displays a list of blogs
