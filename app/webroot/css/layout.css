@@ -89,3 +89,12 @@ body{
     float:left;
     width:175px;    
 }
+
+#Footer{
+    text-align: center;
+    margin: 8px 0 0;
+    padding: 4px 0;
+    font-weight: bold;
+    color: #fff;
+    background: #000;
+}
