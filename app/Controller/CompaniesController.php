@@ -4,8 +4,8 @@ App::uses('CompaniesAbstractController', 'Controller');
 App::uses('HttpSocket', 'Network/Http');
 
 /**
- * @package app
- * @subpackage app.core
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 class CompaniesController extends CompaniesAbstractController
 {
@@ -15,9 +15,8 @@ class CompaniesController extends CompaniesAbstractController
 
 
     /**
+     * Default action to provide a listing of all companies
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function index()
@@ -27,10 +26,10 @@ class CompaniesController extends CompaniesAbstractController
     }
 
     /**
+     * Action to view a single company profile given its name
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
+     * @param string $companyName
      */
     public function view($companyName)
     {
@@ -58,44 +57,27 @@ class CompaniesController extends CompaniesAbstractController
     }
 
     /**
+     * Action to view all companies of the currently logged in user
      *
-     *
-     * @return void
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
-    public function my_companies()
+    public function mine()
     {
         $userId = null;
         $company = null;
-        $yahooResults = null;
-        $yelpResults = null;
-        $googleResults = null;
 
         if($this->Session->check('Auth.User.id')) {
             $userId = $this->Session->read('Auth.User.id');
+            $companies = $this->Company->fetchUserCompaniesWith($userId, array('Address'));
         }
 
-        if(!is_null($userId)) {
-            $company = $this->Company->fetchUserCompany($userId);
-
-            $yahooResults = $this->__profileDoYahoo($company);
-            $yelpResults = array();
-            $googleResults = array();
-        }
-
-        $results = array(
-            'yahoo' => $yahooResults,
-            'yelp' => $yelpResults,
-            'google' => $googleResults
-        );
-
-        $this->set('results', $results);
+        $this->set('companies', $companies);
     }
 
 
     /**
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * Action to save a company profile
+     *
      * @access public
      */
     public function save()
@@ -128,9 +110,11 @@ class CompaniesController extends CompaniesAbstractController
 
 
     /**
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * Helper function to fetch Yahoo Local Search listings for the given company
+     *
      * @access public
-     * @return type
+     * @param Company company object to use for pulling listing data from Yahoo
+     * @return mixed
      */
     private function __profileDoYahoo($company)
     {

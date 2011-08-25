@@ -3,7 +3,9 @@
 App::uses('CompanyAbstract', 'Model');
 
 /**
- * Mangages the person object from the POV of a contact
+ * Mangages the company object
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 class Company extends CompanyAbstract
 {
@@ -22,12 +24,12 @@ class Company extends CompanyAbstract
 
 
     /**
+     * Fetch a company record with associated model records given the company name
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param string $companyName
-     * @return
+     * @param array $with
+     * @return Company
      */
     public function fetchCompanyByNameWith($companyName, $with=array())
     {
@@ -46,11 +48,34 @@ class Company extends CompanyAbstract
 
 
     /**
+     * Fetch a given user's companies with associated model records given the user's person id
      *
+     * @access public
+     * @param string $userId
+     * @param array $with
+     * @return Company
+     */
+    public function fetchUserCompaniesWith($userId, $with=array())
+    {
+
+        $companies = $this->find('all', array(
+            'contain' => $with,
+
+            'conditions' => array(
+                'owner_person_id' => $userId
+            )
+        ));
+
+        return $companies;
+    }
+
+
+    /**
+     * Fetch all companies in the system with associated model records
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param type $with
+     * @return array
      */
     public function fetchAllCompaniesWith($with=array())
     {

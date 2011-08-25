@@ -4,6 +4,8 @@ App::uses('AppModel', 'Model');
 
 /**
  * Mangages the company object
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 abstract class CompanyAbstract extends AppModel
 {
@@ -19,15 +21,16 @@ abstract class CompanyAbstract extends AppModel
     }
 
     /**
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * Fetch user companies of a given user
+     *
      * @access public
-     * @param type $userId
-     * @return type
+     * @param string $userId
+     * @return array
      */
-    public function fetchUserCompany($userId)
+    public function fetchUserCompanies($userId)
     {
 
-        $companies = $this->find('first', array(
+        $companies = $this->find('all', array(
             'contain' => array(),
 
             'conditions' => array(
@@ -39,10 +42,10 @@ abstract class CompanyAbstract extends AppModel
     }
 
     /**
+     * Fetch all companies in the system
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
+     * @return array List of all companies
      */
     public function fetchAllCompanies()
     {
@@ -56,7 +59,6 @@ abstract class CompanyAbstract extends AppModel
     /**
      * Given a normalized company name, fetch the company record
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param
      * @return
@@ -78,9 +80,8 @@ abstract class CompanyAbstract extends AppModel
 
 
     /**
+     * Given a company name find out the company id
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param type $companyName
      * @return type

@@ -96,6 +96,8 @@
 
     <div>
         <a href="/companies/create">Create Company</a>
+        <br />
+        <a href="/companies/mine">Show My Companies</a>
     </div>
 
 </div>

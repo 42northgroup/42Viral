@@ -3,22 +3,23 @@
 App::uses('AppController', 'Controller');
 
 /**
+ * Abstract class to represent a generic company object which can be customized by subclassing from this class
  *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 abstract class CompaniesAbstractController extends AppController
 {
 
     /**
-     *
-     * @var type
+     * Use these models
+     * @var array
      */
     public $uses = array('Company');
 
 
     /**
+     * Default index action method to list all companies
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function index()
@@ -29,9 +30,8 @@ abstract class CompaniesAbstractController extends AppController
 
 
     /**
+     * Action method to view a single company's profile using its name
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function view($companyName)
@@ -42,42 +42,17 @@ abstract class CompaniesAbstractController extends AppController
 
 
     /**
+     * Action method to display a form for creating a new company profile
      *
-     *
-     * @return void
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
-    public function profile()
-    {
-        $userId = null;
-        $company = null;
-
-        if($this->Session->check('Auth.User.id')) {
-            $userId = $this->Session->read('Auth.User.id');
-        }
-
-        if(!is_null($userId)) {
-            $company = $this->Company->fetchUserCompany($userId);
-        }
-
-        $this->set('company', $company);
-    }
-
-    /**
-     *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
-     * @access public
-     */
-    public function create()
-    {
-
-    }
+    public function create() {}
 
 
     /**
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * Action method to save a new company record and redirect to appropriate action after
+     * successfull or un-successfull creation of the company record.
+     *
      * @access public
      */
     public function save()
