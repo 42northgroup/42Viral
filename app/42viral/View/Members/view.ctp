@@ -94,10 +94,12 @@
 
     </div>
 
-    <div>
-        <a href="/companies/create">Create Company</a>
-        <br />
-        <a href="/companies/mine">Show My Companies</a>
-    </div>
+    <?php if($mine): ?>
+        <div>
+            <a href="/companies/create">Create Company</a>
+            <br />
+            <a href="/companies/mine">Show My Companies</a>
+        </div>
+    <?php endif; ?>
 
 </div>
