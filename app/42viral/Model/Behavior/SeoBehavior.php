@@ -111,7 +111,7 @@ class SeoBehavior extends ModelBehavior
      * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __canonical(&$model, $slug){
-        return strtolower("/{$model->alias}/{$slug}"); 
+        return Configure::write('Domain.url') . strtolower("{$model->alias}/{$slug}"); 
     }
 
 }
