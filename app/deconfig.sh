@@ -1,4 +1,5 @@
 #!/bin/bash 
+# This will return app/Config to it's pre-setup state
 
 # Absolute path to this script, e.g. /var/www/htdocs/app/setup.sh
 SCRIPT=`readlink -f $0`

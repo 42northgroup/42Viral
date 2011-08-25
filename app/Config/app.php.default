@@ -86,6 +86,9 @@ Configure::write('Comment.engine', 'native');
 
 //Webmaster Tools verification code
     ## Configure::write('Google.SiteVerification', '');
+    
+// Apps
+    ## Configure::write('Google.Apps.domain', '');
 
 /**
  * Twitter

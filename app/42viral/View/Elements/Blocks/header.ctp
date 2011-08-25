@@ -2,7 +2,13 @@
 
     <div id="HeaderLeft">
         <?php if($this->Session->check('Auth.User.id')): ?>
-            <?php echo $this->Html->link('CMS', '/Contents/content'); ?>
+            <?php echo $this->Html->link('CMS', '/contents/content'); ?>
+            <?php 
+                $googleAppsDomain = Configure::read('Google.Apps.domain');
+                if(isset($googleAppsDomain)):
+                    echo $this->Html->link('Email', 'https://www.google.com/a/' . Configure::read('Google.Apps.domain')); 
+                endif;
+            ?>
         <?php endif; ?>
     </div>
 

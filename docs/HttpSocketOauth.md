@@ -8,9 +8,11 @@ Usage instructions (we'll take twitter as an example):
 
 4. Add the following to a controller:
 
+        ## App::uses('HttpSocketOauth', 'Lib'); //CakePHP >= 2.0
+        ## class someController extends someAbstractController{  //CakePHP >= 2.0 
         public function twitter_connect() {
           // Get a request token from twitter
-          App::import('Vendor', 'HttpSocketOauth');
+          ## App::import('Vendor', 'HttpSocketOauth'); //CakePHP < 2.0
           $Http = new HttpSocketOauth();
           $request = array(
             'uri' => array(
@@ -37,8 +39,9 @@ Usage instructions (we'll take twitter as an example):
 
 5. Next add the action for the call back:
 
-        public function twitter_callback() {
-          App::import('Vendor', 'HttpSocketOauth');
+        ## App::uses('HttpSocketOauth', 'Lib'); //CakePHP >= 2.0
+        ## class someController extends someAbstractController{  //CakePHP >= 2.0
+          ## App::import('Vendor', 'HttpSocketOauth'); //CakePHP < 2.0
           $Http = new HttpSocketOauth();
           // Issue request for access token
           $request = array(

@@ -64,7 +64,6 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
-
 App::build(array(
     
         'Controller' => array(
@@ -90,6 +89,10 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS,
         ),
     
+        'Vendor' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Vendor' . DS
+        ),
+    
         'View' => array(
             //We want the native cake structure to ovverride 42Viral's views
             ROOT . DS . APP_DIR . DS . 'View' . DS,
@@ -97,7 +100,7 @@ App::build(array(
         ),    
     
         'View/Helper' => array(
-            //We want the native cake structure to ovverride 42Viral's views
+            //We want the native cake structure to ovverride 42Viral's helpers
             ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
         ),   
