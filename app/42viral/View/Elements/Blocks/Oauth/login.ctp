@@ -1,37 +1,18 @@
-<style type="text/css">
-    .oauth-button{
-        padding: 2px 2px 1px 18px;
-        line-height:20px;
-        text-decoration: none;
-        color:#333;
-    }
-    
-    .horizontal .oauth-button{
-        margin: 0 6px 0 0;
-    }       
-    
-    .vertical .oauth-button{
-        display: block;
-    }   
-    
-    .linkedin{
-        background: url('/img/icons/linkedin.png') no-repeat 0 1px;
-    }
-    
-    
-    .twitter{
-        background: url('/img/icons/twitter.png') no-repeat 0 1px;
-    }
-    
-    
-    .facebook{
-        background: url('/img/icons/facebook.png') no-repeat 0 1px;
-    }    
-</style>
-
-
 <?php
-    echo $this->Html->link('Sign in with LinkedIn', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin'));
-    echo $this->Html->link('Sign in with FaceBook', '/oauth/facebook_connect', array('class'=>'oauth-button facebook'));
-    echo $this->Html->link('Sign in with Twitter', '/oauth/twitter_connect', array('class'=>'oauth-button twitter'));
-?>
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+    
+echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin'));
+echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook'));
+echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter'));
