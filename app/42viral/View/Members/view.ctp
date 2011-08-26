@@ -1,3 +1,5 @@
+<?php //debug($user); ?>
+
 <style type="text/css">
 
     div.profile-pic{
@@ -16,6 +18,12 @@
         width: 640px;
     }
 
+    div.section-box {
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 5px;
+    }
+
 </style>
 
 <div class="clearfix">
@@ -28,7 +36,19 @@
 
     <div class="profile-column-right">
         <h1><?php echo $this->Member->displayName($user['User']) ?></h1>
-        <?php echo $user['User']['bio']; ?>
+
+        <p>
+            <?php echo $user['Profile']['first_name'] .' '. $user['Profile']['last_name']; ?>
+        </p>
+
+
+        <div class="section-box">
+            <h2>Bio:</h2>
+            <p>
+                <?php echo $user['Profile']['bio']; ?>
+            </p>
+        </div>
+
 
         <table>
             <caption>Content</caption>
@@ -85,6 +105,43 @@
         </table>
 
 
+        <div class="section-box">
+            <h2>Companies:</h2>
+            <?php $companies = $user['Company']; ?>
+
+            <?php if(!empty($companies)): ?>
+
+                <?php foreach($companies as $tempCompany): ?>
+                    <h2>
+                        <u>Name</u>:
+                        <a href="/company_profile/<?php echo $tempCompany['name_normalized']; ?>">
+                            <?php echo $tempCompany['name']; ?>
+                        </a>
+                    </h2>
+
+                    <?php if(isset($tempCompany['Address']) && !empty($tempCompany['Address'])): ?>
+                        <h4>Addresses:</h4>
+
+                        <table>
+                            <tbody>
+                                <?php foreach($tempCompany['Address'] as $tempAddress): ?>
+                                    <tr>
+                                        <td><?php echo $tempAddress['_us_full_address']; ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+
+                No companies created yet.  <a href="/companies/create">Create one</a>
+
+            <?php endif; ?>
+        </div>
+
+
         <?php if($mine): ?>
             <?php echo $this->Form->create('Member', array("enctype"=>"multipart/form-data")); ?>
             <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
@@ -97,9 +154,10 @@
 
     <?php if($mine): ?>
         <div>
-            <a href="/companies/create">Create Company</a>
+            <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
             <br />
-            <a href="/companies/mine">Show My Companies</a>
+
+            <a href="/companies/mine">Edit Companies</a>
         </div>
     <?php endif; ?>
 

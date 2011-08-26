@@ -10,19 +10,19 @@ App::uses('AppModel', 'Model');
 abstract class PersonAbstract extends AppModel
 {
     /**
-     * 
+     *
      * @var string
      * @access public
      */
     public $name = 'Person';
-    
+
     /**
      *
      * @var string
      * @access public
      */
     public $useTable = 'people';
-    
+
     /**
      *
      * @var array
@@ -34,24 +34,38 @@ abstract class PersonAbstract extends AppModel
                 'lead'=>'Lead',
                 'contact'=>'Contact'
             ),
-            
+
             'DisplayName' => array(
                 'name' => 'Name',
                 'username' => 'Username',
                 'id' => 'User Id'
             )
         ),
-        
-        'Scrub'=>array(
-            'Filters'=>array(
-                'trim'=>'*',
-                'safe'=>'*'
+
+        'Scrub' => array(
+            'Filters' => array(
+                'trim' => '*',
+                'safe' => '*'
             )
         )
     );
-    
+
+
     /**
-     * 
+     *
+     * @var type
+     *
+     */
+    public $hasOne = array(
+        'Profile' => array(
+            'className' => 'Profile',
+            'foreignKey' => 'owner_user_id',
+            'dependent' => true
+        )
+    );
+
+    /**
+     *
      * @var array
      * @access public
      */
@@ -65,12 +79,12 @@ abstract class PersonAbstract extends AppModel
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),        
+        ),
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),        
+        ),
         'Page' => array(
             'className' => 'Page',
             'foreignKey' => 'created_person_id',
@@ -85,19 +99,25 @@ abstract class PersonAbstract extends AppModel
             'className' => 'File',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),        
+        ),
         'Image' => array(
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
             'dependent' => true
+        ),
+
+        'Company' => array(
+            'className' => 'Company',
+            'foreignKey' => 'owner_user_id',
+            'dependent' => true
         )
     );
-    
+
     /**
      * @access public
      */
-    public function __construct($id = false, $table = null, $ds = null) 
-    { 
+    public function __construct($id = false, $table = null, $ds = null)
+    {
         parent::__construct($id, $table, $ds);
 
         $fileWritePath = FILE_WRITE_PATH;
@@ -107,47 +127,48 @@ abstract class PersonAbstract extends AppModel
         $ds = DS;
 
         $this->virtualFields = array(
-            'name'=>"CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
-            'url'=>"CONCAT('/profile/',`{$this->alias}`.`username`)",
-            'private_url'=>"CONCAT('/members/view/',`{$this->alias}`.`username`)",
-            'file_write_path'=>"CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
-            'image_write_path'=>"CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
-            'file_read_path'=>"CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",        
-            'image_read_path'=>"CONCAT('{$imageReadPath}',`{$this->alias}`.`id` , '/')"  
-        );  
-            
+            'name' => "CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
+            'url' => "CONCAT('/profile/',`{$this->alias}`.`username`)",
+            'private_url' => "CONCAT('/members/view/',`{$this->alias}`.`username`)",
+            'file_write_path' => "CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
+            'image_write_path' => "CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
+            'file_read_path' => "CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",
+            'image_read_path' => "CONCAT('{$imageReadPath}',`{$this->alias}`.`id` , '/')"
+        );
+
     }
-    
+
     /**
      * Returns the data for a single person
      * @param string $id
-     * @return array 
+     * @return array
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
+     * @access public
      */
     public function getPerson($id)
-    {        
+    {
         $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
         return $person;
     }
-    
+
+
     /**
      * Returns the data for a single person
      * @param string $username
-     * @return array 
+     * @return array
      * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public 
+     * @access public
      */
     public function getPersonByUsername($username)
     {
         $person = $this->find('first', array('conditions'=>array($this->name.'.username' => $username)));
         return $person;
     }
-    
+
     /**
      * Parses an array of user data and returns the desired display name
      * @param type $data
-     * @return type 
+     * @return type
      */
     public function getDisplayName($data){
         return $data[$data['display_name']];

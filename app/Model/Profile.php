@@ -13,11 +13,11 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('CompanyAbstract', 'Model');
+App::uses('ProfileAbstract', 'Model');
 
 /**
- * Mangages the company object
+ * Class to represent a person profile objects
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-class Company extends CompanyAbstract {}
+class Profile extends ProfileAbstract {}

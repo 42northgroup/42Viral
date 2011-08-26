@@ -1,7 +1,21 @@
 <?php
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 App::uses('AppController', 'Controller');
 App::uses('HttpSocket', 'Network/Http');
+App::uses('Address', 'Model');
 
 /**
  * Abstract class to represent a generic company object which can be customized by subclassing from this class
@@ -100,20 +114,20 @@ abstract class CompaniesAbstractController extends AppController
     {
 
         $companyData = $this->data;
-        $generatedCompanyId = String::uuid();
+        //$generatedCompanyId = String::uuid();
 
-        $companyData['Company']['id'] = $generatedCompanyId;
-        $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
-
-        $companyAddress = $companyData['Address'];
-        $companyAddress['model'] = 'Company';
-        $companyAddress['model_id'] = $generatedCompanyId;
+        //$companyData['Company']['id'] = $generatedCompanyId;
+        $companyData['Company']['owner_user_id'] = $this->Session->read('Auth.User.id');
 
         if(isset($this->data['Company']['name'])) {
             $companyData['Company']['name_normalized'] = Inflector::underscore($this->data['Company']['name']);
         }
 
         if($this->Company->save($companyData)) {
+            $companyAddress = $companyData['Address'];
+            $companyAddress['model'] = 'Company';
+            $companyAddress['model_id'] = $this->Company->id;
+
             $this->Address->save($companyAddress);
 
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');
@@ -122,6 +136,24 @@ abstract class CompaniesAbstractController extends AppController
             $this->Session->setFlash(__('There was a problem saving the company details'), 'error');
             $this->redirect('/companies/create');
         }
+    }
+
+    /**
+     * Action to delete a company record
+     *
+     * @access public
+     * @param string $companyId
+     */
+    public function delete($companyId)
+    {
+        if($this->Company->delete($companyId, true /* cascade */)) {
+            $this->Session->setFlash(__('The company was deleted successfully'), 'success');
+        } else {
+            $this->Session->setFlash(__('There was a problem deleting the company'), 'error');
+        }
+
+
+        $this->redirect('/companies/index');
     }
 
 

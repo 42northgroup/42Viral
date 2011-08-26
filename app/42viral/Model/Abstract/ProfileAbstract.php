@@ -16,26 +16,39 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Mangages the address objects
+ * Mangages the person profile objects
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class AddressAbstract extends AppModel
+abstract class ProfileAbstract extends AppModel
 {
-    public $name = 'Address';
+    public $name = 'Profile';
 
+    /*
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
-        $this->virtualFields = array(
-            '_us_full_address' => "CONCAT(
-                `{$this->alias}`.`line1`, ' ',
-                `{$this->alias}`.`line2`, ' ',
-                `{$this->alias}`.`city`, ', ',
-                `{$this->alias}`.`state`, ' ',
-                `{$this->alias}`.`zip`
-            )"
-        );
+
+
     }
+    */
 
 
+   /**
+    * Fetch a given user's profile data
+    *
+    * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+    * @access public
+    */
+   public function fetchUserProfile($userId)
+   {
+       $userProfile = $this->find('first', array(
+           'contain' => array(),
+
+           'conditions' => array(
+               'Profile.owner_user_id' => $userId
+           )
+       ));
+
+       return $userProfile;
+   }
 }

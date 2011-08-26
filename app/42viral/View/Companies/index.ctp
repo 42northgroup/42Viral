@@ -8,7 +8,7 @@
             <td>Name</td>
             <td>Address</td>
             <td>Phone</td>
-            <td>Listings</td>
+            <td>Actions</td>
         </tr>
     </thead>
 
@@ -37,7 +37,11 @@
                     <?php echo $tempCompany['Company']['phone1']; ?>
                 </td>
 
-                <td></td>
+                <td>
+                    <a href="/companies/delete/<?php echo $tempCompany['Company']['id']; ?>">
+                        [Delete]
+                    </a>
+                </td>
             </tr>
         <?php endforeach; ?>
     </tbody>

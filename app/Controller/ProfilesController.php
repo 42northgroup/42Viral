@@ -13,11 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('CompanyAbstract', 'Model');
+App::uses('ProfilesAbstractController',  'Controller');
 
 /**
- * Mangages the company object
- *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @package app
+ * @subpackage app.core
  */
-class Company extends CompanyAbstract {}
+class ProfilesController extends ProfilesAbstractController {}
