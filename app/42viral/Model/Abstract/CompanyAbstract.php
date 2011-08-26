@@ -11,6 +11,18 @@ abstract class CompanyAbstract extends AppModel
 {
     public $name = 'Company';
 
+    public $hasMany = array(
+        'Address' => array(
+            'foreignKey' => 'model_id',
+
+            'conditions' => array(
+                'model' => 'Company'
+            ),
+
+            'dependent' => true
+        )
+    );
+
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         /*
@@ -20,18 +32,20 @@ abstract class CompanyAbstract extends AppModel
         */
     }
 
+
     /**
-     * Fetch user companies of a given user
+     * Fetch a given user's companies with associated model records given the user's person id
      *
      * @access public
      * @param string $userId
-     * @return array
+     * @param array $with
+     * @return Company
      */
-    public function fetchUserCompanies($userId)
+    public function fetchUserCompaniesWith($userId, $with=array())
     {
 
         $companies = $this->find('all', array(
-            'contain' => array(),
+            'contain' => $with,
 
             'conditions' => array(
                 'owner_person_id' => $userId
@@ -41,34 +55,38 @@ abstract class CompanyAbstract extends AppModel
         return $companies;
     }
 
+
     /**
-     * Fetch all companies in the system
+     * Fetch all companies in the system with associated model records
      *
      * @access public
-     * @return array List of all companies
+     * @param type $with
+     * @return array
      */
-    public function fetchAllCompanies()
+    public function fetchAllCompaniesWith($with=array())
     {
         $companies = $this->find('all', array(
-            'contain' => array()
+            'contain' => $with
         ));
 
         return $companies;
     }
 
+
     /**
-     * Given a normalized company name, fetch the company record
+     * Fetch a company record with associated model records given the company name
      *
      * @access public
-     * @param
-     * @return
+     * @param string $companyName
+     * @param array $with
+     * @return Company
      */
-    public function fetchCompanyByName($companyName)
+    public function fetchCompanyByNameWith($companyName, $with=array())
     {
         $normalizedCompanyName = Inflector::underscore($companyName);
 
         $company = $this->find('first', array(
-            'contain' => array(),
+            'contain' => $with,
 
             'conditions' => array(
                 'Company.name_normalized' => $normalizedCompanyName
