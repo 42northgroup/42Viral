@@ -20,6 +20,35 @@
     font-weight: 700;
 }
 
+.banner-navigation{
+    padding: 4px 0;
+}
+
+.banner-navigation a:link,
+.banner-navigation a:visited{
+    padding:3px 7px;
+    background: #333;
+    font-weight: normal;
+    color: #ddd;
+    text-decoration: none;
+    border-radius: 3px;
+}
+
+.banner-navigation a:hover{
+    color: #666;
+}
+
+.banner-sub-navigation a:link,
+.banner-sub-navigation a:visited{
+    font-weight: normal;
+    color: #444;
+    text-decoration: none;
+}
+
+.banner-sub-navigation a:hover{
+    color: #666;
+}
+
 #Left h4{
     padding: 0;
     margin: 0 0 0 10px;
