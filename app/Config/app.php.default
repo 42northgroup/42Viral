@@ -1,4 +1,17 @@
 <?php
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 /* ==============
  * == Themes ====
@@ -7,9 +20,9 @@
 /**
  * Define the default theme set
  */
-define('THEME_SET', 'Default');
+Configure::write('Theme.set', 'Default');
 
-//define('HOME_TITLE', 'Default Home Page');
+    ## Configure::write('Theme.HomePage.title', 'Default');
 
 /**
  * Do we prefer http or https?
@@ -106,6 +119,11 @@ Configure::write('Comment.engine', 'native');
     ## Configure::write('LinkedIn.consumer_secret', '');
     ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
 
+/**
+ * Yahoo
+ */
+    ## Configure::write('Yahoo.LocalSearch.api_id', '');
+    ## define('APP_ID_YAHOO_LOCAL_SEARCH', '');
 
 /* ====================
  * == Asset Helper ====
@@ -189,9 +207,4 @@ define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
  */
 define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
 
-
-/**
- *
- */
-define('APP_ID_YAHOO_LOCAL_SEARCH', '');
 ?>
