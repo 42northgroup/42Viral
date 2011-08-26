@@ -19,7 +19,9 @@
                     'css' . DS . 'forms.css',
                     'css' . DS . 'tables.css',
                     'css' . DS . 'messages.css',
-                    'css' . DS . 'navigation.css'
+                    'css' . DS . 'navigation.css',
+                    'css' . DS . 'controls.css',
+                    'css' . DS . 'controls.social.css'
                 ));
 
         echo $this->Asset->buildAssets('js');
