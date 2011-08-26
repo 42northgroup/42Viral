@@ -84,25 +84,29 @@ abstract class OauthAbstract extends AppModel
      * @return string 
      */
     public function createOauthed($service, $oauthId, $token=null, $userId=null){
-
-        $allowRollBack = false;
         
         //Is this an exisiting user?
         if(is_null($userId)){
 
-            //No, this is not an exisiting user. Create the user record.
-            $newOuathId = $this->id;
-
             //Build the Person reocrd
-            $oauthedUser = array();
-            $oauthedUser['User']['id'] = $userId;
+            $oauthedUser = array();            
             $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
             $oauthedUser['User']['password'] = Configure::read('Oauth.password');
             $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
 
             if($this->User->createUser($oauthedUser['User'])){
+                
                 $userId = $this->User->id;
-                $allowRollBack = true;
+                                
+                $oauthed = array();
+                $oauthed['Oauth']['person_id'] = $userId;
+                $oauthed['Oauth']['oauth_id'] = $oauthId;
+                $oauthed['Oauth']['service'] = $service;
+                $oauthed['Oauth']['token'] = $token;
+
+                if($this->save($oauthed)){
+                    return $userId;
+                }
             }else{
                 //The save failed, get out
                 return false;
@@ -119,12 +123,7 @@ abstract class OauthAbstract extends AppModel
             $oauthed['Oauth']['token'] = $token;
             
             if($this->save($oauthed)){
-                //If a user was created then we set the rollback flag to true. If this is true and the Oauth could not 
-                //be saved, remove the newly created person record as well.  
-                if($allowRollBack){
-                    $this->Person->delete($userId);
-                }
-                return false;
+                return $userId;
             }else{
                 //Everything worked out, return the user id
                 return $userId;

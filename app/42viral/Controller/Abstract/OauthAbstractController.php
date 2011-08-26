@@ -128,7 +128,7 @@ abstract class OauthAbstractController extends AppController
             
         }else{
             
-            $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
+            $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);            
             $this->__auth($oauthUserId, $response, 'Twitter'); 
         }
     } 
@@ -357,7 +357,7 @@ abstract class OauthAbstractController extends AppController
         }else{
             
             if($this->Auth->login($user['User'])){
-
+                
                 $session = $this->Session->read('Auth');
                 $oauthData = array($oauthKey => $response);
 
