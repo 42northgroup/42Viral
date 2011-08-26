@@ -5,7 +5,3 @@
     <li><a href="/companies">Companies</a></li>
     <li><a href="/admin/users/">Users Index</a></li>
 </ul>
-
-<?php if($this->Session->check('Auth.User.id')): ?>
-    <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'contents'); ?>
-<?php endif; ?>
