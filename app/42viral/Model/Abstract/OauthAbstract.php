@@ -41,7 +41,7 @@ abstract class OauthAbstract extends AppModel
      * @param string $oauthId
      * @return string 
      */
-    public function oauthed($service, $oauthId, $token=null){
+    public function oauthed($service, $oauthId, $token=null, $user_id=null){
         $theOauthed = $this->fetchOauthed($service, $oauthId);
         if($theOauthed){
  
@@ -49,7 +49,7 @@ abstract class OauthAbstract extends AppModel
             
         }else{
 
-            return $this->createOauthed($service, $oauthId, $token);
+            return $this->createOauthed($service, $oauthId, $token, $user_id);
         }
     }
     
@@ -83,10 +83,16 @@ abstract class OauthAbstract extends AppModel
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
      * @return string 
      */
-    public function createOauthed($service, $oauthId, $token=null){
+    public function createOauthed($service, $oauthId, $token=null, $user_id=null){
         
         //We need an ID for the new Person reocrd
-        $personId = String::uuid();
+        if($user_id == null){
+            
+            $personId = String::uuid();        
+        }else{
+            
+            $personId = $user_id;
+        }
         
         //Build the Oauth record
         $oauthed = array();
@@ -97,26 +103,85 @@ abstract class OauthAbstract extends AppModel
 
         if($this->save($oauthed)){
 
-            $newOuathId = $this->id;
-            
-            //Build the Person reocrd
-            $oauthedUser = array();
-            $oauthedUser['User']['id'] = $personId;
-            $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
-            $oauthedUser['User']['password'] = Configure::read('Oauth.password');
-            $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
-            
-            if($this->User->createUser($oauthedUser['User'])){
-                return $personId;
+            if($user_id == null){
+               
+                $newOuathId = $this->id;
+
+                //Build the Person reocrd
+                $oauthedUser = array();
+                $oauthedUser['User']['id'] = $personId;
+                $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
+                $oauthedUser['User']['password'] = Configure::read('Oauth.password');
+                $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
+
+                if($this->User->createUser($oauthedUser['User'])){
+                    return $personId;
+                }else{
+                    //If the Person record fails, roll back the Oauth record
+                    $this->delete($newOuathId);
+                    return false;
+                }
+                
             }else{
-                //If the Person record fails, roll back the Oauth record
-                $this->delete($newOuathId);
-                return false;
+                
+                return $user_id;
             }
             
         }else{
             return false;
         }
-    }    
+    }
+    
+    public function doesOauthExist($service, $service_id, $user_id)
+    {
+        $oauth = $this->find('first', array(
+            'conditions' => array(
+                    'Oauth.service' => $service,
+                    'Oauth.oauth_id' => $service_id
+                )
+        ));
+        
+        if(!empty ($oauth)){
+            if($oauth['Oauth']['person_id'] != $user_id){
+                
+                $oauth_person_id = $oauth['Oauth']['person_id'];
+                $db = ConnectionManager::getDataSource('default');
+                $tables = $db->listSources();
+
+                $fields = array();
+
+                foreach($tables as $table) {
+                    if(!in_array($table, array('aros', 'acos', 'aros_acos'))){
+                        
+                        $result = $db->query('DESCRIBE '. $table);            
+                        $fields =  Set::extract($result, '/COLUMNS/Field');
+                        $class_name = Inflector::classify($table);
+
+                        App::uses($class_name, 'Model');
+                        $loaded_table = new $class_name();
+
+                        foreach($fields as $field){
+
+                            if(!(strpos($field, 'person_id') === false)){
+
+                                $loaded_table->updateAll(
+                                        array($class_name. '.' .$field => "'$user_id'"),
+                                        array($class_name. '.' .$field." LIKE '$oauth_person_id'")
+                                    );
+                            }
+                        }
+                    }
+
+                }
+
+                $user = new User();
+                $user->delete($oauth_person_id);
+            }
+            return true;
+        }else{
+            
+            return false;
+        }
+    }
     
 }

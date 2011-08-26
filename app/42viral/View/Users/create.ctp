@@ -39,6 +39,3 @@
     <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
     </div>
 </div>
-
-
-

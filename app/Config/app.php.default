@@ -1,17 +1,4 @@
 <?php
-/**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
 
 /* ==============
  * == Themes ====
@@ -20,24 +7,9 @@
 /**
  * Define the default theme set
  */
-Configure::write('Theme.set', 'Default');
+define('THEME_SET', 'Default');
 
-    ## Configure::write('Theme.HomePage.title', 'Default');
-
-/**
- * Do we prefer http or https?
- */
-Configure::write('Domain.scheme', 'http');
-
-/**
- * Do we prefer http or https?
- */
-Configure::write('Domain.host', 'build.42viral.org');
-
-/**
- * The domains fully configured base url
- */
-Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Configure::read('Domain.host') . '/');
+//define('HOME_TITLE', 'Default Home Page');
 
 /* ====================
  * == File Uploads ====
@@ -72,58 +44,36 @@ define('FILE_READ_PATH', '/files/people/');
  * Comment engines
  *     native - 42Viral's native comment engine (Default)
  *     //See Thrid Party API's for additional configuration
- */
+ *     disqus - @link http://disqus.com/
+ */   
 Configure::write('Comment.engine', 'native');
 
 /* =========================
  * == Thrid Party API's ====
  * =======================*/
+
 /**
- * The standard password for authed users. This is simply used to keep the auth component happy
- * as the User has already been authenticated via Oauth
- */
-    ## Configure::write('Oauth.password', '');
-/**
- * Disqus
+ * Disqus configuration
  * @see http://disqus.com/
  */
     ## Configure::write('Disqus.shortname', '');
     ## Configure::write('Disqus.developer', 1);
 
 /**
- * Google
+ * Google Analytics tracking code
  */
 
-//Analytics tracking code
     ## Configure::write('Google.setAccount');
-
-//Webmaster Tools verification code
-
+/**
+ * Google Webmaster Tools verification code
+ */
     ## Configure::write('Google.SiteVerification', '');
-    
-// Apps
-    ## Configure::write('Google.Apps.domain', '');
 
 /**
- * Twitter
+ * Twitter OAuth
  */
     ## Configure::write('Twitter.consumer_key', '');
-    ## Configure::write('Twitter.consumer_secret', '');
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
-
-
-/**
- * LinkedIn
- */
-    ## Configure::write('LinkedIn.consumer_key', '');
-    ## Configure::write('LinkedIn.consumer_secret', '');
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
-
-/**
- * Yahoo
- */
-    ## Configure::write('Yahoo.LocalSearch.api_id', '');
-    ## define('APP_ID_YAHOO_LOCAL_SEARCH', '');
+    ## Configure::write('Twitter.consumer_secret', '');  
 
 /* ====================
  * == Asset Helper ====
@@ -143,13 +93,13 @@ define('JS_METHOD', 'closureLocal');
  * CSS_METHOD: (CSS minification method to use)
  *     cssMin - http://code.google.com/p/cssmin/
  *     yuiLocal      - Uses a local yui jar file
- *
+ * 
  */
 define('CSS_METHOD', 'yuiLocal');
 
 /**
- * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server
- * path)
+ * ASSET_CACHE (The location of the cache directory, this is where the single asset file will be written via the server 
+ * path) 
  */
 define('ASSET_CACHE', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'cache');
 
@@ -179,7 +129,7 @@ define('YUI',   ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'yui' 
 define('MINIFY_ASSETS', true);
 
 /**
- * When set to true this overrides the native hash checking functionality and forces a new asset build
+ * When set to true this overrides the native hash checking functionality and forces a new asset build 
  */
 define('FORCE_NEW_ASSETS', false);
 
@@ -188,23 +138,22 @@ define('FORCE_NEW_ASSETS', false);
  * ================*/
 // Test Case common constants
 /**
- *
+ * 
  */
 define('TEST_CASE_DIR', APP_DIR . DS . 'Test' . DS . 'Case');
 
 /**
- *
+ * 
  */
 define('TEST_MODEL', ROOT . DS . TEST_CASE_DIR . DS . 'Model' . DS);
 
 /**
- *
+ * 
  */
 define('TEST_CONTROLER', ROOT . DS . TEST_CASE_DIR . DS . 'Controller' . DS);
 
 /**
- *
+ * 
  */
 define('TEST_VIEW', ROOT . DS . TEST_CASE_DIR . DS . 'View' . DS);
-
 ?>

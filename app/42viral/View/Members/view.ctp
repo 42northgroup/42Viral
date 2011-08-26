@@ -94,6 +94,7 @@
 
     </div>
 
+
     <?php if($mine): ?>
         <div>
             <a href="/companies/create">Create Company</a>
@@ -101,5 +102,21 @@
             <a href="/companies/mine">Show My Companies</a>
         </div>
     <?php endif; ?>
+
+
+    <div style="float:left; width: 200px; margin-left: 20px;" >
+        <a href="/oauth/facebook_connect" >
+            Connect Facebook
+        </a><br/>
+
+        <a href="/oauth/linkedin_connect" >
+            Connect Linkedin
+        </a><br/>
+
+        <a href="/oauth/twitter_connect" >
+            Connect Twitter
+        </a>
+
+    </div>
 
 </div>

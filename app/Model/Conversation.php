@@ -7,4 +7,4 @@ App::uses('ConversationAbstract', 'Model');
  * @package App
  * @subpackage App.core
  */
-abstract class ConversationAbstract extends AppModel{}
+class Conversation extends ConversationAbstract{}

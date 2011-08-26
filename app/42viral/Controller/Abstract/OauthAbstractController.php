@@ -18,7 +18,7 @@ abstract class OauthAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Oauth', 'People', 'User');
+    public $uses = array('Oauth', 'People', 'User', 'Aro');
     
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -58,13 +58,14 @@ abstract class OauthAbstractController extends AppController
             'method' => 'GET',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_callback' => '',
+                'oauth_callback' => 'http://loc.build.42viral.org/oauth/twitter_callback',
                 'oauth_consumer_key' => Configure::read('Twitter.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('Twitter.consumer_secret')       
             )
         );
 
-        $response = $this->HttpSocketOauth ->request($request);
+        $response = $this->HttpSocketOauth->request($request);
+        
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
         $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
@@ -108,8 +109,28 @@ abstract class OauthAbstractController extends AppController
             'screen_name' => "Fake_User"
         );
         */
-        $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
-        $this->__auth($oauthUserId, $response, 'Twitter'); 
+        
+        if($this->Session->check('Auth.User.id')){
+            
+            if($this->Oauth->doesOauthExist('twitter', $response['user_id'], $this->Session->read('Auth.User.id'))){
+
+                $this->Aro->deleteAll(array('Aro.alias' => 'twitter_'.$response['user_id']));
+                $this->Session->setFlash('You have been authenticated', 'success');
+                $this->redirect($this->Auth->redirect());
+            }else{
+                $oauthUserId = $this->Oauth->oauthed('twitter', 
+                                                    $response['user_id'], 
+                                                    null, 
+                                                    $this->Session->read('Auth.User.id')
+                                                );
+                $this->__auth($oauthUserId, $response, 'Twitter'); 
+            }
+            
+        }else{
+            
+            $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
+            $this->__auth($oauthUserId, $response, 'Twitter'); 
+        }
     } 
 
     /**
@@ -188,9 +209,7 @@ abstract class OauthAbstractController extends AppController
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-
-        pr($response);
-        
+       
         $request1 = array(
             'uri' => array(
                 'scheme' => 'http',
@@ -214,7 +233,7 @@ abstract class OauthAbstractController extends AppController
         $response1 = $this->HttpSocketOauth->request($request1);
 
         parse_str($response1, $response1);
-        pr($response1);
+        
                         
         $response1['user_id'] = $response1['amp;key'];
         /*
@@ -227,8 +246,28 @@ abstract class OauthAbstractController extends AppController
         );
         */
         
-        $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
-        $this->__auth($oauthUserId, $response, 'LinkedIn'); 
+        if($this->Session->check('Auth.User.id')){
+            
+            if($this->Oauth->doesOauthExist('linked_in', $response1['user_id'], $this->Session->read('Auth.User.id'))){
+
+                $this->Aro->deleteAll(array('Aro.alias' => 'linked_in_'.$response1['user_id']));
+                $this->Session->setFlash('You have been authenticated', 'success');
+                $this->redirect($this->Auth->redirect());
+            }else{
+                $oauthUserId = $this->Oauth->oauthed('linked_in', 
+                                                    $response1['user_id'], 
+                                                    null, 
+                                                    $this->Session->read('Auth.User.id')
+                                                );
+                
+                $this->__auth($oauthUserId, $response, 'LinkedIn'); 
+            }
+            
+        }else{
+            
+            $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
+            $this->__auth($oauthUserId, $response, 'LinkedIn'); 
+        }
         
     } 
     
@@ -263,18 +302,37 @@ abstract class OauthAbstractController extends AppController
         . "&client_secret=" . Configure::read('Facebook.consumer_secret') 
         . "&code=" . $this->params['url']['code'];
 
-         $response = file_get_contents($token_url);
-         $params = null;
-         parse_str($response, $params);
+        $response = file_get_contents($token_url);
+        $params = null;
+        parse_str($response, $params);
 
-         $graph_url = "https://graph.facebook.com/me?access_token=" 
-           . $params['access_token'];
+        $graph_url = "https://graph.facebook.com/me?access_token=" 
+        . $params['access_token'];
 
-         $user = json_decode(file_get_contents($graph_url));
-         pr($user);
-                          
-        $oauthUserId = $this->Oauth->oauthed('facebook', $user->id, $params['access_token']);
-        $this->__auth($oauthUserId, $response, 'Facebook'); 
+        $user = json_decode(file_get_contents($graph_url));
+        
+        if($this->Session->check('Auth.User.id')){
+            
+            if($this->Oauth->doesOauthExist('facebook', $user->id, $this->Session->read('Auth.User.id'))){
+
+                $this->Aro->deleteAll(array('Aro.alias' => 'facebook_'.$user->id));
+                $this->Session->setFlash('You have been authenticated', 'success');
+                $this->redirect($this->Auth->redirect());
+            }else{
+
+                $oauthUserId = $this->Oauth->oauthed('facebook', 
+                                                    $user->id, 
+                                                    $params['access_token'], 
+                                                    $this->Session->read('Auth.User.id')
+                                                );
+                $this->__auth($oauthUserId, $response, 'Facebook'); 
+            }
+            
+        }else{
+
+            $oauthUserId = $this->Oauth->oauthed('facebook', $user->id, $params['access_token']);
+            $this->__auth($oauthUserId, $response, 'Facebook'); 
+        }
         
     } 
     
@@ -286,40 +344,54 @@ abstract class OauthAbstractController extends AppController
      * @todo Generalize this with User::login()
      * @todo make use of or remove $error
      */
-    public function __auth($userId, $response, $oauthKey){
+    private function __auth($userId, $response, $oauthKey)
+    {
 
 
         $user = $this->User->getUser($userId);
         
         if(empty($user)){
+            
             $this->log("User not found {$user['User']['username']}", 'weekly_user_login');
-            $error = true;
+            return false;
         }else{
+            
+            if($this->Auth->login($user['User'])){
 
-            $hash = Sec::hashPassword(Configure::read('Oauth.password'), $user['User']['salt']);
-            if($hash == $user['User']['password']){
+                $session = $this->Session->read('Auth');
+                $oauthData = array($oauthKey => $response);
 
-                if($this->Auth->login($user['User'])){
-                    
-                    $session = $this->Session->read('Auth');
-                    $oauthData = array($oauthKey => $response);
+                $this->Session->write('Auth', array_merge($session, $oauthData));
+                $this->__createAro($user['User']['username'], $user['User']['id']);
 
-                    $this->Session->write('Auth', array_merge($session, $oauthData));
-                    
-                    $this->Session->setFlash('You have been authenticated', 'success');
-                    $this->redirect($this->Auth->redirect());
+                $this->Session->setFlash('You have been authenticated', 'success');
+                $this->redirect($this->Auth->redirect());
 
-                    $error = false;
-                }else{
-                    $error = true;
-                }
-
+            
             }else{
-                $this->log("Password mismatch {$this->data['User']['username']}", 'weekly_user_login');
-                $error = true;
+                
+                return false;
             }
+            
         }      
   
+    }
+    
+    private function __createAro($alias, $foreign_key)
+    {
+        $aro = $this->Aro->findByAlias($alias); 
+        
+        if( empty ($aro) ){
+            $this->Acl->Aro->create(array(            
+                'model'=>'User',
+                'foreign_key'=>$foreign_key,
+                'alias'=>$alias, 0, 0));
+
+            return($this->Acl->Aro->save());
+        }else{
+            return true;
+        }
+        
     }
     
 }

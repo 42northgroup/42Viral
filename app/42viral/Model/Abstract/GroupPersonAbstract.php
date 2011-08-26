@@ -3,12 +3,14 @@
 App::uses('AppModel', 'Model');
 
 /**
+
  * Mangages the person object
  * @package App
  * @subpackage App.core
  */
 abstract class GroupPersonAbstract extends AppModel
 {
+
     /**
      * 
      * @var string
@@ -16,6 +18,7 @@ abstract class GroupPersonAbstract extends AppModel
      */
     public $name = 'GroupPerson';
     
+
     /**
      *
      * @var string
@@ -24,4 +27,5 @@ abstract class GroupPersonAbstract extends AppModel
     public $useTable = 'group_people';
     
   
+
 }

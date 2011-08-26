@@ -24,7 +24,7 @@ abstract class UsersAbstractController extends AppController
     public function beforeFilter(){
         parent::beforeFilter();
         
-        $this->auth(array('create', 'login'));
+        $this->auth(array('create', 'login', 'logout'));
         
         //Allows us to login against either the username or email
         $this->Auth->fields = array('username' => array('username', 'email'));
