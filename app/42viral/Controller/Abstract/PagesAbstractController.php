@@ -103,6 +103,6 @@ abstract class PagesAbstractController extends AppController {
      */
     public function home(){
         $this->layout = 'home';
-        $this->set('title_for_layout', HOME_TITLE);
+        $this->set('title_for_layout', Configure::read('Theme.HomePage.title'));
     }
 }

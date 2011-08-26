@@ -111,13 +111,19 @@ Configure::write('Comment.engine', 'native');
     ## Configure::write('Twitter.consumer_secret', '');
     ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
 
-
 /**
  * LinkedIn
  */
     ## Configure::write('LinkedIn.consumer_key', '');
     ## Configure::write('LinkedIn.consumer_secret', '');
     ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
+
+/**
+ * FaceBook
+ */
+    ## Configure::write('Facebook.consumer_key', '');
+    ## Configure::write('Facebook.consumer_secret', '');
+    ## Configure::write('Facebook.callback', Configure::read('Domain.url') . 'oauth/facebook_callback');
 
 /**
  * Yahoo
