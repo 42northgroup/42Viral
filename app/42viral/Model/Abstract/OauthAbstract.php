@@ -83,53 +83,56 @@ abstract class OauthAbstract extends AppModel
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
      * @return string 
      */
-    public function createOauthed($service, $oauthId, $token=null, $user_id=null){
+    public function createOauthed($service, $oauthId, $token=null, $userId=null){
+
+        $allowRollBack = false;
         
-        //We need an ID for the new Person reocrd
-        if($user_id == null){
-            
-            $personId = String::uuid();        
-        }else{
-            
-            $personId = $user_id;
-        }
-        
-        //Build the Oauth record
-        $oauthed = array();
-        $oauthed['Oauth']['person_id'] = $personId;
-        $oauthed['Oauth']['oauth_id'] = $oauthId;
-        $oauthed['Oauth']['service'] = $service;
-        $oauthed['Oauth']['token'] = $token;
+        //Is this an exisiting user?
+        if(is_null($userId)){
 
-        if($this->save($oauthed)){
+            //No, this is not an exisiting user. Create the user record.
+            $newOuathId = $this->id;
 
-            if($user_id == null){
-               
-                $newOuathId = $this->id;
+            //Build the Person reocrd
+            $oauthedUser = array();
+            $oauthedUser['User']['id'] = $userId;
+            $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
+            $oauthedUser['User']['password'] = Configure::read('Oauth.password');
+            $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
 
-                //Build the Person reocrd
-                $oauthedUser = array();
-                $oauthedUser['User']['id'] = $personId;
-                $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
-                $oauthedUser['User']['password'] = Configure::read('Oauth.password');
-                $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
-
-                if($this->User->createUser($oauthedUser['User'])){
-                    return $personId;
-                }else{
-                    //If the Person record fails, roll back the Oauth record
-                    $this->delete($newOuathId);
-                    return false;
-                }
-                
+            if($this->User->createUser($oauthedUser['User'])){
+                $userId = $this->User->id;
+                $allowRollBack = true;
             }else{
-                
-                return $user_id;
+                //The save failed, get out
+                return false;
             }
-            
-        }else{
-            return false;
+
         }
+        
+        if(!is_null($userId)){
+            //Build the Oauth record
+            $oauthed = array();
+            $oauthed['Oauth']['person_id'] = $userId;
+            $oauthed['Oauth']['oauth_id'] = $oauthId;
+            $oauthed['Oauth']['service'] = $service;
+            $oauthed['Oauth']['token'] = $token;
+            
+            if($this->save($oauthed)){
+                //If a user was created then we set the rollback flag to true. If this is true and the Oauth could not 
+                //be saved, remove the newly created person record as well.  
+                if($allowRollBack){
+                    $this->Person->delete($userId);
+                }
+                return false;
+            }else{
+                //Everything worked out, return the user id
+                return $userId;
+            }
+        }
+        
+        //If we've come this far, something bad happened
+        return false;
     }
     
     public function doesOauthExist($service, $service_id, $user_id)

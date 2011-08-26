@@ -58,7 +58,7 @@ abstract class OauthAbstractController extends AppController
             'method' => 'GET',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_callback' => 'http://loc.build.42viral.org/oauth/twitter_callback',
+                'oauth_callback' => Configure::read('Twitter.callback'),
                 'oauth_consumer_key' => Configure::read('Twitter.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('Twitter.consumer_secret')       
             )
