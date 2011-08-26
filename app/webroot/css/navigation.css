@@ -15,9 +15,9 @@
 #Header a:link,
 #Header a:hover,
 #Header a:visited{
-    color: #fff;
+    color: #999;
     text-decoration: none;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 #Left h4{
