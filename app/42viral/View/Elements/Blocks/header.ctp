@@ -16,6 +16,7 @@
     <div id="HeaderContent"></div>
 
     <div id="HeaderRight">
+        
         <?php if($this->Session->check('Auth.User.id')): ?>
             <?php echo $this->Html->link('My Account', $this->Session->read('Auth.User.private_url')); ?>
             <?php echo " | "; ?>

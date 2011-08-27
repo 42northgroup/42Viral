@@ -15,9 +15,9 @@
         
             switch($this->request->params['controller']){
                 case 'contents';
-                    echo $this->Html->link('Create a blog', '/contents/blog_create/' );
+                    echo $this->Auth->link('Contents-blog_create', 'Blog', '/contents/blog_create/');
                     echo ' / ';
-                    echo $this->Html->link('Post to a blog', '/contents/post_create/' );
+                    echo $this->Auth->link('Contents-post_create', 'Post', '/contents/post_create/');
                 break;     
             }
             
