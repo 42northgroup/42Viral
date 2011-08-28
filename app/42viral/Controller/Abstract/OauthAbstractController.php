@@ -1,11 +1,24 @@
 <?php
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 App::uses('AppController', 'Controller');
 App::uses('HttpSocketOauth', 'Lib');
 App::uses('HttpSocket', 'Network/Http');
 /**
  * @author Jason D Snider <jsnider77@gmail.com>
- * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
+ * @see http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
  * @package app
  * @subpackage app.core
  */
@@ -39,6 +52,13 @@ abstract class OauthAbstractController extends AppController
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');        
     }
 
+    /**
+     * Placeholder
+     */
+    public function connect(){
+        
+    }
+    
     /**
      * The Twitter connect page. Authorizes "this" application against a users Twitter account
      * @author Jason D Snider <jsnider77@gmail.com>

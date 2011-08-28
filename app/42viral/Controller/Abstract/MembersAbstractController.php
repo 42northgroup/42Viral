@@ -78,6 +78,7 @@ abstract class MembersAbstractController extends AppController {
         //Does the user really exist?
         if(empty($user)):
             $this->Session->setFlash(__('An invalid profile was requested') ,'error');
+            throw new NotFoundException('An invalid profile was requested');
             //$this->redirect('/', 404);
         endif;
 
