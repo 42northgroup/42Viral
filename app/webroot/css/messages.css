@@ -15,12 +15,15 @@
 #SetFlash, #flashMessage{
     text-align: center;
     color: #fff;
+    font-family: Courier, monospace;
+    font-size: 120%;
     font-weight: bold;
-    font-size: 18px;
+    line-height: 140%;    
 }
 #FlashError{
-    background: #900;
-    padding:6px;            
+    background: #e32;
+    padding:6px;
+
 }
 
 #FlashSuccess{

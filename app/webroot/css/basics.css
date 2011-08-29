@@ -52,3 +52,16 @@ pre,
 code{
     overflow: auto;
 }
+
+/* results pages */
+#ResultsPage h1{
+    margin-bottom:6px;
+}
+
+#ResultsPage h2{
+    margin-bottom:2px;
+}
+
+.tease{
+    margin-bottom: 4px;
+}

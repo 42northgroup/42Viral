@@ -44,12 +44,17 @@ abstract class OauthAbstractController extends AppController
      * @access public
      */
     public function beforeFilter(){
+        
         parent::beforeFilter();
+        
         $this->auth(array('*'));
+        
+        //Since this is the only action we want to deny we can get a little lazy
+        $this->Auth->deny('connect');
         
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
-        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');        
+        $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');     
     }
 
     /**
