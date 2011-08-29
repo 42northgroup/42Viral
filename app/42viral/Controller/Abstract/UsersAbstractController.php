@@ -1,5 +1,17 @@
 <?php
-
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 App::uses('AppController', 'Controller');
 
 //App::uses('ProfileAbstract', 'AbstractModel');
@@ -9,6 +21,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 abstract class UsersAbstractController extends AppController
 {
@@ -44,8 +57,6 @@ abstract class UsersAbstractController extends AppController
 
     /**
      * The public action for loging into the system
-     *
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      * @todo TestCase
      */
@@ -100,8 +111,6 @@ abstract class UsersAbstractController extends AppController
 
     /**
      * The public action for loging out of the system
-     *
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      * @todo TestCase
      */
@@ -116,7 +125,6 @@ abstract class UsersAbstractController extends AppController
      * Logs the newly created user into the system
      *
      * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      * @todo TestCase
      * @todo Complete and harden

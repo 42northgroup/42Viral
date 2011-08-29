@@ -1,10 +1,23 @@
 <?php
-
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 App::uses('AppController', 'Controller');
 
 /**
  * @package app
  * @subpackage app.core
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 abstract class UploadsAbstractController extends AppController
 {
@@ -14,7 +27,7 @@ abstract class UploadsAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('User');
+    public $uses = array('Image', 'Upload', 'User');
 
     /**
      *
@@ -36,12 +49,18 @@ abstract class UploadsAbstractController extends AppController
      *
      * @param array
      */
-    public function images($token) 
+    public function images($token = null) 
     {
         // If we have no token, we will use the logged in user.
         if(is_null($token)):
             $token = $this->Session->read('Auth.User.username');
         endif;
+        
+        //If the token is still null, just stop
+        if(is_null($token)){
+            $this->Session->setFlash(__('An invalid profile was requested') ,'error');
+            throw new NotFoundException('An invalid profile was requested');
+        }
 
         //Get the user data
         //$user = $this->User->getProfile($token);
@@ -67,10 +86,9 @@ abstract class UploadsAbstractController extends AppController
     /**
      * Uploads an image to a users profile
      * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
-    public function image_upload($personId){
+    public function image_upload(){
 
         if(!empty($this->data)){
 
@@ -88,7 +106,6 @@ abstract class UploadsAbstractController extends AppController
     /**
      * Sets a user's profile image
      * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
     public function set_avatar($personId, $imageId){

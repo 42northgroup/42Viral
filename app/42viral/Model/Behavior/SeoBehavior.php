@@ -35,12 +35,14 @@ class SeoBehavior extends ModelBehavior
      */
     public function beforeSave(&$model)
     {        
-        $baseSlug = $this->__baseSlug($model, $model->data[$model->name]['title']);
-        $model->data[$model->name]['base_slug'] = $baseSlug;
-        $model->data[$model->name]['slug'] = $this->__slug($model, $baseSlug);
+
         
         //We only auto-gen on creation
         if(!isset($model->data[$model->name]['id'])) {
+            $baseSlug = $this->__baseSlug($model, $model->data[$model->name]['title']);
+            $model->data[$model->name]['base_slug'] = $baseSlug;
+            $model->data[$model->name]['slug'] = $this->__slug($model, $baseSlug);
+        
             $model->data[$model->name]['canonical'] = $this->__canonical($model, $model->data[$model->name]['slug']);
         }
         
@@ -111,7 +113,7 @@ class SeoBehavior extends ModelBehavior
      * @author Jason D Snider <jsnider77@gmail.com> 
      */
     private function __canonical(&$model, $slug){
-        return Configure::write('Domain.url') . strtolower("{$model->alias}/{$slug}"); 
+        return Configure::read('Domain.url') . strtolower("{$model->alias}/{$slug}/"); 
     }
 
 }
