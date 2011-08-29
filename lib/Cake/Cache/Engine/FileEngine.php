@@ -30,8 +30,7 @@ class FileEngine extends CacheEngine {
 /**
  * Instance of SplFileObject class
  *
- * @var _File
- * @access protected
+ * @var File
  */
 	protected $_File = null;
 
@@ -45,7 +44,6 @@ class FileEngine extends CacheEngine {
  *
  * @var array
  * @see CacheEngine::__defaults
- * @access public
  */
 	public $settings = array();
 
@@ -53,7 +51,6 @@ class FileEngine extends CacheEngine {
  * True unless FileEngine::__active(); fails
  *
  * @var boolean
- * @access protected
  */
 	protected $_init = true;
 
@@ -243,7 +240,9 @@ class FileEngine extends CacheEngine {
 			}
 			$path = $this->_File->getRealPath();
 			$this->_File = null;
-			unlink($path);
+			if (file_exists($path)) {
+				unlink($path);
+			}
 		}
 		$dir->close();
 		return true;
@@ -252,6 +251,8 @@ class FileEngine extends CacheEngine {
 /**
  * Not implemented
  *
+ * @param string $key
+ * @param integer $offset
  * @return void
  * @throws CacheException
  */
@@ -262,6 +263,8 @@ class FileEngine extends CacheEngine {
 /**
  * Not implemented
  *
+ * @param string $key
+ * @param integer $offset
  * @return void
  * @throws CacheException
  */
@@ -275,7 +278,6 @@ class FileEngine extends CacheEngine {
  * @param string $key The key
  * @param boolean $createKey Whether the key should be created if it doesn't exists, or not
  * @return boolean true if the cache key could be set, false otherwise
- * @access protected
  */
 	protected function _setKey($key, $createKey = false) {
 		$path = new SplFileInfo($this->settings['path'] . $key);
@@ -296,7 +298,6 @@ class FileEngine extends CacheEngine {
  * Determine is cache directory is writable
  *
  * @return boolean
- * @access protected
  */
 	protected function _active() {
 		$dir = new SplFileInfo($this->settings['path']);

@@ -785,15 +785,45 @@ class CakeRequestTestCase extends CakeTestCase {
 		
 		$result = $request->accepts();
 		$expected = array(
-			'text/xml', 'application/xml', 'application/xhtml+xml', 'text/html', 'text/plain', 'image/png'
+			'text/xml', 'application/xhtml+xml', 'text/html', 'image/png', 'text/plain', 'application/xml'
 		);
 		$this->assertEquals($expected, $result, 'Content types differ.');
-		
+
 		$result = $request->accepts('text/html');
 		$this->assertTrue($result);
-		
+
 		$result = $request->accepts('image/gif');
 		$this->assertFalse($result);
+	}
+
+/**
+ * Test that accept header types are trimmed for comparisons.
+ *
+ * @return void
+ */
+	public function testAcceptWithWhitespace() {
+		$_SERVER['HTTP_ACCEPT'] = 'text/xml  ,  text/html ,  text/plain,image/png';
+		$request = new CakeRequest('/', false);
+		$result = $request->accepts();
+		$expected = array(
+			'text/xml', 'text/html', 'text/plain', 'image/png'
+		);
+		$this->assertEquals($expected, $result, 'Content types differ.');
+
+		$this->assertTrue($request->accepts('text/html'));
+	}
+
+/**
+ * Content types from accepts() should respect the client's q preference values.
+ *
+ * @return void
+ */
+	public function testAcceptWithQvalueSorting() {
+		$_SERVER['HTTP_ACCEPT'] = 'text/html;q=0.8,application/json;q=0.7,application/xml;q=1.0';
+		$request = new CakeRequest('/', false);
+		$result = $request->accepts();
+		$expected = array('application/xml', 'text/html', 'application/json');
+		$this->assertEquals($expected, $result);
 	}
 
 /**
@@ -1308,6 +1338,34 @@ class CakeRequestTestCase extends CakeTestCase {
 					'webroot' => '/',
 				),
 			),
+			array(
+				'Nginx - w/rewrite, document root set to webroot, request root, no PATH_INFO',
+				array(
+					'App' => array(
+						'base' => false,
+						'baseUrl' => false,
+						'dir' => 'app',
+						'webroot' => 'webroot'
+					),
+					'GET' => array('/posts/add' => ''),
+					'SERVER' => array(
+						'SERVER_NAME' => 'localhost', 
+						'DOCUMENT_ROOT' => '/Library/WebServer/Documents/site/app/webroot', 
+						'SCRIPT_FILENAME' => '/Library/WebServer/Documents/site/app/webroot/index.php', 
+						'SCRIPT_NAME' => '/index.php',
+						'QUERY_STRING' => '/posts/add&',
+						'PHP_SELF' => '/index.php',
+						'PATH_INFO' => null,
+						'REQUEST_URI' => '/posts/add',
+					),
+				),
+				array(
+					'url' => 'posts/add',
+					'base' => '',
+					'webroot' => '/',
+					'urlParams' => array()
+				),
+			),
 		);
 	}
 
@@ -1326,7 +1384,7 @@ class CakeRequestTestCase extends CakeTestCase {
 		$this->assertEquals($expected['base'], $request->base, "base error");
 		$this->assertEquals($expected['webroot'], $request->webroot, "webroot error");
 		if (isset($expected['urlParams'])) {
-			$this->assertEqual($_GET, $expected['urlParams'], "GET param mismatch");
+			$this->assertEqual($request->query, $expected['urlParams'], "GET param mismatch");
 		}
 	}
 
@@ -1495,7 +1553,6 @@ XML;
  *
  * @param mixed $env
  * @return void
- * @access private
  */
 	function __loadEnvironment($env) {
 		if (isset($env['App'])) {

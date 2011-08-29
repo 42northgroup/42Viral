@@ -26,7 +26,6 @@ class BakeTask extends Shell {
  * Name of plugin
  *
  * @var string
- * @access public
  */
 	public $plugin = null;
 
@@ -34,7 +33,6 @@ class BakeTask extends Shell {
  * The db connection being used for baking
  *
  * @var string
- * @access public
  */
 	public $connection = null;
 
@@ -44,6 +42,17 @@ class BakeTask extends Shell {
  * @var boolean
  */
 	public $interactive = false;
+
+/**
+ * Disable caching for baking.
+ * This forces the most current database schema to be used.
+ *
+ * @return void
+ */
+	function startup() {
+		Configure::write('Cache.disable', 1);
+		parent::startup();
+	}
 
 /**
  * Gets the path for output.  Checks the plugin property

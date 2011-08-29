@@ -43,13 +43,16 @@ class FixtureTask extends BakeTask {
 /**
  * Schema instance
  *
- * @var object
+ * @var CakeSchema
  */
 	protected $_Schema = null;
 
 /**
  * Override initialize
  *
+ * @param ConsoleOutput $stdout A ConsoleOutput object for stdout.
+ * @param ConsoleOutput $stderr A ConsoleOutput object for stderr.
+ * @param ConsoleInput $stdin A ConsoleInput object for stdin.
  */
 	public function __construct($stdout = null, $stderr = null, $stdin = null) {
 		parent::__construct($stdout, $stderr, $stdin);
@@ -236,7 +239,7 @@ class FixtureTask extends BakeTask {
  * Generate the fixture file, and write to disk
  *
  * @param string $model name of the model being generated
- * @param string $fixture Contents of the fixture file.
+ * @param string $otherVars Contents of the fixture file.
  * @return string Content saved into fixture file.
  */
 	public function generateFixtureFile($model, $otherVars) {
@@ -271,7 +274,7 @@ class FixtureTask extends BakeTask {
 /**
  * Generates a string representation of a schema.
  *
- * @param array $table Table schema array
+ * @param array $tableInfo Table schema array
  * @return string fields definitions
  */
 	protected function _generateSchema($tableInfo) {
@@ -282,7 +285,8 @@ class FixtureTask extends BakeTask {
 /**
  * Generate String representation of Records
  *
- * @param array $table Table schema array
+ * @param array $tableInfo Table schema array
+ * @param integer $recordCount
  * @return array Array of records to use in the fixture.
  */
 	protected function _generateRecords($tableInfo, $recordCount = 1) {
@@ -312,35 +316,30 @@ class FixtureTask extends BakeTask {
 								 $insert = substr($insert, 0, (int)$fieldInfo['length'] - 2);
 							}
 						}
-						$insert = "'$insert'";
 					break;
 					case 'timestamp':
-						$ts = time();
-						$insert = "'$ts'";
+						$insert = time();
 					break;
 					case 'datetime':
-						$ts = date('Y-m-d H:i:s');
-						$insert = "'$ts'";
+						$insert = date('Y-m-d H:i:s');
 					break;
 					case 'date':
-						$ts = date('Y-m-d');
-						$insert = "'$ts'";
+						$insert = date('Y-m-d');
 					break;
 					case 'time':
-						$ts = date('H:i:s');
-						$insert = "'$ts'";
+						$insert = date('H:i:s');
 					break;
 					case 'boolean':
 						$insert = 1;
 					break;
 					case 'text':
-						$insert = "'Lorem ipsum dolor sit amet, aliquet feugiat.";
+						$insert = "Lorem ipsum dolor sit amet, aliquet feugiat.";
 						$insert .= " Convallis morbi fringilla gravida,";
 						$insert .= " phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin";
 						$insert .= " venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla";
 						$insert .= " vestibulum massa neque ut et, id hendrerit sit,";
 						$insert .= " feugiat in taciti enim proin nibh, tempor dignissim, rhoncus";
-						$insert .= " duis vestibulum nunc mattis convallis.'";
+						$insert .= " duis vestibulum nunc mattis convallis.";
 					break;
 				}
 				$record[$field] = $insert;
@@ -361,7 +360,8 @@ class FixtureTask extends BakeTask {
 		foreach ($records as $record) {
 			$values = array();
 			foreach ($record as $field => $value) {
-				$values[] = "\t\t\t'$field' => $value";
+				$val = var_export($value, true);
+				$values[] = "\t\t\t'$field' => $val";
 			}
 			$out .= "\t\tarray(\n";
 			$out .= implode(",\n", $values);
@@ -404,7 +404,7 @@ class FixtureTask extends BakeTask {
 		foreach ($records as $record) {
 			$row = array();
 			foreach ($record[$modelObject->alias] as $field => $value) {
-				$row[$field] = $db->value($value, $schema[$field]['type']);
+				$row[$field] = $value;
 			}
 			$out[] = $row;
 		}

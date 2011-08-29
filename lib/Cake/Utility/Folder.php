@@ -29,7 +29,6 @@ class Folder {
  * Path to Folder.
  *
  * @var string
- * @access public
  */
 	public $path = null;
 
@@ -38,7 +37,6 @@ class Folder {
  * should be sorted by name.
  *
  * @var boolean
- * @access public
  */
 	public $sort = false;
 
@@ -46,7 +44,6 @@ class Folder {
  * Mode to be used on create. Does nothing on windows platforms.
  *
  * @var integer
- * @access public
  */
 	public $mode = 0755;
 
@@ -54,33 +51,29 @@ class Folder {
  * Holds messages from last method.
  *
  * @var array
- * @access private
  */
-	private $__messages = array();
+	protected $_messages = array();
 
 /**
  * Holds errors from last method.
  *
  * @var array
- * @access private
  */
-	private $__errors = array();
+	protected $_errors = array();
 
 /**
  * Holds array of complete directory paths.
  *
  * @var array
- * @access private
  */
-	private $__directories;
+	protected $_directories;
 
 /**
  * Holds array of complete file paths.
  *
  * @var array
- * @access private
  */
-	private $__files;
+	protected $_files;
 
 /**
  * Constructor.
@@ -152,36 +145,40 @@ class Folder {
 		}
 		$skipHidden = isset($exceptions['.']) || $exceptions === true;
 
-		if (false === ($dir = @opendir($this->path))) {
+		try {
+			$iterator = new DirectoryIterator($this->path);
+		} catch (UnexpectedValueException $e) {
 			return array($dirs, $files);
 		}
 
-		while (false !== ($item = readdir($dir))) {
-			if ($item === '.' || $item === '..' || ($skipHidden && $item[0] === '.') || isset($exceptions[$item])) {
+		foreach ($iterator as $item) {
+			if ($item->isDot()) {
 				continue;
 			}
-
-			$path = Folder::addPathElement($this->path, $item);
-			if (is_dir($path)) {
-				$dirs[] = $fullPath ? $path : $item;
+			$name = $item->getFileName();
+			if ($skipHidden && $name[0] === '.' || isset($exceptions[$name])) {
+				continue;
+			}
+			if ($fullPath) {
+				$name = $item->getPathName();
+			}
+			if ($item->isDir()) {
+				$dirs[] = $name;
 			} else {
-				$files[] = $fullPath ? $path : $item;
+				$files[] = $name;
 			}
 		}
-
 		if ($sort || $this->sort) {
 			sort($dirs);
 			sort($files);
 		}
-
-		closedir($dir);
 		return array($dirs, $files);
 	}
 
 /**
  * Returns an array of all matching files in current directory.
  *
- * @param string $pattern Preg_match pattern (Defaults to: .*)
+ * @param string $regexpPattern Preg_match pattern (Defaults to: .*)
  * @param boolean $sort Whether results should be sorted.
  * @return array Files that match given pattern
  */
@@ -213,7 +210,6 @@ class Folder {
  * @param string $pattern Pattern to match against
  * @param boolean $sort Whether results should be sorted.
  * @return array Files matching pattern
- * @access private
  */
 	protected function _findRecursive($pattern, $sort = false) {
 		list($dirs, $files) = $this->read($sort);
@@ -247,7 +243,7 @@ class Folder {
  * Returns true if given $path is an absolute path.
  *
  * @param string $path Path to check
- * @return bool true if path is absolute.
+ * @return boolean true if path is absolute.
  */
 	public static function isAbsolute($path) {
 		return !empty($path) && ($path[0] === '/' || preg_match('/^[A-Z]:\\\\/i', $path) || substr($path, 0, 2) == '\\\\');
@@ -301,7 +297,7 @@ class Folder {
  * Returns true if the File is in a given CakePath.
  *
  * @param string $path The path to check.
- * @return bool
+ * @return boolean
  */
 	public function inCakePath($path = '') {
 		$dir = substr(Folder::slashTerm(ROOT), 0, -1);
@@ -315,7 +311,7 @@ class Folder {
  *
  * @param string $path The path to check that the current pwd() resides with in.
  * @param boolean $reverse
- * @return bool
+ * @return boolean
  */
 	public function inPath($path = '', $reverse = false) {
 		$dir = Folder::slashTerm($path);
@@ -345,11 +341,11 @@ class Folder {
 
 		if ($recursive === false && is_dir($path)) {
 			if (@chmod($path, intval($mode, 8))) {
-				$this->__messages[] = __d('cake_dev', '%s changed to %s', $path, $mode);
+				$this->_messages[] = __d('cake_dev', '%s changed to %s', $path, $mode);
 				return true;
 			}
 
-			$this->__errors[] = __d('cake_dev', '%s NOT changed to %s', $path, $mode);
+			$this->_errors[] = __d('cake_dev', '%s NOT changed to %s', $path, $mode);
 			return false;
 		}
 
@@ -366,14 +362,14 @@ class Folder {
 					}
 
 					if (@chmod($fullpath, intval($mode, 8))) {
-						$this->__messages[] = __d('cake_dev', '%s changed to %s', $fullpath, $mode);
+						$this->_messages[] = __d('cake_dev', '%s changed to %s', $fullpath, $mode);
 					} else {
-						$this->__errors[] = __d('cake_dev', '%s NOT changed to %s', $fullpath, $mode);
+						$this->_errors[] = __d('cake_dev', '%s NOT changed to %s', $fullpath, $mode);
 					}
 				}
 			}
 
-			if (empty($this->__errors)) {
+			if (empty($this->_errors)) {
 				return true;
 			}
 		}
@@ -388,37 +384,48 @@ class Folder {
  * @param string $type either file or dir. null returns both files and directories
  * @return mixed array of nested directories and files in each directory
  */
-	public function tree($path, $exceptions = true, $type = null) {
-		$original = $this->path;
-		$path = rtrim($path, DS);
-		if (!$this->cd($path)) {
+	public function tree($path = null, $exceptions = true, $type = null) {
+		if ($path == null) {
+			$path = $this->path;
+		}
+		$files = array();
+		$directories = array($path);
+		$skipHidden = false;
+
+		if ($exceptions === false) {
+			$skipHidden = true;
+		}
+		if (is_array($exceptions)) {
+			$exceptions = array_flip($exceptions);
+		}
+
+		try {
+			$directory = new RecursiveDirectoryIterator($path);
+			$iterator = new RecursiveIteratorIterator($directory, RecursiveIteratorIterator::SELF_FIRST);
+		} catch (UnexpectedValueException $e) {
 			if ($type === null) {
 				return array(array(), array());
 			}
 			return array();
 		}
-		$this->__files = array();
-		$this->__directories = array($this->realpath($path));
-		$directories = array();
-
-		if ($exceptions === false) {
-			$exceptions = true;
+		foreach ($iterator as $item) {
+			$name = $item->getFileName();
+			if ($skipHidden && $name[0] === '.' || isset($exceptions[$name])) {
+				continue;
+			}
+			if ($item->isFile()) {
+				$files[] = $item->getPathName();
+			} else if ($item->isDir()) {
+				$directories[] = $item->getPathName();
+			}
 		}
-		while (!empty($this->__directories)) {
-			$dir = array_pop($this->__directories);
-			$this->__tree($dir, $exceptions);
-			$directories[] = $dir;
-		}
-
 		if ($type === null) {
-			return array($directories, $this->__files);
+			return array($directories, $files);
 		}
 		if ($type === 'dir') {
 			return $directories;
 		}
-		$this->cd($original);
-
-		return $this->__files;
+		return $files;
 	}
 
 /**
@@ -426,13 +433,13 @@ class Folder {
  *
  * @param string $path The Path to read.
  * @param mixed $exceptions Array of files to exclude from the read that will be performed.
- * @access private
+ * @return void
  */
-	public function __tree($path, $exceptions) {
+	protected function _tree($path, $exceptions) {
 		$this->path = $path;
 		list($dirs, $files) = $this->read(false, $exceptions, true);
-		$this->__directories = array_merge($this->__directories, $dirs);
-		$this->__files = array_merge($this->__files, $files);
+		$this->_directories = array_merge($this->_directories, $dirs);
+		$this->_files = array_merge($this->_files, $files);
 	}
 
 /**
@@ -453,7 +460,7 @@ class Folder {
 		}
 
 		if (is_file($pathname)) {
-			$this->__errors[] = __d('cake_dev', '%s is a file', $pathname);
+			$this->_errors[] = __d('cake_dev', '%s is a file', $pathname);
 			return false;
 		}
 		$pathname = rtrim($pathname, DS);
@@ -464,11 +471,11 @@ class Folder {
 				$old = umask(0);
 				if (mkdir($pathname, $mode)) {
 					umask($old);
-					$this->__messages[] = __d('cake_dev', '%s created', $pathname);
+					$this->_messages[] = __d('cake_dev', '%s created', $pathname);
 					return true;
 				} else {
 					umask($old);
-					$this->__errors[] = __d('cake_dev', '%s NOT created', $pathname);
+					$this->_errors[] = __d('cake_dev', '%s NOT created', $pathname);
 					return false;
 				}
 			}
@@ -479,8 +486,7 @@ class Folder {
 /**
  * Returns the size in bytes of this Folder and its contents.
  *
- * @param string $directory Path to directory
- * @return int size in bytes of current folder
+ * @return integer size in bytes of current folder
  */
 	public function dirsize() {
 		$size = 0;
@@ -541,9 +547,9 @@ class Folder {
 					}
 					if (is_file($file) === true) {
 						if (@unlink($file)) {
-							$this->__messages[] = __d('cake_dev', '%s removed', $file);
+							$this->_messages[] = __d('cake_dev', '%s removed', $file);
 						} else {
-							$this->__errors[] = __d('cake_dev', '%s NOT removed', $file);
+							$this->_errors[] = __d('cake_dev', '%s NOT removed', $file);
 						}
 					} elseif (is_dir($file) === true && $this->delete($file) === false) {
 						return false;
@@ -552,10 +558,10 @@ class Folder {
 			}
 			$path = substr($path, 0, strlen($path) - 1);
 			if (rmdir($path) === false) {
-				$this->__errors[] = __d('cake_dev', '%s NOT removed', $path);
+				$this->_errors[] = __d('cake_dev', '%s NOT removed', $path);
 				return false;
 			} else {
-				$this->__messages[] = __d('cake_dev', '%s removed', $path);
+				$this->_messages[] = __d('cake_dev', '%s removed', $path);
 			}
 		}
 		return true;
@@ -572,7 +578,7 @@ class Folder {
  * - `skip` Files/directories to skip.
  *
  * @param mixed $options Either an array of options (see above) or a string of the destination directory.
- * @return bool Success
+ * @return boolean Success
  */
 	public function copy($options = array()) {
 		if (!$this->pwd()) {
@@ -590,7 +596,7 @@ class Folder {
 		$mode = $options['mode'];
 
 		if (!$this->cd($fromDir)) {
-			$this->__errors[] = __d('cake_dev', '%s not found', $fromDir);
+			$this->_errors[] = __d('cake_dev', '%s not found', $fromDir);
 			return false;
 		}
 
@@ -599,7 +605,7 @@ class Folder {
 		}
 
 		if (!is_writable($toDir)) {
-			$this->__errors[] = __d('cake_dev', '%s not writable', $toDir);
+			$this->_errors[] = __d('cake_dev', '%s not writable', $toDir);
 			return false;
 		}
 
@@ -613,9 +619,9 @@ class Folder {
 						if (copy($from, $to)) {
 							chmod($to, intval($mode, 8));
 							touch($to, filemtime($from));
-							$this->__messages[] = __d('cake_dev', '%s copied to %s', $from, $to);
+							$this->_messages[] = __d('cake_dev', '%s copied to %s', $from, $to);
 						} else {
-							$this->__errors[] = __d('cake_dev', '%s NOT copied to %s', $from, $to);
+							$this->_errors[] = __d('cake_dev', '%s NOT copied to %s', $from, $to);
 						}
 					}
 
@@ -626,11 +632,11 @@ class Folder {
 							$old = umask(0);
 							chmod($to, $mode);
 							umask($old);
-							$this->__messages[] = __d('cake_dev', '%s created', $to);
+							$this->_messages[] = __d('cake_dev', '%s created', $to);
 							$options = array_merge($options, array('to'=> $to, 'from'=> $from));
 							$this->copy($options);
 						} else {
-							$this->__errors[] = __d('cake_dev', '%s not created', $to);
+							$this->_errors[] = __d('cake_dev', '%s not created', $to);
 						}
 					}
 				}
@@ -640,7 +646,7 @@ class Folder {
 			return false;
 		}
 
-		if (!empty($this->__errors)) {
+		if (!empty($this->_errors)) {
 			return false;
 		}
 		return true;
@@ -684,7 +690,7 @@ class Folder {
  * @return array
  */
 	public function messages() {
-		return $this->__messages;
+		return $this->_messages;
 	}
 
 /**
@@ -693,7 +699,7 @@ class Folder {
  * @return array
  */
 	public function errors() {
-		return $this->__errors;
+		return $this->_errors;
 	}
 
 /**
