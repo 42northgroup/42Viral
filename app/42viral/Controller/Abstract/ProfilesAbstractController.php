@@ -30,6 +30,9 @@ abstract class ProfilesAbstractController extends AppController {
     public $name = 'Profiles';
 
 
+    public $components = array('ProfileProgress');
+
+
     /**
      * Action to provide a form for editing profile data and pre-loading the form with previously saved data
      *
@@ -59,7 +62,14 @@ abstract class ProfilesAbstractController extends AppController {
             $profileData['Profile']['owner_user_id'] = $this->Session->read('Auth.User.id');
 
             if($this->Profile->save($profileData)) {
-                $this->Session->setFlash(__('Profile saved successfully'), 'success');
+                $this->Session->setFlash(__('User Profile saved successfully'), 'success');
+
+                $userId = $this->Session->read('Auth.User.id');
+                $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
+                if($overallProgress['_all'] < 100) {
+                    $this->redirect('/members/complete_profile');
+                }
+
             } else {
                 $this->Session->setFlash(__('There was a problem saving your profile data'), 'error');
             }

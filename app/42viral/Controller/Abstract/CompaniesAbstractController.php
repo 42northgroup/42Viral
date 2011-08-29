@@ -32,6 +32,9 @@ abstract class CompaniesAbstractController extends AppController
     public $uses = array('Company', 'Address');
 
 
+    public $components = array('ProfileProgress');
+
+
     /**
      * Default index action method to list all companies
      *
@@ -131,7 +134,16 @@ abstract class CompaniesAbstractController extends AppController
             $this->Address->save($companyAddress);
 
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');
-            $this->redirect('/companies/index');
+
+            $userId = $this->Session->read('Auth.User.id');
+            $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
+            if($overallProgress['_all'] < 100) {
+                $this->redirect('/members/complete_profile');
+            } else {
+                $this->redirect('/companies/index');
+            }
+
+
         } else {
             $this->Session->setFlash(__('There was a problem saving the company details'), 'error');
             $this->redirect('/companies/create');

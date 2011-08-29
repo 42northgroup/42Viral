@@ -3,21 +3,21 @@ App::uses('AppModel', 'Model');
 App::uses('User', 'Model');
 App::uses('Sec', 'Utility');
 /**
- * 
+ *
  * @package App
  * @subpackage App.core
  */
 abstract class OauthAbstract extends AppModel
 {
     /**
-     * 
+     *
      * @var string
      * @access public
      */
     public $name = 'Oauth';
-    
+
  /**
-     * 
+     *
      * @var array
      * @access public
      */
@@ -28,76 +28,76 @@ abstract class OauthAbstract extends AppModel
             'dependent' => true
         )
     );
-    
+
     public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
-        
+
         $this->User = new User();
     }
-    
+
     /**
      * Wraps the checking and creation logic
      * @param string $service
      * @param string $oauthId
-     * @return string 
+     * @return string
      */
     public function oauthed($service, $oauthId, $token=null, $user_id=null){
         $theOauthed = $this->fetchOauthed($service, $oauthId);
         if($theOauthed){
- 
+
             return $theOauthed;
-            
+
         }else{
 
             return $this->createOauthed($service, $oauthId, $token, $user_id);
         }
     }
-    
+
     /**
      * Fetches an Oauth record
      * @param string $service
      * @param string $oauthId
-     * @return string 
+     * @return string
      */
     public function fetchOauthed($service, $oauthId){
         $oauthed =
-            $this->find('first', 
+            $this->find('first',
                 array(
                     'conditions'=>array(
-                        'Oauth.service'=>$service, 
+                        'Oauth.service'=>$service,
                         'Oauth.oauth_id'=>$oauthId
                     )
                 )
             );
-        
+
         if(!empty($oauthed)){
             return $oauthed['Oauth']['person_id'];
         }else{
             return false;
         }
     }
-    
+
     /**
      * Creates a new OAuth entry and person
      * @param string $service
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
-     * @return string 
+     * @return string
      */
     public function createOauthed($service, $oauthId, $token=null, $userId=null){
-        
+
         //Is this an exisiting user?
         if(is_null($userId)){
 
             //Build the Person reocrd
-            $oauthedUser = array();            
+            $oauthedUser = array();
             $oauthedUser['User']['username'] = "{$service}_{$oauthId}";
             $oauthedUser['User']['password'] = Configure::read('Oauth.password');
             $oauthedUser['User']['verify_password'] = Configure::read('Oauth.password');
 
             if($this->User->createUser($oauthedUser['User'])){
-                
+
                 $userId = $this->User->id;
-                                
+
                 $oauthed = array();
                 $oauthed['Oauth']['person_id'] = $userId;
                 $oauthed['Oauth']['oauth_id'] = $oauthId;
@@ -113,7 +113,7 @@ abstract class OauthAbstract extends AppModel
             }
 
         }
-        
+
         if(!is_null($userId)){
             //Build the Oauth record
             $oauthed = array();
@@ -121,7 +121,7 @@ abstract class OauthAbstract extends AppModel
             $oauthed['Oauth']['oauth_id'] = $oauthId;
             $oauthed['Oauth']['service'] = $service;
             $oauthed['Oauth']['token'] = $token;
-            
+
             if($this->save($oauthed)){
                 return $userId;
             }else{
@@ -129,11 +129,11 @@ abstract class OauthAbstract extends AppModel
                 return $userId;
             }
         }
-        
+
         //If we've come this far, something bad happened
         return false;
     }
-    
+
     public function doesOauthExist($service, $service_id, $user_id)
     {
         $oauth = $this->find('first', array(
@@ -142,10 +142,10 @@ abstract class OauthAbstract extends AppModel
                     'Oauth.oauth_id' => $service_id
                 )
         ));
-        
+
         if(!empty ($oauth)){
             if($oauth['Oauth']['person_id'] != $user_id){
-                
+
                 $oauth_person_id = $oauth['Oauth']['person_id'];
                 $db = ConnectionManager::getDataSource('default');
                 $tables = $db->listSources();
@@ -154,8 +154,8 @@ abstract class OauthAbstract extends AppModel
 
                 foreach($tables as $table) {
                     if(!in_array($table, array('aros', 'acos', 'aros_acos'))){
-                        
-                        $result = $db->query('DESCRIBE '. $table);            
+
+                        $result = $db->query('DESCRIBE '. $table);
                         $fields =  Set::extract($result, '/COLUMNS/Field');
                         $class_name = Inflector::classify($table);
 
@@ -181,9 +181,36 @@ abstract class OauthAbstract extends AppModel
             }
             return true;
         }else{
-            
+
             return false;
         }
     }
-    
+
+
+    /**
+     *
+     * @param type $userId
+     * @return int
+     */
+    public function connectProgress($userId)
+    {
+        $connectedServices = $this->find('all', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'person_id' => $userId
+            )
+        ));
+
+        $progress = 0;
+
+        if(empty($connectedServices)) {
+            $progress = 0;
+        } else {
+            $progress = 100;
+        }
+
+        return $progress;
+    }
+
 }

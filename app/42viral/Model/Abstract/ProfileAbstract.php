@@ -51,4 +51,42 @@ abstract class ProfileAbstract extends AppModel
 
        return $userProfile;
    }
+
+
+   /**
+    *
+    *
+    * @param type $userId
+    * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+    * @access public
+    */
+   public function userProfileProgress($userId)
+   {
+       $userProfile = $this->find('first', array(
+           'contain' => array(),
+
+           'conditions' => array(
+               'Profile.owner_user_id' => $userId
+           )
+       ));
+
+       $progress = 0;
+
+       if(empty($userProfile)) {
+           $progress = 0;
+       } else {
+           if(
+               !empty($userProfile['Profile']['first_name']) ||
+               !empty($userProfile['Profile']['last_name'])
+           ) {
+               $progress += 20;
+           }
+
+           if(!empty($userProfile['Profile']['first_name'])) {
+               $progress += 80;
+           }
+       }
+
+       return $progress;
+   }
 }

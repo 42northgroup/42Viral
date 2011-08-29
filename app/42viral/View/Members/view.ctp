@@ -151,22 +151,19 @@
 
             <a href="/companies/mine">Edit Companies</a>
         </div>
+
+        <div style="float:left; width: 200px; margin-top: 20px;">
+            <a href="/oauth/facebook_connect" >
+                Connect Facebook
+            </a><br/>
+
+            <a href="/oauth/linkedin_connect" >
+                Connect Linkedin
+            </a><br/>
+
+            <a href="/oauth/twitter_connect" >
+                Connect Twitter
+            </a>
+        </div>
     <?php endif; ?>
-
-
-    <div style="float:left; width: 200px; margin-left: 20px;" >
-        <a href="/oauth/facebook_connect" >
-            Connect Facebook
-        </a><br/>
-
-        <a href="/oauth/linkedin_connect" >
-            Connect Linkedin
-        </a><br/>
-
-        <a href="/oauth/twitter_connect" >
-            Connect Twitter
-        </a>
-
-    </div>
-
 </div>

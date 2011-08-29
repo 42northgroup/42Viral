@@ -127,4 +127,31 @@ abstract class CompanyAbstract extends AppModel
             return false;
         }
     }
+
+
+    /**
+     *
+     * @param type $userId
+     * @return int 
+     */
+    public function companyProfileProgress($userId)
+    {
+        $companies = $this->find('all', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'owner_user_id' => $userId
+            )
+        ));
+
+        $progress = 0;
+
+        if(empty($companies)) {
+            $progress;
+        } else {
+            $progress = 100;
+        }
+
+        return $progress;
+    }
 }

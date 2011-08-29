@@ -21,6 +21,9 @@ abstract class MembersAbstractController extends AppController {
      */
     public $uses = array('Image', 'User');
 
+
+    public $components = array('ProfileProgress');
+
     /**
      * @var array
      * @access public
@@ -62,11 +65,11 @@ abstract class MembersAbstractController extends AppController {
      * @todo TestCase
      */
     public function view($token = null)
-    {        
+    {
         // If we have no token, we will use the logged in user.
-        if(is_null($token)):
+        if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
-        endif;
+        }
 
         //Get the user data
         //$user = $this->User->getProfile($token);
@@ -75,10 +78,10 @@ abstract class MembersAbstractController extends AppController {
         ));
 
         //Does the user really exist?
-        if(empty($user)):
+        if(empty($user)) {
             $this->Session->setFlash(__('An invalid profile was requested') ,'error');
             throw new NotFoundException('An invalid profile was requested');
-        endif;
+        }
 
         // Mine
         if($this->Session->read('Auth.User.username') == $token){
@@ -89,5 +92,25 @@ abstract class MembersAbstractController extends AppController {
 
         $this->set('user', $user);
 
+    }
+
+
+    /**
+     *
+     */
+    public function complete_profile()
+    {
+        $userId = $this->Session->read('Auth.User.id');
+        $token = $this->Session->read('Auth.User.username');
+
+        $user = $this->User->getUserWith($token, array(
+            'Profile'
+        ));
+
+        $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
+        $this->set('user', $user);
+
+        //debug($overallProgress);
+        $this->set('overall_progress', $overallProgress);
     }
 }
