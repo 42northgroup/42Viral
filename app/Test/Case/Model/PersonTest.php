@@ -14,6 +14,7 @@
  */
 
 App::import('Model', 'Person');
+App::uses('PersonFixture', 'Fixture');
 
 class PersonTestCase extends CakeTestCase 
 {
@@ -24,6 +25,7 @@ class PersonTestCase extends CakeTestCase
      */
     public function __construct() {
         $this->Person =& ClassRegistry::init('Person');
+        $this->PersonFixture = new PersonFixture();
     }
 
     /**
@@ -31,9 +33,9 @@ class PersonTestCase extends CakeTestCase
      * @access public
      */
     public function testGetPerson() {
-        
-        $result = $this->Person->getPerson('c9510606-a5bf-11e0-8563-000c29ae9eb4');
 
+        $result = $this->Person->getPerson('c9510606-a5bf-11e0-8563-000c29ae9eb4');
+/*
         $expected = array(
             'Person' => array(
                 'id' => 'c9510606-a5bf-11e0-8563-000c29ae9eb4',
@@ -49,7 +51,9 @@ class PersonTestCase extends CakeTestCase
                 'modified' => '2011-07-03 00:00:00',
                 'modified_person_id' => 'c9510606-a5bf-11e0-8563-000c29ae9eb4'
             )
-        );
+        );*/
+        
+        $expected = $this->PersonFixture->records;
 
         $this->assertEqual($result, $expected);
     }

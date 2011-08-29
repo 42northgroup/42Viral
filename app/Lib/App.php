@@ -166,9 +166,7 @@ class App {
 		'views' => 'View',
 		'helpers' => 'View/Helper',
 		'shells' => 'Console/Command',
-		'libs' => 'Lib',
-        'tests' => 'Test',
-        'fixtures' => 'Test/Fixture',
+		'libs' => 'Lib'
 	);
 
 /**
@@ -302,12 +300,6 @@ class App {
 				'Console/Command/Task' => array(
 					'%s' . 'Console' . DS . 'Command' . DS . 'Task' . DS,
 					'%s' . 'console' . DS . 'shells' . DS . 'tasks' . DS
-				),
-				'Test' => array(
-					'%s' . 'Test' . DS
-				),
-				'Fixture' => array(
-					'%s' . 'Test' . DS . 'Fixture' . DS
 				),
 				'Lib' => array(
 					'%s' . 'Lib' . DS,
