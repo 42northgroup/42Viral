@@ -83,6 +83,7 @@ body{
 
 #MainContent{
     float:left;
+    width: 800px;
 }
 
 #MainLeft{

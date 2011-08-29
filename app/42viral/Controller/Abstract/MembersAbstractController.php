@@ -74,12 +74,10 @@ abstract class MembersAbstractController extends AppController {
             'Profile', 'Content', 'Upload', 'Company' => array('Address')
         ));
 
-
         //Does the user really exist?
         if(empty($user)):
             $this->Session->setFlash(__('An invalid profile was requested') ,'error');
             throw new NotFoundException('An invalid profile was requested');
-            //$this->redirect('/', 404);
         endif;
 
         // Mine
@@ -90,54 +88,6 @@ abstract class MembersAbstractController extends AppController {
         }
 
         $this->set('user', $user);
-
-    }
-
-
-    /**
-     * Uploads an image to a users profile
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     */
-    public function upload_image($personId){
-
-        if(!empty($this->data)){
-
-            if($this->Image->upload($this->data)){
-                $this->Session->setFlash('Saved!', 'success');
-            }else{
-                $this->Session->setFlash('Failed!', 'error');
-            }
-        }
-
-        $this->redirect($this->referer());
-    }
-
-    /**
-     * Sets a user's profile image
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     */
-    public function set_avatar($personId, $imageId){
-
-        $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$imageId)));
-
-        $path = IMAGE_WRITE_PATH . $personId . DS . $image['Image']['name'];
-
-        $this->Image->setProfileImage($path, $personId);
-
-        $this->redirect($this->referer());
-    }
-
-    /**
-     * Sets a user's profile image
-     * @return void
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @access public
-     */
-    public function set_profile_image(){
 
     }
 }
