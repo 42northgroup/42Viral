@@ -78,9 +78,9 @@ do
     echo "+++$SCRIPT_PATH$CONFIG_PATH"
 done
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializerendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
-chmod 775 -fR "$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
-echo ">>>$SCRIPT_PATH/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+# chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializerendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+chmod 777 -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+echo ">>>$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"
 chmod 775 -fR "$SCRIPT_PATH/tmp"
