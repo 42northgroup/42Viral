@@ -1,9 +1,24 @@
 /**
- * engine.js
+ * JavaScript
+ * PHP 5.3
  *
- * Copyright 2011, MicroTrain Technologies
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
  * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/**
+ * @author Jason D Snider <jsnider77@gmail.com>
+ * 
+ * //Additional Credits
+ * @see JavaScript The Good Parts - Douglas Crawford
+ * @see http://blog.nategood.com/finally-grasping-prototypical-object-oriented
  */
 
 /**
@@ -40,3 +55,12 @@ function extend(object) {
     F.prototype = object;
     return new F();
 }    
+
+
+/**
+ * Default application wide AJAX settings 
+ */
+$.ajaxSetup ({
+    // Disable caching of AJAX responses
+    cache: false
+});

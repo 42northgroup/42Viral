@@ -13,6 +13,7 @@
                     'js' . DS . 'engine.js',
             
                     'css' . DS . 'vendors' . DS . 'yui.css',
+                    'css' . DS . 'fonts.css',
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'layout.css',
                     'css' . DS . 'basics.css',

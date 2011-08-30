@@ -12,15 +12,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-input,
-textarea,
-select{ 
-    font-family: "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; 
-    font-size: 10pt; 
-    color: #444; 
-    font-weight: normal;
-}
-
+ /**
+  * @author Jason D Snider <jsnider77@gmail.com>
+  */
+ 
 /* At this level we can't worry about speocifics, only the most general of concepts
  * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
  * form classes
@@ -31,55 +26,13 @@ input[type="text"],
 input[type="password"],
 select,
 textarea{
-    border: 1px solid #000;
-    border-radius: 2px;
-    font-size:16px;
-    padding: 6px;
+    border: 1px solid #bbb;
+    padding: 3px;
 }
 
 label{}
 
-
-form.default{
-    width: 320px;
-}
-
-form.default input[type="text"],
-form.default input[type="password"],
-form.default select,
-form.default textarea{
-    border: 1px solid #000;
-    border-radius: 2px;
-    width: 176px;
-    padding: 2px;
-}
-
-form.default label{
-    display: inline-block;
-    width: 126px;
-    padding-right: 12px;
-    text-align: right;
-}
-
-
-
-form.content{
-    width: 100%;
-}
-
-form.content label{
-    display: block;
-}
-
-form.contnet input[type="text"],
-form.contnet input[type="password"],
-form.content select,
-form.contnet textarea{}
-
-form .required {
-	font-weight: bold;
-}
-form .required label:after {
+.required label:after {
 	color: #900;
 	content: ' *';
 	display:inline;
@@ -90,6 +43,58 @@ form .required label:after {
 }
 
 input[type="submit"]{
-    padding: 8px 12px;
-    font-size: 16px;
+    padding: 6px 8px;
+}
+
+form.default{
+    width: 320px;
+}
+
+form.default input[type="text"],
+form.default input[type="password"],
+form.default textarea{
+    border: none;
+    border-top: 1px dashed #bbb;
+    border-bottom: 1px dotted #bbb;
+    padding: 6px;
+}
+
+form.default input[type="text"]:focus,
+form.default input[type="password"]:focus,
+form.default select:focus,
+form.default textarea:focus{
+    border: 2px solid #bbb;
+    padding: 6px;
+}
+
+form.deafult label{
+    display: block;
+}
+
+
+
+form.content{
+    width: 100%;
+}
+
+form.content input[type="text"],
+form.content input[type="password"],
+form.content textarea{
+    border: none;
+    border-top: 1px dashed #bbb;
+    border-bottom: 1px dotted #bbb;
+    padding: 6px;
+}
+
+
+form.content input[type="text"]:focus,
+form.content input[type="password"]:focus,
+form.content select:focus,
+form.content textarea:focus{
+    border: 2px solid #bbb;
+    padding: 6px;
+}
+
+form.content label{
+    display: block;
 }
