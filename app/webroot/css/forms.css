@@ -12,9 +12,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
- /**
-  * @author Jason D Snider <jsnider77@gmail.com>
-  */
+/**
+ * @author Jason D Snider <jsnider77@gmail.com>
+ */
  
 /* At this level we can't worry about speocifics, only the most general of concepts
  * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
@@ -77,7 +77,6 @@ form.content textarea{
     border-bottom: 1px dotted #bbb;
     padding: 6px;
 }
-
 
 form.content input[type="text"]:focus,
 form.content input[type="password"]:focus,
