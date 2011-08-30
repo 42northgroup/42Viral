@@ -7,9 +7,10 @@ echo $this->Form->create('Profile', array(
 ));
 
 echo $this->Form->hidden('id');
-echo $this->Form->input('bio');
 echo $this->Form->input('first_name');
 echo $this->Form->input('last_name');
+
+echo $this->Form->input('bio');
 
 echo $this->Form->submit('Submit');
 

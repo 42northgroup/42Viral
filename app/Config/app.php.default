@@ -100,7 +100,7 @@ Configure::write('Comment.engine', 'native');
 //Webmaster Tools verification code
 
     ## Configure::write('Google.SiteVerification', '');
-    
+
 // Apps
     ## Configure::write('Google.Apps.domain', '');
 
@@ -124,6 +124,14 @@ Configure::write('Comment.engine', 'native');
     ## Configure::write('Facebook.consumer_key', '');
     ## Configure::write('Facebook.consumer_secret', '');
     ## Configure::write('Facebook.callback', Configure::read('Domain.url') . 'oauth/facebook_callback');
+
+/**
+ * Yelp
+ */
+    ## Configure::write('Yelp.consumer_key', '');
+    ## Configure::write('Yelp.consumer_secret', '');
+    ## Configure::write('Yelp.token', '');
+    ## Configure::write('Yelp.token_secret', '');
 
 /**
  * Yahoo

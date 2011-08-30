@@ -24,20 +24,13 @@ abstract class ProfileAbstract extends AppModel
 {
     public $name = 'Profile';
 
-    /*
-    public function __construct($id=false, $table=null, $ds=null) {
-        parent::__construct($id, $table, $ds);
-
-
-    }
-    */
-
-
    /**
     * Fetch a given user's profile data
     *
     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
     * @access public
+    * @param string $userId
+    * @return Profile
     */
    public function fetchUserProfile($userId)
    {
@@ -54,11 +47,12 @@ abstract class ProfileAbstract extends AppModel
 
 
    /**
+    * Calculate user profile progress based on what fields have been compelted
     *
-    *
-    * @param type $userId
     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
     * @access public
+    * @param string $userId
+    * @return integer
     */
    public function userProfileProgress($userId)
    {
@@ -82,7 +76,7 @@ abstract class ProfileAbstract extends AppModel
                $progress += 20;
            }
 
-           if(!empty($userProfile['Profile']['first_name'])) {
+           if(!empty($userProfile['Profile']['bio'])) {
                $progress += 80;
            }
        }

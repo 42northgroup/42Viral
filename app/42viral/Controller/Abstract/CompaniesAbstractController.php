@@ -15,6 +15,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('HttpSocket', 'Network/Http');
+App::uses('HttpSocketOauth', 'Lib');
 App::uses('Address', 'Model');
 
 /**
@@ -64,7 +65,7 @@ abstract class CompaniesAbstractController extends AppController
 
         if(!empty($company)) {
             $yahooResults = $this->__profileDoYahoo($company);
-            $yelpResults = array();
+            $yelpResults = $this->__profileDoYelp($company);
             $googleResults = array();
         }
 
@@ -172,12 +173,14 @@ abstract class CompaniesAbstractController extends AppController
     /**
      * Helper function to fetch Yahoo Local Search listings for the given company
      *
-     * @access public
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access private
      * @param Company company object to use for pulling listing data from Yahoo
      * @return mixed
      */
     private function __profileDoYahoo($company)
     {
+
         if(
             isset($company['Company']['yahoo_listing_id']) &&
             !empty($company['Company']['yahoo_listing_id'])
@@ -222,5 +225,52 @@ abstract class CompaniesAbstractController extends AppController
         $resultsObject = unserialize($yahooResponse->body);
 
         return $resultsObject['ResultSet'];
+    }
+
+
+    /**
+     * Helper function to fetch Yelp Business listings and review data for the given company
+     *
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access private
+     * @param Company company object to use for pulling listing data from Yahoo
+     * @return mixed
+     */
+    private function __profileDoYelp($company)
+    {
+
+        $this->HttpSocketOauth = new HttpSocketOauth();
+
+        $queryTerms = array(
+            'limit' => 5,
+            'term' => $company['Company']['name']
+        );
+
+        if(isset($company['Address']) && !empty($company['Address'])) {
+            $queryTerms['location'] = $company['Address'][0]['_us_full_address'];
+        }
+
+        $request = array(
+            'uri' => array(
+                'host' => 'api.yelp.com',
+                'path' => '/v2/search',
+                'query' => $queryTerms
+            ),
+
+            'method' => 'GET',
+
+            'auth' => array(
+                'method' => 'OAuth',
+                'oauth_consumer_key' => Configure::read('Yelp.consumer_key'),
+                'oauth_consumer_secret' => Configure::read('Yelp.consumer_secret'),
+                'oauth_token' => Configure::read('Yelp.token'),
+                'oauth_token_secret' => Configure::read('Yelp.token_secret')
+            )
+        );
+
+        $yelpResponse = $this->HttpSocketOauth->request($request);
+        $resultsObject = (array) json_decode($yelpResponse->body);
+
+        return $resultsObject;
     }
 }

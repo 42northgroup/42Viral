@@ -35,7 +35,7 @@ abstract class UsersAbstractController extends AppController
     /**
      * @var array
      * @access public
-     */    
+     */
     public $components = array('Access', 'ProfileProgress');
 
 
@@ -83,9 +83,11 @@ abstract class UsersAbstractController extends AppController
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Access->permissions($user['User']);
-                        
+
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
 
+                        //If profile progress is less than a 100 percent, direct the user to the complete profile
+                        //page after successfull login
                         if($overallProgress['_all'] < 100) {
                             $this->Auth->loginRedirect = array(
                                 'controller' => 'members',
