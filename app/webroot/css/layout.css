@@ -12,11 +12,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-body{
-    font-family: "lucida grande", "Segoe UI", arial, verdana, "lucida sans unicode", tahoma, sans-serif; 
-    font-size: 10pt; 
-    color: #444; 
-    font-weight: normal;    
+body{ 
     margin: 0 0;
 } 
  

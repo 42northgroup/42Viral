@@ -55,7 +55,7 @@ abstract class ContentAbstract extends AppModel
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
-                'html'=>array('body', 'tease'),
+                'htmlStrict'=>array('body', 'tease'),
                 'noHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 'syntax'),
             )
         ),

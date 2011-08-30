@@ -11,7 +11,7 @@
                     )
                 );
         echo $this->Form->input('parent_content_id', array('value'=>$this->params['pass'][0], 'type'=>'hidden'));
-        echo $this->Form->input('title', array('rows'=>1, 'cols'=>62));
+        echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
         echo $this->Form->submit();
         echo $this->Form->end();
 

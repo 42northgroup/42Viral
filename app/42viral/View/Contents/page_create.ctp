@@ -8,7 +8,7 @@
                 )
             );
     
-    echo $this->Form->input('title', array('rows'=>1, 'cols'=>62));
+    echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
     echo $this->Form->submit();
     echo $this->Form->end();
 

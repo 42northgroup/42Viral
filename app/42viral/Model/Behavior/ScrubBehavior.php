@@ -48,17 +48,26 @@ class ScrubBehavior extends ModelBehavior
         foreach($this->settings[$model->name]['Filters'] as $key => $value){ 
             $currentFilter = $key;
             if($value=='*'){
-                $filterMap = array_keys($model->data[$model->name]);
+                $filterMap[$currentFilter] = array_keys($model->data[$model->name]);
             }else{
-                $filterMap = $value;
+                $filterMap[$currentFilter] = $value;
             }
         }
         
-        //Parse the filter map and apply the filters accordingly
-        for($i=0; $i<count($filterMap); $i++){ 
-            if(isset($model->data[$model->name][$filterMap[$i]] )){
-                $model->data[$model->name][$filterMap[$i]] 
-                        = $this->{$currentFilter}($model->data[$model->name][$filterMap[$i]]);
+        
+        foreach($filterMap as $key => $value){
+            
+            //Parse the filter map and apply the filters accordingly
+            for($i=0; $i<count($value); $i++){ 
+                
+                //echo 'Applying ' . $key . ' to ' . $value[$i] .'<br>';
+                
+                if(isset($model->data[$model->name][$value[$i]] )){
+                    //The data
+                    $model->data[$model->name][$value[$i]] 
+                            //The filter
+                            = $this->{$key}($model->data[$model->name][$value[$i]]);
+                }
             }
         }
        
@@ -83,6 +92,16 @@ class ScrubBehavior extends ModelBehavior
      */     
     public function html($value){
         return Scrub::html($value);
+    }
+    
+    /**
+     * A wrapper for Scrub.htmlStrict
+     * @param string $value
+     * @return string 
+     * @author Jason D Snider <jsnider77@gmail.com>
+     */     
+    public function htmlStrict($value){
+        return Scrub::htmlStrict($value);
     }
     
     /**
