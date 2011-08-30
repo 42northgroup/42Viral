@@ -52,26 +52,18 @@ form.default{
 
 form.default input[type="text"],
 form.default input[type="password"],
+form.default select,
 form.default textarea{
-    border: none;
-    border-top: 1px dashed #bbb;
-    border-bottom: 1px dotted #bbb;
-    padding: 6px;
+    width: 176px;
+    padding: 2px;
 }
 
-form.default input[type="text"]:focus,
-form.default input[type="password"]:focus,
-form.default select:focus,
-form.default textarea:focus{
-    border: 2px solid #bbb;
-    padding: 6px;
+form.default label{
+    display: inline-block;
+    width: 126px;
+    padding-right: 12px;
+    text-align: right;
 }
-
-form.deafult label{
-    display: block;
-}
-
-
 
 form.content{
     width: 100%;
