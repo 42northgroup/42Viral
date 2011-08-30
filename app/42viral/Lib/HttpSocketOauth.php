@@ -156,6 +156,7 @@ class HttpSocketOauth extends HttpSocket{
    
     // Now we concatenate them together in name=value pairs separated by &
     $normalisedRequestParams = '';
+    
     foreach ($requestParams as $k => $requestParam) {        
       if ($k) {
         $normalisedRequestParams .= '&';
@@ -171,7 +172,6 @@ class HttpSocketOauth extends HttpSocket{
     $signatureBaseString = strtoupper($request['method']) . '&'
                          . $this->parameterEncode($requestUrl) . '&'
                          . $this->parameterEncode($normalisedRequestParams);
-    
     
     // The signature base string is hashed with a key which is the consumer
     // secret (assigned to your application by the provider) and the token
@@ -189,7 +189,7 @@ class HttpSocketOauth extends HttpSocket{
     // Finally construct the signature according to the value of the
     // oauth_signature_method auth param in the request array.
     switch ($request['auth']['oauth_signature_method']) {
-      case 'HMAC-SHA1':
+      case 'HMAC-SHA1':         
         $request['auth']['oauth_signature'] = base64_encode(hash_hmac('sha1', $signatureBaseString, $key, true));
         break;
       default:
@@ -215,7 +215,7 @@ class HttpSocketOauth extends HttpSocket{
       $authorizationHeader .= ' realm="' . $request['auth']['realm'] . '"';
       $first = false;
     }
-
+    
     foreach ($authorizationHeaderParams as $name => $value) {
       if (!$first) {
         $authorizationHeader .= ',';
@@ -225,7 +225,7 @@ class HttpSocketOauth extends HttpSocket{
       }
       $authorizationHeader .= $this->authorizationHeaderParamEncode($name, $value);
     }
-
+    
     return $authorizationHeader;
 
   }
