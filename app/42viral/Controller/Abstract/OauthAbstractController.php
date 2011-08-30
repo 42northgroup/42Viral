@@ -393,9 +393,11 @@ abstract class OauthAbstractController extends AppController
             }
             
             foreach($config[$service] as $key => $value){
-                $message = __($key . 'has not been set');
-                $this->Session->setFlash($message, 'error');
-                throw new MethodNotAllowedException($message);
+                if($value == ''){
+                    $message = __($key . 'has not been set');
+                    $this->Session->setFlash($message, 'error');
+                    throw new MethodNotAllowedException($message);
+                }
             }
         }
     }
