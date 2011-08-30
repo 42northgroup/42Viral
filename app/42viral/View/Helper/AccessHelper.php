@@ -23,7 +23,7 @@ App::uses('AppHelper', 'View/Helper');
  * @author Jason Snider <jsnider77@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
-class AuthHelper extends AppHelper
+class AccessHelper extends AppHelper
 {
 
     public $helpers = array('Html', 'Session');

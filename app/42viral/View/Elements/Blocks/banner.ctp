@@ -31,11 +31,11 @@
         
             switch($this->request->params['controller']){
                 case 'contents';
-                    echo $this->Auth->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
+                    echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
                     echo ' / ';
-                    echo $this->Auth->link('Contents-post_create', 'Post to a blog', '/contents/post_create/');
+                    echo $this->Access->link('Contents-post_create', 'Post to a blog', '/contents/post_create/');
                     echo ' / ';
-                    echo $this->Auth->link('Contents-page_create', 'Create a web page', '/contents/page_create/');                    
+                    echo $this->Access->link('Contents-page_create', 'Create a web page', '/contents/page_create/');                    
                 break;     
             }
             

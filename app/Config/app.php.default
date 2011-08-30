@@ -109,7 +109,7 @@ Configure::write('Comment.engine', 'native');
  */
     ## Configure::write('Twitter.consumer_key', '');
     ## Configure::write('Twitter.consumer_secret', '');
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
+    ## Configure::write('Twitter.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
 
 /**
  * LinkedIn

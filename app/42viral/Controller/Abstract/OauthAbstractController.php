@@ -17,10 +17,15 @@ App::uses('AppController', 'Controller');
 App::uses('HttpSocketOauth', 'Lib');
 App::uses('HttpSocket', 'Network/Http');
 /**
- * @author Jason D Snider <jsnider77@gmail.com>
- * @see http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
  * @package app
  * @subpackage app.core
+ * @author Jason D Snider <jsnider77@gmail.com>
+ * @author Lyubomir R Dimov <ldimov@microtrain.net>
+ * 
+ * //Additional Credits
+ * @author Neil Crookes <http://www.neilcrookes.com/>
+ * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
+ * @see http://www.slideshare.net/episod/linkedin-oauth-zero-to-hero for oauth_token_secret
  */
 abstract class OauthAbstractController extends AppController
 {
@@ -67,17 +72,15 @@ abstract class OauthAbstractController extends AppController
     public function connect(){
 
     }
-
+    
     /**
      * The Twitter connect page. Authorizes "this" application against a users Twitter account
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @author Neil Crookes <http://www.neilcrookes.com/>
-     * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
      */
     public function twitter_connect()
     {
+        $this->serviceConfiguration('Twitter', 3);
 
         $request = array(
             'uri' => array(
@@ -103,14 +106,14 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The Twitter callback page. Takes the Twitter results and writes them to a session.
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @author Neil Crookes <http://www.neilcrookes.com/>
-     * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
      */
     public function twitter_callback()
     {
+        
+        $this->serviceConfiguration('Twitter', 3);
+        
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -164,15 +167,14 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
-     * @see http://www.slideshare.net/episod/linkedin-oauth-zero-to-hero for oauth_token_secret
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @author Neil Crookes <http://www.neilcrookes.com/>
-     * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
      */
     public function linkedin_connect()
     {
+        
+        $this->serviceConfiguration('LinkedIn', 3);
+        
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -206,15 +208,14 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
-     * @author Jason D Snider <jsnider77@gmail.com>
-     * @author Lyubomir R Dimov <ldimov@microtrain.net>
-     * @author Neil Crookes <http://www.neilcrookes.com/>
-     * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
      * @return void
      * @access public
      */
     public function linkedin_callback()
     {
+        
+        $this->serviceConfiguration('LinkedIn', 3);
+        
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -265,6 +266,7 @@ abstract class OauthAbstractController extends AppController
 
 
         $response1['user_id'] = $response1['amp;key'];
+        
         /*
         $repsponse = array
         (
@@ -302,13 +304,14 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      * @return void
      * @access public
      */
     public function facebook_connect()
     {
 
+        $this->serviceConfiguration('Facebook', 3);
+        
         $this->redirect("https://www.facebook.com/dialog/oauth?client_id=".Configure::read('Facebook.consumer_key')
                                                     ."&redirect_uri=".urlencode(Configure::read('Facebook.callback'))
                                                     ."&scope=read_stream,offline_access,publish_stream");
@@ -318,13 +321,14 @@ abstract class OauthAbstractController extends AppController
 
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
-     * @author Lyubomir R Dimov <ldimov@microtrain.net>php-oauth-extension-to-httpsocket/
      * @return void
      * @access public
      */
     public function facebook_callback()
     {
 
+        $this->serviceConfiguration('Facebook', 3);
+        
         $token_url = "https://graph.facebook.com/oauth/access_token?"
         . "client_id=" . Configure::read('Facebook.consumer_key')
         . "&redirect_uri=" . urlencode(Configure::read('Facebook.callback'))
@@ -365,6 +369,37 @@ abstract class OauthAbstractController extends AppController
 
     }
 
+    /**
+     * Handels exceptions for misconfigured services
+     * @param type $service
+     * @param type $configCount 
+     * @return void
+     * @access public
+     */
+    public function serviceConfiguration($service, $configCount){
+        
+        $config = Configure::read();
+        
+        if($config['debug'] == 0){
+            if(count($config[$service]) != $configCount){
+                throw new NotFoundException();
+            }
+        }else{
+            
+            if(!isset($config[$service])){
+                $message = __('The ' . $service . ' service is not configured for use');
+                $this->Session->setFlash($message);                
+                throw new MethodNotAllowedException($message);
+            }
+            
+            foreach($config[$service] as $key => $value){
+                $message = __($key . 'has not been set');
+                $this->Session->setFlash($message);
+                throw new MethodNotAllowedException($message);
+            }
+        }
+    }
+    
     /**
      * A wrapper for common authentication and session functionality
      * @param type $userId

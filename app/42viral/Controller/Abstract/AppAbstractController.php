@@ -21,7 +21,7 @@ abstract class AppAbstractController extends Controller
      * @var array
      * @access public
      */
-    public $helpers = array('Asset', 'Auth', 'Form', 'Html', 'Session', 'Text');
+    public $helpers = array('Access', 'Asset', 'Form', 'Html', 'Session', 'Text');
 
     /**
      * Fires before AppController
