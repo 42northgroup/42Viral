@@ -99,7 +99,7 @@ abstract class CompanyAbstract extends AppModel
      */
     public function fetchCompanyByNameWith($companyName, $with=array())
     {
-        $normalizedCompanyName = Inflector::underscore($companyName);
+        $normalizedCompanyName = Inflector::slug(strtolower($companyName));
 
         $company = $this->find('first', array(
             'contain' => $with,
