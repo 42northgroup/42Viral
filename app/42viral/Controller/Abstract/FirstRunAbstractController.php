@@ -125,7 +125,10 @@ abstract class FirstRunAbstractController extends AppController {
      */
     public function create_root(){
         if(!empty($this->data)){
-            $this->User->createUser($this->data['User']);
+            if($this->User->createUser($this->data['User'])){
+                $this->Session->setFlash(__('The root user is now ready') ,'success');
+                $this->redirect('/users/login');
+            }
         }
     }
 
