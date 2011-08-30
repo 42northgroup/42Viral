@@ -26,12 +26,16 @@ abstract class OauthAbstractController extends AppController
 {
     
     /**
-     * This controller does not use a model
-     *
      * @var array
      * @access public
      */
     public $uses = array('Oauth', 'People', 'User', 'Aro');
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $components = array('Access');
     
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -387,7 +391,10 @@ abstract class OauthAbstractController extends AppController
                 $oauthData = array($oauthKey => $response);
 
                 $this->Session->write('Auth', array_merge($session, $oauthData));
+                
                 $this->__createAro($user['User']['username'], $user['User']['id']);
+                
+                $this->Access->permissions($user['User']);
 
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());

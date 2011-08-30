@@ -31,6 +31,7 @@ abstract class AppAbstractController extends Controller
     public function beforeFilter()
     {     
         $this->Auth->deny('*');
+        
     }
     
     /**
@@ -40,32 +41,8 @@ abstract class AppAbstractController extends Controller
      */
     public function beforeRender()
     {
-        //http://bakery.cakephp.org/articles/aalexgabi/2011/07/26/override_htmlhelper_for_acl_component_hide_links_where_users_don_t_have_privileges
-        if ($this->Session->check('Auth.User.id')) { 
-            
-            $user = $this->Session->read('Auth.User');
-            $userId = $user['id'];
-            
-            if(empty($user['Permissions'])){
-            
-                $acos = $this->Acl->Aco->children(); 
-                foreach ($acos as $aco) { 
-                    $tmpacos = $this->Acl->Aco->getPath($aco['Aco']['id']); 
-                    $path = array(); 
-                    foreach ($tmpacos as $tmpaco) { 
-                        $path[] = $tmpaco['Aco']['alias']; 
-                    } 
-                    $stringPath = implode('/', $path); 
-                    if ($this->Acl->check(array('model' => 'User', 'foreign_key' => $userId), $stringPath)) 
-                        $permissions[$stringPath] = true; 
-                } 
-                $this->Session->write('Auth.User.Permissions', $permissions); 
-            }
-        } 
-
         $this->viewClass = 'Theme';
         $this->theme = Configure::read('Theme.set');
-
     }
     
     /**

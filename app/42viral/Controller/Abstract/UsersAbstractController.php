@@ -27,14 +27,16 @@ abstract class UsersAbstractController extends AppController
 {
 
     /**
-     * This controller does not use a model
-     *
      * @var array
      * @access public
      */
-    public $uses = array('Person', 'User', 'AclGroup');
+    public $uses = array('AclGroup', 'Person', 'User');
 
-    public $components = array('ProfileProgress');
+    /**
+     * @var array
+     * @access public
+     */    
+    public $components = array('Access', 'ProfileProgress');
 
 
     /**
@@ -80,7 +82,8 @@ abstract class UsersAbstractController extends AppController
                         $this->Session->setFlash('You have been authenticated', 'success');
 
                         $this->Session->write('Auth.User', $user['User']);
-
+                        $this->Access->permissions($user['User']);
+                        
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
 
                         if($overallProgress['_all'] < 100) {
