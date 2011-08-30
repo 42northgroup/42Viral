@@ -34,7 +34,8 @@ abstract class OauthAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Oauth', 'People', 'User', 'Aro');
+
+    public $uses = array('Oauth', 'People', 'User', 'Aro', 'Tweet', 'Linkedin');
 
     /**
      * @var array
@@ -84,6 +85,7 @@ abstract class OauthAbstractController extends AppController
 
         $request = array(
             'uri' => array(
+                'scheme' => 'http',
                 'host' => 'api.twitter.com',
                 'path' => '/oauth/request_token'
             ),
@@ -100,6 +102,8 @@ abstract class OauthAbstractController extends AppController
 
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
+        //pr($response); die();
+        $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
 
     }
@@ -112,36 +116,35 @@ abstract class OauthAbstractController extends AppController
     public function twitter_callback()
     {
         
+
         $this->serviceConfiguration('Twitter', 3);
+
         
         // Issue request for access token
         $request = array(
             'uri' => array(
+                'scheme' => 'http',
                 'host' => 'api.twitter.com',
                 'path' => '/oauth/access_token'
             ),
-            'method' => 'POST',
+            'method' => 'GET',
             'auth' => array(
                 'method' => 'OAuth',
                 'oauth_consumer_key' => Configure::read('Twitter.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('Twitter.consumer_secret'),
                 'oauth_token' => $this->params['url']['oauth_token'],
-                'oauth_verifier' => $this->params['url']['oauth_verifier']
+                'oauth_verifier' => $this->params['url']['oauth_verifier'],
+                'oauth_token_secret' => $this->Session->read('Twitter.oauth_token_secret'),
             ),
         );
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-
-        /*
-        $response = array(
-            'oauth_token' => "thisisafakeoauthtokenstring",
-            'oauth_token_secret' => "thisisafakeoauthtokensecretstring",
-            'user_id' => "12345678",
-            'screen_name' => "Fake_User"
-        );
-        */
-
+        
+        
+        $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
+        $this->Session->write('Twitter.oauth_token', $response['oauth_token']);            
+  
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('twitter', $response['user_id'], $this->Session->read('Auth.User.id'))){
@@ -163,7 +166,9 @@ abstract class OauthAbstractController extends AppController
             $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
             $this->__auth($oauthUserId, $response, 'Twitter');
         }
-    }
+
+    }     
+    
 
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
@@ -183,10 +188,10 @@ abstract class OauthAbstractController extends AppController
             ),
             'method' => 'POST',
             'auth' => array(
-            'method' => 'OAuth',
-            'oauth_callback' => Configure::read('LinkedIn.callback'),
-            'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
-            'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
+                'method' => 'OAuth',
+                'oauth_callback' => Configure::read('LinkedIn.callback'),
+                'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
+                'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
             ),
             //Linked in was  complaining about the header not including the Content-Length
             'header' => array(
@@ -240,6 +245,11 @@ abstract class OauthAbstractController extends AppController
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
 
+        
+        $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
+        $this->Session->write('LinkedIn.oauth_token', $response['oauth_token']);
+       
+
         $request1 = array(
             'uri' => array(
                 'scheme' => 'http',
@@ -253,41 +263,38 @@ abstract class OauthAbstractController extends AppController
                 'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
                 'oauth_token' => $response['oauth_token'],
                 //'oauth_verifier' => $this->params['url']['oauth_verifier'],
+
                 'oauth_token_secret' => $response['oauth_token_secret']
             ),
             'header' => array(
                 'Content-Length' => 0
-            ),
+            )
         );
 
         $response1 = $this->HttpSocketOauth->request($request1);
-
         parse_str($response1, $response1);
+
 
 
         $response1['user_id'] = $response1['amp;key'];
         
-        /*
-        $repsponse = array
-        (
-            'oauth_token' => 'some-fake-token',
-            'oauth_token_secret' => 'some-fake-token-secret',
-            'oauth_expires_in' => 0,
-            'oauth_authorization_expires_in' => 0
-        );
-        */
+                
+        $response1['user_id'] = $response1['amp;key'];
+        
+        
 
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('linked_in', $response1['user_id'], $this->Session->read('Auth.User.id'))){
-
+                
                 $this->Aro->deleteAll(array('Aro.alias' => 'linked_in_'.$response1['user_id']));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
-                $oauthUserId = $this->Oauth->oauthed('linked_in',
-                                                    $response1['user_id'],
-                                                    null,
+                
+                $oauthUserId = $this->Oauth->oauthed('linked_in', 
+                                                    $response1['user_id'], 
+                                                    null, 
                                                     $this->Session->read('Auth.User.id')
                                                 );
 
@@ -299,8 +306,8 @@ abstract class OauthAbstractController extends AppController
             $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
             $this->__auth($oauthUserId, $response, 'LinkedIn');
         }
-
-    }
+        
+    } 
 
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account

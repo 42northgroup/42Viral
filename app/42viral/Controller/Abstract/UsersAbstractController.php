@@ -30,7 +30,8 @@ abstract class UsersAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('AclGroup', 'Person', 'User');
+
+    public $uses = array('Person', 'User', 'AclGroup', 'Tweet');
 
     /**
      * @var array
@@ -200,5 +201,6 @@ abstract class UsersAbstractController extends AppController
 
         $this->set('acl_groups', $acl_groups);
         $this->set('people', $people);
-    }
+    }    
+    
 }
