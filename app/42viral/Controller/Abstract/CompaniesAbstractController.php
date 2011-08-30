@@ -124,7 +124,7 @@ abstract class CompaniesAbstractController extends AppController
         $companyData['Company']['owner_user_id'] = $this->Session->read('Auth.User.id');
 
         if(isset($this->data['Company']['name'])) {
-            $companyData['Company']['name_normalized'] = Inflector::underscore($this->data['Company']['name']);
+            $companyData['Company']['name_normalized'] = Inflector::slug(strtolower($this->data['Company']['name']));
         }
 
         if($this->Company->save($companyData)) {
