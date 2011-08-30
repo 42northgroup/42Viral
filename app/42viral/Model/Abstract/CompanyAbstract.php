@@ -50,6 +50,7 @@ abstract class CompanyAbstract extends AppModel
      * Fetch a given user's companies with associated model records given the user's person id
      *
      * @access public
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $userId
      * @param array $with
      * @return Company
@@ -73,7 +74,8 @@ abstract class CompanyAbstract extends AppModel
      * Fetch all companies in the system with associated model records
      *
      * @access public
-     * @param type $with
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @param array $with
      * @return array
      */
     public function fetchAllCompaniesWith($with=array())
@@ -90,6 +92,7 @@ abstract class CompanyAbstract extends AppModel
      * Fetch a company record with associated model records given the company name
      *
      * @access public
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $companyName
      * @param array $with
      * @return Company
@@ -114,8 +117,9 @@ abstract class CompanyAbstract extends AppModel
      * Given a company name find out the company id
      *
      * @access public
-     * @param type $companyName
-     * @return type
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @param string $companyName
+     * @return boolean|Company
      */
     public function findCompanyIdFromName($companyName)
     {
@@ -130,9 +134,12 @@ abstract class CompanyAbstract extends AppModel
 
 
     /**
+     * Calculate the company profile progress based on company records created by the given user
      *
-     * @param type $userId
-     * @return int 
+     * @access public
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @param string $userId
+     * @return integer
      */
     public function companyProfileProgress($userId)
     {
