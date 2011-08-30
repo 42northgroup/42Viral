@@ -77,4 +77,56 @@ class AccessHelper extends AppHelper
 
     }
 
+    /**
+     * Uses ACLs and sessions to determine if we should show a link
+     * @param string $check
+     * @param string $title
+     * @param mixed $url
+     * @param array $options
+     * @param type $confirmMessage
+     * @return string
+     * @access public
+     * @author Jason Snider <jsnider77@gmail.com>
+     */
+    public function serviceLink($service, $configurationCount, $title, $url = null, $options = array(), 
+            $confirmMessage = false) {
+
+        if($this->serviceConfiguration()){
+            return $this->Html->link($title, $url, $options , $confirmMessage);
+        }else{
+            return 'Config Error';
+        }
+
+
+    }
+    
+    
+    /**
+     * Handels exceptions for misconfigured services
+     * @param type $service
+     * @param type $configCount 
+     * @return void
+     * @access public
+     */
+    public function serviceConfiguration($service, $configurationCount){
+        
+        $config = Configure::read();
+
+        if(isset($config[$service])){
+            return false;
+        }
+
+        if(!isset($config[$service])){
+            return false;
+        }
+
+        foreach($config[$service] as $key => $value){
+            if($value == ''){
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
 }
