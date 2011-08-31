@@ -28,7 +28,7 @@ App::import('Vendor', 'HTMLPurifier',
  *
  * @package app
  * @subpackage app.core
- * @author     Jason D Snider <jsnider@jsnider77@gmil.com>
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 class Scrub {    
     
@@ -36,7 +36,6 @@ class Scrub {
      * Purifies, creates html and fixes broken HTML
      * @param string $value
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
     public static function html($value){
@@ -72,7 +71,6 @@ class Scrub {
      * A less permissive version of self::html(), recommended for public facing WYSIWYG editors and content
      * @param string $value
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
     public static function htmlStrict($value){
@@ -111,7 +109,6 @@ class Scrub {
      * Purifies plain text and fixes broken HTML
      * @param string $value
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
     public static function safe($value){
@@ -131,7 +128,6 @@ class Scrub {
      * Purifies plain text and strips all HTML and tags
      * @param string $value
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public 
      */
     public static function noHTML($value){
