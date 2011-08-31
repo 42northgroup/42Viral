@@ -21,7 +21,6 @@ App::uses('AppHelper', 'View/Helper');
  * @package app
  * @subpackage app.core
  * @author Jason Snider <jsnider77@gmail.com>
- * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class AccessHelper extends AppHelper
 {
@@ -37,7 +36,6 @@ class AccessHelper extends AppHelper
      * @param type $confirmMessage
      * @return string
      * @access public
-     * @author Jason Snider <jsnider77@gmail.com>
      */
     public function link($check, $title, $url = null, $options = array(), $confirmMessage = false) {
         
@@ -86,9 +84,8 @@ class AccessHelper extends AppHelper
      * @param type $confirmMessage
      * @return string
      * @access public
-     * @author Jason Snider <jsnider77@gmail.com>
      */
-    public function serviceLink($service, $configurationCount, $title, $url = null, $options = array(), 
+    public function serviceLink($service, $title, $url = null, $options = array(), 
             $confirmMessage = false) {
 
         if($this->serviceConfiguration()){
@@ -100,28 +97,38 @@ class AccessHelper extends AppHelper
 
     }
     
-    
     /**
-     * Handels exceptions for misconfigured services
+     * Returns false if a given service isn't properly configured
      * @param type $service
      * @param type $configCount 
-     * @return void
+     * @return boolean
      * @access public
      */
-    public function serviceConfiguration($service, $configurationCount){
+    public function serviceConfiguration($service){
         
         $config = Configure::read();
+            
+        foreach($config[$service]['Schema'] as $key => $value){
+            
+            //Does the value exist?
+            if(isset($config[$service][$key] )){
+                
+                //Do we have any validation rules set against the configiuration variable
+                if(isset($config[$service]['Schema'][$key]['validate'])){
 
-        if(isset($config[$service])){
-            return false;
-        }
+                    //Yes, loop through the validation rules and look for trouble
+                    foreach($config[$service]['Schema'][$key]['validate'] as $rule){
 
-        if(!isset($config[$service])){
-            return false;
-        }
+                        //Will the validation fail?
+                        if( !Validation::$rule($config[$service][$key]) ){
+                            //The validation failed, return false
+                           return false;
+                        }
+                    }
+                }
 
-        foreach($config[$service] as $key => $value){
-            if($value == ''){
+            }else{
+                //No, return false
                 return false;
             }
         }
