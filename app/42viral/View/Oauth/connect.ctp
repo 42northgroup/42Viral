@@ -37,7 +37,7 @@
 <h1>Get Connected</h1>
 <div class="clearfix">
     
-    <?php if($this->Access->serviceConfiguration('LinkedIn', 3)): ?>
+    <?php if($this->Access->serviceConfiguration('LinkedIn')): ?>
         <div class="social-connect">
             
             <div class="blurb">
@@ -52,7 +52,7 @@
         </div>
     <?php endif; ?>
     
-    <?php if($this->Access->serviceConfiguration('Facebook', 3)): ?>
+    <?php if($this->Access->serviceConfiguration('Facebook')): ?>
         <div class="social-connect">
             <div class="blurb">
                 <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_32.png'); ?>
@@ -64,7 +64,7 @@
         </div>
     <?php endif; ?>
     
-    <?php if($this->Access->serviceConfiguration('Twitter', 3)): ?>
+    <?php if($this->Access->serviceConfiguration('Twitter')): ?>
         <div class="social-connect">
             <div class="blurb">
                 <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_32.png'); ?>
