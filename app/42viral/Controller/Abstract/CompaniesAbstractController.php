@@ -30,7 +30,7 @@ abstract class CompaniesAbstractController extends AppController
      * Use these models
      * @var array
      */
-    public $uses = array('Company', 'Address');
+    public $uses = array('Company', 'Address', 'Yelp');
 
 
     public $components = array('ProfileProgress');
@@ -66,6 +66,7 @@ abstract class CompaniesAbstractController extends AppController
         if(!empty($company)) {
             $yahooResults = $this->__profileDoYahoo($company);
             $yelpResults = $this->__profileDoYelp($company);
+            
             $googleResults = array();
         }
 
@@ -238,9 +239,6 @@ abstract class CompaniesAbstractController extends AppController
      */
     private function __profileDoYelp($company)
     {
-
-        $this->HttpSocketOauth = new HttpSocketOauth();
-
         $queryTerms = array(
             'limit' => 5,
             'term' => $company['Company']['name']
@@ -250,27 +248,10 @@ abstract class CompaniesAbstractController extends AppController
             $queryTerms['location'] = $company['Address'][0]['_us_full_address'];
         }
 
-        $request = array(
-            'uri' => array(
-                'host' => 'api.yelp.com',
-                'path' => '/v2/search',
-                'query' => $queryTerms
-            ),
+        $results = $this->Yelp->find('all', array(
+            'conditions' => $queryTerms
+        ));
 
-            'method' => 'GET',
-
-            'auth' => array(
-                'method' => 'OAuth',
-                'oauth_consumer_key' => Configure::read('Yelp.consumer_key'),
-                'oauth_consumer_secret' => Configure::read('Yelp.consumer_secret'),
-                'oauth_token' => Configure::read('Yelp.token'),
-                'oauth_token_secret' => Configure::read('Yelp.token_secret')
-            )
-        );
-
-        $yelpResponse = $this->HttpSocketOauth->request($request);
-        $resultsObject = (array) json_decode($yelpResponse->body);
-
-        return $resultsObject;
+        return $results;
     }
 }

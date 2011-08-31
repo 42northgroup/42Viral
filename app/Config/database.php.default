@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This is core configuration file.
  *
@@ -23,16 +24,17 @@
  *
  * @package       cake.config
  */
+
 /**
  * Database configuration class.
  * You can specify multiple configurations for production, development and testing.
  *
  * driver => The name of a supported driver; valid options are as follows:
- *		Database/Mysql 		- MySQL 4 & 5,
- *		Database/Sqlite		- SQLite (PHP5 only),
- *		Database/Postgres	- PostgreSQL 7 and higher,
- *		Database/Sqlserver	- Microsoft SQL Server 2005 and higher,
- *		Database/Oracle		- Oracle 8 and higher
+ * 		Database/Mysql 		- MySQL 4 & 5,
+ * 		Database/Sqlite		- SQLite (PHP5 only),
+ * 		Database/Postgres	- PostgreSQL 7 and higher,
+ * 		Database/Sqlserver	- Microsoft SQL Server 2005 and higher,
+ * 		Database/Oracle		- Oracle 8 and higher
  *
  * You can add custom database drivers (or override existing drivers) by adding the
  * appropriate file to app/Model/Datasource/Database.  Drivers should be named 'MyDriver.php',
@@ -56,46 +58,51 @@
  * database. Uses database default not specified.
  *
  */
-class DATABASE_CONFIG {
+class DATABASE_CONFIG
+{
 
-        public $twitter = array(
-            'datasource' => 'TwitterSource',
-            'consumer_key' => '',                
-            'consumer_secret' => '',
-            'callback' => ''
-        );
-        
-        public $linkedin = array(
-            'datasource' => 'LinkedinSource',
-            'consumer_key' => '',                
-            'consumer_secret' => '',
-            'callback' => ''
-        );
-        
-        public $facebook = array(
-            'datasource' => 'FacebookSource',
-            'consumer_key' => '',                
-            'consumer_secret' => '',
-            'callback' => ''
-        );
+    public $twitter = array(
+        'datasource' => 'TwitterSource',
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        'callback' => ''
+    );
+    public $linkedin = array(
+        'datasource' => 'LinkedinSource',
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        'callback' => ''
+    );
+    public $facebook = array(
+        'datasource' => 'FacebookSource',
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        'callback' => ''
+    );
+    public $yelp = array(
+        'datasource' => 'YelpSource',
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        'token' => '',
+        'token_secret' => ''
+    );
+    public $default = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'user',
+        'password' => 'password',
+        'database' => 'database_name',
+        'prefix' => '',
+    );
+    public $test = array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'user',
+        'password' => 'password',
+        'database' => 'test_database_name',
+        'prefix' => '',
+    );
 
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'database_name',
-		'prefix' => '',
-	);
-
-	public $test = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => 'localhost',
-		'login' => 'user',
-		'password' => 'password',
-		'database' => 'test_database_name',
-		'prefix' => '',
-	);
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP 5.3
  *
@@ -12,17 +13,16 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 /* ==============
  * == Themes ====
- *=============*/
+ * ============= */
 
 /**
  * Define the default theme set
  */
 Configure::write('Theme.set', 'Default');
 
-    ## Configure::write('Theme.HomePage.title', 'Default');
+## Configure::write('Theme.HomePage.title', 'Default');
 
 /**
  * Do we prefer http or https?
@@ -41,17 +41,17 @@ Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Config
 
 /* ====================
  * == File Uploads ====
- * ==================*/
+ * ================== */
 // The following helps generalize read/write path for user uploaded files and images
 /**
  * The common part of image write paths
  */
-define('IMAGE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
+define('IMAGE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
 
 /**
  * The common part of file write paths
  */
-define('FILE_WRITE_PATH',  ROOT .DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
+define('FILE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
 
 /**
  * The common part of web image urls
@@ -65,7 +65,7 @@ define('FILE_READ_PATH', '/files/people/');
 
 /* ================
  * == Comments ====
- *===============*/
+ * =============== */
 
 /**
  * Configure the systems default commenting engine
@@ -77,116 +77,101 @@ Configure::write('Comment.engine', 'native');
 
 /* =========================
  * == Thrid Party API's ====
- * =======================*/
+ * ======================= */
 /**
  * The standard password for authed users. This is simply used to keep the auth component happy
  * as the User has already been authenticated via Oauth
  */
-    ## Configure::write('Oauth.password', '');
+## Configure::write('Oauth.password', '');
 /**
  * Disqus
  * @see http://disqus.com/
  */
-    ## Configure::write('Disqus.shortname', '');
-    ## Configure::write('Disqus.developer', 1);
+## Configure::write('Disqus.shortname', '');
+## Configure::write('Disqus.developer', 1);
 
 /**
  * Google
  */
-
 //Analytics tracking code
-    ## Configure::write('Google.setAccount');
-
+## Configure::write('Google.setAccount');
 //Webmaster Tools verification code
-
-    ## Configure::write('Google.SiteVerification', '');
-
+## Configure::write('Google.SiteVerification', '');
 // Apps
-    ## Configure::write('Google.Apps.domain', '');
+## Configure::write('Google.Apps.domain', '');
 
 
 /**
  * Twitter
  */
-
-    Configure::write('Twitter', 
-            array(
-                ## 'consumer_key' => '',
-                ## 'consumer_secret' =>'',
-                ## 'callback' => Configure::read('Domain.url') . 'oauth/twitter_callback',
-                'Schema'=>array(
-                    'consumer_key'=>array(),
-                    'consumer_secret'=>array(),
-                    'callback'=>array('validate'=>array('url')),
-                    )
-                )
-            );
+Configure::write('Twitter', array(
+    ## 'consumer_key' => '',
+    ## 'consumer_secret' =>'',
+    ## 'callback' => Configure::read('Domain.url') . 'oauth/twitter_callback',
+    'Schema' => array(
+        'consumer_key' => array(),
+        'consumer_secret' => array(),
+        'callback' => array('validate' => array('url')),
+    )
+));
 
 
 /**
  * LinkedIn
  */
-    Configure::write('LinkedIn', 
-            array(
-                ## 'consumer_key' => '',
-                ## 'consumer_secret' =>'',
-                ## 'callback' => Configure::read('Domain.url') . 'oauth/linkedin_callback',
-                'Schema'=>array(
-                    'consumer_key'=>array(),
-                    'consumer_secret'=>array(),
-                    'callback'=>array('validate'=>array('url')),
-                    )
-                )
-            );
+Configure::write('LinkedIn', array(
+    ## 'consumer_key' => '',
+    ## 'consumer_secret' =>'',
+    ## 'callback' => Configure::read('Domain.url') . 'oauth/linkedin_callback',
+    'Schema' => array(
+        'consumer_key' => array(),
+        'consumer_secret' => array(),
+        'callback' => array('validate' => array('url')),
+    )
+));
+
 /**
  * FaceBook
  */
-    Configure::write('Facebook', 
-            array(
-                ## 'consumer_key' => '',
-                ## 'consumer_secret' =>'',
-                ## 'callback' => Configure::read('Domain.url') . 'oauth/facebook_callback',
-                'Schema'=>array(
-                    'consumer_key'=>array(),
-                    'consumer_secret'=>array(),
-                    'callback'=>array('validate'=>array('url')),
-                    )
-                )
-            );
+Configure::write('Facebook', array(
+    ## 'consumer_key' => '',
+    ## 'consumer_secret' =>'',
+    ## 'callback' => Configure::read('Domain.url') . 'oauth/facebook_callback',
+    'Schema' => array(
+        'consumer_key' => array(),
+        'consumer_secret' => array(),
+        'callback' => array('validate' => array('url')),
+    )
+));
 
 /**
  * Yelp
  */
-    
-    Configure::write('Yelp', 
-            array(
-                ## 'consumer_key' => '',
-                ## 'consumer_secret' =>'',
-                ## 'token' => '',
-                ## 'token_secret => ''
-                'Schema'=>array(
-                    'consumer_key'=>array(),
-                    'consumer_secret'=>array(),
-                    'token'=>array(),
-                    'token_secret'=>array(),
-                    )
-                )
-            );    
+Configure::write('Yelp', array(
+    ## 'consumer_key' => '',
+    ## 'consumer_secret' =>'',
+    ## 'token' => '',
+    ## 'token_secret => ''
+    'Schema' => array(
+        'consumer_key' => array(),
+        'consumer_secret' => array(),
+        'token' => array(),
+        'token_secret' => array(),
+    )
+));
 
 /**
  * Yahoo
  */
-         
-    Configure::write('Yahoo', 
-            array(
-                ## 'LocalSearch' => array('api_id'=>'')
-            )); 
-    
-    ## define('APP_ID_YAHOO_LOCAL_SEARCH', '');
+Configure::write('Yahoo', array(
+        ## 'LocalSearch' => array('api_id'=>'')
+));
+
+## define('APP_ID_YAHOO_LOCAL_SEARCH', '');
 
 /* ====================
  * == Asset Helper ====
- * ==================*/
+ * ================== */
 //Configuration options for asset management and optimization
 
 /*
@@ -225,12 +210,12 @@ define('JAVA', DS . 'usr' . DS . 'bin' . DS . 'java');
 /**
  * CLOSURE (Sets the location of the closure-compiler jar file)
  */
-define('CLOSURE',  ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'closure' . DS . 'compiler.jar');
+define('CLOSURE', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'closure' . DS . 'compiler.jar');
 
 /**
  * YUI (Sets the location of the YUI Compressor jar file)
  */
-define('YUI',   ROOT .DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'yui' . DS . 'yuicompressor-2.4.6.jar');
+define('YUI', ROOT . DS . APP_DIR . DS . 'Vendor' . DS . 'minify' . DS . 'yui' . DS . 'yuicompressor-2.4.6.jar');
 
 /**
  * Allows us to choose not to minify, good for debugging
