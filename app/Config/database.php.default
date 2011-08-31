@@ -58,6 +58,27 @@
  */
 class DATABASE_CONFIG {
 
+        public $twitter = array(
+            'datasource' => 'TwitterSource',
+            'consumer_key' => 'YxaK8Z1QqU1S5XdZxFGBQ',                
+            'consumer_secret' => 'suJANJjO6pWTm8XdP5Y2pBVIJdPlL3CTVOiEatI248',
+            'callback' => 'http://loc.build.42viral.org/oauth/twitter_callback'
+        );
+        
+        public $linkedin = array(
+            'datasource' => 'LinkedinSource',
+            'consumer_key' => '9DyXW-5Tgwgt3dn76H4_FrjeEyGwuQSrX1r3o6G1_QyIJyfNDgJeHHW9Mf7T2ib0',                
+            'consumer_secret' => 'oyp8wH0WigXPw2rAAysWUSGio0ggVtl-V36xfz8KFiTV4Qsb9Bq8ih3tsN9CW40b',
+            'callback' => 'http://loc.build.42viral.org/oauth/linkedin_callback'
+        );
+        
+        public $facebook = array(
+            'datasource' => 'FacebookSource',
+            'consumer_key' => '158831284148987',                
+            'consumer_secret' => '9d0f4fe03255691acd24e7c2ed084fdd',
+            'callback' => 'http://loc.build.42viral.org/oauth/facebook_callback'
+        );
+
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
