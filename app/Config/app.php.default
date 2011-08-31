@@ -104,26 +104,55 @@ Configure::write('Comment.engine', 'native');
 // Apps
     ## Configure::write('Google.Apps.domain', '');
 
+
 /**
  * Twitter
  */
-    ## Configure::write('Twitter.consumer_key', '');
-    ## Configure::write('Twitter.consumer_secret', '');
-    ## Configure::write('Twitter.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
+
+    Configure::write('Twitter', 
+            array(
+                ## 'consumer_key' => '',
+                ## 'consumer_secret' =>'',
+                ## 'callback' => Configure::read('Domain.url') . 'oauth/twitter_callback',
+                'Schema'=>array(
+                    'consumer_key'=>array(),
+                    'consumer_secret'=>array(),
+                    'callback'=>array('validate'=>array('url')),
+                    )
+                )
+            );
+
 
 /**
  * LinkedIn
  */
-    ## Configure::write('LinkedIn.consumer_key', '');
-    ## Configure::write('LinkedIn.consumer_secret', '');
-    ## Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
-
+    Configure::write('LinkedIn', 
+            array(
+                ## 'consumer_key' => '',
+                ## 'consumer_secret' =>'',
+                ## 'callback' => Configure::read('Domain.url') . 'oauth/linkedin_callback',
+                'Schema'=>array(
+                    'consumer_key'=>array(),
+                    'consumer_secret'=>array(),
+                    'callback'=>array('validate'=>array('url')),
+                    )
+                )
+            );
 /**
  * FaceBook
  */
-    ## Configure::write('Facebook.consumer_key', '');
-    ## Configure::write('Facebook.consumer_secret', '');
-    ## Configure::write('Facebook.callback', Configure::read('Domain.url') . 'oauth/facebook_callback');
+    Configure::write('Facebook', 
+            array(
+                ## 'consumer_key' => '',
+                ## 'consumer_secret' =>'',
+                ## 'callback' => Configure::read('Domain.url') . 'oauth/facebook_callback',
+                'Schema'=>array(
+                    'consumer_key'=>array(),
+                    'consumer_secret'=>array(),
+                    'callback'=>array('validate'=>array('url')),
+                    )
+                )
+            );
 
 /**
  * Yelp
