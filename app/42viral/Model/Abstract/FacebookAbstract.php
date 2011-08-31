@@ -21,9 +21,10 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class TweetAbstract extends AppModel {
+abstract class FacebookAbstract extends AppModel {
 
-    public $useDbConfig = 'twitter';
+    public $useDbConfig = 'facebook';
+    public $useTable = 'facebook';
 
 }
 

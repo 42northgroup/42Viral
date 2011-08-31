@@ -35,7 +35,8 @@ abstract class OauthAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('Oauth', 'People', 'User', 'Aro', 'Tweet', 'Linkedin');
+
+    public $uses = array('Oauth', 'People', 'User', 'Aro', 'Tweet', 'Linkedin', 'Facebook');
 
     /**
      * @var array
@@ -145,6 +146,7 @@ abstract class OauthAbstractController extends AppController
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('Twitter.oauth_token', $response['oauth_token']);            
   
+
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('twitter', $response['user_id'], $this->Session->read('Auth.User.id'))){
@@ -274,11 +276,6 @@ abstract class OauthAbstractController extends AppController
         $response1 = $this->HttpSocketOauth->request($request1);
         parse_str($response1, $response1);
 
-
-
-        $response1['user_id'] = $response1['amp;key'];
-        
-                
         $response1['user_id'] = $response1['amp;key'];
         
         
@@ -308,6 +305,7 @@ abstract class OauthAbstractController extends AppController
         }
         
     } 
+
 
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
@@ -348,7 +346,7 @@ abstract class OauthAbstractController extends AppController
 
         $graph_url = "https://graph.facebook.com/me?access_token="
         . $params['access_token'];
-
+                
         $user = json_decode(file_get_contents($graph_url));
 
         if($this->Session->check('Auth.User.id')){
@@ -385,6 +383,7 @@ abstract class OauthAbstractController extends AppController
      */
     public function serviceConfiguration($service, $configCount = null){
         
+
         $config = Configure::read();
             
         foreach($config[$service]['Schema'] as $key => $value){
@@ -423,10 +422,59 @@ abstract class OauthAbstractController extends AppController
                     throw new MethodNotAllowedException($message);
                 }
             }
-        }
-        
+        }        
+
     }
     
+    public function post_and_retrieve_statuses()
+    {
+                
+        /*
+        pr($this->Tweet->find('all', array(
+                'conditions' => array('username' => 'ldimov')
+            ))
+        ); die();
+         
+        
+        $this->Tweet->save(array(
+            'status'=>'Fidgeting with the datasources',
+            'oauth_token' => $this->Session->read('Twitter.oauth_token'),
+            'oauth_token_secret' => $this->Session->read('Twitter.oauth_token_secret')
+        )); die();
+        
+         
+        
+        $this->Linkedin->save(array(
+            'status'=>'Fidgeting with the datasources',
+            'oauth_token' => $response['oauth_token'],
+            'oauth_token_secret' => $response['oauth_token_secret']
+        )); die();
+        
+        pr($this->Linkedin->find('all', array(
+            'conditions' => array(
+                'oauth_token' => $response['oauth_token'],
+                'oauth_token_secret' => $response['oauth_token_secret']
+            )
+        ))); die();
+         
+                
+        pr($this->Facebook->find('all', array(
+            'conditions' => array(
+                'oauth_token' => '158831284148987|e08c0f39f83ecca2a7db84e0.0-100002819003507|-LlmLwlWAxFb9pyFJTEdFkcLOKI'
+            )
+        )));
+        
+        $this->Facebook->save(array(
+            'status' => 'and then some',
+            'oauth_token' => '158831284148987|e08c0f39f83ecca2a7db84e0.0-100002819003507|-LlmLwlWAxFb9pyFJTEdFkcLOKI'
+        ));
+           */
+        
+        
+        
+    }
+
+
     /**
      * A wrapper for common authentication and session functionality
      * @param type $userId
