@@ -1,25 +1,29 @@
 <?php
 
 /**
- * Twitter DataSource
+ * Linkedin DataSource
  *
- * Used for reading and writing to Twitter, through models.
+ * Used for reading and writing to Linkedin, through models.
  *
- * PHP Version 5.x
- *
- * CakePHP(tm) : Rapid Development Framework (http://www.cakephp.org)
- * Copyright 2005-2009, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
+ * PHP 5.3
+ * 
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @filesource
- * @copyright Copyright 2009, Cake Software Foundation, Inc. (http://www.cakefoundation.org)
- * @link http://cakephp.org CakePHP(tm) Project
- * @license http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('HttpSocket', 'Network/Http');
 App::uses('HttpSocketOauth', 'Lib');
+
+/** 
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ */
 
 class LinkedinSource extends DataSource {
 
@@ -69,6 +73,16 @@ class LinkedinSource extends DataSource {
         return array('linkedin');
     }
 
+
+    /**
+     * Used to retrieve a user's statuses. The aouth token and aouth secret 
+     * must be passed through the conditions array when making the 'find' 
+     * model call
+     *
+     * @param string $model
+     * @param array $queryData
+     * @return type 
+     */
     public function read($model, $queryData = array()) {
         
         $request = array(
@@ -115,6 +129,15 @@ class LinkedinSource extends DataSource {
         return $results;
     }
 
+    /**
+     * Used to update the user's status. The status message, aouth token
+     * and aouth secret must be passed into the 'save' model call 
+     * 
+     * @param string $model
+     * @param array $fields
+     * @param array $values
+     * @return type 
+     */
     public function create($model, $fields = array(), $values = array()) {
         
         $data = array_combine($fields, $values);        

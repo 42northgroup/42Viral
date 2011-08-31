@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('AppModel', 'Model');
+App::uses('FacebookAbstract', 'Model');
 
 /** 
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
@@ -21,10 +21,6 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class TweetAbstract extends AppModel {
-
-    public $useDbConfig = 'twitter';
-
-}
+class Facebook extends FacebookAbstract {}
 
 ?>

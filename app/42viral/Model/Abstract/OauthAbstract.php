@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP 5.3
  *
@@ -12,12 +13,13 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('AppModel', 'Model');
 App::uses('User', 'Model');
 App::uses('Sec', 'Utility');
 
 /**
- * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person.
+ * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person. 
  * @package App
  * @subpackage App.core
  * @author Jason D Snider <jsnider77@gmail.com>
@@ -149,6 +151,23 @@ abstract class OauthAbstract extends AppModel
         //If we've come this far, something bad happened
         return false;
     }
+
+    
+    /**
+     * Checks to see if the user has used this service to authenticate themselves
+     * if the past and if they are cuurently logged in using that service. 
+     * 
+     * If they are logged using once service and authenticate using another, the
+     * second once will be merged into the first one and it will return true.
+     * 
+     * If this is the first time the user is authenticating with this service it will
+     * return false 
+     *
+     * @param stirng $service
+     * @param stirng $service_id
+     * @param string $user_id
+     * @return bollean
+     */
 
     public function doesOauthExist($service, $service_id, $user_id)
     {

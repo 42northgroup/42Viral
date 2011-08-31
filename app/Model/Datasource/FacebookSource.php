@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Twitter DataSource
+ * Facebook DataSource
  *
- * Used for reading and writing to Twitter, through models.
+ * Used for reading and writing to Facebook, through models.
  *
  * PHP 5.3
  * 
@@ -25,15 +25,15 @@ App::uses('HttpSocketOauth', 'Lib');
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
 
-class TwitterSource extends DataSource {
+class FacebookSource extends DataSource {
 
     protected $_schema = array(
-        'tweets' => array(
+        'facebook' => array(
             'id' => array(
-                'type' => 'integer',
+                'type' => 'string',
                 'null' => true,
                 'key' => 'primary',
-                'length' => 11,
+                'length' => 64,
             ),
             'text' => array(
                 'type' => 'string',
@@ -52,13 +52,7 @@ class TwitterSource extends DataSource {
                 'null' => true,
                 'key' => 'primary',
                 'length' => 140
-            ),
-            'oauth_token_secret' => array(
-                'type' => 'string',
-                'null' => true,
-                'key' => 'primary',
-                'length' => 140
-            ),
+            )
         )
     );
 
@@ -70,37 +64,38 @@ class TwitterSource extends DataSource {
     }
 
     public function listSources() {
-        return array('tweets');
+        return array('facebook');
     }
 
     /**
-     * Used to retrieve a user's posts. The user's username must 
-     * be passed through the conditions array when making the 'find' 
-     * model call
+     * Used to retrieve a user's news feed. The aouth token must be passed 
+     * through the conditions array when making the 'find' model call
      *
      * @param string $model
      * @param array $queryData
      * @return type 
      */
     public function read($model, $queryData = array()) {
+                        
+        $graph_url = "https://graph.facebook.com/me/statuses?access_token=" 
+        . $queryData['conditions']['oauth_token'];
                 
-        $url = "http://api.twitter.com/statuses/user_timeline/";
-
-        $url .= "{$queryData['conditions']['username']}.json";
-        $response = json_decode(file_get_contents($url), true);
+        $response = json_decode(file_get_contents($graph_url));
+        
         $results = array();
-        foreach ($response as $record) {
-            $record = array('Tweet' => $record);
-            $record['User'] = $record['Tweet']['user'];
-            unset($record['Tweet']['user']);
-            $results[] = $record;
+        foreach ($response->data as $status) {
+            $status_update['from'] = $status->from->name;
+            $status_update['post'] = $status->message;
+            $status_update['time'] = $status->updated_time;
+            
+            $results[] = $status_update;
         }
         return $results;
     }
 
     /**
-     * Used to post to Twitter. The post message, aouth token, 
-     * and aouth secret must be passed into the 'save' model call 
+     * Used to update the user's status. The status message and aouth token
+     * must be passed into the 'save' model call 
      * 
      * @param string $model
      * @param array $fields
@@ -113,29 +108,21 @@ class TwitterSource extends DataSource {
                 
         $request = array(
             'uri' => array(
-                'scheme' => 'http',
-                'host' => 'api.twitter.com',
-                'path' => '/1/statuses/update.json'
+                'scheme' => 'https',
+                'host' => 'graph.facebook.com',
+                'path' => '/me/feed'
             ),
             'method' => 'POST',
-            'auth' => array(
-                'method' => 'OAuth',
-                'oauth_signature_method' => 'HMAC-SHA1',
-                'oauth_consumer_key' => $this->config['consumer_key'],
-                'oauth_consumer_secret' => $this->config['consumer_secret'],
-                'oauth_token' => $data['oauth_token'],
-                'oauth_token_secret' => $data['oauth_token_secret']
-            ),
             'body' => array(
-                'status' => $data['status']
+                'message' => $data['status'],
+                'access_token' => $data['oauth_token']
             )
         );
         
-        $result = $this->HttpSocketOauth->request($request);
-        
-        $result = json_decode($result, true);
-        
-        if (isset($result['id']) && is_numeric($result['id'])) {
+        $response = $this->HttpSocketOauth->request($request);
+        $response = json_decode($response, true);
+                
+        if (isset($response['id'])) {
             $model->setInsertId($result['id']);
             return true;
         }
@@ -143,7 +130,7 @@ class TwitterSource extends DataSource {
     }
 
     public function describe($model) {
-        return $this->_schema['tweets'];
+        return $this->_schema['facebook'];
     }
 
 }
