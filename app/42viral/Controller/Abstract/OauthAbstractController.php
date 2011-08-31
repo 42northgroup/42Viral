@@ -376,30 +376,48 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function serviceConfiguration($service, $configCount){
+    public function serviceConfiguration($service, $configCount = null){
         
         $config = Configure::read();
-        
-        if($config['debug'] == 0){
-            if(count($config[$service]) != $configCount){
-                throw new NotFoundException();
-            }
-        }else{
             
-            if(!isset($config[$service])){
-                $message = __('The ' . $service . ' service is not configured for use');
-                $this->Session->setFlash($message, 'error');                
-                throw new MethodNotAllowedException($message);
-            }
+        foreach($config[$service]['Schema'] as $key => $value){
             
-            foreach($config[$service] as $key => $value){
-                if($value == ''){
-                    $message = __($key . 'has not been set');
+            //Does the value exist?
+            if(isset($config[$service][$key] )){
+                
+                //Do we have any validation rules set against the configiuration variable
+                if(isset($config[$service]['Schema'][$key]['validate'])){
+
+                    //Yes, loop through the validation rules and look for trouble
+                    foreach($config[$service]['Schema'][$key]['validate'] as $rule){
+
+                        //Will the validation fail?
+                        if( !Validation::$rule($config[$service][$key]) ){
+                            
+                            //Yes, the validation failed, throw an exception
+                            if($config['debug'] == 0){ //Production exception
+                                throw new NotFoundException();
+                            }else{ //Dev exception                            
+                                $message = __("{$key} violates the {$rule} rule set");
+                                $this->Session->setFlash($message, 'error');
+                                throw new MethodNotAllowedException($message);
+                            }
+                        }
+                    }
+                }
+
+            }else{
+                //No, the configuration value is not set, throw an exception
+                if($config['debug'] == 0){  //Production exception
+                    throw new NotFoundException();
+                }else{ //Dev exception
+                    $message = __("{$key} has not been set");
                     $this->Session->setFlash($message, 'error');
                     throw new MethodNotAllowedException($message);
                 }
             }
         }
+        
     }
     
     /**
@@ -438,7 +456,6 @@ abstract class OauthAbstractController extends AppController
 
 
             }else{
-
                 return false;
             }
 
