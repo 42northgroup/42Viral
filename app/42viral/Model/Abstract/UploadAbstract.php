@@ -16,9 +16,12 @@ App::uses('AppModel', 'Model');
        
 /**
  * Mangages file uploads
- * @package App
- * @subpackage App.core
  * 
+ * @package app
+ * @subpackage app.core
+ * 
+ * @author Jason D Snider <jsnider77@gmail.com>
+ *
  * @todo Name disambiguation
  * @todo Improve whitelist/blacklist data and functionality
  */
