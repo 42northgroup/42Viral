@@ -163,11 +163,9 @@ Configure::write('Yelp', array(
 /**
  * Yahoo
  */
-Configure::write('Yahoo', array(
-        ## 'LocalSearch' => array('api_id'=>'')
-));
+Configure::write('Yahoo.LocalSearch.app_id', '');
 
-## define('APP_ID_YAHOO_LOCAL_SEARCH', '');
+
 
 /* ====================
  * == Asset Helper ====
