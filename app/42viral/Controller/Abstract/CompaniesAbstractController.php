@@ -30,7 +30,7 @@ abstract class CompaniesAbstractController extends AppController
      * Use these models
      * @var array
      */
-    public $uses = array('Company', 'Address', 'Yelp');
+    public $uses = array('Company', 'Address', 'YelpApi');
 
 
     public $components = array('ProfileProgress');
@@ -248,7 +248,7 @@ abstract class CompaniesAbstractController extends AppController
             $queryTerms['location'] = $company['Address'][0]['_us_full_address'];
         }
 
-        $results = $this->Yelp->find('all', array(
+        $results = $this->YelpApi->find('all', array(
             'conditions' => $queryTerms
         ));
 

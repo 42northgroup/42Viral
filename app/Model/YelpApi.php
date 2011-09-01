@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('AppModel', 'Model');
+App::uses('YelpApiAbstract', 'Model');
 
 /**
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
@@ -21,9 +21,6 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class YelpAbstract extends AppModel {
-
-    public $useDbConfig = 'yelp';
-}
+class YelpApi extends YelpApiAbstract {}
 
 ?>

@@ -20,7 +20,7 @@ App::uses('Handy', 'Lib');
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-class YelpSource extends DataSource
+class YelpApiSource extends DataSource
 {
 
     public $description = 'Yelp API Data Source';
@@ -28,7 +28,7 @@ class YelpSource extends DataSource
     public $yelpSearchPath = '/v2/search';
     
     protected $_schema = array(
-        'yelps' => array(
+        'yelp_api' => array(
             'id' => array(
                 'type' => 'string',
                 'null' => true,
@@ -58,7 +58,7 @@ class YelpSource extends DataSource
 
     public function listSources()
     {
-        return array('yelps');
+        return array('yelp_api');
     }
 
     /**
@@ -96,7 +96,7 @@ class YelpSource extends DataSource
 
     public function describe($model)
     {
-        return $this->_schema['yelp'];
+        return $this->_schema['yelp_api'];
     }
 
 }
