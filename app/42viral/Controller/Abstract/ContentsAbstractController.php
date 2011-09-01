@@ -201,8 +201,9 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Post->findById($id);
         
         $this->set('statuses', $this->Post->picklist('Status'));
-        
-        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . THEME_SET . DS;
+
+        $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
+                . Configure::write('Theme.set', 'Default') . DS;
         $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
         $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS; 
         

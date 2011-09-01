@@ -36,6 +36,13 @@ abstract class AclGroupAbstract extends GroupAbstract
     
     /**
      * 
+     * @var string
+     * @access public
+     */
+    public $useTable = 'groups';
+    
+    /**
+     * 
      * @var array
      * @access public
      */
