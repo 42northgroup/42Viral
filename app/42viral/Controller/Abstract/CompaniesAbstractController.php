@@ -30,7 +30,7 @@ abstract class CompaniesAbstractController extends AppController
      * Use these models
      * @var array
      */
-    public $uses = array('Company', 'Address', 'YelpApi');
+    public $uses = array('Company', 'Address', 'YelpApi', 'YahooApi');
 
 
     public $components = array('ProfileProgress');
@@ -187,8 +187,6 @@ abstract class CompaniesAbstractController extends AppController
             !empty($company['Company']['yahoo_listing_id'])
         ) {
             $requestParams = array(
-                'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
-                'output' => 'php',
                 'query' => '*',
                 'listing_id' => $company['Company']['yahoo_listing_id']
             );
@@ -196,36 +194,20 @@ abstract class CompaniesAbstractController extends AppController
 
             if(isset($company['Address']) && !empty($company['Address'])) {
                 $requestParams = array(
-                    'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
-                    'output' => 'php',
                     'query' => $company['Company']['name'],
                     'location' => $company['Address'][0]['_us_full_address']
                 );
             } else {
                 $requestParams = array(
-                    'appid' => APP_ID_YAHOO_LOCAL_SEARCH,
-                    'output' => 'php',
                     'query' => $company['Company']['name']
                 );
             }
 
         }
 
-
-        $requestObject = array(
-            'requestUrl' => 'http://local.yahooapis.com/LocalSearchService/V3/localSearch',
-            'params' => $requestParams
-        );
-
-        $HttpSocket = new HttpSocket();
-
-        $yahooResponse = $HttpSocket->get(
-            $requestObject['requestUrl'], $requestObject['params']
-        );
-
-        $resultsObject = unserialize($yahooResponse->body);
-
-        return $resultsObject['ResultSet'];
+        return $this->YahooApi->find('all', array(
+            'conditions' => $requestParams
+        ));
     }
 
 

@@ -12,22 +12,23 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('HttpSocketOauth', 'Lib');
+App::uses('HttpSocket', 'Network/Http');
 
 /**
- * Yelp data source to make Yelp API access consistent with CakePHP models
+ * Yahoo data source to make Yahoo Local Search API requests consistent with CakePHP models
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-class YelpApiSource extends DataSource
+class YahooApiSource extends DataSource
 {
 
-    public $description = 'Yelp API Data Source';
-    public $yelpHost = 'api.yelp.com';
-    public $yelpSearchPath = '/v2/search';
-    
+    public $description = 'Yahoo API Data Source';
+    public $yahooHost = 'local.yahooapis.com';
+    public $yahooSearchPath = '/LocalSearchService/V3/localSearch';
+    public $standardConfig = array();
+
     protected $_schema = array(
-        'yelp_api' => array(
+        'yahoo_api' => array(
             'id' => array(
                 'type' => 'string',
                 'null' => true,
@@ -52,16 +53,20 @@ class YelpApiSource extends DataSource
         parent::__construct();
         $this->setConfig($config);
 
-        $this->HttpSocketOauth = new HttpSocketOauth();
+        $this->HttpSocket = new HttpSocket();
+        $this->standardConfig = array(
+            'appid' => $this->config['app_id'],
+            'output' => 'php'
+        );
     }
 
     public function listSources()
     {
-        return array('yelp_api');
+        return array('yahoo_api');
     }
 
     /**
-     * Used to retrieve company reviews from Yelp.
+     * Used to retrieve company reviews from Yahoo.
      *
      * @param string $model
      * @param array $queryData
@@ -69,31 +74,39 @@ class YelpApiSource extends DataSource
      */
     public function read($model, $queryData = array())
     {
-        $request = array(
-            'uri' => array(
-                'host' => $this->yelpHost,
-                'path' => $this->yelpSearchPath,
-                'query' => $queryData['conditions']
-            ),
-            'method' => 'GET',
-            'auth' => array(
-                'method' => 'OAuth',
-                'oauth_consumer_key' => $this->config['consumer_key'],
-                'oauth_consumer_secret' => $this->config['consumer_secret'],
-                'oauth_token' => $this->config['token'],
-                'oauth_token_secret' => $this->config['token_secret']
-            )
+        $queryData['conditions'] = array_merge(
+            $queryData['conditions'],
+            $this->standardConfig
         );
 
-        $yelpResponse = $this->HttpSocketOauth->request($request);
-        $resultsObject = json_decode($yelpResponse->body, true);
 
-        return $resultsObject;
+        $request = array(
+            'uri' => array(
+                'host' => $this->yahooHost,
+                'path' => $this->yahooSearchPath,
+                'query' => $queryData['conditions']
+            ),
+
+            'method' => 'GET'
+        );
+
+        $yahooResponse = $this->HttpSocket->request($request);
+        $resultsObject = unserialize($yahooResponse->body);
+
+        if(isset($resultsObject['Error'])) {
+            return false;
+        } elseif($resultsObject['ResultSet']) {
+            return $resultsObject['ResultSet'];
+        } else {
+            return null;
+        }
     }
 
+
+    
     public function describe($model)
     {
-        return $this->_schema['yelp_api'];
+        return $this->_schema['yahoo_api'];
     }
 
 }

@@ -86,6 +86,10 @@ class DATABASE_CONFIG
         'token' => '',
         'token_secret' => ''
     );
+    public $yahoo = array(
+        'datasource' => 'YahooApiSource',
+        'app_id' => ''
+    );
     public $default = array(
         'datasource' => 'Database/Mysql',
         'persistent' => false,
