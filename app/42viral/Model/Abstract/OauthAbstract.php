@@ -19,9 +19,11 @@ App::uses('User', 'Model');
 App::uses('Sec', 'Utility');
 
 /**
- * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person. 
- * @package App
- * @subpackage App.core
+ * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person.
+ *  
+ * @package app
+ * @subpackage app.core
+ * 
  * @author Jason D Snider <jsnider77@gmail.com>
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */

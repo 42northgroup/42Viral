@@ -101,6 +101,10 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS,
         ),
     
+        'Model/Datasource' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS,
+        ),
+            
         'plugins' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Plugin' . DS
         ),
