@@ -85,7 +85,6 @@ abstract class FirstRunAbstractController extends AppController {
                     'salt'=>NULL,
                     'first_name'=>NULL,
                     'last_name'=>NULL,
-                    'bio'=>'',
                     'object_type'=>'system',
                     'created'=>'2011-07-21 01:46:22',
                     'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
@@ -102,7 +101,6 @@ abstract class FirstRunAbstractController extends AppController {
                     'salt'=>NULL,
                     'first_name'=>NULL,
                     'last_name'=>NULL,
-                    'bio'=>'',
                     'object_type'=>'system',
                     'created'=>'2011-07-21 01:46:22',
                     'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
@@ -117,8 +115,36 @@ abstract class FirstRunAbstractController extends AppController {
             }
         }
 
+        $this->redirect('/first_run/load_group_data');
+    }
+    
+    public function load_group_data(){
+        $groups =
+        array(
+            array(
+            'Group'=>array(
+                    'id'=>'4e5fcfef-8e80-40bb-a72f-22424bb83359',
+                    'name'=>'Basic User',
+                    'alias'=> 'basic_user',
+                    'password'=>NULL,
+                    'object_type'=>'acl',
+                    'created'=>'2011-09-01 01:40:24',
+                    'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
+                    'modified'=>'2011-09-01 01:40:24',
+                    'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
+                ),
+             ));
+
+        foreach($groups as $group){
+            if($this->Person->save($group['Group'])){
+
+            }else{
+                die('Set up failed');
+            }
+        }
         $this->redirect('/first_run/create_root');
     }
+    
 
     /**
      * Sets up the root user
