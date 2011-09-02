@@ -69,9 +69,9 @@ abstract class PrivilegesAbstractController extends AppController {
         
         $controllers = $this->ControllerList->get();
         $this->set('username', $username);
-        $this->set('controllers', $controllers);
-        $this->set('person', $this->Person->findByUsername($username));
         
+        $this->set('person', $this->Person->findByUsername($username));
+       
         $acos = $this->Aco->find('list', array(
             'fields' => array('Aco.id', 'Aco.alias')
         ));
@@ -97,6 +97,16 @@ abstract class PrivilegesAbstractController extends AppController {
             }
         }
         
+        foreach($acos as $key => $val){
+            $aco_alias = explode('-',$val);
+            
+            if(isset($aco_alias[1]) && $aco_alias[1] == 'group'){
+                $controllers[$aco_alias[0]] = array();
+                array_push($controllers[$aco_alias[0]], $aco_alias[1]);
+            }
+        }
+        
+        $this->set('controllers', $controllers);
         $this->set('privileges', $this->fetchPrivileges($username));
         
         if(!empty ($this->data)){
@@ -120,6 +130,84 @@ abstract class PrivilegesAbstractController extends AppController {
         }
     }
     
+    public function admin_aco_group($alias)
+    {
+        $controllers = $this->ControllerList->get();
+        $acos = $this->Aco->find('list', array(
+            'fields' => array('Aco.alias', 'Aco.parent_id')
+        ));
+        $this->set('acos', $acos);
+        
+        $group = $this->Aco->findByAlias($alias);
+        $this->set('group', $group);
+        
+        foreach($controllers as $key => $val){
+            foreach($controllers[$key] as $index => $action){
+                
+                if( !array_key_exists($key.'-'.$action, $acos) ){
+                    $this->Acl->Aco->create(array(
+                        'parent_id'=>1,
+                        'alias'=>$key.'-'.$action,0,0
+                    ));
+                    
+                    $this->Acl->Aco->save();
+                }
+            }
+        }
+        
+        foreach($acos as $key => $val){
+            $aco_alias = explode('-',$key);
+            
+            if(isset($aco_alias[1]) && $aco_alias[1] == 'group' && $aco_alias[0].'-'.$aco_alias[1] != $alias){
+                $controllers[$aco_alias[0]] = array();
+                array_push($controllers[$aco_alias[0]], $aco_alias[1]);
+            }
+        }
+        
+        $this->set('controllers', $controllers);
+    }
+    
+    public function admin_add_to_group($new_parent_id){
+        
+        if(!empty ($this->data)){
+            
+            $acos = $this->Aco->find('all', array(
+                'contain' => array()
+            ));
+            
+            foreach ($acos as $aco){
+                $aco_alias = explode('-', $aco['Aco']['alias']);
+                
+                if($aco['Aco']['alias'] != 'root' && $aco['Aco']['id'] != $new_parent_id ){
+                    
+                    if($this->data[$aco_alias[0]][$aco_alias[1]] == 1){
+                        
+                        unset($aco['Aco']['lft']);
+                        unset($aco['Aco']['rght']);
+
+                        $aco['Aco']['parent_id'] = $new_parent_id;
+
+                        $this->Acl->Aco->save($aco);
+                    }else{
+                        
+                        unset($aco['Aco']['lft']);
+                        unset($aco['Aco']['rght']);
+                        $aco['Aco']['parent_id'] = 1; 
+
+                        $this->Acl->Aco->save($aco);
+                    }
+                }
+            }
+            
+                        
+            $this->redirect($this->referer());            
+            
+        }
+        
+        
+    }
+
+
     /**
      * Attaches a user to an acl_group and has him inherit the 
      * permissions of the group 
@@ -195,6 +283,6 @@ abstract class PrivilegesAbstractController extends AppController {
         
         return $privileges;
     }
-    
+            
 }
 ?>
