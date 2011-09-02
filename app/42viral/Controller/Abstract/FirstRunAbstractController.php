@@ -15,7 +15,7 @@ abstract class FirstRunAbstractController extends AppController {
     public $name = 'FirstRun';
 
     public $components = array('ControllerList');
-    public $uses = array('Aco', 'AclGroup', 'Aro', 'Person', 'User');
+    public $uses = array('Aco', 'AclGroup', 'Aro', 'Group', 'Person', 'User');
 
 
     public function beforeFilter()
@@ -28,7 +28,7 @@ abstract class FirstRunAbstractController extends AppController {
      * The starting pont to the first run wizard
      */
     public function index(){
-        $this->redirect('/first_run/build_initial_acl');
+        $this->flash('Begining ACL based privledge set up...', '/first_run/root_acl');
     }
 
     /**
@@ -37,7 +37,7 @@ abstract class FirstRunAbstractController extends AppController {
      *
      * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      */
-    public function build_initial_acl()
+    public function root_acl()
     {
 
         $this->Session->delete('Auth');
@@ -65,14 +65,14 @@ abstract class FirstRunAbstractController extends AppController {
                 $this->Acl->allow('root', $key . '-' . $action, '*');
             }
         }
-
-        $this->redirect('/first_run/load_initial_data');
+        
+        $this->flash('ACL Root Setup Complete. Creating system users...', '/first_run/create_people');
     }
 
     /**
      * Creates the default system users
      */
-    public function load_initial_data(){
+    public function create_people(){
 
         $people =
         array(
@@ -107,18 +107,22 @@ abstract class FirstRunAbstractController extends AppController {
                     'modified'=>'2011-07-21 01:46:22',
                     'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',)));
 
+        $count = count($people);
         foreach($people as $person){
-            if($this->Person->save($person['Person'])){
-
+            $i=0;
+            if($this->Person->save($person['Person'])){ 
+                $i++;
+                if($i == ($count - 1)){
+                    $this->flash('System users created. Building default groups...', '/first_run/create_groups');
+                }
             }else{
-                die('Set up failed');
+                $this->flash('Failed to create people, retrying...', '/first_run/create_people');
             }
         }
-
-        $this->redirect('/first_run/load_group_data');
+        
     }
     
-    public function load_group_data(){
+    public function create_groups(){
         $groups =
         array(
             array(
@@ -126,7 +130,6 @@ abstract class FirstRunAbstractController extends AppController {
                     'id'=>'4e5fcfef-8e80-40bb-a72f-22424bb83359',
                     'name'=>'Basic User',
                     'alias'=> 'basic_user',
-                    'password'=>NULL,
                     'object_type'=>'acl',
                     'created'=>'2011-09-01 01:40:24',
                     'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
@@ -136,7 +139,7 @@ abstract class FirstRunAbstractController extends AppController {
              ));
 
         foreach($groups as $group){
-            if($this->Person->save($group['Group'])){
+            if($this->Group->save($group['Group'])){
 
             }else{
                 die('Set up failed');
