@@ -1,9 +1,23 @@
 <?php
-
+/**
+ * PHP 5.3
+ * 
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 App::uses('AppController', 'Controller');
 
 /**
- *
+ * Provides a web interface for running the intial system setup
+ * @author Jason D Snider <jsnider77@gmail.com>
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
 abstract class FirstRunAbstractController extends AppController {
 
@@ -26,16 +40,32 @@ abstract class FirstRunAbstractController extends AppController {
 
     /**
      * The starting pont to the first run wizard
+     * @return void
+     * @access public
      */
     public function index(){
-        $this->flash('Begining ACL based privledge set up...', '/first_run/root_acl');
+        
+        $this->flash('Truncating all tables...', '/first_run/truncate');
+    }
+    
+    /**
+     * Cleans up any exisiting data
+     * @return void
+     * @access public
+     */
+    public function truncate(){
+        $this->Aco->query('TRUNCATE acos;');
+        $this->Aro->query('TRUNCATE aros;');
+        $this->Group->query('TRUNCATE groups;');
+        $this->Person->query('TRUNCATE people;');
+        $this->flash('Truncation complete; begining ACL based privledge set up...', '/first_run/root_acl');
     }
 
     /**
      * Build the initial ACOs table, create an ARO entry for
      * user "root" and gives him all permissions
-     *
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @return void
+     * @access public
      */
     public function root_acl()
     {
@@ -71,6 +101,8 @@ abstract class FirstRunAbstractController extends AppController {
 
     /**
      * Creates the default system users
+     * @return void
+     * @access public
      */
     public function create_people(){
 
@@ -116,12 +148,18 @@ abstract class FirstRunAbstractController extends AppController {
                     $this->flash('System users created. Building default groups...', '/first_run/create_groups');
                 }
             }else{
+                $this->Person->query('TRUNCATE people;');
                 $this->flash('Failed to create people, retrying...', '/first_run/create_people');
             }
         }
         
     }
     
+    /**
+     * Creates the systems default groups
+     * @return void
+     * @access public
+     */
     public function create_groups(){
         $groups =
         array(
@@ -137,26 +175,34 @@ abstract class FirstRunAbstractController extends AppController {
                     'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
                 ),
              ));
-
+        $count = count($groups);
         foreach($groups as $group){
+            $i=0;
             if($this->Group->save($group['Group'])){
-
+                $i++;
+                if($i == ($count)){
+                    $this->Session->setFlash(
+                            __('Auto setup complete; finish the root configure configuration'), 'success');
+                    $this->flash('Default groups created. Configuring root...', '/first_run/configure_root');
+                }
             }else{
-                die('Set up failed');
+                $this->Group->query('TRUNCATE groups;');
+                $this->flash('Failed to create people, retrying...', '/first_run/create_groups');
             }
-        }
-        $this->redirect('/first_run/create_root');
+        }         
     }
     
 
     /**
      * Sets up the root user
+     * @return void
+     * @access public
      */
-    public function create_root(){
+    public function configure_root(){
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
-                $this->Session->setFlash(__('The root user is now ready') ,'success');
-                $this->redirect('/users/login');
+                $this->Session->setFlash(__('Setup complete, you may now try your root login'), 'success');
+                $this->flash('Setup complete, you may now try your root login', '/users/login');
             }
         }
     }
