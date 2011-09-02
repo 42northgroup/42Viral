@@ -181,7 +181,7 @@ abstract class FirstRunAbstractController extends AppController {
             if($this->Group->save($group['Group'])){
                 $i++;
                 
-                $this->Acl->Aco->create(array('alias' => $group['Group']['alias'] . '-group', 0, 0));
+                $this->Acl->Aco->create(array('parent_id'=>1, 'alias' => $group['Group']['alias'] . '-group', 0, 0));
                 $this->Acl->Aco->save();
 
                 $this->Acl->Aro->create(array(
