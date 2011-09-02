@@ -180,6 +180,17 @@ abstract class FirstRunAbstractController extends AppController {
             $i=0;
             if($this->Group->save($group['Group'])){
                 $i++;
+                
+                $this->Acl->Aco->create(array('alias' => $group['Group']['alias'], 0, 0));
+                $this->Acl->Aco->save();
+
+                $this->Acl->Aro->create(array(
+                    'model' => 'Group',
+                    'foreign_key' => $group['Group']['id'],
+                    'alias' => $group['Group']['alias'], 0, 0));
+
+                $this->Acl->Aro->save();
+                
                 if($i == ($count)){
                     $this->Session->setFlash(
                             __('Auto setup complete; finish the root configure configuration'), 'success');
