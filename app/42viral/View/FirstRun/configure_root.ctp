@@ -1,4 +1,4 @@
-<h1>Create the system's root user</h1>
+<h1>Configure the system's root user</h1>
 <?php
 
     echo $this->Form->create('User', 
