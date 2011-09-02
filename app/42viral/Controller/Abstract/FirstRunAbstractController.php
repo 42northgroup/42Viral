@@ -193,7 +193,7 @@ abstract class FirstRunAbstractController extends AppController {
                 
                 if($i == ($count)){
                     $this->Session->setFlash(
-                            __('Auto setup complete; finish the root configure configuration'), 'success');
+                            __('Auto setup complete; finish the root configuration'), 'success');
                     $this->flash('Default groups created. Configuring root...', '/first_run/configure_root');
                 }
             }else{
