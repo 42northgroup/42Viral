@@ -80,7 +80,7 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function twitter_connect()
+    public function twitter_connect($get_token = null)
     {
         $this->serviceConfiguration('Twitter', 3);
 
@@ -93,7 +93,7 @@ abstract class OauthAbstractController extends AppController
             'method' => 'GET',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_callback' => Configure::read('Twitter.callback'),
+                'oauth_callback' => Configure::read('Twitter.callback') . '/' . $get_token,
                 'oauth_consumer_key' => Configure::read('Twitter.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('Twitter.consumer_secret')
             )
@@ -105,7 +105,7 @@ abstract class OauthAbstractController extends AppController
         parse_str($response, $response);
         //pr($response); die();
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
-        $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
+        $this->redirect('http://api.twitter.com/oauth/authenticate?oauth_token=' . $response['oauth_token']);
 
     }
 
@@ -114,7 +114,7 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function twitter_callback()
+    public function twitter_callback($get_token = null)
     {
         
 
@@ -146,6 +146,12 @@ abstract class OauthAbstractController extends AppController
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('Twitter.oauth_token', $response['oauth_token']);            
   
+        /*
+        if($get_token != null){
+            $this->redirect('/'.  urldecode($get_token));
+        }
+         * 
+         */
 
         if($this->Session->check('Auth.User.id')){
 
@@ -177,7 +183,7 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function linkedin_connect()
+    public function linkedin_connect($get_token = null)
     {
         
         $this->serviceConfiguration('LinkedIn', 3);
@@ -191,7 +197,7 @@ abstract class OauthAbstractController extends AppController
             'method' => 'POST',
             'auth' => array(
                 'method' => 'OAuth',
-                'oauth_callback' => Configure::read('LinkedIn.callback'),
+                'oauth_callback' => Configure::read('LinkedIn.callback') . '/' .$get_token,
                 'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
             ),
@@ -218,7 +224,7 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function linkedin_callback()
+    public function linkedin_callback($get_token = null)
     {
         
         $this->serviceConfiguration('LinkedIn', 3);
@@ -251,7 +257,6 @@ abstract class OauthAbstractController extends AppController
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('LinkedIn.oauth_token', $response['oauth_token']);
        
-
         $request1 = array(
             'uri' => array(
                 'scheme' => 'http',
@@ -312,13 +317,14 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function facebook_connect()
+    public function facebook_connect($get_token = null)
     {
 
         $this->serviceConfiguration('Facebook', 3);
         
         $this->redirect("https://www.facebook.com/dialog/oauth?client_id=".Configure::read('Facebook.consumer_key')
-                                                    ."&redirect_uri=".urlencode(Configure::read('Facebook.callback'))
+                                                    ."&redirect_uri=".urlencode(Configure::read('Facebook.callback')
+                                                                                                . '/' . $get_token)
                                                     ."&scope=read_stream,offline_access,publish_stream");
 
     }
@@ -329,14 +335,14 @@ abstract class OauthAbstractController extends AppController
      * @return void
      * @access public
      */
-    public function facebook_callback()
+    public function facebook_callback($get_token = null)
     {
 
         $this->serviceConfiguration('Facebook', 3);
         
         $token_url = "https://graph.facebook.com/oauth/access_token?"
         . "client_id=" . Configure::read('Facebook.consumer_key')
-        . "&redirect_uri=" . urlencode(Configure::read('Facebook.callback'))
+        . "&redirect_uri=" . urlencode(Configure::read('Facebook.callback'). '/' . $get_token)
         . "&client_secret=" . Configure::read('Facebook.consumer_secret')
         . "&code=" . $this->params['url']['code'];
 
@@ -346,7 +352,9 @@ abstract class OauthAbstractController extends AppController
 
         $graph_url = "https://graph.facebook.com/me?access_token="
         . $params['access_token'];
-                
+        
+        $this->Session->write('Facebook.oauth_token', $params['access_token']);
+                      
         $user = json_decode(file_get_contents($graph_url));
 
         if($this->Session->check('Auth.User.id')){

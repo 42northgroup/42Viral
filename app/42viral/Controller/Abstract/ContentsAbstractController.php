@@ -204,6 +204,7 @@ abstract class ContentsAbstractController extends AppController {
 
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
+
         $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
         $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS; 
         
@@ -234,7 +235,12 @@ abstract class ContentsAbstractController extends AppController {
     
     
     public function post_comment(){
-        if($this->data){
+        if( $this->Session->check('Auth.post_url') ){
+            $this->redirect($this->Session->read('Auth.post_url'));
+        }
+        
+        if($this->data){            
+            
             if($this->Conversation->save($this->data)){
                 $this->Session->setFlash(_('Your comment has been saved') ,'success');
                 $this->redirect($this->referer());

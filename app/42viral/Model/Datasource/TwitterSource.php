@@ -92,6 +92,10 @@ class TwitterSource extends DataSource {
         foreach ($response as $record) {
             $record = array('Tweet' => $record);
             $record['User'] = $record['Tweet']['user'];
+            $record['post'] = $record['Tweet']['text'];
+            $record['time'] = strtotime($record['Tweet']['created_at']);
+            $record['source'] = 'twitter';
+            
             unset($record['Tweet']['user']);
             $results[] = $record;
         }

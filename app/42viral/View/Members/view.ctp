@@ -110,6 +110,38 @@
 
             <?php endif; ?>
         </div>
+        
+        <div class="section-box">
+                        
+            <?php foreach ($statuses as $status): ?>
+                <?php if($status['post'] != ''): ?>
+
+                <p>
+                    <?php 
+                    switch($status['source']){
+                        case 'facebook':
+                            echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_16.png');
+                            break;
+
+                        case 'linkedin':
+                            echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/linkedin_16.png');
+                            break;
+
+                        case 'twitter':
+                            echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_16.png');
+                            break;
+                    }
+                    ?>
+                    <?php echo $status['post'].'<br/>'; ?>
+                    <?php echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; ?>
+                    <hr/>
+                </p>
+
+
+                <?php endif; ?>
+            <?php endforeach;?>            
+            
+        </div>
 
     </div>
 
@@ -123,17 +155,35 @@
         </div>
 
         <div style="float:left; width: 200px; margin-top: 20px;">
-            <a href="/oauth/facebook_connect" >
-                Connect Facebook
-            </a><br/>
+            <?php if( !in_array('facebook', $services)): ?>
+            
+                <a href="/oauth/facebook_connect" >
+                    Connect Facebook
+                </a><br/>
+            <?php else: ?>
+                
+                Facebook is connected<br/>
+            <?php endif; ?>
 
-            <a href="/oauth/linkedin_connect" >
-                Connect Linkedin
-            </a><br/>
+            <?php if( !in_array('linked_in', $services)): ?>
+                
+                <a href="/oauth/linkedin_connect" >
+                    Connect Linkedin
+                </a><br/>
+            <?php else: ?>
+                
+                LinkedIn is connected<br/>
+            <?php endif; ?>
 
-            <a href="/oauth/twitter_connect" >
-                Connect Twitter
-            </a>
+            <?php if( !in_array('twitter', $services)): ?>
+                
+                <a href="/oauth/twitter_connect" >
+                    Connect Twitter
+                </a>
+            <?php else: ?>
+                
+                Twitter is connected<br/>
+            <?php endif; ?>
         </div>
     <?php endif; ?>
 </div>

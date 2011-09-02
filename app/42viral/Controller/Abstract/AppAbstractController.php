@@ -14,7 +14,7 @@
  */
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
-
+App::uses('Scrub', 'Lib');
 /**
  *
  */
@@ -100,7 +100,8 @@ abstract class AppAbstractController extends Controller
                     }
 
                 }else{
-                    //No, the user is not looked in; deny access.
+                    //No, the user is not looked in; deny access.                    
+                    $this->Session->write('Auth.post_comment', Scrub::htmlStrict($this->data['Conversation']['body']));
                     $this->Auth->deny($this->request->params['action']);
                 }
 

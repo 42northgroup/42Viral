@@ -86,10 +86,12 @@ class FacebookSource extends DataSource {
         foreach ($response->data as $status) {
             $status_update['from'] = $status->from->name;
             $status_update['post'] = $status->message;
-            $status_update['time'] = $status->updated_time;
+            $status_update['time'] = strtotime($status->updated_time);
+            $status_update['source'] = 'facebook';
             
             $results[] = $status_update;
         }
+        
         return $results;
     }
 
@@ -123,7 +125,7 @@ class FacebookSource extends DataSource {
         $response = json_decode($response, true);
                 
         if (isset($response['id'])) {
-            $model->setInsertId($result['id']);
+            $model->setInsertId($response['id']);
             return true;
         }
         return false;

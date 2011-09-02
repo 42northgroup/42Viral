@@ -2,6 +2,7 @@
 
 App::uses('AppController', 'Controller');
 
+
 /**
  * @package app
  * @subpackage app.core
@@ -76,11 +77,29 @@ abstract class BlogsAbstractController extends AppController {
         if(empty($post)){
            $this->redirect('/', '404');
         }
-
+        
+        if( !$this->Session->check('Auth.User.id') ){
+            
+            $this->Session->write('Auth.post_url', $this->here);
+        }else{
+            
+            if( $this->Session->check('Auth.post_url') ){
+                $this->Session->delete('Auth.post_url');
+            }
+            
+            if( $this->Session->check('Auth.post_comment') ){
+                
+                $this->set('post_comment', $this->Session->read('Auth.post_comment') );
+                $this->Session->delete('Auth.post_comment');
+            }
+            
+        }
+       
         $this->set('title_for_layout', $post['Post']['title']);
         $this->set('canonical_for_layout', $post['Post']['canonical']);
         
         $this->set('post', $post);
+        
     }       
     
     
