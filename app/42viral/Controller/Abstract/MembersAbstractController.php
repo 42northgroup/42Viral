@@ -32,10 +32,10 @@ abstract class MembersAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Image', 'User');
+    public $uses = array('Image', 'User', 'Oauth');
 
 
-    public $components = array('ProfileProgress');
+    public $components = array('ProfileProgress', 'Oauths');
 
     /**
      * @var array
@@ -102,7 +102,14 @@ abstract class MembersAbstractController extends AppController {
         }else{
             $this->set('mine', false);
         }
+        
+        $services = $this->Oauth->find('list', array(
+            'conditions' => array('Oauth.person_id' => $user['User']['id']),
+            'fields' => array('Oauth.oauth_id', 'Oauth.service')
+        ));
 
+        $this->set('statuses', $this->social_media('members/view'));
+        $this->set('services', $services);
         $this->set('user', $user);
 
     }
@@ -128,4 +135,91 @@ abstract class MembersAbstractController extends AppController {
 
         $this->set('overall_progress', $overallProgress);
     }
+    
+    
+    public function social_media($redirect_url='members/social_media')
+    {
+        
+        if( !$this->Session->check('Auth.User.sm_list') ){
+            
+            $sm_list = $this->Oauth->find('list', array(
+                'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('Oauth.oauth_id', 'Oauth.service')
+            ));
+
+            $this->Session->write('Auth.User.sm_list', $sm_list);
+        }
+        
+        foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
+            switch ($val){
+                
+                case 'facebook':
+                    $this->Oauths->check_session_for_token('facebook', $redirect_url);
+                    break;
+                
+                case 'linked_in':
+                    $this->Oauths->check_session_for_token('linked_in', $redirect_url);
+                    break;
+                case 'twitter':
+                    $this->Oauths->check_session_for_token('twitter', $redirect_url);
+                    break;
+            }
+        }
+        
+        
+        
+        $sm = $this->Oauth->find('all', array(
+            'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id'))            
+        ));
+        
+        $statuses = array();
+        
+        foreach($sm as $media){
+            
+            switch($media['Oauth']['service']){
+                
+                case 'facebook':
+                    
+                    $this->loadModel('Facebook');
+                    $statuses = array_merge($statuses, $this->Facebook->find('all', array(
+                        'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token'))
+                    )));
+                    break;
+                
+                case 'linked_in':
+                    
+                    $this->loadModel('Linkedin');
+                    $statuses = array_merge($statuses, $this->Linkedin->find('all', array(
+                        'conditions' => array(
+                            'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
+                            'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
+                        )
+                    )));
+                    break;
+                
+                case 'twitter':
+                    
+                    $this->loadModel('Tweet');
+                    $statuses = array_merge($statuses, $this->Tweet->find('all', array(
+                        'conditions' => array('username' => $media['Oauth']['oauth_id'])
+                    )));
+                    break;
+                            
+            }
+        }
+        
+        
+        for($x = 0; $x < count($statuses); $x++) {
+          for($y = 0; $y < count($statuses); $y++) {
+            if($statuses[$x]['time'] > $statuses[$y]['time']) {
+                $hold = $statuses[$x];
+                $statuses[$x] = $statuses[$y];
+                $statuses[$y] = $hold;
+            }
+          }
+        }
+        
+        return $statuses;
+    }
+   
 }

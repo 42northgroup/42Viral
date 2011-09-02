@@ -39,8 +39,10 @@
     </div>
     <div class="post-body">
     <?php
+
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
+        
         $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
         $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS;
         

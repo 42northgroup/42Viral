@@ -91,7 +91,8 @@ class LinkedinSource extends DataSource {
                 'host' => 'api.linkedin.com',
                 'path' => '/v1/people/~/network/updates',
                 'query' => array(
-                    'count' => '30'
+                    'count' => '30',
+                    'scope' => 'self'
                 )
             ),
             'method' => 'GET',
@@ -112,20 +113,24 @@ class LinkedinSource extends DataSource {
         $first_name = 'first-name';
         $last_name = 'last-name';
         
-
         $results = array();
         foreach ($response->update as $record) {
-            $person['person']['id'] = (string)$record->$update_content->person->id;
-            $person['person']['first_name'] = (string)$record->$update_content->person->$first_name;
-            $person['person']['last_name'] = (string)$record->$update_content->person->$last_name;
+            $person['id'] = (string)$record->$update_content->person->id;
+            $person['from'] = (string)$record->$update_content->person->$first_name
+                                    . ' ' .(string)$record->$update_content->person->$last_name;
+            
+            $person['time'] = substr((string)$record->timestamp, 0, -3);
+            $person['source'] = 'linkedin';
+            
             if( isset($record->$update_content->person->$person_activities) ){
-                $person['person']['activity'] = (string)$record->$update_content->person->$person_activities->activity->body;
+                $person['post'] = (string)$record->$update_content->person->$person_activities->activity->body;
             }else{
-                $person['person']['activity'] = '';
+                $person['post'] = '';
             }
             
             $results[] = $person;
         }
+                
         return $results;
     }
 

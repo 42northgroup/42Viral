@@ -31,13 +31,13 @@ abstract class UsersAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('Person', 'User', 'AclGroup', 'Tweet');
+    public $uses = array('Person', 'User', 'AclGroup', 'Tweet', 'Oauth');
 
     /**
      * @var array
      * @access public
      */
-    public $components = array('Access', 'ProfileProgress');
+    public $components = array('Access', 'ProfileProgress', 'Oauths');
 
 
     /**
@@ -64,7 +64,7 @@ abstract class UsersAbstractController extends AppController
      * @todo TestCase
      */
     public function login()
-    {
+    {        
         $error = true;
         if(!empty($this->data)){
             $this->loadModel('User');
@@ -203,4 +203,73 @@ abstract class UsersAbstractController extends AppController
         $this->set('people', $people);
     }    
     
+    
+    public function social_media($redirect_url='users/social_media')
+    {
+        
+        if( !$this->Session->check('Auth.User.sm_list') ){
+            
+            $sm_list = $this->Oauth->find('list', array(
+                'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('Oauth.oauth_id', 'Oauth.service')
+            ));
+
+            $this->Session->write('Auth.User.sm_list', $sm_list);
+        }
+        
+        foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
+            switch ($val){
+                
+                case 'facebook':
+                    $this->Oauths->check_session_for_token('facebook', $redirect_url);
+                    break;
+                
+                case 'linked_in':
+                    $this->Oauths->check_session_for_token('linked_in', $redirect_url);
+                    break;
+                case 'twitter':
+                    $this->Oauths->check_session_for_token('twitter', $redirect_url);
+                    break;
+            }
+        }
+        
+    }
+    
+        
+    public function socialize(){
+        if(!empty ($this->data)){
+            
+            if( $this->data['SocialMedia']['twitter_post'] == 1 ){
+                
+                $this->loadModel('Tweet');
+                $this->Tweet->save(array(
+                    'status' => $this->data['SocialMedia']['twitter'],
+                    'oauth_token' => $this->Session->read('Twitter.oauth_token'),
+                    'oauth_token_secret' => $this->Session->read('Twitter.oauth_token_secret')
+                ));
+            }
+            
+            if( $this->data['SocialMedia']['linkedin_post'] == 1 ){
+                
+                $this->loadModel('Linkedin');
+                $this->Linkedin->save(array(
+                    'status' => $this->data['SocialMedia']['others'],
+                    'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
+                    'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
+                ));
+            }
+            
+            if( $this->data['SocialMedia']['facebook_post'] == 1 ){
+                
+                $this->loadModel('Facebook');
+                $this->Facebook->save(array(
+                    'status' => $this->data['SocialMedia']['others'],
+                    'oauth_token' => $this->Session->read('Facebook.oauth_token')
+                ));
+            }
+            
+            $this->Session->setFlash('Your social media has been updated', 'success');
+            $this->redirect('/users/social_media');
+        }
+    }
 }
