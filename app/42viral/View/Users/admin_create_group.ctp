@@ -24,6 +24,10 @@
             );
     echo $this->Form->input('name');
     echo $this->Form->input('alias');
+    echo $this->Form->input('object_type', array(
+        'type' => 'hidden',
+        'value' => 'acl'
+    ));
     
     echo $this->Form->submit();
     echo $this->Form->end();

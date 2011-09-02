@@ -34,7 +34,7 @@
             <th>
                 Group
             </th>
-            <th>
+            <th colspan="2" >
                 Actions
             </th>
         </thead>
@@ -45,7 +45,12 @@
                 <td><?php echo $acl_group['AclGroup']['alias']; ?></td>            
                 <td>        
                     <a href="/admin/privileges/user_privileges/<?php echo $acl_group['AclGroup']['alias']; ?>">
-                        [Edit Privileges]
+                        [User Group Privileges]
+                    </a>
+                </td>
+                <td>
+                    <a href="/admin/privileges/aco_group/<?php echo $acl_group['AclGroup']['alias']; ?>-group">
+                        [Aco Group]
                     </a>
                 </td>
             </tr>

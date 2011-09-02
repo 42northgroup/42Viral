@@ -185,6 +185,15 @@ abstract class UsersAbstractController extends AppController
                     'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
 
                 $this->Acl->Aro->save();
+                
+                $this->Acl->Aco->create(array(
+                    'model'=>'AclGroup',
+                    'parent_id'=>1,
+                    'foreign_key'=>$acl_group['AclGroup']['id'],
+                    'alias'=>$acl_group['AclGroup']['alias'].'-group'
+                    ));
+
+                $this->Acl->Aco->save();
 
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
