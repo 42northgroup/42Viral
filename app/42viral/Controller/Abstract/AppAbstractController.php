@@ -15,8 +15,9 @@
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('Scrub', 'Lib');
+
 /**
- *
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 abstract class AppAbstractController extends Controller
 {
@@ -44,6 +45,8 @@ abstract class AppAbstractController extends Controller
     {     
         $this->Auth->deny('*');
         
+        //Force a central login (1 login per prefix by default). 
+        $this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login');        
     }
     
     /**

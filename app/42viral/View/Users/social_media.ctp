@@ -32,7 +32,11 @@
 
 <h1>Social Media</h1>
 
-<?php  echo $this->Form->create('SocialMedia', array('url' => '/users/socialize')); ?>
+<?php  echo $this->Form->create('SocialMedia', 
+        array(
+            'url' => '/users/socialize',
+            'class'=>'content'
+            )); ?>
 
 
     

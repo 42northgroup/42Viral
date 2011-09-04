@@ -58,7 +58,7 @@ abstract class FirstRunAbstractController extends AppController {
         $this->Aro->query('TRUNCATE aros;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
-        $this->flash('Truncation complete; begining ACL based privledge set up...', '/first_run/root_acl');
+        $this->flash('Truncation complete. Begining ACL based privledge set up...', '/first_run/root_acl');
     }
 
     /**

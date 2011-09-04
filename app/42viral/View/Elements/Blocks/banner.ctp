@@ -15,33 +15,30 @@
 ?>
 
 <div id="Banner">
-    <div id="BannerLeft">The 42Viral Project</div>
-    <div id="BannerContent">
-        <div class="banner-navigation">
-            <?php echo $this->Html->link('Profile', '/members/' ); ?>
-            <?php echo $this->Html->link('Content', '/contents/content/' ); ?>
 
-            <?php echo $this->Html->link('Photos', '/uploads/images/' ); ?>
-            <?php echo $this->Html->link('Companies', '/companies/mine/' ); ?>
-            <?php echo $this->Html->link('Connect', '/oauth/connect/' ); ?>
-        </div>
-        
-        <div class="banner-sub-navigation">
-        <?php
-        
-            switch($this->request->params['controller']){
-                case 'contents';
-                    echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
-                    echo ' / ';
-                    echo $this->Access->link('Contents-post_create', 'Post to a blog', '/contents/post_create/');
-                    echo ' / ';
-                    echo $this->Access->link('Contents-page_create', 'Create a web page', '/contents/page_create/');                    
-                break;     
-            }
-            
-        ?>
-        </div>
-        
+    <div class="banner-navigation">
+        <?php echo $this->Html->link('Profile', '/members/' ); ?>
+        <?php echo $this->Html->link('Content', '/contents/content/' ); ?>
+
+        <?php echo $this->Html->link('Photos', '/uploads/images/' ); ?>
+        <?php echo $this->Html->link('Companies', '/companies/mine/' ); ?>
+        <?php echo $this->Html->link('Connect', '/oauth/connect/' ); ?>
     </div>
-    <div id="BannerRight"></div>
+
+    <div class="banner-sub-navigation">
+    <?php
+
+        switch($this->request->params['controller']){
+            case 'contents';
+                echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
+                echo ' / ';
+                echo $this->Access->link('Contents-post_create', 'Post to a blog', '/contents/post_create/');
+                echo ' / ';
+                echo $this->Access->link('Contents-page_create', 'Create a web page', '/contents/page_create/');                    
+            break;     
+        }
+
+    ?>
+    </div>
+
 </div>

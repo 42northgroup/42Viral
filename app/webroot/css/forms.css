@@ -76,6 +76,7 @@ form.content textarea{
     border-top: 1px dashed #bbb;
     border-bottom: 1px dotted #bbb;
     padding: 6px;
+    width: 98%;
 }
 
 form.content input[type="text"]:focus,
@@ -88,4 +89,8 @@ form.content textarea:focus{
 
 form.content label{
     display: block;
+}
+
+form.content div.checkbox label{
+    display: inline;
 }
