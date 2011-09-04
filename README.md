@@ -8,15 +8,19 @@ Provide a scalable and robust "kick start" for projects of any size.
 
 * CakePHP
 * HTMLPurifier
+* phpThumb() http://phpthumb.sourceforge.net/
 * jQuery
 * jQuery UI
 * HTMLBOILERPLATE
 * Modernizr
 
-## Third party support
+## Third API party support
 
 * Gravatar (Currently only avatars)
 * Disqus
+* Twitter
+* LinkedIn
+* Facebook
 
 ## Development
 

@@ -1,3 +1,9 @@
+<?php if(isset($user['User'])): ?>
+    <div class="avatar">
+        <?php echo $this->Member->avatar($user['User']) ?>
+    </div>
+<?php endif; ?>
+
 <ul class="side-navigation">
     <li><a href="/pages">Pages</a></li>
     <li><a href="/blogs">Blogs</a></li>

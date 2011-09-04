@@ -39,14 +39,16 @@ $(function(){
         ],
 
         toolbar_Basic : [
-            ['Source', '-',  'Bold', 'Italic', 'Underline', 'Strike'],
-            ['Link', 'Image','-','SelectAll','RemoveFormat'],
-            ['NumberedList','BulletedList'],
-            ['SpellChecker', 'Scayt'],
-            ['About']
+            ['Source', '-', 
+                'Format', 'Bold', 'Italic', 'Underline', 'Strike', '-',
+                'Link', 'Image','-',
+                'SelectAll','RemoveFormat', '-',
+                'NumberedList','BulletedList', '-',
+                'SpellChecker', 'Scayt',
+                'About']
         ],
         
-        toolbar : 'Full',
+        toolbar : 'Basic',
         extraPlugins : 'autogrow',
         scayt_autoStartup : true,
         /*toolbarStartupExpanded : false,*/

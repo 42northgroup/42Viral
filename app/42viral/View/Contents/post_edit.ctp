@@ -42,14 +42,14 @@
             );
     
     echo $this->Form->input('id');
-    echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
+    echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('body', array('class'=>'edit-basic'));
     echo $this->Form->input('tease', array('class'=>'edit-basic'));
-    echo $this->Form->input('description', array('rows'=>6, 'cols'=>96));
-    echo $this->Form->input('keywords', array('rows'=>6, 'cols'=>96));
+    echo $this->Form->input('description', array());
+    echo $this->Form->input('keywords', array());
     echo $this->Form->input('custom_file', array('empty'=>true));   
-    echo $this->Form->input('canonical', array('rows'=>2, 'cols'=>96));
-    echo $this->Form->input('slug', array('rows'=>2, 'cols'=>96));
+    echo $this->Form->input('canonical', array('rows'=>1));
+    echo $this->Form->input('slug', array('rows'=>1));
     echo $this->Form->input('status');
     echo $this->Form->submit();
     

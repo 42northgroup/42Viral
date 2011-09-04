@@ -55,20 +55,22 @@
 }
 
 #Left ul{
-    margin: 1px 0 6px 10px;
+    margin: 1px 0 6px 0;
     padding: 0;
 }
 
 ul.side-navigation{
     font-size: 15px;
     list-style-type: none;
-    margin-left: 0;
+    margin: 0;
+    padding: 0;
 }
 
 
 ul.side-navigation li{
     list-style-type: none;
-    margin-left: 0;
+    margin: 0;
+    padding: 0px;
 }
 
 ul.side-navigation li a:link,
@@ -88,4 +90,14 @@ div.error-message {
     text-align: center;
     border: 1px dotted #900;    
     padding:2px;
+}
+
+div.avatar{
+    margin: 20px 0 0;
+}
+
+div.section-box {
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 5px;
 }

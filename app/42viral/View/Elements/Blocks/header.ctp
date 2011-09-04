@@ -17,8 +17,8 @@
 <div id="Header">
 
     <div id="HeaderLeft">
+        The 42Viral Project
         <?php if($this->Session->check('Auth.User.id')): ?>
-            <?php echo $this->Html->link('CMS', '/contents/content'); ?>
             <?php 
                 $googleAppsDomain = Configure::read('Google.Apps.domain');
                 if(isset($googleAppsDomain)):
