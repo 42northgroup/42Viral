@@ -68,6 +68,84 @@ Currently, installation is written for Ubuntu Linux. Installation on other Linux
 this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
 accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
 
+From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to 
+access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
+have write access to the app directory (this is probably your username).
+
+    sudo ./setup.sh www-data jasonsnider 
+
+Next you'll want to open app/Config/app.php and add your database configuration.
+
+    Configure::write('DataSource', array(
+        'default' => array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => 'password',
+            'database' => 'app_default',
+            'prefix' => '',
+        ),
+        'test' => array(
+            'datasource' => 'Database/Mysql',
+            'persistent' => false,
+            'host' => 'localhost',
+            'login' => 'root',
+            'password' => 'password',
+            'database' => 'app_default',
+            'prefix' => '',
+        )
+    ));
+
+Now we will want to build out database. Navigate to app/Console and run the schema command, but first make sure the Cake
+console is writable.
+
+    sudo chmod +x cake
+    sudo ./cake schema create
+
+If you want to turn debugging off (A must production) navigate to app/Config/core.php and set debugging to 0
+
+    Configure::write('debug', 0);
+
+### Debugging and testing
+
+#### Installing PHPUnit
+
+    sudo apt-get install php-pear
+    sudo pear channel-discover pear.phpunit.de
+    sudo pear channel-discover components.ez.no
+    sudo pear channel-discover pear.symfony-project.com
+    sudo pear install phpunit/PHPUnit
+    sudo apt-get install phpunit
+
+There seems to be a version bug in in Ubuntu 11.04, running this will force a new
+version pear and fix the issue.
+
+    sudo pear upgrade pear
+    sudo pear install -a phpunit/PHPUnit
+
+#### Installing x-debug
+
+    sudo apt-get install php5-xdebug
+
+    sudo vim /etc/php5/apache2/conf.d/xdebug.ini
+
+    ; configuration for php xdebug module
+    zend_extension="/usr/lib/php5/20090626/xdebug.so"
+    xdebug.remote_enable=1
+    xdebug.remote_handler=dbgp
+    xdebug.remote_mode=req
+    xdebug.remote_host=127.0.0.1
+    xdebug.remote_port=9000
+
+    sudo /etc/init.d/apache2 restart
+
+
+
+
+
+## Legacy Install - Deprecated but still good to know
+
 ### Writable Paths
 
 The following paths must be writable by the server.
@@ -102,35 +180,4 @@ into a production ready state.
     cp /app/Config/email.php.default /app/Config/email.php
     cp /app/Config/core.php.default /app/Config/core.php
     cp /app/Config/routes.php.default /app/Config/routes.php
-
-### Installing PHPUnit
-
-    sudo apt-get install php-pear
-    sudo pear channel-discover pear.phpunit.de
-    sudo pear channel-discover components.ez.no
-    sudo pear channel-discover pear.symfony-project.com
-    sudo pear install phpunit/PHPUnit
-    sudo apt-get install phpunit
-
-There seems to be a version bug in in Ubuntu 11.04, running this will force a new
-version pear and fix the issue.
-
-    sudo pear upgrade pear
-    sudo pear install -a phpunit/PHPUnit
-
-### Installing x-debug
-
-    sudo apt-get install php5-xdebug
-
-    sudo vim /etc/php5/apache2/conf.d/xdebug.ini
-
-    ; configuration for php xdebug module
-    zend_extension="/usr/lib/php5/20090626/xdebug.so"
-    xdebug.remote_enable=1
-    xdebug.remote_handler=dbgp
-    xdebug.remote_mode=req
-    xdebug.remote_host=127.0.0.1
-    xdebug.remote_port=9000
-
-    sudo /etc/init.d/apache2 restart
 
