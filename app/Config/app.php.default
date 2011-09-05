@@ -12,6 +12,32 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+/* =================
+ * == DB Config ====
+ * ============== */
+
+Configure::write('DataSource', array(
+    'default' => array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'root',
+        'password' => 'password',
+        'database' => 'app_default',
+        'prefix' => '',
+    ),
+    'test' => array(
+        'datasource' => 'Database/Mysql',
+        'persistent' => false,
+        'host' => 'localhost',
+        'login' => 'root',
+        'password' => 'password',
+        'database' => 'app_default',
+        'prefix' => '',
+    )
+));
+
 /* ==============
  * == Themes ====
  * ============= */
@@ -73,31 +99,6 @@ define('FILE_READ_PATH', '/files/people/');
  *     //See Thrid Party API's for additional configuration
  */
 Configure::write('Comment.engine', 'native');
-
-/* =================
- * == DB Config ====
- * ============== */
-
-Configure::write('DataSource', array(
-    'default' => array(
-        'datasource' => 'Database/Mysql',
-        'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'root',
-        'password' => 'password',
-        'database' => 'app_default',
-        'prefix' => '',
-    ),
-    'test' => array(
-        'datasource' => 'Database/Mysql',
-        'persistent' => false,
-        'host' => 'localhost',
-        'login' => 'root',
-        'password' => 'password',
-        'database' => 'app_default',
-        'prefix' => '',
-    )
-));
 
 /* =========================
  * == Thrid Party API's ====

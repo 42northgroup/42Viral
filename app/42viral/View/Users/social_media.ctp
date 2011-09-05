@@ -17,13 +17,13 @@
             
             var tweet_chars_left = 140 - $("#SocialMediaTwitter").val().length;
                       
-            $("#tweet-chars-left").html( tweet_chars_left );
+            $("#TweetCharsLeft").html( tweet_chars_left );
         })
         
         $("#SocialMediaTwitter").keyup(function(){
             var tweet_chars_left = 140 - $("#SocialMediaTwitter").val().length;
                       
-            $("#tweet-chars-left").html( tweet_chars_left );
+            $("#TweetCharsLeft").html( tweet_chars_left );
             
         });
 
@@ -37,63 +37,43 @@
             'url' => '/users/socialize',
             'class'=>'content'
             )); ?>
-
-
     
-<div style="width:100%; float: left; margin-bottom: 20px;">
+<?php echo $this->Form->input('message', array(
+    'type'=>'textarea',
+    'label'=>'Your Massage',
+    )); ?>
 
-    Your Message<br/>
-    <?php echo $this->Form->input('message', array(
-        'type'=>'textarea',
-        'label'=>false,
-        'style'=>'width:100%'
-        )); ?>
-</div>
+<?php echo $this->Form->input('twitter_post', array(
+    'type' => 'checkbox', 
+    'label' => 'Twitter'
+    )); ?>
 
-<div style="width:100%; float: left; margin-bottom: 20px;">
+<?php echo $this->Form->input('twitter', array(
+    'type'=>'textarea',
+    'maxlength' => 140,
+    'label'=>false
+    )); ?>
+Characters left: <span id="TweetCharsLeft" >140</span>
 
-    <?php echo $this->Form->input('twitter_post', array(
+<div class="clearfix">
+    <?php echo $this->Form->input('facebook_post', array(
         'type' => 'checkbox', 
-        'label' => 'Tweet'
+        'label' => 'Facebook',
+        'div'=>array('style'=>'float:left; width:80px;')
         )); ?>
 
-    <?php echo $this->Form->input('twitter', array(
-        'type'=>'textarea',
-        'maxlength' => 140,
-        'label'=>false,
-        'style'=>'width:100%'
-        )); ?>
-
-    Characters left: <span id="tweet-chars-left" >140</span>
-</div>
-
-<div style="width:100%; float: left;">
-
-    <div style="float: left; width: 12%" >
-        <?php echo $this->Form->input('facebook_post', array(
-            'type' => 'checkbox', 
-            'label' => 'Facebook'
-            )); ?>
-    </div>
-
-    <div style="float: left; width: 12%" >
-        <?php echo $this->Form->input('linkedin_post', array(
-            'type' => 'checkbox', 
-            'label' => 'LinkedIn'
-            )); ?>
-    </div>
-
-    <?php echo $this->Form->input('others', array(
-        'type'=>'textarea',
-        'label'=>false,
-        'style'=>'width:100%'            
+    <?php echo $this->Form->input('linkedin_post', array(
+        'type' => 'checkbox', 
+        'label' => 'LinkedIn',
+        'div'=>array('style'=>'float:left; width:78px;')
         )); ?>
 </div>
 
-<div style=" float: right; margin-top: 10px;">
+<?php echo $this->Form->input('others', array(
+    'type'=>'textarea',
+    'label'=>false         
+    )); ?>
+
+<?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
     
-    <?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
-    
-</div>
-
 <?php echo $this->Form->end(); ?>
