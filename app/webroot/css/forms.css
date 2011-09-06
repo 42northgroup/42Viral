@@ -65,6 +65,40 @@ form.default label{
     text-align: right;
 }
 
+form.default-create{
+    width: 480px;
+}
+
+form.default-create input[type="text"],
+form.default-create input[type="password"],
+form.default-create textarea{
+    border: none;
+    border-top: 1px dashed #bbb;
+    border-bottom: 1px dotted #bbb;
+    padding: 6px;
+    width: 326px;
+}
+
+form.default-create input[type="text"]:focus,
+form.default-create input[type="password"]:focus,
+form.default-create select:focus,
+form.default-create textarea:focus{
+    border: 2px solid #bbb;
+}
+
+form.default-create label{
+    display: inline-block;
+    width: 126px;
+    padding-right: 12px;
+    text-align: right;
+}
+
+form.default-create div.checkbox label{
+    display: inline;
+}
+
+
+
 form.content{
     width: 100%;
 }

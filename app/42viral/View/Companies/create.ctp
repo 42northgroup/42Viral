@@ -1,3 +1,4 @@
+<!--
 <style type="text/css">
     .company-create-form {
         border: 1px solid #ddd;
@@ -21,13 +22,14 @@
         line-height: 30px;
     }
 </style>
-
+-->
 <h1>Create Company Profile</h1>
 
 <div class="company-create-form clearfix">
     <?php
     echo $this->Form->create('Company', array(
-        'action' => 'save'
+        'action' => 'save',
+        'class'=> 'default-create'
     ));
 
     echo $this->Form->input('Company.name');
