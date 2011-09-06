@@ -63,13 +63,15 @@ endforeach;
 </table>
 	<p><?php
 	echo $this->Paginator->counter(array(
-		'format' => __d('cake', 'Page %page% of %pages%, showing %current% records out of %count% total, starting on record %start%, ending on %end%')
+		'format' => __d('cake', 'Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
 	?></p>
 	<div class="paging">
-	<?php echo $this->Paginator->prev('<< ' . __d('cake', 'previous'), array(), null, array('class' => 'disabled')); ?>
-	 | <?php echo $this->Paginator->numbers(); ?>
-	<?php echo $this->Paginator->next(__d('cake', 'next') .' >>', array(), null, array('class' => 'disabled')); ?>
+	<?php
+		echo $this->Paginator->prev('< ' . __d('cake', 'previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->numbers(array('separator' => ''));
+		echo $this->Paginator->next(__d('cake', 'next') .' >', array(), null, array('class' => 'next disabled'));
+	?>
 	</div>
 </div>
 <div class="actions">

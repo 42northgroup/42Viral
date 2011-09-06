@@ -116,7 +116,8 @@ class Postgres extends DboSource {
 		$this->connected = false;
 		try {
 			$flags = array(
-				PDO::ATTR_PERSISTENT => $config['persistent']
+				PDO::ATTR_PERSISTENT => $config['persistent'],
+				PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
 			);
 			$this->_connection = new PDO(
 				"pgsql:host={$config['host']};port={$config['port']};dbname={$config['database']}",
@@ -186,7 +187,7 @@ class Postgres extends DboSource {
  * @param Model $model Name of database table to inspect
  * @return array Fields in table. Keys are name and type
  */
-	public function describe(Model $model) {
+	public function describe($model) {
 		$fields = parent::describe($model);
 		$table = $this->fullTableName($model, false);
 		$this->_sequenceMap[$table] = array();

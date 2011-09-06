@@ -77,13 +77,6 @@ class DboSource extends DataSource {
 	public $fullDebug = false;
 
 /**
- * Error description of last query
- *
- * @var string
- */
-	public $error = null;
-
-/**
  * String to hold how many rows were affected by the last SQL operation.
  *
  * @var string
@@ -153,7 +146,7 @@ class DboSource extends DataSource {
  *
  * @var array
  */
-	public $connection = null;
+	protected $_connection = null;
 
 /**
  * The DataSource configuration key name
@@ -243,7 +236,9 @@ class DboSource extends DataSource {
 		parent::__construct($config);
 		$this->fullDebug = Configure::read('debug') > 1;
 		if (!$this->enabled()) {
-			return;
+			throw new MissingConnectionException(array(
+				'class' => get_class($this)
+			));
 		}
 		if ($autoConnect) {
 			$this->connect();
@@ -383,7 +378,7 @@ class DboSource extends DataSource {
  * @return boolean
  */
 	public function rawQuery($sql, $params = array()) {
-		$this->took = $this->error = $this->numRows = false;
+		$this->took = $this->numRows = false;
 		return $this->execute($sql, $params);
 	}
 
@@ -403,7 +398,6 @@ class DboSource extends DataSource {
  */
 	public function execute($sql, $options = array(), $params = array()) {
 		$options += array('log' => $this->fullDebug);
-		$this->error = null;
 
 		$t = microtime(true);
 		$this->_result = $this->_execute($sql, $params);
@@ -414,10 +408,6 @@ class DboSource extends DataSource {
 			$this->logQuery($sql);
 		}
 
-		if ($this->error) {
-			$this->showQuery($sql);
-			return false;
-		}
 		return $this->_result;
 	}
 
@@ -445,7 +435,6 @@ class DboSource extends DataSource {
 			$query->setFetchMode(PDO::FETCH_LAZY);
 			if (!$query->execute($params)) {
 				$this->_results = $query;
-				$this->error = $this->lastError($query);
 				$query->closeCursor();
 				return false;
 			}
@@ -455,9 +444,12 @@ class DboSource extends DataSource {
 			}
 			return $query;
 		} catch (PDOException $e) {
-			$this->_results = null;
-			$this->error = $e->getMessage();
-			return false;
+			if (isset($query->queryString)) {
+				$e->queryString = $query->queryString;
+			} else {
+				$e->queryString = $sql;
+			}
+			throw $e;
 		}
 	}
 
@@ -623,7 +615,10 @@ class DboSource extends DataSource {
  *
  * ### Options
  *
- * - cache - Returns the cached version of the query, if exists and stores the result in cache
+ * - `cache` - Returns the cached version of the query, if exists and stores the result in cache.
+ *   This is a non-persistent cache, and only lasts for a single request. This option
+ *   defaults to true. If you are directly calling this method, you can disable caching
+ *   by setting $options to `false`
  *
  * @param string $sql SQL statement
  * @param array $params parameters to be bound as values for the SQL statement
@@ -882,7 +877,7 @@ class DboSource extends DataSource {
 			echo $View->element('sql_dump', array('_forced_from_dbo_' => true));
 		} else {
 			foreach ($log['log'] as $k => $i) {
-				print (($k + 1) . ". {$i['query']} {$i['error']}\n");
+				print (($k + 1) . ". {$i['query']}\n");
 			}
 		}
 	}
@@ -891,47 +886,19 @@ class DboSource extends DataSource {
  * Log given SQL query.
  *
  * @param string $sql SQL statement
- * @return void|boolean
- * @todo: Add hook to log errors instead of returning false
+ * @return void
  */
 	public function logQuery($sql) {
 		$this->_queriesCnt++;
 		$this->_queriesTime += $this->took;
 		$this->_queriesLog[] = array(
 			'query'		=> $sql,
-			'error'		=> $this->error,
 			'affected'	=> $this->affected,
 			'numRows'	=> $this->numRows,
 			'took'		=> $this->took
 		);
 		if (count($this->_queriesLog) > $this->_queriesLogMax) {
 			array_pop($this->_queriesLog);
-		}
-		if ($this->error) {
-			return false;
-		}
-	}
-
-/**
- * Output information about an SQL query. The SQL statement, number of rows in resultset,
- * and execution time in microseconds. If the query fails, an error is output instead.
- *
- * @param string $sql Query to show information on.
- * @return void
- */
-	public function showQuery($sql) {
-		$error = $this->error;
-		if (strlen($sql) > 200 && !$this->fullDebug && Configure::read('debug') > 1) {
-			$sql = substr($sql, 0, 200) . '[...]';
-		}
-		if (Configure::read('debug') > 0) {
-			$out = null;
-			if ($error) {
-				trigger_error('<span style="color:Red;text-align:left"><b>' . __d('cake_dev', 'SQL Error:') . "</b> {$this->error}</span>", E_USER_WARNING);
-			} else {
-				$out = ('<small>[' . __d('cake_dev', 'Aff:%s Num:%s Took:%sms', $this->affected, $this->numRows, $this->took) . ']</small>');
-			}
-			pr(sprintf('<p style="text-align:left"><b>' . __d('cake_dev', 'Query:') . '</b> %s %s</p>', $sql, $out));
 		}
 	}
 
@@ -1158,16 +1125,8 @@ class DboSource extends DataSource {
 	public function queryAssociation($model, &$linkModel, $type, $association, $assocData, &$queryData, $external = false, &$resultSet, $recursive, $stack) {
 		if ($query = $this->generateAssociationQuery($model, $linkModel, $type, $association, $assocData, $queryData, $external, $resultSet)) {
 			if (!is_array($resultSet)) {
-				if (Configure::read('debug') > 0) {
-					echo '<div style = "font: Verdana bold 12px; color: #FF0000">' . __d('cake_dev', 'SQL Error in model %s:', $model->alias) . ' ';
-					if (isset($this->error) && $this->error != null) {
-						echo $this->error;
-					}
-					echo '</div>';
-				}
-				return null;
+				throw new CakeException(__d('cake_dev', 'Error in Model %s', get_class($model)));
 			}
-
 			if ($type === 'hasMany' && empty($assocData['limit']) && !empty($assocData['foreignKey'])) {
 				$ins = $fetch = array();
 				foreach ($resultSet as &$result) {
@@ -2689,11 +2648,10 @@ class DboSource extends DataSource {
  * Gets the length of a database-native column description, or null if no length
  *
  * @param string $real Real database-layer column type (i.e. "varchar(255)")
- * @return mixed An integer or string representing the length of the column
+ * @return mixed An integer or string representing the length of the column, or null for unknown length.
  */
 	public function length($real) {
 		if (!preg_match_all('/([\w\s]+)(?:\((\d+)(?:,(\d+))?\))?(\sunsigned)?(\szerofill)?/', $real, $result)) {
-			trigger_error(__d('cake_dev', "FIXME: Can't parse field: " . $real), E_USER_WARNING);
 			$col = str_replace(array(')', 'unsigned'), '', $real);
 			$limit = null;
 
