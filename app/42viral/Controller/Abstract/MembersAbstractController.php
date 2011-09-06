@@ -38,12 +38,6 @@ abstract class MembersAbstractController extends AppController {
     public $components = array('ProfileProgress', 'Oauths');
 
     /**
-     * @var array
-     * @access public
-     */
-    public $helpers = array('Member');
-
-    /**
      * @return void
      * @access public
      */
@@ -109,8 +103,12 @@ abstract class MembersAbstractController extends AppController {
         ));
 
         $this->set('statuses', $this->social_media('members/view'));
+        
         $this->set('services', $services);
         $this->set('user', $user);
+        
+        $userProfile['Person'] = $user['User'];
+        $this->set('userProfile', $userProfile);
 
     }
 

@@ -1,6 +1,6 @@
-<?php if(isset($user['User'])): ?>
+<?php if(isset($userProfile)): ?>
     <div class="avatar">
-        <?php echo $this->Member->avatar($user['User']) ?>
+        <?php echo $this->Member->avatar($userProfile['Person']) ?>
     </div>
 <?php endif; ?>
 
@@ -9,6 +9,9 @@
     <li><a href="/blogs">Blogs</a></li>
     <li><a href="/members">Members</a></li>
     <li><a href="/companies">Companies</a></li>
-    <li><a href="/admin/users/">Users Index</a></li>
-    <li><a href="/users/social_media">Social Media</a></li>
+</ul>
+
+<h4 style="margin: 8px 0 0;">Admin</h4>
+<ul class="side-navigation">
+    <li><a href="/admin/users/">Users</a></li>
 </ul>
