@@ -25,10 +25,6 @@
 
 
 <div class="post clearfix">
-    <div class="post-avatar">
-        <?php echo $this->Member->avatar($post['CreatedPerson']); ?>
-    </div>
-
     <h1><?php echo $post['Post']['title']; ?></h1>
     
     <div class="meta">
@@ -40,10 +36,12 @@
     <div class="post-body">
     <?php
 
+        //Find some custom theme paths
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
         
         $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
+        
         $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS;
         
         $file = 'accessing-phpmyadmin-after-apt-get-install.ctp';

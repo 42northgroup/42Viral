@@ -17,7 +17,7 @@
 <div id="Banner">
 
     <div class="banner-navigation">
-        <?php echo $this->Html->link('Profile', '/members/' ); ?>
+        <?php echo $this->Html->link('Profiles', '/members/' ); ?>
         <?php echo $this->Html->link('Content', '/contents/content/' ); ?>
 
         <?php echo $this->Html->link('Photos', '/uploads/images/' ); ?>
@@ -34,7 +34,9 @@
                 echo ' / ';
                 echo $this->Access->link('Contents-post_create', 'Post to a blog', '/contents/post_create/');
                 echo ' / ';
-                echo $this->Access->link('Contents-page_create', 'Create a web page', '/contents/page_create/');                    
+                echo $this->Access->link('Contents-page_create', 'Create a web page', '/contents/page_create/');     
+                echo ' / ';
+                echo $this->Access->link('Contents-page_create', 'Socialize', '/users/social_media/');  
             break;     
         }
 
