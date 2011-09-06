@@ -27,21 +27,32 @@ var CKEDITOR_BASEPATH = "/js/vendors/ckeditor/";
  */
 $(function(){
     
-    var config = {
-        toolbar_Full : [
-            ['Source', '-', 
-                'Format', 'Bold', 'Italic', 'Underline', 'Strike', '-',
-                'Link', 'Image', '-',
-                'NumberedList','BulletedList', '-',
-                'SpellChecker', 'Scayt', '-',
-                'Paste','PasteText','PasteFromWord','-','SelectAll','RemoveFormat' ,'-',
-                'About']
-        ],
-
-        toolbar_Basic : [
+    var configContent = {
+        toolbar_Content : [
             ['Source', '-', 
                 'Format', 'Bold', 'Italic', 'Underline', 'Strike', '-',
                 'Link', 'Image','-',
+                'SelectAll','RemoveFormat', '-',
+                'NumberedList','BulletedList', '-',
+                'SpellChecker', 'Scayt',
+                'About']
+        ],
+        
+        toolbar : 'Content',
+        extraPlugins : 'autogrow',
+        scayt_autoStartup : true,
+        /*toolbarStartupExpanded : false,*/
+        basePath : '/ckeditior/',
+        contentsCss : ['/css/vendors/yui.css', '/css/fonts.css'],
+        skin: 'v2'
+                
+    };
+    
+    var configBasic = {
+
+        toolbar_Basic : [
+            ['Bold', 'Italic', 'Underline', 'Strike', '-',
+                'Link', '-',
                 'SelectAll','RemoveFormat', '-',
                 'NumberedList','BulletedList', '-',
                 'SpellChecker', 'Scayt',
@@ -55,8 +66,10 @@ $(function(){
         basePath : '/ckeditior/',
         contentsCss : ['/css/vendors/yui.css', '/css/fonts.css'],
         skin: 'v2'
+                
     };
     
-    $('.edit-basic').ckeditor(config); //Default
+    $('.edit-content').ckeditor(configContent);
+    $('.edit-basic').ckeditor(configBasic); //Default
     
 });

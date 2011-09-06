@@ -118,7 +118,7 @@ abstract class OauthAbstractController extends AppController
     {
         
 
-        $this->serviceConfiguration('Twitter', 3);
+        $this->serviceConfiguration('Twitter');
 
         
         // Issue request for access token
