@@ -19,15 +19,29 @@ App::uses('AppModel', 'Model');
  * Mangages the person profile objects
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 abstract class ProfileAbstract extends AppModel
 {
     public $name = 'Profile';
 
+
+    /**
+     *
+     * @var array
+     * @access public
+     */
+    public $belongsTo = array(
+        'Person' => array(
+            'className' => 'Person',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        )
+    );
+    
    /**
     * Fetch a given user's profile data
     *
-    * @author Zubin Khavarian <zubin.khavarian@42viral.com>
     * @access public
     * @param string $userId
     * @return Profile
@@ -38,31 +52,65 @@ abstract class ProfileAbstract extends AppModel
            'contain' => array(),
 
            'conditions' => array(
-               'Profile.owner_user_id' => $userId
+               'Profile.owner_person_id' => $userId
            )
        ));
 
        return $userProfile;
    }
+   
+      
+    /**
+     * Returns a person's profile data with the specified associated data. 
+     * NOTE: When using the by clause please understand, this MUST be a unique index in the profiles table
+     * 
+     * @param string $id - An id for retreving records
+     * @param string|array $with
+     * @param string $by - This will usally be id, but sometimes we want to use something else
+     * @return array
+     * @access public
+     */
+    public function fetchProfileWith($id, $with = array(), $by = 'id')
+    {
+
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){
+                case 'person':
+                    $with = array('Person');
+                break;   
+            
+                default:
+                    $with = array();
+                break;
+            }
+  
+        }
+        
+        //Go fetch the profile
+        $userProfile = $this->find('first', array(
+           'contain' => $with,
+
+           'conditions' => array(
+               "Profile.{$by}"  => $id
+           )
+        ));
+
+        return $userProfile;
+    }
 
 
    /**
     * Calculate user profile progress based on what fields have been compelted
     *
-    * @author Zubin Khavarian <zubin.khavarian@42viral.com>
     * @access public
     * @param string $userId
     * @return integer
     */
    public function userProfileProgress($userId)
    {
-       $userProfile = $this->find('first', array(
-           'contain' => array(),
-
-           'conditions' => array(
-               'Profile.owner_user_id' => $userId
-           )
-       ));
+       $userProfile = $this->fetchProfileWith($userId, 'person', 'owner_person_id');
 
        $progress = 0;
 
@@ -70,8 +118,8 @@ abstract class ProfileAbstract extends AppModel
            $progress = 0;
        } else {
            if(
-               !empty($userProfile['Profile']['first_name']) ||
-               !empty($userProfile['Profile']['last_name'])
+               !empty($userProfile['Person']['first_name']) ||
+               !empty($userProfile['Person']['last_name'])
            ) {
                $progress += 20;
            }
