@@ -166,9 +166,7 @@ class App {
 		'views' => 'View',
 		'helpers' => 'View/Helper',
 		'shells' => 'Console/Command',
-		'libs' => 'Lib',
-        'tests' => 'Test',
-        'fixtures' => 'Test/Fixture',
+		'libs' => 'Lib'
 	);
 
 /**
@@ -227,6 +225,17 @@ class App {
 			return array();
 		}
 		return self::$_packages[$type];
+	}
+
+/**
+ * Get all the currently loaded paths from App. Useful for inspecting
+ * or storing all paths App knows about.  For a paths to a specific package
+ * use App::path()
+ *
+ * @return array An array of packages and their associated paths.
+ */
+	public static function paths() {
+		return self::$_packages;
 	}
 
 /**
@@ -302,12 +311,6 @@ class App {
 				'Console/Command/Task' => array(
 					'%s' . 'Console' . DS . 'Command' . DS . 'Task' . DS,
 					'%s' . 'console' . DS . 'shells' . DS . 'tasks' . DS
-				),
-				'Test' => array(
-					'%s' . 'Test' . DS
-				),
-				'Fixture' => array(
-					'%s' . 'Test' . DS . 'Fixture' . DS
 				),
 				'Lib' => array(
 					'%s' . 'Lib' . DS,

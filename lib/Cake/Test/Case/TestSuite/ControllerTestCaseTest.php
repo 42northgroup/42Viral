@@ -124,7 +124,7 @@ class ControllerTestCaseTest extends CakeTestCase {
 			'Controller' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Controller' . DS),
 			'Model' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'Model' . DS),
 			'View' => array(CAKE . 'Test' . DS . 'test_app' . DS . 'View' . DS)
-		));
+		), App::RESET);
 		CakePlugin::loadAll();
 		$this->Case = $this->getMockForAbstractClass('ControllerTestCase');
 		Router::reload();
@@ -390,6 +390,7 @@ class ControllerTestCaseTest extends CakeTestCase {
 		$result = $this->Case->testAction('/tests_apps_posts/add', array('return' => 'vars'));
 		$this->assertTrue(array_key_exists('posts', $result));
 		$this->assertEqual(count($result['posts']), 4);
+		$this->assertTrue($this->Case->controller->request->is('post'));
 	}
 
 /**

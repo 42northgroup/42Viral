@@ -535,10 +535,12 @@ class CakeSchemaTest extends CakeTestCase {
 			$this->assertEqual(array_keys($fields), array_keys($read['tables'][$table]));
 		}
 
-		$this->assertEqual(
-			$read['tables']['datatypes']['float_field']['length'],
-			$this->Schema->tables['datatypes']['float_field']['length']
-		);
+		if (isset($read['tables']['datatypes']['float_field']['length'])) {
+			$this->assertEqual(
+				$read['tables']['datatypes']['float_field']['length'],
+				$this->Schema->tables['datatypes']['float_field']['length']
+			);
+		}
 
 		$this->assertEqual(
 			$read['tables']['datatypes']['float_field']['type'],
@@ -647,6 +649,7 @@ class CakeSchemaTest extends CakeTestCase {
  * @return void
  */
 	public function testSchemaReadWithConfigPrefix() {
+		$this->skipIf($this->db instanceof Sqlite, 'Cannot open 2 connections to Sqlite');
 		$db = ConnectionManager::getDataSource('test');
 		$config = $db->config;
 		$config['prefix'] = 'schema_test_prefix_';

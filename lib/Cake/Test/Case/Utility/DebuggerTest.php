@@ -89,9 +89,8 @@ class DebuggerTest extends CakeTestCase {
 		$this->assertTrue(is_array($result));
 		$this->assertEqual(count($result), 4);
 
-		$expected = '<code><span style="color: #000000">&lt;?php';
-		$expected .= '</span></code>';
-		$this->assertEqual($result[0], $expected);
+		$pattern = '/<code><span style\="color\: \#\d+">.*?&lt;\?php/';
+		$this->assertRegExp($pattern, $result[0]);
 
 		$return = Debugger::excerpt('[internal]', 2, 2);
 		$this->assertTrue(empty($return));
@@ -128,7 +127,7 @@ class DebuggerTest extends CakeTestCase {
 		Debugger::output('html');
 		$wrong .= '';
 		$result = ob_get_clean();
-		$this->assertPattern('/<pre class="cake-debug">.+<\/pre>/', $result);
+		$this->assertPattern('/<pre class="cake-error">.+<\/pre>/', $result);
 		$this->assertPattern('/<b>Notice<\/b>/', $result);
 		$this->assertPattern('/variable:\s+wrong/', $result);
 
@@ -137,7 +136,7 @@ class DebuggerTest extends CakeTestCase {
 		$buzz .= '';
 		$result = explode('</a>', ob_get_clean());
 		$this->assertTags($result[0], array(
-			'pre' => array('class' => 'cake-debug'),
+			'pre' => array('class' => 'cake-error'),
 			'a' => array(
 				'href' => "javascript:void(0);",
 				'onclick' => "preg:/document\.getElementById\('cakeErr[a-z0-9]+\-trace'\)\.style\.display = " .
@@ -250,6 +249,11 @@ class DebuggerTest extends CakeTestCase {
 		$this->assertTags($result, $data, true);
 	}
 
+/**
+ * Test adding a format that is handled by a callback.
+ *
+ * @return void
+ */
 	public function testAddFormatCallback() {
 		set_error_handler('Debugger::showError');
 		$this->_restoreError = true;

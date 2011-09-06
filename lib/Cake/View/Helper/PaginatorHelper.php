@@ -285,6 +285,7 @@ class PaginatorHelper extends AppHelper {
  *
  * - `escape` Whether you want the contents html entity encoded, defaults to true
  * - `model` The model to use, defaults to PaginatorHelper::defaultModel()
+ * - `direction` The default directon to use when this link isn't active.
  *
  * @param string $key The name of the key that the recordset should be sorted.
  * @param string $title Title for the link. If $title is null $key will be used
@@ -538,12 +539,14 @@ class PaginatorHelper extends AppHelper {
  * - `model` The model to use, defaults to PaginatorHelper::defaultModel();
  * - `format` The format string you want to use, defaults to 'pages' Which generates output like '1 of 5'
  *    set to 'range' to generate output like '1 - 3 of 13'.  Can also be set to a custom string, containing
- *    the following placeholders `%page%`, `%pages%`, `%current%`, `%count%`, `%model%`, `%start%`, `%end%` and any
+ *    the following placeholders `{:page}`, `{:pages}`, `{:current}`, `{:count}`, `{:model}`, `{:start}`, `{:end}` and any
  *    custom content you would like.
  * - `separator` The separator string to use, default to ' of '
  *
+ * The `%page%` style placeholders also work, but are deprecated and will be removed in a future version.
  * @param mixed $options Options for the counter string. See #options for list of keys.
  * @return string Counter string.
+ * @deprecated The %page% style placeholders are deprecated.
  */
 	public function counter($options = array()) {
 		if (is_string($options)) {
@@ -610,7 +613,6 @@ class PaginatorHelper extends AppHelper {
  * `$this->Paginator->numbers(array('first' => 2, 'last' => 2));`
  *
  * Using the first and last options you can create links to the beginning and end of the page set.
- *
  *
  * ### Options
  *

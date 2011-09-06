@@ -335,9 +335,11 @@ class ModelReadTest extends BaseModelTest {
 /**
  * testParameterMismatch method
  *
+ * @expectedException PDOException
  * @return void
  */
 	public function testParameterMismatch() {
+		$this->skipIf($this->db instanceof Sqlite, 'Sqlite does not accept real prepared statements, no way to check this');
 		$this->loadFixtures('Article', 'User', 'Tag', 'ArticlesTag');
 		$Article = new Article();
 
@@ -345,17 +347,14 @@ class ModelReadTest extends BaseModelTest {
 		$query .= ' WHERE ' . $this->db->fullTableName('articles');
 		$query .= '.published = ? AND ' . $this->db->fullTableName('articles') . '.user_id = ?';
 		$params = array('Y');
-		$this->expectError();
 
-		ob_start();
 		$result = $Article->query($query, $params);
-		ob_end_clean();
-		$this->assertEqual($result, null);
 	}
 
 /**
  * testVeryStrangeUseCase method
  *
+ * @expectedException PDOException
  * @return void
  */
 	public function testVeryStrangeUseCase() {
@@ -368,11 +367,8 @@ class ModelReadTest extends BaseModelTest {
 			$this->db->fullTableName('articles') . '.user_id', '3',
 			$this->db->fullTableName('articles') . '.published', 'Y'
 		);
-		$this->expectError();
 
-		ob_start();
 		$result = $Article->query($query, $param);
-		ob_end_clean();
 	}
 
 /**
@@ -6567,13 +6563,14 @@ class ModelReadTest extends BaseModelTest {
  * @return void
  */
 	public function testFindCount() {
-		$this->loadFixtures('User', 'Article');
+		$this->loadFixtures('User', 'Article', 'Comment', 'Tag', 'ArticlesTag');
 
 		$TestModel = new User();
 		$this->db->getLog(false, true);
 		$result = $TestModel->find('count');
 		$this->assertEqual($result, 4);
 
+		$this->db->getLog(false, true);
 		$fullDebug = $this->db->fullDebug;
 		$this->db->fullDebug = true;
 		$TestModel->order = 'User.id';
@@ -6631,7 +6628,7 @@ class ModelReadTest extends BaseModelTest {
 	public function testFindCountWithDbExpressions() {
 		$this->skipIf($this->db instanceof Postgres, 'testFindCountWithDbExpressions is not compatible with Postgres.');
 
-		$this->loadFixtures('Project');
+		$this->loadFixtures('Project', 'Thread');
 		$db = ConnectionManager::getDataSource('test');
 		$TestModel = new Project();
 

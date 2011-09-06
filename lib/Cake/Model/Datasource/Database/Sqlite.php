@@ -104,10 +104,12 @@ class Sqlite extends DboSource {
  */
 	public function connect() {
 		$config = $this->config;
-		$flags = array(PDO::ATTR_PERSISTENT => $config['persistent']);
+		$flags = array(
+			PDO::ATTR_PERSISTENT => $config['persistent'],
+			PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+		);
 		try {
 			$this->_connection = new PDO('sqlite:' . $config['database'], null, null, $flags);
-			$this->_connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->connected = true;
 		} catch(PDOException $e) {
 			throw new MissingConnectionException(array('class' => $e->getMessage()));
@@ -288,6 +290,10 @@ class Sqlite extends DboSource {
 			$selects = array('seqno', 'cid', 'name');
 		}
 		while ($j < $num_fields) {
+			if (!isset($selects[$j])) {
+				$j++;
+				continue;
+			}
 			if (preg_match('/\bAS\s+(.*)/i', $selects[$j], $matches)) {
 				 $columnName = trim($matches[1],'"');
 			} else {

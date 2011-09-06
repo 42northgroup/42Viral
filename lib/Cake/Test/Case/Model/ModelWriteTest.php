@@ -3007,7 +3007,7 @@ class ModelWriteTest extends BaseModelTest {
 	public function testSaveAllManyRowsTransactionNoRollback() {
 		$this->loadFixtures('Post');
 
-		$this->getMock('DboSource', array(), array(), 'MockTransactionDboSource');
+		$this->getMock('DboSource', array('connect', 'rollback', 'describe'), array(), 'MockTransactionDboSource');
 		$db = ConnectionManager::create('mock_transaction', array(
 			'datasource' => 'MockTransactionDboSource',
 		));
@@ -3038,7 +3038,12 @@ class ModelWriteTest extends BaseModelTest {
 	public function testSaveAllAssociatedTransactionNoRollback() {
 		$testDb = ConnectionManager::getDataSource('test');
 
-		$mock = $this->getMock('DboSource', array(), array(), 'MockTransactionAssociatedDboSource', false);
+		$mock = $this->getMock(
+			'DboSource',
+			array('connect', 'rollback', 'describe', 'create', 'update', 'begin'),
+			array(),
+			'MockTransactionAssociatedDboSource'
+		);
 		$db = ConnectionManager::create('mock_transaction_assoc', array(
 			'datasource' => 'MockTransactionAssociatedDboSource',
 		));
@@ -4313,7 +4318,7 @@ class ModelWriteTest extends BaseModelTest {
 	public function testSaveManyTransactionNoRollback() {
 		$this->loadFixtures('Post');
 
-		$this->getMock('DboSource', array(), array(), 'MockManyTransactionDboSource');
+		$this->getMock('DboSource', array('connect', 'rollback', 'describe'), array(), 'MockManyTransactionDboSource');
 		$db = ConnectionManager::create('mock_many_transaction', array(
 			'datasource' => 'MockManyTransactionDboSource',
 		));
@@ -4344,7 +4349,13 @@ class ModelWriteTest extends BaseModelTest {
 	public function testSaveAssociatedTransactionNoRollback() {
 		$testDb = ConnectionManager::getDataSource('test');
 
-		$mock = $this->getMock('DboSource', array(), array(), 'MockAssociatedTransactionDboSource', false);
+		$mock = $this->getMock(
+			'DboSource',
+			array('connect', 'rollback', 'describe', 'create', 'begin'), 
+			array(),
+			'MockAssociatedTransactionDboSource',
+			false
+		);
 		$db = ConnectionManager::create('mock_assoc_transaction', array(
 			'datasource' => 'MockAssociatedTransactionDboSource',
 		));
@@ -4707,9 +4718,13 @@ class ModelWriteTest extends BaseModelTest {
 		));
 		$result = $TestModel->saveMany($data, array('validate' => true, 'atomic' => false));
 		$this->assertEqual($result, array(true, false));
-		$result = $TestModel->find('all', array('recursive' => -1, 'order' => 'Post.id ASC'));
+
+		$result = $TestModel->find('all', array(
+			'fields' => array('id', 'author_id', 'title', 'body', 'published'),
+			'recursive' => -1, 
+			'order' => 'Post.id ASC'
+		));
 		$errors = array(1 => array('title' => array('This field cannot be left blank')));
-		$newTs = date('Y-m-d H:i:s');
 		$expected = array(
 			array(
 				'Post' => array(
@@ -4718,8 +4733,6 @@ class ModelWriteTest extends BaseModelTest {
 					'title' => 'Un-Baleeted First Post',
 					'body' => 'Not Baleeted!',
 					'published' => 'Y',
-					'created' => '2007-03-18 10:39:23',
-					'updated' => $newTs
 			)),
 			array(
 				'Post' => array(
@@ -4728,8 +4741,6 @@ class ModelWriteTest extends BaseModelTest {
 					'title' => 'Just update the title',
 					'body' => 'Second Post Body',
 					'published' => 'Y',
-					'created' => '2007-03-18 10:41:23',
-					'updated' => $ts
 			)),
 			array(
 				'Post' => array(
@@ -4738,8 +4749,6 @@ class ModelWriteTest extends BaseModelTest {
 					'title' => 'Third Post',
 					'body' => 'Third Post Body',
 					'published' => 'Y',
-					'created' => '2007-03-18 10:43:23',
-					'updated' => '2007-03-18 10:45:31'
 			)),
 			array(
 				'Post' => array(
@@ -4748,8 +4757,6 @@ class ModelWriteTest extends BaseModelTest {
 					'title' => 'Creating a fourth post',
 					'body' => 'Fourth post body',
 					'published' => 'N',
-					'created' => $ts,
-					'updated' => $ts
 		)));
 		$this->assertEqual($expected, $result);
 		$this->assertEqual($TestModel->validationErrors, $errors);
@@ -4768,7 +4775,11 @@ class ModelWriteTest extends BaseModelTest {
 		));
 		$this->assertFalse($TestModel->saveMany($data, array('validate' => 'first')));
 
-		$result = $TestModel->find('all', array('recursive' => -1, 'order' => 'Post.id ASC'));
+		$result = $TestModel->find('all', array(
+			'fields' => array('id', 'author_id', 'title', 'body', 'published'),
+			'recursive' => -1, 
+			'order' => 'Post.id ASC'
+		));
 		$this->assertEqual($expected, $result);
 		$this->assertEqual($TestModel->validationErrors, $errors);
 	}
@@ -5167,7 +5178,7 @@ class ModelWriteTest extends BaseModelTest {
  * @return void
  */
 	public function testUpdateAllEmptyValues() {
-		$this->skipIf($this->db instanceof Sqlserver, 'This test is not compatible with SQL Server.');
+		$this->skipIf($this->db instanceof Sqlserver || $this->db instanceof Postgres, 'This test is not compatible with Postgres or SQL Server.');
 
 		$this->loadFixtures('Author', 'Post');
 		$model = new Author();

@@ -128,7 +128,7 @@ class SchemaShell extends Shell {
 	public function generate() {
 		$this->out(__d('cake_console', 'Generating Schema...'));
 		$options = array();
-		if (isset($this->params['force'])) {
+		if ($this->params['force']) {
 			$options = array('models' => false);
 		}
 
@@ -419,8 +419,10 @@ class SchemaShell extends Shell {
 						return false;
 					}
 					$error = null;
-					if (!$db->execute($sql)) {
-						$error = $table . ': '  . $db->lastError();
+					try {
+						$db->execute($sql);
+					} catch (PDOException $e) {
+						$error = $table . ': '  . $e->getMessage();
 					}
 
 					$Schema->after(array($event => $table, 'errors' => $error));
