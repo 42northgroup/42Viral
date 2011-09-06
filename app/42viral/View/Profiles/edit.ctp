@@ -28,16 +28,20 @@
 ?>
 
 <h1>Complete your profile</h1>
-<?php
+<?php 
 
 echo $this->Form->create('Profile', array(
     'action' => 'save',
     'class'=>'content'
 ));
 
-echo $this->Form->hidden('id');
-echo $this->Form->input('first_name');
-echo $this->Form->input('last_name');
+echo $this->Form->input('id');
+
+echo $this->Form->input('owner_person_id', array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
+
+echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
+echo $this->Form->input('Person.first_name');
+echo $this->Form->input('Person.last_name');
 
 echo $this->Form->input('bio', array('class' => 'edit-basic'));
 

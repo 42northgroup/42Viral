@@ -158,7 +158,7 @@ abstract class UserAbstract extends PersonAbstract
         //Try to save the new user record
         if($this->save($data)){
             $userProfile = array();
-            $userProfile['owner_user_id'] = $this->id;
+            $userProfile['owner_person_id'] = $this->id;
             $this->Profile->save($userProfile);
 
             return true;

@@ -62,7 +62,7 @@ abstract class CompanyAbstract extends AppModel
             'contain' => $with,
 
             'conditions' => array(
-                'owner_user_id' => $userId
+                'owner_person_id' => $userId
             )
         ));
 
@@ -147,7 +147,7 @@ abstract class CompanyAbstract extends AppModel
             'contain' => array(),
 
             'conditions' => array(
-                'owner_user_id' => $userId
+                'owner_person_id' => $userId
             )
         ));
 

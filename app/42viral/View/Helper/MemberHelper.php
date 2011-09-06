@@ -72,7 +72,6 @@ class MemberHelper extends AppHelper
      * @access public
      */
     public function displayName($data){
-        
         extract($data);
         
         //Currently this is just looking to see if you have entered your name.

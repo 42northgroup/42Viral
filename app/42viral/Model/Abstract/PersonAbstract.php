@@ -74,7 +74,7 @@ abstract class PersonAbstract extends AppModel
     public $hasOne = array(
         'Profile' => array(
             'className' => 'Profile',
-            'foreignKey' => 'owner_user_id',
+            'foreignKey' => 'owner_person_id',
             'dependent' => true
         )
     );
@@ -123,7 +123,7 @@ abstract class PersonAbstract extends AppModel
 
         'Company' => array(
             'className' => 'Company',
-            'foreignKey' => 'owner_user_id',
+            'foreignKey' => 'owner_person_id',
             'dependent' => true
         )
     );

@@ -103,7 +103,7 @@ console is writable.
     sudo chmod +x cake
     sudo ./cake schema create
 
-If you want to turn debugging off (A must production) navigate to app/Config/core.php and set debugging to 0.
+If you want to turn debugging off (A must in production) navigate to app/Config/core.php and set debugging to 0.
 
     Configure::write('debug', 0);
 

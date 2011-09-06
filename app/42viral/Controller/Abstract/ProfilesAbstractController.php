@@ -19,6 +19,7 @@ App::uses('AppController', 'Controller');
  * Generic user profile object
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 abstract class ProfilesAbstractController extends AppController {
 
@@ -29,39 +30,43 @@ abstract class ProfilesAbstractController extends AppController {
      */
     public $name = 'Profiles';
 
-
+    /**
+     *
+     * @var array
+     * @access public 
+     */
     public $components = array('ProfileProgress');
 
+    /**
+     *
+     * @var array
+     * @access public 
+     */
+    public $uses = array('Profile', 'Person');
 
     /**
      * Action to provide a form for editing profile data and pre-loading the form with previously saved data
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @return void
      * @access public
      */
     public function edit($profileId) {
-        $this->data = $this->Profile->find('first', array(
-            'contain' => array(),
-            'conditions' => array(
-                'Profile.id' => $profileId
-            )
-        ));
+        $this->data = $this->Profile->fetchProfileWith($profileId, 'person');
     }
 
 
     /**
      * Action to save profile data submitted through the edit form
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * 
+     * @return void
      * @access public
      */
     public function save()
     {
         if(!empty($this->data)) {
             $profileData = $this->data;
-            $profileData['Profile']['owner_user_id'] = $this->Session->read('Auth.User.id');
 
-            if($this->Profile->save($profileData)) {
+            if($this->Person->saveAll($profileData)) {
                 $this->Session->setFlash(__('User Profile saved successfully'), 'success');
 
                 $userId = $this->Session->read('Auth.User.id');
@@ -74,7 +79,7 @@ abstract class ProfilesAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem saving your profile data'), 'error');
             }
         } else {
-            die('Invalid operation requested');
+            throw new NotFoundException('Invalid operation requested');
         }
 
         $this->redirect('/profile/' . $this->Session->read('Auth.User.username'));
@@ -82,8 +87,6 @@ abstract class ProfilesAbstractController extends AppController {
 
     /**
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function delete() {}
@@ -91,8 +94,6 @@ abstract class ProfilesAbstractController extends AppController {
 
     /**
      *
-     *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      */
     public function view() {}
