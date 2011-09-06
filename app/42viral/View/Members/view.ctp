@@ -2,11 +2,6 @@
 
 <h1><?php echo $this->Member->displayName($user['User']) ?></h1>
 
-<p>
-    <?php echo $user['Profile']['first_name'] .' '. $user['Profile']['last_name']; ?>
-</p>
-
-
 <div class="section-box">
     <p>
         <?php echo $user['Profile']['bio']; ?>

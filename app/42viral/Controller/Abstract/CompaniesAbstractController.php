@@ -122,7 +122,7 @@ abstract class CompaniesAbstractController extends AppController
         //$generatedCompanyId = String::uuid();
 
         //$companyData['Company']['id'] = $generatedCompanyId;
-        $companyData['Company']['owner_user_id'] = $this->Session->read('Auth.User.id');
+        $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
 
         if(isset($this->data['Company']['name'])) {
             $companyData['Company']['name_normalized'] = Inflector::slug(strtolower($this->data['Company']['name']));
