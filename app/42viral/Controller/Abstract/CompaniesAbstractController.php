@@ -54,10 +54,10 @@ abstract class CompaniesAbstractController extends AppController
      * @access public
      * @param string $companyName
      */
-    public function view($companyName)
+    public function view($slug)
     {
         //$company = $this->Company->fetchCompanyByNameWith($companyName);
-        $company = $this->Company->fetchCompanyByNameWith($companyName, array('Address'));
+        $company = $this->Company->fetchCompanyWith($slug, array('Address'));
 
         $yahooResults = null;
         $yelpResults = null;
@@ -123,10 +123,6 @@ abstract class CompaniesAbstractController extends AppController
 
         //$companyData['Company']['id'] = $generatedCompanyId;
         $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
-
-        if(isset($this->data['Company']['name'])) {
-            $companyData['Company']['name_normalized'] = Inflector::slug(strtolower($this->data['Company']['name']));
-        }
 
         if($this->Company->save($companyData)) {
             $companyAddress = $companyData['Address'];

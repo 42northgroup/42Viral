@@ -23,9 +23,12 @@ class SeoBehavior extends ModelBehavior
         if(!is_array($settings)) {
             $settings = array();
         }
-
-        $this->settings[$model->name] = $settings;
-
+        
+        if(isset($settings['convert'])){
+           $this->settings[$model->name]['convert'] = $settings['convert'];
+        }else{
+           $this->settings[$model->name]['convert'] = 'title';
+        }
     }
 
     /**
@@ -39,10 +42,10 @@ class SeoBehavior extends ModelBehavior
         
         //We only auto-gen on creation
         if(!isset($model->data[$model->name]['id'])) {
-            $baseSlug = $this->__baseSlug($model, $model->data[$model->name]['title']);
+            $baseSlug = $this->__baseSlug($model, $model->data[$model->name][$this->settings[$model->name]['convert']]);
             $model->data[$model->name]['base_slug'] = $baseSlug;
             $model->data[$model->name]['slug'] = $this->__slug($model, $baseSlug);
-        
+            
             $model->data[$model->name]['canonical'] = $this->__canonical($model, $model->data[$model->name]['slug']);
         }
         
@@ -95,8 +98,8 @@ class SeoBehavior extends ModelBehavior
         $slug = $baseSlug;
         
         $ambiguity = $this->__ambiguity(&$model, $baseSlug);
-        
-        if($ambiguity > 1){
+
+        if($ambiguity > 0){
             $slug .= '-' . $ambiguity;
         }
         

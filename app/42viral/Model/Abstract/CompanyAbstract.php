@@ -35,7 +35,24 @@ abstract class CompanyAbstract extends AppModel
             'dependent' => true
         )
     );
+    
+    /**
+     *
+     * @var array
+     * @access public
+     */
+    public $actsAs = array(
 
+        'Scrub'=>array(
+            'Filters'=>array(
+                'trim'=>'*',
+                'safe'=>array('*'),
+            )
+        ),
+        
+        'Seo'=>array('convert'=>'name')
+    );
+    
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         /*
@@ -97,15 +114,13 @@ abstract class CompanyAbstract extends AppModel
      * @param array $with
      * @return Company
      */
-    public function fetchCompanyByNameWith($companyName, $with=array())
+    public function fetchCompanyWith($slug, $with=array())
     {
-        $normalizedCompanyName = Inflector::slug(strtolower($companyName));
-
         $company = $this->find('first', array(
             'contain' => $with,
 
             'conditions' => array(
-                'Company.name_normalized' => $normalizedCompanyName
+                'Company.slug' => $slug
             )
         ));
 
