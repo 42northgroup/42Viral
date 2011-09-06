@@ -107,7 +107,7 @@ class AccessHelper extends AppHelper
     public function serviceConfiguration($service){
         
         $config = Configure::read();
-            
+        
         foreach($config[$service]['Schema'] as $key => $value){
             
             //Does the value exist?

@@ -41,8 +41,8 @@
             );
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
-    echo $this->Form->input('body', array('class'=>'edit-basic'));
-    echo $this->Form->input('tease', array('class'=>'edit-basic'));
+    echo $this->Form->input('body', array('class'=>'edit-content'));
+    echo $this->Form->input('tease', array('class'=>'edit-content'));
     echo $this->Form->input('description', array());
     echo $this->Form->input('keywords', array());
     echo $this->Form->input('canonical', array('rows'=>1));
