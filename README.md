@@ -103,9 +103,20 @@ console is writable.
     sudo chmod +x cake
     sudo ./cake schema create
 
-If you want to turn debugging off (A must production) navigate to app/Config/core.php and set debugging to 0
+If you want to turn debugging off (A must production) navigate to app/Config/core.php and set debugging to 0.
 
     Configure::write('debug', 0);
+
+Next, open app/Config/core.php and provide new values for Security.salt and Security.cipherSeed.
+
+    Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
+
+Finally, open a web browser and navigate to the first run wizard.
+
+    https://www.example.com/first_run
+
+This will finish setting up the application and allow you to provide credentials for your root user. 
 
 ### Debugging and testing
 
