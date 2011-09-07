@@ -27,24 +27,59 @@ abstract class CompaniesAbstractController extends AppController
 {
 
     /**
-     * Use these models
      * @var array
+     * @access public
      */
-    public $uses = array('Company', 'Address', 'YelpApi', 'YahooApi');
+    public $uses = array('Address', 'Company', 'Person', 'YahooApi', 'YelpApi');
 
-
+    /**
+     * @var array
+     * @access public
+     */
     public $components = array('ProfileProgress');
 
-
+    
+    /**
+     * @return void
+     * @access public
+     */
+    public function beforeFilter()
+    {
+        parent::beforeFilter();
+        $this->auth(array('index', 'view'));
+    }
+    
     /**
      * Default index action method to list all companies
      *
      * @access public
      */
-    public function index()
+    public function index($username = null)
     {
-        $companies = $this->Company->fetchAllCompaniesWith(array('Address'));
+        $mine = false;
+        
+        if(!is_null($username)){
+            //Show all the accounts for a particular user
+            $person = $this->Person->fetchPersonWith($username, array('Company'=> array('Address')));
+            $companies = $person['Company'];
+            //Set the user profile array
+            $this->set('userProfile', $person);
+            
+            //Are we looking at "MY" account? (Where "MY" == the logged in user.)
+            if($this->Session->read('Auth.User.username') == $username){
+                $mine = true;
+            }
+        }else{
+            
+            //Show all accounts
+            $companies = $this->Company->fetchAllCompaniesWith(array('Address'));
+            //Make the comopany array look like the person array            
+            $companies = Set::extract('/Company/.',$companies);
+            
+        }
+        
         $this->set('companies', $companies);
+        $this->set('mine', $mine);
     }
 
 
@@ -80,28 +115,6 @@ abstract class CompaniesAbstractController extends AppController
         $this->set('company', $company);
     }
 
-
-
-
-    /**
-     * Action to view all companies of the currently logged in user
-     *
-     * @access public
-     */
-    public function mine()
-    {
-        $userId = null;
-        $company = null;
-
-        if($this->Session->check('Auth.User.id')) {
-            $userId = $this->Session->read('Auth.User.id');
-            $companies = $this->Company->fetchUserCompaniesWith($userId, array('Address'));
-        }
-
-        $this->set('companies', $companies);
-    }
-
-
     /**
      * Action method to display a form for creating a new company profile
      *
@@ -111,6 +124,15 @@ abstract class CompaniesAbstractController extends AppController
 
 
     /**
+     * Action method to display a form for creating a new company profile
+     *
+     * @access public
+     */
+    public function edit($slug) {
+        $this->data = $this->Company->fetchCompanyWith($slug, array('Address'));
+    }
+    
+    /**
      * Action to save a company profile
      *
      * @access public
@@ -119,17 +141,9 @@ abstract class CompaniesAbstractController extends AppController
     {
 
         $companyData = $this->data;
-        //$generatedCompanyId = String::uuid();
-
-        //$companyData['Company']['id'] = $generatedCompanyId;
         $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
 
-        if($this->Company->save($companyData)) {
-            $companyAddress = $companyData['Address'];
-            $companyAddress['model'] = 'Company';
-            $companyAddress['model_id'] = $this->Company->id;
-
-            $this->Address->save($companyAddress);
+        if($this->Company->saveAll($companyData)) {
 
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');
 
@@ -170,7 +184,6 @@ abstract class CompaniesAbstractController extends AppController
     /**
      * Helper function to fetch Yahoo Local Search listings for the given company
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access private
      * @param Company company object to use for pulling listing data from Yahoo
      * @return mixed
@@ -210,7 +223,6 @@ abstract class CompaniesAbstractController extends AppController
     /**
      * Helper function to fetch Yelp Business listings and review data for the given company
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access private
      * @param Company company object to use for pulling listing data from Yahoo
      * @return mixed

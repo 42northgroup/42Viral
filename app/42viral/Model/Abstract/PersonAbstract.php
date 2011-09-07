@@ -143,8 +143,9 @@ abstract class PersonAbstract extends AppModel
 
         $this->virtualFields = array(
             'name' => "CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
-            'url' => "CONCAT('/profile/',`{$this->alias}`.`username`)",
+            'url' => "CONCAT('/p/',`{$this->alias}`.`username`)",
             'private_url' => "CONCAT('/members/view/',`{$this->alias}`.`username`)",
+            'companies_url' => "CONCAT('/companies/',`{$this->alias}`.`username`)",
             'file_write_path' => "CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'image_write_path' => "CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'file_read_path' => "CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",
