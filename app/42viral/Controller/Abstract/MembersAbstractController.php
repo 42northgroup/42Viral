@@ -44,7 +44,7 @@ abstract class MembersAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('view'));
+        $this->auth(array('index', 'view'));
     }
 
     /**
@@ -79,7 +79,6 @@ abstract class MembersAbstractController extends AppController {
         }
 
         //Get the user data
-        //$user = $this->User->getProfile($token);
         $user = $this->User->getUserWith($token, array(
             'Profile', 'Content', 'Upload', 'Company' => array('Address')
         ));

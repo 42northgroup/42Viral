@@ -2,13 +2,11 @@
 <?php //pr($web_results); ?>
 <?php //pr($web_results['yelp']); ?>
 
-<h1>Company Details</h1>
+<h1><?php echo $company['Company']['name']; ?></h1>
 
-<h2><u>Name</u>: <?php echo $company['Company']['name']; ?></h2>
-
+<div><?php echo $company['Company']['body']; ?></div>
 <?php if(isset($company['Address']) && !empty($company['Address'])): ?>
-    <h4>Addresses:</h4>
-
+    <h2>Locations</h2>
     <table>
         <tbody>
             <?php foreach($company['Address'] as $tempAddress): ?>
@@ -22,7 +20,7 @@
 
 <hr />
 
-<h1>Web Results</h1>
+<h2>See what people are saying about <?php echo $company['Company']['name']; ?></h2>
 
 <div style="border: 2px solid #007; padding: 10px; margin: 10px;">
     <img src="http://l.yimg.com/a/i/brand/purplelogo/uh/us/local.gif"

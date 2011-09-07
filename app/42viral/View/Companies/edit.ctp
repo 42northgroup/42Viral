@@ -32,22 +32,27 @@
     <?php
     echo $this->Form->create('Company', array(
         'action' => 'save',
-        'class'=> 'default-create'
+        'class'=> 'content'
     ));
-
+    echo $this->Form->input('Company.id');
     echo $this->Form->input('Company.name');
-    echo $this->Form->input('Company.body', array('class'=>'edit-basic'));
+    echo $this->Form->input('Company.body', array('class'=>'edit-content'));
     ?>
 
-    <h3>Address:</h3>
+    <h3>Addresses:</h3>
     <?php
-    echo $this->Form->input('Address.line1');
-    echo $this->Form->input('Address.line2');
-    echo $this->Form->input('Address.city');
-    echo $this->Form->input('Address.state');
-    echo $this->Form->input('Address.zip');
+    if(!empty($this->data['Address'])):
+        for($i=0; $i<count($this->data['Address']); $i++):
+            echo $this->Form->input("Address.{$i}.id");
+            echo $this->Form->input("Address.{$i}.line1");
+            echo $this->Form->input("Address.{$i}.line2");
+            echo $this->Form->input("Address.{$i}.city");
+            echo $this->Form->input("Address.{$i}.state");
+            echo $this->Form->input("Address.{$i}.zip");
 
-    echo $this->Form->submit('Save');
-    echo $this->Form->end();
+            echo $this->Form->submit('Save');
+            echo $this->Form->end();
+        endfor;
+    endif;
     ?>
 </div>

@@ -27,7 +27,7 @@
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
 
-<h1>Complete your profile</h1>
+<h1>Update your profile</h1>
 <?php 
 
 echo $this->Form->create('Profile', array(

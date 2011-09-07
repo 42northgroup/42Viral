@@ -23,7 +23,19 @@ App::uses('AppModel', 'Model');
 abstract class AddressAbstract extends AppModel
 {
     public $name = 'Address';
+    
+    public $belongsTo = array(
+        'Conpany' => array(
+            'foreignKey' => 'model_id',
 
+            'conditions' => array(
+                'model' => 'Company'
+            ),
+
+            'dependent' => true
+        )
+    );
+    
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(

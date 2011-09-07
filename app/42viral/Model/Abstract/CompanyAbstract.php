@@ -46,7 +46,8 @@ abstract class CompanyAbstract extends AppModel
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
-                'safe'=>array('*'),
+                'noHtml'=>array('name', 'description', 'keywords'),
+                'htmlStrict'=>array('body'),
             )
         ),
         
@@ -55,11 +56,13 @@ abstract class CompanyAbstract extends AppModel
     
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
-        /*
+        
         $this->virtualFields = array(
-            '_sample_virtual_field' => "CONCAT(`{$this->alias}`.`name`)"
+            'public_url' => "CONCAT('/c/',`{$this->alias}`.`slug`)",
+            'edit_url' => "CONCAT('/companies/edit/',`{$this->alias}`.`slug`)",
+            'delete_url' => "CONCAT('/companies/delete/',`{$this->alias}`.`slug`)"
         );
-        */
+       
     }
 
 
@@ -67,7 +70,6 @@ abstract class CompanyAbstract extends AppModel
      * Fetch a given user's companies with associated model records given the user's person id
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $userId
      * @param array $with
      * @return Company
@@ -91,7 +93,6 @@ abstract class CompanyAbstract extends AppModel
      * Fetch all companies in the system with associated model records
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param array $with
      * @return array
      */
@@ -109,7 +110,6 @@ abstract class CompanyAbstract extends AppModel
      * Fetch a company record with associated model records given the company name
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $companyName
      * @param array $with
      * @return Company
@@ -132,7 +132,6 @@ abstract class CompanyAbstract extends AppModel
      * Given a company name find out the company id
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $companyName
      * @return boolean|Company
      */
@@ -152,7 +151,6 @@ abstract class CompanyAbstract extends AppModel
      * Calculate the company profile progress based on company records created by the given user
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param string $userId
      * @return integer
      */
