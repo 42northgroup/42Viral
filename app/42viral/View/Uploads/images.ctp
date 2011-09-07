@@ -13,7 +13,9 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h1><?php echo $this->Member->displayName($user['User']); ?>'s Photo Album</h1>
+
+<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Media Stream</h1>
+<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
 <table>
     <caption>Images</caption>

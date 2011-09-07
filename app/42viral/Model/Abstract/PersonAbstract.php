@@ -157,16 +157,56 @@ abstract class PersonAbstract extends AppModel
      * Returns the data for a single person
      * @param string $id
      * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
-     */
+     * @deprecated 9/6/2011, retired in favor of fetchPersonWith
+     */ 
     public function getPerson($id)
     {
         $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
         return $person;
     }
 
+      
+   /**
+    * Returns a person's profile data with the specified associated data. 
+    * NOTE: When using the by clause please understand, this MUST be a unique index in the profiles table
+    * 
+    * @param string $id - An id for retreving records
+    * @param string|array $with
+    * @param string $by - This will usally be id, but sometimes we want to use something else
+    * @return array
+    * @access public
+    */
+    public function fetchPersonWith($id, $with = array(), $by = 'username')
+    {
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
 
+            switch(strtolower($with)){
+                case 'profile':
+                    $with = array('Profile');
+                break;   
+
+                default:
+                    $with = array();
+                break;
+            }
+
+        }
+        
+        //Go fetch the profile
+        $userPerson = $this->find('first', array(
+           'contain' => $with,
+
+           'conditions' => array(
+               "Person.{$by}"  => $id
+           )
+        ));
+
+        return $userPerson;        
+        
+    }
+        
     /**
      * Returns the data for a single person
      * @param string $username

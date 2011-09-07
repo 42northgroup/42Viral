@@ -5,10 +5,10 @@
 <?php endif; ?>
 
 <ul class="side-navigation">
-    <li><a href="/pages">Pages</a></li>
-    <li><a href="/blogs">Blogs</a></li>
-    <li><a href="/members">Members</a></li>
-    <li><a href="/companies">Companies</a></li>
+    <li><?php echo $this->Html->link('Blogs', '/blogs'); ?></li>
+    <li><?php echo $this->Html->link('Members', '/members'); ?></li>
+    <li><?php echo $this->Html->link('Companies', '/companies'); ?></li>
+    <li><?php echo $this->Html->link('Pages', '/pages'); ?></li>
 </ul>
 
 <h4 style="margin: 8px 0 0;">Admin</h4>

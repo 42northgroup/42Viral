@@ -19,7 +19,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Conversation', 'Page', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Page', 'Person', 'Post');
     
     /**
      * @var array
@@ -328,16 +328,10 @@ abstract class ContentsAbstractController extends AppController {
      * @access public
      * @todo TestCase
      */
-    public function content() {
+    public function content($username) {
         
-        $contents = $this->Content->find('all', 
-                array(
-                    'conditions'=>array(
-                        'Content.created_person_id' => $this->Session->read('Auth.User.id')
-                )));
-                
-        $this->set('contents', $contents);
-        
+        $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
+        $this->set('userProfile', $person);
     }   
     
 }

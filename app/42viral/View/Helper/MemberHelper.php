@@ -76,9 +76,9 @@ class MemberHelper extends AppHelper
         
         //Currently this is just looking to see if you have entered your name.
         if(strlen(trim($name)) == 0){
-            return $username;
+            return $this->Html->link($username, $url);
         }else{
-            return $name;
+            return $this->Html->link($name, $url);
         }
         
     }
