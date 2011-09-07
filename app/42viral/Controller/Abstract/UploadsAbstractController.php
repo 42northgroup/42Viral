@@ -27,7 +27,7 @@ abstract class UploadsAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Image', 'Upload', 'User');
+    public $uses = array('Image', 'Person', 'Upload');
 
     /**
      *
@@ -62,12 +62,11 @@ abstract class UploadsAbstractController extends AppController
             throw new NotFoundException('An invalid profile was requested');
         }
 
-        //Get the user data
-        //$user = $this->User->getProfile($token);
-        $user = $this->User->getUserWith($token, array('Profile', 'Upload'));
+        //Get the data
+        $person = $this->Person->fetchPersonWith($token, array('Profile', 'Upload'));
 
         //Does the user really exist?
-        if(empty($user)):
+        if(empty($person)):
             $this->Session->setFlash(__('An invalid profile was requested') ,'error');
             throw new NotFoundException('An invalid profile was requested');
         endif;
@@ -79,7 +78,8 @@ abstract class UploadsAbstractController extends AppController
             $this->set('mine', false);
         }
 
-        $this->set('user', $user);
+        $this->set('user', $person);
+        $this->set('userProfile', $person);
     }
     
 

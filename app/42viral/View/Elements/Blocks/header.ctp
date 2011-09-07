@@ -23,13 +23,19 @@
                 $googleAppsDomain = Configure::read('Google.Apps.domain');
                 if(isset($googleAppsDomain)):
                     echo ' | ';
-                    echo $this->Html->link('Google Apps', 'https://www.google.com/a/' . Configure::read('Google.Apps.domain')); 
+                    echo $this->Html->link('Google Apps', 'https://www.google.com/a/' 
+                            . Configure::read('Google.Apps.domain')); 
                 endif;
             ?>
         <?php endif; ?>
     </div>
 
-    <div id="HeaderContent"></div>
+    <div id="HeaderContent">
+    <?php /*
+        echo $this->Html->link('Profiles', '/members');
+        echo $this->Html->link('Companies', '/companies' ); */
+    ?>  
+    </div>
 
     <div id="HeaderRight">
         

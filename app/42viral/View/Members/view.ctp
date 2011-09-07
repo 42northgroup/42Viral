@@ -1,6 +1,18 @@
 <?php //debug($user); ?>
 
-<h1><?php echo $this->Member->displayName($user['User']) ?></h1>
+<div class="clearfix">
+    
+    <h1 style="float:left;"><?php echo $this->Member->displayName($user['User']) ?>'s Profile</h1>
+    
+    <div style="float:right; margin:6px 0 0;">
+        <?php if($mine): ?>
+            <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
+        <?php endif; ?>
+    </div>
+    
+</div>
+
+<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
 <div class="section-box">
     <p>
@@ -15,7 +27,6 @@
         <?php if($status['post'] != ''): ?>
 
         <p>
-            
             <?php echo $status['post'].'<br/>'; ?>
             <?php 
             switch($status['source']){
@@ -41,11 +52,3 @@
     <?php endforeach;?>            
 
 </div>
-
-
-
-<?php if($mine): ?>
-    <div>
-        <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
-    </div>
-<?php endif; ?>
