@@ -28,7 +28,9 @@
 <table>
     <thead>
         <tr>
-            <th>Actions</th>
+            <?php if($mine): ?>
+                <th>Actions</th>
+            <?php endif; ?>
             <th>Type</th>
             <th>Title</th>
         </tr>
@@ -36,10 +38,12 @@
     <tbody>
     <?php foreach($userProfile['Content'] as $content):?>
         <tr>
-            <td>
-                <?php echo $this->Html->link('[E]', $content['edit_url']); ?>/
-                <?php echo $this->Html->link('[D]', $content['delete_url']); ?>
-            </td>
+            <?php if($mine): ?>
+                <td>
+                    <?php echo $this->Html->link('[E]', $content['edit_url']); ?>/
+                    <?php echo $this->Html->link('[D]', $content['delete_url']); ?>
+                </td>
+            <?php endif; ?>
             <td>
                <?php echo Inflector::humanize($content['object_type']); ?> 
             </td>

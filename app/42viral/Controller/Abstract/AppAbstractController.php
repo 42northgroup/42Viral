@@ -106,13 +106,12 @@ abstract class AppAbstractController extends Controller
                      //No, the user is not looked in.
                     
                     //If the user attempting to post a comment, save the post untill they get logged in.
-                    //if(!empty($this->data['Conversation']['body'])){
-                        $this->Session->write('Auth.post_comment', 
-                                Scrub::htmlStrict($this->data['Conversation']['body']));
-                    //}
-                    
+                    $this->Session->write('Auth.post_comment', 
+                            Scrub::htmlStrict($this->data['Conversation']['body']));
+
                     //Deny access.
                     $this->Auth->deny($this->request->params['action']);
+                    
                 }
 
             }else{

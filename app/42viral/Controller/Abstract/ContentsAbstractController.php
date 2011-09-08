@@ -330,8 +330,18 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function content($username) {
         
+        $mine = false;
+        
         $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
         $this->set('userProfile', $person);
+        
+        if($this->Session->check('Auth.User.id')){
+            if($this->Session->read('Auth.User.username') == $username){
+                $mine = true;
+            }
+        }
+        
+        $this->set('mine', $mine);
     }   
     
 }
