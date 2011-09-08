@@ -117,6 +117,7 @@ abstract class FirstRunAbstractController extends AppController {
                     'salt'=>NULL,
                     'first_name'=>NULL,
                     'last_name'=>NULL,
+                    'employee'=>0,
                     'object_type'=>'system',
                     'created'=>'2011-07-21 01:46:22',
                     'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
@@ -133,6 +134,7 @@ abstract class FirstRunAbstractController extends AppController {
                     'salt'=>NULL,
                     'first_name'=>NULL,
                     'last_name'=>NULL,
+                    'employee'=>1,
                     'object_type'=>'system',
                     'created'=>'2011-07-21 01:46:22',
                     'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
@@ -203,7 +205,6 @@ abstract class FirstRunAbstractController extends AppController {
         }         
     }
     
-
     /**
      * Sets up the root user
      * @return void
