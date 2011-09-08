@@ -179,7 +179,8 @@ abstract class MembersAbstractController extends AppController {
                     
                     $this->loadModel('Facebook');
                     $statuses = array_merge($statuses, $this->Facebook->find('all', array(
-                        'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token'))
+                        'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token')),
+                        'limit'=>5
                     )));
                     break;
                 

@@ -78,7 +78,8 @@ class FacebookSource extends DataSource {
     public function read($model, $queryData = array()) {
                         
         $graph_url = "https://graph.facebook.com/me/statuses?access_token=" 
-        . $queryData['conditions']['oauth_token'];
+        . $queryData['conditions']['oauth_token']
+        . '&limit=' . $queryData['limit'];
                 
         $response = json_decode(file_get_contents($graph_url));
         

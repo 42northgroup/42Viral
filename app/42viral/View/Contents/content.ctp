@@ -25,34 +25,13 @@
 <h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Content Stream</h1>
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
-<table>
-    <thead>
-        <tr>
-            <?php if($mine): ?>
-                <th>Actions</th>
-            <?php endif; ?>
-            <th>Type</th>
-            <th>Title</th>
-        </tr>
-    </thead>
-    <tbody>
+<div id="ResultsPage">
     <?php foreach($userProfile['Content'] as $content):?>
-        <tr>
-            <?php if($mine): ?>
-                <td>
-                    <?php echo $this->Html->link('[E]', $content['edit_url']); ?>/
-                    <?php echo $this->Html->link('[D]', $content['delete_url']); ?>
-                </td>
-            <?php endif; ?>
-                
-            <td>
-               <?php echo Inflector::humanize($content['object_type']); ?> 
-            </td>
-            <td>
-               <?php echo $this->Html->link($content['title'], $content['url']); ?> 
-            </td>
-        </tr>
+        <div class="clearfix">
+            <h2 style="float:left;"><?php echo $this->Html->link($content['title'], $content['url']); ?> </h2>
+            <div style="float:right; font-style: italic;"><?php echo Inflector::humanize($content['object_type']); ?></div>
+        </div>
+        <div class="tease"><?php echo $this->Text->truncate($content['title'], 180); ?></div>
     <?php endforeach; ?>
-    </tbody>
-</table>
+</div>
 
