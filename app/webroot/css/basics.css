@@ -49,3 +49,18 @@ code{
 .tease{
     margin-bottom: 4px;
 }
+
+.status{
+    border-bottom: 1px solid #efefef;
+    padding:0 0 4px;
+    margin:0 0 6px;
+}
+
+.status-details{
+    font-style: italic;
+    margin:2px 0 0;
+}
+
+.status-details img{
+    margin: 0 4px 0 0;
+}
