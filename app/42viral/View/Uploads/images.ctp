@@ -14,42 +14,31 @@
  */
 ?>
 
-<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Media Stream</h1>
+<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Photo Stream</h1>
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
-<table>
-    <caption>Images</caption>
-    <thead>
-        <tr>
-            <th>Type</th>
-            <th>Name</th>
-            <?php if($mine): ?>
-                <th>Actions</th>
-            <?php endif; ?>
-        </tr>
-    </thead>
-    <tbody>
+<div class="clearfix">
     <?php foreach($user['Upload'] as $upload):?>
-        <tr>
-            <td>
-                <?php echo Inflector::humanize($upload['object_type']); ?>
-            </td>
-            <td>
-               <?php echo $this->Html->link($upload['name'], $upload['url']); ?>
-            </td>
+    <div style="float:left; padding: 6px; background: #efefef; border: 1px solid #dedede; margin: 8px 8px 0 0;">
+            
+
+            <?php 
+                
+                echo $this->Upload->img($upload);   
+            ?>
             <?php if($mine): ?>
-            <td>
                <?php echo $this->Html->link('Set Avatar',
-                       "/uploads/set_avatar/{$user['User']['id']}/{$upload['id']}"); ?>
-            </td>
+                       "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$upload['id']}"); ?>
             <?php endif; ?>
 
-        </tr>
+    </div>
     <?php endforeach; ?>
-    </tbody>
-</table>
+</div>
+
+<hr />
 
 <?php if($mine): ?>
+   <h2>Upload a new image</h2>
     <?php echo $this->Form->create('Member', 
             array('url'=>'/uploads/image_upload', "enctype"=>"multipart/form-data")); ?>
     <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>

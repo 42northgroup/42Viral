@@ -44,6 +44,7 @@
                     <?php echo $this->Html->link('[D]', $content['delete_url']); ?>
                 </td>
             <?php endif; ?>
+                
             <td>
                <?php echo Inflector::humanize($content['object_type']); ?> 
             </td>

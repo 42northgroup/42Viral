@@ -34,7 +34,7 @@ abstract class UploadsAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $helpers = array('Member');
+    public $helpers = array('Member', 'Upload');
     
     /**
      * @access public
@@ -111,8 +111,8 @@ abstract class UploadsAbstractController extends AppController
     public function set_avatar($personId, $imageId){
 
         $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$imageId)));
-
-        $path = IMAGE_WRITE_PATH . $personId . DS . $image['Image']['name'];
+        
+        $path = IMAGE_WRITE_PATH . $personId . DS . $this->Upload->name($image['Image']);
 
         $this->Image->setProfileImage($path, $personId);
 
