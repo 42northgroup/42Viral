@@ -100,6 +100,9 @@ abstract class UploadAbstract extends AppModel
             'url'=>
                 "CONCAT('/',`{$this->alias}`.`object_type`, '/people/', `{$this->alias}`.`created_person_id`, "
                 . "'/', `{$this->alias}`.`name`)",
+            'path'=>
+                "CONCAT('/',`{$this->alias}`.`object_type`, '/people/', `{$this->alias}`.`created_person_id`, "
+                . "'/')",
         );          
     }
     
@@ -216,9 +219,19 @@ abstract class UploadAbstract extends AppModel
 
                 $this->_writePath($_SESSION['Auth']['User']['id']);
 
+                
+                //lets save the file with the UUID.
+                $ext = pathinfo($upload[$this->alias]['name'], PATHINFO_EXTENSION);
+                $name = "{$this->id}.{$ext}";
+                
+                /*
                 $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id'] 
                     . DS . basename($upload[$this->alias]['name']); 
-
+                */
+                
+                $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id'] 
+                    . DS . basename($name); 
+                
                 //Try to write the file, remove the DB entry on fail
                 if(!$this->_writeFile($tmpName, $path)){
                     $this->delete($this->id);
@@ -322,5 +335,19 @@ abstract class UploadAbstract extends AppModel
      */
     public function getExt($path){
         return pathinfo($path, PATHINFO_EXTENSION);
+    }
+    
+    /**
+     * Returns the name of an image, according to out naming conventions
+     * @param array $image
+     * @return string 
+     * @access public
+     */
+    public function name($image){
+        extract($image);
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+        $name = "{$id}.{$ext}";
+        
+        return $name;
     }
 }

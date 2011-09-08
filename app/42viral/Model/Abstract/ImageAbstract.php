@@ -36,7 +36,6 @@ abstract class ImageAbstract extends UploadAbstract
      * Inject all "finds" against the Upload object with image filtering criteria
      * @param array $query
      * @return type 
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
     public function beforeFind(&$query) 
@@ -52,7 +51,6 @@ abstract class ImageAbstract extends UploadAbstract
      * Sets a new profile image by writing any image under a users controll to profile.png
      * @param type $path
      * @return type 
-     * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
     public function setProfileImage($path, $personId){
