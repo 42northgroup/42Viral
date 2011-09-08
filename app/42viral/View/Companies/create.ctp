@@ -30,24 +30,37 @@
 
 <div class="company-create-form clearfix">
     <?php
-    echo $this->Form->create('Company', array(
-        'action' => 'save',
-        'class'=> 'default-create'
-    ));
+        echo $this->Form->create('Company', array(
+            'action' => 'save',
+            'class'=> 'content'
+        ));
 
-    echo $this->Form->input('Company.name');
-    echo $this->Form->input('Company.body', array('class'=>'edit-basic'));
+        echo $this->Form->input('Company.name');
+        echo $this->Form->input('Company.body', array('class'=>'edit-basic'));
     ?>
 
     <h3>Address:</h3>
     <?php
-    echo $this->Form->input('Address.line1');
-    echo $this->Form->input('Address.line2');
-    echo $this->Form->input('Address.city');
-    echo $this->Form->input('Address.state');
-    echo $this->Form->input('Address.zip');
+        echo $this->Form->input('Address.line1');
+        echo $this->Form->input('Address.line2');
+        echo $this->Form->input('Address.city');
+        
+        echo $this->Html->div('clearfix',
 
-    echo $this->Form->submit('Save');
-    echo $this->Form->end();
+            $this->Form->input('Address.state', 
+                    array(
+                        'div'=>array('style'=>'float:left; padding:0 12px 0 0;'),
+                        'style'=>'width: 20px;')
+                    )
+
+            . $this->Form->input('Address.zip', 
+                    array(
+                        'div'=>array('style'=>'float:left;'),
+                        'style'=>'width: 70px;')
+                    )
+                );
+
+        echo $this->Form->submit('Save');
+        echo $this->Form->end();
     ?>
 </div>

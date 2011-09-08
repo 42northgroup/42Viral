@@ -47,8 +47,20 @@
             echo $this->Form->input("Address.{$i}.line1");
             echo $this->Form->input("Address.{$i}.line2");
             echo $this->Form->input("Address.{$i}.city");
-            echo $this->Form->input("Address.{$i}.state");
-            echo $this->Form->input("Address.{$i}.zip");
+            
+            echo $this->Html->div('clearfix',
+                $this->Form->input("Address.{$i}.state", 
+                        array(
+                            'div'=>array('style'=>'float:left; padding:0 12px 0 0;'),
+                            'style'=>'width: 20px;')
+                        )
+
+                . $this->Form->input("Address.{$i}.zip", 
+                        array(
+                            'div'=>array('style'=>'float:left;'),
+                            'style'=>'width: 70px;')
+                        )
+                    );
 
             echo $this->Form->submit('Save');
             echo $this->Form->end();

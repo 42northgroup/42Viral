@@ -31,7 +31,7 @@ class MemberHelper extends AppHelper
      * @author Jason D Snider <jsnider77@gmail.com>
      * @access public
      */
-    public function avatar($data){
+    public function avatar($data, $size = 128){
         
         extract($data);
         
@@ -54,11 +54,11 @@ class MemberHelper extends AppHelper
         //Has the user picked an uploaded image as an avatar?
         if($avatar){
             //Yes, use it
-            return $this->Html->image(IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar);
+            return $this->Html->image(IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar, array('width'=>$size));
         }else{
             //No, fallback to gravatar
             return $this->Html->image(
-                'https://secure.gravatar.com/avatar/' . md5( strtolower(trim($email))) . '?r=pg&amp;s=128'
+                'https://secure.gravatar.com/avatar/' . md5( strtolower( trim($email) ) ) . "?r=pg&amp;s={$size}"
             );
         }
         

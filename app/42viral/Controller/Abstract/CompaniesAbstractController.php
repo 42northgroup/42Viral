@@ -38,7 +38,6 @@ abstract class CompaniesAbstractController extends AppController
      */
     public $components = array('ProfileProgress');
 
-    
     /**
      * @return void
      * @access public
@@ -82,7 +81,6 @@ abstract class CompaniesAbstractController extends AppController
         $this->set('mine', $mine);
     }
 
-
     /**
      * Action to view a single company profile given its name
      *
@@ -121,7 +119,6 @@ abstract class CompaniesAbstractController extends AppController
      * @access public
      */
     public function create() {}
-
 
     /**
      * Action method to display a form for creating a new company profile
