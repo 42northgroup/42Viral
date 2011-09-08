@@ -32,7 +32,7 @@ abstract class MembersAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Image', 'User', 'Oauth');
+    public $uses = array('Image', 'Oauth', 'Person', 'User');
 
 
     public $components = array('ProfileProgress', 'Oauths');
@@ -58,7 +58,7 @@ abstract class MembersAbstractController extends AppController {
     public function index()
     {
         $this->loadModel('User');
-        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array()));
+        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array('Profile')));
         $this->set('users', $users);
     }
 

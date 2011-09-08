@@ -26,7 +26,7 @@
                 echo ' / ';
                 echo $this->Html->link('Photos', '/uploads/images/' . $this->Session->read('Auth.User.username'));
                 echo ' / ';
-                echo $this->Html->link('Companies', '/companies/' . $this->Session->read('Auth.User.username'));
+                echo $this->Html->link('Companies', '/companies/index/' . $this->Session->read('Auth.User.username'));
                 echo ' / ';
                 echo $this->Html->link('Connect', '/oauth/connect/' );
             ?>

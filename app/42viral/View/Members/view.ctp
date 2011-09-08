@@ -25,29 +25,15 @@
     <h2>Social Media Stream</h2>
     <?php foreach ($statuses as $status): ?>
         <?php if($status['post'] != ''): ?>
-
         <p>
-            <?php echo $status['post'].'<br/>'; ?>
             <?php 
-            switch($status['source']){
-                case 'facebook':
-                    echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_16.png');
-                    break;
-
-                case 'linkedin':
-                    echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/linkedin_16.png');
-                    break;
-
-                case 'twitter':
-                    echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_16.png');
-                    break;
-            }
+                echo $this->Html->div(null, $status['post']);
+                echo $this->Html->image(
+                        "/img/social_media_icons/social_networking_iconpack/{$status['source']}_16.png");
+                echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; 
             ?>
-            <?php echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; ?>
             <hr/>
         </p>
-
-
         <?php endif; ?>
     <?php endforeach;?>            
 

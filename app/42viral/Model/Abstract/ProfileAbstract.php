@@ -38,7 +38,20 @@ abstract class ProfileAbstract extends AppModel
             'dependent' => true
         )
     );
-    
+
+    /**
+     *
+     * @var array
+     */
+    public $actsAs = array(
+        'Scrub' => array(
+            'Filters' => array(
+                'trim' => '*',
+                'htmlStrict' => array('bio')
+            )
+        )
+    );
+
    /**
     * Fetch a given user's profile data
     *
