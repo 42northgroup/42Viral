@@ -42,7 +42,7 @@ abstract class UploadsAbstractController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth();
+        $this->auth(array('image'));
     }
  
     /**
@@ -82,7 +82,29 @@ abstract class UploadsAbstractController extends AppController
         $this->set('userProfile', $person);
     }
     
+    public function image($id){    
+        
+        $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$id)));
+        
+        $path = $image['Image']['path'] . $this->Upload->name($image['Image']);
+        
+        $this->set('image', $image);
+        
+        $this->set('path', $path);
 
+        // Mine
+        if($this->Session->read('Auth.User.id') == $image['Image']['created_person_id']){
+            $this->set('mine', true);
+        }else{
+            $this->set('mine', false);
+        }   
+        
+        $userProfile = $this->Person->find('first', 
+                array('conditions'=>array('Person.id' =>$image['Image']['created_person_id'])));
+        $this->set('userProfile', $userProfile);
+        
+    }
+    
     /**
      * Uploads an image to a users profile
      * @return void
