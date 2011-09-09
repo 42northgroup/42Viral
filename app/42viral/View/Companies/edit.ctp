@@ -26,7 +26,20 @@
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
-<h1>Create Company Profile</h1>
+
+<div class="clearfix">
+    <h1 style="float:left;">Create Company Profile</h1>
+
+    <div style="float:right;">
+    <?php 
+        if($mine):
+            echo $this->Html->link('Delete', $this->data['Company']['delete_url'], 
+                    null, 
+                    Configure::read('System.purge_warning'));
+        endif; 
+    ?>
+    </div>
+</div>
 
 <div class="company-create-form clearfix">
     <?php
@@ -42,6 +55,7 @@
     <h3>Addresses:</h3>
     <?php
     if(!empty($this->data['Address'])):
+        
         for($i=0; $i<count($this->data['Address']); $i++):
             echo $this->Form->input("Address.{$i}.id");
             echo $this->Form->input("Address.{$i}.line1");
@@ -62,9 +76,13 @@
                         )
                     );
 
-            echo $this->Form->submit('Save');
-            echo $this->Form->end();
+
         endfor;
+
     endif;
+    
+    
+    echo $this->Form->submit('Save');
+    echo $this->Form->end();    
     ?>
 </div>

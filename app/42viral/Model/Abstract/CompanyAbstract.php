@@ -60,7 +60,7 @@ abstract class CompanyAbstract extends AppModel
         $this->virtualFields = array(
             'public_url' => "CONCAT('/c/',`{$this->alias}`.`slug`)",
             'edit_url' => "CONCAT('/companies/edit/',`{$this->alias}`.`slug`)",
-            'delete_url' => "CONCAT('/companies/delete/',`{$this->alias}`.`slug`)"
+            'delete_url' => "CONCAT('/companies/delete/',`{$this->alias}`.`id`)"
         );
        
     }

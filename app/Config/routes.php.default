@@ -53,6 +53,8 @@ Router::connect(
     array('pass' => array('slug')
 ));
 
+Router::parseExtensions(); 
+
 /**
  * Load all plugin routes.  See the CakePlugin documentation on
  * how to customize the loading of plugin routes.

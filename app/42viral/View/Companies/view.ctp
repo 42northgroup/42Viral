@@ -2,7 +2,22 @@
 <?php //pr($web_results); ?>
 <?php //pr($web_results['yelp']); ?>
 
-<h1><?php echo $company['Company']['name']; ?></h1>
+<div class="clearfix">
+    <h1 style="float:left;"><?php echo $company['Company']['name']; ?></h1>
+
+    <div style="float:right;">
+    <?php 
+        if($mine):
+            
+            echo $this->Html->link('Edit', $company['Company']['edit_url']);
+            echo " / ";
+            echo $this->Html->link('Delete', $company['Company']['delete_url'], 
+                    null, 
+                    Configure::read('System.purge_warning'));
+        endif; 
+    ?>
+    </div>
+</div>
 
 <div><?php echo $company['Company']['body']; ?></div>
 <?php if(isset($company['Address']) && !empty($company['Address'])): ?>

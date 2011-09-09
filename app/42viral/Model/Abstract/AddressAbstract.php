@@ -25,7 +25,7 @@ abstract class AddressAbstract extends AppModel
     public $name = 'Address';
     
     public $belongsTo = array(
-        'Conpany' => array(
+        'Company' => array(
             'foreignKey' => 'model_id',
 
             'conditions' => array(

@@ -39,7 +39,9 @@
                 echo ' / ';
                 echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
                 echo ' / ';
-                echo $this->Access->link('Contents-post_create', 'Create a post', '/contents/post_create/');                 
+                echo $this->Access->link('Contents-post_create', 'Create a post', '/contents/post_create/');   
+                echo ' / ';
+                echo $this->Access->link('Companies-create', 'Create a company', '/companies/create');  
             ?>
         </div>
 
