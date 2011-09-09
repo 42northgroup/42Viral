@@ -47,10 +47,13 @@ class UploadHelper extends AppHelper
                     $this->Html->image($upload['path'] . $name, 
                             array(
                                 'width'=>$size,
-                                'style'=>'display:block'
+                                'style'=>'display:block',
+                                'alt'=>$upload['name'],
+                                'title'=>$upload['name']
                                 )
                     ), 
-                    $upload['path'] . $name,
+                    //$upload['path'] . $name,
+                    '/uploads/image/' . $upload['id'],
                     array(
                         'target'=>'blank', 
                         'escape'=>false

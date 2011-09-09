@@ -42,7 +42,7 @@ abstract class AppAbstractController extends Controller
      * @access public
      */
     public function beforeFilter()
-    {     
+    {
         $this->Auth->deny('*');
         
         //Force a central login (1 login per prefix by default). 

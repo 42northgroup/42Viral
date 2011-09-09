@@ -25,11 +25,12 @@
             <?php 
                 
                 echo $this->Upload->img($upload);   
+                echo $this->Html->tag('span',
+                        $this->Text->truncate($upload['name'], 20),
+                        array('title'=>$upload['name'])
+                        );
             ?>
-            <?php if($mine): ?>
-               <?php echo $this->Html->link('Set Avatar',
-                       "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$upload['id']}"); ?>
-            <?php endif; ?>
+            
 
     </div>
     <?php endforeach; ?>
