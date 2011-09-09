@@ -20,7 +20,11 @@
 <div id="ResultsPage">
     <?php foreach($blog['Post'] as $post): ?>
         <h2><?php echo $this->Html->link($post['title'], $post['url']); ?></h2>
-        <div class="tease"><?php echo $post['tease']; ?></div>
+        <div class="tease">
+        <?php 
+            echo $this->Text->truncate($post['tease'], 200,array('ending' => '...', 'exact' => true, 'html' => true)); 
+        ?>
+        </div>
     <?php endforeach; ?>
 </div>
 

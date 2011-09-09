@@ -32,7 +32,8 @@
     <h2><?php echo $this->Html->link($tempCompany['name'], $tempCompany['public_url']); ?></h2>
 
         <?php 
-        echo $this->Text->truncate($tempCompany['body'], 200);
+        echo $this->Text->truncate($tempCompany['body'], 
+                200, array('ending' => '...', 'exact' => true, 'html' => true));
         /*
         echo $tempCompany['phone1'];
         if(isset($tempCompany['Address']) && !empty($tempCompany['Address'])):
