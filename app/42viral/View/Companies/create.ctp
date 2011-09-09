@@ -31,35 +31,15 @@
 <div class="company-create-form clearfix">
     <?php
         echo $this->Form->create('Company', array(
-            'action' => 'save',
+            'url' => '/companies/save/goto:edit',
             'class'=> 'content'
         ));
 
         echo $this->Form->input('Company.name');
-        echo $this->Form->input('Company.body', array('class'=>'edit-basic'));
-    ?>
-
-    <h3>Address:</h3>
-    <?php
-        echo $this->Form->input('Address.line1');
-        echo $this->Form->input('Address.line2');
-        echo $this->Form->input('Address.city');
-        
-        echo $this->Html->div('clearfix',
-
-            $this->Form->input('Address.state', 
-                    array(
-                        'div'=>array('style'=>'float:left; padding:0 12px 0 0;'),
-                        'style'=>'width: 20px;')
-                    )
-
-            . $this->Form->input('Address.zip', 
-                    array(
-                        'div'=>array('style'=>'float:left;'),
-                        'style'=>'width: 70px;')
-                    )
-                );
-
+           //No, provide a form for creating the first address
+            echo $this->Form->input("Address.0.model",array('type'=>'hidden', 'value'=>'Company'));
+            echo $this->Form->input("Address.0.zip", array('style'=>'width: 70px;'));
+     
         echo $this->Form->submit('Save');
         echo $this->Form->end();
     ?>

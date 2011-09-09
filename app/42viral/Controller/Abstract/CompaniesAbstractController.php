@@ -55,7 +55,6 @@ abstract class CompaniesAbstractController extends AppController
      */
     public function index($username = null)
     {
-        $mine = false;
         
         if(!is_null($username)){
             //Show all the accounts for a particular user
@@ -63,11 +62,7 @@ abstract class CompaniesAbstractController extends AppController
             $companies = $person['Company'];
             //Set the user profile array
             $this->set('userProfile', $person);
-            
-            //Are we looking at "MY" account? (Where "MY" == the logged in user.)
-            if($this->Session->read('Auth.User.username') == $username){
-                $mine = true;
-            }
+
         }else{
             
             //Show all accounts
@@ -78,7 +73,7 @@ abstract class CompaniesAbstractController extends AppController
         }
         
         $this->set('companies', $companies);
-        $this->set('mine', $mine);
+        
     }
 
     /**
@@ -89,6 +84,7 @@ abstract class CompaniesAbstractController extends AppController
      */
     public function view($slug)
     {
+        $mine = false;
         //$company = $this->Company->fetchCompanyByNameWith($companyName);
         $company = $this->Company->fetchCompanyWith($slug, array('Address'));
 
@@ -99,7 +95,6 @@ abstract class CompaniesAbstractController extends AppController
         if(!empty($company)) {
             $yahooResults = $this->__profileDoYahoo($company);
             $yelpResults = $this->__profileDoYelp($company);
-            
             $googleResults = array();
         }
 
@@ -111,6 +106,13 @@ abstract class CompaniesAbstractController extends AppController
 
         $this->set('web_results', $webResults);
         $this->set('company', $company);
+        
+        //Are we looking at "MY" account? (Where "MY" == the logged in user.)
+        if($this->Session->read('Auth.User.id') == $company['Company']['owner_person_id']){
+            $mine = true;
+        }        
+        
+        $this->set('mine', $mine);
     }
 
     /**
@@ -118,7 +120,11 @@ abstract class CompaniesAbstractController extends AppController
      *
      * @access public
      */
-    public function create() {}
+    public function create() 
+    {
+        $userProfile = $this->Person->fetchPersonWith($this->Session->read('Auth.User.username'), 'Profile');
+        $this->set('userProfile', $userProfile);
+    }
 
     /**
      * Action method to display a form for creating a new company profile
@@ -126,7 +132,21 @@ abstract class CompaniesAbstractController extends AppController
      * @access public
      */
     public function edit($slug) {
+        
+        $mine = false;
+        
         $this->data = $this->Company->fetchCompanyWith($slug, array('Address'));
+        
+        $userProfile = $this->Person->fetchPersonWith($this->Session->read('Auth.User.username'), 'Profile');
+        $this->set('userProfile', $userProfile);
+        
+        
+        //Are we looking at "MY" account? (Where "MY" == the logged in user.)
+        if($this->Session->read('Auth.User.id') == $this->data['Company']['owner_person_id']){
+            $mine = true;
+        }        
+        
+        $this->set('mine', $mine);
     }
     
     /**
@@ -146,12 +166,21 @@ abstract class CompaniesAbstractController extends AppController
 
             $userId = $this->Session->read('Auth.User.id');
             $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
-            if($overallProgress['_all'] < 100) {
-                $this->redirect('/members/complete_profile');
-            } else {
-                $this->redirect('/companies/index');
+            
+            if(isset($this->params['named']['goto'])){
+                
+                $company = $this->Company->find('first', 
+                        array(
+                            'conditions'=> array('Company.id'=>$this->Company->id), 
+                            'contain'=>array()
+                        )); 
+
+                $this->redirect("/companies/edit/{$company['Company']['slug']}");
             }
 
+            if($overallProgress['_all'] < 100) {
+                $this->redirect('/members/complete_profile');
+            }
 
         } else {
             $this->Session->setFlash(__('There was a problem saving the company details'), 'error');

@@ -23,10 +23,24 @@
     }
 </style>
 
+<div class="clearfix">
+    
+    <h1 style="float:left;"><?php echo $post['Post']['title']; ?></h1>
+    
+    <div style="float:right; margin:6px 0 0;">
+        <?php
+            if($mine):
+                echo $this->Html->link('Edit', "/contents/post_edit/{$post['Post']['id']}");
+                echo ' / ';
+                echo $this->Html->link('Delete', "/contents/post_delete/{$post['Post']['id']}", null,
+                        Configure::read('System.purge_warning'));
+            endif; 
+        ?>
+    </div>
+    
+</div>
 
 <div class="post clearfix">
-    <h1><?php echo $post['Post']['title']; ?></h1>
-    
     <div class="meta">
         <span class="meta-head">Posted:</span>
         <?php echo $this->Member->displayName($post['CreatedPerson']); ?>

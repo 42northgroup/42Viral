@@ -50,6 +50,8 @@ abstract class BlogsAbstractController extends AppController {
      * @param array
      */
     public function view($slug) {
+       
+        $mine = false;
         
         $this->loadModel('Blog');
         
@@ -63,6 +65,12 @@ abstract class BlogsAbstractController extends AppController {
         $this->set('canonical_for_layout', $blog['Blog']['canonical']);
         
         $this->set('blog', $blog);
+        
+        if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
+            $mine = true;
+        }
+        
+        $this->set('mine', $mine);
     } 
     
     /**
@@ -71,6 +79,8 @@ abstract class BlogsAbstractController extends AppController {
      * @param array
      */
     public function post($slug) {
+        $mine = false;
+        
         $this->loadModel('Post');
         $post = $this->Post->fetchPost($slug);    
 
@@ -104,6 +114,12 @@ abstract class BlogsAbstractController extends AppController {
         $this->set('canonical_for_layout', $post['Post']['canonical']);
         
         $this->set('post', $post);
+
+        if($this->Session->read('Auth.User.id') == $post['Post']['created_person_id']){
+            $mine = true;
+        }
+        
+        $this->set('mine', $mine);
         
     }       
     

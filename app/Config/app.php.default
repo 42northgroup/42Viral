@@ -249,3 +249,9 @@ define('MINIFY_ASSETS', true);
  * When set to true this overrides the native hash checking functionality and forces a new asset build
  */
 define('FORCE_NEW_ASSETS', false);
+
+/**
+ * Privide a standard warning for all purges/hard deletions
+ */
+Configure::write('System.purge_warning',
+                    __('Are you sure you want to delete this? \n This action CANNOT be reversed!')); 
