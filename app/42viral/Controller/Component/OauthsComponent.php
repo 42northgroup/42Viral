@@ -75,9 +75,19 @@ class OauthsComponent  extends Component
                 
             case 'linked_in':
                 
-                if( $this->Session->check('LinkedIn.oauth_token') ){                    
+                $expired = false;
+                $token_expires = $this->Session->read('LinkedIn.oauth_expires');
+                $token_created = $this->Session->read('LinkedIn.oauth_created');
+
+                if( ($token_created + $token_expires) <= strtotime('now') ){
+                    $expired = true;
+                }
+
+                if( $this->Session->check('LinkedIn.oauth_token') && ($expired == false) ){
+
                     return true;
-                }else{                    
+                }else{
+                    
                     $this->Session->write('Auth.redirect', '/'.$redirect_url);
                     $this->Controller->redirect('/oauth/linkedin_connect/');
                 }

@@ -104,10 +104,12 @@ class LinkedinSource extends DataSource {
                 'oauth_token_secret' => $queryData['conditions']['oauth_token_secret']    
             )            
         );
+
         
         $response = $this->HttpSocketOauth->request($request);
         
         $response = simplexml_load_string($response);
+        
         $update_content = 'update-content';
         $person_activities = 'person-activities';
         $first_name = 'first-name';

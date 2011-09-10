@@ -76,13 +76,23 @@ class FacebookSource extends DataSource {
      * @return type 
      */
     public function read($model, $queryData = array()) {
-                        
-        $graph_url = "https://graph.facebook.com/me/statuses?access_token=" 
-        . $queryData['conditions']['oauth_token']
-        . '&limit=' . $queryData['limit'];
-                
-        $response = json_decode(file_get_contents($graph_url));
         
+        $request = array(
+            'uri' => array(
+                'scheme' => 'https',
+                'host' => 'graph.facebook.com',
+                'path' => '/me/statuses',
+                'query' => array(
+                    'access_token' => $queryData['conditions']['oauth_token'],
+                    'limit' => $queryData['limit']
+                )
+            ),
+            'method' => 'GET'
+        );
+
+        $response = json_decode($this->HttpSocketOauth->request($request));
+        
+
         $results = array();
         foreach ($response->data as $status) {
             $status_update['from'] = $status->from->name;
