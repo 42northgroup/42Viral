@@ -1,11 +1,9 @@
-
-
 <h1>Profiles</h1>
 
 <div id="ResultsPage">
     <?php foreach($users as $user):?>
 
-        <div class="clearfix">  
+        <div class="clearfix status">  
 
             <div style="float:left; width:74px">
                 <?php echo $this->Member->avatar($user['User'], 64); ?>
@@ -17,7 +15,6 @@
                         170, array('ending' => '...', 'exact' => true, 'html' => true)); ?>
             </div>
         </div>
-        <hr />
 
     <?php endforeach; ?>
 </div>
