@@ -141,8 +141,7 @@ abstract class OauthAbstractController extends AppController
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-        
-        
+                
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('Twitter.oauth_token', $response['oauth_token']);            
   
@@ -211,10 +210,14 @@ abstract class OauthAbstractController extends AppController
 
         // Redirect user to LinkedIn to authorize  my application
         parse_str($response, $response);
+        
         //pr($response); die();
         //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
         //so that we can use it when we are signing the oauth_access_token request
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
+        $this->Session->write('LinkedIn.oauth_expires', $response['oauth_expires_in']);
+        $this->Session->write('LinkedIn.oauth_created', strtotime('now'));
+
         $this->redirect('https://www.linkedin.com/uas/oauth/authenticate?oauth_token=' . $response['oauth_token']);
     }
 
@@ -340,23 +343,42 @@ abstract class OauthAbstractController extends AppController
 
         $this->serviceConfiguration('Facebook', 3);
         
-        $token_url = "https://graph.facebook.com/oauth/access_token?"
-        . "client_id=" . Configure::read('Facebook.consumer_key')
-        . "&redirect_uri=" . urlencode(Configure::read('Facebook.callback'). '/' . $get_token)
-        . "&client_secret=" . Configure::read('Facebook.consumer_secret')
-        . "&code=" . $this->params['url']['code'];
-
-        $response = file_get_contents($token_url);
+        $request = array(
+            'uri' => array(
+                'scheme' => 'https',
+                'host' => 'graph.facebook.com',
+                'path' => '/oauth/access_token',
+                'query' => array(
+                    'client_id' => Configure::read('Facebook.consumer_key'),
+                    'redirect_uri' => Configure::read('Facebook.callback'). '/' . $get_token,
+                    'client_secret' => Configure::read('Facebook.consumer_secret'),
+                    'code' => $this->params['url']['code']
+                )
+            ),
+            'method' => 'GET'
+        );
+        
+        $response = $this->HttpSocketOauth->request($request);
         $params = null;
         parse_str($response, $params);
 
-        $graph_url = "https://graph.facebook.com/me?access_token="
-        . $params['access_token'];
+        $request1 = array(
+            'uri' => array(
+                'scheme' => 'https',
+                'host' => 'graph.facebook.com',
+                'path' => '/me',
+                'query' => array(
+                    'access_token' => $params['access_token']
+                )
+            ),
+            'method' => 'GET'
+        );
+
         
         $this->Session->write('Facebook.oauth_token', $params['access_token']);
                       
-        $user = json_decode(file_get_contents($graph_url));
-
+        $user = json_decode($this->HttpSocketOauth->request($request1));
+        
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('facebook', $user->id, $this->Session->read('Auth.User.id'))){
