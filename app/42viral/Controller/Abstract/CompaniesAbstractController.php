@@ -85,6 +85,9 @@ abstract class CompaniesAbstractController extends AppController
     public function view($slug)
     {
         $mine = false;
+        
+        //Holds the connection "status" of a various service queries
+        $connect = array();
         //$company = $this->Company->fetchCompanyByNameWith($companyName);
         $company = $this->Company->fetchCompanyWith($slug, array('Address'));
 
@@ -93,9 +96,29 @@ abstract class CompaniesAbstractController extends AppController
         $googleResults = null;
 
         if(!empty($company)) {
-            $yahooResults = $this->__profileDoYahoo($company);
-            $yelpResults = $this->__profileDoYelp($company);
-            $googleResults = array();
+            App::uses('ConnectionManager', 'Model');
+            
+            try{
+                $connect['yahoo'] = ConnectionManager::getDataSource('yahoo');
+                $yahooResults = $this->__profileDoYahoo($company);
+            }catch(Exception $e){
+                $connect['yahoo'] = false;
+            }
+            
+            try{
+                $connect['yelp'] = ConnectionManager::getDataSource('yelp');
+                $yelpResults = $this->__profileDoYelp($company);
+            }catch(Exception $e){
+                $connect['yelp'] = false;
+            }            
+            
+            try{
+                $connect['google'] = ConnectionManager::getDataSource('google');
+                $googleResults = array();
+            }catch(Exception $e){
+                $connect['google'] = false;
+            }
+            
         }
 
         $webResults = array(
@@ -113,6 +136,7 @@ abstract class CompaniesAbstractController extends AppController
         }        
         
         $this->set('mine', $mine);
+        $this->set('connect', $connect);
     }
 
     /**
