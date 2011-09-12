@@ -47,7 +47,7 @@ abstract class ProfileAbstract extends AppModel
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',
-                'htmlStrict' => array('bio')
+                'htmlStrict' => array('tease')
             )
         )
     );
@@ -137,7 +137,7 @@ abstract class ProfileAbstract extends AppModel
                $progress += 20;
            }
 
-           if(!empty($userProfile['Profile']['bio'])) {
+           if(!empty($userProfile['Profile']['tease'])) {
                $progress += 80;
            }
        }

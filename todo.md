@@ -16,8 +16,6 @@
 
 ## Asset Helper theme compatibility
 
-## ACL lists, AROs and ACOs
-
 Port from the original project.
 
 ## Auto Save
@@ -25,3 +23,4 @@ Port from the original project.
 ## Comment engine for blog posts and such
 
 ## Forums
+
