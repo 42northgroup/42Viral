@@ -151,14 +151,26 @@ abstract class MembersAbstractController extends AppController {
             switch ($val){
                 
                 case 'facebook':
-                    $this->Oauths->check_session_for_token('facebook', $redirect_url);
+                    if( !$this->Oauths->check_session_for_token('facebook', $redirect_url) ){
+                        
+                        $this->redirect('/oauth/facebook_connect/');
+                    }
+                    
                     break;
                 
                 case 'linked_in':
-                    $this->Oauths->check_session_for_token('linked_in', $redirect_url);
+                    if( !$this->Oauths->check_session_for_token('linked_in', $redirect_url) ){
+                        
+                        $this->redirect('/oauth/linkedin_connect/');
+                    }
+                    
                     break;
                 case 'twitter':
-                    $this->Oauths->check_session_for_token('twitter', $redirect_url);
+                    if( !$this->Oauths->check_session_for_token('twitter', $redirect_url) ){
+                        
+                        $this->Controller->redirect('/oauth/twitter_connect/');
+                    }
+                    
                     break;
             }
         }
