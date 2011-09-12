@@ -169,7 +169,7 @@ abstract class MembersAbstractController extends AppController {
             'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id'))            
         ));
         
-        $statuses = array();
+        $statuses['posts'] = array();
         
         foreach($sm as $media){
             
@@ -178,41 +178,65 @@ abstract class MembersAbstractController extends AppController {
                 case 'facebook':
                     
                     $this->loadModel('Facebook');
-                    $statuses = array_merge($statuses, $this->Facebook->find('all', array(
-                        'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token')),
-                        'limit'=>5
-                    )));
+                    
+                    try{
+                        
+                        $statuses['posts'] = array_merge($statuses['posts'], $this->Facebook->find('all', array(
+                            'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token')),
+                            'limit'=>5
+                        )));
+                    }catch(Exception $e){
+                        
+                        $statuses['connection']['Facebook'] = false;
+                    }
+                    
                     break;
                 
                 case 'linked_in':
                     
                     $this->loadModel('Linkedin');
-                    $statuses = array_merge($statuses, $this->Linkedin->find('all', array(
-                        'conditions' => array(
-                            'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
-                            'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
-                        )
-                    )));
+                    
+                    try{
+                        
+                        $statuses['posts'] = array_merge($statuses['posts'], $this->Linkedin->find('all', array(
+                            'conditions' => array(
+                                'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
+                                'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
+                            )
+                        )));                        
+                    }catch(Exception $e){
+                        
+                        $statuses['connection']['LinkedIn'] = false;
+                    }
+                    
                     break;
                 
                 case 'twitter':
                     
                     $this->loadModel('Tweet');
-                    $statuses = array_merge($statuses, $this->Tweet->find('all', array(
-                        'conditions' => array('username' => $media['Oauth']['oauth_id'])
-                    )));
+                    
+                    try{
+                        
+                        $statuses['posts'] = array_merge($statuses['posts'], $this->Tweet->find('all', array(
+                            'conditions' => array('username' => $media['Oauth']['oauth_id'])
+                        )));
+                    }catch (Exception $e){
+                        
+                        $statuses['connection']['Twitter'] = false;
+                    }
+                    
                     break;
                             
             }
         }
         
-        
-        for($x = 0; $x < count($statuses); $x++) {
-          for($y = 0; $y < count($statuses); $y++) {
-            if($statuses[$x]['time'] > $statuses[$y]['time']) {
-                $hold = $statuses[$x];
-                $statuses[$x] = $statuses[$y];
-                $statuses[$y] = $hold;
+                
+        for($x = 0; $x < count($statuses['posts']); $x++) {
+          for($y = 0; $y < count($statuses['posts']); $y++) {
+            if($statuses['posts'][$x]['time'] > $statuses['posts'][$y]['time']) {
+                $hold = $statuses['posts'][$x];
+                $statuses['posts'][$x] = $statuses['posts'][$y];
+                $statuses['posts'][$y] = $hold;
             }
           }
         }

@@ -19,7 +19,15 @@
     
     <h2>Social Media Stream</h2>
     
-    <?php foreach ($statuses as $status): ?>
+    <?php 
+    if( isset($statuses['connection']) ):
+        foreach($statuses['connection'] as $key => $val):
+            echo $key.' does not seem to be responding, please try again later.<br/>';
+        endforeach;
+    endif; 
+    ?>
+    
+    <?php foreach ($statuses['posts'] as $status): ?>
     
         <?php if($status['post'] != ''): ?>
         <div class="clearfix status">
