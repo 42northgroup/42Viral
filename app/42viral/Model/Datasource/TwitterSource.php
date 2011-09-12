@@ -87,8 +87,19 @@ class TwitterSource extends DataSource {
         $url = "http://api.twitter.com/statuses/user_timeline/";
 
         $url .= "{$queryData['conditions']['username']}.json";
-        $response = json_decode(file_get_contents($url), true);
+        
+        $request = array(
+            'uri' => array(
+                'scheme' => 'http',
+                'host' => 'api.twitter.com',
+                'path' => "/statuses/user_timeline/{$queryData['conditions']['username']}.json"
+            ),
+            'method' => 'GET'
+        );
+        
+        $response = json_decode($this->HttpSocketOauth->request($request), true);
         $results = array();
+        
         foreach ($response as $record) {
             $record = array('Tweet' => $record);
             $record['User'] = $record['Tweet']['user'];
