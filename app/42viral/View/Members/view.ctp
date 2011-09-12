@@ -11,7 +11,7 @@
     </div>
     
 </div>
-<?php echo $user['Profile']['bio']; ?>
+<?php echo $user['Profile']['tease']; ?>
 
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 

@@ -17,6 +17,7 @@
  * @author Jason D Snider <jsnider77@gmail.com>
  */
 ?>
+
 <h1>Blogs</h1>
 
 <div id="ResultsPage">

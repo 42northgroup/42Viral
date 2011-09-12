@@ -11,7 +11,7 @@
 
             <div style="float:left;  width:500px">
                 <h2><?php echo $this->Member->displayName($user['User']); ?></h2>
-                <?php echo $this->Text->truncate($user['Profile']['bio'], 
+                <?php echo $this->Text->truncate($user['Profile']['tease'], 
                         170, array('ending' => '...', 'exact' => true, 'html' => true)); ?>
             </div>
         </div>
