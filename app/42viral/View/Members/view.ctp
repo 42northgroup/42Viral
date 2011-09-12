@@ -11,14 +11,9 @@
     </div>
     
 </div>
+<?php echo $user['Profile']['tease']; ?>
 
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
-
-<div class="section-box">
-    <p>
-        <?php echo $user['Profile']['bio']; ?>
-    </p>
-</div>
 
 <div id="ResultsPage">
     

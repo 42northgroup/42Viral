@@ -41,10 +41,16 @@
     <img src="http://l.yimg.com/a/i/brand/purplelogo/uh/us/local.gif"
          title="Yahoo Local Search Results"
          alt="Yahoo Local Search Results" />
-
+    
     <?php if($web_results['yahoo']['totalResultsAvailable'] <= 0): ?>
 
         <h3>No listings found</h3>
+        
+        <?php 
+            if(!$connect['yahoo']):
+                echo 'Yahoo! does not seem to be responding, please try again later.';
+            endif; 
+        ?>
 
     <?php else: ?>
 
@@ -107,7 +113,11 @@
     <?php if($web_results['yelp']['total'] <= 0): ?>
 
         <h3>No listings found</h3>
-
+        <?php 
+            if(!$connect['yelp']):
+                echo 'Yelp does not seem to be responding, please try again later.';
+            endif; 
+        ?>
     <?php else: ?>
 
         <table>
