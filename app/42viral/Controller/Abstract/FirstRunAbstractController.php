@@ -56,6 +56,7 @@ abstract class FirstRunAbstractController extends AppController {
     public function truncate(){
         $this->Aco->query('TRUNCATE acos;');
         $this->Aro->query('TRUNCATE aros;');
+        $this->Aro->query('TRUNCATE aros_acos;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
         $this->flash('Truncation complete. Begining ACL based privledge set up...', '/first_run/root_acl');
@@ -182,10 +183,7 @@ abstract class FirstRunAbstractController extends AppController {
             $i=0;
             if($this->Group->save($group['Group'])){
                 $i++;
-                
-                $this->Acl->Aco->create(array('parent_id'=>1, 'alias' => $group['Group']['alias'] . '-group', 0, 0));
-                $this->Acl->Aco->save();
-
+                                
                 $this->Acl->Aro->create(array(
                     'model' => 'Group',
                     'foreign_key' => $group['Group']['id'],

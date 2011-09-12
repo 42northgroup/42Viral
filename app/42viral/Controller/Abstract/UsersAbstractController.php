@@ -37,7 +37,7 @@ abstract class UsersAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $components = array('Access', 'ProfileProgress', 'Oauths');
+    public $components = array('Access', 'ProfileProgress', 'Oauths', 'ControllerList');
 
 
     /**
@@ -146,9 +146,19 @@ abstract class UsersAbstractController extends AppController
                 $this->Acl->Aro->create(array(
                     'model'=>'User',
                     'foreign_key'=>$user['User']['id'],
+                    'parent_id'=>2, 
                     'alias'=>$user['User']['username'], 0, 0));
 
                 $this->Acl->Aro->save();
+                
+                $controllers = $this->ControllerList->get();
+            
+                foreach($controllers as $key => $val){
+                    foreach($controllers[$key] as $index => $action){
+
+                        $this->Acl->inherit($user['User']['username'],$key.'-'.$action,'*');
+                    }
+                }
 
                 if($this->Auth->login($user)){
 
@@ -183,16 +193,7 @@ abstract class UsersAbstractController extends AppController
                     'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
 
                 $this->Acl->Aro->save();
-                
-                $this->Acl->Aco->create(array(
-                    'model'=>'AclGroup',
-                    'parent_id'=>1,
-                    'foreign_key'=>$acl_group['AclGroup']['id'],
-                    'alias'=>$acl_group['AclGroup']['alias'].'-group'
-                    ));
-
-                $this->Acl->Aco->save();
-
+                                
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
                 $this->Session->setFlash('Your account could not be created','error');

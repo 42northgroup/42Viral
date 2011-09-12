@@ -77,7 +77,7 @@ abstract class PrivilegesAbstractController extends AppController {
         ));
         
         $acl_groups = $this->Aro->find('list', array(
-            'conditions' => array('Aro.model' => 'AclGroup'),
+            'conditions' => array('Aro.model' => 'Group'),
             'fields' => array('Aro.id', 'Aro.alias')
         ));
         
@@ -97,19 +97,26 @@ abstract class PrivilegesAbstractController extends AppController {
             }
         }
         
-        foreach($acos as $key => $val){
-            $aco_alias = explode('-',$val);
-            
-            if(isset($aco_alias[1]) && $aco_alias[1] == 'group'){
-                $controllers[$aco_alias[0]] = array();
-                array_push($controllers[$aco_alias[0]], $aco_alias[1]);
-            }
-        }
         
         $this->set('controllers', $controllers);
         $this->set('privileges', $this->fetchPrivileges($username));
         
         if(!empty ($this->data)){
+            
+            $aro_group = false;
+            
+            $aro = $this->Aro->findByAlias($username);
+            
+            if( $aro['Aro']['model']=='Group' ){
+                
+                $aro_group = true;
+                
+                $group_members = $this->Aro->find('list', array(
+                    'conditions' => array('Aro.parent_id' => $aro['Aro']['id']),
+                    'fields' => array('Aro.id', 'Aro.alias')
+                ));
+            }
+            
             foreach($this->data as $controller => $action){
                 if($controller != '_Token'){
                     
@@ -122,10 +129,19 @@ abstract class PrivilegesAbstractController extends AppController {
                             }elseif($value == 0){
                                 $this->Acl->deny($username,$controller.'-'.$function, $perm);
                             }
+                            
+                            if($aro_group == true){
+                                foreach ($group_members as $member){
+                                    $this->Acl->inherit($member,$controller.'-'.$function, $perm);
+                                }
+                            }
                         }
                     }
                 }
             }
+            
+            
+            
             $this->redirect('/admin/privileges/user_privileges/'.$username);
         }
     }
@@ -251,7 +267,7 @@ abstract class PrivilegesAbstractController extends AppController {
     public function fetchPrivileges($username)
     {
         $aro = $this->Aro->findByAlias($username);
-        if( $aro['Aro']['model']=='AclGroup' ){
+        if( $aro['Aro']['model']=='Group' ){
             $this->set('is_group',1);
         }
                 
@@ -273,7 +289,7 @@ abstract class PrivilegesAbstractController extends AppController {
                             $privileges[$controller_action[0]][$controller_action[1]][$perm] = $val;
                         }else{
                             $privileges[$controller_action[0]][$controller_action[1]][$perm] = 
-                                            isset($aro_group['Aco'][$x])?$aro_group['Aco'][$x]['Permission'][$key]:0;
+                                            isset($aro_group['Aco'][$x])?$aro_group['Aco'][$x]['Permission'][$key]:-1;
                         }
                     }
                 }
