@@ -37,6 +37,15 @@ code{
     overflow: scroll;
 }
 
+h1{
+    margin:0 0 2px;
+}
+
+h2, 
+h3{
+    margin:4px 0 2px;
+}
+
 /* results pages */
 #ResultsPage h1{
     margin-bottom:6px;
@@ -50,7 +59,8 @@ code{
     margin-bottom: 4px;
 }
 
-.status{
+.status,
+.result{
     border-bottom: 1px solid #efefef;
     padding:0 0 4px;
     margin:0 0 6px;

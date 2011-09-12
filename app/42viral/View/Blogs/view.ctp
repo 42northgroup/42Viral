@@ -19,12 +19,14 @@
 
 <div id="ResultsPage">
     <?php foreach($blog['Post'] as $post): ?>
+    <div class="result">
         <h2><?php echo $this->Html->link($post['title'], $post['url']); ?></h2>
         <div class="tease">
         <?php 
             echo $this->Text->truncate($post['tease'], 200,array('ending' => '...', 'exact' => true, 'html' => true)); 
         ?>
         </div>
+    </div>
     <?php endforeach; ?>
 </div>
 

@@ -43,7 +43,7 @@ echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.U
 echo $this->Form->input('Person.first_name');
 echo $this->Form->input('Person.last_name');
 
-echo $this->Form->input('bio', array('class' => 'edit-basic'));
+echo $this->Form->input('tease', array('class' => 'edit-basic'));
 
 echo $this->Form->submit('Submit');
 
