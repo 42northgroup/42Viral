@@ -57,7 +57,8 @@ class OauthsComponent  extends Component
                     return true;
                 }else{                
                     $this->Session->write('Auth.redirect', '/'.$redirect_url);
-                    $this->Controller->redirect('/oauth/facebook_connect/');
+                    //$this->Controller->redirect('/oauth/facebook_connect/');
+                    return false;
                 }
                 
                 break;
@@ -68,7 +69,8 @@ class OauthsComponent  extends Component
                     return true;
                 }else{
                     $this->Session->write('Auth.redirect', '/'.$redirect_url);
-                    $this->Controller->redirect('/oauth/twitter_connect/');
+                    //$this->Controller->redirect('/oauth/twitter_connect/');
+                    return false;
                 }
                 
                 break;
@@ -86,10 +88,11 @@ class OauthsComponent  extends Component
                 if( $this->Session->check('LinkedIn.oauth_token') && ($expired == false) ){
 
                     return true;
-                }else{
+                }else{                    
                     
-                    $this->Session->write('Auth.redirect', '/'.$redirect_url);
-                    $this->Controller->redirect('/oauth/linkedin_connect/');
+                    $this->Session->write('Auth.redirect', '/'.$redirect_url);                    
+                    //$this->Controller->redirect('/oauth/linkedin_connect/');
+                    return false;
                 }
                 
                 break;
