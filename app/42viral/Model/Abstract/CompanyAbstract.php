@@ -46,7 +46,7 @@ abstract class CompanyAbstract extends AppModel
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
-                'noHtml'=>array('name', 'description', 'keywords'),
+                'noHtml'=>array('name', 'description', 'keywords', 'phone1'),
                 'htmlStrict'=>array('body'),
             )
         ),
