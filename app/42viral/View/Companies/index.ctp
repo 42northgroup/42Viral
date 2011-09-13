@@ -28,22 +28,9 @@
 <?php endif; ?>
     
 <div id="ResultsPage">
-<?php foreach($companies as $tempCompany): ?>
-    <h2><?php echo $this->Html->link($tempCompany['name'], $tempCompany['public_url']); ?></h2>
-
-        <?php 
-        echo $this->Text->truncate($tempCompany['body'], 
-                200, array('ending' => '...', 'exact' => true, 'html' => true));
-        /*
-        echo $tempCompany['phone1'];
-        if(isset($tempCompany['Address']) && !empty($tempCompany['Address'])):
-            foreach($tempCompany['Address'] as $tempAddress):
-                echo $this->Html->div(null, $tempAddress['_us_full_address']);
-            endforeach;
-        endif; 
-        */
-        ?>
-        
+<?php foreach($companies as $company): ?>
+    <h2><?php echo $this->Html->link($company['name'], $company['public_url']); ?></h2>
+    <?php echo $company['tease']; ?>
 <?php endforeach; ?>
 </div>
 
