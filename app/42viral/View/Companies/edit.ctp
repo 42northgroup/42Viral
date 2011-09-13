@@ -53,7 +53,8 @@
     echo $this->Form->input('Company.tease', 
     	array(
     	    'label'=>array( 
-    	    	'title'=>'How much can you say about your company in 140 characters?'
+    	    	'title'=>'How much can you say about your company in 140 characters?',
+    	    	'class'=>'help'
     	    ), 
     		'type'=>'textarea', 
     		'rows'=>2

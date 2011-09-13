@@ -37,3 +37,7 @@ select{
     color: #444; 
     font-weight: normal;
 }
+
+label{
+	font-weight: bold;
+}

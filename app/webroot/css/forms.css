@@ -30,7 +30,9 @@ textarea{
     padding: 3px;
 }
 
-label{}
+label.help:after{
+	content: ' [?]';
+}
 
 .required label:after {
 	color: #900;
