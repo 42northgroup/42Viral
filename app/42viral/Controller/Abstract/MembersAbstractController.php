@@ -168,7 +168,7 @@ abstract class MembersAbstractController extends AppController {
                 case 'twitter':
                     if( !$this->Oauths->check_session_for_token('twitter', $redirect_url) ){
                         
-                        $this->Controller->redirect('/oauth/twitter_connect/');
+                        $this->redirect('/oauth/twitter_connect/');
                     }
                     
                     break;
@@ -214,7 +214,8 @@ abstract class MembersAbstractController extends AppController {
                             'conditions' => array(
                                 'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
                                 'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
-                            )
+                            ),
+                            'limit' => 5
                         )));                        
                     }catch(Exception $e){
                         
@@ -230,7 +231,8 @@ abstract class MembersAbstractController extends AppController {
                     try{
                         
                         $statuses['posts'] = array_merge($statuses['posts'], $this->Tweet->find('all', array(
-                            'conditions' => array('username' => $media['Oauth']['oauth_id'])
+                            'conditions' => array('username' => $media['Oauth']['oauth_id']),
+                            'limit' => 5
                         )));
                     }catch (Exception $e){
                         

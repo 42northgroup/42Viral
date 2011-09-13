@@ -91,7 +91,6 @@ class FacebookSource extends DataSource {
         );
 
         $response = json_decode($this->HttpSocketOauth->request($request));
-        
 
         $results = array();
         foreach ($response->data as $status) {

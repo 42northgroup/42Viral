@@ -80,7 +80,7 @@ abstract class UserAbstract extends PersonAbstract
         'verify_password' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' =>"Please varfiy your password",
+                'message' =>"Please verfiy your password",
                 'last' => true
             ),
             'verifyPassword' => array(
@@ -161,6 +161,37 @@ abstract class UserAbstract extends PersonAbstract
             $userProfile['owner_person_id'] = $this->id;
             $this->Profile->save($userProfile);
 
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+    
+    /**
+     *
+     * @param data array - A 1 deminisonal array focused in the user data
+     * @return boolean
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @access public
+     * @todo Complete and harden
+     */
+    public function changePassword($data)
+    {
+        $this->create();
+
+        //Create a salt value for the user
+        $salt = Sec::makeSalt();
+
+        //Load salt into the data array
+        $data['salt'] = $salt;
+
+        //Hash the password and its verifcation then load it into the data array
+        $data['password'] = Sec::hashPassword($data['password'], $salt);
+        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
+
+        //Try to save the new user record
+        if($this->save($data)){
             return true;
         }else{
             return false;

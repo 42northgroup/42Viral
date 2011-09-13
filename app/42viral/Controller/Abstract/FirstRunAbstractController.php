@@ -29,7 +29,7 @@ abstract class FirstRunAbstractController extends AppController {
     public $name = 'FirstRun';
 
     public $components = array('ControllerList');
-    public $uses = array('Aco', 'AclGroup', 'Aro', 'Group', 'Person', 'User');
+    public $uses = array('Aco', 'AclGroup', 'Aro', 'Group', 'Person', 'User', 'ArosAco');
 
 
     public function beforeFilter()
@@ -56,7 +56,7 @@ abstract class FirstRunAbstractController extends AppController {
     public function truncate(){
         $this->Aco->query('TRUNCATE acos;');
         $this->Aro->query('TRUNCATE aros;');
-        $this->Aro->query('TRUNCATE aros_acos;');
+        $this->ArosAco->query('TRUNCATE aros_acos;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
         $this->flash('Truncation complete. Begining ACL based privledge set up...', '/first_run/root_acl');
@@ -191,10 +191,8 @@ abstract class FirstRunAbstractController extends AppController {
 
                 $this->Acl->Aro->save();
                 
-                if($i == ($count)){
-                    $this->Session->setFlash(
-                            __('Auto setup complete; finish the root configuration'), 'success');
-                    $this->flash('Default groups created. Configuring root...', '/first_run/configure_root');
+                if($i == ($count)){                    
+                    $this->flash('Default groups created. Assign permisions...', '/first_run/give_permissions');
                 }
             }else{
                 $this->Group->query('TRUNCATE groups;');
@@ -203,7 +201,44 @@ abstract class FirstRunAbstractController extends AppController {
         }         
     }
     
-    /**
+    public function give_permissions($username='basic_user')
+    {
+        $controllers = $this->ControllerList->get();
+        $this->set('username', $username);
+        
+        $acos = $this->Aco->find('list', array(
+            'fields' => array('Aco.id', 'Aco.alias')
+        ));
+                
+        $this->set('controllers', $controllers);
+                
+        if(!empty ($this->data)){
+                                    
+            foreach($this->data as $controller => $action){
+                if($controller != '_Token'){
+                    
+                    foreach ($this->data[$controller] as $function => $permission){
+                        
+                        foreach ($this->data[$controller][$function] as $perm => $value){
+                            
+                            if($value == 1){
+                                $this->Acl->allow($username,$controller.'-'.$function, $perm);
+                            }elseif($value == 0){
+                                $this->Acl->deny($username,$controller.'-'.$function, $perm);
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            $this->Session->setFlash(
+                    __('Auto setup complete; finish the root configuration'), 'success');
+            $this->flash('Default groups created. Configuring root...', '/first_run/configure_root');            
+        }
+    }
+
+        /**
      * Sets up the root user
      * @return void
      * @access public

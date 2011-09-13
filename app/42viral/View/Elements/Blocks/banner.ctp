@@ -29,6 +29,8 @@
                 echo $this->Html->link('Companies', '/companies/index/' . $this->Session->read('Auth.User.username'));
                 echo ' / ';
                 echo $this->Html->link('Connect', '/oauth/connect/' );
+                echo ' / ';
+                echo $this->Html->link('Settings', '/users/settings/' );
             ?>
         </div>
 
