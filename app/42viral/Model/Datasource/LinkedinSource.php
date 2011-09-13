@@ -91,7 +91,7 @@ class LinkedinSource extends DataSource {
                 'host' => 'api.linkedin.com',
                 'path' => '/v1/people/~/network/updates',
                 'query' => array(
-                    'count' => '30',
+                    'count' => $queryData['limit'],
                     'scope' => 'self'
                 )
             ),

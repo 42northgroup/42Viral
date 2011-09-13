@@ -141,13 +141,11 @@ abstract class UsersAbstractController extends AppController
 
             if($this->User->createUser($this->data['User'])){
 
-                $user = $this->User->findByUsername($this->data['User']['username']);
-
                 $this->Acl->Aro->create(array(
                     'model'=>'User',
-                    'foreign_key'=>$user['User']['id'],
+                    'foreign_key'=>$this->User->id,
                     'parent_id'=>2, 
-                    'alias'=>$user['User']['username'], 0, 0));
+                    'alias'=>$this->data['User']['username'], 0, 0));
 
                 $this->Acl->Aro->save();
                 
@@ -156,13 +154,16 @@ abstract class UsersAbstractController extends AppController
                 foreach($controllers as $key => $val){
                     foreach($controllers[$key] as $index => $action){
 
-                        $this->Acl->inherit($user['User']['username'],$key.'-'.$action,'*');
+                        $this->Acl->inherit($this->data['User']['username'],$key.'-'.$action,'*');
                     }
                 }
 
+                $user = $this->User->findByUsername($this->data['User']['username']);
+                
                 if($this->Auth->login($user)){
 
                     $this->Session->write('Auth.User', $user['User']);
+                    $this->Access->permissions($user['User']);
 
                     $this->Session->setFlash('Your account has been created and you have been logged in','success');
                     $this->redirect($this->Auth->redirect());
@@ -278,6 +279,46 @@ abstract class UsersAbstractController extends AppController
             
             $this->Session->setFlash('Your social media has been updated', 'success');
             $this->redirect('/users/social_media');
+        }
+    }
+    
+    public function settings($token=null)
+    {
+        // If we have no token, we will use the logged in user.
+        if(is_null($token)) {
+            $token = $this->Session->read('Auth.User.username');
+        }
+
+        //Get the user data
+        $user = $this->User->getUserWith($token, array(
+            'Profile', 'Content', 'Upload', 'Company' => array('Address')
+        ));
+
+        //Does the user really exist?
+        if(empty($user)) {
+            $this->Session->setFlash(__('An invalid user was requested') ,'error');
+            throw new NotFoundException('An invalid user was requested');
+        }             
+        
+        $this->set('user', $user);
+        
+        $userProfile['Person'] = $user['User'];
+        $this->set('userProfile', $userProfile);
+    }
+    
+    public function change_password()
+    {
+        if(!empty ($this->data)){
+            
+            if($this->User->changePassword($this->data['Person'])){
+                
+                $this->Session->setFlash('Password was changed successfully', 'success');
+                $this->redirect('/users/settings');
+            }else{
+                
+                $this->Session->setFlash('An error occured, password could not be changed', 'error');
+                $this->redirect('/users/settings');
+            }
         }
     }
 }

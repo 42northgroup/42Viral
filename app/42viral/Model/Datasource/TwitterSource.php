@@ -88,11 +88,15 @@ class TwitterSource extends DataSource {
 
         $url .= "{$queryData['conditions']['username']}.json";
         
+       
         $request = array(
             'uri' => array(
                 'scheme' => 'http',
                 'host' => 'api.twitter.com',
-                'path' => "/statuses/user_timeline/{$queryData['conditions']['username']}.json"
+                'path' => "/statuses/user_timeline/{$queryData['conditions']['username']}.json",
+                'query' => array(
+                    'count' => $queryData['limit']
+                )
             ),
             'method' => 'GET'
         );
