@@ -47,7 +47,8 @@ abstract class ProfileAbstract extends AppModel
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',
-                'htmlStrict' => array('tease')
+                'htmlStrict' => array('bio'),
+                'noHtml'=>array('tease')
             )
         )
     );
