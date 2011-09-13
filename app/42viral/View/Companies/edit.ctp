@@ -49,6 +49,16 @@
     ));
     echo $this->Form->input('Company.id');
     echo $this->Form->input('Company.name');
+    
+    echo $this->Form->input('Company.tease', 
+    	array(
+    	    'label'=>array( 
+    	    	'title'=>'How much can you say about your company in 140 characters?'
+    	    ), 
+    		'type'=>'textarea', 
+    		'rows'=>2
+    ));
+    
     echo $this->Form->input('Company.body', array('class'=>'edit-content'));
     ?>
 
