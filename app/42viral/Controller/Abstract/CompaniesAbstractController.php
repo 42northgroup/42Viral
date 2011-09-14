@@ -87,38 +87,74 @@ abstract class CompaniesAbstractController extends AppController
         $mine = false;
         
         //Holds the connection "status" of a various service queries
-        $connect = array();
-        //$company = $this->Company->fetchCompanyByNameWith($companyName);
         $company = $this->Company->fetchCompanyWith($slug, array('Address'));
 
+        //For reviews and the like we will build 2 arrays. $webResults which will hold the results of all of the 
+        //services query and $connect which hold the connection status of all of the services.
+        $webResults = array();
+        $connect = array();
+        
+        //Each of these represent a single service and a single element in the $webResults array
         $yahooResults = null;
         $yelpResults = null;
         $googleResults = null;
 
+        //If we have a company, get busy
         if(!empty($company)) {
             App::uses('ConnectionManager', 'Model');
             
+            //Try Yahoo! 
+            
+            //Do we have a configuration defined for Yahoo!?
             try{
                 $connect['yahoo'] = ConnectionManager::getDataSource('yahoo');
-                $yahooResults = $this->__profileDoYahoo($company);
+                
+                //Yes, Yahoo! has a configuration defined.
+                //Can we get any results from Yahoo!?
+                try{
+                    $yahooResults = $this->__profileDoYahoo($company);
+                }catch(Exception $e){
+                    $connect['yahoo'] = false;
+                }    
+                
             }catch(Exception $e){
                 $connect['yahoo'] = false;
             }
-            
+                        
+            //Do we have a configuration defined for Yelp?
             try{
-                $connect['yelp'] = ConnectionManager::getDataSource('yelp');
-                $yelpResults = $this->__profileDoYelp($company);
+               $connect['yelp'] = ConnectionManager::getDataSource('yelp');
+               
+                //Yes, Yelp has a configuration defined.
+                //Can we get any results from Yelp?
+                try{
+                    $yelpResults = $this->__profileDoYelp($company);
+                }catch(Exception $e){
+                    $connect['yelp'] = false;
+                }                
+               
             }catch(Exception $e){
                 $connect['yelp'] = false;
-            }            
+            }    
+                        
             
+            //Do we have a configuration for Google?
             try{
+                
                 $connect['google'] = ConnectionManager::getDataSource('google');
-                $googleResults = array();
+                
+                //Yes, Google has a configuration defined.
+                //Can we get any results from Goolge?
+                 try{
+                    $connect['google'] = false; //Auto fail Google until we get it set up
+                    $googleResults = array();
+                }catch(Exception $e){
+                    $connect['google'] = false;
+                }
+                
             }catch(Exception $e){
                 $connect['google'] = false;
-            }
-            
+            }  
         }
 
         $webResults = array(
@@ -127,7 +163,7 @@ abstract class CompaniesAbstractController extends AppController
             'google' => $googleResults
         );
 
-        $this->set('web_results', $webResults);
+        $this->set('webResults', $webResults);
         $this->set('company', $company);
         
         //Are we looking at "MY" account? (Where "MY" == the logged in user.)
