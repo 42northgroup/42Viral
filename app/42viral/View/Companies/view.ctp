@@ -1,6 +1,6 @@
 <?php //pr($company); ?>
-<?php //pr($web_results); ?>
-<?php //pr($web_results['yelp']); ?>
+<?php //pr($webResults); ?>
+<?php //pr($webResults['yelp']); ?>
 
 <div class="clearfix">
     <h1 style="float:left;"><?php echo $company['Company']['name']; ?></h1>
@@ -42,7 +42,7 @@
          title="Yahoo Local Search Results"
          alt="Yahoo Local Search Results" />
     
-    <?php if($web_results['yahoo']['totalResultsAvailable'] <= 0): ?>
+    <?php if($webResults['yahoo']['totalResultsAvailable'] <= 0): ?>
 
         <h3>No listings found</h3>
         
@@ -63,24 +63,24 @@
             </thead>
 
             <tbody>
-                <?php if($web_results['yahoo']['totalResultsAvailable'] == 1): ?>
+                <?php if($webResults['yahoo']['totalResultsAvailable'] == 1): ?>
 
                     <tr>
                         <td>
-                            <a href="<?php echo $web_results['yahoo']['Result']['Url']; ?>">
-                                <?php echo $web_results['yahoo']['Result']['Title']; ?>
+                            <a href="<?php echo $webResults['yahoo']['Result']['Url']; ?>">
+                                <?php echo $webResults['yahoo']['Result']['Title']; ?>
                             </a>
 
                         </td>
 
                         <td>
-                            <?php echo $web_results['yahoo']['Result']['Address']; ?>
+                            <?php echo $webResults['yahoo']['Result']['Address']; ?>
                         </td>
                     </tr>
 
                 <?php else: ?>
 
-                    <?php foreach($web_results['yahoo']['Result'] as $tempResult): ?>
+                    <?php foreach($webResults['yahoo']['Result'] as $tempResult): ?>
                         <tr>
                             <td>
                                 <a href="<?php echo $tempResult['Url']; ?>" target="_blank">
@@ -110,7 +110,7 @@
              alt="Yelp Results"/>
     </a>
 
-    <?php if($web_results['yelp']['total'] <= 0): ?>
+    <?php if($webResults['yelp']['total'] <= 0): ?>
 
         <h3>No listings found</h3>
         <?php 
@@ -122,7 +122,7 @@
 
         <table>
             <tbody>
-                <?php foreach($web_results['yelp']['businesses'] as $tempBusiness): ?>
+                <?php foreach($webResults['yelp']['businesses'] as $tempBusiness): ?>
                     <tr>
                         <td>
                             <?php $tempBusiness = (array) $tempBusiness; ?>
