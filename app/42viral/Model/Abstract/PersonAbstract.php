@@ -166,7 +166,6 @@ abstract class PersonAbstract extends AppModel
         $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
         return $person;
     }
-
       
    /**
     * Returns a person's profile data with the specified associated data. 
