@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h1>Create a Group</h1>
+<h1>Create an ACL Group</h1>
 <?php
 
     echo $this->Form->create('AclGroup', 
@@ -31,5 +31,4 @@
     
     echo $this->Form->submit();
     echo $this->Form->end();
-
 ?>

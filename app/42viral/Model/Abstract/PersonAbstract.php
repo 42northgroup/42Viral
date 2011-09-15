@@ -144,7 +144,7 @@ abstract class PersonAbstract extends AppModel
         $this->virtualFields = array(
             'name' => "CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
             'url' => "CONCAT('/p/',`{$this->alias}`.`username`)",
-            'private_url' => "CONCAT('/members/view/',`{$this->alias}`.`username`)",
+            'admin_url' => "CONCAT('/admin/people/view/',`{$this->alias}`.`username`)",
             'companies_url' => "CONCAT('/companies/',`{$this->alias}`.`username`)",
             'file_write_path' => "CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'image_write_path' => "CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
@@ -194,7 +194,7 @@ abstract class PersonAbstract extends AppModel
             }
 
         }
-        
+
         //Go fetch the profile
         $userPerson = $this->find('first', array(
            'contain' => $with,

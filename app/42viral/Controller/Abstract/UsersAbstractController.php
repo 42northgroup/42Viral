@@ -179,7 +179,13 @@ abstract class UsersAbstractController extends AppController
         }
     }
 
-    public function admin_create_group()
+    public function admin_acl_groups()
+    {
+        $aclGroups = $this->AclGroup->find('all');
+        $this->set('aclGroups', $aclGroups);
+    }   
+    
+    public function admin_create_acl_group()
     {
 
         if(!empty($this->data)){
@@ -206,9 +212,6 @@ abstract class UsersAbstractController extends AppController
     public function admin_index()
     {
         $people = $this->Person->find('all');
-        $acl_groups = $this->AclGroup->find('all');
-
-        $this->set('acl_groups', $acl_groups);
         $this->set('people', $people);
     }    
     
