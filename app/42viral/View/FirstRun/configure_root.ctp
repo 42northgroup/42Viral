@@ -11,6 +11,7 @@
     echo $this->Form->input('email');
     echo $this->Form->input('password');
     echo $this->Form->input('verify_password', array('type'=>'password'));
+    echo $this->Form->input('employee', array('type'=>'hidden', 'value'=>1));
     
     echo $this->Form->submit();
     echo $this->Form->end();
