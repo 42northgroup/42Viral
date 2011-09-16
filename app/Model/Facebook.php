@@ -16,7 +16,7 @@
 App::uses('FacebookAbstract', 'Model');
 
 /** 
- * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  * @package App
  * @subpackage App.core
  */

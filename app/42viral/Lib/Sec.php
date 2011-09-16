@@ -16,7 +16,7 @@ class Sec {
     /**
      * Creates some pseudo random jibberish to be used as a salt value.
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public static function makeSalt(){
@@ -41,7 +41,7 @@ class Sec {
      * @param string $password, The string the user has submitted as their password.
      * @param string $salt, The users unique salt value.
      * @return string
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public static function hashPassword($password, $salt){

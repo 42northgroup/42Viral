@@ -14,8 +14,8 @@
  */
 
 /**
- * @author Jason D Snider <jsnider77@gmail.com>
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
     $this->Asset->addAssets(array(

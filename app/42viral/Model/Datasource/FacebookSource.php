@@ -22,7 +22,7 @@ App::uses('HttpSocket', 'Network/Http');
 App::uses('HttpSocketOauth', 'Lib');
 
 /** 
- * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 
 class FacebookSource extends DataSource {

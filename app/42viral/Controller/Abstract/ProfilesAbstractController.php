@@ -18,8 +18,8 @@ App::uses('AppController', 'Controller');
 /**
  * Generic user profile object
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
- * @author Jason D Snider <jsnider77@gmail.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ ** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ProfilesAbstractController extends AppController {
 

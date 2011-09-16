@@ -22,7 +22,7 @@ abstract class PrivilegesAbstractController extends AppController {
      * Build the initial ACOs table, create an ARO entry for 
      * user "root" and gives him all permissions
      * 
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      */
     public function admin_build_initial_acl()
     {
@@ -62,7 +62,7 @@ abstract class PrivilegesAbstractController extends AppController {
      * Builds a permissions grid for a specific user and allows for permissions
      * to be granted and denied to said user
      * 
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      * @param String $username 
      */
     public function admin_user_privileges($username){
@@ -228,7 +228,7 @@ abstract class PrivilegesAbstractController extends AppController {
      * Attaches a user to an acl_group and has him inherit the 
      * permissions of the group 
      * 
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      */
     public function admin_join_group(){
         
@@ -260,7 +260,7 @@ abstract class PrivilegesAbstractController extends AppController {
     /**
      * Returns all ACL privileges for a given user
      * 
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      * @param String $username
      * @return array 
      */

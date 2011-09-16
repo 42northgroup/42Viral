@@ -17,8 +17,8 @@
 /**
  * Container for handy functions
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
- * @author Jason D Snider <jsnider77@gmail.com> 
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ ** @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy
 {
@@ -26,7 +26,7 @@ class Handy
     /**
      * Deep conversion of a php object to an array recusively
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @param object $obj
      * @return array

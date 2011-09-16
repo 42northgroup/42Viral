@@ -18,6 +18,6 @@ App::uses('CompaniesAbstractController', 'Controller');
 
 /**
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class CompaniesController extends CompaniesAbstractController {}

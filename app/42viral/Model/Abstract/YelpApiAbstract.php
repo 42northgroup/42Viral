@@ -16,7 +16,7 @@
 App::uses('AppModel', 'Model');
 
 /**
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  * @package App
  * @subpackage App.core
  */

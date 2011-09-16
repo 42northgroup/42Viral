@@ -39,8 +39,8 @@ import java.util.Hashtable;
  *
  * @see TokenStream
  *
- * @author Mike McCabe
- * @author Brendan Eich
+ ** @author Mike McCabe
+ ** @author Brendan Eich
  */
 
 public class Parser
