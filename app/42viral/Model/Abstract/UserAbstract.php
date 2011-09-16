@@ -22,7 +22,7 @@ App::uses('Sec', 'Lib');
  * @package app
  * @subpackage app.core
  * 
- * @author Jason D Snider <jsnider77@gmail.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class UserAbstract extends PersonAbstract
 {
@@ -100,7 +100,7 @@ abstract class UserAbstract extends PersonAbstract
 
     /**
      * To be a user, you must have an email and username
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeFind(&$query)
@@ -121,7 +121,7 @@ abstract class UserAbstract extends PersonAbstract
     /**
      * Returns true if the user has submitted the same password twice.
      * @return boolean
-     * @author Jason D Snider <jsnider@microtain.net>
+     ** @author Jason D Snider <jsnider@microtain.net>
      * @access public
      */
     public function verifyPassword()
@@ -137,7 +137,7 @@ abstract class UserAbstract extends PersonAbstract
      *
      * @param data array - A 1 deminisonal array focused in the user data
      * @return boolean
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo Complete and harden
      */
@@ -172,7 +172,7 @@ abstract class UserAbstract extends PersonAbstract
      *
      * @param data array - A 1 deminisonal array focused in the user data
      * @return boolean
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      * @access public
      * @todo Complete and harden
      */
@@ -203,7 +203,7 @@ abstract class UserAbstract extends PersonAbstract
      * Finds a user by username or email
      * @param string $token
      * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getUser($token)
@@ -228,7 +228,7 @@ abstract class UserAbstract extends PersonAbstract
      * Finds a user by username or id
      * @param string $token
      * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getProfile($token)
@@ -255,7 +255,7 @@ abstract class UserAbstract extends PersonAbstract
      *
      * @param string $userId
      * @return array
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      */
     public function getUserWith($token, $with=array())

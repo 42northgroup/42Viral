@@ -22,7 +22,7 @@ App::uses('Controller', 'Controller');
 /**
  * Component class to use for fetching Oauth access tokens
  *
- * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 
 class OauthsComponent  extends Component

@@ -20,7 +20,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- * @author Jason D Snider <jsnider77@gmail.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class PersonAbstract extends AppModel
 {
@@ -221,7 +221,7 @@ abstract class PersonAbstract extends AppModel
      * Returns the data for a single person
      * @param string $username
      * @return array
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getPersonByUsername($username)

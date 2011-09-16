@@ -7,7 +7,7 @@
  *
  * @copyright  Copyright 2011, MicroTrain Technologies  (http://www.microtrain.net)
  * @package    app.core
- * @author     Jason D Snider <jsnider@jsnider77@gmil.com>
+ ** @author     Jason D Snider <jsnider@jsnider77@gmil.com>
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class NullBehavior extends ModelBehavior
@@ -15,7 +15,7 @@ class NullBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     ** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -30,7 +30,7 @@ class NullBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     ** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function beforeSave(&$model)

@@ -7,7 +7,7 @@
  *
  * @copyright  Copyright 2011, MicroTrain Technologies  (http://www.microtrain.net)
  * @package    app.core
- * @author     Jason D Snider <jsnider@microtrain.net>
+ ** @author     Jason D Snider <jsnider@microtrain.net>
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class SeoBehavior extends ModelBehavior
@@ -15,7 +15,7 @@ class SeoBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     ** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -33,7 +33,7 @@ class SeoBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     ** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function beforeSave(&$model)
@@ -58,7 +58,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     * @author Jason D Snider <jsnider77@gmail.com> 
+     ** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __baseSlug(&$model, $title)
     {
@@ -78,7 +78,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $baseSlug
      * @return array 
      * @access private 
-     * @author Jason D Snider <jsnider77@gmail.com> 
+     ** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __ambiguity(&$model,$baseSlug)
     {
@@ -91,7 +91,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     * @author Jason D Snider <jsnider77@gmail.com> 
+     ** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __slug(&$model, $baseSlug)
     {
@@ -113,7 +113,7 @@ class SeoBehavior extends ModelBehavior
      * @param string $slug
      * @return string 
      * @access private 
-     * @author Jason D Snider <jsnider77@gmail.com> 
+     ** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __canonical(&$model, $slug){
         return Configure::read('Domain.url') . strtolower("{$model->alias}/{$slug}/"); 

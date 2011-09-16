@@ -22,8 +22,8 @@ App::uses('GroupAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- * @author Jason D Snider <jsnider77@gmail.com>
- * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 abstract class AclGroupAbstract extends GroupAbstract
 {

@@ -18,7 +18,7 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the address objects
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 abstract class AddressAbstract extends AppModel
 {

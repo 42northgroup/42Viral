@@ -20,7 +20,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- * @author Jason D Snider <jsnider77@gmail.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ContentAbstract extends AppModel
 {
@@ -97,7 +97,7 @@ abstract class ContentAbstract extends AppModel
     /**
      * Returns true if the blog is ready to be published
      * @return boolean 
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function publishable(){

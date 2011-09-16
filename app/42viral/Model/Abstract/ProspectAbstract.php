@@ -20,7 +20,7 @@ App::uses('PersonAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- * @author Jason D Snider <jsnider77@gmail.com>
+ ** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ProspectAbstract extends PersonAbstract
 {
@@ -35,7 +35,7 @@ abstract class ProspectAbstract extends PersonAbstract
      * Inject all "finds" against the Prospect object with prospect filtering criteria
      * @param array $query
      * @return type 
-     * @author Jason D Snider <jsnider77@gmail.com>
+     ** @author Jason D Snider <jason.snider@42viral.org>
      * @access public 
      */
     public function beforeFind(&$query) 
