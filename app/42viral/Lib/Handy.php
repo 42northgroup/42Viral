@@ -80,5 +80,36 @@ class Handy
         return $date;
         
     }
+    
+    /**
+     * Generates a random string
+     * @param integer $length The length of the string
+     * @param boolean $upper Add 
+     * @param boolean $lower
+     * @param boolean $num
+     * @return string 
+     */
+    public static function random($length = 5, $upper = false, $lower = true, $num = true){
+        
+        $characters = '';
+
+        if($num){
+            $characters .= '0123456789';
+        }
+        
+        if($upper){
+            $characters .= 'abcdefghijklmnopqrstuvwxyz';
+        }
+        
+        if($upper){
+            $characters .= 'ABCDEFGHIKLMNOPQRSTUVWXYZ';
+        }
+        
+        $string = '';    
+        for ($i = 0; $i < $length; $i++) {
+            $string .= $characters[mt_rand(0, strlen($characters))];
+        }
+        return $string;
+    }
 
 }
