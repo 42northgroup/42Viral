@@ -18,6 +18,7 @@
  * Container for handy functions
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Jason D Snider <jsnider77@gmail.com> 
  */
 class Handy
 {
@@ -43,41 +44,38 @@ class Handy
     }
     
     /**
-     * Returns a formatted date string, given either a UNIX timestamp or a valid strtotime() date string.
-     * This function also accepts a time string and a format string as first and second parameters.
-     * In that case this function behaves as a wrapper for TimeHelper::i18nFormat()
+     * A wrapper for PHP native date() function. This adds a validation check to prevent the date from falling back
+     * to the epoch
      *
-     * @param string $format date format string (or a DateTime string)
-     * @param string $date Datetime string (or a date format string)
-     * @param boolean $invalid flag to ignore results of fromString == false
-     * @param integer $userOffset User's offset from GMT (in hours)
-     * @return string Formatted date string
+     * @param int $time A unix time stamp
+     * @param string $date DateTime format
+     * @param string $nullMessage The "Not Set" message 
+     * @return string Either a formatted DateTime string or Not Set message
      */
-    public static function date($time = null, $format = 'm/d/y h:i a', $fail = 'Not Set') {
+    public static function date($time, $format = 'm/d/y h:i a', $nullMessage = 'Not Set') {
+        
         $time = self::validTime($time);
         
-        if(is_null($time)){
-            return $fail;
-        }else{
+        if($time){
             return date($format, $time);
+        }else{
+            return $nullMessage;
         }
     }
    
     /**
      * Prevets bad timestamps from defaulting to the epoch
-     * @param type $timestamp
-     * @return type 
+     * @param string $timestamp
+     * @return string 
      * 
      * @see http://stackoverflow.com/questions/2224097/prevent-php-date-from-defaulting-to-12-31-1969
      */
-    public static function validTime($time, $returnNull = true)
+    public static function validTime($time)
     { 
-        
-        $returnNull ? null : '0000-00-00 00:00:00';
         
         $time = strtotime($time);
         
-        $date = ($time === false) ? $returnNull : $time;
+        $date = ($time === false) ? false : $time;
         
         return $date;
         
