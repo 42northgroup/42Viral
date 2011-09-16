@@ -31,7 +31,7 @@ abstract class PeopleAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('Person');
+    public $uses = array('CaseModel', 'Person');
 
     /**
      * @access public
@@ -47,7 +47,23 @@ abstract class PeopleAbstractController extends AppController
     }    
     
    public function admin_view($username){
-       $person = $this->Person->fetchPersonWith($username);
+       $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
        $this->set('person', $person);
+   }
+   
+    
+   public function admin_create_case($username){
+       
+       $person = $this->Person->fetchPersonWith($username);
+       
+       if(!empty($this->data)){
+           if($this->CaseModel->save($this->data)){
+               $this->redirect("/admin/people/view/{$username}");
+           }
+       }
+       
+       
+       $this->set('person', $person);
+       $this->set('id', $person['Person']['id']);
    }
 }

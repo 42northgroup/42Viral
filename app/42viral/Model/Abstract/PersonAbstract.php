@@ -85,32 +85,33 @@ abstract class PersonAbstract extends AppModel
      * @access public
      */
     public $hasMany = array(
-        'Content' => array(
-            'className' => 'Content',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
+
         'Blog' => array(
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),
-        'Post' => array(
-            'className' => 'Post',
-            'foreignKey' => 'created_person_id',
+        ), 
+        'Case' => array(
+            'className' => 'CaseModel',
+            'foreignKey' => 'model_id',
+
+            'conditions' => array(
+                'model' => 'Person'
+            ),
+
             'dependent' => true
         ),
-        'Page' => array(
-            'className' => 'Page',
+        'Company' => array(
+            'className' => 'Company',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        ),        
+        'Content' => array(
+            'className' => 'Content',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),
-        'Upload' => array(
-            'className' => 'Upload',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
-        'File' => array(
+        ),       
+         'File' => array(
             'className' => 'File',
             'foreignKey' => 'created_person_id',
             'dependent' => true
@@ -119,13 +120,22 @@ abstract class PersonAbstract extends AppModel
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),
-
-        'Company' => array(
-            'className' => 'Company',
-            'foreignKey' => 'owner_person_id',
+        ),       
+        'Page' => array(
+            'className' => 'Page',
+            'foreignKey' => 'created_person_id',
             'dependent' => true
-        )
+        ),
+        'Post' => array(
+            'className' => 'Post',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
+        'Upload' => array(
+            'className' => 'Upload',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),
     );
 
     /**

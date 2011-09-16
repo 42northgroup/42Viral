@@ -35,7 +35,7 @@
     <div id="HeaderRight">
         
         <?php if($this->Session->check('Auth.User.id')): ?>
-            <?php echo $this->Html->link('My Account', $this->Session->read('Auth.User.private_url')); ?>
+            <?php echo $this->Html->link('My Account', $this->Session->read('Auth.User.url')); ?>
             <?php echo " | "; ?>
             <?php echo $this->Html->link('Logout', '/users/logout'); ?>
         <?php else: ?>

@@ -48,9 +48,7 @@ abstract class CaseAbstract extends AppModel
         'Picklist' => array(
             
             'ObjectTypes'=>array(
-                'ticket'=>'Ticket',
-                'blog'=>'Blog',
-                'post'=>'Post'
+                'ticket'=>'Ticket'
             ),
         
             'Status'=>array(
@@ -66,9 +64,7 @@ abstract class CaseAbstract extends AppModel
                 'htmlStrict'=>array('body'),
                 'noHTML'=>array('id', 'subject', 'status', 'object_type'),
             )
-        ),
-        
-        'Seo'
+        )
     );
         
     /**
