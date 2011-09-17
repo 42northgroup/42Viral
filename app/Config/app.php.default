@@ -64,6 +64,30 @@ Configure::write('Domain.host', '');
  */
 Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Configure::read('Domain.host') . '/');
 
+/**
+ * Short URL configuration
+ */
+Configure::write('ShortURL', array(
+    'scheme'=>'http', 
+    'host'=>'',
+    'Pointer'=>array(
+            'page'=>'a',
+            'blog'=>'b',
+            'post'=>'c'
+        )
+    ));
+
+Configure::write('Shorty', 
+        array(
+            'page'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+                . Configure::read('ShortURL.Pointer.page').'/',
+            
+            'blog'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+                . Configure::read('ShortURL.Pointer.blog').'/',
+            
+            'post'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+                . Configure::read('ShortURL.Pointer.post').'/'
+        ));
 /* ====================
  * == File Uploads ====
  * ================== */
