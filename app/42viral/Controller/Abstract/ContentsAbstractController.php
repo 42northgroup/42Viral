@@ -19,13 +19,13 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Conversation', 'Page', 'Person', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Post');
     
     /**
      * @var array
      * @access public
      */
-    public $components = array('File');  
+    public $components = array('File', 'Oauths');  
     
     /**
      * @var array
@@ -345,12 +345,38 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('mine', $mine);
     }  
     
-    public function promote($id)
+    public function promote($id, $redirect_url='users/social_media')
     {
+        
+        if( !$this->Session->check('Auth.User.sm_list') ){
+            
+            $sm_list = $this->Oauth->find('list', array(
+                'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('Oauth.oauth_id', 'Oauth.service')
+            ));
+
+            $this->Session->write('Auth.User.sm_list', $sm_list);
+        }
+        
+        foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
+            switch ($val){
+                
+                case 'facebook':
+                    $this->Oauths->check_session_for_token('facebook', $redirect_url);
+                    break;
+                
+                case 'linked_in':
+                    $this->Oauths->check_session_for_token('linked_in', $redirect_url);
+                    break;
+                case 'twitter':
+                    $this->Oauths->check_session_for_token('twitter', $redirect_url);
+                    break;
+            }
+        }
+        
         $content = $this->Content->findById($id);
         $this->set('content', $content);
         
- 
         $objectType = strtolower($content['Content']['object_type']);
 
         $shorty = " " . Configure::read("Shorty.{$objectType}") . $content['Content']['short_cut'];
