@@ -51,7 +51,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function blogs(){
         $blogs = $this->Blog->find('all');
@@ -64,7 +63,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function blog_delete($id){
         
@@ -84,7 +82,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function blog_create()
     {
@@ -107,7 +104,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function blog_edit($id)
     {
@@ -132,7 +128,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function post_delete($id){
 
@@ -152,7 +147,6 @@ abstract class ContentsAbstractController extends AppController {
      * @return void
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function post_create($blogId = null)
     {
