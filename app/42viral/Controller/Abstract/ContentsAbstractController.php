@@ -1,7 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
-
+App::uses('Handy', 'Lib');
 /**
  *
  */
@@ -328,7 +328,8 @@ abstract class ContentsAbstractController extends AppController {
      * @access public
      * @todo TestCase
      */
-    public function content($username) {
+    public function content($username) 
+    {
         
         $mine = false;
         
@@ -342,6 +343,29 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
-    }   
+    }  
+    
+    public function promote($id)
+    {
+        $content = $this->Content->findById($id);
+        $this->set('content', $content);
+        
+ 
+        $objectType = strtolower($content['Content']['object_type']);
+
+        $shorty = " " . Configure::read("Shorty.{$objectType}") . $content['Content']['short_cut'];
+
+        
+        $twitter = Handy::truncate($content['Content']['tease'] , (140 - strlen($shorty))) . $shorty;
+
+        $other = $content['Content']['tease'] . " " . Configure::read('Domain.url') . $content['Content']['url'];
+        
+        $promo = array(
+            'twitter'=>$twitter,
+            'other'=>$other
+        );
+        
+        $this->set('promo', $promo);
+    }
     
 }
