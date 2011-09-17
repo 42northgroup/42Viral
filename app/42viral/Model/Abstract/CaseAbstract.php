@@ -20,7 +20,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ** @author Jason D Snider <jason.snider@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class CaseAbstract extends AppModel
 {
@@ -30,7 +30,7 @@ abstract class CaseAbstract extends AppModel
      * @var string
      * @access public
      */
-    public $name = 'Case';
+    public $name = 'CaseModel';
     
     /**
      *
@@ -63,6 +63,12 @@ abstract class CaseAbstract extends AppModel
                 'trim'=>'*',
                 'htmlStrict'=>array('body'),
                 'noHTML'=>array('id', 'subject', 'status', 'object_type'),
+            )
+        ),
+        
+        'Random'=>array(
+            'Fields'=>array(
+                'case_number'
             )
         )
     );

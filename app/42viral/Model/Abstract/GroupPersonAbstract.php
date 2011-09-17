@@ -20,7 +20,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ** @author Jason D Snider <jason.snider@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class GroupPersonAbstract extends AppModel
 {

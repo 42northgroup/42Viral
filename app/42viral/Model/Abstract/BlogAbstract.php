@@ -21,7 +21,7 @@ App::uses('Scrub', 'Lib');
  * @package app
  * @subpackage app.core
  * 
- ** @author Jason D Snider <jason.snider@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class BlogAbstract extends ContentAbstract
 {
@@ -85,7 +85,7 @@ abstract class BlogAbstract extends ContentAbstract
     
    /**
      * 
-     ** @author Jason D Snider <jsnider@jsnider77@gmail.com> 
+     * @author Jason D Snider <jsnider@jsnider77@gmail.com> 
      * @access public
      */
     public function beforeSave()
@@ -98,7 +98,7 @@ abstract class BlogAbstract extends ContentAbstract
      * Inject all "finds" against the Blog object with lead filtering criteria
      * @param array $query
      * @return type 
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeFind(&$query) 

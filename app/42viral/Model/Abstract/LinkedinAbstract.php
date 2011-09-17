@@ -16,7 +16,7 @@
 App::uses('AppModel', 'Model');
 
 /** 
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  * @package App
  * @subpackage App.core
  */

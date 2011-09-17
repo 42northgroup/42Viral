@@ -10,7 +10,7 @@
  * @copyright  Copyright 2011, MicroTrain Technologies  (http://www.microtrain.net)
  * @package    app
  * @subpackage app.core
- ** @author     Jason D Snider <jsnider@microtrain.net>
+ **** @author     Jason D Snider <jsnider@microtrain.net>
  * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class PicklistBehavior extends ModelBehavior
@@ -31,7 +31,7 @@ class PicklistBehavior extends ModelBehavior
      * Returns the enum values as a picklist
      * @param string $columnName
      * @return array
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function picklist(&$model, $columnName){

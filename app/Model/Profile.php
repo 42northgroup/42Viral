@@ -18,6 +18,6 @@ App::uses('ProfileAbstract', 'Model');
 /**
  * Class to represent a person profile objects
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class Profile extends ProfileAbstract {}

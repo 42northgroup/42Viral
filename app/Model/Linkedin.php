@@ -16,7 +16,7 @@
 App::uses('LinkedinAbstract', 'Model');
 
 /** 
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org> 
+ ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org> 
  */
 
 class Linkedin extends LinkedinAbstract {}

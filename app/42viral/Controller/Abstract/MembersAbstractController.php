@@ -51,7 +51,7 @@ abstract class MembersAbstractController extends AppController {
      * Provides an index of all system profiles
      *
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -67,7 +67,7 @@ abstract class MembersAbstractController extends AppController {
      *
      * @param string $finder
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -115,7 +115,7 @@ abstract class MembersAbstractController extends AppController {
     /**
      * Action method to use for profile workflow and completing 42viral profile
      *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      */
     public function complete_profile()

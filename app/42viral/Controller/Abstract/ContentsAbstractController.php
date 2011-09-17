@@ -49,7 +49,7 @@ abstract class ContentsAbstractController extends AppController {
      * A index of all blogs
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -62,7 +62,7 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a blog and all related posts
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -82,7 +82,7 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a blog - a blog contains a collection of posts
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -105,7 +105,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -130,7 +130,7 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a post
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -150,7 +150,7 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a post or blog entry
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -183,7 +183,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -256,7 +256,7 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a web page
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -276,7 +276,7 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a traditional web page
      * 
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -300,7 +300,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -324,7 +324,7 @@ abstract class ContentsAbstractController extends AppController {
      * Displays a list of all content created by a single user
      *
      * @return void
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */

@@ -23,8 +23,8 @@ App::uses('AppHelper', 'View/Helper');
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
  * @package app
  * @subpackage app.core
- ** @author Jason Snider <jsnider77@gmail.com>
- ** @author Zubin Khavarian <zubin.khavarian@gmail.com>
+ **** @author Jason Snider <jsnider77@gmail.com>
+ **** @author Zubin Khavarian <zubin.khavarian@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class AssetHelper extends AppHelper
@@ -520,7 +520,7 @@ class AssetHelper extends AppHelper
     /**
      * Fetch a predefined asset package from config and automatically build and output css and js components
      * 
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @param type $packageName 
      * @return string

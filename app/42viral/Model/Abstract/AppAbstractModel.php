@@ -18,7 +18,7 @@ App::uses('Model', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ** @author Jason D Snider <jason.snider@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 class AppAbstractModel extends Model
 {

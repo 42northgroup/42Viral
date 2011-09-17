@@ -18,8 +18,8 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the person profile objects
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
- ** @author Jason D Snider <jason.snider@42viral.org>
+ ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ProfileAbstract extends AppModel
 {

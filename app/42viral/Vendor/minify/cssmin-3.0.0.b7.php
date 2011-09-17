@@ -26,7 +26,7 @@
  * 
  * @package		CssMin
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -38,7 +38,7 @@
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -58,7 +58,7 @@ abstract class aCssToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -73,7 +73,7 @@ abstract class aCssRulesetStartToken extends aCssToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -99,7 +99,7 @@ abstract class aCssRulesetEndToken extends aCssToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -167,7 +167,7 @@ abstract class aCssParserPlugin
  *
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -221,7 +221,7 @@ abstract class aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -268,7 +268,7 @@ abstract class aCssMinifierFilter
  * 
  * @package		CssMin/Formatter
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -319,7 +319,7 @@ abstract class aCssFormatter
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -382,7 +382,7 @@ abstract class aCssDeclarationToken extends aCssToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -397,7 +397,7 @@ abstract class aCssAtBlockStartToken extends aCssToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -420,7 +420,7 @@ abstract class aCssAtBlockEndToken extends aCssToken
  * 
  * @package		CssMin/Formatter
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -546,7 +546,7 @@ class CssWhitesmithsFormatter extends aCssFormatter
  *
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -642,7 +642,7 @@ class CssVariablesMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -720,7 +720,7 @@ class CssVariablesMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -796,7 +796,7 @@ class CssUrlParserPlugin extends aCssParserPlugin
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -895,7 +895,7 @@ class CssStringParserPlugin extends aCssParserPlugin
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -937,7 +937,7 @@ class CssRulesetStartToken extends aCssRulesetStartToken
  *
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1063,7 +1063,7 @@ class CssRulesetParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1078,7 +1078,7 @@ class CssRulesetEndToken extends aCssRulesetEndToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1115,7 +1115,7 @@ class CssRulesetDeclarationToken extends aCssDeclarationToken
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1151,7 +1151,7 @@ class CssRemoveLastDelarationSemiColonMinifierFilter extends aCssMinifierFilter
  *
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1191,7 +1191,7 @@ class CssRemoveEmptyRulesetsMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1231,7 +1231,7 @@ class CssRemoveEmptyAtBlocksMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1264,7 +1264,7 @@ class CssRemoveCommentsMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Parser
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1683,7 +1683,7 @@ class CssParser
  * 
  * @package		CssMin/Formatter
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1786,7 +1786,7 @@ class CssOtbsFormatter extends aCssFormatter
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -1809,7 +1809,7 @@ class CssNullToken extends aCssToken
  * 
  * @package		CssMin/Minifier
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2041,7 +2041,7 @@ class CssMinifier
  * 
  * @package		CssMin
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2188,7 +2188,7 @@ CssMin::initialise();
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2393,7 +2393,7 @@ class CssImportImportsMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2476,7 +2476,7 @@ class CssExpressionParserPlugin extends aCssParserPlugin
  * 
  * @package		CssMin
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2533,7 +2533,7 @@ class CssError
  *
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2602,7 +2602,7 @@ class CssConvertRgbColorsMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -2824,7 +2824,7 @@ class CssConvertNamedColorsMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3163,7 +3163,7 @@ class CssConvertLevel3PropertiesMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Minifier/Filters
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3238,7 +3238,7 @@ class CssConvertLevel3AtKeyframesMinifierFilter extends aCssMinifierFilter
  * 
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3368,7 +3368,7 @@ class CssConvertHslColorsMinifierPlugin extends aCssMinifierPlugin
  *
  * @package		CssMin/Minifier/Pluginsn
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3473,7 +3473,7 @@ class CssConvertFontWeightMinifierPlugin extends aCssMinifierPlugin
  *
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3538,7 +3538,7 @@ class CssCompressUnitValuesMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3594,7 +3594,7 @@ class CssCompressExpressionValuesMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Minifier/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3646,7 +3646,7 @@ class CssCompressColorValuesMinifierPlugin extends aCssMinifierPlugin
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3687,7 +3687,7 @@ class CssCommentToken extends aCssToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3754,7 +3754,7 @@ class CssCommentParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3796,7 +3796,7 @@ class CssAtVariablesStartToken extends aCssAtBlockStartToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3898,7 +3898,7 @@ class CssAtVariablesParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3921,7 +3921,7 @@ class CssAtVariablesEndToken extends aCssAtBlockEndToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3944,7 +3944,7 @@ class CssAtVariablesDeclarationToken extends aCssDeclarationToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -3986,7 +3986,7 @@ class CssAtPageStartToken extends aCssAtBlockStartToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4095,7 +4095,7 @@ class CssAtPageParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4110,7 +4110,7 @@ class CssAtPageEndToken extends aCssAtBlockEndToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4125,7 +4125,7 @@ class CssAtPageDeclarationToken extends aCssDeclarationToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4162,7 +4162,7 @@ class CssAtMediaStartToken extends aCssAtBlockStartToken
  *
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4230,7 +4230,7 @@ class CssAtMediaParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4245,7 +4245,7 @@ class CssAtMediaEndToken extends aCssAtBlockEndToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4290,7 +4290,7 @@ class CssAtKeyframesStartToken extends aCssAtBlockStartToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4329,7 +4329,7 @@ class CssAtKeyframesRulesetStartToken extends aCssRulesetStartToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4344,7 +4344,7 @@ class CssAtKeyframesRulesetEndToken extends aCssRulesetEndToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4359,7 +4359,7 @@ class CssAtKeyframesRulesetDeclarationToken extends aCssDeclarationToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4498,7 +4498,7 @@ class CssAtKeyframesParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4513,7 +4513,7 @@ class CssAtKeyframesEndToken extends aCssAtBlockEndToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0.b1 (2001-02-22)
@@ -4562,7 +4562,7 @@ class CssAtImportToken extends aCssToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4644,7 +4644,7 @@ class CssAtImportParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4670,7 +4670,7 @@ class CssAtFontFaceStartToken extends aCssAtBlockStartToken
  * 
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4778,7 +4778,7 @@ class CssAtFontFaceParserPlugin extends aCssParserPlugin
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4793,7 +4793,7 @@ class CssAtFontFaceEndToken extends aCssAtBlockEndToken
  *
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4808,7 +4808,7 @@ class CssAtFontFaceDeclarationToken extends aCssDeclarationToken
  * 
  * @package		CssMin/Tokens
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0
@@ -4849,7 +4849,7 @@ class CssAtCharsetToken extends aCssToken
  *
  * @package		CssMin/Parser/Plugins
  * @link		http://code.google.com/p/cssmin/
- ** @author		Joe Scylla <joe.scylla@gmail.com>
+ **** @author		Joe Scylla <joe.scylla@gmail.com>
  * @copyright	2008 - 2011 Joe Scylla <joe.scylla@gmail.com>
  * @license		http://opensource.org/licenses/mit-license.php MIT License
  * @version		3.0.0

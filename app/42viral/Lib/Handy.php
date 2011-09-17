@@ -17,8 +17,8 @@
 /**
  * Container for handy functions
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
- ** @author Jason D Snider <jason.snider@42viral.org> 
+ ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy
 {
@@ -26,7 +26,7 @@ class Handy
     /**
      * Deep conversion of a php object to an array recusively
      *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @param object $obj
      * @return array
@@ -89,26 +89,28 @@ class Handy
      * @param boolean $num
      * @return string 
      */
-    public static function random($length = 5, $upper = false, $lower = true, $num = true){
+    public static function random($length = 5, $upper = false, $lower = true, $numeric = true){
         
         $characters = '';
+        $string = ''; 
 
-        if($num){
+        if($numeric){
             $characters .= '0123456789';
         }
         
-        if($upper){
+        if($lower){
             $characters .= 'abcdefghijklmnopqrstuvwxyz';
         }
         
         if($upper){
             $characters .= 'ABCDEFGHIKLMNOPQRSTUVWXYZ';
         }
-        
-        $string = '';    
-        for ($i = 0; $i < $length; $i++) {
-            $string .= $characters[mt_rand(0, strlen($characters))];
+           
+        $size = strlen( $characters );
+        for( $i = 0; $i < $length; $i++ ) {
+                $string .= $characters[ rand( 0, $size - 1 ) ];
         }
+        
         return $string;
     }
 
