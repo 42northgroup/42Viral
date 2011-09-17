@@ -15,7 +15,7 @@
 .oauth-button{
     text-decoration: none;
     color:#333;
-    width: 150px;
+    width: 195px;
     display: inline-block;
     height:24px;
 }
@@ -30,27 +30,27 @@
 }   
 
 .linkedin{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/linkedin_signin.png') no-repeat 0 -48px;
+    background: url('/img/graphics/social_media/production/buttons/Sign_in_Linkedin.png') no-repeat -7px;
 }
 
 .linkedin:hover{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/linkedin_signin.png') no-repeat 0 -24px;
+    background: url('/img/graphics/social_media/production/buttons/Sign_in_Linkedin.png') no-repeat -7px -52px;
 }
 
 .twitter{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/twitter_signin.png') no-repeat 0 -48px;
+   background: url('/img/graphics/social_media/production/buttons/SignInTwitter.png') no-repeat 0;
 }
 
 .twitter:hover{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/twitter_signin.png') no-repeat 0 -24px;
+   background: url('/img/graphics/social_media/production/buttons/SignInTwitter.png') no-repeat 0 -57px;
 }
 
 .facebook{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/facebook_signin.png') no-repeat 0 -48px;
+    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -5px;
 } 
 
 .facebook:hover{
-    background: url('/img/social_media_icons/social_signin_buttons_icons/facebook_signin.png') no-repeat 0 -24px;
+    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -5px -56px;
 }    
 
 
