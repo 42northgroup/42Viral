@@ -18,7 +18,7 @@ class SecTestCase extends CakeTestCase {
     }
     
    /**
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function testMakeSalt() {
@@ -33,7 +33,7 @@ class SecTestCase extends CakeTestCase {
     } 
     
    /**
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */    
     public function testHashPassword(){

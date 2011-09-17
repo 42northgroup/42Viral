@@ -18,6 +18,6 @@ App::uses('CompanyAbstract', 'Model');
 /**
  * Mangages the company object
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class Company extends CompanyAbstract {}

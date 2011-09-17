@@ -16,8 +16,8 @@ App::uses('AppController', 'Controller');
 
 /**
  * Provides a web interface for running the intial system setup
- ** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
+ ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 abstract class FirstRunAbstractController extends AppController {
 

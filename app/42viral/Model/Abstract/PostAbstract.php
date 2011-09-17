@@ -20,7 +20,7 @@ App::uses('ContentAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ** @author Jason D Snider <jason.snider@42viral.org>
+ **** @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class PostAbstract extends ContentAbstract
 {
@@ -83,7 +83,7 @@ abstract class PostAbstract extends ContentAbstract
     );
     
    /**
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeSave()
@@ -97,7 +97,7 @@ abstract class PostAbstract extends ContentAbstract
      * Inject all "finds" against the Post object with lead filtering criteria
      * @param array $query
      * @return type 
-     ** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeFind(&$query) 
