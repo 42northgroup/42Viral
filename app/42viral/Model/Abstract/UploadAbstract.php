@@ -23,8 +23,8 @@ App::uses('ImageUtil', 'Lib');
  * @subpackage app.core
  *
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  *
- * @todo Name disambiguation
  * @todo Improve whitelist/blacklist data and functionality
  */
 abstract class UploadAbstract extends AppModel
@@ -166,7 +166,6 @@ abstract class UploadAbstract extends AppModel
     /**
      * Returns a blacklist of forbidden file extensions
      * @retrun array
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getBlacklist()
@@ -179,7 +178,6 @@ abstract class UploadAbstract extends AppModel
      * @param type $type
      * @param type $name
      * @return type 
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function allowed($name)
@@ -204,14 +202,15 @@ abstract class UploadAbstract extends AppModel
      * Manages the process of uploading a file to the server and recording it's existance in the database
      * @param type $data
      * @return type 
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public 
      */
     public function upload($data)
     {
 
         $this->data = $data;
-        pr($data);
+
+        pr($data); die();
+        
         //Check against allowable file types
         if ($this->allowed($this->data[$this->alias]['file']['name'])) {
 
@@ -292,7 +291,6 @@ abstract class UploadAbstract extends AppModel
      * Checks for the existance of a target file
      * @param type $path
      * @return type 
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
      */
     protected function _checkWrite($path)
@@ -309,7 +307,6 @@ abstract class UploadAbstract extends AppModel
      * @param string $tmpName
      * @param string $path
      * @return boolean
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
      */
     protected function _writeFile($tmpName, $path)
@@ -325,7 +322,6 @@ abstract class UploadAbstract extends AppModel
      * Makes sure the user has a place to save the file. If not, a new directory is created.
      * @param string $id 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
      */
     protected function _writePath($id)
@@ -360,7 +356,6 @@ abstract class UploadAbstract extends AppModel
      * Returns a given files ext.
      * @param string $path
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getExt($path)
@@ -387,7 +382,6 @@ abstract class UploadAbstract extends AppModel
      * Returns the thumbnail name of an image, according to our naming conventions
      *
      * @access public
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @param array $image
      * @param integer $version
      * @return string
