@@ -72,7 +72,24 @@ abstract class CaseAbstract extends AppModel
             )
         )
     );
-        
+    
+    /**
+     *
+     * @var array
+     * @access public 
+     */
+    public $belongsTo = array(
+        'Person' => array(
+            'foreignKey' => 'model_id',
+
+            'conditions' => array(
+                'model' => 'Person'
+            ),
+
+            'dependent' => true
+        )
+    );
+    
     /**
      * @access public
      */
@@ -81,7 +98,7 @@ abstract class CaseAbstract extends AppModel
         parent::__construct($id, $table, $ds);
         
         $this->virtualFields = array(
-            'url'=>"CONCAT('/',`{$this->alias}`.`object_type`,'/',`{$this->alias}`.`id`)"
+            'url'=>"CONCAT('/admin/',`{$this->alias}`.`object_type`,'s/view/',`{$this->alias}`.`id`)"
         );        
     }  
       
@@ -102,19 +119,20 @@ abstract class CaseAbstract extends AppModel
 
             switch(strtolower($with)){
                 default:
-                    $with = array();
+                    $with = array('Person'=>array());
                 break;
             }
         }
 
         //Go fetch the profile
-        $userPerson = $this->find('first', array(
+        $case = $this->find('first', array(
            'contain' => $with,
            'conditions' => array(
-               "Case.{$by}"  => $id
+               "CaseModel.{$by}"  => $id
            )
         ));
-        return $userPerson;        
+               
+        return $case;        
     }
     
 }

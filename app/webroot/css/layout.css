@@ -70,8 +70,9 @@ body{
 
 #MainLeft{
     float:left;
-    width:175px;    
-    padding:0 0 0 6px;
+    width:166px;    
+    padding:0 9px 0 0;
+    
 }
 
 #Footer{
