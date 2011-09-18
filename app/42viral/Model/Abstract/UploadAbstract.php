@@ -208,8 +208,6 @@ abstract class UploadAbstract extends AppModel
     {
 
         $this->data = $data;
-
-        pr($data); die();
         
         //Check against allowable file types
         if ($this->allowed($this->data[$this->alias]['file']['name'])) {
