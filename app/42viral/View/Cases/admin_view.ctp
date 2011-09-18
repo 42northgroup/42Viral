@@ -18,10 +18,21 @@
  */
 ?>
 
-<div>
-    <div class="clearfix">
-        <h1><?php echo $case['CaseModel']['subject']; ?></h1>
+<div class="clearfix">
+    
+    <h1 style="float:left;"><?php echo $case['CaseModel']['subject']; ?></h1>
+    
+    <div style="float:right; margin:6px 0 0;">
+        <?php
+            echo $this->Html->link('Edit', "/admin/cases/edit/{$case['CaseModel']['id']}");
+            echo ' / ';
+            echo $this->Html->link('Complete', "/admin/cases/complete/{$case['CaseModel']['id']}");
+            echo ' / ';                
+            echo $this->Html->link('Delete', "/admin/cases/delete/{$case['CaseModel']['id']}", null,
+                    Configure::read('System.purge_warning'));
+        ?>
     </div>
+    
 </div>
 
 <div><?php echo $case['CaseModel']['body']; ?></div>
