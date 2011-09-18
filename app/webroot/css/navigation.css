@@ -92,7 +92,21 @@ div.error-message {
 }
 
 div.avatar{
-    margin: 20px 0 0;
+    margin: 6px 0 0;
+    padding: 0;
+}
+
+div.avatar-name a,
+div.avatar-name a:link,
+div.avatar-name a:visited{
+    display: block;
+    background: #efefde;
+    padding: 3px;
+    text-align: center;    
+    text-decoration: none;
+    color: #555;
+    font-weight: 685;
+    margin: 0 0 6px 0;
 }
 
 div.section-box {
@@ -106,4 +120,13 @@ div.section-box {
     padding: 4px;
     border-bottom: 1px solid #dedede;
     border-top: 1px solid #dedede;
+}
+
+div.section-head{
+    text-align:center;
+    font-weight: 700;
+    margin: 4px 0 0;
+    padding:0 2px 1px;
+    border-bottom: 1px solid #cdcdcd;
+    font-size: 13px;
 }

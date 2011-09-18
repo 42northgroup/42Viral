@@ -101,7 +101,6 @@ abstract class ContentAbstract extends AppModel
     /**
      * Returns true if the blog is ready to be published
      * @return boolean 
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function publishable(){

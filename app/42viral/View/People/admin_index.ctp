@@ -6,7 +6,6 @@
         <th>Name</th>
         <th>Username</th>
         <th>Email</th>
-        
     </thead>
     <tbody>
         <?php foreach ($people as $person): ?>

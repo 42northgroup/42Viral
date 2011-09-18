@@ -15,7 +15,7 @@
     <tbody>
     <?php foreach($person['Case'] as $case): App::uses('Handy', 'Lib'); ?>
         <tr>
-            <td><?php echo $case['case_number']; ?></td>
+            <td><?php echo $this->Html->link($case['case_number'], $case['url']); ?></td>
             <td><?php echo $case['subject']; ?></td>
             <td><?php echo Handy::date($case['created']); ?></td>
         </tr>
