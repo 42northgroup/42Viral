@@ -71,11 +71,15 @@ abstract class ContentAbstract extends AppModel
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlStrict'=>array('body', 'bio'),
-                'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 'syntax'),
+                'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
             )
         ),
         
-        'Seo'
+        'Seo',
+        
+        'Random' => array(
+            'Fields'=>array('short_cut')
+        )
     );
         
     /**
