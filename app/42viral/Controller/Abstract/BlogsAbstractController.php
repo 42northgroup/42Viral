@@ -55,7 +55,7 @@ abstract class BlogsAbstractController extends AppController {
         
         $this->loadModel('Blog');
         
-        $blog = $this->Blog->fetchPublished($slug);
+        $blog = $this->Blog->fetchBlogWith($slug, 'standard');
         
         if(empty($blog)){
            $this->redirect('/', '404');
@@ -82,7 +82,7 @@ abstract class BlogsAbstractController extends AppController {
         $mine = false;
         
         $this->loadModel('Post');
-        $post = $this->Post->fetchPost($slug);    
+        $post = $this->Post->fetchPostWith($slug, 'standard');    
 
         if(empty($post)){
            $this->redirect('/', '404');

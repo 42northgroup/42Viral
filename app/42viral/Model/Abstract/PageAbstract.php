@@ -85,5 +85,43 @@ abstract class PageAbstract extends ContentAbstract
         $query['conditions'] = array_merge($query['conditions'], $pageFilter);
         return true;
     }
+
+    /**
+     *
+     * @param type $token
+     * @param type $with
+     * @param type $status
+     * @return array 
+     */    
+    public function fetchPageWith($token, $with = null, $status = 'published'){
+        
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){
+
+                default:
+                    $with = array();
+                break;
+            }
   
+        }
+
+        $post = $this->find('first', 
+                array(  
+                    'conditions'=>array(
+                        'or'=>array(
+                            'Page.slug' => $token, 
+                            'Page.short_cut' => $token
+                        ), 
+                        'Page.status'=>$status
+                    ), 
+                    
+                    'contain' => $with,
+
+                    )
+                );
+
+        return $post;
+    }  
 }

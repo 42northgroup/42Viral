@@ -108,18 +108,48 @@ abstract class PostAbstract extends ContentAbstract
         return true;
     }
 
+    /**
+     *
+     * @param type $token
+     * @param type $with
+     * @param type $status
+     * @return array 
+     */    
+    public function fetchPostWith($token, $with = null, $status = 'published'){
         
-    function fetchPost($slug){
-        
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){
+                case 'standard':
+                    $with = array(
+                        'Conversation'=>array(),
+                        'CreatedPerson'=>array()
+                    );
+                break;   
+            
+                default:
+                    $with = array();
+                break;
+            }
+  
+        }
+
         $post = $this->find('first', 
-                array(  'conditions'=>array('Post.slug' => $slug, 'Post.status'=>'published'), 
-                        'contain'=>array(
-                            'Conversation'=>array(),
-                            'CreatedPerson'=>array(),
-                        )
+                array(  
+                    'conditions'=>array(
+                        'or'=>array(
+                            'Post.slug' => $token, 
+                            'Post.short_cut' => $token
+                        ), 
+                        'Post.status'=>$status
+                    ), 
+                    
+                    'contain' => $with,
+
                     )
                 );
-        
+
         return $post;
     }    
 }
