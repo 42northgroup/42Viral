@@ -7,15 +7,17 @@
 <table>
     <thead>
         <tr>
-            <th>Created</th>
+            <th>Case No.</th>
             <th>Subject</th>
+            <th>Created</th>
         </tr>
     </thead>
     <tbody>
     <?php foreach($person['Case'] as $case): App::uses('Handy', 'Lib'); ?>
         <tr>
-            <td><?php echo Handy::date($case['created']); ?></td>
+            <td><?php echo $case['case_number']; ?></td>
             <td><?php echo $case['subject']; ?></td>
+            <td><?php echo Handy::date($case['created']); ?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>
