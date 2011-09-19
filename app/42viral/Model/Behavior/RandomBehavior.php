@@ -44,22 +44,24 @@ class RandomBehavior extends ModelBehavior
         foreach($this->settings[$model->name]['Fields'] as $field){ 
             $this->__unique($model, $field);
         }
-        pr($model);
         return true;
     }
     
     /**
      * Recursively genrates random strings and checks the generated string for uniqueness.
      * Once the string is deemed unique, that value is returned.
-     * @param string $field
+     * @param string $field the field name or database column to be randomized
+     * @param string $string a to be schecked for uniqness, this would rarely be used outside of testing
      * @return string
      */
-    private function __unique(&$model, $field){
+    private function __unique(&$model, $field, $string = null){
         
-        $string = $this->__generate($model, $field);
-        
+        if(is_null($string)){
+            $string = $this->__generate($model, $field);
+        }
+
         if($this->__isDuplicate($model, $string, $field)){
-            $this->__unique($field, null);
+            $this->__unique($model, $field, null);
         }else{
             return $string;
         }
@@ -67,12 +69,13 @@ class RandomBehavior extends ModelBehavior
     }
     
     /**
+     * Return true if $string already exists in the given Model.column
      * @return boolean
      * @access private
      */
-    private function __isDuplicate(&$model, $value, $field){
-pr($model);
-        $duplicateString = $model->find('first', array('conditions'=>array("{$model->name}.{$field}"=>$value)));
+    private function __isDuplicate(&$model, $string, $field){
+
+        $duplicateString = $model->find('first', array('conditions'=>array("{$model->name}.{$field}"=>$string)));
         
         if(empty($duplicateString)){
             return false;
@@ -82,7 +85,8 @@ pr($model);
     }
     
     /**
-     *
+     * Return a random string
+     * Sets Model.coulmn to the returned random string
      * @param type $field 
      * @return string
      * @access private
@@ -96,8 +100,8 @@ pr($model);
         }
 
         if($field == 'short_cut'){
-            $randomString = Handy::random(4, true);
-            $model->data[$model->name]['short_cur'] = $randomString;
+            $randomString = Handy::random(4);
+            $model->data[$model->name]['short_cut'] = $randomString;
         }
         
         return $randomString;
