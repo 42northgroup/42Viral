@@ -21,7 +21,7 @@ App::uses('Scrub', 'Lib');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class BlogAbstract extends ContentAbstract
 {
@@ -85,7 +85,6 @@ abstract class BlogAbstract extends ContentAbstract
     
    /**
      * 
-     * @author Jason D Snider <jsnider@jsnider77@gmail.com> 
      * @access public
      */
     public function beforeSave()
@@ -98,7 +97,6 @@ abstract class BlogAbstract extends ContentAbstract
      * Inject all "finds" against the Blog object with lead filtering criteria
      * @param array $query
      * @return type 
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeFind(&$query) 
@@ -109,14 +107,41 @@ abstract class BlogAbstract extends ContentAbstract
         return true;
     } 
     
-    function fetchPublished($slug){
+    /**
+     *
+     * @param type $token
+     * @param type $with
+     * @param type $status
+     * @return array
+     */
+    function fetchBlogWith($token, $with = null, $status = 'published'){
+        
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){
+                case 'standard':
+                    $with = array(
+                        'Post'=>array('conditions'=>array('Post.status'=>'published'), 
+                            'order'=>array('Post.created DESC'))
+                    );
+                break;   
+            
+                default:
+                    $with = array();
+                break;
+            }
+  
+        }
         
         $blog = $this->find('first', 
-                array(  'conditions'=>array('Blog.slug' => $slug, 'Blog.status'=>'published'), 
-                        'contain'=>array(
-                            'Post'=>array('conditions'=>array('Post.status'=>'published'), 
-                                'order'=>array('Post.created DESC')),
-                        )
+                array(  'conditions'=>array(
+                        'or'=>array(
+                            'Blog.slug' => $token,
+                            'Blog.short_cut' => $token
+                        ), 
+                        'Blog.status'=>$status), 
+                        'contain'=>$with
                     )
                 );
         

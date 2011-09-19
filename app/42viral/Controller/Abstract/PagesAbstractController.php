@@ -60,7 +60,7 @@ abstract class PagesAbstractController extends AppController {
      */
     public function view($slug) {
         $this->loadModel('Page');
-        $page = $this->Page->findBySlug($slug);
+        $page = $this->Page->fetchPageWith($slug);
         
         if(empty($page)){
            $this->redirect('/', '404');
