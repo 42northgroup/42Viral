@@ -10,6 +10,7 @@
         $this->Asset->addAssets(array(
                     'js' . DS . 'vendors' . DS . 'modernizr.js',
                     'js' . DS . 'vendors' . DS . 'jquery.js',
+                    'js' . DS . 'vendors' . DS . 'jquery.Jcrop.js',
                     'js' . DS . 'engine.js',
             
                     'css' . DS . 'vendors' . DS . 'yui.css',
@@ -22,7 +23,8 @@
                     'css' . DS . 'messages.css',
                     'css' . DS . 'navigation.css',
                     'css' . DS . 'controls.css',
-                    'css' . DS . 'controls.social.css'
+                    'css' . DS . 'controls.social.css',
+                    'css' . DS . 'jquery.Jcrop.css'
                 ));
 
         echo $this->Asset->buildAssets('js');

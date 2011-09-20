@@ -104,6 +104,43 @@ abstract class UploadsAbstractController extends AppController
         $this->set('userProfile', $userProfile);
         
     }
+
+
+    public function crop_image()
+    {
+
+        $imageProps = $this->data['Upload'];
+        $imageId = $imageProps['image_uuid'];
+        $image = $this->Image->find('first', array('conditions'=>array('Image.id'=>$imageId)));
+        $path = $image['Image']['path'] . $this->Upload->name($image['Image']);
+        
+        $targ_w = $targ_h = 150;
+        $jpeg_quality = 90;
+
+        $src = ROOT .DS. APP_DIR .DS. WEBROOT_DIR . $path;
+        $img_r = imagecreatefromjpeg($src);
+        $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+
+        imagecopyresampled(
+            $dst_r,
+            $img_r,
+            0,
+            0,
+            $imageProps['image_x'],
+            $imageProps['image_y'],
+            $targ_w,
+            $targ_h,
+            $imageProps['image_w'],
+            $imageProps['image_h']
+        );
+
+        //header('Content-type: image/jpeg');
+        //imagejpeg($dst_r, null, $jpeg_quality);
+
+        imagejpeg($dst_r, $src, $jpeg_quality);
+        
+        $this->redirect('/uploads/image/' . $imageId);
+    }
     
     /**
      * Uploads an image to a users profile
