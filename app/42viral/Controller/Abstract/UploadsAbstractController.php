@@ -196,9 +196,26 @@ abstract class UploadsAbstractController extends AppController
         $image = $this->Image->find('first', array('conditions' => array('Image.id' => $imageId)));
         $path = IMAGE_WRITE_PATH . $personId . DS . $this->Upload->name($image['Image']);
 
-        $this->Upload->delete($imageId);
-        unlink($path);
+        $thumbnailPath_1 = 
+            IMAGE_WRITE_PATH . $personId .DS. 'thumbnails' .DS. $this->Upload->thumbnailName($image['Image'], 1);
 
+        $thumbnailPath_2 = 
+            IMAGE_WRITE_PATH . $personId .DS. 'thumbnails' .DS. $this->Upload->thumbnailName($image['Image'], 2);
+
+        $this->Upload->delete($imageId);
+        
+        if(file_exists($path)) {
+            unlink($path);
+        }
+
+        if(file_exists($thumbnailPath_1)) {
+            unlink($thumbnailPath_1);
+        }
+
+        if(file_exists($thumbnailPath_2)) {
+            unlink($thumbnailPath_2);
+        }
+        
         $this->redirect('/uploads/images');
     }
 

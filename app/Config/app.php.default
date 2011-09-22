@@ -79,6 +79,16 @@ define('IMAGE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' .
 define('IMAGE_AUTO_SHRINK', true);
 
 /**
+ * Thumbnail dimension for uploaded images - Dimension 1
+ */
+define('IMAGE_THUMB_DIM_1', 75);
+
+/**
+ * Thumbnail dimension for uploaded images - Dimension 2
+ */
+define('IMAGE_THUMB_DIM_2', 150);
+
+/**
  * The maximum allowable width for image uploads to use for proportional image shrinks
  */
 define('IMAGE_SHRINK_WIDTH', 400);
