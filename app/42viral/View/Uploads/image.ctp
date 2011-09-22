@@ -17,12 +17,14 @@
 <script type="text/javascript">
     $(function() {
         resetCoords();
+
+        var cropBox = $('#cropbox');
         
-        $('#cropbox').Jcrop({
+        cropBox.Jcrop({
             onSelect: showCoords,
             onChange: showCoords,
             minSize: [150, 150],
-            setSelect: [0, 0, 150, 150],
+            setSelect: [0, 0, cropBox.width(), cropBox.height()],
 
             aspectRatio: 1
         });
@@ -64,7 +66,8 @@
 <div style="margin: 8px 0 0; text-align:center;">
     <?php 
         echo $this->Html->image(
-            $path, array(
+            $path,
+            array(
                 //'style' => 'width: 512px;',
                 'id' => 'cropbox'
             )

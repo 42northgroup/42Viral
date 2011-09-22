@@ -14,6 +14,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('AppModel', 'Model');
+App::uses('ImageUtil', 'Lib');
 
 /**
  * Mangages file uploads
@@ -241,6 +242,13 @@ abstract class UploadAbstract extends AppModel
                 if (!$this->_writeFile($tmpName, $path)) {
                     $this->delete($this->id);
                     return false;
+                } else {
+                    //If image was written successfully to disk shrink image and resave it
+                    if(IMAGE_AUTO_SHRINK) {
+                        $shrinker = new ImageUtil($path);
+                        $shrinker->shrinkImage(IMAGE_SHRINK_WIDTH);
+                        $shrinker->saveImage($path, 90);
+                    }
                 }
 
                 //Try to find the file, remove the DB entry on fail

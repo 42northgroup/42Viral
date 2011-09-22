@@ -74,6 +74,16 @@ Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Config
 define('IMAGE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
 
 /**
+ * The maximum allowable width for image uploads to use for proportional image shrinks
+ */
+define('IMAGE_AUTO_SHRINK', true);
+
+/**
+ * The maximum allowable width for image uploads to use for proportional image shrinks
+ */
+define('IMAGE_SHRINK_WIDTH', 400);
+
+/**
  * The common part of file write paths
  */
 define('FILE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'files' . DS . 'people' . DS);
