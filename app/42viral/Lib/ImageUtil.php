@@ -261,4 +261,17 @@ Class ImageUtil extends Object
         $this->resizeImage($newWidth, $newHeight);
     }
 
+
+/**
+ * Shrink image proportionally to a pre-defined maximum width
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param integer $dimension
+ */
+    public function generateThumbnail($dimension=150)
+    {
+        $this->resizeImage($dimension, $dimension);
+    }
+
 }

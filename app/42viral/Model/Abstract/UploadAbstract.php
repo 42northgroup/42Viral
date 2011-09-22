@@ -225,18 +225,29 @@ abstract class UploadAbstract extends AppModel
 
                 $this->_writePath($_SESSION['Auth']['User']['id']);
 
+                $thumbnailSize1 = IMAGE_THUMB_DIM_1;
+                $thumbnailSize2 = IMAGE_THUMB_DIM_2;
 
                 //lets save the file with the UUID.
                 $ext = pathinfo($upload[$this->alias]['name'], PATHINFO_EXTENSION);
                 $name = "{$this->id}.{$ext}";
+                $thumbnailName1 = "{$this->id}_thumb_{$thumbnailSize1}.{$ext}";
+                $thumbnailName2 = "{$this->id}_thumb_{$thumbnailSize2}.{$ext}";
 
                 /*
                   $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id']
                   . DS . basename($upload[$this->alias]['name']);
                  */
 
-                $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id']
-                        . DS . basename($name);
+                $path = IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id'] . DS . basename($name);
+
+                $thumbnailPath1 =
+                    IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id'] .DS.
+                    'thumbnails' .DS. basename($thumbnailName1);
+
+                $thumbnailPath2 =
+                    IMAGE_WRITE_PATH . $_SESSION['Auth']['User']['id'] .DS.
+                    'thumbnails' .DS. basename($thumbnailName2);
 
                 //Try to write the file, remove the DB entry on fail
                 if (!$this->_writeFile($tmpName, $path)) {
@@ -249,6 +260,15 @@ abstract class UploadAbstract extends AppModel
                         $shrinker->shrinkImage(IMAGE_SHRINK_WIDTH);
                         $shrinker->saveImage($path, 90);
                     }
+
+                    $thumbnailer = new ImageUtil($path);
+                    $thumbnailer->generateThumbnail($thumbnailSize1);
+                    $thumbnailer->saveImage($thumbnailPath1, 70);
+                    
+                    $thumbnailer = new ImageUtil($path);
+                    $thumbnailer->generateThumbnail($thumbnailSize2);
+                    $thumbnailer->saveImage($thumbnailPath2, 80);
+                    
                 }
 
                 //Try to find the file, remove the DB entry on fail
@@ -349,7 +369,7 @@ abstract class UploadAbstract extends AppModel
     }
 
     /**
-     * Returns the name of an image, according to out naming conventions
+     * Returns the name of an image, according to our naming conventions
      * @param array $image
      * @return string 
      * @access public
@@ -359,6 +379,29 @@ abstract class UploadAbstract extends AppModel
         extract($image);
         $ext = pathinfo($name, PATHINFO_EXTENSION);
         $name = "{$id}.{$ext}";
+
+        return $name;
+    }
+
+    /**
+     * Returns the thumbnail name of an image, according to our naming conventions
+     *
+     * @access public
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @param array $image
+     * @param integer $version
+     * @return string
+     */
+    public function thumbnailName($image, $version)
+    {
+        $versionDimensions = array(
+            1 => IMAGE_THUMB_DIM_1,
+            2 => IMAGE_THUMB_DIM_2
+        );
+
+        extract($image);
+        $ext = pathinfo($name, PATHINFO_EXTENSION);
+        $name = "{$id}_thumb_{$versionDimensions[$version]}.{$ext}";
 
         return $name;
     }
