@@ -11,7 +11,7 @@
  * $resizer->saveImage('images/cars/large/output.jpg', 100);
  */
 
-Class ImageUtil
+Class ImageUtil extends Object
 {
 
     private $__width;
@@ -242,6 +242,23 @@ Class ImageUtil
         if ($option == 'crop') {
             $this->__crop($width, $height, $newWidth, $newHeight);
         }
+    }
+
+
+/**
+ * Shrink image proportionally to a pre-defined maximum width
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param integer $maxWidth
+ */
+    public function shrinkImage($maxWidth=500)
+    {
+        $newWidth = min($maxWidth, $this->__width);
+        $shrinkRatio = ($newWidth / $this->__width);
+        $newHeight = ceil($shrinkRatio * $this->__height);
+
+        $this->resizeImage($newWidth, $newHeight);
     }
 
 }
