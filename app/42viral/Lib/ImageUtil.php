@@ -38,7 +38,7 @@ Class ImageUtil
             throw new Exception("File {$file} doesn't exists");
         }
 
-        switch (pathinfo($file, PATHINFO_EXTENSION)) {
+        switch (strtolower(pathinfo($file, PATHINFO_EXTENSION))) {
             case 'jpg':
             case 'jpeg': return imagecreatefromjpeg($file);
             case 'gif': return imagecreatefromgif($file);
@@ -196,7 +196,7 @@ Class ImageUtil
  */
     public function saveImage($savePath, $imageQuality="100")
     {
-        switch (pathinfo($savePath, PATHINFO_EXTENSION)) {
+        switch (strtolower(pathinfo($savePath, PATHINFO_EXTENSION))) {
             case 'jpg':
             case 'jpeg':
                 if (imagetypes() & IMG_JPG) {

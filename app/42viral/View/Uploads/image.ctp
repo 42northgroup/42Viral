@@ -21,8 +21,14 @@
         $('#cropbox').Jcrop({
             onSelect: showCoords,
             onChange: showCoords,
+            minSize: [150, 150],
+            setSelect: [0, 0, 150, 150],
 
             aspectRatio: 1
+        });
+
+        $('#image_delete').click(function(e){
+            return confirm('Are you sure?');
         });
     });
 
@@ -68,8 +74,26 @@
 
 <div>
     <?php if($mine): ?>
-       <?php echo $this->Html->link('Set Avatar',
-               "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}"); ?>
+        <?php
+        echo $this->Html->link('Set as Avatar',
+            "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}"
+        );
+        ?>
+        /
+        <?php
+        echo $this->Html->link('Use Gravatar Instead',
+            "/uploads/use_gravatar/{$this->Session->read('Auth.User.id')}"
+        );
+        ?>
+        /
+        <?php
+        echo $this->Html->link('Delete',
+            "/uploads/delete/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}",
+            array(
+                'id' => 'image_delete'
+            )
+        );
+        ?>
     <?php endif; ?>    
 </div>
 
