@@ -22,7 +22,7 @@ App::uses('PersonAbstract', 'Model');
  * 
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class ProspectAbstract extends PersonAbstract
+class ProspectAbstract extends PersonAbstract
 {
     /**
      * 

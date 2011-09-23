@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class LinkedinAbstract extends AppModel {
+class LinkedinAbstract extends AppModel {
 
     public $useDbConfig = 'linkedin';
     public $useTable = 'linkedin';

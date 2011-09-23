@@ -183,11 +183,11 @@ class PostgresClientTestModel extends Model {
 }
 
 /**
- * DboPostgresTest class
+ * PostgresTest class
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class DboPostgresTest extends CakeTestCase {
+class PostgresTest extends CakeTestCase {
 
 /**
  * Do not automatically load fixtures for each test, they will be loaded manually
@@ -656,6 +656,22 @@ class DboPostgresTest extends CakeTestCase {
 		$this->assertEqual($result['title']['null'], false);
 
 		$this->Dbo->query($this->Dbo->dropSchema($New));
+
+		$New = new CakeSchema(array(
+			'connection' => 'test_suite',
+			'name' => 'AlterPosts',
+			'alter_posts' => array(
+				'id' => array('type' => 'string', 'length' => 36, 'key' => 'primary'),
+				'author_id' => array('type' => 'integer', 'null' => false),
+				'title' => array('type' => 'string', 'null' => true),
+				'body' => array('type' => 'text'),
+				'published' => array('type' => 'string', 'length' => 1, 'default' => 'N'),
+				'created' => array('type' => 'datetime'),
+				'updated' => array('type' => 'datetime'),
+			)
+		));
+		$result = $this->Dbo->alterSchema($New->compare($Old), 'alter_posts');
+		$this->assertNoPattern('/varchar\(36\) NOT NULL/i', $result);
 	}
 
 /**

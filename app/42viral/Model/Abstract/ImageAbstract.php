@@ -24,7 +24,7 @@ App::uses('UploadInterface', 'Model');
  *
  * *** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class ImageAbstract extends UploadAbstract
+class ImageAbstract extends UploadAbstract
 {
 
     /**

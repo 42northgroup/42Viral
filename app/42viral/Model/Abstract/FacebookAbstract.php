@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class FacebookAbstract extends AppModel {
+class FacebookAbstract extends AppModel {
 
     public $useDbConfig = 'facebook';
     public $useTable = 'facebook';

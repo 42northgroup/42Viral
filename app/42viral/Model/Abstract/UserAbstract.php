@@ -24,7 +24,7 @@ App::uses('Sec', 'Lib');
  * 
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class UserAbstract extends PersonAbstract
+class UserAbstract extends PersonAbstract
 {
     /**
      *

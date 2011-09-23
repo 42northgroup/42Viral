@@ -18,7 +18,7 @@ App::uses('Model', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class AppAbstractModel extends Model
 {
@@ -29,5 +29,12 @@ class AppAbstractModel extends Model
      * @access public
      */
     public $actsAs = array('Containable', 'Log', 'Null');
-
+    
+    /**
+     * This doesn't need a table
+     * @var string
+     * @access public
+     */
+    public $useTable = false;
+  
 }
