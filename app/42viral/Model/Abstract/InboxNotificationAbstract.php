@@ -62,23 +62,40 @@ class InboxNotificationAbstract extends AppModel
     public function addPersonInboxNotification($personId, $notification)
     {
 
-        if(true) {
-            //throw new CakeException('Invalid Notification Object');
+        $tempInboxNotification = array();
+        $tempInboxNotification['subject'] = $notification['subject'];
+        $tempInboxNotification['body'] = $notification['body'];
+        $tempInboxNotification['notification_email'] = $notification['recipient'];
+        $tempInboxNotification['owner_person_id'] = $personId;
+
+        $this->create();
+        $saveStatus = $this->save($tempInboxNotification);
+
+        if($saveStatus) {
+            return true;
         } else {
-            $tempInboxNotification = array();
-            $tempInboxNotification['subject'] = $notification['subject'];
-            $tempInboxNotification['body'] = $notification['body'];
-            $tempInboxNotification['notification_email'] = $notification['recipient'];
-            $tempInboxNotification['owner_person_id'] = $personId;
-
-            $this->create();
-            $saveStatus = $this->save($tempInboxNotification);
-
-            if($saveStatus) {
-                return true;
-            } else {
-                return false;
-            }
+            return false;
         }
+    }
+
+/**
+ * Returns a given person's count of unread inbox notifications
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $personId
+ * @return integer
+ */
+    public function findPersonUnreadNotificationCount($personId)
+    {
+        $unreadCount = $this->find('count', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'InboxNotification.read' => false
+            )
+        ));
+        
+        return $unreadCount;
     }
 }
