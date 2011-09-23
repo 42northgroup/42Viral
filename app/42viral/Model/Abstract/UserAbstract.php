@@ -32,7 +32,7 @@ class UserAbstract extends PersonAbstract
      * @access public
      */
     public $name = 'User';
-
+    
     /**
      *
      * @var array

@@ -30,7 +30,14 @@ class GroupAbstract extends AppModel
      * @access public
      */
     public $name = 'Group';
-
+    
+    /**
+     *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'groups';
+    
     /**
      *
      * @var array

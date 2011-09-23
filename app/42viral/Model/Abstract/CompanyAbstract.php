@@ -23,7 +23,14 @@ App::uses('AppModel', 'Model');
 class CompanyAbstract extends AppModel
 {
     public $name = 'Company';
-
+    
+    /**
+     *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'companies';
+    
     public $hasMany = array(
         'Address' => array(
             'foreignKey' => 'model_id',

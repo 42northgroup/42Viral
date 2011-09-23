@@ -35,7 +35,14 @@ class OauthAbstract extends AppModel
      * @access public
      */
     public $name = 'Oauth';
-
+    
+    /**
+     *
+     * @var string
+     * @access public
+     */
+    public $useTable = 'oauths';
+    
    /**
      *
      * @var array
