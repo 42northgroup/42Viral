@@ -69,6 +69,6 @@
 
     <?php echo $this->Form->create('Member', array('url' => '/uploads/image_upload', "enctype" => "multipart/form-data")); ?>
     <?php echo $this->Form->input('Image.file', array('type' => 'file')); ?>
-    <?php echo $this->Form->submit(); ?>
+    <?php echo $this->Form->submit('Upload'); ?>
     <?php echo $this->Form->end(); ?>
 <?php endif; ?>

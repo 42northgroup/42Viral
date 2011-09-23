@@ -61,7 +61,7 @@ class MemberHelper extends AppHelper
         if ($avatar) {
             //Yes, use it
             return $this->Html->image(
-                IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar . '?' . md5(rand(10000, 99999)),
+                IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar,
                 array('width' => $size)
             );
         } else {
