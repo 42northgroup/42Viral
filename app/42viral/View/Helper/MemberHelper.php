@@ -12,7 +12,7 @@ App::uses('HtmlHelper', 'Helper');
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
  * @package app
  * @subpackage app.core
- * *** @author Jason Snider <jsnider77@gmail.com>
+ * @author Jason Snider <jsnider77@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 class MemberHelper extends AppHelper
@@ -30,12 +30,15 @@ class MemberHelper extends AppHelper
      * If the user hasn't uploaded a profile this will fall back to gravatar
      * @param array $data
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function avatar($data, $size = 128)
+    public function avatar($data, $size = null)
     {
 
+        if(is_null($size)){
+            $size = IMAGE_THUMB_DIM_2;
+        }
+        
         extract($data);
 
         $avatarPath = IMAGE_WRITE_PATH . $id . DS . 'avatar';
@@ -58,7 +61,7 @@ class MemberHelper extends AppHelper
         if ($avatar) {
             //Yes, use it
             return $this->Html->image(
-                IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar . '?' .md5(rand(10000, 99999)),
+                IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar . '?' . md5(rand(10000, 99999)),
                 array('width' => $size)
             );
         } else {
@@ -73,7 +76,6 @@ class MemberHelper extends AppHelper
      * Determines the best display name to use for a target user
      * @param array $data
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function displayName($data)
