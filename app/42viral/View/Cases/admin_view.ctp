@@ -18,6 +18,7 @@
  */
 ?>
 
+
 <div class="clearfix">
     
     <h1 style="float:left;"><?php echo $case['CaseModel']['subject']; ?></h1>
@@ -32,7 +33,7 @@
                     Configure::read('System.purge_warning'));
         ?>
     </div>
-    
+
 </div>
 
 <div><?php echo $case['CaseModel']['body']; ?></div>
