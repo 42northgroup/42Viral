@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * 
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class GroupAbstract extends AppModel
+class GroupAbstract extends AppModel
 {
 
     /**

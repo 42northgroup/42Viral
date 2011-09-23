@@ -28,7 +28,7 @@ require_once dirname(dirname(dirname(__FILE__))) . DS . 'models.php';
  *
  * @package       Cake.Test.Case.Model.Datasource.Database
  */
-class DboMysqlTest extends CakeTestCase {
+class MysqlTest extends CakeTestCase {
 /**
  * autoFixtures property
  *
@@ -150,12 +150,31 @@ class DboMysqlTest extends CakeTestCase {
 		setlocale(LC_ALL, 'de_DE');
 
 		$result = $this->Dbo->value(3.141593, 'float');
-		$this->assertEqual((string)$result, '3.141593');
+		$this->assertTrue(strpos((string)$result, ',') === false);
 
 		$result = $this->Dbo->value(3.141593);
-		$this->assertEqual((string)$result, '3.141593');
+		$this->assertTrue(strpos((string)$result, ',') === false);
+
+		$result = $this->db->value(2.2E-54, 'float');
+		$this->assertEqual('2.2E-54', (string)$result);
+
+		$result = $this->db->value(2.2E-54);
+		$this->assertEqual('2.2E-54', (string)$result);
 
 		setlocale(LC_ALL, $restore);
+	}
+
+/**
+ * test that scientific notations are working correctly
+ *
+ * @return void
+ */
+	function testScientificNotation() {
+		$result = $this->db->value(2.2E-54, 'float');
+		$this->assertEqual('2.2E-54', (string)$result);
+
+		$result = $this->db->value(2.2E-54);
+		$this->assertEqual('2.2E-54', (string)$result);
 	}
 
 /**
@@ -1856,6 +1875,11 @@ class DboMysqlTest extends CakeTestCase {
 		$result = $this->Dbo->conditions($conditions);
 		$expected = " WHERE `Artist`.`name` = 'JUDY AND MARY'";
 		$this->assertEqual($expected, $result);
+
+		$conditions = array('Company.name similar to ' => 'a word');
+		$result = $this->Dbo->conditions($conditions);
+		$expected = " WHERE `Company`.`name` similar to 'a word'";
+		$this->assertEqual($result, $expected);
 	}
 
 /**
@@ -2006,11 +2030,11 @@ class DboMysqlTest extends CakeTestCase {
 		$this->assertEqual($expected, $result);
 
 		$result = $this->Dbo->conditions(array('score BETWEEN ? AND ?' => array(90.1, 95.7)));
-		$expected = " WHERE `score` BETWEEN 90.100000 AND 95.700000";
+		$expected = " WHERE `score` BETWEEN 90.1 AND 95.7";
 		$this->assertEqual($expected, $result);
 
 		$result = $this->Dbo->conditions(array('Post.title' => 1.1));
-		$expected = " WHERE `Post`.`title` = 1.100000";
+		$expected = " WHERE `Post`.`title` = 1.1";
 		$this->assertEqual($expected, $result);
 
 		$result = $this->Dbo->conditions(array('Post.title' => 1.1), true, true, new Post());
@@ -2024,6 +2048,10 @@ class DboMysqlTest extends CakeTestCase {
 		$result = $this->Dbo->conditions(array('MAX(Post.rating) >' => '50'));
 		$expected = " WHERE MAX(`Post`.`rating`) > '50'";
 		$this->assertEqual($expected, $result);
+
+		$result = $this->Dbo->conditions(array('lower(Article.title)' =>  'secrets'));
+		$expected = " WHERE lower(`Article`.`title`) = 'secrets'";
+		$this->assertEqual($result, $expected);
 
 		$result = $this->Dbo->conditions(array('title LIKE' => '%hello'));
 		$expected = " WHERE `title` LIKE '%hello'";
@@ -2479,16 +2507,22 @@ class DboMysqlTest extends CakeTestCase {
 		$Schema = new CakeSchema();
 		$Schema->tables = array('table' => array(), 'anotherTable' => array());
 
-		$this->expectError();
-		$result = $this->Dbo->dropSchema(null);
-		$this->assertTrue($result === null);
-
 		$result = $this->Dbo->dropSchema($Schema, 'non_existing');
 		$this->assertTrue(empty($result));
 
 		$result = $this->Dbo->dropSchema($Schema, 'table');
 		$this->assertPattern('/^\s*DROP TABLE IF EXISTS\s+' . $this->Dbo->fullTableName('table') . ';\s*$/s', $result);
 	}
+
+/**
+ * testDropSchemaNoSchema method
+ *
+ * @expectedException PHPUnit_Framework_Error
+ * @return void
+ */
+	public function testDropSchemaNoSchema() {
+		$result = $this->Dbo->dropSchema(null);
+	}	
 
 /**
  * testOrderParsing method
@@ -2693,16 +2727,6 @@ class DboMysqlTest extends CakeTestCase {
  * @return void
  */
 	public function testBuildColumn2() {
-		$this->expectError();
-		$data = array(
-			'name' => 'testName',
-			'type' => 'varchar(255)',
-			'default',
-			'null' => true,
-			'key'
-		);
-		$this->Dbo->buildColumn($data);
-
 		$data = array(
 			'name' => 'testName',
 			'type' => 'string',
@@ -2798,6 +2822,23 @@ class DboMysqlTest extends CakeTestCase {
 		$result = $this->Dbo->buildColumn($data);
 		$expected = '`modified` timestamp NULL';
 		$this->assertEqual($expected, $result);
+	}
+
+/**
+ * testBuildColumnBadType method
+ *
+ * @expectedException PHPUnit_Framework_Error
+ * @return void
+ */
+	public function testBuildColumnBadType() {
+		$data = array(
+			'name' => 'testName',
+			'type' => 'varchar(255)',
+			'default',
+			'null' => true,
+			'key'
+		);
+		$this->Dbo->buildColumn($data);
 	}
 
 /**

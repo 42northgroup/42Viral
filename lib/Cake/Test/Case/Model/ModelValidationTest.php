@@ -640,9 +640,52 @@ class ModelValidationTest extends BaseModelTest {
 	}
 
 /**
+ * test that saveAll and with models at initial insert (no id has set yet)
+ * with validation interact well
+ *
+ * @return void
+ */
+	public function testValidatesWithModelsAndSaveAllWithoutId() {
+		$this->loadFixtures('Post', 'Author');
+
+		$data = array(
+			'Author' => array(
+				'name' => 'Foo Bar',
+			),
+			'Post' => array(
+				array('title' => 'Hello'),
+				array('title' => 'World'),
+			)
+		);
+		$Author = new Author();
+		$Post = $Author->Post;
+
+		$Post->validate = array('author_id' => array('rule' => 'numeric'));
+
+		$Author->create();
+		$result = $Author->saveAll($data, array('validate' => 'only'));
+		$this->assertTrue($result);
+
+		$Author->create();
+		$result = $Author->saveAll($data, array('validate' => 'first'));
+		$this->assertTrue($result);
+		$this->assertFalse(is_null($Author->id));
+
+		$id = $Author->id;
+		$count = $Author->find('count', array('conditions' => array('Author.id' => $id)));
+		$this->assertIdentical($count, 1);
+
+		$count = $Post->find('count', array(
+			'conditions' => array('Post.author_id' => $id)
+		));
+		$this->assertEqual($count, count($data['Post']));
+	}
+
+/**
  * Test that missing validation methods trigger errors in development mode.
  * Helps to make developement easier.
  *
+ * @expectedException PHPUnit_Framework_Error
  * @return void
  */
 	public function testMissingValidationErrorTriggering() {
@@ -656,7 +699,6 @@ class ModelValidationTest extends BaseModelTest {
 				'required' => true
 			)
 		);
-		$this->expectError();
 		$TestModel->invalidFields(array('fieldList' => array('title')));
 	}
 
@@ -686,12 +728,12 @@ class ModelValidationTest extends BaseModelTest {
  */
 	public function testValidationMessageAsArray() {
 		$TestModel = new ValidationTest1();
-		$TestModel->create(array('title' => 'foo'));
 		$TestModel->validate = array(
 			'title' => array(
 				'minLength' => array(
 					'rule' => array('minLength', 6),
-					'message' => array('Minimum length allowed is %d chars'),
+					'required' => true,
+					'message' => 'Minimum length allowed is %d chars',
 					'last' => false
 				),
 				'between' => array(
@@ -700,6 +742,17 @@ class ModelValidationTest extends BaseModelTest {
 				)
 			)
 		);
+
+		$TestModel->create();
+		$TestModel->invalidFields();
+		$expected = array(
+			'title' => array(
+				'Minimum length allowed is 6 chars',
+			)
+		);
+		$this->assertEquals($TestModel->validationErrors, $expected);
+
+		$TestModel->create(array('title' => 'foo'));
 		$TestModel->invalidFields();
 		$expected = array(
 			'title' => array(

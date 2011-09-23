@@ -27,7 +27,7 @@ App::uses('ImageUtil', 'Lib');
  *
  * @todo Improve whitelist/blacklist data and functionality
  */
-abstract class UploadAbstract extends AppModel
+class UploadAbstract extends AppModel
 {
 
     /**

@@ -20,7 +20,7 @@ App::uses('AppModel', 'Model');
  *
  ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
-abstract class CompanyAbstract extends AppModel
+class CompanyAbstract extends AppModel
 {
     public $name = 'Company';
 

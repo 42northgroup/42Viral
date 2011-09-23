@@ -18,11 +18,13 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the address objects
  *
- ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
-abstract class AddressAbstract extends AppModel
+class AddressAbstract extends AppModel
 {
     public $name = 'Address';
+    
+    public $useTable = 'addresses';
     
     public $belongsTo = array(
         'Company' => array(

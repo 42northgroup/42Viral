@@ -26,7 +26,7 @@ App::uses('HtmlHelper', 'View/Helper');
 App::uses('JsHelper', 'View/Helper');
 App::uses('MootoolsEngineHelper', 'View/Helper');
 
-class MooEngineHelperTest extends CakeTestCase {
+class MootoolsEngineHelperTest extends CakeTestCase {
 /**
  * setUp
  *
@@ -263,20 +263,28 @@ class MooEngineHelperTest extends CakeTestCase {
 		$expected = '$("drag-me").makeDraggable({onComplete:onStop, onDrag:onDrag, onStart:onStart, snap:[10,10]});';
 		$this->assertEqual($expected, $result);
 	}
+
 /**
- * test drop() method
+ * test drop() method with the required drag option missing
  *
+ * @expectedException PHPUnit_Framework_Error_Warning
  * @return void
  */
-	public function testDrop() {
-		$this->expectError();
+	public function testDropWithMissingOption() {
 		$this->Moo->get('#drop-me');
 		$this->Moo->drop(array(
 			'drop' => 'onDrop',
 			'leave' => 'onLeave',
 			'hover' => 'onHover',
 		));
-
+	}
+/**
+ * test drop() method
+ *
+ * @return void
+ */
+	public function testDrop() {
+		$this->Moo->get('#drop-me');
 		$result = $this->Moo->drop(array(
 			'drop' => 'onDrop',
 			'leave' => 'onLeave',

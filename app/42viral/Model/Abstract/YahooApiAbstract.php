@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class YahooApiAbstract extends AppModel {
+class YahooApiAbstract extends AppModel {
 
     public $useDbConfig = 'yahoo';
     public $useTable = 'yahoo_api';

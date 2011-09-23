@@ -22,7 +22,7 @@ App::uses('ContentAbstract', 'Model');
  * 
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class PageAbstract extends ContentAbstract
+class PageAbstract extends ContentAbstract
 {
     /**
      * 

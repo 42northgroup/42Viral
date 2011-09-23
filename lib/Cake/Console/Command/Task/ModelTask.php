@@ -405,6 +405,8 @@ class ModelTask extends BakeTask {
 					$guess = $methods['date'];
 				} elseif ($metaData['type'] == 'time') {
 					$guess = $methods['time'];
+				} elseif ($metaData['type'] == 'inet') {
+					$guess = $methods['ip'];
 				}
 			}
 
@@ -743,7 +745,10 @@ class ModelTask extends BakeTask {
 		$data = array_merge($defaults, $data);
 
 		$this->Template->set($data);
-		$this->Template->set('plugin', $this->plugin);
+		$this->Template->set(array(
+			'plugin' => $this->plugin,
+			'pluginPath' => empty($this->plugin) ? '' : $this->plugin . '.'
+		));
 		$out = $this->Template->generate('classes', 'model');
 
 		$path = $this->getPath();

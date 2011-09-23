@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class ProfileAbstract extends AppModel
+class ProfileAbstract extends AppModel
 {
     public $name = 'Profile';
 

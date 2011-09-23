@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class TweetAbstract extends AppModel {
+class TweetAbstract extends AppModel {
 
     public $useDbConfig = 'twitter';
 

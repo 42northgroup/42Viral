@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @subpackage App.core
  */
 
-abstract class YelpApiAbstract extends AppModel {
+class YelpApiAbstract extends AppModel {
 
     public $useDbConfig = 'yelp';
     public $useTable = 'yelp_api';

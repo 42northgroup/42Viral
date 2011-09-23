@@ -23,7 +23,7 @@ App::uses('AppModel', 'Model');
  * 
  **** @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class ConversationAbstract extends AppModel
+class ConversationAbstract extends AppModel
 {
     
     /**

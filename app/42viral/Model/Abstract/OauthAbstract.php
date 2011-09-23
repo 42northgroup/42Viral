@@ -27,7 +27,7 @@ App::uses('Sec', 'Utility');
  **** @author Jason D Snider <jason.snider@42viral.org>
  ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
-abstract class OauthAbstract extends AppModel
+class OauthAbstract extends AppModel
 {
     /**
      *
