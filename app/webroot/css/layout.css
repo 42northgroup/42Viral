@@ -18,34 +18,20 @@ body{
  
 #Header{
     position:relative;
-    height: 30px;
+
     background: #000;
-    margin:0 225px 0 175px ;
+    
+    font-weight: bold;
+    line-height: 30px;
 }
 
 #HeaderLeft{
-    position:absolute;
-    left: -175px;
-    top: 0;
-    height: 30px;
-    width:175px; 
-    background: #000;
-    padding:0 7px;
-    line-height:1.8em;    
-    font-weight: bold;
+    float: left;
     color: #fff;
 }
 
 #HeaderRight{
-    position:absolute;
-    right: -225px;
-    top: 0;
-    width:225px; 
-    text-align:right;
-    background: #000;
-    padding:0 7px;
-    height: 30px;
-    line-height:1.8em;
+    float: right;
 }
 
 #Banner{
@@ -59,8 +45,6 @@ body{
 #Main{
     margin: 0 auto;
     width: 960px;
-    /*border-right: 1px solid #e5e5e5;   
-    border-left: 1px solid #e5e5e5;     */  
 }
 
 #MainContent{

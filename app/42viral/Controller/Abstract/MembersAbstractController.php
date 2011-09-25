@@ -16,7 +16,7 @@
 App::uses('AppController', 'Controller');
 
 /**
- *
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class MembersAbstractController extends AppController {
 
@@ -51,7 +51,6 @@ abstract class MembersAbstractController extends AppController {
      * Provides an index of all system profiles
      *
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -108,6 +107,7 @@ abstract class MembersAbstractController extends AppController {
         
         $userProfile['Person'] = $user['User'];
         $this->set('userProfile', $userProfile);
+        $this->set('section', 'Profile');
 
     }
 

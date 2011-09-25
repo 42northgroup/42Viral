@@ -1,19 +1,12 @@
-<?php //debug($user); ?>
-
-<div class="clearfix">
-    
-    <h1 style="float:left;"><?php echo $this->Member->displayName($user['User']) ?>'s Profile</h1>
-    
-    <div style="float:right; margin:6px 0 0;">
-        <?php if($mine): ?>
-            <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
-        <?php endif; ?>
-    </div>
-    
-</div>
-<?php echo $user['Profile']['tease']; ?>
-
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
+
+<?php if($mine): ?>
+    <div style="text-align: right; padding:4px 0 0;">
+        <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
+    </div>
+<?php endif; ?>
+
+<div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
 <div id="ResultsPage">
     
