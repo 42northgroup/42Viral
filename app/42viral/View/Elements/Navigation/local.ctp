@@ -9,15 +9,17 @@ switch($section){
             'name'=>'Companies',
             'Items' => array(
                 array(
-                    'text'=>'Companies',
+                    'text'=>'Index',
                     'url'=>'/companies',
-                    'options' => array()
+                    'options' => array(),
+                    'confirm'=>null
                 ),
                 
                 array(
-                    'text'=>'Create a company',
+                    'text'=>'Create',
                     'url'=>'/companies/create',
-                    'options' => array()
+                    'options' => array(),
+                    'confirm'=>null
                 )
             )
         );
@@ -51,7 +53,7 @@ if(isset($additional)){
 
             <div id="ManageBlock" class="section-navigation-block">
                 <?php foreach($menu['Items'] as $item): ?>
-                    <?php echo $this->Html->link($item['text'], $item['url'], $item['options']); ?>
+                    <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
                 <?php endforeach; ?>
             </div>
         
