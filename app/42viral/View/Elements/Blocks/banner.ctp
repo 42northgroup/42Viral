@@ -14,7 +14,7 @@
  */
 ?>
 
-<?php if($this->Session->check('Auth.User.id')): ?>
+<?php /* if($this->Session->check('Auth.User.id')): ?>
     <div id="Banner">
 
         <div class="banner-navigation">
@@ -82,4 +82,4 @@
         </div>
 
     </div>
-<?php endif; ?>
+<?php endif; */?>
