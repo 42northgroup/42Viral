@@ -34,7 +34,6 @@
     }
 </style>
 
-<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Photo Stream</h1>
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
 <?php if(!empty($user['Upload'])): ?>

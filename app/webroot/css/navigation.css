@@ -117,16 +117,14 @@ div.section-box {
 
 .profile-navigation{
     background: #efefef;
-    padding: 4px;
+    padding: 0 4px;
+    line-height: 24px;
     border-bottom: 1px solid #dedede;
-    border-top: 1px solid #dedede;
 }
 
 div.section-head{
     text-align:center;
-    font-weight: 700;
-    margin: 4px 0 0;
-    padding:0 2px 1px;
-    border-bottom: 1px solid #cdcdcd;
-    font-size: 13px;
+    padding:0 2px;
+    line-height: 24px;
+    border-bottom: 1px solid #dedede;
 }

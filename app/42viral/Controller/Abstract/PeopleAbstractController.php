@@ -49,6 +49,7 @@ abstract class PeopleAbstractController extends AppController
    public function admin_view($username){
        $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
        $this->set('person', $person);
+       $this->set('userProfile', $person);
    }
    
     

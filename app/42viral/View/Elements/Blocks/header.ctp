@@ -14,7 +14,42 @@
  */
 ?>
 
-<div id="Header">
+<script type="text/javascript">
+    $(function(){
+        $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
+            $('.navigation-block').hide();
+            id = $(this).attr('id');
+            $('#' + id + 'Block').slideDown();
+        });           
+        
+        $('.navigation-block').mouseleave(function(){
+            $(this).slideup();
+        });         
+        
+    });
+</script>
+
+<style type="text/css">
+    
+    .navigation-block{
+        width: 200px; 
+        background: #efefef; 
+        float: left; 
+        z-index: 10; 
+        position:absolute;
+        display: none;
+        right: 0px;
+        text-align: left;
+    }
+    
+    .navigation-block a{
+        display: block;
+        padding: 0;
+        margin: 0;
+    }
+</style>
+
+<div id="Header" class="clearfix">
 
     <div id="HeaderLeft">
         The 42Viral Project
@@ -22,7 +57,6 @@
             <?php 
                 $googleAppsDomain = Configure::read('Google.Apps.domain');
                 if(isset($googleAppsDomain)):
-                    echo ' | ';
                     echo $this->Html->link('Google Apps', 'https://www.google.com/a/' 
                             . Configure::read('Google.Apps.domain')); 
                 endif;
@@ -32,17 +66,54 @@
 
     <div id="HeaderContent"></div>
 
-    <div id="HeaderRight">
-        
+    <div id="HeaderRight">      
+
         <?php if($this->Session->check('Auth.User.id')): ?>
-            <?php echo $this->Html->link('My Account', $this->Session->read('Auth.User.url')); ?>
-            <?php echo " | "; ?>
-            <?php echo $this->Html->link('Logout', '/users/logout'); ?>
+
+            <div style="position:relative; float:left; padding:0 6px;">
+                <?php 
+                    echo $this->Html->link('Share', '#', array('id'=>'Share', 'class'=>'navigation-link')); 
+                ?>
+                <div class="navigation-block" id="ShareBlock">
+                    <?php
+                        echo $this->Access->link('Contents-page_create', 'Socialize', '/users/social_media/');  
+                        echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
+                        echo $this->Access->link('Contents-post_create', 'Create a post', '/contents/post_create/');   
+                        echo $this->Access->link('Companies-create', 'Create a company', '/companies/create');  
+                    ?>
+                </div>
+            </div>   
+        
+            <div style="position:relative; float:left; padding:0 6px;">
+ 
+                <?php 
+                    echo $this->Html->link('My Account', $this->Session->read('Auth.User.url'), array('id'=>'MyAccount', 'class'=>'navigation-link')); 
+                ?>
+                <div class="navigation-block" id="MyAccountBlock">
+                    <?php 
+                        echo $this->Html->link('Profile', '/members/view/' . $this->Session->read('Auth.User.username'));
+                        echo $this->Html->link('Content', '/contents/content/' . $this->Session->read('Auth.User.username'));
+                        echo $this->Html->link('Photos', '/uploads/images/' . $this->Session->read('Auth.User.username'));
+                        echo $this->Html->link('Companies', '/companies/index/' . $this->Session->read('Auth.User.username'));
+                        echo $this->Html->link('Connect', '/oauth/connect/' );
+                        echo $this->Html->link('Settings', '/users/settings/' );
+                        echo $this->Html->link('Logout', '/users/logout');
+                    ?>
+                </div>             
+            </div>
+
         <?php else: ?>
-            <?php echo $this->Html->link('New Account', '/users/create'); ?>
-            <?php echo " | "; ?>        
-            <?php echo $this->Html->link('Login', '/users/login'); ?>
+        
+            <div style="position:relative; float:left; padding:0 6px;">
+                <?php echo $this->Html->link('New Account', '/users/create'); ?>  
+            </div>
+        
+            <div style="position:relative; float:left; padding:0 6px;">     
+                <?php echo $this->Html->link('Login', '/users/login'); ?>
+            </div>
+        
         <?php endif; ?>
+            
     </div>
 
 </div>

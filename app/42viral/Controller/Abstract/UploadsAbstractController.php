@@ -82,8 +82,14 @@ abstract class UploadsAbstractController extends AppController
 
         $this->set('user', $person);
         $this->set('userProfile', $person);
+        $this->set('section', 'Photo Stream');
     }
 
+    /**
+     *
+     * @param type $id 
+     * @access public
+     */
     public function image($id)
     {
 

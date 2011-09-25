@@ -12,4 +12,19 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
+
+App::uses('AppModel', 'Model');
+/**
+ * Origianally, this existed as an abstract, but that pisses off the shell as of RC1
+ *
+ * @author Jason D Snider <jason.snider@42viral.org>
+ */
+class AppModel extends Model {
+    
+    /**
+     * Application-wide behaviors
+     * @var array
+     * @access public
+     */
+    public $actsAs = array('Containable', 'Log', 'Null');
+}
