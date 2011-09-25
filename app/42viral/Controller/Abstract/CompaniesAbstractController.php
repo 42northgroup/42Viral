@@ -210,6 +210,7 @@ abstract class CompaniesAbstractController extends AppController
         }        
         
         $this->set('mine', $mine);
+        $this->set('title_for_layout', "Update {$this->data['Company']['name']}");
     }
     
     /**

@@ -4,14 +4,16 @@
     if($mine){
         $additonal = array(
             array(
-                'text'=>'Edit',
+                'text'=>"Update",
                 'url'=>$company['Company']['edit_url'],
-                'options' => array()
+                'options' => array(),
+                'confirm'=>null
             ),
             array(
-                'text'=>'Delete',
+                'text'=>"Delete",
                 'url'=>$company['Company']['delete_url'],
-                'options' => array()
+                'options' => array(),
+                'confirm'=>Configure::read('System.purge_warning')
             )
         );
     }else{
@@ -22,25 +24,6 @@
     echo $this->element('Navigation' . DS . 'local', array('section'=>'company', 'additional' => $additonal));
 
 ?>
-
-
-
-<div class="clearfix">
-    <h1 style="float:left;"><?php echo $company['Company']['name']; ?></h1>
-
-    <div style="float:right;">
-    <?php 
-        if($mine):
-            
-            echo $this->Html->link('Edit', $company['Company']['edit_url']);
-            echo " / ";
-            echo $this->Html->link('Delete', $company['Company']['delete_url'], 
-                    null, 
-                    Configure::read('System.purge_warning'));
-        endif; 
-    ?>
-    </div>
-</div>
 
 <div><?php echo $company['Company']['body']; ?></div>
 <?php if(isset($company['Address']) && !empty($company['Address'])): ?>
