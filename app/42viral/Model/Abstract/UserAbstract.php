@@ -67,7 +67,7 @@ class UserAbstract extends PersonAbstract
         ),
         'password' => array(
             'notEmpty' => array(
-                'rule' => 'notEmpty',
+                'rule' => 'emptyPassword',
                 'message' =>"Please enter a password",
                 'last' => true
             ),
@@ -79,7 +79,7 @@ class UserAbstract extends PersonAbstract
         ),
         'verify_password' => array(
             'notEmpty' => array(
-                'rule' => 'notEmpty',
+                'rule' => 'emptyPassword',
                 'message' =>"Please verfiy your password",
                 'last' => true
             ),
@@ -132,6 +132,20 @@ class UserAbstract extends PersonAbstract
         }
         return $valid;
     }
+    
+    public function emptyPassword($check){
+        
+        $field = key($check);
+        $value = $check[$field];
+        
+        $empty_salt =  Sec::hashPassword('', $this->data[$this->alias]['salt']);
+        
+        if($empty_salt == $value){
+            return false;
+        }else{
+            return true;
+        }
+    }
 
     /**
      *
@@ -151,7 +165,7 @@ class UserAbstract extends PersonAbstract
         //Load salt into the data array
         $data['salt'] = $salt;
 
-        //Hash the password and its verifcation then load it into the data array
+        //Hash the password and its verifcation then load it into the data array        
         $data['password'] = Sec::hashPassword($data['password'], $salt);
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
 
