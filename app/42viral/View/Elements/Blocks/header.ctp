@@ -13,42 +13,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-
-<script type="text/javascript">
-    $(function(){
-        $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
-            $('.navigation-block').hide();
-            id = $(this).attr('id');
-            $('#' + id + 'Block').slideDown();
-        });           
-        
-        $('.navigation-block').mouseleave(function(){
-            $(this).slideup();
-        });         
-        
-    });
-</script>
-
-<style type="text/css">
-    
-    .navigation-block{
-        width: 200px; 
-        background: #efefef; 
-        float: left; 
-        z-index: 10; 
-        position:absolute;
-        display: none;
-        right: 0px;
-        text-align: left;
-    }
-    
-    .navigation-block a{
-        display: block;
-        padding: 0;
-        margin: 0;
-    }
-</style>
-
 <div id="Header" class="clearfix">
 
     <div id="HeaderLeft">
@@ -71,9 +35,7 @@
         <?php if($this->Session->check('Auth.User.id')): ?>
 
             <div style="position:relative; float:left; padding:0 6px;">
-                <?php 
-                    echo $this->Html->link('Share', '#', array('id'=>'Share', 'class'=>'navigation-link')); 
-                ?>
+                <?php echo $this->Html->link('Share', '#', array('id'=>'Share', 'class'=>'navigation-link')); ?>
                 <div class="navigation-block" id="ShareBlock">
                     <?php
                         echo $this->Access->link('Contents-page_create', 'Socialize', '/users/social_media/');  
@@ -87,14 +49,24 @@
             <div style="position:relative; float:left; padding:0 6px;">
  
                 <?php 
-                    echo $this->Html->link('My Account', $this->Session->read('Auth.User.url'), array('id'=>'MyAccount', 'class'=>'navigation-link')); 
+                    echo $this->Html->link('My Account', $this->Session->read('Auth.User.url'), 
+                            array('id'=>'MyAccount', 'class'=>'navigation-link')); 
                 ?>
                 <div class="navigation-block" id="MyAccountBlock">
                     <?php 
-                        echo $this->Html->link('Profile', '/members/view/' . $this->Session->read('Auth.User.username'));
-                        echo $this->Html->link('Content', '/contents/content/' . $this->Session->read('Auth.User.username'));
-                        echo $this->Html->link('Photos', '/uploads/images/' . $this->Session->read('Auth.User.username'));
-                        echo $this->Html->link('Companies', '/companies/index/' . $this->Session->read('Auth.User.username'));
+                    
+                        echo $this->Html->link('Profile', '/members/view/' 
+                                . $this->Session->read('Auth.User.username'));
+                        
+                        echo $this->Html->link('Content', '/contents/content/' 
+                                . $this->Session->read('Auth.User.username'));
+                        
+                        echo $this->Html->link('Photos', '/uploads/images/' 
+                                . $this->Session->read('Auth.User.username'));
+                        
+                        echo $this->Html->link('Companies', '/companies/index/' 
+                                . $this->Session->read('Auth.User.username'));
+                        
                         echo $this->Html->link('Connect', '/oauth/connect/' );
                         echo $this->Html->link('Settings', '/users/settings/' );
                         echo $this->Html->link('Logout', '/users/logout');

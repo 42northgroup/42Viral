@@ -115,6 +115,7 @@ div.section-box {
     margin: 5px;
 }
 
+/* #Left column profile/avatar settings */ 
 .profile-navigation{
     background: #efefef;
     padding: 0 4px;
@@ -127,4 +128,27 @@ div.section-head{
     padding:0 2px;
     line-height: 24px;
     border-bottom: 1px solid #dedede;
+}
+
+/* #HeaderRight flyout menus */
+.navigation-block{
+    width: 200px; 
+    background: #fefefe; 
+    float: left; 
+    z-index: 10; 
+    position:absolute;
+    display: none;
+    right: 0px;
+    text-align: left;
+    border: 1px solid #ececec;
+    border-radius-bottom: 4px;
+    box-shadow: -3px 3px 3px #888;
+    border-top: none;
+}
+
+.navigation-block a{
+    display: block;
+    padding: 2px 3px;
+    margin: 0;
+    border-bottom: 1px solid #ececec;
 }
