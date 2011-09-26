@@ -98,7 +98,9 @@ class InboxMessageAbstract extends AppModel
             'contain' => array(),
 
             'conditions' => array(
-                'InboxMessage.owner_person_id' => $userId
+                'InboxMessage.owner_person_id' => $userId,
+                'InboxMessage.archived' => false,
+                'InboxMessage.deleted' => false
             ),
 
             'order' => array(
@@ -199,6 +201,72 @@ class InboxMessageAbstract extends AppModel
         $tempMessage = array();
         $tempMessage['id'] = $messageId;
         $tempMessage['read'] = true;
+
+        if($this->save($tempMessage)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Mark a given message as archived
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * @return boolean
+ */
+    public function archiveMessage($messageId)
+    {
+        $tempMessage = array();
+        $tempMessage['id'] = $messageId;
+        $tempMessage['archived'] = true;
+
+        if($this->save($tempMessage)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Mark a given message as unarchived
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * @return boolean
+ */
+    public function unarchiveMessage($messageId)
+    {
+        $tempMessage = array();
+        $tempMessage['id'] = $messageId;
+        $tempMessage['archived'] = false;
+
+        if($this->save($tempMessage)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Mark a given message as deleted (soft delete)
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * @return boolean
+ */
+    public function deleteMessage($messageId)
+    {
+        $tempMessage = array();
+        $tempMessage['id'] = $messageId;
+        $tempMessage['deleted'] = true;
 
         if($this->save($tempMessage)) {
             return true;

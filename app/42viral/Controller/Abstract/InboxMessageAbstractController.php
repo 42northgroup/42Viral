@@ -32,7 +32,8 @@ abstract class InboxMessageAbstractController extends AppController
  * @access public
  * @@author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-    public function index() {
+    public function index()
+    {
         $userId = $this->Session->read('Auth.User.id');
         $unreadCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
         $this->set('unread_count', $unreadCount);
@@ -50,7 +51,8 @@ abstract class InboxMessageAbstractController extends AppController
  * @param string $messageId
  * @return void
  */
-    public function view($messageId) {
+    public function view($messageId)
+    {
         $userId = $this->Session->read('Auth.User.id');
         $inboxMessage = $this->InboxMessage->fetchMessage($messageId);
         $verifiedMessageOwner = $this->InboxMessage->verifyMessageOwnership($messageId, $userId);
@@ -62,6 +64,52 @@ abstract class InboxMessageAbstractController extends AppController
         } else {
             $this->set('inbox_message', null);
         }
+    }
+
+
+/**
+ * Action to be used for archiving individual messages
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ */
+    public function archive($messageId)
+    {
+        $userId = $this->Session->read('Auth.User.id');
+        $verifiedMessageOwner = $this->InboxMessage->verifyMessageOwnership($messageId, $userId);
+
+        if($verifiedMessageOwner) {
+            $this->InboxMessage->archiveMessage($messageId);
+            $this->Session->setFlash('Message archived', 'success');
+        } else {
+            $this->Session->setFlash('There was a problem archiving the message', 'error');
+        }
+
+        $this->redirect('/inbox_message/');
+    }
+
+
+/**
+ * Action to be used for soft deleting individual messages
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ */
+    public function delete($messageId)
+    {
+        $userId = $this->Session->read('Auth.User.id');
+        $verifiedMessageOwner = $this->InboxMessage->verifyMessageOwnership($messageId, $userId);
+
+        if($verifiedMessageOwner) {
+            $this->InboxMessage->deleteMessage($messageId);
+            $this->Session->setFlash('Message deleted', 'success');
+        } else {
+            $this->Session->setFlash('There was a problem deleting the message', 'error');
+        }
+
+        $this->redirect('/inbox_message/');
     }
 
 
