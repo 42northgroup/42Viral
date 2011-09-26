@@ -21,9 +21,9 @@ App::uses('AppController', 'Controller');
  * @subpackage app.core
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class InboxNotificationAbstractController extends AppController
+abstract class InboxMessageAbstractController extends AppController
 {
-    public $uses = array('InboxNotification');
+    public $uses = array('InboxMessage');
 
 /**
  *
@@ -34,8 +34,23 @@ abstract class InboxNotificationAbstractController extends AppController
  */
     public function index() {
         $userId = $this->Session->read('Auth.User.id');
-        $unreadCount = $this->InboxNotification->findPersonUnreadNotificationCount($userId);
+        $unreadCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
         $this->set('unread_count', $unreadCount);
+    }
+
+
+/**
+ *
+ *
+ * @return void
+ * @access public
+ * @@author Zubin Khavarian <zubin.khavarian@42viral.com>
+ */
+    public function view($messageId) {
+        $userId = $this->Session->read('Auth.User.id');
+        $inboxMessage = $this->InboxMessage->fetchMessage($messageId);
+        
+        
     }
 
 }

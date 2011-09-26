@@ -24,7 +24,7 @@ App::uses('AppModel', 'Model');
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-class InboxNotificationAbstract extends AppModel
+class InboxMessageAbstract extends AppModel
 {
 
 /**
@@ -32,9 +32,9 @@ class InboxNotificationAbstract extends AppModel
  * @var string
  * @access public
  */
-    public $name = 'InboxNotification';
+    public $name = 'InboxMessage';
 
-    public $useTable = 'inbox_notifications';
+    public $useTable = 'inbox_messages';
 
 
 /**
@@ -51,7 +51,7 @@ class InboxNotificationAbstract extends AppModel
 
 
 /**
- * Add a generated notification to a given person's notification inbox
+ * Add a generated notification to a given person's message inbox
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
@@ -59,23 +59,36 @@ class InboxNotificationAbstract extends AppModel
  * @param array $notification
  * @return 
  */
-    public function addPersonInboxNotification($personId, $notification)
+    public function addPersonInboxMessage($personId, $notification)
     {
 
-        $tempInboxNotification = array();
-        $tempInboxNotification['subject'] = $notification['subject'];
-        $tempInboxNotification['body'] = $notification['body'];
-        $tempInboxNotification['notification_email'] = $notification['recipient'];
-        $tempInboxNotification['owner_person_id'] = $personId;
+        $tempMessage = array();
+        $tempMessage['subject'] = $notification['subject'];
+        $tempMessage['body'] = $notification['body'];
+        $tempMessage['notification_email'] = $notification['recipient'];
+        $tempMessage['owner_person_id'] = $personId;
 
         $this->create();
-        $saveStatus = $this->save($tempInboxNotification);
+        $saveStatus = $this->save($tempMessage);
 
         if($saveStatus) {
             return true;
         } else {
             return false;
         }
+    }
+
+
+/**
+ * 
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param
+ */
+    public function fetchMessage($messageId)
+    {
+        
     }
 
 /**
@@ -86,13 +99,13 @@ class InboxNotificationAbstract extends AppModel
  * @param string $personId
  * @return integer
  */
-    public function findPersonUnreadNotificationCount($personId)
+    public function findPersonUnreadMessageCount($personId)
     {
         $unreadCount = $this->find('count', array(
             'contain' => array(),
 
             'conditions' => array(
-                'InboxNotification.read' => false
+                'InboxMessage.read' => false
             )
         ));
         
