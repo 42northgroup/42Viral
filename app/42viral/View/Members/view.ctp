@@ -1,4 +1,3 @@
-
 <div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
 <div id="ResultsPage">
