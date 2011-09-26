@@ -64,3 +64,18 @@ $.ajaxSetup ({
     // Disable caching of AJAX responses
     cache: false
 });
+
+$(function(){
+    
+    //HeaderRight navigation
+    $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
+        $('.navigation-block').hide();
+        id = $(this).attr('id');
+        $('#' + id + 'Block').slideDown();
+    });           
+
+    $('#HeaderRight').delegate('.navigation-block', 'mouseleave', function(){
+        $('.navigation-block').slideUp();
+    });  
+    
+});
