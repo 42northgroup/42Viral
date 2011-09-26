@@ -101,9 +101,20 @@ $(function(){
     
     $('#ProfileManager').mouseleave(function(){
         $('.profile-navigation-block').hide();
+    });     
+
+    //Section manager navigation
+    $('#SectionManager').delegate('.section-navigation-link', 'mouseover', function(){
+        $('.section-navigation-block').hide();
+        id = $(this).attr('id');
+        $('#' + id + 'Block').slideDown();
+    });           
+
+    $('#SectionManager').delegate('.section-navigation-block', 'mouseleave', function(){
+        $('.section-navigation-block').slideUp();
     });  
     
     $('.delete-confirm').click(function() {
         return confirm('Are you sure you want to delete this record?');
-    });    
+    }); 
 });
