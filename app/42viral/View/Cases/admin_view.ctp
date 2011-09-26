@@ -18,9 +18,9 @@
  */
 ?>
 
-
 <div class="clearfix">
     
+    <div>Case Management</div>
     <h1 style="float:left;"><?php echo $case['CaseModel']['subject']; ?></h1>
     
     <div style="float:right; margin:6px 0 0;">

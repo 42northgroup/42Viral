@@ -1,7 +1,3 @@
-<?php if(isset($section)): ?>
-<div class="section-head"><?php echo $section; ?></div>
-<?php endif; ?>
-
 <?php if(isset($userProfile)): ?>
     <div class="avatar">
         <?php echo $this->Member->avatar($userProfile['Person']) ?>
