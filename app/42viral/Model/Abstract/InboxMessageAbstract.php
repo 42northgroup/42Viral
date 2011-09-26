@@ -85,7 +85,35 @@ class InboxMessageAbstract extends AppModel
 
 
 /**
- * Fetch all messages of a given user
+ * Fetch all inbox messages (unarchived and undeleted) of a given user
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $userId
+ * @return array
+ */
+    public function fetchAllUserInboxMessages($userId)
+    {
+        $allMessages = $this->find('all', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'InboxMessage.owner_person_id' => $userId,
+                'InboxMessage.archived' => false,
+                'InboxMessage.deleted' => false
+            ),
+
+            'order' => array(
+                'InboxMessage.created DESC'
+            )
+        ));
+
+        return $allMessages;
+    }
+
+
+/**
+ * Fetch all messages (including archived) of a given user
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
@@ -99,7 +127,6 @@ class InboxMessageAbstract extends AppModel
 
             'conditions' => array(
                 'InboxMessage.owner_person_id' => $userId,
-                'InboxMessage.archived' => false,
                 'InboxMessage.deleted' => false
             ),
 
