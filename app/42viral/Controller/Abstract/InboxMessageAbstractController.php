@@ -26,7 +26,7 @@ abstract class InboxMessageAbstractController extends AppController
     public $uses = array('InboxMessage');
 
 /**
- *
+ * Default action for message inbox (to view a list of all messages for the currently logged in user)
  *
  * @return void
  * @access public
@@ -36,21 +36,54 @@ abstract class InboxMessageAbstractController extends AppController
         $userId = $this->Session->read('Auth.User.id');
         $unreadCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
         $this->set('unread_count', $unreadCount);
+
+        $allMessages = $this->InboxMessage->fetchAllUserMessages($userId);
+        $this->set('all_messages', $allMessages);
     }
 
 
 /**
+ * Action to view a single given message
  *
- *
- * @return void
  * @access public
- * @@author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @param string $messageId
+ * @return void
  */
     public function view($messageId) {
         $userId = $this->Session->read('Auth.User.id');
         $inboxMessage = $this->InboxMessage->fetchMessage($messageId);
+        $verifiedMessageOwner = $this->InboxMessage->verifyMessageOwnership($messageId, $userId);
         
+        if($verifiedMessageOwner) {
+            $this->InboxMessage->markAsRead($messageId);
+            //$this->InboxMessage->markAsUnread($messageId);
+            $this->set('inbox_message', $inboxMessage);
+        } else {
+            $this->set('inbox_message', null);
+        }
+    }
+
+
+/**
+ * Temporary action to populate the currently logged in user's message inbox with dummy messages
+ * 
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ */
+    public function populate_inbox()
+    {
+        $userId = $this->Session->read('Auth.User.id');
+
+        $notification = array();
+        $notification['subject'] = md5(rand(100, 999)) . ': 42 Viral Message Subject';
+        $notification['body'] = 
+            'This is just a test message to populate the 42 Viral Message system inbox for the current user';
+        $notification['recipient'] = 'test@42viral.org';
         
+        $this->InboxMessage->addPersonInboxMessage($userId, $notification);
+
+        $this->redirect('/inbox_message/');
     }
 
 }

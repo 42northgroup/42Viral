@@ -33,6 +33,8 @@
                 echo $this->Html->link('Settings', '/users/settings/' );
                 echo ' / ';
                 echo $this->Html->link('Inbox', '/inbox_message/' );
+                echo ' : ';
+                echo $this->Html->link('[Populate Inbox - temp]', '/inbox_message/populate_inbox/' );
             ?>
         </div>
 

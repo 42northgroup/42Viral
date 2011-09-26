@@ -36,8 +36,11 @@ class InboxMessageAbstract extends AppModel
 
     public $useTable = 'inbox_messages';
 
+    private $__fetchedMessage = null; //cache to store a single fetched message
+
 
 /**
+ * Verify if the passed notification object matches the requirements for being placed in the inbox message
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
@@ -46,6 +49,8 @@ class InboxMessageAbstract extends AppModel
  */
     private function __verifyNotificationObject($notification)
     {
+        //[TODO] logic to verify notification object here
+
         return true;
     }
 
@@ -57,7 +62,7 @@ class InboxMessageAbstract extends AppModel
  * @access public
  * @param string $personId
  * @param array $notification
- * @return 
+ * @return boolean
  */
     public function addPersonInboxMessage($personId, $notification)
     {
@@ -80,16 +85,128 @@ class InboxMessageAbstract extends AppModel
 
 
 /**
- * 
+ * Fetch all messages of a given user
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
- * @param
+ * @param string $userId
+ * @return array
+ */
+    public function fetchAllUserMessages($userId)
+    {
+        $allMessages = $this->find('all', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'InboxMessage.owner_person_id' => $userId
+            ),
+
+            'order' => array(
+                'InboxMessage.created DESC'
+            )
+        ));
+
+        return $allMessages;
+    }
+
+
+/**
+ * Fetch a single message given the message id
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * @return InboxMessage
  */
     public function fetchMessage($messageId)
     {
-        
+        $message = $this->find('first', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'InboxMessage.id' => $messageId
+            )
+        ));
+
+        $this->__fetchedMessage = $message; //Cache a fetched message in case it is required in another method
+
+        return $message;
     }
+
+/**
+ * Verify if a given message really belongs to a given person id
+ * (to prevent accidental viewing of someone else's messages by only supplying a message id)
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * @param string $checkAgainstOwnerId
+ * @return boolean
+ */
+    public function verifyMessageOwnership($messageId, $checkAgainstOwnerId)
+    {
+        $message = null;
+
+        if(
+            ($this->__fetchedMessage !== null) &&
+            ($this->__fetchedMessage['InboxMessage']['id'] == $messageId)
+        ) {
+            $message = $this->__fetchedMessage;
+        } else {
+            $message = $this->fetchMessage($messageId);
+        }
+
+        if($message['InboxMessage']['owner_person_id'] === $checkAgainstOwnerId) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Mark a given message as unread
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ *
+ */
+    public function markAsUnread($messageId)
+    {
+        $tempMessage = array();
+        $tempMessage['id'] = $messageId;
+        $tempMessage['read'] = false;
+
+        if($this->save($tempMessage)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Mark a given message as read
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ * @param string $messageId
+ * 
+ */
+    public function markAsRead($messageId)
+    {
+        $tempMessage = array();
+        $tempMessage['id'] = $messageId;
+        $tempMessage['read'] = true;
+
+        if($this->save($tempMessage)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
 /**
  * Returns a given person's count of unread inbox notifications
