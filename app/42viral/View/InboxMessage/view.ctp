@@ -8,6 +8,22 @@
     }
 </style>
 
+<div class="inbox-message-navigation">
+    <?php
+        echo $this->Html->link(
+            'Archive',
+            '/inbox_message/archive/' . $inbox_message['InboxMessage']['id']
+        );
+    ?>
+    /
+    <?php
+        echo $this->Html->link(
+            'Delete',
+            '/inbox_message/delete/' . $inbox_message['InboxMessage']['id']
+        );
+    ?>
+</div>
+
 <div class="inbox-message">
     <h3><?php echo $inbox_message['InboxMessage']['subject']; ?></h3>
 
