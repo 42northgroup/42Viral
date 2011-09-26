@@ -1,6 +1,29 @@
-<?php //pr($company); ?>
-<?php //pr($webResults); ?>
-<?php //pr($webResults['yelp']); ?>
+    
+<?php
+
+    if($mine){
+        $additonal = array(
+            array(
+                'text'=>'Edit',
+                'url'=>$company['Company']['edit_url'],
+                'options' => array()
+            ),
+            array(
+                'text'=>'Delete',
+                'url'=>$company['Company']['delete_url'],
+                'options' => array()
+            )
+        );
+    }else{
+        $additional = array();
+    }
+    
+    
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'company', 'additional' => $additonal));
+
+?>
+
+
 
 <div class="clearfix">
     <h1 style="float:left;"><?php echo $company['Company']['name']; ?></h1>

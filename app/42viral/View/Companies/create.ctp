@@ -14,8 +14,9 @@
  */
 
 /**
- **** @author Jason D Snider <jason.snider@42viral.org>
- ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * UI for creating a new company
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
     $this->Asset->addAssets(array(
@@ -25,8 +26,10 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
+    
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'company'));
+    
 ?>
-<h1>Create Company Profile</h1>
 
 <div class="company-create-form clearfix">
     <?php
@@ -36,9 +39,9 @@
         ));
 
         echo $this->Form->input('Company.name');
-           //No, provide a form for creating the first address
-            echo $this->Form->input("Address.0.model",array('type'=>'hidden', 'value'=>'Company'));
-            echo $this->Form->input("Address.0.zip", array('style'=>'width: 70px;'));
+        //No, provide a form for creating the first address
+        echo $this->Form->input("Address.0.model",array('type'=>'hidden', 'value'=>'Company'));
+        echo $this->Form->input("Address.0.zip", array('style'=>'width: 70px;'));
      
         echo $this->Form->submit('Save');
         echo $this->Form->end();

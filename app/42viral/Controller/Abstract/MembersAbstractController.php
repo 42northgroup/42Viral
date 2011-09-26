@@ -107,7 +107,6 @@ abstract class MembersAbstractController extends AppController {
         
         $userProfile['Person'] = $user['User'];
         $this->set('userProfile', $userProfile);
-        $this->set('section', 'Profile');
 
     }
 
