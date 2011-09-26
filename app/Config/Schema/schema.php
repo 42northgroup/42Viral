@@ -1,5 +1,6 @@
 <?php 
-/* App schema generated on: 2011-09-19 00:37:11 : 1316410631*/
+/* App schema generated on: 2011-09-26 09:41:29 : 1317048089*/
+
 class AppSchema extends CakeSchema {
 	function before($event = array()) {
 		return true;
@@ -163,7 +164,7 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'alias' => array('column' => 'alias', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
-	var $inbox_notifications = array(
+	var $inbox_messages = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'owner_person_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'comment' => 'person to which this inbox notification belongs to', 'charset' => 'latin1'),
 		'type' => array('type' => 'string', 'null' => false, 'default' => 'standard', 'length' => 200, 'collate' => 'latin1_swedish_ci', 'comment' => 'specify inbox notification type for easy categorization (default is \'standard\')', 'charset' => 'latin1'),
