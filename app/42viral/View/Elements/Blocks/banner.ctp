@@ -32,7 +32,7 @@
                 echo ' / ';
                 echo $this->Html->link('Settings', '/users/settings/' );
                 echo ' / ';
-                echo $this->Html->link('Inbox', '/inbox_notification/' );
+                echo $this->Html->link('Inbox', '/inbox_message/' );
             ?>
         </div>
 
