@@ -52,10 +52,16 @@
                         '/inbox_message/'
                     );
                 }
-                
-                echo ' : ';
 
+                echo ' : ';
+                echo $this->Html->link(
+                    'All Messages',
+                    '/inbox_message/all_messages/'
+                );
+
+                echo ' : ';
                 echo $this->Html->link('[Populate Inbox - temp]', '/inbox_message/populate_inbox/' );
+
             ?>
         </div>
 

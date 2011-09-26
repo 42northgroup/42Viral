@@ -35,10 +35,7 @@ abstract class InboxMessageAbstractController extends AppController
     public function index()
     {
         $userId = $this->Session->read('Auth.User.id');
-        $unreadCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
-        $this->set('unread_count', $unreadCount);
-
-        $allMessages = $this->InboxMessage->fetchAllUserMessages($userId);
+        $allMessages = $this->InboxMessage->fetchAllUserInboxMessages($userId);
         $this->set('all_messages', $allMessages);
     }
 
@@ -87,6 +84,19 @@ abstract class InboxMessageAbstractController extends AppController
         }
 
         $this->redirect('/inbox_message/');
+    }
+
+/**
+ * 
+ *
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @access public
+ */
+    public function all_messages()
+    {
+        $userId = $this->Session->read('Auth.User.id');
+        $allMessages = $this->InboxMessage->fetchAllUserMessages($userId);
+        $this->set('all_messages', $allMessages);
     }
 
 
