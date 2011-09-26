@@ -44,8 +44,5 @@ class CasesAbstractController extends AppController {
             $userProfile['Person'] = $case['Person'];
             $this->set('userProfile', $userProfile);
         }
-        
-        $this->set('section', 'Case Management');
-        
     }
 }

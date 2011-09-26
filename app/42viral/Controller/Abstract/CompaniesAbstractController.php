@@ -73,6 +73,7 @@ abstract class CompaniesAbstractController extends AppController
         }
         
         $this->set('companies', $companies);
+        $this->set('title_for_layout', __('Company Index'));
         
     }
 
@@ -173,6 +174,7 @@ abstract class CompaniesAbstractController extends AppController
         
         $this->set('mine', $mine);
         $this->set('connect', $connect);
+        $this->set('title_for_layout', $company['Company']['name']);
     }
 
     /**
@@ -184,6 +186,7 @@ abstract class CompaniesAbstractController extends AppController
     {
         $userProfile = $this->Person->fetchPersonWith($this->Session->read('Auth.User.username'), 'Profile');
         $this->set('userProfile', $userProfile);
+        $this->set('title_for_layout', __('Create a company'));
     }
 
     /**

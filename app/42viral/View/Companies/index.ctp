@@ -15,16 +15,15 @@
 
 /**
  *
- ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 ?>
 
 <?php if(isset($userProfile)): ?>
-    <h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Companies</h1>
     <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>    
 <?php else: ?>
-    <h1>Company Index</h1> 
+    <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'company')); ?>
 <?php endif; ?>
     
 <div id="ResultsPage">
