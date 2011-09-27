@@ -14,6 +14,34 @@
  */
 ?>
 
+<<<<<<< HEAD
+=======
+<?php if(isset($userProfile)): ?>
+    <div id="Banner" class="clearfix">
+
+        <div id="BannerLeft" class="display-name">
+            <?php echo $this->Member->displayName($userProfile['Person']); ?>
+        </div>
+
+        <div id="BannerContent">
+        <?php 
+            if($mine){
+                $additional = array(
+                    array(
+                        'text'=>"Edit Profile",
+                        'url'=>"/profiles/edit/{$userProfile['Person']['id']}",
+                        'options' => array(),
+                        'confirm'=>null
+                    )
+                );
+            }else{
+                $additional = array();
+            }
+
+            echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
+        ?>
+        </div>
+>>>>>>> reintroduced banner navigation, tweaked local nav
 
 <div id="Banner" class="clearfix">
     
@@ -46,6 +74,7 @@
         echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
     ?>
     </div>
+<<<<<<< HEAD
     
     <div id="BannerRight">
         <?php 
@@ -55,3 +84,6 @@
     </div>
 
 </div>
+=======
+<?php endif; ?>
+>>>>>>> reintroduced banner navigation, tweaked local nav

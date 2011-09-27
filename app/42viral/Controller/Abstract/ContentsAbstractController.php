@@ -198,7 +198,7 @@ abstract class ContentsAbstractController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->findById($id);
+        $this->data = $this->Post->fetchPostWith($id, 'created_person');
         
         $this->set('statuses', $this->Post->picklist('Status'));
 
@@ -229,8 +229,10 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
 
+        $userProfile['Person'] = $this->data['CreatedPerson'];
+        $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
-        $this->set('title_for_layout', "Update {$this->data['Post']['title']}");
+        $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
     }
     
     

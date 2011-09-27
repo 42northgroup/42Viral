@@ -42,6 +42,7 @@ if(isset($additional)){
 
 
 <div id ="ProfileManager" class="clearfix profile-navigation">
+
     <?php 
     
         if(isset($userProfile)):
