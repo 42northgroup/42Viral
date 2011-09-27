@@ -14,11 +14,13 @@
  */
 
 /**
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<h1>Blogs</h1>
+echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
+
+?>
 
 <div id="ResultsPage">
     <?php foreach($blogs as $blog): ?>

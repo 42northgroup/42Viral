@@ -23,6 +23,8 @@ body{
     
     font-weight: bold;
     line-height: 30px;
+    
+    margin: 0 0 4px;
 }
 
 #HeaderLeft{
@@ -34,13 +36,7 @@ body{
     float: right;
 }
 
-#Banner{
-    margin: 0 auto;
-    width: 944px;
-    border-bottom: 1px solid #e5e5e5;
-    height: 41px;    
-    padding: 0 8px;
-}
+#Banner{}
 
 #Main{
     margin: 0 auto;
