@@ -14,10 +14,11 @@
  */
 
 /**
- * @package app
- * @subpackage app.content.ui
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
+
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
 
 ?>
 <h1>Comment on a blog post</h1>

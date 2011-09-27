@@ -55,6 +55,7 @@ abstract class ContentsAbstractController extends AppController {
     public function blogs(){
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
+        $this->set('title_for_layout', 'Blogs');
     }    
     
     /**
@@ -95,6 +96,7 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
+        $this->set('title_for_layout', 'Create a Blog');
     }
     
     /**
@@ -120,6 +122,8 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Blog->findById($id);
 
         $this->set('statuses', $this->Blog->picklist('Status'));
+        
+        $this->set('title_for_layout', "Update {$this->data['Blog']['name']}");        
     }    
     
     /**
@@ -170,6 +174,8 @@ abstract class ContentsAbstractController extends AppController {
             }     
             
         }
+        
+        $this->set('title_for_layout', 'Post to a Blog');
     }
     
     /**
@@ -224,7 +230,7 @@ abstract class ContentsAbstractController extends AppController {
         }
 
         $this->set('customFiles', $paths);
-     
+        $this->set('title_for_layout', "Update {$post['Post']['name']}");
     }
     
     
@@ -243,6 +249,7 @@ abstract class ContentsAbstractController extends AppController {
                 $this->redirect($this->referer());
             }
         }
+        $this->set('title_for_layout', "Comment on a Blog Post");        
     }
     
     
@@ -286,6 +293,8 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', __('Create a Page'));
     }
  
     
@@ -312,6 +321,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Page->findById($id);
         
         $this->set('statuses', $this->Page->picklist('Status'));
+        $this->set('title_for_layout', "Update {$page['Page']['name']}");        
     }    
     
     /**
@@ -337,6 +347,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
+        $this->set('title_for_layout', "All Content");        
     }  
     
     public function promote($id, $redirect_url='users/social_media')
@@ -386,6 +397,7 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
+        $this->set('title_for_layout', "Promote your {$content['Content']['name']}");
     }
     
 }

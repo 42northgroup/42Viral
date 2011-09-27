@@ -14,12 +14,11 @@
  */
 
 /**
- * @package app
- * @subpackage app.content.ui
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-?>
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); ?>
 <style type="text/css">
     .post-avatar{
         float:left; padding:8px 0 0; height:128px; width:138px;

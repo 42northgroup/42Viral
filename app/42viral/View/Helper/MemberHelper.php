@@ -73,7 +73,7 @@ class MemberHelper extends AppHelper
     }
 
     /**
-     * Determines the best display name to use for a target user
+     * This will allow a user to choose the name they want to display.
      * @param array $data
      * @return string
      * @access public
@@ -89,5 +89,24 @@ class MemberHelper extends AppHelper
             return $this->Html->link($name, $url);
         }
     }
+    
+
+    /**
+     * Returns a person name, if the name is empty then this will return the username
+     * @param array $data
+     * @return string
+     * @access public
+     */
+    public function name($data)
+    {
+        extract($data);
+
+        //Currently this is just looking to see if you have entered your name.
+        if (strlen(trim($name)) == 0) {
+            return $username;
+        } else {
+            return $name;
+        }
+    }    
 
 }

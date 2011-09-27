@@ -1,7 +1,6 @@
 <?php if(isset($userProfile)): ?>
     <div class="avatar">
         <?php echo $this->Member->avatar($userProfile['Person']) ?>
-        <div class="avatar-name"><?php echo $this->Member->displayName($userProfile['Person']) ?></div>
     </div>
 <?php endif; ?>
 
