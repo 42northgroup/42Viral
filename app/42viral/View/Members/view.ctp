@@ -1,4 +1,24 @@
+<<<<<<< HEAD
+=======
+<?php 
 
+>>>>>>> Applied the new navigation to multiple pages
+
+if($mine){
+    $additional = array(
+        array(
+            'text'=>"Edit Profile",
+            'url'=>"/profiles/edit/{$user['Profile']['id']}",
+            'options' => array(),
+            'confirm'=>null
+        )
+    );
+}else{
+    $additional = array();
+}
+
+    echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
+?>
 <div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
 <div id="ResultsPage">

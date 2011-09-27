@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> Applied the new navigation to multiple pages
 <?php
 /**
  * PHP 5.3
@@ -18,10 +21,9 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-
     $additional = array(
         array(
-            'text'=>"Create a case",
+            'text'=>"Create a Case",
             'url'=>"/admin/people/create_case/{$person['Person']['username']}",
             'options' => array(),
             'confirm'=>null
