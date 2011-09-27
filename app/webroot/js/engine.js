@@ -71,22 +71,22 @@ $(function(){
     $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
         $('.navigation-block').hide();
         var id = $(this).attr('id');
-        $('#' + id + 'Block').slideDown();
+        $('#' + id + 'Block').show();
     });           
 
     $('#HeaderRight').delegate('.navigation-block', 'mouseleave', function(){
-        $('.navigation-block').slideUp();
+        $('.navigation-block').hide();
     });  
     
     //Section manager navigation
     $('#SectionManager').delegate('.section-navigation-link', 'mouseover', function(){
         $('.section-navigation-block').hide();
         var id = $(this).attr('id');
-        $('#' + id + 'Block').slideDown();
+        $('#' + id + 'Block').show();
     });           
 
     $('#SectionManager').delegate('.section-navigation-block', 'mouseleave', function(){
-        $('.section-navigation-block').slideUp();
+        $('.section-navigation-block').hide();
     });  
     
 });
