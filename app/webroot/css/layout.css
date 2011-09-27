@@ -24,7 +24,11 @@ body{
     font-weight: bold;
     line-height: 30px;
     
+<<<<<<< HEAD
     margin: 0;
+=======
+    margin: 0 0 4px;
+>>>>>>> Added new navigation to the blog index
 }
 
 #HeaderLeft{
@@ -59,6 +63,7 @@ body{
     width:166px;
     padding:0 9px 0 0;
 }
+
 
 #Main{
     margin: 4px auto 0;
