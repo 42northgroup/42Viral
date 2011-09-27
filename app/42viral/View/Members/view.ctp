@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 <?php 
 
->>>>>>> Applied the new navigation to multiple pages
 
 if($mine){
     $additional = array(
