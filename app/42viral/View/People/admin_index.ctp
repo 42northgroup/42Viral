@@ -1,4 +1,4 @@
-<h1>People</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'people')); ?>
 
 <table>
     <thead>
