@@ -19,9 +19,7 @@
  */
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
-?>
 
-<?php
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',
         'js/vendors/ckeditor/ckeditor.js',
@@ -29,11 +27,6 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
-
-<h1>Edit your blog post</h1>
-
-<?php
 
     echo $this->Form->create('Post', 
                 array(
@@ -55,5 +48,3 @@
     echo $this->Form->submit();
     
     echo $this->Form->end();
-
-?>

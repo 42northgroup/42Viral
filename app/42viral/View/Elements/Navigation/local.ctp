@@ -128,12 +128,6 @@ if(isset($additional)){
     
     <h1 style="float:left; font-size: 100%; font-weight: normal;">
         <?php 
-        
-            if(isset($userProfile)){
-                echo $this->Member->displayName($userProfile['Person']);
-                echo ' : ';
-            }
-        
             // DO NOT!!! do an isset check here to supress errors. If their is an error finding the title, resolve it at
             // the controller level by using $this->set('title_for_layout') this will help assure page title are being 
             // set.
