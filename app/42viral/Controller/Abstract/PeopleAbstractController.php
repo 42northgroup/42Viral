@@ -69,5 +69,6 @@ abstract class PeopleAbstractController extends AppController
        
        $this->set('person', $person);
        $this->set('id', $person['Person']['id']);
+       $this->set('title_for_layout', "Create a Case for {$person['Person']['name']}");
    }
 }

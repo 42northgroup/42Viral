@@ -14,13 +14,12 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<?php
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));    
+
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',
         'js/vendors/ckeditor/ckeditor.js',

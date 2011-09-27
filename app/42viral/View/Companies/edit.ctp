@@ -29,13 +29,13 @@
     if($mine){
         $additonal = array(
             array(
-                'text'=>'View',
+                'text'=>"View {$this->data['Company']['name']}",
                 'url'=>$this->data['Company']['public_url'],
                 'options' => array(),
                 'confirm'=>null
             ),
             array(
-                'text'=>'Delete',
+                'text'=>"Delete {$this->data['Company']['name']}",
                 'url'=>$this->data['Company']['delete_url'],
                 'options' => array(),
                 'confirm'=>Configure::read('System.purge_warning')

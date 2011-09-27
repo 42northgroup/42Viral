@@ -1,12 +1,21 @@
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
+<?php 
 
-<?php if($mine): ?>
-    <div class="avatar-name"><?php echo $this->Member->displayName($userProfile['Person']) ?></div>
-    <div style="text-align: right; padding:4px 0 0;">
-        <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
-    </div>
-<?php endif; ?>
 
+if($mine){
+    $additional = array(
+        array(
+            'text'=>"Edit Profile",
+            'url'=>"/profiles/edit/{$user['Profile']['id']}",
+            'options' => array(),
+            'confirm'=>null
+        )
+    );
+}else{
+    $additional = array();
+}
+
+    echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
+?>
 <div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
 <div id="ResultsPage">
