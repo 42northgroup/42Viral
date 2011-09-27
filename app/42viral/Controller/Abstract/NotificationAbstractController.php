@@ -24,13 +24,48 @@ App::uses('AppController', 'Controller');
 abstract class NotificationAbstractController extends AppController
 {
 
+    public $uses = array('Person', 'Notification');
+    public $components = array('NotificationCmp');
+
 /**
+ * Default action for the notification controller
  *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ */
+    public function index()
+    {
+        
+    }
+
+/**
+ * Action to test working of the notification component
  *
  * @return void
  * @access public
- * @@author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-    public function index() {}
+    public function test()
+    {
+        $userId = $this->Session->read('Auth.User.id');
+        $person = $this->Person->fetchPersonWith($userId, array(), 'id');
+
+        $additionalObjects = array(
+            'Company' => array(
+                'name' => 'ABC Company',
+                'address' => '123 Main St Suite 321, NY 12345'
+            )
+        );
+
+        $notification = $this->Notification->fetchNotification('test_notification');
+        if(empty($notification)) {
+            $this->Notification->generateDummyTestNotification();
+        }
+
+        $this->NotificationCmp->triggerNotification('test_notification', $person, $additionalObjects);
+
+        $this->Session->setFlash('Notification was fired', 'success');
+        $this->redirect('/notification/index');
+    }
 
 }

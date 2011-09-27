@@ -70,7 +70,7 @@ class InboxMessageAbstract extends AppModel
         $tempMessage = array();
         $tempMessage['subject'] = $notification['subject'];
         $tempMessage['body'] = $notification['body'];
-        $tempMessage['notification_email'] = $notification['recipient'];
+        $tempMessage['notification_email'] = $notification['recipient_email'];
         $tempMessage['owner_person_id'] = $personId;
 
         $this->create();
