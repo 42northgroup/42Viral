@@ -27,8 +27,15 @@ switch($section){
 
     case 'people':
         $menu = array(
-            'name'=>'People (CRM)',
-            'Items'=>array()
+            'name'=>'People',
+            'Items'=>array(
+                array(
+                    'text'=>'All People',
+                    'url'=>'/admin/people',
+                    'options' => array(),
+                    'confirm'=>null
+                )                
+            )
         );
     break;
 
