@@ -21,7 +21,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class PeopleAbstractController extends AppController
 {
@@ -44,12 +44,14 @@ abstract class PeopleAbstractController extends AppController
     {
         $people = $this->Person->find('all');
         $this->set('people', $people);
+        $this->set('title_for_layout', 'People (CRM)');
     }    
     
    public function admin_view($username){
        $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
        $this->set('person', $person);
        $this->set('userProfile', $person);
+       
    }
    
     

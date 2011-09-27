@@ -25,6 +25,13 @@ switch($section){
         );
     break;    
 
+    case 'people':
+        $menu = array(
+            'name'=>'People (CRM)',
+            'Items'=>array()
+        );
+    break;
+
 }
 
 if(isset($additional)){
