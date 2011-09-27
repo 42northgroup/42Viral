@@ -41,12 +41,10 @@ if(isset($additional)){
 ?>
 
 
-<div id ="SectionManager" class="clearfix profile-navigation">
+<div id ="ProfileManager" class="clearfix profile-navigation">
     
     <h1 style="float:left; font-size: 100%; font-weight: normal;">
         <?php 
-            echo $this->Member->displayName($userProfile['Person']);
-            echo ' : ';
             echo $this->Html->link('Profile', $userProfile['Person']['url']);
             echo ' / ';
             echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
@@ -63,7 +61,7 @@ if(isset($additional)){
             <?php echo $this->Html->link('&#9660;', '#', 
                     array('id'=>'Manage', 'class'=>'section-navigation-link', 'escape'=>false)); ?>
 
-            <div id="ManageBlock" class="section-navigation-block">
+            <div id="ProfileBlock" class="profile-navigation-block">
                 <?php foreach($menu['Items'] as $item): ?>
                     <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
                 <?php endforeach; ?>

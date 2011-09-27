@@ -172,3 +172,15 @@ div.section-head{
 }
 
 
+.display-name{}
+
+.display-name a{
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    font-weight: bold;
+    color: #666;
+    
+}
+
+

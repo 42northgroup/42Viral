@@ -36,7 +36,21 @@ body{
     float: right;
 }
 
-#Banner{}
+#Banner{
+    width: 960px;
+    margin: 0 auto 4px;  
+}
+
+#BannerContent{
+    float:left;
+    width: 600px;
+}
+
+#BannerLeft{
+    float:left;
+    width:166px;    
+    padding:0 9px 0 0;
+}
 
 #Main{
     margin: 0 auto;
