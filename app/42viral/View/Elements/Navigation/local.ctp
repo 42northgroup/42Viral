@@ -58,6 +58,7 @@ switch($section){
                     'confirm'=>null
                 )                
             )
+
         );
     break;
 
@@ -74,6 +75,7 @@ switch($section){
                     'confirm'=>null
                 )                
             )
+
         );
         
     break;

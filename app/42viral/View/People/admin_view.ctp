@@ -1,3 +1,4 @@
+
 <?php
 /**
  * PHP 5.3
@@ -17,9 +18,10 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
+
     $additional = array(
         array(
-            'text'=>"Create a Case",
+            'text'=>"Create a case",
             'url'=>"/admin/people/create_case/{$person['Person']['username']}",
             'options' => array(),
             'confirm'=>null
