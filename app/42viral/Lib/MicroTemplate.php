@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-Class MicroTemplate extends Object
+class MicroTemplate extends Object
 {
 
     private static function __init()
