@@ -17,14 +17,9 @@
  * UI for creating a web page
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-<<<<<<< HEAD
-=======
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
-?>
->>>>>>> Applied the new navigation to multiple pages
 
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
 
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',
@@ -52,5 +47,6 @@
     echo $this->Form->input('slug', array('rows'=>1));
     echo $this->Form->input('status');
     echo $this->Form->submit();
-    
+
     echo $this->Form->end();
+
