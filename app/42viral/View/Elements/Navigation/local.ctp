@@ -75,10 +75,8 @@ switch($section){
                     'confirm'=>null
                 )                
             )
-
         );
         
-    break;
 
     case 'content':
         $menu = array(

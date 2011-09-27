@@ -17,6 +17,12 @@
  * UI for creating a web page
  * @author Jason D Snider <jason.snider@42viral.org>
  */
+<<<<<<< HEAD
+=======
+
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
+?>
+>>>>>>> Applied the new navigation to multiple pages
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
 
