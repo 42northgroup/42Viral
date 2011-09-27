@@ -1,6 +1,16 @@
-<h1><?php echo $person['Person']['name']; ?></h1>
-<?php echo $this->Html->link('Create a case', "/admin/people/create_case/{$person['Person']['username']}"); ?>
+<?php 
 
+    $additional = array(
+        array(
+            'text'=>"Create a case",
+            'url'=>"/admin/people/create_case/{$person['Person']['username']}",
+            'options' => array(),
+            'confirm'=>null
+        )
+    );
+
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'people', 'additional'=>$additional));     
+?>
 
 <h2>Cases</h2>
 <?php if(!empty($person['Case'])): ?>

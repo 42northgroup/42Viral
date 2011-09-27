@@ -51,7 +51,8 @@ abstract class PeopleAbstractController extends AppController
        $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
        $this->set('person', $person);
        $this->set('userProfile', $person);
-       
+       $this->set('title_for_layout', 
+               $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
    }
    
     
