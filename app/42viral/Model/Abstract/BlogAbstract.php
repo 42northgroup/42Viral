@@ -43,7 +43,7 @@ class BlogAbstract extends ContentAbstract
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
             'dependent' => true
-        ),
+        )
     );
     
     /**
