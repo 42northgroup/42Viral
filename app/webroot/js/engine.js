@@ -87,7 +87,7 @@ $(function(){
         var id = $(this).attr('id');
         $('#' + id + 'Block').show();
     });   
-    
+
     $('#SectionManager').mouseleave(function(){
         $('.section-navigation-block').hide();
     });  
