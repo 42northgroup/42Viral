@@ -41,7 +41,7 @@ abstract class BlogsAbstractController extends AppController {
         $this->loadModel('Blog');
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
-        $this->set('title_for_layout', 'Blog');
+        $this->set('title_for_layout', 'Blog Index');
     }
     
     /**
