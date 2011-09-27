@@ -123,7 +123,7 @@ abstract class ContentsAbstractController extends AppController {
 
         $this->set('statuses', $this->Blog->picklist('Status'));
         
-        $this->set('title_for_layout', "Update {$this->data['Blog']['name']}");        
+        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");        
     }    
     
     /**
@@ -230,7 +230,7 @@ abstract class ContentsAbstractController extends AppController {
         }
 
         $this->set('customFiles', $paths);
-        $this->set('title_for_layout', "Update {$post['Post']['name']}");
+        $this->set('title_for_layout', "Update {$this->data['Post']['title']}");
     }
     
     
@@ -321,7 +321,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Page->findById($id);
         
         $this->set('statuses', $this->Page->picklist('Status'));
-        $this->set('title_for_layout', "Update {$page['Page']['name']}");        
+        $this->set('title_for_layout', "Update {$page['Page']['title']}");        
     }    
     
     /**
@@ -397,7 +397,7 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
-        $this->set('title_for_layout', "Promote your {$content['Content']['name']}");
+        $this->set('title_for_layout', "Promote your {$content['Content']['title']}");
     }
     
 }

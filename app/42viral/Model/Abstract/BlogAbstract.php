@@ -51,6 +51,19 @@ class BlogAbstract extends ContentAbstract
      * @var array
      * @access public
      */
+    public $belongsTo = array(
+        'CreatedPerson' => array(
+            'className' => 'Person',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        )
+    );
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
     public $validate = array(
         
         'title' => array(
@@ -122,6 +135,7 @@ class BlogAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
+                        'CreatedPerson'=>array(),
                         'Post'=>array('conditions'=>array('Post.status'=>'published'), 
                             'order'=>array('Post.created DESC'))
                     );
