@@ -70,7 +70,8 @@ abstract class BlogsAbstractController extends AppController {
             $mine = true;
         }
         
-        $this->set('mine', $mine);
+        $this->set('mine', $mine); pr($blog);
+        $this->set('userProfile', $blog['Person']);
     } 
     
     /**
