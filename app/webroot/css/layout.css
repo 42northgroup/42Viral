@@ -41,7 +41,6 @@ body{
     margin: 0 auto; 
     background: #F1F1F1;
     border-bottom: 1px solid #e2e2e2;
-    height: 30px;
 }
 
 #BannerContent{
@@ -52,6 +51,12 @@ body{
 #BannerLeft{
     float:left;
     width:166px;    
+    padding:0 9px 0 0;
+}
+
+#BannerRight{
+    float:left;
+    width:166px;
     padding:0 9px 0 0;
 }
 

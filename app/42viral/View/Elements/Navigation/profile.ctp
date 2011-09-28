@@ -42,9 +42,10 @@ if(isset($additional)){
 
 
 <div id ="ProfileManager" class="clearfix profile-navigation">
+    <?php 
     
-    <h1 style="float:left; font-size: 100%; font-weight: normal;">
-        <?php 
+        if(isset($userProfile)):
+
             echo $this->Html->link('Profile', $userProfile['Person']['url']);
             echo ' / ';
             echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
@@ -52,9 +53,10 @@ if(isset($additional)){
             echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
             echo ' / ';
             echo $this->Html->link('Companies', "/companies/index/{$userProfile['Person']['username']}");
-        ?>
-    </h1>
-    
+        else:
+            echo '&nbsp;';
+        endif; 
+    ?> 
     <div style ="position:relative; float:right;">
         <?php if(count($menu['Items']) > 0): ?>
         
