@@ -142,7 +142,9 @@ div.section-head{
     
 }
 
-/* Banner flyouts */
+.local-navigation{
+    border-bottom: 1px solid #e2e2e2;
+}
 
 /* #HeaderRight flyout menus */
 

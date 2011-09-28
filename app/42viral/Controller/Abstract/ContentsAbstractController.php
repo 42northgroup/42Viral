@@ -349,7 +349,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
-        $this->set('title_for_layout', "All Content");        
+        $this->set('title_for_layout', "Content Stream");        
     }  
     
     public function promote($id, $redirect_url='users/social_media')

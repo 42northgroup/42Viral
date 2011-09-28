@@ -20,9 +20,6 @@
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); ?>
 
-<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Content Stream</h1>
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
-
 <div id="ResultsPage">
     <?php foreach($userProfile['Content'] as $content):?>
     <div class="result">
