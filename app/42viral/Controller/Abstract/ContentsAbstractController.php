@@ -120,14 +120,13 @@ abstract class ContentsAbstractController extends AppController {
             }else{
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
+        }else{
+            //We only want to fire this if the data array is empty
+            $this->data = $this->Blog->findById($id);
         }
         
-        $this->data = $this->Blog->findById($id);
-
         $this->set('statuses', $this->Blog->picklist('Status'));
-        
         $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
-
         
     }    
     
