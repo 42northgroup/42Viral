@@ -38,11 +38,12 @@ class CasesAbstractController extends AppController {
         
         $case = $this->CaseModel->fetchCaseWith($id, 'standard');
         
-        $this->set('case', $case);
-        
         if(!empty($case['Person'])){
             $userProfile['Person'] = $case['Person'];
             $this->set('userProfile', $userProfile);
         }
+        
+        $this->set('case', $case);
+        $this->set('title_for_layout', $case['CaseModel']['subject']);
     }
 }
