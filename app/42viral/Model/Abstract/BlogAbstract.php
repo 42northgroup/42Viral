@@ -135,8 +135,11 @@ class BlogAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
-                        'CreatedPerson'=>array('Profile'=>array()),
-                        'Post'=>array('conditions'=>array('Post.status'=>'published'), 
+                        'CreatedPerson'=>array(
+                            'Profile'=>array()
+                        ),
+                        'Post'=>array(
+                            'conditions'=>array('Post.status'=>'published'), 
                             'order'=>array('Post.created DESC'))
                     );
                 break;   
