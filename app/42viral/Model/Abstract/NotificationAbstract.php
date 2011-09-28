@@ -43,6 +43,63 @@ class NotificationAbstract extends AppModel
 
 
 /**
+ * @var array
+ * @access public
+ */
+    public $actsAs = array(
+        'Log',
+        
+        'Scrub' => array(
+            'Filters' => array(
+                'trim' => '*',
+                'htmlStrict' => array('body_template'),
+                'noHTML' => array('id', 'name', 'alias', 'subject_template'),
+            )
+        )
+    );
+
+
+/**
+ * @var array
+ * @access public
+ */
+    public $validate = array(
+        'alias' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => "Please enter an alias"
+            ),
+
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' => "Given alias needs to be unique"
+            )
+        ),
+
+        'name' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => "Please enter an name"
+            )
+        ),
+
+        'subject_template' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => "Please enter an Subject Template"
+            )
+        ),
+
+        'body_template' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => "Please enter an Body Template"
+            )
+        )
+    );
+
+
+/**
  * Used for generating a dummy test notification for testing purposes
  *
  * @access public
@@ -123,5 +180,41 @@ class NotificationAbstract extends AppModel
         ));
 
         return $notification;
+    }
+
+
+/**
+ * Fetch all notifications sorted by their name in ascending order
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @return array
+ */
+    public function fetchAllNotifications()
+    {
+        $notifications = $this->find('all', array(
+            'contain' => array(),
+            
+            'order' => array(
+                'Notification.name ASC'
+            )
+        ));
+
+        return $notifications;
+    }
+
+/**
+ * Deletes a single given notification using its ID
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @param $notificationId
+ * @return boolean
+ */
+    public function deleteNotification($notificationId)
+    {
+        $opStatus = $this->delete($notificationId);
+
+        return $opStatus;
     }
 }
