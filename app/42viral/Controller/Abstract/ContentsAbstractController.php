@@ -181,7 +181,6 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', 'Post to a Blog');
-        
     }
     
     /**
@@ -235,8 +234,6 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
 
-        $userProfile['Person'] = $this->data['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
         $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
         

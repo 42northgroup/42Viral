@@ -67,11 +67,13 @@ abstract class AppAbstractController extends Controller
         
         //If a user is logged in and their is no $userRofile set. 
         //Set it to the logged in user
+        /*
         if($this->Session->read('Auth.User')){
             if(!isset($userProfile)){
                 $this->_me();
             }
         }
+        */
     }
     
     /**
