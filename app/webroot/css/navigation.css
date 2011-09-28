@@ -20,34 +20,6 @@
     font-weight: 700;
 }
 
-.banner-navigation{
-    padding: 4px 0;
-}
-
-.banner-navigation a:link,
-.banner-navigation a:visited{
-    padding:3px 0;
-    font-weight: normal;
-    color: #555;
-    text-decoration: none;
-    border-radius: 3px;
-}
-
-.banner-navigation a:hover{
-    color: #666;
-}
-
-.banner-sub-navigation a:link,
-.banner-sub-navigation a:visited{
-    font-weight: normal;
-    color: #444;
-    text-decoration: none;
-}
-
-.banner-sub-navigation a:hover{
-    color: #666;
-}
-
 #Left h4{
     padding: 0;
     margin: 0 0 0 10px;
@@ -103,9 +75,8 @@ div.section-box {
 
 /* #Left column profile/avatar settings */ 
 .profile-navigation{
-    padding: 0 4px;
-    line-height: 24px;
-    border-bottom: 1px solid #dedede;
+    padding: 0;
+    line-height: 28px;
 }
 
 div.section-head{
@@ -175,12 +146,12 @@ div.section-head{
 .display-name{}
 
 .display-name a{
-    padding: 0;
+    padding: 0 0 0 4px;
     margin: 0;
     text-decoration: none;
     font-weight: bold;
     color: #666;
-    
+    line-height: 28px;
 }
 
 

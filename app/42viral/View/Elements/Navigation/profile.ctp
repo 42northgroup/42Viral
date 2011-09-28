@@ -67,8 +67,8 @@ if(isset($additional)){
                 <?php endforeach; ?>
             </div>
         
-        <?php else: ?>
-            <?php echo $menu['name']; ?>
+        <?php //else: ?>
+            <?php //echo '&#9660;'; ?>
         <?php endif; ?>
     </div>
     
