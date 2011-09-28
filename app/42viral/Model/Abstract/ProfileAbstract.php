@@ -27,7 +27,6 @@ class ProfileAbstract extends AppModel
     
     public $useTable = 'profiles';
 
-
     /**
      *
      * @var array
@@ -38,12 +37,7 @@ class ProfileAbstract extends AppModel
             'className' => 'Person',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        ),
-        'User' => array(
-            'className' => 'User',
-            'foreignKey' => 'owner_person_id',
-            'dependent' => true
-        ),        
+        )  
     );
 
     /**
