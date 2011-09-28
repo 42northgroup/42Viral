@@ -51,6 +51,8 @@ if(isset($additional)){
             echo ' / ';
             echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
             echo ' / ';
+            echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");           
+            echo ' / ';            
             echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
             echo ' / ';
             echo $this->Html->link('Companies', "/companies/index/{$userProfile['Person']['username']}");

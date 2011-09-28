@@ -100,7 +100,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
 
 <div class="meta" style="margin: 6px 0;">
     <span class="meta-head">Last Modified:</span>
-    <?php echo $post['Post']['modified']; ?>
+    <?php echo Handy::date($post['Post']['modified']); ?>
 </div>
 
 <?php foreach($post['Conversation'] as $conversation): ?>
