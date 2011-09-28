@@ -349,7 +349,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
-        $this->set('title_for_layout', "All Content");        
+        $this->set('title_for_layout', "Content Stream");        
     }  
     
     public function promote($id, $redirect_url='users/social_media')
@@ -399,11 +399,9 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
-<<<<<<< HEAD
-                $this->set('title_for_layout', "Update {$post['Post']['name']}");
-=======
-        $this->set('title_for_layout', "Promote your {$content['Content']['title']}");
->>>>>>> Added more naivgation and created the blgo to people association
+
+        $this->set('title_for_layout', "Update {$post['Post']['name']}");
+
     }
     
 }

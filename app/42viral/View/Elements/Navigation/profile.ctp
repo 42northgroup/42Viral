@@ -28,7 +28,7 @@ switch($section){
     
     case 'profile':
         $menu = array(
-            'name'=>'Companies',
+            'name'=>'Profile',
             'Items' => array()
         );
     break;    
