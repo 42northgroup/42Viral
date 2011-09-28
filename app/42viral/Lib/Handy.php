@@ -52,9 +52,37 @@ class Handy
      * @param string $nullMessage The "Not Set" message 
      * @return string Either a formatted DateTime string or Not Set message
      */
-    public static function date($time, $format = 'm/d/y h:i a', $nullMessage = 'Not Set') {
+    public static function date($time, $format = 'DATETIME', $nullMessage = 'Not Set') {
         
         $time = self::validTime($time);
+        
+        //Deterime the format
+        switch($format){
+            
+            case 'DATE':
+                $format = 'm/d/y';
+            break;    
+
+            case 'DATETIME':
+                $format = 'm/d/y h:i a';
+            break;            
+
+            case 'TIME':
+                $format = 'h:i a';
+            break; 
+
+            case 'REALTIME':
+                $format = 'H:i:s';
+            break; 
+        
+            case 'MYSQL':
+                $format = 'Y-m-d H:i:s';
+            break;    
+            
+            default:
+                $format = $format;
+            break;    
+        }
         
         if($time){
             return date($format, $time);
