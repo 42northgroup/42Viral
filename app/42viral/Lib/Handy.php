@@ -92,7 +92,7 @@ class Handy
     }
    
     /**
-     * Prevets bad timestamps from defaulting to the epoch
+     * Prevents bad timestamps from defaulting to the epoch
      * @param string $timestamp
      * @return string 
      * 
