@@ -126,7 +126,13 @@ class PostAbstract extends ContentAbstract
                         'Conversation'=>array(),
                         'CreatedPerson'=>array()
                     );
-                break;   
+                break;  
+            
+                case 'created_person':
+                    $with = array(
+                        'CreatedPerson'=>array()
+                    );
+                break;  
             
                 default:
                     $with = array();
@@ -139,6 +145,7 @@ class PostAbstract extends ContentAbstract
                 array(  
                     'conditions'=>array(
                         'or'=>array(
+                            'Post.id' => $token, 
                             'Post.slug' => $token, 
                             'Post.short_cut' => $token
                         ), 

@@ -14,16 +14,11 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<?php //debug($person); ?>
-
-<h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Content Stream</h1>
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); ?>
 
 <div id="ResultsPage">
     <?php foreach($userProfile['Content'] as $content):?>
