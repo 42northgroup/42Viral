@@ -15,7 +15,7 @@ abstract class BlogsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array('Blog', 'Post', 'Profile');
     
     /**
      * @var array
@@ -38,7 +38,6 @@ abstract class BlogsAbstractController extends AppController {
      * @param array
      */
     public function index() {
-        $this->loadModel('Blog');
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
         $this->set('title_for_layout', 'Blog Index');
@@ -53,10 +52,8 @@ abstract class BlogsAbstractController extends AppController {
        
         $mine = false;
         
-        $this->loadModel('Blog');
-        
         $blog = $this->Blog->fetchBlogWith($slug, 'standard');
-        
+
         if(empty($blog)){
            $this->redirect('/', '404');
         }
@@ -70,11 +67,19 @@ abstract class BlogsAbstractController extends AppController {
             $mine = true;
         }
 
-        $userProfile['Person'] = $blog['CreatedPerson'];
+        
+
+        //I'm not able to get this through associativet data... Why?
+        $userProfile = array();
+        $personData = 
+            $this->Profile->find('first', 
+                    array('conditions'=>array('Profile.owner_person_id' => $blog['CreatedPerson']['id'])));
+        
+        $userProfile['Person'] = $personData['Person'];
+        $userProfile['Person']['Profile'] = $personData['Profile'];
         
         $this->set('userProfile', $userProfile);
-        $this->set('mine', $mine); pr($blog);
-        $this->set('userProfile', $blog['Person']);
+        $this->set('mine', $mine); 
 
     } 
     
@@ -86,7 +91,6 @@ abstract class BlogsAbstractController extends AppController {
     public function post($slug) {
         $mine = false;
         
-        $this->loadModel('Post');
         $post = $this->Post->fetchPostWith($slug, 'standard');    
 
         if(empty($post)){
