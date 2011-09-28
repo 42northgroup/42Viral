@@ -14,34 +14,49 @@
  */
 ?>
 
-<<<<<<< HEAD
-=======
+
 <?php if(isset($userProfile)): ?>
     <div id="Banner" class="clearfix">
 
-        <div id="BannerLeft" class="display-name">
-            <?php echo $this->Member->displayName($userProfile['Person']); ?>
-        </div>
-
-        <div id="BannerContent">
+    
+    <div id="BannerLeft" class="display-name">
         <?php 
-            if($mine){
-                $additional = array(
-                    array(
-                        'text'=>"Edit Profile",
-                        'url'=>"/profiles/edit/{$userProfile['Person']['id']}",
-                        'options' => array(),
-                        'confirm'=>null
-                    )
-                );
-            }else{
-                $additional = array();
-            }
+            if(isset($userProfile)):
+                echo $this->Member->displayName($userProfile['Person']);
+            else:
+                echo '&nbsp;';
+            endif; 
+        ?> 
+    </div>
+    
+    <div id="BannerContent">
+    <?php 
+        $mine = isset($mine)?$mine:false;
+        if($mine){
+            $additional = array(
+                array(
+                    'text'=>"Edit Profile",
+                    'url'=>"/profiles/edit/{$userProfile['Person']['id']}",
+                    'options' => array(),
+                    'confirm'=>null
+                )
+            );
+        }else{
+            $additional = array();
+        }
 
-            echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
+        echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
+    ?>
+    </div>
+    
+    <div id="BannerRight">
+        <?php 
+            //Temporary placeholder for future search functionality
+            echo $this->Html->link('Search', "javascript:alert('Comming Soon!')");
         ?>
+
         </div>
->>>>>>> reintroduced banner navigation, tweaked local nav
+
 
 <div id="Banner" class="clearfix">
     
@@ -74,8 +89,7 @@
         echo $this->element('Navigation' . DS . 'profile', array('section'=>'profile', 'additional'=>$additional)); 
     ?>
     </div>
-<<<<<<< HEAD
-    
+
     <div id="BannerRight">
         <?php 
             //Temporary placeholder for future search functionality
@@ -84,6 +98,9 @@
     </div>
 
 </div>
-=======
+
 <?php endif; ?>
->>>>>>> reintroduced banner navigation, tweaked local nav
+
+    </div>
+
+</div>
