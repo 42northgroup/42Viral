@@ -1,15 +1,14 @@
-MINIFY
-======
+## MINIFY
 
-CssMin
-------
+# CssMin
+
 
 http://code.google.com/p/cssmin/
 
 Joe Scylla <joe.scylla@gmail.com>
 
-JSMin
------
+# JSMin
+
 
 2002 Douglas Crockford <douglas@crockford.com> (jsmin.c)
 
@@ -17,11 +16,11 @@ JSMin
 
 https://github.com/rgrove/jsmin-php/
 
-clousre
---------
-Google
+# clousre
 
-yui
----
+Google...
+
+# yui
+
 Copyright (c) 2010, Yahoo! Inc.
 All rights reserved.

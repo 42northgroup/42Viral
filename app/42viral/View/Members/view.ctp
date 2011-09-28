@@ -1,11 +1,3 @@
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
-
-<?php if($mine): ?>
-    <div class="avatar-name"><?php echo $this->Member->displayName($userProfile['Person']) ?></div>
-    <div style="text-align: right; padding:4px 0 0;">
-        <a href="/profiles/edit/<?php echo $user['Profile']['id']; ?>">Edit Profile</a>
-    </div>
-<?php endif; ?>
 
 <div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 

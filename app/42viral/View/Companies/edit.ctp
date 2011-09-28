@@ -14,8 +14,8 @@
  */
 
 /**
- **** @author Jason D Snider <jason.snider@42viral.org>
- ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
     $this->Asset->addAssets(array(
@@ -25,21 +25,43 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
+
+    if($mine){
+        $additonal = array(
+            array(
+                'text'=>"View {$this->data['Company']['name']}",
+                'url'=>$this->data['Company']['public_url'],
+                'options' => array(),
+                'confirm'=>null
+            ),
+            array(
+                'text'=>"Delete {$this->data['Company']['name']}",
+                'url'=>$this->data['Company']['delete_url'],
+                'options' => array(),
+                'confirm'=>Configure::read('System.purge_warning')
+            )
+        );
+    }else{
+        $additional = array();
+    }
+    
+    
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'company', 'additional' => $additonal));
+
 ?>
 
-<div class="clearfix">
-    <h1 style="float:left;">Create Company Profile</h1>
 
-    <div style="float:right;">
     <?php 
+    /*
         if($mine):
             echo $this->Html->link('Delete', $this->data['Company']['delete_url'], 
                     null, 
                     Configure::read('System.purge_warning'));
         endif; 
+     
+     */
     ?>
-    </div>
-</div>
+
 
 <div class="company-create-form clearfix">
     <?php

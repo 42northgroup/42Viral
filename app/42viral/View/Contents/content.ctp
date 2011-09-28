@@ -14,17 +14,21 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<?php //debug($person); ?>
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); ?>
+<<<<<<< HEAD
+=======
 
+<<<<<<< HEAD
 <h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Content Stream</h1>
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
+>>>>>>> Applied the new navigation to multiple pages
 
+=======
+>>>>>>> Implementation of new naivigation
 <div id="ResultsPage">
     <?php foreach($userProfile['Content'] as $content):?>
     <div class="result">

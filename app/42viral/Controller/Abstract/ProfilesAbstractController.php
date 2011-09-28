@@ -51,7 +51,18 @@ abstract class ProfilesAbstractController extends AppController {
      * @access public
      */
     public function edit($profileId) {
-        $this->data = $this->Profile->fetchProfileWith($profileId, 'person');
+        
+        $this->data = $this->Profile->fetchProfileWith($profileId, 'person'); 
+
+        /* Restructure the Profile data to fit the the userProfile hook */
+        $userProfile = array();
+        $userProfile['Person'] = $this->data['Person'];
+        $userProfile['Person']['Profile'] = $this->data['Profile'];
+
+        $this->set('userProfile', $userProfile);
+        
+        $this->set('mine', true);
+        
     }
 
 
