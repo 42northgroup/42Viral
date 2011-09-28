@@ -112,10 +112,6 @@ div.section-head{
     color: #999;
 }
 
-.local-navigation{
-    border-bottom: 1px solid #e2e2e2;
-}
-
 /* #HeaderRight flyout menus */
 
 .profile-navigation-link{
@@ -149,18 +145,23 @@ div.section-head{
     
 }
 
+.local-navigation-link{
+    color: inherit;
+    text-decoration: none;
+}
+
 .local-navigation{
     border-bottom: 1px solid #e2e2e2;
 }
 
 /* #HeaderRight flyout menus */
 
-.profile-navigation-link{
+.local-navigation-link{
     color: inherit;
     text-decoration: none;
 }
 
-.profile-navigation-block{
+.local-navigation-block{
     width: 200px; 
     background: #fefefe; 
     float: left; 
@@ -175,7 +176,7 @@ div.section-head{
     border-top: none;
 }
 
-.profile-navigation-block a{
+.local-navigation-block a{
     display: block;
     padding: 2px 3px;
     margin: 0;

@@ -79,6 +79,16 @@ switch($section){
         
     break;
 
+    case 'cases':
+        
+
+        $menu = array(
+            'name'=>'Cases',
+            'Items'=>array()
+        );
+        
+    break;
+
     case 'content':
         $menu = array(
             'name'=>'Content',
@@ -125,7 +135,7 @@ if(isset($additional)){
 ?>
 
 
-<div id ="SectionManager" class="clearfix local-navigation">
+<div id ="LocalManager" class="clearfix local-navigation">
     
     <h1 style="float:left; font-size: 100%; font-weight: normal;">
         <?php 
@@ -140,16 +150,16 @@ if(isset($additional)){
         <?php if(count($menu['Items']) > 0): ?>
         
             <?php echo $this->Html->link('&#9660;', '#', 
-                    array('id'=>'Manage', 'class'=>'section-navigation-link', 'escape'=>false)); ?>
+                    array('id'=>'ManageLocal', 'class'=>'local-navigation-link', 'escape'=>false)); ?>
 
-            <div id="ManageBlock" class="section-navigation-block">
+            <div id="ManageLocalBlock" class="local-navigation-block">
                 <?php foreach($menu['Items'] as $item): ?>
                     <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
                 <?php endforeach; ?>
             </div>
         
         <?php else: ?>
-            <?php echo $menu['name']; ?>
+            &nbsp;
         <?php endif; ?>
     </div>
     

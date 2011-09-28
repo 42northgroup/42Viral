@@ -104,14 +104,14 @@ $(function(){
     });     
 
     //Section manager navigation
-    $('#SectionManager').delegate('.section-navigation-link', 'mouseover', function(){
-        $('.section-navigation-block').hide();
+    $('#LocalManager').delegate('.local-navigation-link', 'mouseover', function(){
+        $('.local-navigation-block').hide();
         id = $(this).attr('id');
-        $('#' + id + 'Block').slideDown();
+        $('#' + id + 'Block').show();
     });           
 
-    $('#SectionManager').delegate('.section-navigation-block', 'mouseleave', function(){
-        $('.section-navigation-block').slideUp();
+    $('#LocalManager').delegate('.local-navigation-block', 'mouseleave', function(){
+        $('.local-navigation-block').hide();
     });  
     
     $('.delete-confirm').click(function() {
