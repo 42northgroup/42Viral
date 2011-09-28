@@ -46,11 +46,19 @@ class Handy
     /**
      * A wrapper for PHP native date() function. This adds a validation check to prevent the date from falling back
      * to the epoch
+     * 
+     * ### format:
      *
-     * @param int $time A unix time stamp
+     * - `DATE` 02/25/2000
+     * - `DATETIME` 02/25/2000 09:56 pm
+     * - `TIME` 09:56 pm
+     * - `REALTIME` 21:25:56:21
+     * - `MYSQL` 2000-02-25 21:25:56:21
+     * 
+     * @param int $time a unix time stamp
      * @param string $date DateTime format
-     * @param string $nullMessage The "Not Set" message 
-     * @return string Either a formatted DateTime string or Not Set message
+     * @param string $nullMessage the "Not Set" message 
+     * @return string either a formatted DateTime string or a "Not Set" message
      */
     public static function date($time, $format = 'DATETIME', $nullMessage = 'Not Set') {
         
