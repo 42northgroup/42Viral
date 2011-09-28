@@ -88,8 +88,18 @@ $(function(){
         $('#' + id + 'Block').show();
     });   
     
-  $('#SectionManager').mouseleave(function(){
+    $('#SectionManager').mouseleave(function(){
         $('.section-navigation-block').hide();
     });  
     
+    //Profile manager navigation
+    $('#ProfileManager').delegate('.profile-navigation-link', 'mouseover', function(){
+        $('.profile-navigation-block').hide();
+        var id = $(this).attr('id');
+        $('#' + id + 'Block').show();
+    });   
+    
+    $('#ProfileManager').mouseleave(function(){
+        $('.profile-navigation-block').hide();
+    });  
 });

@@ -61,7 +61,7 @@ if(isset($additional)){
         <?php if(count($menu['Items']) > 0): ?>
         
             <?php echo $this->Html->link('&#9660;', '#', 
-                    array('id'=>'Manage', 'class'=>'section-navigation-link', 'escape'=>false)); ?>
+                    array('id'=>'Profile', 'class'=>'profile-navigation-link', 'escape'=>false)); ?>
 
             <div id="ProfileBlock" class="profile-navigation-block">
                 <?php foreach($menu['Items'] as $item): ?>
