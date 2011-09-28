@@ -27,6 +27,7 @@ abstract class NotificationAbstractController extends AppController
     public $uses = array('Person', 'Notification');
     public $components = array('NotificationCmp');
 
+
 /**
  * Default action for the notification controller
  *
@@ -35,8 +36,99 @@ abstract class NotificationAbstractController extends AppController
  */
     public function index()
     {
-        
+        $notifications = $this->Notification->fetchAllNotifications();
+        $this->set('notifications', $notifications);
+
+        $this->set('title_for_layout', 'Notification - List All');
     }
+
+
+/**
+ * 
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @param string $notificationId
+  */
+    public function view($notificationId)
+    {
+        $notification = $this->Notification->fetchNotification($notificationId);
+        $this->set('notification', $notification);
+        $this->set('title_for_layout', 'Notification - View');
+    }
+
+
+/**
+ *
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ */
+    public function create()
+    {
+        if(!empty($this->data)) {
+            $this->Notification->create();
+            $opStatus = $this->Notification->save($this->data);
+
+            if($opStatus) {
+                $this->Session->setFlash('Notification saved successfully', 'success');
+                $this->redirect('/notification/index');
+            } else {
+                $this->Session->setFlash('There was a problem saving the notification', 'error');
+            }
+        }
+
+        $this->set('title_for_layout', 'Notification - Create');
+    }
+
+
+/**
+ *
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ */
+    public function edit($notificationId)
+    {
+        if(!empty($this->data)) {
+            $opStatus = $this->Notification->save($this->data);
+
+            if($opStatus) {
+                $this->Session->setFlash('Notification saved successfully', 'success');
+                $this->redirect('/notification/index');
+            } else {
+                $this->Session->setFlash('There was a problem saving the notification', 'error');
+            }
+        }
+        
+        $notification = $this->Notification->fetchNotification($notificationId);
+        $this->set('notification', $notification);
+
+        $this->data = $notification;
+        $this->set('title_for_layout', 'Notification - Edit');
+    }
+
+
+/**
+ * 
+ *
+ * @access public
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @param type $notificationId
+ */
+    public function delete($notificationId)
+    {
+        $opStatus = $this->Notification->deleteNotification($notificationId);
+
+        if($opStatus) {
+            $this->Session->setFlash('Notification deleted', 'success');
+        } else {
+            $this->Session->setFlash('There was a problem deleting the notification', 'error');
+        }
+
+        $this->redirect('/notification/index');
+    }
+
 
 /**
  * Action to test working of the notification component
@@ -45,7 +137,7 @@ abstract class NotificationAbstractController extends AppController
  * @access public
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-    public function test()
+    public function test($notificatoinHandle='')
     {
         $userId = $this->Session->read('Auth.User.id');
         $person = $this->Person->fetchPersonWith($userId, array(), 'id');
@@ -57,12 +149,16 @@ abstract class NotificationAbstractController extends AppController
             )
         );
 
-        $notification = $this->Notification->fetchNotification('test_notification');
+        if(empty($notificatoinHandle)) {
+            $notificatoinHandle = 'test_notification';
+        }
+
+        $notification = $this->Notification->fetchNotification($notificatoinHandle);
         if(empty($notification)) {
             $this->Notification->generateDummyTestNotification();
         }
 
-        $this->NotificationCmp->triggerNotification('test_notification', $person, $additionalObjects);
+        $this->NotificationCmp->triggerNotification($notificatoinHandle, $person, $additionalObjects);
 
         $this->Session->setFlash('Notification was fired', 'success');
         $this->redirect('/notification/index');

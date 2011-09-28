@@ -28,14 +28,29 @@ class InboxMessageAbstract extends AppModel
 {
 
 /**
- *
- * @var string
  * @access public
+ * @var string
  */
     public $name = 'InboxMessage';
 
+/**
+ * @access public
+ * @var string
+ */
     public $useTable = 'inbox_messages';
 
+/**
+ * @access public
+ * @var array
+ */
+    public $actsAs = array(
+        'Log'
+    );
+
+/**
+ * @access private
+ * @var type
+ */
     private $__fetchedMessage = null; //cache to store a single fetched message
 
 

@@ -87,6 +87,10 @@ $(function(){
 
     $('#SectionManager').delegate('.section-navigation-block', 'mouseleave', function(){
         $('.section-navigation-block').slideUp();
-    });  
+    });
+
+    $('.delete-confirm').click(function() {
+        return confirm('Are you sure you want to delete this record?');
+    });
     
 });
