@@ -43,7 +43,20 @@ class BlogAbstract extends ContentAbstract
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
             'dependent' => true
-        ),
+        )
+    );
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $belongsTo = array(
+        'CreatedPerson' => array(
+            'className' => 'Person',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        )
     );
     
     /**
@@ -122,6 +135,11 @@ class BlogAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
+<<<<<<< HEAD
+
+=======
+>>>>>>> Implementation of new naivigation
+                        'CreatedPerson'=>array('Profile'=>array()),
                         'Post'=>array('conditions'=>array('Post.status'=>'published'), 
                             'order'=>array('Post.created DESC'))
                     );

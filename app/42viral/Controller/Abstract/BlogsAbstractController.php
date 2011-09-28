@@ -41,7 +41,7 @@ abstract class BlogsAbstractController extends AppController {
         $this->loadModel('Blog');
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
-        $this->set('title_for_layout', 'Blog');
+        $this->set('title_for_layout', 'Blog Index');
     }
     
     /**
@@ -70,7 +70,21 @@ abstract class BlogsAbstractController extends AppController {
             $mine = true;
         }
         
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> Added more naivgation and created the blgo to people association
         $this->set('mine', $mine);
+        
+        $userProfile['Person'] = $blog['CreatedPerson'];
+        $this->set('userProfile', $userProfile);
+<<<<<<< HEAD
+=======
+        $this->set('mine', $mine); pr($blog);
+        $this->set('userProfile', $blog['Person']);
+>>>>>>> Machine transefer Applying local navigation
+=======
+>>>>>>> Added more naivgation and created the blgo to people association
     } 
     
     /**
