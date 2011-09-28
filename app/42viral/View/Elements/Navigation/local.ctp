@@ -124,7 +124,7 @@ if(isset($additional)){
 ?>
 
 
-<div id ="SectionManager" class="clearfix profile-navigation">
+<div id ="SectionManager" class="clearfix local-navigation">
     
     <h1 style="float:left; font-size: 100%; font-weight: normal;">
         <?php 
