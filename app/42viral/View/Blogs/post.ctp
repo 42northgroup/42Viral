@@ -14,19 +14,32 @@
  */
 
 /**
- * UI for creating a web page
+ * UI for posting to a blog
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
+if($mine):
+    $additional = array(
+        array(
+            'text' => 'Edit',
+            'url' => "/contents/post_edit/{$post['Post']['id']}",
+            'options'=>array(),
+            'confirm'=>null
+        ),
+        array(
+            'text' => 'Delete',
+            'url' => "/contents/post_delete/{$post['Post']['id']}",
+            'options'=>array(),
+            'confirm'=>Configure::read('System.purge_warning')
+        )                
+    );
+endif;       
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'additional'=>$additional));
 
 ?>
 
-<style type="text/css">
-    .post-avatar{
-        float:left; padding:8px 0 0; height:128px; width:138px;
-    }
-    
+<style type="text/css">    
     .post h1{
         padding:0; 
         margin:0;
@@ -47,28 +60,11 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
     }
 </style>
 
-<div class="clearfix">
-    
-    <h1 style="float:left;"><?php echo $post['Post']['title']; ?></h1>
-    
-    <div style="float:right; margin:6px 0 0;">
-        <?php
-            if($mine):
-                echo $this->Html->link('Edit', "/contents/post_edit/{$post['Post']['id']}");
-                echo ' / ';
-                echo $this->Html->link('Delete', "/contents/post_delete/{$post['Post']['id']}", null,
-                        Configure::read('System.purge_warning'));
-            endif; 
-        ?>
-    </div>
-    
-</div>
-
 <div class="post clearfix">
     <div class="meta">
-        <span class="meta-head">Posted:</span>
+        <span class="meta-head">by:</span>
         <?php echo $this->Member->displayName($post['CreatedPerson']); ?>
-        &nbsp;<?php echo $post['Post']['created']; ?>
+        &nbsp;<span class="meta-head">on:</span>&nbsp;<?php echo Handy::date($post['Post']['created']); ?>
 
     </div>
     <div class="post-body">
