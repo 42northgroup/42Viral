@@ -64,6 +64,14 @@ abstract class AppAbstractController extends Controller
         $userId = $this->Session->read('Auth.User.id');
         $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
         $this->set('unread_message_count', $unreadMessageCount);
+        
+        //If a user is logged in and their is no $userRofile set. 
+        //Set it to the logged in user
+        if($this->Session->read('Auth.User')){
+            if(!isset($userProfile)){
+                $this->_me();
+            }
+        }
     }
     
     /**
