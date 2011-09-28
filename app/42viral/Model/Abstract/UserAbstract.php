@@ -37,6 +37,19 @@ class UserAbstract extends PersonAbstract
      *
      * @var array
      * @access public
+     */
+    public $hasOne = array(
+        'Profile' => array(
+            'className' => 'Profile',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        ),        
+    );
+    
+    /**
+     *
+     * @var array
+     * @access public
      * @todo Write custom validation rules for determinging if the hased password is the hash of an empty string.
      * This must consider the use of system salt
      */
@@ -271,6 +284,7 @@ class UserAbstract extends PersonAbstract
      * @return array
      * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
+     * @deprecated 9/27/2011 replaced by User::fetchUserWith()
      */
     public function getUserWith($token, $with=array())
     {
@@ -295,9 +309,26 @@ class UserAbstract extends PersonAbstract
      * @return array
      * @access public
      */
-    public function fetchUserWith($token, $with=array('Profile'))
+    public function fetchUserWith($token, $with=array())
     {
-        return $this->getUserWith($token, $with);
+        switch($with){
+            case 'profile':
+                $with = array('Profile'=>array());
+            break;    
+        }
+        
+        $user= $this->find('first', array(
+            'contain' => $with,
+
+            'conditions' => array(
+                'or' => array(
+                    'User.id' => $token,
+                    'User.username' => $token
+                )
+            )
+        ));
+
+        return $user;
     }
 
 }

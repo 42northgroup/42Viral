@@ -99,7 +99,7 @@ abstract class ContentsAbstractController extends AppController {
         
         $this->set('title_for_layout', 'Create a Blog');
         
-        $this->_me();
+        
     }
     
     /**
@@ -120,15 +120,14 @@ abstract class ContentsAbstractController extends AppController {
             }else{
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
+        }else{
+            //We only want to fire this if the data array is empty
+            $this->data = $this->Blog->findById($id);
         }
         
-        $this->data = $this->Blog->findById($id);
-
         $this->set('statuses', $this->Blog->picklist('Status'));
-        
         $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
-
-        $this->_me();
+        
     }    
     
     /**
@@ -171,7 +170,7 @@ abstract class ContentsAbstractController extends AppController {
 
                 if($this->Post->save($this->data)){
                     $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
-                    $this->redirect("/Contents/post_edit/{$this->Post->id}");
+                    $this->redirect("/contents/post_edit/{$this->Post->id}");
                 }else{
                     $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
                 }
@@ -181,7 +180,6 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', 'Post to a Blog');
-        $this->_me();
     }
     
     /**
@@ -235,11 +233,9 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
 
-        $userProfile['Person'] = $this->data['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
         $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
-        $this->_me();
+        
     }
     
     
@@ -259,7 +255,7 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
         $this->set('title_for_layout', "Comment on a Blog Post");       
-        $this->_me();
+        
     }
     
     
@@ -305,7 +301,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', __('Create a Page'));
-        $this->_me();
+        
     }
  
     
@@ -410,7 +406,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('promo', $promo);
 
         $this->set('title_for_layout', "Update {$post['Post']['name']}");
-        $this->_me();
+        
     }
     
 }
