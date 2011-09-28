@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> Applied the new navigation to multiple pages
 <?php
 /**
  * PHP 5.3

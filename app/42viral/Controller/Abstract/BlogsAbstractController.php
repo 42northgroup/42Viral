@@ -69,22 +69,13 @@ abstract class BlogsAbstractController extends AppController {
         if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
             $mine = true;
         }
-        
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> Added more naivgation and created the blgo to people association
-        $this->set('mine', $mine);
-        
+
         $userProfile['Person'] = $blog['CreatedPerson'];
+        
         $this->set('userProfile', $userProfile);
-<<<<<<< HEAD
-=======
         $this->set('mine', $mine); pr($blog);
         $this->set('userProfile', $blog['Person']);
->>>>>>> Machine transefer Applying local navigation
-=======
->>>>>>> Added more naivgation and created the blgo to people association
+
     } 
     
     /**
