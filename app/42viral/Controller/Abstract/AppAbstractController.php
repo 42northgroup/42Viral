@@ -130,4 +130,16 @@ abstract class AppAbstractController extends Controller
         }
 
     }
+    
+    /**
+     * Provides the mine and userProfile data for the logged in user
+     * @return void
+     * @access protected
+     */
+    protected function _me(){
+        $userProfile = array();
+        $userProfile['Person'] = $this->Session->read('Auth.User');
+        $this->set('userProfile', $userProfile);
+        $this->set('mine', true);
+    }
 }

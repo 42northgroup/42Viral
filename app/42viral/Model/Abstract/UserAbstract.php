@@ -32,7 +32,7 @@ class UserAbstract extends PersonAbstract
      * @access public
      */
     public $name = 'User';
-    
+
     /**
      *
      * @var array
@@ -286,6 +286,18 @@ class UserAbstract extends PersonAbstract
         ));
 
         return $person;
+    }
+
+    /**
+     * An alias for getUserWith
+     *
+     * @param string $userId
+     * @return array
+     * @access public
+     */
+    public function fetchUserWith($token, $with=array('Profile'))
+    {
+        return $this->getUserWith($token, $with);
     }
 
 }

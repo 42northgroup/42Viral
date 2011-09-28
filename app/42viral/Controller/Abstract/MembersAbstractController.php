@@ -105,7 +105,10 @@ abstract class MembersAbstractController extends AppController {
         $this->set('services', $services);
         $this->set('user', $user);
         
+        $userProfile = array();
         $userProfile['Person'] = $user['User'];
+        $userProfile['Person']['Profile'] = $user['Profile'];
+        
         $this->set('userProfile', $userProfile);
 
     }

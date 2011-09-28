@@ -65,9 +65,8 @@ abstract class UsersAbstractController extends AppController
     {        
         $error = true;
         if(!empty($this->data)){
-            $this->loadModel('User');
 
-            $user = $this->User->getUser($this->data['User']['username']);
+            $user = $this->User->fetchUserWith($this->data['User']['username'], 'profile', 'username');
 
             if(empty($user)){
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -81,6 +80,7 @@ abstract class UsersAbstractController extends AppController
                         $this->Session->setFlash('You have been authenticated', 'success');
 
                         $this->Session->write('Auth.User', $user['User']);
+                        $this->Session->write('Auth.User.Profile', $user['Profile']);
                         $this->Access->permissions($user['User']);
 
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);

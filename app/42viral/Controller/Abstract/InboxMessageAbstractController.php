@@ -37,6 +37,8 @@ abstract class InboxMessageAbstractController extends AppController
         $userId = $this->Session->read('Auth.User.id');
         $allMessages = $this->InboxMessage->fetchAllUserInboxMessages($userId);
         $this->set('all_messages', $allMessages);
+
+
     }
 
 

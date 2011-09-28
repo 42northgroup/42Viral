@@ -14,24 +14,19 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<h1>Create a page</h1>
-<?php
+echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));     
 
-    echo $this->Form->create('Page', 
-                array(
-                    'url'=>$this->here, 
-                    'class'=>'content'
-                )
-            );
-    
-    echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
-    echo $this->Form->submit();
-    echo $this->Form->end();
+echo $this->Form->create('Page', 
+            array(
+                'url'=>$this->here, 
+                'class'=>'content'
+            )
+        );
 
-?>
+echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
+echo $this->Form->submit();
+echo $this->Form->end();

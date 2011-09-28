@@ -55,6 +55,7 @@ abstract class ContentsAbstractController extends AppController {
     public function blogs(){
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
+        $this->set('title_for_layout', 'Blogs');
     }    
     
     /**
@@ -95,6 +96,10 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', 'Create a Blog');
+        
+        $this->_me();
     }
     
     /**
@@ -120,6 +125,10 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Blog->findById($id);
 
         $this->set('statuses', $this->Blog->picklist('Status'));
+        
+        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
+
+        $this->_me();
     }    
     
     /**
@@ -170,6 +179,9 @@ abstract class ContentsAbstractController extends AppController {
             }     
             
         }
+        
+        $this->set('title_for_layout', 'Post to a Blog');
+        $this->_me();
     }
     
     /**
@@ -192,7 +204,7 @@ abstract class ContentsAbstractController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->findById($id);
+        $this->data = $this->Post->fetchPostWith($id, 'created_person');
         
         $this->set('statuses', $this->Post->picklist('Status'));
 
@@ -223,8 +235,11 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
 
+        $userProfile['Person'] = $this->data['CreatedPerson'];
+        $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
-     
+        $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
+        $this->_me();
     }
     
     
@@ -243,6 +258,8 @@ abstract class ContentsAbstractController extends AppController {
                 $this->redirect($this->referer());
             }
         }
+        $this->set('title_for_layout', "Comment on a Blog Post");       
+        $this->_me();
     }
     
     
@@ -286,6 +303,9 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', __('Create a Page'));
+        $this->_me();
     }
  
     
@@ -312,6 +332,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Page->findById($id);
         
         $this->set('statuses', $this->Page->picklist('Status'));
+        $this->set('title_for_layout', "Update {$page['Page']['title']}");        
     }    
     
     /**
@@ -328,7 +349,6 @@ abstract class ContentsAbstractController extends AppController {
         $mine = false;
         
         $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
-        $this->set('userProfile', $person);
         
         if($this->Session->check('Auth.User.id')){
             if($this->Session->read('Auth.User.username') == $username){
@@ -337,6 +357,8 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
+        $this->set('userProfile', $person);
+        $this->set('title_for_layout', "Content Stream");        
     }  
     
     public function promote($id, $redirect_url='users/social_media')
@@ -386,6 +408,9 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
+
+        $this->set('title_for_layout', "Update {$post['Post']['name']}");
+        $this->_me();
     }
     
 }

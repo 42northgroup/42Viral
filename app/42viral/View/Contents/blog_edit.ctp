@@ -14,13 +14,12 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<?php
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));    
+
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',
         'js/vendors/ckeditor/ckeditor.js',
@@ -28,10 +27,6 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
-
-<h1>Edit your blog</h1>
-<?php
 
     echo $this->Form->create('Blog', 
                 array(

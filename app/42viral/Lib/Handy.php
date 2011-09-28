@@ -231,4 +231,25 @@ class Handy
         return $truncate;
     }
 
+    /**
+     * Check whether a given string is a UUID or not (UUIDs have a standard format of '8-4-4-4-12' hexadecimal digits)
+     *
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access public
+     * @param string $string
+     * @return bool true if is uuid, false otherwise
+     */
+    public static function isUUID($string)
+    {
+        if (eregi("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", $string)) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
+    }
+
 }
