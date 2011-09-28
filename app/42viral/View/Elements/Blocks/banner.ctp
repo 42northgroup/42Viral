@@ -32,10 +32,14 @@
     <?php 
         $mine = isset($mine)?$mine:false;
         if($mine){
+            
+            $profileId = !empty($userProfile['Person']['Profile']) ? 
+                    $userProfile['Person']['Profile']['id'] : $userProfile['Profile']['id'];
+            
             $additional = array(
                 array(
                     'text'=>"Edit Profile",
-                    'url'=>"/profiles/edit/{$userProfile['Person']['Profile']['id']}",
+                    'url'=>"/profiles/edit/{$profileId}",
                     'options' => array(),
                     'confirm'=>null
                 )

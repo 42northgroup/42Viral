@@ -96,7 +96,10 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
+        
         $this->set('title_for_layout', 'Create a Blog');
+        
+        $this->_me();
     }
     
     /**
@@ -123,7 +126,9 @@ abstract class ContentsAbstractController extends AppController {
 
         $this->set('statuses', $this->Blog->picklist('Status'));
         
-        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");        
+        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
+
+        $this->_me();
     }    
     
     /**
@@ -176,6 +181,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', 'Post to a Blog');
+        $this->_me();
     }
     
     /**
@@ -233,6 +239,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
         $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
+        $this->_me();
     }
     
     
@@ -251,7 +258,8 @@ abstract class ContentsAbstractController extends AppController {
                 $this->redirect($this->referer());
             }
         }
-        $this->set('title_for_layout', "Comment on a Blog Post");        
+        $this->set('title_for_layout', "Comment on a Blog Post");       
+        $this->_me();
     }
     
     
@@ -297,6 +305,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('title_for_layout', __('Create a Page'));
+        $this->_me();
     }
  
     
@@ -340,7 +349,6 @@ abstract class ContentsAbstractController extends AppController {
         $mine = false;
         
         $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
-        $this->set('userProfile', $person);
         
         if($this->Session->check('Auth.User.id')){
             if($this->Session->read('Auth.User.username') == $username){
@@ -349,6 +357,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
+        $this->set('userProfile', $person);
         $this->set('title_for_layout', "Content Stream");        
     }  
     
@@ -401,7 +410,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('promo', $promo);
 
         $this->set('title_for_layout', "Update {$post['Post']['name']}");
-
+        $this->_me();
     }
     
 }
