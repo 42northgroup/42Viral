@@ -34,7 +34,9 @@ class MemberHelper extends AppHelper
      */
     public function avatar($data, $size = null)
     {
-
+        
+        $displayName = $this->name($data);
+        
         if(is_null($size)){
             $size = IMAGE_THUMB_DIM_2;
         }
@@ -67,7 +69,8 @@ class MemberHelper extends AppHelper
         } else {
             //No, fallback to gravatar
             return $this->Html->image(
-                'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($email))) . "?r=pg&amp;s={$size}"
+                'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($email))) . "?r=pg&amp;s={$size}",
+                        array('alt'=>$displayName, 'title'=>$displayName)
             );
         }
     }
@@ -84,9 +87,9 @@ class MemberHelper extends AppHelper
 
         //Currently this is just looking to see if you have entered your name.
         if (strlen(trim($name)) == 0) {
-            return $this->Html->link($username, $url);
+            return $this->Html->link($username, $url, array('title'=>$username));
         } else {
-            return $this->Html->link($name, $url);
+            return $this->Html->link($name, $url, array('title'=>$name));
         }
     }
     
