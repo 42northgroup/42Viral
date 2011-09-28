@@ -22,10 +22,13 @@
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 <h1><?php echo $this->Member->displayName($userProfile['Person']) ?>'s Content Stream</h1>
 <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 >>>>>>> Applied the new navigation to multiple pages
 
+=======
+>>>>>>> Implementation of new naivigation
 <div id="ResultsPage">
     <?php foreach($userProfile['Content'] as $content):?>
     <div class="result">

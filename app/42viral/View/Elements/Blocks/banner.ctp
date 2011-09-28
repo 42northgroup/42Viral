@@ -36,7 +36,7 @@
             $additional = array(
                 array(
                     'text'=>"Edit Profile",
-                    'url'=>"/profiles/edit/{$userProfile['Person']['id']}",
+                    'url'=>"/profiles/edit/{$userProfile['Person']['Profile']['id']}",
                     'options' => array(),
                     'confirm'=>null
                 )
