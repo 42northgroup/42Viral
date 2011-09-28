@@ -92,38 +92,7 @@ switch($section){
     case 'content':
         $menu = array(
             'name'=>'Content',
-            'Items'=>array(
-                array(
-                    'text'=>'All Pages',
-                    'url'=>'/pages',
-                    'options' => array(),
-                    'confirm'=>null
-                ),        
-                array(
-                    'text'=>'All Blogs',
-                    'url'=>'/blogs',
-                    'options' => array(),
-                    'confirm'=>null
-                ), 
-                array(
-                    'text'=>'Create a Page',
-                    'url'=>'/contents/page_create',
-                    'options' => array(),
-                    'confirm'=>null
-                ), 
-                array(
-                    'text'=>'Create a Blog',
-                    'url'=>'/contents/blog_create',
-                    'options' => array(),
-                    'confirm'=>null
-                ),
-                array(
-                    'text'=>'Post to a Blog',
-                    'url'=>'/contents/post_create',
-                    'options' => array(),
-                    'confirm'=>null
-                ),                
-            )
+            'Items'=>array()
         );
     break;
 }

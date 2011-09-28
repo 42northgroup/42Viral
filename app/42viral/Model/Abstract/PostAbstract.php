@@ -20,7 +20,7 @@ App::uses('ContentAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class PostAbstract extends ContentAbstract
 {
@@ -124,13 +124,13 @@ class PostAbstract extends ContentAbstract
                 case 'standard':
                     $with = array(
                         'Conversation'=>array(),
-                        'CreatedPerson'=>array()
+                        'CreatedPerson'=>array('Profile'=>array())
                     );
                 break;  
             
                 case 'created_person':
                     $with = array(
-                        'CreatedPerson'=>array()
+                        'CreatedPerson'=>array('Profile'=>array())
                     );
                 break;  
             
