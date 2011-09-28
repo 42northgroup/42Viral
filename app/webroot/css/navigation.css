@@ -183,13 +183,14 @@ div.section-head{
 
 .display-name a{
 
+
     padding: 0 0 0 5px;
+
 
     margin: 0;
     text-decoration: none;
     font-weight: bold;
     color: #666;
-
     line-height: 28px;
 
 }

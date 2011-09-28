@@ -23,7 +23,6 @@ body{
     
     font-weight: bold;
     line-height: 30px;
-    
 
     margin: 0;
 
@@ -40,7 +39,6 @@ body{
 
 #Banner{
     width: 960px;
-
     margin: 0 auto; 
     background: #F1F1F1;
     border-bottom: 1px solid #e2e2e2;
