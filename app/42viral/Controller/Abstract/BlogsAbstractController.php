@@ -70,10 +70,15 @@ abstract class BlogsAbstractController extends AppController {
             $mine = true;
         }
         
+<<<<<<< HEAD
         $this->set('mine', $mine);
         
         $userProfile['Person'] = $blog['CreatedPerson'];
         $this->set('userProfile', $userProfile);
+=======
+        $this->set('mine', $mine); pr($blog);
+        $this->set('userProfile', $blog['Person']);
+>>>>>>> Machine transefer Applying local navigation
     } 
     
     /**

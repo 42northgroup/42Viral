@@ -18,7 +18,6 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-
 echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 
 ?>

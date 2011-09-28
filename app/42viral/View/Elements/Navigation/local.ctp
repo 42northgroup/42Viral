@@ -77,6 +77,7 @@ switch($section){
             )
         );
         
+    break;
 
     case 'content':
         $menu = array(
