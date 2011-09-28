@@ -123,11 +123,7 @@ abstract class ContentsAbstractController extends AppController {
 
         $this->set('statuses', $this->Blog->picklist('Status'));
         
-<<<<<<< HEAD
-        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");        
-=======
         $this->set('title_for_layout', "Update {$this->data['Blog']['name']}");        
->>>>>>> Applied the new navigation to multiple pages
     }    
     
     /**
@@ -202,7 +198,7 @@ abstract class ContentsAbstractController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->fetchPostWith($id, 'created_person');
+        $this->data = $this->Post->findById($id);
         
         $this->set('statuses', $this->Post->picklist('Status'));
 
@@ -233,14 +229,8 @@ abstract class ContentsAbstractController extends AppController {
             }
         }
 
-        $userProfile['Person'] = $this->data['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
         $this->set('customFiles', $paths);
-<<<<<<< HEAD
-        $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
-=======
         $this->set('title_for_layout', "Update {$post['Post']['name']}");
->>>>>>> Applied the new navigation to multiple pages
     }
     
     
@@ -331,11 +321,7 @@ abstract class ContentsAbstractController extends AppController {
         $this->data = $this->Page->findById($id);
         
         $this->set('statuses', $this->Page->picklist('Status'));
-<<<<<<< HEAD
-        $this->set('title_for_layout', "Update {$page['Page']['title']}");        
-=======
         $this->set('title_for_layout', "Update {$page['Page']['name']}");        
->>>>>>> Applied the new navigation to multiple pages
     }    
     
     /**
@@ -361,11 +347,7 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
-<<<<<<< HEAD
-        $this->set('title_for_layout', "Content Stream");        
-=======
         $this->set('title_for_layout', "All Content");        
->>>>>>> Applied the new navigation to multiple pages
     }  
     
     public function promote($id, $redirect_url='users/social_media')
@@ -415,11 +397,7 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
-<<<<<<< HEAD
-        $this->set('title_for_layout', "Promote your {$content['Content']['title']}");
-=======
-        $this->set('title_for_layout', "Promote your {$content['Content']['name']}");
->>>>>>> Applied the new navigation to multiple pages
+                $this->set('title_for_layout', "Update {$post['Post']['name']}");
     }
     
 }
