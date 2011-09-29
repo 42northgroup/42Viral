@@ -171,7 +171,7 @@ abstract class ContentsAbstractController extends AppController {
 
                 if($this->Post->save($this->data)){
                     $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
-                    $this->redirect("/Contents/post_edit/{$this->Post->id}");
+                    $this->redirect("/contents/post_edit/{$this->Post->id}");
                 }else{
                     $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
                 }
