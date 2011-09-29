@@ -6,7 +6,7 @@ debug($picklist);
 
 
 echo $this->Form->create();
-echo $this->Form->input('Picklist', array('options' => $picklist));
+echo $this->Form->select('Picklist', $picklist);
 echo $this->Form->submit();
 echo $this->Form->end();
 

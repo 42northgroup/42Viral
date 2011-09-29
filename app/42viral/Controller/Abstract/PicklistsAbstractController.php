@@ -49,11 +49,14 @@ abstract class PicklistsAbstractController extends AppController
     public function admin_index()
     {
 
+        //$picklist = $this->Picklist->fetchPicklist('activities');
+
+        
         $picklist = $this->Picklist->fetchPicklist('activities', array(
             //'categoryFilter' => 'user_group',
-            'grouped' => false,
-            //'grouped' => true
+            'grouped' => true
         ));
+        
 
         $this->set('picklist', $picklist);
     }
