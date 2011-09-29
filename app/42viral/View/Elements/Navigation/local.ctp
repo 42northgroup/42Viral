@@ -47,21 +47,6 @@ switch($section){
         );
     break;    
 
-    case 'people':
-        $menu = array(
-            'name'=>'People',
-            'Items'=>array(
-                array(
-                    'text'=>'All People',
-                    'url'=>'/admin/people',
-                    'options' => array(),
-                    'confirm'=>null
-                )                
-            )
-
-        );
-    break;
-
     case 'blog':
         
 
@@ -93,6 +78,36 @@ switch($section){
         $menu = array(
             'name'=>'Content',
             'Items'=>array()
+        );
+    break;
+
+    case 'people':
+        $menu = array(
+            'name'=>'People',
+            'Items'=>array(
+                array(
+                    'text'=>'All People',
+                    'url'=>'/admin/people',
+                    'options' => array(),
+                    'confirm'=>null
+                )                
+            )
+
+        );
+    break;
+
+    case 'picklists':
+        $menu = array(
+            'name'=>'Picklists',
+            'Items'=>array(
+                array(
+                    'text'=>'All Picklists',
+                    'url'=>'/admin/picklists/index',
+                    'options' => array(),
+                    'confirm'=>null
+                )             
+            )
+
         );
     break;
 }

@@ -12,18 +12,18 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+    $additonal = array(
+        array(
+            'text'=>"Create",
+            'url'=>'/admin/picklists/create',
+            'options' => array('title'=>"Create a new picklist"),
+            'confirm'=>null
+        )
+    );
+    
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'picklists', 'additional' => $additonal));
 ?>
-
-<?php
-    //debug($picklists);
-?>
-
-<h1>Picklist - Index</h1>
-
-<div class="">
-    <a href="/admin/picklists/create"
-       title="Create a new picklist">Create</a>
-</div>
 
 <?php if(!empty($picklists)): ?>
 

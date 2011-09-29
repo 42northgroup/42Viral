@@ -29,12 +29,20 @@
     margin: 0 0 4px 0;
 }   
 
+.google-plus{
+    background: url('/img/graphics/social_media/production/buttons/SignInGoogle+.png') no-repeat;
+}
+
+.google-plus:hover{
+    background: url('/img/graphics/social_media/production/buttons/SignInGoogle+.png') no-repeat 0 -56px;
+}
+
 .linkedin{
-    background: url('/img/graphics/social_media/production/buttons/Sign_in_Linkedin.png') no-repeat -7px;
+    background: url('/img/graphics/social_media/production/buttons/SignInLinkedIn.png') no-repeat -8px 0;
 }
 
 .linkedin:hover{
-    background: url('/img/graphics/social_media/production/buttons/Sign_in_Linkedin.png') no-repeat -7px -52px;
+    background: url('/img/graphics/social_media/production/buttons/SignInLinkedIn.png') no-repeat -8px -54px;
 }
 
 .twitter{
@@ -46,12 +54,9 @@
 }
 
 .facebook{
-    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -5px;
+    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -8px 0;
 } 
 
 .facebook:hover{
-    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -5px -56px;
-}    
-
-
-
+    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -8px -54px;
+}   

@@ -12,24 +12,30 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+    $additonal = array(
+        array(
+            'text'=>"Edit",
+            'url'=>$picklist['Picklist']['edit_url'],
+            'options' => array('title'=>"Edit a this picklist"),
+            'confirm'=>null
+        ),
+        array(
+            'text'=>"Delete",
+            'url'=>$picklist['Picklist']['delete_url'],
+            'options' => array('title'=>"Delete a this picklist"),
+            'confirm'=>null
+        ),
+        array(
+            'text'=>"Test",
+            'url'=>"/admin/picklists/test/{$picklist['Picklist']['id']}",
+            'options' => array('title'=>"Test a picklist"),
+            'confirm'=>null
+        ),       
+    );
+    
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'picklists', 'additional' => $additonal));
 ?>
-
-<h1>Picklist - View</h1>
-
-<div class="">
-    <a href="/admin/picklists/index"
-       title="Index of all picklists">Index</a>
-    /
-    <a href="/admin/picklists/edit/<?php echo $picklist['Picklist']['id']; ?>"
-       title="Edit picklist">Edit</a>
-    /
-    <a href="/admin/picklists/delete/<?php echo $picklist['Picklist']['id']; ?>"
-       title="Delete picklist"
-       class="delete-confirm">Delete</a>
-    /
-    <a href="/admin/picklists/test/<?php echo $picklist['Picklist']['id']; ?>"
-       title="Test picklist">Test</a>
-</div>
 
 <table>
     <tbody>
