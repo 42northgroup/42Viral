@@ -39,6 +39,7 @@
         <ul class="side-navigation">
             <li><?php echo $this->Access->link('Users-admin_index', 'Users', '/admin/users'); ?></li>
             <li><?php echo $this->Access->link('Users-admin_acl_groups', 'Groups', '/admin/users/acl_groups'); ?></li>
+            <li><?php echo $this->Access->link('Picklists-admin_index', 'Picklists', '/admin/picklists/index'); ?></li>
         </ul>
 
     <?php endif; ?>
