@@ -12,11 +12,13 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
 
-<h1>Picklist Option - Edit</h1>
-
-<?php
+/**
+ * Picklist UI
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ */
+    
+echo $this->element('Navigation' . DS . 'local', array('section'=>'picklists'));
 
 echo $this->Form->create('PicklistOption', array(
     'url' => "/admin/picklists/edit_option/{$picklist_option_id}",
@@ -43,5 +45,3 @@ echo $this->Form->input('active', array(
 
 echo $this->Form->submit('Update');
 echo $this->Form->end();
-
-?>
