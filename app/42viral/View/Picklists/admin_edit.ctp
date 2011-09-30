@@ -14,13 +14,30 @@
  */
 ?>
 
-<?php
-App::uses('PicklistsAbstractController',  'Controller');
+<h1>Picklist - Edit</h1>
 
-/**
- * @package app
- * @subpackage app.core
- *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
- */
-class PicklistsController extends PicklistsAbstractController {}
+<?php
+
+echo $this->Form->create('Picklist', array(
+    'url' => $this->here,
+    'class' => 'content'
+));
+
+echo $this->Form->input('id');
+
+echo $this->Form->input('alias');
+
+echo $this->Form->input('name');
+
+echo $this->Form->input('description', array(
+    'type' => 'textarea'
+));
+
+echo $this->Form->input('active', array(
+    'checked' => true
+));
+
+echo $this->Form->submit('Update');
+echo $this->Form->end();
+
+?>
