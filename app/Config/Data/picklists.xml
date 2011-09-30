@@ -19,7 +19,7 @@
         <table name="picklists">
             <column name="id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
             <column name="alias">object_type</column>
-            <column name="name">Object Types</column>
+            <column name="name">Object Type</column>
             <column name="description">Object types for data models</column>
             <column name="active">1</column>
             <column name="created">2011-10-03 12:12:01</column>
