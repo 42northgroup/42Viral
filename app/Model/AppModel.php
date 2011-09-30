@@ -26,5 +26,5 @@ class AppModel extends Model {
      * @var array
      * @access public
      */
-    public $actsAs = array('Containable', 'Log', 'Null');
+    public $actsAs = array('Containable', 'Log');
 }

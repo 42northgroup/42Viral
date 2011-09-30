@@ -103,7 +103,7 @@ $(function(){
         $('.profile-navigation-block').hide();
     });     
 
-    //Section manager navigation
+    //Local manager navigation
     $('#LocalManager').delegate('.local-navigation-link', 'mouseover', function(){
         $('.local-navigation-block').hide();
         id = $(this).attr('id');

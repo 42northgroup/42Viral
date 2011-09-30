@@ -18,12 +18,12 @@
         <!-- Table people -->
         <table name="people">
             <column name="id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
-            <column name="email">NULL</column>
+            <column name="email"></column>
             <column name="username">system</column>
-            <column name="password">NULL</column>
-            <column name="salt">NULL</column>
-            <column name="first_name">NULL</column>
-            <column name="last_name">NULL</column>
+            <column name="password"></column>
+            <column name="salt"></column>
+            <column name="first_name"></column>
+            <column name="last_name"></column>
             <column name="employee">0</column>
             <column name="object_type">system</column>
             <column name="created">2011-07-21 01:46:22</column>
@@ -33,12 +33,12 @@
         </table>
         <table name="people">
             <column name="id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
-            <column name="email">NULL</column>
+            <column name="email"></column>
             <column name="username">root</column>
-            <column name="password">NULL</column>
-            <column name="salt">NULL</column>
-            <column name="first_name">NULL</column>
-            <column name="last_name">NULL</column>
+            <column name="password"></column>
+            <column name="salt"></column>
+            <column name="first_name"></column>
+            <column name="last_name"></column>
             <column name="employee">1</column>
             <column name="object_type">contact</column>
             <column name="created">2011-07-21 01:46:22</column>
