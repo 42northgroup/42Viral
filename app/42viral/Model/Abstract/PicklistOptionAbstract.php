@@ -16,8 +16,6 @@
 App::uses('AppModel', 'Model');
 
 /**
- * 
- *
  * @package app
  * @subpackage app.core
  *
@@ -48,4 +46,23 @@ class PicklistOptionAbstract extends AppModel
     }
 
 
+    /**
+     * Fetch a picklist option given its ID
+     * 
+     * @access public
+     * @param string $picklistOptionId
+     * @return PicklistOption
+     */
+    public function fetchPicklistOption($picklistOptionId)
+    {
+        $picklistOption = $this->find('first', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'PicklistOption.id' => $picklistOptionId
+            )
+        ));
+
+        return $picklistOption;
+    }
 }
