@@ -42,7 +42,12 @@ abstract class OauthAbstractController extends AppController
      * @var array
      * @access public
      */
-    public $components = array('Access');
+    public $components = array(
+                'Access',
+                'Openid' => array(
+                    'use_database' => true
+                )
+            );
 
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -313,9 +318,69 @@ abstract class OauthAbstractController extends AppController
         }
         
     } 
+    
+    /*
+     Authentication test
+    public function openid_connect()
+    {
+        $realm = 'http://' . $_SERVER['HTTP_HOST'];
+        $returnTo = $realm . '/oauth/openid_connect';
+      
+       if ($this->RequestHandler->isPost() && !$this->Openid->isOpenIDResponse()) {
+            try {
+                $this->Openid->authenticate($this->data['OpenidUrl']['openid'], $returnTo, $realm);
+            } catch (InvalidArgumentException $e) {
+                $this->set('error', 'Invalid OpenID');
+            } catch (Exception $e) {
+                $this->set('error', $e->getMessage());
+            }
+        } elseif ($this->Openid->isOpenIDResponse()) {
+            $response = $this->Openid->getResponse($returnTo);
 
+            if ($response->status == Auth_OpenID_CANCEL) {
+                $this->set('error', 'Verification cancelled');
+            } elseif ($response->status == Auth_OpenID_FAILURE) {
+                $this->set('error', 'OpenID verification failed: '.$response->message);
+            } elseif ($response->status == Auth_OpenID_SUCCESS) {
+                echo 'successfully authenticated!';
+                exit;
+            }
+        }
+    }
+     * 
+     */
+    
+    public function openid_connect()
+    {
+        $realm = 'http://' . $_SERVER['HTTP_HOST'];
+        $returnTo = $realm . '/oauth/openid_connect';
 
-    /**
+        if ($this->RequestHandler->isPost() && !$this->Openid->isOpenIDResponse()) {
+            $this->makeOpenIDRequest($this->data['OpenidUrl']['openid'], $returnTo, $realm);
+        } elseif ($this->Openid->isOpenIDResponse()) {
+            $this->handleOpenIDResponse($returnTo);
+        }
+    }
+
+    private function makeOpenIDRequest($openid, $returnTo, $realm) {
+        // some OpenID providers (e.g. MyOpenID) use 'schema.openid.net' instead of 'axschema.org'
+        $attributes[] = Auth_OpenID_AX_AttrInfo::make('http://axschema.org/namePerson', 1, true, 'fullname');
+        $this->Openid->authenticate($openid, $returnTo, $realm, array('ax' => $attributes));
+    }
+
+    private function handleOpenIDResponse($returnTo) {
+        $response = $this->Openid->getResponse($returnTo);
+
+        if ($response->status == Auth_OpenID_SUCCESS) {
+            $axResponse = Auth_OpenID_AX_FetchResponse::fromSuccessResponse($response);
+
+            if ($axResponse) {
+                debug($axResponse->get('http://axschema.org/namePerson'));
+                debug($axResponse->getSingle('http://axschema.org/namePerson'));
+            }
+        }
+    }
+        /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
      * @return void
      * @access public
