@@ -24,7 +24,7 @@ App::uses('Debugger', 'Utility');
 	<p>For updates and important announcements, visit http://cakefest.org</p>
 </iframe>
 <h2><?php echo __d('cake_dev', 'Release Notes for CakePHP %s.', Configure::version()); ?></h2>
-<a href="http://cakephp.org/changelogs/2.0.0-RC2"><?php __d('cake_dev', 'Read the changelog'); ?> </a>
+<a href="http://cakephp.org/changelogs/2.0.0-RC3"><?php __d('cake_dev', 'Read the changelog'); ?> </a>
 <?php
 if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
@@ -34,6 +34,19 @@ endif;
 	<?php echo __d('cake_dev', 'URL rewriting is not properly configured on your server.'); ?>
 	1) <a target="_blank" href="http://book.cakephp.org/view/917/Apache-and-mod_rewrite-and-htaccess" style="color:#fff;">Help me configure it</a>
 	2) <a target="_blank" href="http://book.cakephp.org/view/931/CakePHP-Core-Configuration-Variables" style="color:#fff;">I don't / can't use URL rewriting</a>
+</p>
+<p>
+<?php 
+	if (version_compare(PHP_VERSION, '5.2.6', '>=')):
+		echo '<span class="notice success">';
+			echo __d('cake_dev', 'Your version of PHP is 5.2.6 or higher.');
+		echo '</span>';
+	else:
+		echo '<span class="notice">';
+			echo __d('cake_dev', 'Your version of PHP is too low. You need PHP 5.2.6 or higher to use CakePHP.');
+		echo '</span>';
+	endif;
+?>
 </p>
 <p>
 	<?php
