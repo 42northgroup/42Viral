@@ -44,7 +44,7 @@ class CaseAbstract extends AppModel
      * @var array
      */
     public $actsAs = array(
-        
+        /*
         'Picklist' => array(
             
             'ObjectTypes'=>array(
@@ -57,7 +57,7 @@ class CaseAbstract extends AppModel
             )
             
         ),
-        
+        */
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
