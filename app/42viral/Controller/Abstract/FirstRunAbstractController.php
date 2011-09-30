@@ -59,22 +59,24 @@ abstract class FirstRunAbstractController extends AppController {
         $this->ArosAco->query('TRUNCATE aros_acos;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
-        $this->flash('Truncation complete. Begining ACL based privledge set up...', '/first_run/root_acl');
+        $this->flash('Truncation complete. Set ACLs...', '/first_run/acl');
     }
 
     /**
      * Build the initial ACOs table, create an ARO entry for
-     * user "root" and gives him all permissions
+     * user "root" and gives root all permissions
+     * group "basic_user" id created as an ARO
      * @return void
      * @access public
      */
-    public function root_acl()
+    public function acl()
     {
 
         $this->Session->delete('Auth');
         
         $controllers = $this->ControllerList->get();
 
+        //Set root's permissions (Root gets full access)
         $this->Acl->Aco->create(array('alias' => 'root', 0, 0));
         $this->Acl->Aco->save();
 
@@ -97,106 +99,72 @@ abstract class FirstRunAbstractController extends AppController {
             }
         }
         
-        $this->flash('ACL Root Setup Complete. Creating system users...', '/first_run/create_people');
-    }
+        //Set the default group permissions (We are really just creating the ARO group at this point)
+        $this->Acl->Aro->create(array(
+            'model' => 'Group',
+            'foreign_key' => '4e5fcfef-8e80-40bb-a72f-22424bb83359',
+            'alias' => 'basic_user', 0, 0));
 
-    /**
-     * Creates the default system users
-     * @return void
-     * @access public
-     */
-    public function create_people(){
+        $this->Acl->Aro->save();
 
-        $people =
-        array(
-            array(
-            'Person'=>array(
-                    'id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                    'email'=>NULL,
-                    'username'=> 'system',
-                    'password'=>NULL,
-                    'salt'=>NULL,
-                    'first_name'=>NULL,
-                    'last_name'=>NULL,
-                    'object_type'=>'system',
-                    'created'=>'2011-07-21 01:46:22',
-                    'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                    'modified'=>'2011-07-21 01:46:22',
-                    'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                ),
-             ),
-             array(
-                 'Person'=>array(
-                    'id'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
-                    'email'=>NULL,
-                    'username'=>'root',
-                    'password'=>NULL,
-                    'salt'=>NULL,
-                    'first_name'=>NULL,
-                    'last_name'=>NULL,
-                    'object_type'=>'system',
-                    'created'=>'2011-07-21 01:46:22',
-                    'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                    'modified'=>'2011-07-21 01:46:22',
-                    'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',)));
-
-        $count = count($people);
-        foreach($people as $person){
-            $i=0;
-            if($this->Person->save($person['Person'])){ 
-                $i++;
-                if($i == ($count - 1)){
-                    $this->flash('System users created. Building default groups...', '/first_run/create_groups');
-                }
-            }else{
-                $this->Person->query('TRUNCATE people;');
-                $this->flash('Failed to create people, retrying...', '/first_run/create_people');
-            }
-        }
-        
+        $this->flash('ACL Set up complete. Import default data...', '/first_run/pma_import');
     }
     
+
     /**
-     * Creates the systems default groups
+     * Import the default data set from PMA XML
      * @return void
      * @access public
      */
-    public function create_groups(){
-        $groups =
-        array(
-            array(
-            'Group'=>array(
-                    'id'=>'4e5fcfef-8e80-40bb-a72f-22424bb83359',
-                    'name'=>'Basic User',
-                    'alias'=> 'basic_user',
-                    'object_type'=>'acl',
-                    'created'=>'2011-09-01 01:40:24',
-                    'created_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                    'modified'=>'2011-09-01 01:40:24',
-                    'modified_person_id'=>'4e24236d-6bd8-48bf-ac52-7cce4bb83359',
-                ),
-             ));
-        $count = count($groups);
-        foreach($groups as $group){
-            $i=0;
-            if($this->Group->save($group['Group'])){
-                $i++;
-                                
-                $this->Acl->Aro->create(array(
-                    'model' => 'Group',
-                    'foreign_key' => $group['Group']['id'],
-                    'alias' => $group['Group']['alias'], 0, 0));
+    public function pma_import(){
 
-                $this->Acl->Aro->save();
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data';
+        
+        foreach(scandir($path) as $file){      
+            
+            if(is_file($path . DS . $file)){
+                $xml = Xml::build($path . DS . $file, array('return' => 'domdocument'));
+                $pma = Xml::toArray($xml);
+               
+                //We need to adjust the array for 1 rom vs mulitple rows
+                if(isset($pma['pma_xml_export']['database']['table']['@name'])){
+                    $tables = array();
+                    $tables[] = $pma['pma_xml_export']['database']['table'];
+
+                }else{
+                    $tables = $pma['pma_xml_export']['database']['table'];
+                }                 
                 
-                if($i == ($count)){                    
-                    $this->flash('Default groups created. Assign permisions...', '/first_run/give_permissions');
+                foreach($tables as $table){
+
+                        $model = Inflector::classify($table['@name']);
+                        $this->loadModel($model);
+
+                        $row = array();
+                        for($i=0; $i<count($table['column']); $i++): 
+                            //If we have a null value, check the schema and replace that with the columns 
+                            //intended default. 
+                            
+                            if(isset($table['column'][$i]['@'])){
+                                $value = $table['column'][$i]['@'];
+                            }else{
+                                $schema = $this->$model->schema($table['column'][$i]['@name']);
+                                $value = $schema['default'];
+                            }
+
+                            $row[$table['column'][$i]['@name']] = $value;
+                        endfor;
+
+                    if($this->$model->save($row)){
+                        //Nothing to do here
+                    }else{
+                        $this->log("INSERT FAILED! {$table['@name']} {$table['column'][$i]['@id']}", 'FIRST_RUN');
+                    }
                 }
-            }else{
-                $this->Group->query('TRUNCATE groups;');
-                $this->flash('Failed to create people, retrying...', '/first_run/create_groups');
             }
-        }         
+        }
+
+        $this->flash('Data imported. Assign permisions...', '/first_run/give_permissions');
     }
     
     public function give_permissions($username='basic_user')
@@ -249,5 +217,5 @@ abstract class FirstRunAbstractController extends AppController {
             }
         }
     }
-
+   
 }
