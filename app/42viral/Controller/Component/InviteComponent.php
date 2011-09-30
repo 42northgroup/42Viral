@@ -14,18 +14,14 @@
  */
 
 
-App::uses('Tweet', 'Model');
-App::uses('Linkedin', 'Model');
-App::uses('Facebook', 'Model');
-App::uses('Controller', 'Controller');
+App::uses('Invite', 'Model');
 
 /**
- * Component class to use for fetching Oauth access tokens
- *
- ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * Component class for managing invites
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-class OauthsComponent  extends Component
+class InviteComponent  extends Component
 {
     
     var $components = array('Session'); 
@@ -34,70 +30,28 @@ class OauthsComponent  extends Component
     {
         parent::__construct($collection, $settings);
 
-        $this->Tweet = new Tweet();
-        $this->Linkedin = new Linkedin();
-        $this->Facebook = new Facebook();
-        $this->Controller = new Controller();
+        $this->Invite = new Invite();
     }
     
     /**
-     * Check if there is a token stored in the Session and calls the 
-     * appropriate functions to store one if there isn't
-     * 
-     * @param string $service
-     * @param string $redirect_url
-     * @return boolean 
-     */    
-    public function check_session_for_token($service, $redirect_url)
-    {
-        switch ($service){
-            case 'facebook':
-                
-                if( $this->Session->check('Facebook.oauth_token') ){
-                    return true;
-                }else{                
-                    $this->Session->write('Auth.redirect', '/'.$redirect_url);
-                    //$this->Controller->redirect('/oauth/facebook_connect/');
-                    return false;
-                }
-                
-                break;
-                
-            case 'twitter':
-                
-                if( $this->Session->check('Twitter.oauth_token') ){
-                    return true;
-                }else{
-                    $this->Session->write('Auth.redirect', '/'.$redirect_url);
-                    //$this->Controller->redirect('/oauth/twitter_connect/');
-                    return false;
-                }
-                
-                break;
-                
-            case 'linked_in':
-                
-                $expired = false;
-                $token_expires = $this->Session->read('LinkedIn.oauth_expires');
-                $token_created = $this->Session->read('LinkedIn.oauth_created');
-
-                if( ($token_created + $token_expires) <= strtotime('now') ){
-                    $expired = true;
-                }
-
-                if( $this->Session->check('LinkedIn.oauth_token') && ($expired == false) ){
-
-                    return true;
-                }else{                    
-                    
-                    $this->Session->write('Auth.redirect', '/'.$redirect_url);                    
-                    //$this->Controller->redirect('/oauth/linkedin_connect/');
-                    return false;
-                }
-                
-                break;
+     * Adds a number invites to the database
+     */
+    public function create($emails){
+        //$emails = array(1,2,3,4,5,6,7,8,9,10,11,12,13);
+        for($i=0; $i<count($emails); $i++){
+            $this->Invite->create();
+            $this->Invite->save();
         }
     }
-
+    
+    
+    /**
+     * Confirms an invite
+     */
+    public function confirm($id){
+        $data['Invite']['id'] = $id;
+        $data['Invite']['accepted'] = date('Y-m-d h:i:s');
+        $this->Invite->save($data);
+    }    
     
 }
