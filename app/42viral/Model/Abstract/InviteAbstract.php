@@ -33,4 +33,29 @@ class InviteAbstract extends AppModel
      * @access public
      */
     public $useTable = 'invites';
+    
+    /**
+     * Confirms an invite
+     */
+    public function confirm($id){
+        
+        $invite = $this->find('first', array('conditions'=>array('Invite.id'=>$id, 'Invite.accepted IS NULL')));
+        
+        if(empty($invite)){
+            return false;
+        }else{
+            
+            $data['Invite']['id'] = $id;
+            $data['Invite']['accepted'] = date('Y-m-d h:i:s');
+            if($this->save($data)){
+                return true;
+            }else{
+                return false;
+            }
+            
+            return false;
+        }
+        
+        return false;
+    }        
 }

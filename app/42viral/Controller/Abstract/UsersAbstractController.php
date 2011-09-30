@@ -14,10 +14,6 @@
  */
 App::uses('AppController', 'Controller');
 
-//App::uses('ProfileAbstract', 'AbstractModel');
-//App::uses('CompanyAbstract', 'AbstractModel');
-//App::uses('OauthAbstract', 'AbstractModel');
-
 /**
  * @package app
  * @subpackage app.core
@@ -31,7 +27,7 @@ abstract class UsersAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('Person', 'User', 'AclGroup', 'Tweet', 'Oauth');
+    public $uses = array( 'AclGroup', 'Invite', 'Oauth', 'Person', 'Tweet', 'User',);
 
     /**
      * @var array
@@ -138,7 +134,15 @@ abstract class UsersAbstractController extends AppController
         $this->loadModel('User');
 
         if(!empty($this->data)){
-
+            
+            //Confirm the invite code
+            
+            if($this->Invite->confirm($this->data['User']['invite'])){
+                die('WIN');
+            }else{
+                die('LOSE');
+            }            
+            
             if($this->User->createUser($this->data['User'])){
 
                 $this->Acl->Aro->create(array(
