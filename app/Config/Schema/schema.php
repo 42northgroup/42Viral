@@ -1,5 +1,5 @@
 <?php 
-/* App schema generated on: 2011-09-30 15:15:40 : 1317413740*/
+/* App schema generated on: 2011-09-30 15:34:03 : 1317414843*/
 class AppSchema extends CakeSchema {
 	function before($event = array()) {
 		return true;
@@ -221,9 +221,9 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
 	var $oid_nonces = array(
-		'server_url' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 767, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
-		'timestamp' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary', 'collate' => NULL, 'comment' => ''),
-		'salt' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 40, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'server_url' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 767, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'timestamp' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'collate' => NULL, 'comment' => ''),
+		'salt' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 40, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'indexes' => array('server_url' => array('column' => array('server_url', 'timestamp', 'salt'), 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
