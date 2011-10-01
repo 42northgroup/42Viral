@@ -15,7 +15,7 @@ abstract class BlogsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Post', 'Profile');
+    public $uses = array('Blog', 'Post', 'Person', 'Profile');
     
     /**
      * @var array
@@ -37,10 +37,18 @@ abstract class BlogsAbstractController extends AppController {
      *
      * @param array
      */
-    public function index() {
-        $blogs = $this->Blog->find('all');
+    public function index($username = null) {
+        
+        if(is_null($username)){
+            $blogs = $this->Blog->fetchBlogsWith();
+        }else{
+            $profile = $this->Person->fetchPersonWith($username, 'blog');
+            $blogs = $profile;
+        }
+        
         $this->set('blogs', $blogs);
         $this->set('title_for_layout', 'Blog Index');
+        
     }
     
     /**
