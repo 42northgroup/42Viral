@@ -168,13 +168,13 @@ class PersonAbstract extends AppModel
     * Returns a person's profile data with the specified associated data. 
     * NOTE: When using the by clause please understand, this MUST be a unique index in the profiles table
     * 
-    * @param string $id - An id for retreving records
-    * @param string|array $with
-    * @param string $by - This will usally be id, but sometimes we want to use something else
+    * @param string $token - id or username for retreving records
+    * @param string|array $with What associated data do we want?
+    * @param string $by - Which token, id or username?
     * @return array
     * @access public
     */
-    public function fetchPersonWith($id, $with = array(), $by = 'username')
+    public function fetchPersonWith($token, $with = array(), $by = 'username')
     {
         //Allows predefined data associations in the form of containable arrays
         if(!is_array($with)){
@@ -184,6 +184,19 @@ class PersonAbstract extends AppModel
                     $with = array('Profile');
                 break;   
 
+                case 'blog':
+                    $with = array(
+                        'Profile'=>array(), 
+                        'Blog'=>array(
+                            'conditions'=>array(
+                                'Blog.object_type'=>'blog',
+                                'Blog.status'=>'published'
+                                ),
+                                'order'=>array('Blog.title ASC')
+                            )
+                        );
+                break;               
+            
                 default:
                     $with = array();
                 break;
@@ -196,7 +209,7 @@ class PersonAbstract extends AppModel
            'contain' => $with,
 
            'conditions' => array(
-               "Person.{$by}"  => $id
+               "Person.{$by}"  => $token
            )
         ));
 

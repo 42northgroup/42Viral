@@ -23,15 +23,19 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 ?>
 
 <div id="ResultsPage">
+    
     <?php foreach($blogs as $blog): ?>
     <div class="result">
         <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
-        <div class="tease">
-        <?php 
-            echo $this->Text->truncate(
-                    $blog['Blog']['tease'], 200, array('ending' => '...', 'exact' => true, 'html' => true)); 
-        ?>
-        </div>
+        <div class="tease"><?php echo $blog['Blog']['tease']; ?></div>
     </div>
     <?php endforeach; ?>
+    
+    <?php foreach($blogs['Blog'] as $blog): ?>
+    <div class="result">
+        <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
+        <div class="tease"><?php echo $blog['tease']; ?></div>
+    </div>
+    <?php endforeach; ?>
+    
 </div>

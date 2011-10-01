@@ -17,7 +17,7 @@ App::uses('File', 'Utility');
 App::uses('Scrub', 'Lib');
 
 /**
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class AppAbstractController extends Controller
 {
@@ -123,12 +123,14 @@ abstract class AppAbstractController extends Controller
                 }else{
                      //No, the user is not looked in.
                     
-                    //If the user attempting to post a comment, save the post untill they get logged in.
-                    $this->Session->write('Auth.post_comment', 
-                            Scrub::htmlStrict($this->data['Conversation']['body']));
+                    if(!empty($this->data)){
+                        //If the user attempting to post a comment, save the post untill they get logged in.
+                        $this->Session->write('Auth.post_comment', 
+                                Scrub::htmlStrict($this->data['Conversation']['body']));
 
-                    //Deny access.
-                    $this->Auth->deny($this->request->params['action']);
+                        //Deny access.
+                        $this->Auth->deny($this->request->params['action']);
+                    }
                     
                 }
 
