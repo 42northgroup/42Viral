@@ -45,6 +45,10 @@ class ContentAbstract extends AppModel
      */
     public $actsAs = array(
         
+        'Random' => array(
+            'Fields'=>array('short_cut')
+        ),
+        
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
@@ -53,19 +57,13 @@ class ContentAbstract extends AppModel
             )
         ),
         
+        'Search.Searchable',
+        
         'Seo',
         
-        'Random' => array(
-            'Fields'=>array('short_cut')
-        ),
-        
-        'Search.Searchable',
-
         'Tags.Taggable'
 
     );
-        
-    public $hasAndBelongsToMany = array('Tag' => array('with' => 'Tagged'));
     
     /**
      * Sets up the searchable behavior
@@ -79,8 +77,6 @@ class ContentAbstract extends AppModel
         array('name' => 'body', 'type' => 'like', 'field' => 'Content.body'),
         array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id')
     );    
-    
-    
     
     /**
      * @access public
@@ -96,7 +92,12 @@ class ContentAbstract extends AppModel
         );        
     }
     
-    
+    /**
+     * A subquery for finding associated tags
+     * @param array $data
+     * @return array
+     * @access public
+     */
     public function findByTags($data = array()) {
         $this->Tagged->Behaviors->attach('Containable', array('autoFields' => false));
         $this->Tagged->Behaviors->attach('Search.Searchable');
@@ -107,8 +108,6 @@ class ContentAbstract extends AppModel
         ));
         return $query;
     }
-    
-    /* === Content Validation Methods =============================================================================== */
     
     /**
      * Returns true if the blog is ready to be published
@@ -138,7 +137,6 @@ class ContentAbstract extends AppModel
         }else{
             return false;
         }
-        
         
     }
     

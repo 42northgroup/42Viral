@@ -21,7 +21,7 @@ abstract class BlogsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $helpers = array('Member');
+    public $helpers = array('Member', 'Tags.TagCloud');
 
     /**
      * @access public
@@ -77,9 +77,11 @@ abstract class BlogsAbstractController extends AppController {
         
         $userProfile['Person'] = $personData['Person'];
         $userProfile['Person']['Profile'] = $personData['Profile'];
-        
+
         $this->set('userProfile', $userProfile);
         $this->set('mine', $mine); 
+        
+        $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
 
     } 
     
@@ -129,6 +131,7 @@ abstract class BlogsAbstractController extends AppController {
         
         $this->set('mine', $mine);
         
+        $this->set('tags', $this->Post->Tagged->find('cloud', array('limit' => 10)));
     }       
     
     

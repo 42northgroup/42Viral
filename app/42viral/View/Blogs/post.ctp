@@ -33,7 +33,9 @@ if($mine):
             'confirm'=>Configure::read('System.purge_warning')
         )                
     );
-endif;       
+else:
+     $additional  = array();
+endif; 
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'additional'=>$additional));
 

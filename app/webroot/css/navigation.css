@@ -240,3 +240,8 @@ div.section-head{
     padding: 4px 6px;
     border: solid 1px #2E6AB1;
 }
+
+.local-navigation h1{
+    font-size: 110%;
+    font-weight: bold;
+}
