@@ -20,7 +20,7 @@ App::uses('ContentAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class PageAbstract extends ContentAbstract
 {
@@ -43,10 +43,20 @@ class PageAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
                 'last' => true                
+            )
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"This page is not ready to be published",
+                'last' => true
             )
         )
     );
@@ -101,7 +111,7 @@ class PageAbstract extends ContentAbstract
             switch(strtolower($with)){
 
                 default:
-                    $with = array();
+                    $with = array('Tag'=>array());
                 break;
             }
   

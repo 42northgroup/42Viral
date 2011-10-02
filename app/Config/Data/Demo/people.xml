@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.3.10deb1
+- http://www.phpmyadmin.net
+-
+- Host: localhost
+- Generation Time: Oct 07, 2011 at 03:03 AM
+- Server version: 5.1.54
+- PHP Version: 5.3.5-1ubuntu7.2
+-->
+
+<pma_xml_export version="1.0">
+    <!--
+    - Database: 'jasonsnider_com'
+    -->
+    <database name="jasonsnider_com">
+        <!-- Table people -->
+        <table name="people">
+            <column name="id">4e41b612-2490-4ab5-b1c5-05cc4bb83359</column>
+            <column name="email">jsnider77@gmail.com</column>
+            <column name="username">jasonsnider</column>
+            <column name="password">ommited</column>
+            <column name="salt">96bf8b271bff415c17754a96424a47b8a4b0f63f398777aa9b30b5278b24e6904cd03be81165f3ceb5602aeed3dafe2c5720b18dbb56040acdca4a53841906fc</column>
+            <column name="first_name">Jason</column>
+            <column name="last_name">Snider</column>
+            <column name="object_type">contact</column>
+            <column name="created">2011-08-09 17:34:58</column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2011-08-09 17:34:58</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+        </table>
+    </database>
+</pma_xml_export>

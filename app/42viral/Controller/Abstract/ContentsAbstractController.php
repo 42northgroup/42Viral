@@ -1,9 +1,22 @@
 <?php
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
 /**
- *
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ContentsAbstractController extends AppController {
 
@@ -19,7 +32,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Picklist', 'Post');
     
     /**
      * @var array
@@ -31,7 +44,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $helpers = array('Member');
+    public $helpers = array('Member', 'Paginator');
     
     /**
      * @return void
@@ -42,26 +55,26 @@ abstract class ContentsAbstractController extends AppController {
         parent::beforeFilter();
         $this->auth();
     }
-
+    
+    
     /* === Blog Management ========================================================================================== */
     
     /**
      * A index of all blogs
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blogs(){
         $blogs = $this->Blog->find('all');
         $this->set('blogs', $blogs);
+        $this->set('title_for_layout', 'Blogs');
     }    
     
     /**
      * Removes a blog and all related posts
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_delete($id){
@@ -80,7 +93,6 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a blog - a blog contains a collection of posts
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_create()
@@ -95,6 +107,10 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', 'Create a Blog');
+        
+        
     }
     
     /**
@@ -102,7 +118,6 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_edit($id)
@@ -115,18 +130,23 @@ abstract class ContentsAbstractController extends AppController {
             }else{
                 $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
+        }else{
+            //We only want to fire this if the data array is empty
+            $this->data = $this->Blog->findById($id);
         }
         
-        $this->data = $this->Blog->findById($id);
-
-        $this->set('statuses', $this->Blog->picklist('Status'));
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+        
+        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
+        
     }    
     
     /**
      * Removes a post
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function post_delete($id){
@@ -145,7 +165,6 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a post or blog entry
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function post_create($blogId = null)
@@ -162,7 +181,7 @@ abstract class ContentsAbstractController extends AppController {
 
                 if($this->Post->save($this->data)){
                     $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
-                    $this->redirect("/Contents/post_edit/{$this->Post->id}");
+                    $this->redirect("/contents/post_edit/{$this->Post->id}");
                 }else{
                     $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
                 }
@@ -170,6 +189,8 @@ abstract class ContentsAbstractController extends AppController {
             }     
             
         }
+        
+        $this->set('title_for_layout', 'Post to a Blog');
     }
     
     /**
@@ -177,9 +198,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function post_edit($id)
     {
@@ -192,9 +211,12 @@ abstract class ContentsAbstractController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->findById($id);
+        $this->data = $this->Post->fetchPostWith($id, 'created_person');
         
-        $this->set('statuses', $this->Post->picklist('Status'));
+        
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
 
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
@@ -224,10 +246,15 @@ abstract class ContentsAbstractController extends AppController {
         }
 
         $this->set('customFiles', $paths);
-     
+        $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
+        
     }
     
-    
+    /**
+     * An action for commenting on a blog post
+     * @return void
+     * @access public
+     */
     public function post_comment(){
         if( $this->Session->check('Auth.post_url') ){
             $this->redirect($this->Session->read('Auth.post_url'));
@@ -243,6 +270,8 @@ abstract class ContentsAbstractController extends AppController {
                 $this->redirect($this->referer());
             }
         }
+        $this->set('title_for_layout', "Comment on a Blog Post");       
+        
     }
     
     
@@ -250,9 +279,7 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a web page
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_delete($id){
 
@@ -270,9 +297,7 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a traditional web page
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_create()
     {
@@ -286,6 +311,9 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', __('Create a Page'));
+        
     }
  
     
@@ -294,9 +322,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_edit($id)
     {
@@ -311,16 +337,19 @@ abstract class ContentsAbstractController extends AppController {
         
         $this->data = $this->Page->findById($id);
         
-        $this->set('statuses', $this->Page->picklist('Status'));
+        
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+     
+        $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
     }    
     
     /**
      * Displays a list of all content created by a single user
      *
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function content($username) 
     {
@@ -328,7 +357,6 @@ abstract class ContentsAbstractController extends AppController {
         $mine = false;
         
         $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
-        $this->set('userProfile', $person);
         
         if($this->Session->check('Auth.User.id')){
             if($this->Session->read('Auth.User.username') == $username){
@@ -337,8 +365,16 @@ abstract class ContentsAbstractController extends AppController {
         }
         
         $this->set('mine', $mine);
+        $this->set('userProfile', $person);
+        $this->set('title_for_layout', "Content Stream");        
     }  
     
+    /**
+     * An action for promoting new content
+     *
+     * @return void
+     * @access public
+     */
     public function promote($id, $redirect_url='users/social_media')
     {
         
@@ -386,6 +422,9 @@ abstract class ContentsAbstractController extends AppController {
         );
         
         $this->set('promo', $promo);
+
+        $this->set('title_for_layout', "Update {$post['Post']['name']}");
+        
     }
-    
+
 }

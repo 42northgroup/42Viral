@@ -1,7 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
-
+App::uses('Member', 'Lib');
 
 /**
  * @package app
@@ -15,13 +15,13 @@ abstract class BlogsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array('Blog', 'Post', 'Person', 'Profile');
     
     /**
      * @var array
      * @access public
      */
-    public $helpers = array('Member');
+    public $helpers = array('Member', 'Tags.TagCloud');
 
     /**
      * @access public
@@ -33,15 +33,37 @@ abstract class BlogsAbstractController extends AppController {
     }
 
     /**
-     * Displays a list of blogs
+     * Displays a list of published blogs. The scop can be all published or all published blogs beloning to a single
+     * user.
      *
-     * @param array
+     * @param string $username the username for any system user
+     * @return void
+     * @access public
      */
-    public function index() {
-        $this->loadModel('Blog');
-        $blogs = $this->Blog->find('all');
+    public function index($username = null) {
+        
+        $showAll = true;
+        $pageTitle = 'Blog Index';
+        
+        if(is_null($username)){
+            $blogs = $this->Blog->fetchBlogsWith();
+        }else{
+            $profile = $this->Person->fetchPersonWith($username, 'blog');
+            
+            if (empty($profile)) {
+                throw new NotFoundException("{$username} " . __("doesn't seem to exist"));
+            }
+            
+            $blogs = $profile;
+            $showAll = false;
+            $pageTitle = Member::name($profile['Person']) . "'s Blogs";
+            $this->set('userProfile', $profile);
+        }
+        
+        $this->set('showAll', $showAll);
         $this->set('blogs', $blogs);
-        $this->set('title_for_layout', 'Blog');
+        $this->set('title_for_layout', $pageTitle);
+        
     }
     
     /**
@@ -53,10 +75,8 @@ abstract class BlogsAbstractController extends AppController {
        
         $mine = false;
         
-        $this->loadModel('Blog');
-        
         $blog = $this->Blog->fetchBlogWith($slug, 'standard');
-        
+
         if(empty($blog)){
            $this->redirect('/', '404');
         }
@@ -69,8 +89,13 @@ abstract class BlogsAbstractController extends AppController {
         if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
             $mine = true;
         }
+
+        $userProfile['Person'] = $blog['CreatedPerson'];
+        $this->set('userProfile', $userProfile);
+        $this->set('mine', $mine); 
         
-        $this->set('mine', $mine);
+        $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
+
     } 
     
     /**
@@ -81,7 +106,6 @@ abstract class BlogsAbstractController extends AppController {
     public function post($slug) {
         $mine = false;
         
-        $this->loadModel('Post');
         $post = $this->Post->fetchPostWith($slug, 'standard');    
 
         if(empty($post)){
@@ -109,7 +133,6 @@ abstract class BlogsAbstractController extends AppController {
         $userProfile['Person'] = $post['CreatedPerson'];
         $this->set('userProfile', $userProfile);
         
-        
         $this->set('title_for_layout', $post['Post']['title']);
         $this->set('canonical_for_layout', $post['Post']['canonical']);
         
@@ -121,6 +144,7 @@ abstract class BlogsAbstractController extends AppController {
         
         $this->set('mine', $mine);
         
+        $this->set('tags', $this->Post->Tagged->find('cloud', array('limit' => 10)));
     }       
     
     

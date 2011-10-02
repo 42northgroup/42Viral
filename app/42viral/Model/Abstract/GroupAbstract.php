@@ -19,7 +19,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class GroupAbstract extends AppModel
 {
@@ -43,13 +43,6 @@ class GroupAbstract extends AppModel
      * @var array
      */
     public $actsAs = array(
-        'Picklist' => array(
-            'ObjectTypes'=>array(
-                'acl'=>'ACL',
-                'basic'=>'Basic'
-            )
-        ),
-
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',

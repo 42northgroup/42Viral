@@ -14,10 +14,6 @@
  */
 App::uses('AppController', 'Controller');
 
-//App::uses('ProfileAbstract', 'AbstractModel');
-//App::uses('CompanyAbstract', 'AbstractModel');
-//App::uses('OauthAbstract', 'AbstractModel');
-
 /**
  * @package app
  * @subpackage app.core
@@ -31,7 +27,7 @@ abstract class UsersAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('Person', 'User', 'AclGroup', 'Tweet', 'Oauth');
+    public $uses = array( 'AclGroup', 'Invite', 'Oauth', 'Person', 'Tweet', 'User',);
 
     /**
      * @var array
@@ -65,9 +61,8 @@ abstract class UsersAbstractController extends AppController
     {        
         $error = true;
         if(!empty($this->data)){
-            $this->loadModel('User');
 
-            $user = $this->User->getUser($this->data['User']['username']);
+            $user = $this->User->fetchUserWith($this->data['User']['username'], 'profile', 'username');
 
             if(empty($user)){
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -81,6 +76,7 @@ abstract class UsersAbstractController extends AppController
                         $this->Session->setFlash('You have been authenticated', 'success');
 
                         $this->Session->write('Auth.User', $user['User']);
+                        $this->Session->write('Auth.User.Profile', $user['Profile']);
                         $this->Access->permissions($user['User']);
 
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
@@ -130,52 +126,81 @@ abstract class UsersAbstractController extends AppController
      *
      * @return void
      * @access public
-     * @todo TestCase
-     * @todo Complete and harden
      */
     public function create()
     {
         $this->loadModel('User');
 
         if(!empty($this->data)){
-
-            if($this->User->createUser($this->data['User'])){
-
-                $this->Acl->Aro->create(array(
-                    'model'=>'User',
-                    'foreign_key'=>$this->User->id,
-                    'parent_id'=>2, 
-                    'alias'=>$this->data['User']['username'], 0, 0));
-
-                $this->Acl->Aro->save();
-                
-                $controllers = $this->ControllerList->get();
             
-                foreach($controllers as $key => $val){
-                    foreach($controllers[$key] as $index => $action){
-
-                        $this->Acl->inherit($this->data['User']['username'],$key.'-'.$action,'*');
-                    }
-                }
-
-                $user = $this->User->findByUsername($this->data['User']['username']);
-                
-                if($this->Auth->login($user)){
-
-                    $this->Session->write('Auth.User', $user['User']);
-                    $this->Access->permissions($user['User']);
-
-                    $this->Session->setFlash('Your account has been created and you have been logged in','success');
-                    $this->redirect($this->Auth->redirect());
+            //Private beta, if we are in private beta mode, look for an invite code
+            if(Configure::read('Beta.private') == 1){  
+                if($this->Invite->confirm($this->data['User']['invite'])){
+                    $allowed = true;
                 }else{
-                    $this->Session->setFlash('Your account has been created, you may now log in','error');
-                    $this->redirect($this->Auth->redirect());
+                    $this->Session->setFlash('Their is a problem with the invite code','error');
+                    $allowed = false;
                 }
-
             }else{
-                $this->Session->setFlash('Your account could not be created','error');
+                //Private beta mode is turned off
+                $allowed = true;
             }
+            
+            //If we have a valid code or we are not in private beta, proceed
+            if($allowed){
+                
+                //Is the user data valid?
+                if($this->User->createUser($this->data['User'])){
 
+                    //Invalidate the private beta invite token
+                    if(Configure::read('Beta.private') == 1){  
+                        $this->Invite->accept($this->data['User']['invite']);
+                    }
+                    
+                    
+                    //Create the new users ARO entry
+                    $this->Acl->Aro->create(array(
+                        'model'=>'User',
+                        'foreign_key'=>$this->User->id,
+                        'parent_id'=>2, 
+                        'alias'=>$this->data['User']['username'], 0, 0));
+
+                    $this->Acl->Aro->save();
+
+                    //Update the new users privledges
+                    $controllers = $this->ControllerList->get();
+
+                    foreach($controllers as $key => $val){
+                        foreach($controllers[$key] as $index => $action){
+
+                            $this->Acl->inherit($this->data['User']['username'],$key.'-'.$action,'*');
+                        }
+                    }
+
+                    //Log the new user into the system
+                    $user = $this->User->findByUsername($this->data['User']['username']);
+
+                    if($this->Auth->login($user)){
+
+                        $this->Session->write('Auth.User', $user['User']);
+                        $this->Access->permissions($user['User']);
+
+                        $this->Session->setFlash('Your account has been created and you have been logged in','success');
+                        $this->redirect($this->Auth->redirect());
+                        
+                    }else{
+                        
+                        $this->Session->setFlash('Your account has been created, you may now log in','error');
+                        $this->redirect($this->Auth->redirect());
+                        
+                    }
+
+                }else{
+                    
+                    $this->Session->setFlash('Your account could not be created','error');
+                    
+                }
+            }
         }
     }
 
@@ -183,6 +208,7 @@ abstract class UsersAbstractController extends AppController
     {
         $aclGroups = $this->AclGroup->find('all');
         $this->set('aclGroups', $aclGroups);
+        $this->set('title_for_layout', 'ACL Groups');
     }   
     
     public function admin_create_acl_group()
@@ -213,6 +239,7 @@ abstract class UsersAbstractController extends AppController
     {
         $people = $this->Person->find('all');
         $this->set('people', $people);
+        $this->set('title_for_layout', 'Users');
     }    
     
     

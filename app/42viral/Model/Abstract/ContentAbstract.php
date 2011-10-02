@@ -45,26 +45,8 @@ class ContentAbstract extends AppModel
      */
     public $actsAs = array(
         
-        'Picklist' => array(
-            
-            'ObjectTypes'=>array(
-                'page'=>'Page',
-                'blog'=>'Blog',
-                'post'=>'Post'
-            ),
-        
-            'Syntax'=>array(
-                'html'=>'HTML',
-                'markdown'=>'Markdown'
-            ),
-        
-            'Status'=>array(
-                'draft'=>'Draft',
-                'pending_review'=>'Pending Review',
-                'published'=>'Published',
-                'archived'=>'Archived' 
-            )
-            
+        'Random' => array(
+            'Fields'=>array('short_cut')
         ),
         
         'Scrub'=>array(
@@ -75,13 +57,27 @@ class ContentAbstract extends AppModel
             )
         ),
         
+        'Search.Searchable',
+        
         'Seo',
         
-        'Random' => array(
-            'Fields'=>array('short_cut')
-        )
+        'Tags.Taggable'
+
     );
-        
+    
+    /**
+     * Sets up the searchable behavior
+     * @var array
+     * @access public
+     */
+    public $filterArgs = array(
+        array('name' => 'status', 'type' => 'value'),
+        array('name' => 'object_type', 'type' => 'value'),
+        array('name' => 'title', 'type' => 'like', 'field' => 'Content.title'),
+        array('name' => 'body', 'type' => 'like', 'field' => 'Content.body'),
+        array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id')
+    );    
+    
     /**
      * @access public
      */
@@ -96,7 +92,22 @@ class ContentAbstract extends AppModel
         );        
     }
     
-    /* === Content Validation Methods =============================================================================== */
+    /**
+     * A subquery for finding associated tags
+     * @param array $data
+     * @return array
+     * @access public
+     */
+    public function findByTags($data = array()) {
+        $this->Tagged->Behaviors->attach('Containable', array('autoFields' => false));
+        $this->Tagged->Behaviors->attach('Search.Searchable');
+        $query = $this->Tagged->getQuery('all', array(
+            'conditions' => array('Tag.name'  => $data['tags']),
+            'fields' => array('foreign_key'),
+            'contain' => array('Tag')
+        ));
+        return $query;
+    }
     
     /**
      * Returns true if the blog is ready to be published
@@ -126,7 +137,6 @@ class ContentAbstract extends AppModel
         }else{
             return false;
         }
-        
         
     }
     

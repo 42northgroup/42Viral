@@ -20,7 +20,7 @@ App::uses('ContentAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class PostAbstract extends ContentAbstract
 {
@@ -69,16 +69,28 @@ class PostAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
                 'last' => true                
-            ),
-            'parent_content_id' => array(
+            )
+        ),
+        'parent_content_id' => array(
+            'notEmpty' => array(
                 'rule' => 'notEmpty',
                 'message' =>"You need to have a blog attached",
                 'last' => true
             ),            
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"This post is not ready to be published",
+                'last' => true
+            )
         )
     );
     
@@ -110,12 +122,12 @@ class PostAbstract extends ContentAbstract
 
     /**
      *
-     * @param type $token
-     * @param type $with
-     * @param type $status
+     * @param string $token
+     * @param string|array $with
+     * @param string|array $status
      * @return array 
      */    
-    public function fetchPostWith($token, $with = null, $status = 'published'){
+    public function fetchPostWith($token, $with = null, $status = null){
         
         //Allows predefined data associations in the form of containable arrays
         if(!is_array($with)){
@@ -124,9 +136,15 @@ class PostAbstract extends ContentAbstract
                 case 'standard':
                     $with = array(
                         'Conversation'=>array(),
-                        'CreatedPerson'=>array()
+                        'CreatedPerson'=>array('Profile'=>array())
                     );
-                break;   
+                break;  
+            
+                case 'created_person':
+                    $with = array(
+                        'CreatedPerson'=>array('Profile'=>array())
+                    );
+                break;  
             
                 default:
                     $with = array();
@@ -134,19 +152,27 @@ class PostAbstract extends ContentAbstract
             }
   
         }
-
-        $post = $this->find('first', 
-                array(  
-                    'conditions'=>array(
+        
+        //Build the inital conditions array
+        $conditions = array(
                         'or'=>array(
+                            'Post.id' => $token, 
                             'Post.slug' => $token, 
                             'Post.short_cut' => $token
-                        ), 
-                        'Post.status'=>$status
-                    ), 
-                    
-                    'contain' => $with,
+                        )
+                        
+                    );
+        
+        //if we care about the status, inject that into the conditions array
+        if(!is_null($status)){
+            $conditions = array_merge($conditions, array('Post.status' => $status));
+        }
 
+        //Query the table
+        $post = $this->find('first', 
+                array(  
+                    'conditions'=>$conditions, 
+                    'contain' => $with
                     )
                 );
 

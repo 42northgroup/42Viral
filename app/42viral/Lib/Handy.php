@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP 5.3
  *
@@ -16,7 +15,7 @@
 
 /**
  * Container for handy functions
- *
+ * @package Lib
  * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  * @author Jason D Snider <jason.snider@42viral.org> 
  */
@@ -46,15 +45,51 @@ class Handy
     /**
      * A wrapper for PHP native date() function. This adds a validation check to prevent the date from falling back
      * to the epoch
+     * 
+     * ### format:
      *
-     * @param int $time A unix time stamp
+     * - `DATE` 02/25/2000
+     * - `DATETIME` 02/25/2000 09:56 pm
+     * - `TIME` 09:56 pm
+     * - `REALTIME` 21:25:56:21
+     * - `MYSQL` 2000-02-25 21:25:56:21
+     * 
+     * @param int $time a unix time stamp
      * @param string $date DateTime format
-     * @param string $nullMessage The "Not Set" message 
-     * @return string Either a formatted DateTime string or Not Set message
+     * @param string $nullMessage the "Not Set" message 
+     * @return string either a formatted DateTime string or a "Not Set" message
      */
-    public static function date($time, $format = 'm/d/y h:i a', $nullMessage = 'Not Set') {
+    public static function date($time, $format = 'DATETIME', $nullMessage = 'Not Set') {
         
         $time = self::validTime($time);
+        
+        //Deterime the format
+        switch($format){
+            
+            case 'DATE':
+                $format = 'm/d/y';
+            break;    
+
+            case 'DATETIME':
+                $format = 'm/d/y h:i a';
+            break;            
+
+            case 'TIME':
+                $format = 'h:i a';
+            break; 
+
+            case 'REALTIME':
+                $format = 'H:i:s';
+            break; 
+        
+            case 'MYSQL':
+                $format = 'Y-m-d H:i:s';
+            break;    
+            
+            default:
+                $format = $format;
+            break;    
+        }
         
         if($time){
             return date($format, $time);
@@ -64,7 +99,7 @@ class Handy
     }
    
     /**
-     * Prevets bad timestamps from defaulting to the epoch
+     * Prevents bad timestamps from defaulting to the epoch
      * @param string $timestamp
      * @return string 
      * 
@@ -229,6 +264,27 @@ class Handy
         }
 
         return $truncate;
+    }
+
+    /**
+     * Check whether a given string is a UUID or not (UUIDs have a standard format of '8-4-4-4-12' hexadecimal digits)
+     *
+     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     * @access public
+     * @param string $string
+     * @return bool true if is uuid, false otherwise
+     */
+    public static function isUUID($string)
+    {
+        if (eregi("^[0-9a-f]{8}(-[0-9a-f]{4}){3}-[0-9a-f]{12}$", $string)) {
+
+            return true;
+
+        } else {
+
+            return false;
+
+        }
     }
 
 }

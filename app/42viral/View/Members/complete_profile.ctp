@@ -1,6 +1,6 @@
 <?php //debug($overall_progress); ?>
 
-<h1>Complete Your Profile</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'')); ?>
 
 <?php if($overall_progress['user'] == 100): ?>
     <h2 style="text-decoration: line-through;">

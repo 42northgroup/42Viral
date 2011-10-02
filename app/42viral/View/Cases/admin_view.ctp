@@ -16,24 +16,33 @@
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  */
+
+
+
+    $additional  = array(
+        array(
+            'text'=>"Complete",
+            'url'=>"/admin/cases/complete/{$case['CaseModel']['id']}",
+            'options' => array(),
+            'confirm'=>null
+        ),            
+        array(
+            'text'=>"Edit",
+            'url'=>"/admin/cases/edit/{$case['CaseModel']['id']}",
+            'options' => array(),
+            'confirm'=>null
+        ),
+        array(
+            'text'=>"Delete",
+            'url'=>"/admin/cases/delete/{$case['CaseModel']['id']}",
+            'options' => array(),
+            'confirm'=>'Are you sure you want to delete this? \n This action CANNOT be reversed!'
+        ),
+    );
+
+
+
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'cases', 'additional'=>$additional));
+
 ?>
-
-<div class="clearfix">
-    
-    <div>Case Management</div>
-    <h1 style="float:left;"><?php echo $case['CaseModel']['subject']; ?></h1>
-    
-    <div style="float:right; margin:6px 0 0;">
-        <?php
-            echo $this->Html->link('Edit', "/admin/cases/edit/{$case['CaseModel']['id']}");
-            echo ' / ';
-            echo $this->Html->link('Complete', "/admin/cases/complete/{$case['CaseModel']['id']}");
-            echo ' / ';                
-            echo $this->Html->link('Delete', "/admin/cases/delete/{$case['CaseModel']['id']}", null,
-                    Configure::read('System.purge_warning'));
-        ?>
-    </div>
-
-</div>
-
 <div><?php echo $case['CaseModel']['body']; ?></div>

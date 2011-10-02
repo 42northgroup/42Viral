@@ -7,8 +7,9 @@ Provide a scalable and robust "kick start" for projects of any size.
 ## Libraries and Concepts
 
 * CakePHP
+* CakePHP Search Plugin, CakeDC <http://cakedc.com/eng/downloads/view/cakephp_search_plugin>
+* CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
 * HTMLPurifier
-* phpThumb() http://phpthumb.sourceforge.net/
 * jQuery
 * jQuery UI
 * HTMLBOILERPLATE

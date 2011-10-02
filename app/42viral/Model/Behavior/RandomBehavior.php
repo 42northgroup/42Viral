@@ -12,10 +12,12 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('Handy', 'Lib');
+
 /**
  * Generates a unique random string against a specified field
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class RandomBehavior extends ModelBehavior
 {

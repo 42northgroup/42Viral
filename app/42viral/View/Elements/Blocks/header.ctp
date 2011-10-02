@@ -33,7 +33,49 @@
     <div id="HeaderRight">      
 
         <?php if($this->Session->check('Auth.User.id')): ?>
+            <div style="position:relative; float:left; padding:0 6px;">
+                <?php 
+                    if($unread_message_count > 0) {
+                        
+                        $inbox = $this->Html->link(
+                            'Inbox (' . $unread_message_count . ')',
+                            '/inbox_message/',
+                            array(
+                                'style' => 'font-weight: bold;',
+                                'id'=>'Inbox', 
+                                'class'=>'navigation-link'
+                            )
+                        );
+                        
+                    } else {
+                        
+                        $inbox = $this->Html->link(
+                            'Inbox',
+                            '/inbox_message/',
+                            array(
+                                'id'=>'Inbox', 
+                                'class'=>'navigation-link'
+                            )
+                        );
+                        
+                    }                    
+                    
+                    echo $inbox;
+                ?>
+                
+                <div class="navigation-block" id="InboxBlock">     
+                    <?php
 
+                        echo $this->Html->link(
+                            'All Messages',
+                            '/inbox_message/all_messages/'
+                        );
+                        echo $this->Html->link('[Populate Inbox - temp]', '/inbox_message/populate_inbox/' );
+                    ?>
+                </div>
+                
+            </div>    
+        
             <div style="position:relative; float:left; padding:0 6px;">
                 <?php echo $this->Html->link('Share', '#', array('id'=>'Share', 'class'=>'navigation-link')); ?>
                 <div class="navigation-block" id="ShareBlock">
