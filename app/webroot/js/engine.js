@@ -14,7 +14,7 @@
  */
 
 /**
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  * 
  * //Additional Credits
  * @see JavaScript The Good Parts - Douglas Crawford
@@ -65,28 +65,56 @@ $.ajaxSetup ({
     cache: false
 });
 
+/**
+ * Start up functionality
+ */
 $(function(){
     
     //HeaderRight navigation
     $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
         $('.navigation-block').hide();
-        id = $(this).attr('id');
-        $('#' + id + 'Block').slideDown();
+        var id = $(this).attr('id');
+        $('#' + id + 'Block').show();
     });           
-
-    $('#HeaderRight').delegate('.navigation-block', 'mouseleave', function(){
-        $('.navigation-block').slideUp();
-    });  
+   
+     $('#HeaderRight').mouseleave(function(){
+        $('.navigation-block').hide();
+    }); 
     
     //Section manager navigation
     $('#SectionManager').delegate('.section-navigation-link', 'mouseover', function(){
         $('.section-navigation-block').hide();
-        id = $(this).attr('id');
-        $('#' + id + 'Block').slideDown();
-    });           
+        var id = $(this).attr('id');
+        $('#' + id + 'Block').show();
+    });   
 
-    $('#SectionManager').delegate('.section-navigation-block', 'mouseleave', function(){
-        $('.section-navigation-block').slideUp();
+    $('#SectionManager').mouseleave(function(){
+        $('.section-navigation-block').hide();
     });  
     
+    //Profile manager navigation
+    $('#ProfileManager').delegate('.profile-navigation-link', 'mouseover', function(){
+        $('.profile-navigation-block').hide();
+        var id = $(this).attr('id');
+        $('#' + id + 'Block').show();
+    });   
+    
+    $('#ProfileManager').mouseleave(function(){
+        $('.profile-navigation-block').hide();
+    });     
+
+    //Local manager navigation
+    $('#LocalManager').delegate('.local-navigation-link', 'mouseover', function(){
+        $('.local-navigation-block').hide();
+        id = $(this).attr('id');
+        $('#' + id + 'Block').show();
+    });           
+
+    $('#LocalManager').delegate('.local-navigation-block', 'mouseleave', function(){
+        $('.local-navigation-block').hide();
+    });  
+    
+    $('.delete-confirm').click(function() {
+        return confirm('Are you sure you want to delete this record?');
+    }); 
 });

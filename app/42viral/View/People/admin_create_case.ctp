@@ -14,12 +14,20 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
+    $additional = array(
+        array(
+            'text'=>"View " . $this->Member->name($person['Person']),
+            'url'=>$person['Person']['url'],
+            'options' => array(),
+            'confirm'=>null
+        )
+    );
+
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'people', 'additional'=>$additional));     
+?>
 <?php
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',

@@ -43,7 +43,20 @@ class BlogAbstract extends ContentAbstract
             'className' => 'Post',
             'foreignKey' => 'parent_content_id',
             'dependent' => true
-        ),
+        )
+    );
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $belongsTo = array(
+        'CreatedPerson' => array(
+            'className' => 'Person',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        )
     );
     
     /**
@@ -59,6 +72,8 @@ class BlogAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
@@ -69,7 +84,7 @@ class BlogAbstract extends ContentAbstract
         'status' => array(
             'publishable' => array(
                 'rule' => 'publishable',
-                'message' =>"Your blog is not ready to be published",
+                'message' =>"This blog is not ready to be published",
                 'last' => true
             )
         )
@@ -109,10 +124,11 @@ class BlogAbstract extends ContentAbstract
     
     /**
      *
-     * @param type $token
-     * @param type $with
-     * @param type $status
+     * @param string $token
+     * @param array $with
+     * @param string $status
      * @return array
+     * @access public
      */
     function fetchBlogWith($token, $with = null, $status = 'published'){
         
@@ -122,7 +138,11 @@ class BlogAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
-                        'Post'=>array('conditions'=>array('Post.status'=>'published'), 
+                        'CreatedPerson'=>array(
+                            'Profile'=>array()
+                        ),
+                        'Post'=>array(
+                            'conditions'=>array('Post.status'=>'published'), 
                             'order'=>array('Post.created DESC'))
                     );
                 break;   
@@ -147,4 +167,47 @@ class BlogAbstract extends ContentAbstract
         
         return $blog;
     }
+    
+    
+    /**
+     *
+     * @param array $with
+     * @param status $status
+     * @return array
+     * @access public
+     */
+    public function fetchBlogsWith($with = null, $status = 'published'){
+        
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){
+                case 'standard':
+                    $with = array(
+                        'CreatedPerson'=>array(
+                            'Profile'=>array()
+                        ),
+                        'Post'=>array(
+                            'conditions'=>array('Post.status'=>'published'), 
+                            'order'=>array('Post.created DESC'))
+                    );
+                break;   
+            
+                default:
+                    $with = array();
+                break;
+            }
+  
+        }
+        
+        $blog = $this->find('all', 
+                array(  'conditions'=>array(
+                        'Blog.status'=>$status
+                        ), 
+                        'contain'=>$with
+                    )
+                );
+        
+        return $blog;
+    }    
 }

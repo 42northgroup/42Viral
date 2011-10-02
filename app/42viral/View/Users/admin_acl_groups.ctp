@@ -1,6 +1,5 @@
-<h1>ACL Groups</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'acl_groups')); ?>
 
-<a href="/admin/users/create_acl_group" >Create New Group</a>
 <?php if(!empty ($aclGroups)): ?>
     <table>
         <thead>

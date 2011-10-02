@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.4.3.2
+- http://www.phpmyadmin.net
+-
+- Host: localhost
+- Generation Time: Oct 03, 2011 at 02:34 PM
+- Server version: 5.1.54
+- PHP Version: 5.3.5-1ubuntu7.2
+-->
+
+<pma_xml_export version="1.0">
+    <!--
+    - Database: 'app_default'
+    -->
+    <database name="app_default">
+        <!-- Table picklists -->
+        <table name="picklists">
+            <column name="id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
+            <column name="alias">object_type</column>
+            <column name="name">Object Type</column>
+            <column name="description">Object types for data models</column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 12:12:01</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 12:37:26</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklists">
+            <column name="id">4e89f2c0-3628-4cc4-851f-0ddc4bb83359</column>
+            <column name="alias">display_name</column>
+            <column name="name">Display Name</column>
+            <column name="description">A list of options for allowing a user to choose the format of his/her display name</column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 12:37:04</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 12:37:04</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklists">
+            <column name="id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
+            <column name="alias">publication_status</column>
+            <column name="name">Publication Status</column>
+            <column name="description">The publication status for an instance of content data</column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:29:15</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:29:15</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+    </database>
+</pma_xml_export>

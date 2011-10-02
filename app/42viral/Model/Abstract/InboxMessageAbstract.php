@@ -28,14 +28,29 @@ class InboxMessageAbstract extends AppModel
 {
 
 /**
- *
- * @var string
  * @access public
+ * @var string
  */
     public $name = 'InboxMessage';
 
+/**
+ * @access public
+ * @var string
+ */
     public $useTable = 'inbox_messages';
 
+/**
+ * @access public
+ * @var array
+ */
+    public $actsAs = array(
+        'Log'
+    );
+
+/**
+ * @access private
+ * @var type
+ */
     private $__fetchedMessage = null; //cache to store a single fetched message
 
 
@@ -70,7 +85,7 @@ class InboxMessageAbstract extends AppModel
         $tempMessage = array();
         $tempMessage['subject'] = $notification['subject'];
         $tempMessage['body'] = $notification['body'];
-        $tempMessage['notification_email'] = $notification['recipient'];
+        $tempMessage['notification_email'] = $notification['recipient_email'];
         $tempMessage['owner_person_id'] = $personId;
 
         $this->create();

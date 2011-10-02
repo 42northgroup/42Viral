@@ -32,6 +32,19 @@ class UserAbstract extends PersonAbstract
      * @access public
      */
     public $name = 'User';
+
+    /**
+     *
+     * @var array
+     * @access public
+     */
+    public $hasOne = array(
+        'Profile' => array(
+            'className' => 'Profile',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        ),        
+    );
     
     /**
      *
@@ -271,6 +284,7 @@ class UserAbstract extends PersonAbstract
      * @return array
      * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
+     * @deprecated 9/27/2011 replaced by User::fetchUserWith()
      */
     public function getUserWith($token, $with=array())
     {
@@ -286,6 +300,35 @@ class UserAbstract extends PersonAbstract
         ));
 
         return $person;
+    }
+
+    /**
+     * An alias for getUserWith
+     *
+     * @param string $userId
+     * @return array
+     * @access public
+     */
+    public function fetchUserWith($token, $with=array())
+    {
+        switch($with){
+            case 'profile':
+                $with = array('Profile'=>array());
+            break;    
+        }
+        
+        $user= $this->find('first', array(
+            'contain' => $with,
+
+            'conditions' => array(
+                'or' => array(
+                    'User.id' => $token,
+                    'User.username' => $token
+                )
+            )
+        ));
+
+        return $user;
     }
 
 }

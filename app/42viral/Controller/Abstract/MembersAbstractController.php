@@ -59,6 +59,7 @@ abstract class MembersAbstractController extends AppController {
         $this->loadModel('User');
         $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array('Profile')));
         $this->set('users', $users);
+        $this->set('title_for_layout', 'Members');
     }
 
     /**
@@ -105,8 +106,12 @@ abstract class MembersAbstractController extends AppController {
         $this->set('services', $services);
         $this->set('user', $user);
         
+        $userProfile = array();
         $userProfile['Person'] = $user['User'];
+        $userProfile['Person']['Profile'] = $user['Profile'];
+        
         $this->set('userProfile', $userProfile);
+        $this->set('title_for_layout', $userProfile['Person']['username']);
 
     }
 
@@ -130,6 +135,7 @@ abstract class MembersAbstractController extends AppController {
         $this->set('user', $user);
 
         $this->set('overall_progress', $overallProgress);
+        $this->set('title_for_layout', 'Complete Your Profile');
     }
     
     

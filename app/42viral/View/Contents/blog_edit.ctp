@@ -14,13 +14,12 @@
  */
 
 /**
- * @package app
- * @package app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * UI for creating a web page
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-?>
 
-<?php
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));    
+
     $this->Asset->addAssets(array(
         'js/vendors/ckeditor/adapters/42viral.js',
         'js/vendors/ckeditor/ckeditor.js',
@@ -28,10 +27,6 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
-
-<h1>Edit your blog</h1>
-<?php
 
     echo $this->Form->create('Blog', 
                 array(
@@ -43,8 +38,9 @@
     echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('body', array('class'=>'edit-content'));
     echo $this->Form->input('tease', array('class'=>'edit-content'));
-    echo $this->Form->input('description', array());
-    echo $this->Form->input('keywords', array());
+    echo $this->Form->input('description');
+    echo $this->Form->input('keywords');
+    echo $this->Form->input('tags');
     echo $this->Form->input('canonical', array('rows'=>1));
     echo $this->Form->input('slug', array('rows'=>1));
     echo $this->Form->input('status');
