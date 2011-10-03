@@ -76,9 +76,11 @@ abstract class PicklistsAbstractController extends AppController
             }
 
             $this->redirect('/admin/picklists/index');
+
         }
         
-        $this->set('title_for_layout', 'Picklist - Create');
+        $this->set('title_for_layout', 'Create a Picklist');
+
     }
 
     
