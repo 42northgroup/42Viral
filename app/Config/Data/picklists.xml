@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: localhost
-- Generation Time: Oct 03, 2011 at 12:40 PM
+- Generation Time: Oct 03, 2011 at 02:34 PM
 - Server version: 5.1.54
 - PHP Version: 5.3.5-1ubuntu7.2
 -->
@@ -36,6 +36,17 @@
             <column name="created">2011-10-03 12:37:04</column>
             <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2011-10-03 12:37:04</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklists">
+            <column name="id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
+            <column name="alias">publication_status</column>
+            <column name="name">Publication Status</column>
+            <column name="description">The publication status for an instance of content data</column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:29:15</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:29:15</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
         </table>
     </database>
