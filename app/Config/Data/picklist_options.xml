@@ -5,7 +5,7 @@
 - http://www.phpmyadmin.net
 -
 - Host: localhost
-- Generation Time: Oct 03, 2011 at 12:40 PM
+- Generation Time: Oct 03, 2011 at 02:33 PM
 - Server version: 5.1.54
 - PHP Version: 5.3.5-1ubuntu7.2
 -->
@@ -157,6 +157,84 @@
             <column name="created">2011-10-03 12:38:23</column>
             <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2011-10-03 12:38:23</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0d19-8190-4ddc-ad37-0ddd4bb83359</column>
+            <column name="pl_key">draft</column>
+            <column name="pl_value">Draft</column>
+            <column name="picklist_id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
+            <column name="category"></column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:29:29</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:29:29</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0d26-7558-4e06-b943-0ddd4bb83359</column>
+            <column name="pl_key">published</column>
+            <column name="pl_value">Published</column>
+            <column name="picklist_id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
+            <column name="category"></column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:29:42</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:29:57</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0d77-4c98-4c7d-914e-0a6d4bb83359</column>
+            <column name="pl_key">acl</column>
+            <column name="pl_value">ACL</column>
+            <column name="picklist_id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
+            <column name="category">Group</column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:31:03</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:31:03</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0d87-8744-4da5-8a91-0a6d4bb83359</column>
+            <column name="pl_key">basic</column>
+            <column name="pl_value">Basic</column>
+            <column name="picklist_id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
+            <column name="category">Group</column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:31:19</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:31:19</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0dc4-c1d0-47eb-9aef-14da4bb83359</column>
+            <column name="pl_key">img</column>
+            <column name="pl_value">Image</column>
+            <column name="picklist_id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
+            <column name="category">Upload</column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:32:20</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:32:20</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+        </table>
+        <table name="picklist_options">
+            <column name="id">4e8a0deb-d4d0-4219-80c8-0a704bb83359</column>
+            <column name="pl_key">file</column>
+            <column name="pl_value">File</column>
+            <column name="picklist_id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
+            <column name="category">Upload</column>
+            <column name="group"></column>
+            <column name="active">1</column>
+            <column name="created">2011-10-03 14:32:59</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2011-10-03 14:32:59</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
         </table>
     </database>

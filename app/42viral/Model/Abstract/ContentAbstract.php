@@ -45,28 +45,6 @@ class ContentAbstract extends AppModel
      */
     public $actsAs = array(
         
-        'Picklist' => array(
-            
-            'ObjectTypes'=>array(
-                'page'=>'Page',
-                'blog'=>'Blog',
-                'post'=>'Post'
-            ),
-        
-            'Syntax'=>array(
-                'html'=>'HTML',
-                'markdown'=>'Markdown'
-            ),
-        
-            'Status'=>array(
-                'draft'=>'Draft',
-                'pending_review'=>'Pending Review',
-                'published'=>'Published',
-                'archived'=>'Archived' 
-            )
-            
-        ),
-        
         'Scrub'=>array(
             'Filters'=>array(
                 'trim'=>'*',
