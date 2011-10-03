@@ -15,7 +15,7 @@
 .oauth-button{
     text-decoration: none;
     color:#333;
-    width: 195px;
+    width: 196px;
     display: inline-block;
     height:24px;
 }
@@ -30,33 +30,33 @@
 }   
 
 .google-plus{
-    background: url('/img/graphics/social_media/production/buttons/SignInGoogle+.png') no-repeat;
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -811px no-repeat;
 }
 
 .google-plus:hover{
-    background: url('/img/graphics/social_media/production/buttons/SignInGoogle+.png') no-repeat 0 -56px;
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -839px no-repeat;
 }
 
 .linkedin{
-    background: url('/img/graphics/social_media/production/buttons/SignInLinkedIn.png') no-repeat -8px 0;
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -586px no-repeat;
 }
 
 .linkedin:hover{
-    background: url('/img/graphics/social_media/production/buttons/SignInLinkedIn.png') no-repeat -8px -54px;
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -614px no-repeat;
 }
 
 .twitter{
-   background: url('/img/graphics/social_media/production/buttons/SignInTwitter.png') no-repeat 0;
+   background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -88px no-repeat;
 }
 
 .twitter:hover{
-   background: url('/img/graphics/social_media/production/buttons/SignInTwitter.png') no-repeat 0 -57px;
+   background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -116px no-repeat;
 }
 
 .facebook{
-    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -8px 0;
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -308px no-repeat;
 } 
 
 .facebook:hover{
-    background: url('/img/graphics/social_media/production/buttons/SignInFacebook.png') no-repeat -8px -54px;
-}   
+    background: url('/img/graphics/social_media/production/buttons/AuthButtons.png') 0 -336px no-repeat;
+}
