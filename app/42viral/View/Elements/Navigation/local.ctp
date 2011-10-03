@@ -28,7 +28,6 @@ switch($section){
     
     case 'company':
         $menu = array(
-            'name'=>'Companies',
             'Items' => array(
                 array(
                     'text'=>'All Companies',
@@ -51,7 +50,6 @@ switch($section){
         
 
         $menu = array(
-            'name'=>'Blog',
             'Items'=>array(
                 array(
                     'text'=>'All Blogs',
@@ -68,7 +66,6 @@ switch($section){
         
 
         $menu = array(
-            'name'=>'Cases',
             'Items'=>array()
         );
         
@@ -76,14 +73,12 @@ switch($section){
 
     case 'content':
         $menu = array(
-            'name'=>'Content',
             'Items'=>array()
         );
     break;
 
     case 'people':
         $menu = array(
-            'name'=>'People',
             'Items'=>array(
                 array(
                     'text'=>'All People',
@@ -98,11 +93,88 @@ switch($section){
 
     case 'picklists':
         $menu = array(
-            'name'=>'Picklists',
             'Items'=>array(
                 array(
                     'text'=>'All Picklists',
                     'url'=>'/admin/picklists/index',
+                    'options' => array(),
+                    'confirm'=>null
+                )             
+            )
+
+        );
+    break;
+
+    case 'members':
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text'=>'All Members',
+                    'url'=>'/members',
+                    'options' => array(),
+                    'confirm'=>null
+                ),
+                
+                array(
+                    'text'=>'Complete Your Profile',
+                    'url'=>'/members/complete_profile',
+                    'options' => array(),
+                    'confirm'=>null
+                )             
+            )
+
+        );
+    break;
+
+    case 'notifications':
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text'=>'All Notifications',
+                    'url'=>'/notification',
+                    'options' => array(),
+                    'confirm'=>null
+                ),
+                
+                array(
+                    'text'=>'Create',
+                    'url'=>'/notification/create',
+                    'options' => array(),
+                    'confirm'=>null
+                )             
+            )
+
+        );
+    break;
+
+    case 'acl_groups':
+        $menu = array(
+            'Items'=>array(
+                            
+                array(
+                    'text'=>'All ACL Groups',
+                    'url'=>'/admin/users/acl_groups',
+                    'options' => array(),
+                    'confirm'=>null
+                ),
+                
+                array(
+                    'text'=>'Create New Group',
+                    'url'=>'/admin/users/create_acl_group',
+                    'options' => array(),
+                    'confirm'=>null
+                )             
+            )
+
+        );
+    break;
+
+    default :
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text'=>'Index',
+                    'url'=>$this->params['url'],
                     'options' => array(),
                     'confirm'=>null
                 )             

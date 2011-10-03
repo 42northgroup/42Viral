@@ -183,6 +183,7 @@ abstract class UsersAbstractController extends AppController
     {
         $aclGroups = $this->AclGroup->find('all');
         $this->set('aclGroups', $aclGroups);
+        $this->set('title_for_layout', 'ACL Groups');
     }   
     
     public function admin_create_acl_group()
@@ -213,6 +214,7 @@ abstract class UsersAbstractController extends AppController
     {
         $people = $this->Person->find('all');
         $this->set('people', $people);
+        $this->set('title_for_layout', 'Users');
     }    
     
     

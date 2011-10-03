@@ -1,8 +1,4 @@
-<h1>Notification - List All</h1>
-
-<div class="">
-    <a href="/notification/create">Create<a/>
-</div>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications')); ?>
 
 <?php if(!empty($notifications)): ?>
 

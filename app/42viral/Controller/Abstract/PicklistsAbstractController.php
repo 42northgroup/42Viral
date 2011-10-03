@@ -75,9 +75,10 @@ abstract class PicklistsAbstractController extends AppController
                 $this->Session->setFlash('There was a problem saving the picklist', 'error');
             }
 
-            $this->set('title_for_layout', 'Picklist - Create');
             $this->redirect('/admin/picklists/index');
         }
+        
+        $this->set('title_for_layout', 'Picklist - Create');
     }
 
     

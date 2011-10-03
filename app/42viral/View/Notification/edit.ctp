@@ -30,13 +30,32 @@
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
 
-<h1>Notification - Edit</h1>
+<?php 
 
-<div class="">
-    <a href="/notification/index">Index<a/>
-    /
-    <a href="/notification/create">Create<a/>
-</div>
+$additional  = array(
+    array(
+        'text'=>"View",
+        'url'=>"/notification/view/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>null
+    ),
+    array(
+        'text'=>"Delete",
+        'url'=>"/notification/delete/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>'Are you sure you want to delete this? \n This action CANNOT be reversed!'
+    ),
+    array(
+        'text'=>"Test Fire",
+        'url'=>"/notification/test/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>null
+    )
+);
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications', 'additional' => $additional)); 
+?>
+
 
 <?php
 echo $this->Form->create('Notification', array(

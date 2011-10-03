@@ -1,17 +1,29 @@
-<h1>Notification - View</h1>
+<?php 
 
-<div class="">
-    <a href="/notification/index">Index<a/>
-    /
-    <a href="/notification/create">Create<a/>
-    /
-    <a href="/notification/edit/<?php echo $notification['Notification']['id']; ?>">Edit</a>
-    /
-    <a href="/notification/delete/<?php echo $notification['Notification']['id']; ?>"
-       class="delete-confirm">Delete</a>
-    /
-    <a href="/notification/test/<?php echo $notification['Notification']['id']; ?>">Test Fire</a>
-</div>
+$additional  = array(
+    array(
+        'text'=>"Edit",
+        'url'=>"/notification/edit/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>null
+    ),
+    array(
+        'text'=>"Delete",
+        'url'=>"/notification/delete/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>'Are you sure you want to delete this? \n This action CANNOT be reversed!'
+    ),
+    array(
+        'text'=>"Test Fire",
+        'url'=>"/notification/test/{$notification['Notification']['id']}",
+        'options' => array(),
+        'confirm'=>null
+    )
+);
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications', 'additional' => $additional)); 
+?>
+
 
 <table>
     <tbody>
