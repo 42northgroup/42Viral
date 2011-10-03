@@ -140,10 +140,10 @@ abstract class PrivilegesAbstractController extends AppController {
                 }
             }
             
-            
-            
             $this->redirect('/admin/privileges/user_privileges/'.$username);
         }
+        
+        $this->set('title_for_layout', 'User Privileges');
     }
     
     public function admin_aco_group($alias)

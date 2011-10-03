@@ -51,6 +51,7 @@ abstract class PagesAbstractController extends AppController {
         $pages = $this->Page->find('all');
         
         $this->set('pages', $pages);
+        $this->set('title_for_layout', 'Pages');
     } 
     
     /**

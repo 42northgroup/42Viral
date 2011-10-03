@@ -24,12 +24,8 @@
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
 
-<h1>Notification - Create</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications'));?>
 
-
-<div class="">
-    <a href="/notification/index">Index<a/>
-</div>
 
 <?php
 echo $this->Form->create('Notification', array(

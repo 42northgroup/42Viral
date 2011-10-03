@@ -1,4 +1,4 @@
-<h1>Profiles</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'members')); ?>
 
 <div id="ResultsPage">
     <?php foreach($users as $user):?>

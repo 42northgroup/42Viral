@@ -1,5 +1,7 @@
 <div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'members')); ?>
+
 <div id="ResultsPage">
     
     <h2>Social Media Stream</h2>
