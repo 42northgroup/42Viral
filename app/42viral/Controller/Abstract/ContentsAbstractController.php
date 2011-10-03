@@ -19,7 +19,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Picklist', 'Post');
     
     /**
      * @var array
@@ -125,7 +125,10 @@ abstract class ContentsAbstractController extends AppController {
             $this->data = $this->Blog->findById($id);
         }
         
-        $this->set('statuses', $this->Blog->picklist('Status'));
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+        
         $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
         
     }    
@@ -204,7 +207,10 @@ abstract class ContentsAbstractController extends AppController {
         
         $this->data = $this->Post->fetchPostWith($id, 'created_person');
         
-        $this->set('statuses', $this->Post->picklist('Status'));
+        
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
 
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
@@ -327,7 +333,11 @@ abstract class ContentsAbstractController extends AppController {
         
         $this->data = $this->Page->findById($id);
         
-        $this->set('statuses', $this->Page->picklist('Status'));
+        
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+     
         $this->set('title_for_layout', "Update {$page['Page']['title']}");        
     }    
     

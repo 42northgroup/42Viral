@@ -50,13 +50,6 @@ class UploadAbstract extends AppModel
      * @access public 
      */
     public $actsAs = array(
-        'Picklist' => array(
-            //An Upload object_type must have a key to upload directory correlation
-            'ObjectTypes' => array(
-                'img' => 'Image',
-                'file' => 'File'
-            )
-        ),
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',
