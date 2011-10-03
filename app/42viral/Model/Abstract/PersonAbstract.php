@@ -43,19 +43,6 @@ class PersonAbstract extends AppModel
      * @var array
      */
     public $actsAs = array(
-        'Picklist' => array(
-            'ObjectTypes'=>array(
-                'prospect'=>'Prospect',
-                'lead'=>'Lead',
-                'contact'=>'Contact'
-            ),
-
-            'DisplayName' => array(
-                'name' => 'Name',
-                'username' => 'Username',
-                'id' => 'User Id'
-            )
-        ),
 
         'Scrub' => array(
             'Filters' => array(

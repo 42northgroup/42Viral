@@ -60,8 +60,8 @@ class PicklistAbstract extends AppModel
         parent::__construct();
         
         $this->virtualFields = array(
-            'delete_url' => "CONCAT('/picklists/delete/',`{$this->alias}`.`id`)",
-            'edit_url' => "CONCAT('/picklists/edit/',`{$this->alias}`.`id`)"
+            'delete_url' => "CONCAT('/admin/picklists/delete/',`{$this->alias}`.`id`)",
+            'edit_url' => "CONCAT('/admin/picklists/edit/',`{$this->alias}`.`id`)"
         );        
     }
 
