@@ -57,9 +57,25 @@ class ContentAbstract extends AppModel
         
         'Random' => array(
             'Fields'=>array('short_cut')
-        )
+        ),
+        
+        'Search.Searchable'
+        
     );
         
+    /**
+     * Sets up the searchable behavior
+     * @var array
+     * @access public
+     */
+    public $filterArgs = array(
+        array('name' => 'status', 'type' => 'value'),
+        array('name' => 'object_type', 'type' => 'value'),
+        array('name' => 'title', 'type' => 'like', 'field' => 'Content.title'),
+        array('name' => 'body', 'type' => 'like', 'field' => 'Content.body')
+    );    
+    
+    
     /**
      * @access public
      */

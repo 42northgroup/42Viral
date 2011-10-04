@@ -64,6 +64,8 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
+CakePlugin::loadAll();
+
 App::build(array(
     
         'Controller' => array(
