@@ -47,7 +47,7 @@ echo $this->Form->input('status',
 echo $this->Form->submit('Search');
 echo $this->Form->end();
 
-
+if($display == 'results'):
 ?>
 
 <div id="ResultsPage">    
@@ -59,3 +59,5 @@ echo $this->Form->end();
 
 <?php
     echo $this->element('paginate');
+    
+    endif;
