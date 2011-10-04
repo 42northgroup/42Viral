@@ -436,6 +436,8 @@ abstract class ContentsAbstractController extends AppController {
      */
     public function advanced_search() {
         
+        $display = 'none';
+        
         if(!empty($this->data)){
             $q =''; //holds the final query string in the form of a Pretty URL
             foreach($this->data['Content'] as $key => $value){
@@ -460,7 +462,7 @@ abstract class ContentsAbstractController extends AppController {
             //Redirect to the results page
             $this->redirect("/contents/advanced_search/{$q}");
             
-        }else{
+        }elseif(!empty($this->params['named'])){
 
             //Match conditions
             $conditions = array(
@@ -482,6 +484,8 @@ abstract class ContentsAbstractController extends AppController {
             $this->set(compact('data'));   
             
             $this->request->data['Content'] = $conditions;
+            
+            $display = 'results';
         }
         
         $this->set('statuses', 
@@ -492,6 +496,6 @@ abstract class ContentsAbstractController extends AppController {
         $this->Picklist->fetchPicklistOptions(
                 'object_type', array('categoryFilter' => 'Content',  'emptyOption'=>false, 'otherOption'=>false)));
             
-
+        $this->set('display', $display);
     }
 }

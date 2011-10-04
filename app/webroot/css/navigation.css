@@ -187,7 +187,9 @@ div.section-head{
     
 }
 
-
+/**
+ * Profile
+ */
 .display-name{}
 
 .display-name a{
@@ -201,7 +203,9 @@ div.section-head{
     line-height: 28px;
 }
 
-
+/**
+ * Pagination
+ */
 .paginator{
     margin:12px 0;
     text-align:center;

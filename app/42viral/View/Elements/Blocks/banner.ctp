@@ -55,7 +55,7 @@
     <div id="BannerRight">
         <?php 
             //Temporary placeholder for future search functionality
-            echo $this->Html->link('Search', "javascript:alert('Comming Soon!')");
+            echo $this->Html->link('Search', '/contents/advanced_search');
         ?>
     </div>
 
