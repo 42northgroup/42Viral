@@ -202,3 +202,37 @@ div.section-head{
 }
 
 
+.paginator{
+    margin:12px 0;
+    text-align:center;
+}
+
+.pagination-link, .pagination-link:link, .pagination-link:visited {
+    padding: 4px 6px;
+    margin:0 2px;
+    border: solid 1px #9AAFE5;
+    color: #2E6AB1;
+    font-weight: bold;
+}
+
+.pagination-link:hover
+{
+    background:  #F5E4B8; 
+}
+.disabled-page-link
+{
+    display: inline;
+    border: solid 1px #DEDEDE;
+    color: #888;
+    font-weight: bold;
+    margin-right: 2px;
+    padding: 4px 6px;
+}
+
+.current{
+    background: #2E6AB1;
+    color: white;
+    font-weight: bold;
+    padding: 4px 6px;
+    border: solid 1px #2E6AB1;
+}

@@ -130,3 +130,27 @@ form.content label{
 form.content div.checkbox label{
     display: inline;
 }
+
+form.search{}
+
+form.search label{
+    float:left;
+    margin-right:4px;
+}
+
+form.search .input
+{
+    float:left;
+    margin-right: 4px;
+}
+
+form.search div.checkbox label{
+    font-weight: normal;
+    float:right;
+}
+
+form.search div.checkbox
+{
+    float:left;
+}
+
