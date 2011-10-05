@@ -57,7 +57,7 @@ Configure::write('Domain.scheme', 'http');
 /**
  * Our application default domain, ex: www.example.com
  */
-Configure::write('Domain.host', '');
+Configure::write('Domain.host', 'build.42viral.org');
 
 /**
  * The domains fully configured base url
@@ -74,13 +74,18 @@ Configure::write('Email.from', 'app@42viral.org');
  */
 Configure::write('Email.replyTo', 'support@42viral.org');
 
+/**
+ * Are we in private beta mode?
+ */
+Configure::write('Beta.private', 0);
+
 
 /**
  * Short URL configuration
  */
 Configure::write('ShortURL', array(
     'scheme'=>'http', 
-    'host'=>'',
+    'host'=>'loc.42v.us',
     'Pointer'=>array(
             'page'=>'a',
             'blog'=>'b',

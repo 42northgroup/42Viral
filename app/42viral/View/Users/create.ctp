@@ -31,8 +31,9 @@
         echo $this->Form->input('password');
         echo $this->Form->input('verify_password', array('type'=>'password'));
         
-        //Privat beta control here
-        echo $this->Form->input('invite', array('type'=>'text', 'value'=>$this->params['named']['invite']));
+        if(Configure::read('Beta.private') == 1){ 
+            echo $this->Form->input('invite', array('type'=>'text', 'value'=>$this->params['named']['invite']));
+        }
 
         echo $this->Form->submit();
         echo $this->Form->end();
