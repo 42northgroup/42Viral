@@ -15,7 +15,7 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Functionality for sending out invites, this was inspired by a need for private invites,
+ * Functionality for sending out invites, this was inspired by a need for private beta,
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 class InviteAbstract extends AppModel
@@ -35,7 +35,10 @@ class InviteAbstract extends AppModel
     public $useTable = 'invites';
     
     /**
-     * Confirms an invite
+     * Confirms an invite token
+     * @var string id
+     * @return boolean
+     * @access public
      */
     public function confirm($id){
         
@@ -44,18 +47,40 @@ class InviteAbstract extends AppModel
         if(empty($invite)){
             return false;
         }else{
-            
-            $data['Invite']['id'] = $id;
-            $data['Invite']['accepted'] = date('Y-m-d h:i:s');
-            if($this->save($data)){
-                return true;
-            }else{
-                return false;
-            }
-            
             return false;
         }
         
         return false;
-    }        
+    } 
+    
+    /**
+     * Invalidates a used invite token
+     * @var string id
+     * @return boolean
+     * @access public
+     */
+    public function accept($id){
+            $data['Invite']['id'] = $id;
+            $data['Invite']['accepted'] = date('Y-m-d h:i:s');
+        if($this->save($data)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    /**
+     * Adds an invite to the invites table. This invite will be creditied to the logged in user.
+     * @param integer $count 
+     * @return boolean
+     * @access public 
+     */
+    public function add(){
+        $this->Invite->create();
+        if($this->Invite->save()){
+            return true;
+        }else{
+            return false;
+        }
+    }
 }

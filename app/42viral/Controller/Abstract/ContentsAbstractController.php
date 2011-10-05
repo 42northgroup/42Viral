@@ -1,9 +1,22 @@
 <?php
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 
 App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
 /**
- *
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class ContentsAbstractController extends AppController {
 
@@ -19,7 +32,7 @@ abstract class ContentsAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Content', 'Conversation', 'Invite', 'Oauth', 'Page', 'Person', 'Picklist', 'Post');
+    public $uses = array('Blog', 'Content', 'Conversation', 'Oauth', 'Page', 'Person', 'Picklist', 'Post');
     
     /**
      * @var array
@@ -43,12 +56,16 @@ abstract class ContentsAbstractController extends AppController {
         $this->auth();
     }
 
+    /**
+     * Works with the searchable behavior
+     * @var array
+     * @access public
+     */
     public $presetVars = array(
         array('field' => 'title', 'type' => 'value'),
         array('field' => 'body', 'type' => 'value'),
         array('field' => 'status', 'type' => 'checkbox'),
         array('field' => 'object_type', 'type' => 'checkbox')
-        
     );
     
     
@@ -58,7 +75,6 @@ abstract class ContentsAbstractController extends AppController {
      * A index of all blogs
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blogs(){
@@ -71,7 +87,6 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a blog and all related posts
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_delete($id){
@@ -90,7 +105,6 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a blog - a blog contains a collection of posts
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_create()
@@ -116,7 +130,6 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function blog_edit($id)
@@ -146,7 +159,6 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a post
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function post_delete($id){
@@ -165,7 +177,6 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a post or blog entry
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function post_create($blogId = null)
@@ -199,9 +210,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function post_edit($id)
     {
@@ -253,7 +262,11 @@ abstract class ContentsAbstractController extends AppController {
         
     }
     
-    
+    /**
+     * An action for commenting on a blog post
+     * @return void
+     * @access public
+     */
     public function post_comment(){
         if( $this->Session->check('Auth.post_url') ){
             $this->redirect($this->Session->read('Auth.post_url'));
@@ -278,9 +291,7 @@ abstract class ContentsAbstractController extends AppController {
      * Removes a web page
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_delete($id){
 
@@ -298,9 +309,7 @@ abstract class ContentsAbstractController extends AppController {
      * Creates a traditional web page
      * 
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_create()
     {
@@ -325,9 +334,7 @@ abstract class ContentsAbstractController extends AppController {
      * 
      * @param string $id
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function page_edit($id)
     {
@@ -354,9 +361,7 @@ abstract class ContentsAbstractController extends AppController {
      * Displays a list of all content created by a single user
      *
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo TestCase
      */
     public function content($username) 
     {
@@ -376,6 +381,12 @@ abstract class ContentsAbstractController extends AppController {
         $this->set('title_for_layout', "Content Stream");        
     }  
     
+    /**
+     * An action for promoting new content
+     *
+     * @return void
+     * @access public
+     */
     public function promote($id, $redirect_url='users/social_media')
     {
         
