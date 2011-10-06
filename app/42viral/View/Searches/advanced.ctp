@@ -27,6 +27,8 @@ echo $this->Form->create('Content', array(
 echo $this->Form->input('title', array('style'=>'width: 254px;', 'type'=>'text'));
 
 echo $this->Form->input('body', array('style'=>'width: 254px;', 'type'=>'text'));
+
+echo $this->Form->input('tags', array('style'=>'width: 254px;', 'type'=>'text'));
 ?>
 </div>
 <div class="clearfix">

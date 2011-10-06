@@ -53,36 +53,6 @@ abstract class SearchesAbstractController extends AppController {
         $this->auth(array('*'));
     }
 
-    public function index() {}
-    
-    public function tags() {
-        // Find all tagged results
-        //pr($this->Tagged->find('tagged', array('model' => 'Page')));
-        
-        // Find all results with a target tag
-        //pr($this->Tagged->find('tagged', array('by' => 'test', 'model' => 'Page')));
-        
-        //Paginated results by tag
-        if (isset($this->passedArgs['by'])) {
-            
-            $this->paginate = array(
-                'model' => 'Page',
-                'tagged',
-                'by' => $this->passedArgs['by']);
-            
-            $contents = $this->paginate('Tagged');
-            
-        }
-
-        
-        $this->set('contents', $contents);
-        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));
-        
-        $this->set('title_for_layout', 'Search by Tags');
-    }
-   
-    
-
     /**
      * Advanced search, converts post data to named params then performs a self redirect to load the named params 
      * creating a bookmarkable search results page. 
@@ -122,7 +92,8 @@ abstract class SearchesAbstractController extends AppController {
             //Match conditions
             $conditions = array(
                 'title'=>$this->request->params['named']['title'], 
-                'body'=>$this->request->params['named']['body']
+                'body'=>$this->request->params['named']['body'],
+                'tags'=>$this->request->params['named']['tags']
             ); 
             
             //IN array conditions
@@ -152,5 +123,7 @@ abstract class SearchesAbstractController extends AppController {
                 'object_type', array('categoryFilter' => 'Content',  'emptyOption'=>false, 'otherOption'=>false)));
             
         $this->set('display', $display);
+        
+        $this->set('Advanced Search');
     }
 }

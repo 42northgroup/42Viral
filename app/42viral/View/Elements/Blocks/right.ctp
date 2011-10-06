@@ -7,8 +7,9 @@
 			'after' => '</span>',
             'url'=>array(
                 'controller' => 'searches',
-                'action' => 'tags'
-                )
+                'action' => '/advanced/title:/body:/object_type:blog%20page%20post/status:published/',
+                ),
+            'named'=>'tags'
             )
         );
     endif;

@@ -65,6 +65,8 @@ class ContentAbstract extends AppModel
 
     );
         
+    public $hasAndBelongsToMany = array('Tag' => array('with' => 'Tagged'));
+    
     /**
      * Sets up the searchable behavior
      * @var array
@@ -74,8 +76,10 @@ class ContentAbstract extends AppModel
         array('name' => 'status', 'type' => 'value'),
         array('name' => 'object_type', 'type' => 'value'),
         array('name' => 'title', 'type' => 'like', 'field' => 'Content.title'),
-        array('name' => 'body', 'type' => 'like', 'field' => 'Content.body')
+        array('name' => 'body', 'type' => 'like', 'field' => 'Content.body'),
+        array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id')
     );    
+    
     
     
     /**
@@ -90,6 +94,18 @@ class ContentAbstract extends AppModel
             'edit_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_edit/',`{$this->alias}`.`id`)",
             'delete_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_delete/',`{$this->alias}`.`id`)",
         );        
+    }
+    
+    
+    public function findByTags($data = array()) {
+        $this->Tagged->Behaviors->attach('Containable', array('autoFields' => false));
+        $this->Tagged->Behaviors->attach('Search.Searchable');
+        $query = $this->Tagged->getQuery('all', array(
+            'conditions' => array('Tag.name'  => $data['tags']),
+            'fields' => array('foreign_key'),
+            'contain' => array('Tag')
+        ));
+        return $query;
     }
     
     /* === Content Validation Methods =============================================================================== */
