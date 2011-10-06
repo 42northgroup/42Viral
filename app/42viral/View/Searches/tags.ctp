@@ -23,22 +23,28 @@
 ?>
 <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'Search')); ?>
 
-<div id="ResultsPage">    
+<div id="ResultsPage">
+    <?php foreach($contents as $content): ?>
     
-    
-    
-    <?php 
-    
-    foreach($contents as $content): ?>
-
-        <h2>
-            <?php echo $this->Html->link($content['Page']['title'], 
-                    "/{$content['Page']['object_type']}/{$content['Page']['slug']}"); ?>
-        </h2>
-    
-        <div class="tease"><?php echo $content['Page']['tease']; ?></div>
+    <div class="result">
         
+        
+        <div class="clearfix">
+            
+            <h2 style="float:left;">
+                <?php echo $this->Html->link($content['Page']['title'], 
+                        "/{$content['Page']['object_type']}/{$content['Page']['slug']}"); ?> </h2>
+            
+            <div style="float:right; font-style: italic;">
+                <?php echo Inflector::humanize($content['Page']['object_type']); ?></div>
+            
+        </div>
+        
+        <div class="tease"><?php echo $this->Text->truncate($content['Page']['tease'], 180); ?></div>
+        
+    </div>
     <?php endforeach; ?>
+    
 </div>
 
 <?php
