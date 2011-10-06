@@ -1,3 +1,4 @@
-<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'')); ?>
+<?php 
 
-<?php echo $page['Page']['body']; ?>
+    echo $this->element('Navigation' . DS . 'local', array('section'=>''));
+    echo $page['Page']['body'];

@@ -171,15 +171,7 @@ switch($section){
 
     default :
         $menu = array(
-            'Items'=>array(
-                array(
-                    'text'=>'Index',
-                    'url'=>$this->params['url'],
-                    'options' => array(),
-                    'confirm'=>null
-                )             
-            )
-
+            'Items'=>array()             
         );
     break;
 }

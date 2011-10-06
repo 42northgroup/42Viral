@@ -20,7 +20,7 @@ App::uses('ContentAbstract', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class PageAbstract extends ContentAbstract
 {
@@ -101,7 +101,7 @@ class PageAbstract extends ContentAbstract
             switch(strtolower($with)){
 
                 default:
-                    $with = array();
+                    $with = array('Tag'=>array());
                 break;
             }
   
