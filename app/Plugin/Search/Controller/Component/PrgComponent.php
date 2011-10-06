@@ -1,18 +1,12 @@
 <?php
 /**
- * CakePHP Tags Plugin
- *
- * Copyright 2009 - 2010, Cake Development Corporation
- *                        1785 E. Sahara Avenue, Suite 490-423
- *                        Las Vegas, Nevada 89104
+ * Copyright 2009-2010, Cake Development Corporation (http://cakedc.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright 2009 - 2010, Cake Development Corporation (http://cakedc.com)
- * @link      http://github.com/CakeDC/Search
- * @package   plugins.search
- * @license   MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2009-2010, Cake Development Corporation (http://cakedc.com)
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
@@ -21,7 +15,10 @@
  * @package		plugins.search
  * @subpackage	plugins.search.controllers.components
  */
-class PrgComponent extends Object {
+App::uses('Component', 'Controller');
+
+class PrgComponent extends Component {
+
 /**
  * Actions used to fetch the post data
  *
@@ -33,18 +30,23 @@ class PrgComponent extends Object {
  * array('search' => array('controller' => 'results');
  *
  * @var array actions
- * @access public
  */
 	public $actions = array();
 
 /**
- * Intialize Callback
+ * Enables encoding on all presetVar fields
+ *
+ * @var boolean
+ */
+	public $encode = false;
+
+/**
+ * Constructor
  *
  * @param object Controller object
- * @access public
  */
-	public function initialize(&$controller) {
-		$this->controller = $controller;
+	public function __construct(ComponentCollection $collection) {
+		$this->controller = $collection->getController();
 	}
 
 /**
@@ -65,13 +67,17 @@ class PrgComponent extends Object {
  * 2, 3 need only field parameter
  *
  * @param array
- * @access public
  */
 	public function presetForm($model) {
 		$data = array($model => array());
 		$args = $this->controller->passedArgs;
 
 		foreach ($this->controller->presetVars as $field) {
+			if ($this->encode == true || isset($field['encode']) && $field['encode'] == true) {
+				// Its important to set it also back to the controllers passed args!
+				$this->controller->passedArgs[$field['field']] = $args[$field['field']] = pack('H*', $args[$field['field']]);
+			}
+
 			if ($field['type'] == 'lookup') {
 				if (isset($args[$field['field']])) {
 					$searchModel = $field['model'];
@@ -105,7 +111,6 @@ class PrgComponent extends Object {
  * Restores form params for checkboxs and other url encoded params
  * 
  * @param array
- * @access public
  */
 	public function serializeParams(&$data) {
 		foreach ($this->controller->presetVars as $field) {
@@ -117,6 +122,10 @@ class PrgComponent extends Object {
 				}
 				$data[$field['field']] = $values;
 			}
+
+			if ($this->encode == true || isset($field['encode']) && $field['encode'] == true) {
+				$data[$field['field']] = bin2hex($data[$field['field']]);
+			}
 		}
 		return $data;
 	}
@@ -127,7 +136,6 @@ class PrgComponent extends Object {
  * @param array $data
  * @param array $exclude
  * @return void
- * @access public
  */
 	public function connectNamed($data = null, $exclude = array()) {
 		if (!isset($data)) {
@@ -153,7 +161,6 @@ class PrgComponent extends Object {
  * @param array Array of data to be filtered
  * @param array Array of keys to exclude from other $array
  * @return array
- * @access public
  */
 	public function exclude($array, $exclude) {
 		$data = array();
@@ -181,7 +188,6 @@ class PrgComponent extends Object {
  *  - string action The action to redirect to. Defaults to the current action
  *  - mixed modelMethod If not false a string that is the model method that will be used to process the data 
  * @return void
- * @access public
  */
 	public function commonProcess($modelName = null, $options = array()) {
 		$defaults = array(
@@ -211,19 +217,21 @@ class PrgComponent extends Object {
 			}
 
 			if ($valid) {
-				$passed = $this->controller->params['pass'];
+				$passed = $this->controller->request->params['pass'];
 				$params = $this->controller->data[$modelName];
 				$params = $this->exclude($params, array());
+
 				if ($keepPassed) {
 					$params = array_merge($passed, $params);
 				}
+
 				$this->serializeParams($params);
 				$this->connectNamed($params, array());
 				$params['action'] = $action;
-				$params = array_merge($this->controller->params['named'], $params);
+				$params = array_merge($this->controller->request->params['named'], $params);
 				$this->controller->redirect($params);
 			} else {
-				$this->controller->Session->setFlash(__('Please correct the errors below.', true));
+				$this->controller->Session->setFlash(__d('search', 'Please correct the errors below.'));
 			}
 		}
 
@@ -232,6 +240,4 @@ class PrgComponent extends Object {
 			$this->presetForm($formName);
 		}
 	}
-
 }
-?>
