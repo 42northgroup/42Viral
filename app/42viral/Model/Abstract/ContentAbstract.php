@@ -59,8 +59,10 @@ class ContentAbstract extends AppModel
             'Fields'=>array('short_cut')
         ),
         
-        'Search.Searchable'
-        
+        'Search.Searchable',
+
+        'Tags.Taggable'
+
     );
         
     /**

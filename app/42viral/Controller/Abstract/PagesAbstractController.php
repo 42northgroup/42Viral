@@ -21,7 +21,7 @@ abstract class PagesAbstractController extends AppController {
      * @var array
      * @access public
      */
-    public $helpers = array('Html', 'Session');
+    public $helpers = array('Html', 'Session', 'Tags.TagCloud');
 
     /**
      * This controller does not use a model
@@ -69,7 +69,9 @@ abstract class PagesAbstractController extends AppController {
         
         $this->set('title_for_layout', $page['Page']['title']);        
         $this->set('canonical_for_layout', $page['Page']['canonical']);
-        $this->set('page', $page);
+        $this->set('page', $page); 
+        
+        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));
     }  
     
     /**
