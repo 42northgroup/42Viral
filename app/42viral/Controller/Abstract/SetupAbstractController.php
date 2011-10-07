@@ -159,9 +159,8 @@ abstract class SetupAbstractController extends AppController {
                 }
             }
             
-            $this->Session->setFlash(
-                    __('Auto setup complete; finish the root configuration'), 'success');
-            $this->flash('Default groups created. Configuring root...', '/setup/configure_root');            
+            $this->Session->setFlash(__('Auto setup complete; finish the root configuration'), 'success');
+            $this->flash('Default groups created. Configuring root...', '/setup/finish');            
         }
     }
 
@@ -173,11 +172,20 @@ abstract class SetupAbstractController extends AppController {
     public function configure_root(){
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
-                $this->Session->setFlash(__('Setup complete, you may now try your root login'), 'success');
-                $this->flash('Setup complete, you may now try your root login', '/users/login');
+                $this->Session->setFlash(
+                        __('Setup complete, you may now try your root login install the demo'), 'success');
+                $this->redirect('/users/login');
             }
         }
     }
+    
+    /**
+     * Run demo data or configure root?
+     * @return void
+     * @access public
+     */
+    public function finish(){}
+        
     
     /**
      * Import the demo 
@@ -193,7 +201,7 @@ abstract class SetupAbstractController extends AppController {
             $this->__buildPMA($path, $file);
         }
 
-        $this->Session->setFlash('Demo build complete');
+        $this->flash('Demo installed, you may now try your root login', '/setup/configure_root');
     } 
     
     /**

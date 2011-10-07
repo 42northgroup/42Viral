@@ -34,7 +34,7 @@
 </script>
 <h1>User Privileges</h1>
 
-<?php echo $this->Form->create('UserPrivs', array('url'=>'/first_run/give_permissions/'.$username)); ?>
+<?php echo $this->Form->create('UserPrivs', array('url'=>'/setup/give_permissions/'.$username)); ?>
 
 <table>
     <thead>
