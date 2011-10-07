@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.4.3.2
+- http://www.phpmyadmin.net
+-
+- Host: localhost
+- Generation Time: Oct 07, 2011 at 12:32 PM
+- Server version: 5.1.54
+- PHP Version: 5.3.5-1ubuntu7.2
+-->
+
+<pma_xml_export version="1.0">
+    <!--
+    - Database: 'app_default'
+    -->
+    <database name="app_default">
+        <!-- Table profiles -->
+        <table name="profiles">
+            <column name="id">4e8f381b-0608-4e69-8048-04b44bb83359</column>
+            <column name="owner_person_id">4e41b612-2490-4ab5-b1c5-05cc4bb83359</column>
+            <column name="tease">Hi, I'm Jason</column>
+            <column name="bio">Hi, I'm Jason</column>
+            <column name="created">2011-08-09 17:34:58</column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2011-08-09 17:34:58</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+        </table>
+    </database>
+</pma_xml_export>

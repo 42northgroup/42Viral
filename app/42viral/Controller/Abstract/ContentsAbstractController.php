@@ -342,7 +342,7 @@ abstract class ContentsAbstractController extends AppController {
                 $this->Picklist->fetchPicklistOptions(
                         'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
      
-        $this->set('title_for_layout', "Update {$page['Page']['title']}");        
+        $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
     }    
     
     /**

@@ -16,17 +16,17 @@ App::uses('AppController', 'Controller');
 
 /**
  * Provides a web interface for running the intial system setup
- **** @author Jason D Snider <jason.snider@42viral.org>
- ***** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
-abstract class FirstRunAbstractController extends AppController {
+abstract class SetupAbstractController extends AppController {
 
     /**
      * Controller name
      * @var string
      * @access public
      */
-    public $name = 'FirstRun';
+    public $name = 'Setup';
 
     public $components = array('ControllerList');
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Group', 'Person', 'User', 'ArosAco');
@@ -45,7 +45,7 @@ abstract class FirstRunAbstractController extends AppController {
      */
     public function index(){
         
-        $this->flash('Truncating all tables...', '/first_run/truncate');
+        $this->flash('Truncating all tables...', '/setup/truncate');
     }
     
     /**
@@ -59,7 +59,7 @@ abstract class FirstRunAbstractController extends AppController {
         $this->ArosAco->query('TRUNCATE aros_acos;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
-        $this->flash('Truncation complete. Set ACLs...', '/first_run/acl');
+        $this->flash('Truncation complete. Set ACLs...', '/setup/acl');
     }
 
     /**
@@ -107,7 +107,7 @@ abstract class FirstRunAbstractController extends AppController {
 
         $this->Acl->Aro->save();
 
-        $this->flash('ACL Set up complete. Import default data...', '/first_run/pma_import');
+        $this->flash('ACL Set up complete. Import default data...', '/setup/import');
     }
     
 
@@ -116,55 +116,16 @@ abstract class FirstRunAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function pma_import(){
+    public function import(){
 
-        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data';
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Required';
         
         foreach(scandir($path) as $file){      
             
-            if(is_file($path . DS . $file)){
-                $xml = Xml::build($path . DS . $file, array('return' => 'domdocument'));
-                $pma = Xml::toArray($xml);
-               
-                //We need to adjust the array for 1 rom vs mulitple rows
-                if(isset($pma['pma_xml_export']['database']['table']['@name'])){
-                    $tables = array();
-                    $tables[] = $pma['pma_xml_export']['database']['table'];
-
-                }else{
-                    $tables = $pma['pma_xml_export']['database']['table'];
-                }                 
-                
-                foreach($tables as $table){
-
-                        $model = Inflector::classify($table['@name']);
-                        $this->loadModel($model);
-
-                        $row = array();
-                        for($i=0; $i<count($table['column']); $i++): 
-                            //If we have a null value, check the schema and replace that with the columns 
-                            //intended default. 
-                            
-                            if(isset($table['column'][$i]['@'])){
-                                $value = $table['column'][$i]['@'];
-                            }else{
-                                $schema = $this->$model->schema($table['column'][$i]['@name']);
-                                $value = $schema['default'];
-                            }
-
-                            $row[$table['column'][$i]['@name']] = $value;
-                        endfor;
-
-                    if($this->$model->save($row)){
-                        //Nothing to do here
-                    }else{
-                        $this->log("INSERT FAILED! {$table['@name']} {$table['column'][$i]['@id']}", 'FIRST_RUN');
-                    }
-                }
-            }
+            $this->__buildPMA($path, $file);
         }
 
-        $this->flash('Data imported. Assign permisions...', '/first_run/give_permissions');
+        $this->flash('Data imported. Assign permisions...', '/setup/give_permissions');
     }
     
     public function give_permissions($username='basic_user')
@@ -200,7 +161,7 @@ abstract class FirstRunAbstractController extends AppController {
             
             $this->Session->setFlash(
                     __('Auto setup complete; finish the root configuration'), 'success');
-            $this->flash('Default groups created. Configuring root...', '/first_run/configure_root');            
+            $this->flash('Default groups created. Configuring root...', '/setup/configure_root');            
         }
     }
 
@@ -214,6 +175,70 @@ abstract class FirstRunAbstractController extends AppController {
             if($this->User->createUser($this->data['User'])){
                 $this->Session->setFlash(__('Setup complete, you may now try your root login'), 'success');
                 $this->flash('Setup complete, you may now try your root login', '/users/login');
+            }
+        }
+    }
+    
+    /**
+     * Import the demo 
+     * @return void
+     * @access public
+     */
+    public function import_demo(){
+
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Demo';
+        
+        foreach(scandir($path) as $file){      
+            
+            $this->__buildPMA($path, $file);
+        }
+
+        $this->Session->setFlash('Demo build complete');
+    } 
+    
+    /**
+     * A utility for populating DB tables from an XML file.
+     * @return void
+     */
+    private function __buildPMA($path, $file){
+        if(is_file($path . DS . $file)){
+            $xml = Xml::build($path . DS . $file, array('return' => 'domdocument'));
+            $pma = Xml::toArray($xml);
+
+            //We need to adjust the array for 1 rom vs mulitple rows
+            if(isset($pma['pma_xml_export']['database']['table']['@name'])){
+                $tables = array();
+                $tables[] = $pma['pma_xml_export']['database']['table'];
+
+            }else{
+                $tables = $pma['pma_xml_export']['database']['table'];
+            }                 
+
+            foreach($tables as $table){
+
+                    $model = Inflector::classify($table['@name']);
+                    $this->loadModel($model);
+
+                    $row = array();
+                    for($i=0; $i<count($table['column']); $i++): 
+                        //If we have a null value, check the schema and replace that with the columns 
+                        //intended default. 
+
+                        if(isset($table['column'][$i]['@'])){
+                            $value = $table['column'][$i]['@'];
+                        }else{
+                            $schema = $this->$model->schema($table['column'][$i]['@name']);
+                            $value = $schema['default'];
+                        }
+
+                        $row[$table['column'][$i]['@name']] = $value;
+                    endfor;
+
+                if($this->$model->save($row)){
+                    //Nothing to do here
+                }else{
+                    $this->log("INSERT FAILED! {$table['@name']} {$table['column'][$i]['@id']}", 'setup');
+                }
             }
         }
     }

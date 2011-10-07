@@ -63,12 +63,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
 </style>
 
 <div class="post clearfix">
-    <div class="meta">
-        <span class="meta-head">by:</span>
-        <?php echo $this->Member->displayName($post['CreatedPerson']); ?>
-        &nbsp;<span class="meta-head">on:</span>&nbsp;<?php echo Handy::date($post['Post']['created']); ?>
 
-    </div>
     <div class="post-body">
     <?php
 
@@ -101,6 +96,8 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
 </div>
 
 <div class="meta" style="margin: 6px 0;">
+    <span class="meta-head">Posted:</span>
+    <?php echo Handy::date($post['Post']['created']); ?>
     <span class="meta-head">Last Modified:</span>
     <?php echo Handy::date($post['Post']['modified']); ?>
 </div>

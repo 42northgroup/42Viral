@@ -72,6 +72,8 @@ class BlogAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
@@ -82,7 +84,7 @@ class BlogAbstract extends ContentAbstract
         'status' => array(
             'publishable' => array(
                 'rule' => 'publishable',
-                'message' =>"Your blog is not ready to be published",
+                'message' =>"This blog is not ready to be published",
                 'last' => true
             )
         )

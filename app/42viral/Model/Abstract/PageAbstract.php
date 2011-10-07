@@ -43,10 +43,20 @@ class PageAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
                 'last' => true                
+            )
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"This page is not ready to be published",
+                'last' => true
             )
         )
     );

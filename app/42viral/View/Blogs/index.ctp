@@ -25,10 +25,9 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 <div id="ResultsPage">
     
     <?php  
-    
     if($showAll):
         
-        $nothing = empty($blog)?true:false;
+        $nothing = empty($blogs)?true:false;
         if(!$nothing):
             
             foreach($blogs as $blog): ?>
@@ -46,7 +45,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
         
     else:
         
-        $nothing = empty($blog['Blog'])?true:false;
+        $nothing = empty($blogs['Blog'])?true:false;
         
         if(!$nothing):
             
