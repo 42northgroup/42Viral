@@ -13,6 +13,10 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+/**
+ * @package Lib
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ */
 class MicroTemplate extends Object
 {
 

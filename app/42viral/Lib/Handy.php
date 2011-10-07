@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP 5.3
  *
@@ -16,7 +15,7 @@
 
 /**
  * Container for handy functions
- *
+ * @package Lib
  * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  * @author Jason D Snider <jason.snider@42viral.org> 
  */

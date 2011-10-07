@@ -11,6 +11,9 @@
  * $resizer->saveImage('images/cars/large/output.jpg', 100);
  */
 
+/**
+ * @package Lib
+ */
 Class ImageUtil extends Object
 {
 
