@@ -25,12 +25,12 @@ App::import('Vendor', 'HTMLPurifier',
  * html
  * plainText
  * plainTextNoHtml
- *
- * @package app
- * @subpackage app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * 
+ * @package Lib
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-class Scrub {    
+class Scrub 
+{    
     
     /**
      * Purifies, creates html and fixes broken HTML
@@ -38,7 +38,8 @@ class Scrub {
      * @return string
      * @access public 
      */
-    public static function html($value){
+    public static function html($value)
+    {
         $HTMLPurifier = new HTMLPurifier();
 
         $config = HTMLPurifier_Config::createDefault();
@@ -73,7 +74,8 @@ class Scrub {
      * @return string
      * @access public 
      */
-    public static function htmlStrict($value){
+    public static function htmlStrict($value)
+    {
         $HTMLPurifier = new HTMLPurifier();
 
         $config = HTMLPurifier_Config::createDefault();
@@ -111,7 +113,8 @@ class Scrub {
      * @return string
      * @access public 
      */
-    public static function safe($value){
+    public static function safe($value)
+    {
         $HTMLPurifier = new HTMLPurifier();
         
         $config = HTMLPurifier_Config::createDefault();
@@ -130,7 +133,8 @@ class Scrub {
      * @return string
      * @access public 
      */
-    public static function noHTML($value){
+    public static function noHTML($value)
+    {
         $HTMLPurifier = new HTMLPurifier();
         
         $config = HTMLPurifier_Config::createDefault();

@@ -1,7 +1,7 @@
 <?php
 
 App::uses('AppController', 'Controller');
-
+App::uses('Member', 'Lib');
 
 /**
  * @package app
@@ -33,21 +33,35 @@ abstract class BlogsAbstractController extends AppController {
     }
 
     /**
-     * Displays a list of blogs
+     * Displays a list of published blogs. The scop can be all published or all published blogs beloning to a single
+     * user.
      *
-     * @param array
+     * @param string $username the username for any system user
+     * @return void
+     * @access public
      */
     public function index($username = null) {
+        
+        $showAll = true;
+        $pageTitle = 'Blog Index';
         
         if(is_null($username)){
             $blogs = $this->Blog->fetchBlogsWith();
         }else{
             $profile = $this->Person->fetchPersonWith($username, 'blog');
+            
+            if (empty($profile)) {
+                throw new NotFoundException("{$username} " . __("doesn't seem to exist"));
+            }
+            
             $blogs = $profile;
+            $showAll = false;
+            $pageTitle = Member::name($profile['Person']);
         }
         
+        $this->set('showAll', $showAll);
         $this->set('blogs', $blogs);
-        $this->set('title_for_layout', 'Blog Index');
+        $this->set('title_for_layout', $pageTitle);
         
     }
     

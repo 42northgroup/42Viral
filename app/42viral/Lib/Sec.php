@@ -1,17 +1,26 @@
 <?php
-
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
 App::uses('Security','Utility');
 App::uses('String','Utility');
-
-//namespace FortyTwoViral\Lib\Sec;
-
 /**
- * Additional security methods
- *
- * @package app
- * @subpackage app.core
+ * Additional securitiy methods
+ * @package Lib
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-class Sec {
+class Sec 
+{
 
     /**
      * Creates some pseudo random jibberish to be used as a salt value.
@@ -19,7 +28,8 @@ class Sec {
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public static function makeSalt(){
+    public static function makeSalt()
+    {
         //Why 4096? - Well, why not?
         $seed = openssl_random_pseudo_bytes(4096);
         $seed .= String::uuid();
@@ -44,7 +54,8 @@ class Sec {
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public static function hashPassword($password, $salt){
+    public static function hashPassword($password, $salt)
+    {
         $preHash = Configure::read('Security.salt');
         $preHash .= $salt;
         $preHash .= Security::hash($password, 'sha512', true); 

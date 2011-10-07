@@ -24,18 +24,46 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 
 <div id="ResultsPage">
     
-    <?php foreach($blogs as $blog): ?>
-    <div class="result">
-        <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
-        <div class="tease"><?php echo $blog['Blog']['tease']; ?></div>
-    </div>
-    <?php endforeach; ?>
+    <?php  
     
-    <?php foreach($blogs['Blog'] as $blog): ?>
-    <div class="result">
-        <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
-        <div class="tease"><?php echo $blog['tease']; ?></div>
-    </div>
-    <?php endforeach; ?>
+    if($showAll):
+        
+        $nothing = empty($blog)?true:false;
+        if(!$nothing):
+            
+            foreach($blogs as $blog): ?>
+
+            <div class="result">
+                <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
+                <div class="tease"><?php echo $blog['Blog']['tease']; ?></div>
+            </div>
+            <?php 
+            endforeach;
+            
+        else:    
+            echo __('Their are no blogs to display');
+        endif;
+        
+    else:
+        
+        $nothing = empty($blog['Blog'])?true:false;
+        
+        if(!$nothing):
+            
+            foreach($blogs['Blog'] as $blog): 
+            ?>
+            <div class="result">
+                <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
+                <div class="tease"><?php echo $blog['tease']; ?></div>
+            </div>
+            <?php 
+            endforeach;
+            
+        else:    
+            echo __("This user hasn't created any blogs");
+        endif;
+        
+    endif; 
     
+    ?>    
 </div>
