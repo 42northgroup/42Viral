@@ -27,10 +27,6 @@
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
-
-<h1>Edit your page</h1>
-<?php
 
     echo $this->Form->create('Page', 
                 array(

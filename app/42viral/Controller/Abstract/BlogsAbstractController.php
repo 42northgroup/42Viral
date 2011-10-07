@@ -56,7 +56,8 @@ abstract class BlogsAbstractController extends AppController {
             
             $blogs = $profile;
             $showAll = false;
-            $pageTitle = Member::name($profile['Person']);
+            $pageTitle = Member::name($profile['Person']) . "'s Blogs";
+            $this->set('userProfile', $profile);
         }
         
         $this->set('showAll', $showAll);
@@ -89,17 +90,7 @@ abstract class BlogsAbstractController extends AppController {
             $mine = true;
         }
 
-        
-
-        //I'm not able to get this through associativet data... Why?
-        $userProfile = array();
-        $personData = 
-            $this->Profile->find('first', 
-                    array('conditions'=>array('Profile.owner_person_id' => $blog['CreatedPerson']['id'])));
-        
-        $userProfile['Person'] = $personData['Person'];
-        $userProfile['Person']['Profile'] = $personData['Profile'];
-
+        $userProfile['Person'] = $blog['CreatedPerson'];
         $this->set('userProfile', $userProfile);
         $this->set('mine', $mine); 
         

@@ -69,16 +69,28 @@ class PostAbstract extends ContentAbstract
                 'message' =>"Please enter a title",
                 'last' => true
             ),
+        ),
+        'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
                 'last' => true                
-            ),
-            'parent_content_id' => array(
+            )
+        ),
+        'parent_content_id' => array(
+            'notEmpty' => array(
                 'rule' => 'notEmpty',
                 'message' =>"You need to have a blog attached",
                 'last' => true
             ),            
+        ),
+        
+        'status' => array(
+            'publishable' => array(
+                'rule' => 'publishable',
+                'message' =>"This post is not ready to be published",
+                'last' => true
+            )
         )
     );
     
