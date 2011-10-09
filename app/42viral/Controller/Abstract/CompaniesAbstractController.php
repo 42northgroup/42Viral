@@ -17,6 +17,7 @@ App::uses('AppController', 'Controller');
 App::uses('HttpSocket', 'Network/Http');
 App::uses('HttpSocketOauth', 'Lib');
 App::uses('Address', 'Model');
+App::uses('Member', 'Lib');
 
 /**
  * Abstract class to represent a generic company object which can be customized by subclassing from this class
@@ -73,7 +74,14 @@ abstract class CompaniesAbstractController extends AppController
         }
         
         $this->set('companies', $companies);
-        $this->set('title_for_layout', __('Company Index'));
+        
+        if(is_null($username)){
+            $this->set('title_for_layout', __('Company Index')); 
+        }else{
+            $this->set('title_for_layout', Member::name($person['Person']) . "'s " . __('Companies'));
+        }
+        
+        
         
     }
 

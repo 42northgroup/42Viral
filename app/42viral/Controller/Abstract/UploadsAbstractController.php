@@ -12,13 +12,14 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('AppController', 'Controller');
 App::uses('ImageUtil', 'Lib');
+App::uses('Member', 'Lib');
 
 /**
- * @package app
- * @subpackage app.core
- * *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 abstract class UploadsAbstractController extends AppController
 {
@@ -43,7 +44,7 @@ abstract class UploadsAbstractController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('image'));
+        $this->auth(array('image', 'images'));
     }
 
     /**
@@ -81,7 +82,7 @@ abstract class UploadsAbstractController extends AppController
 
         $this->set('user', $person);
         $this->set('userProfile', $person);
-        $this->set('section', 'Photo Stream');
+        $this->set('title_for_layout', Member::name($person['Person']) . "'s Photo Stream");
     }
 
     /**
@@ -175,7 +176,6 @@ abstract class UploadsAbstractController extends AppController
  * Switch to using Gravatar as the source for users avatar
  * 
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @param string $personId
  * @return void
  */

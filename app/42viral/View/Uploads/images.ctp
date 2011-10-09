@@ -34,7 +34,11 @@
     }
 </style>
 
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
+<?php
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); 
+
+?>
 
 <?php if(!empty($user['Upload'])): ?>
     <div class="clearfix">
@@ -57,11 +61,14 @@
             </div>
         <?php endforeach; ?>
     </div>
-<?php else: ?>
-    <h3 style="text-align: center; margin: 20px;">No photos uploaded</h3>
-<?php endif; ?>
-
 <hr />
+<?php 
+else:
+    echo $this->element('no_results', array('message'=>"This user has not uploaded any photos"));
+endif; 
+?>
+
+
 
 <?php if ($mine): ?>
     <h2>Upload a new image</h2>

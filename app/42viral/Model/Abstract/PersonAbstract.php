@@ -97,7 +97,12 @@ class PersonAbstract extends AppModel
             'className' => 'Content',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),       
+        ),   
+        'Conversation' => array(
+            'className' => 'Conversation',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        ),         
          'File' => array(
             'className' => 'File',
             'foreignKey' => 'created_person_id',

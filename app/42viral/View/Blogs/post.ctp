@@ -103,7 +103,17 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
 </div>
 
 <?php foreach($post['Conversation'] as $conversation): ?>
-    <div><?php echo $conversation['body']; ?></div>
+    <div class="result">
+        
+        <div class="meta">
+            <?php echo $this->Member->displayName($conversation['CreatedPerson']); ?>
+            <span class="meta-head">Posted:</span>
+            <?php echo Handy::date($conversation['CreatedPerson']['created']); ?>
+        </div>
+        
+        <?php echo $conversation['body']; ?>
+        
+    </div>
 <?php endforeach; ?>
 
 <?php echo $this->element('Posts' . DS . 'post_comments'); ?>

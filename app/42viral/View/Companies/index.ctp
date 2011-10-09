@@ -18,18 +18,20 @@
  * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  * @author Jason D Snider <jason.snider@42viral.org>
  */
+echo $this->element('Navigation' . DS . 'local', array('section'=>'company')); 
 ?>
 
-<?php if(isset($userProfile)): ?>
-    <?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>    
-<?php else: ?>
-    <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'company')); ?>
-<?php endif; ?>
     
 <div id="ResultsPage">
-<?php foreach($companies as $company): ?>
-    <h2><?php echo $this->Html->link($company['name'], $company['public_url']); ?></h2>
-    <?php echo $company['tease']; ?>
-<?php endforeach; ?>
+    <?php if(!empty($conpanies)): ?>
+        <?php foreach($companies as $company): ?>
+            <h2><?php echo $this->Html->link($company['name'], $company['public_url']); ?></h2>
+            <?php echo $company['tease']; ?>
+        <?php endforeach; ?>
+    <?php else:
+            echo $this->element('no_results', 
+                    array('message'=>__("This user has not added any companies")));
+        endif; 
+    ?>
 </div>
 
