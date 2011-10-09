@@ -1,6 +1,6 @@
-<div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
-
 <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'members')); ?>
+
+<div style="padding:4px 0 0;"><?php echo $user['Profile']['tease']; ?></div>
 
 <div id="ResultsPage">
     
@@ -9,7 +9,7 @@
     <?php 
     if( isset($statuses['connection']) ):
         foreach($statuses['connection'] as $key => $val):
-            echo $key.' does not seem to be responding, please try again later.<br/>';
+            echo $key . __(' does not seem to be responding, please try again later.') . '<br/>';
         endforeach;
     endif; 
     ?>

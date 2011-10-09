@@ -68,6 +68,10 @@ div.avatar{
     padding: 0;
 }
 
+div.avatar img{
+    border-radius: 2px;
+}
+
 div.section-box {
     padding: 5px;
     margin: 5px;
@@ -190,7 +194,9 @@ div.section-head{
 /**
  * Profile
  */
-.display-name{}
+ .display-name{
+     text-align: center;
+ }
 
 .display-name a{
 
@@ -199,6 +205,7 @@ div.section-head{
     margin: 0;
     text-decoration: none;
     font-weight: bold;
+    font-size: 110%;
     color: #666;
     line-height: 28px;
 }

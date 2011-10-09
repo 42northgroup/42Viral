@@ -14,6 +14,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('Member', 'Lib');
 
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -111,7 +112,7 @@ abstract class MembersAbstractController extends AppController {
         $userProfile['Person']['Profile'] = $user['Profile'];
         
         $this->set('userProfile', $userProfile);
-        $this->set('title_for_layout', $userProfile['Person']['username']);
+        $this->set('title_for_layout', Member::name($userProfile['Person']) . "'s Profile");
 
     }
 

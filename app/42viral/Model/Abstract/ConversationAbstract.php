@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class ConversationAbstract extends AppModel
 {
@@ -68,4 +68,12 @@ class ConversationAbstract extends AppModel
             'dependent' => true
         )
     );    
+    
+    public $belongsTo = array(
+        'CreatedPerson' => array(
+            'className' => 'Person',
+            'foreignKey' => 'created_person_id',
+            'dependent' => true
+        )
+    );     
 }

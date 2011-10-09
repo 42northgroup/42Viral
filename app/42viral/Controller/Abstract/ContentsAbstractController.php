@@ -15,6 +15,7 @@
 
 App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
+App::uses('Member', 'Lib');
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  */
@@ -53,7 +54,7 @@ abstract class ContentsAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth();
+        $this->auth(array('content'));
     }
     
     
@@ -366,7 +367,7 @@ abstract class ContentsAbstractController extends AppController {
         
         $this->set('mine', $mine);
         $this->set('userProfile', $person);
-        $this->set('title_for_layout', "Content Stream");        
+        $this->set('title_for_layout', Member::name($person['Person']) . "'s Content Stream");        
     }  
     
     /**

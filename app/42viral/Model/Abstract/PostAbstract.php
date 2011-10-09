@@ -135,7 +135,7 @@ class PostAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
-                        'Conversation'=>array(),
+                        'Conversation'=>array('CreatedPerson'=>array('Profile'=>array())),
                         'CreatedPerson'=>array('Profile'=>array())
                     );
                 break;  
