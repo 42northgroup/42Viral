@@ -18,7 +18,8 @@
 
 echo $this->Form->create('Content', array(
     'url' => $this->here,
-    'class'=>'search'
+    'class'=>'search',
+    'style'=>"border-bottom: 1px solid #EFEFEF; padding: 0 0 4px; margin: 0 0 6px;"
     ));
 ?>
 
@@ -52,30 +53,39 @@ echo $this->Form->end();
 if($display == 'results'):
 ?>
 
+<?php 
 
-<div id="ResultsPage">
-    <?php foreach($data as $content): ?>
-    
-    <div class="result">
-        
-        
-        <div class="clearfix">
-            
-            <h2 style="float:left;">
-                <?php echo $this->Html->link($content['Content']['title'], $content['Content']['url']); ?> </h2>
-            
-            <div style="float:right; font-style: italic;">
-                <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
-            
+    if(!empty($data)): ?>
+        <div id="ResultsPage">
+            <?php foreach($data as $content): ?>
+
+            <div class="result">
+
+
+                <div class="clearfix">
+
+                    <h2 style="float:left;">
+                        <?php echo $this->Html->link($content['Content']['title'], $content['Content']['url']); ?> </h2>
+
+                    <div style="float:right; font-style: italic;">
+                        <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
+
+                </div>
+
+                <div class="tease"><?php echo $this->Text->truncate($content['Content']['tease'], 180); ?></div>
+
+            </div>
+            <?php endforeach; ?>
+
         </div>
-        
-        <div class="tease"><?php echo $this->Text->truncate($content['Content']['tease'], 180); ?></div>
-        
-    </div>
-    <?php endforeach; ?>
-    
-</div>
-<?php
-    echo $this->element('paginate');
-    
+    <?php
+       // echo $this->element('paginate');
+
+
+    else:
+        echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
     endif;
+
+else:
+    echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
+endif;

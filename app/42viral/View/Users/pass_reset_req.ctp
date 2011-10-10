@@ -14,7 +14,7 @@
  */
 ?>
 
-<h1>Password Reset</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
 
 <div class="clearfix">
     <div style="float:left;">
