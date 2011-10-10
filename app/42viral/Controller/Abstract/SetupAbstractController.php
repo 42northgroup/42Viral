@@ -29,7 +29,7 @@ abstract class SetupAbstractController extends AppController {
     public $name = 'Setup';
 
     public $components = array('ControllerList');
-    public $uses = array('Aco', 'AclGroup', 'Aro', 'Group', 'Person', 'User', 'ArosAco');
+    public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
 
 
     public function beforeFilter()
@@ -59,6 +59,7 @@ abstract class SetupAbstractController extends AppController {
         $this->ArosAco->query('TRUNCATE aros_acos;');
         $this->Group->query('TRUNCATE groups;');
         $this->Person->query('TRUNCATE people;');
+        $this->Person->query('TRUNCATE contents;');
         $this->flash('Truncation complete. Set ACLs...', '/setup/acl');
     }
 
@@ -107,7 +108,7 @@ abstract class SetupAbstractController extends AppController {
 
         $this->Acl->Aro->save();
 
-        $this->flash('ACL Set up complete. Import default data...', '/setup/import');
+        $this->flash(__('ACL Set up complete. Import default data...'), '/setup/import');
     }
     
 
@@ -124,8 +125,8 @@ abstract class SetupAbstractController extends AppController {
             
             $this->__buildPMA($path, $file);
         }
-
-        $this->flash('Data imported. Assign permisions...', '/setup/give_permissions');
+        $this->Session->setFlash('Assign permissions to the basic_user group');
+        $this->flash(__('Data imported. Assign permissions...'), '/setup/give_permissions');
     }
     
     public function give_permissions($username='basic_user')
@@ -159,8 +160,8 @@ abstract class SetupAbstractController extends AppController {
                 }
             }
             
-            $this->Session->setFlash(__('Auto setup complete; finish the root configuration'), 'success');
-            $this->flash('Default groups created. Configuring root...', '/setup/finish');            
+            $this->Session->setFlash(__('Entering Manual configuration; Choose your next step!'), 'success');
+            $this->flash(__('Auto setup complete; Proceed with manual configuration...'), '/setup/finish');            
         }
     }
 
@@ -172,9 +173,8 @@ abstract class SetupAbstractController extends AppController {
     public function configure_root(){
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
-                $this->Session->setFlash(
-                        __('Setup complete, you may now try your root login install the demo'), 'success');
-                $this->redirect('/users/login');
+                $this->Session->setFlash(__('Try your root login'), 'success');
+                $this->flash( __('Setup complete, try your root login'), '/users/login');
             }
         }
     }
@@ -200,8 +200,7 @@ abstract class SetupAbstractController extends AppController {
             
             $this->__buildPMA($path, $file);
         }
-
-        $this->flash('Demo installed, you may now try your root login', '/setup/configure_root');
+        $this->flash(__('Demo installed, configure Root'), '/setup/configure_root');
     } 
     
     /**
@@ -245,7 +244,8 @@ abstract class SetupAbstractController extends AppController {
                 if($this->$model->save($row)){
                     //Nothing to do here
                 }else{
-                    $this->log("INSERT FAILED! {$table['@name']} {$table['column'][$i]['@id']}", 'setup');
+                    $details = "{$table['@name']} {$table['column'][$i]['@id']}";
+                    $this->log(sprintf(__("INSERT FAILED! s%"),  $details), 'setup');
                 }
             }
         }
