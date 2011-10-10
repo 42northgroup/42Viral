@@ -30,7 +30,7 @@
     });
 </script>
 
-<h1>Social Media</h1>
+<?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
 
 <?php  echo $this->Form->create('SocialMedia', 
         array(

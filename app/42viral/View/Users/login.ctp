@@ -12,9 +12,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
 
-<h1>Login</h1>
+echo $this->element('Navigation' . DS . 'local', array('section'=>''));  
+
+?>
 
 <div class="clearfix">
     <div style="float:left;">

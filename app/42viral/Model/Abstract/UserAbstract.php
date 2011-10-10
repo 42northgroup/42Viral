@@ -22,7 +22,9 @@ App::uses('Sec', 'Lib');
  * @package app
  * @subpackage app.core
  * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 class UserAbstract extends PersonAbstract
 {
@@ -164,9 +166,7 @@ class UserAbstract extends PersonAbstract
      *
      * @param data array - A 1 deminisonal array focused in the user data
      * @return boolean
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
-     * @todo Complete and harden
      */
     public function createUser($data)
     {
@@ -199,9 +199,7 @@ class UserAbstract extends PersonAbstract
      *
      * @param data array - A 1 deminisonal array focused in the user data
      * @return boolean
-     * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      * @access public
-     * @todo Complete and harden
      */
     public function changePassword($data)
     {
@@ -234,7 +232,6 @@ class UserAbstract extends PersonAbstract
      * Finds a user by username or email
      * @param string $token
      * @return array
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getUser($token)
@@ -259,7 +256,6 @@ class UserAbstract extends PersonAbstract
      * Finds a user by username or id
      * @param string $token
      * @return array
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getProfile($token)
@@ -286,7 +282,6 @@ class UserAbstract extends PersonAbstract
      *
      * @param string $userId
      * @return array
-     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @deprecated 9/27/2011 replaced by User::fetchUserWith()
      */

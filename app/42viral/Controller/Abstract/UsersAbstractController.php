@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 abstract class UsersAbstractController extends AppController
 {
@@ -71,17 +71,19 @@ abstract class UsersAbstractController extends AppController
             $userId = $user['User']['id'];
 
             if(!empty($this->data)) {
+                
+                
                 $opStatus = $this->User->changePassword($this->data['Person']);
 
                 if($opStatus) {
                     $this->Session->setFlash(
-                        'Your password was changed successfully, try logging in with your new password',
+                        __('Your password was changed successfully, try logging in with your new password'),
                         'success'
                     );
 
                     $this->redirect('/users/login');
                 } else {
-                    $this->Session->setFlash('There was a problem changing your password, try again', 'error');
+                    $this->Session->setFlash(__('There was a problem changing your password, try again'), 'error');
                     $this->redirect("/users/pass_reset/{$resetToken}");
                 }
             } else {
@@ -90,12 +92,13 @@ abstract class UsersAbstractController extends AppController
             }
         } else {
             $this->Session->setFlash(
-                'The password reset request token is invalid or has expired, try generating a new one',
+                __('The password reset request token is invalid or has expired, try generating a new one'),
                 'error'
             );
 
             $this->redirect('/users/pass_reset_req');
         }
+        $this->set('title_for_layout', __('Reset Your Password'));
     }
 
     /**
@@ -125,7 +128,7 @@ abstract class UsersAbstractController extends AppController
                 $tokenData = array();
                 $tokenData['Person']['id'] = $userId;
                 $tokenData['Person']['pw_reset_token'] = $requestAuthorizationToken;
-                $tokenData['Person']['pw_reset_token_expiry'] = $tokenExpiry;
+                $tokenData['Person']['pw_reset_token_expiry'] = $tokenExpiry; 
                 $this->Person->save($tokenData);
 
                 //email the person with the password reset authorization link
@@ -140,14 +143,14 @@ abstract class UsersAbstractController extends AppController
 
 
                 $this->Session->setFlash(
-                    'Check your email for a password reset authentication link',
+                    __('Check your email for a password reset authentication link'),
                     'success'
                 );
             }
 
             if($error) {
                 $this->Session->setFlash(
-                    'Password reset request failed. Please check the username you entered',
+                    __('Password reset request failed. Please check the username you entered'),
                     'error'
                 );
             }
@@ -157,6 +160,7 @@ abstract class UsersAbstractController extends AppController
 
         }
 
+        $this->set('title_for_layout', __('Reset Your Password'));
         
     }
 
@@ -181,7 +185,7 @@ abstract class UsersAbstractController extends AppController
                 if($hash == $user['User']['password']){
 
                     if($this->Auth->login($user['User'])){
-                        $this->Session->setFlash('You have been authenticated', 'success');
+                        $this->Session->setFlash(__('You have been authenticated'), 'success');
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Session->write('Auth.User.Profile', $user['Profile']);
@@ -212,9 +216,11 @@ abstract class UsersAbstractController extends AppController
             }
 
             if($error) {
-                $this->Session->setFlash('You could not be authenticated', 'error');
+                $this->Session->setFlash(__('You could not be authenticated'), 'error');
             }
         }
+        
+        $this->set('title_for_layout', __('Login to Your Account'));
     }
 
     /**
@@ -246,7 +252,7 @@ abstract class UsersAbstractController extends AppController
                 if($this->Invite->confirm($this->data['User']['invite'])){
                     $allowed = true;
                 }else{
-                    $this->Session->setFlash('Their is a problem with the invite code','error');
+                    $this->Session->setFlash(__('Their is a problem with the invite code'),'error');
                     $allowed = false;
                 }
             }else{
@@ -293,30 +299,32 @@ abstract class UsersAbstractController extends AppController
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Access->permissions($user['User']);
 
-                        $this->Session->setFlash('Your account has been created and you have been logged in','success');
+                        $this->Session->setFlash(__('Your account has been created and you have been logged in'),'success');
                         $this->redirect($this->Auth->redirect());
                         
                     }else{
                         
-                        $this->Session->setFlash('Your account has been created, you may now log in','error');
+                        $this->Session->setFlash(__('Your account has been created, you may now log in'),'error');
                         $this->redirect($this->Auth->redirect());
                         
                     }
 
                 }else{
                     
-                    $this->Session->setFlash('Your account could not be created','error');
+                    $this->Session->setFlash(__('Your account could not be created'),'error');
                     
                 }
             }
         }
+        
+        $this->set('title_for_layout', 'Create a New Account');
     }
 
     public function admin_acl_groups()
     {
         $aclGroups = $this->AclGroup->find('all');
         $this->set('aclGroups', $aclGroups);
-        $this->set('title_for_layout', 'ACL Groups');
+        $this->set('title_for_layout', __('ACL ARO Groups'));
     }   
     
     public function admin_create_acl_group()
@@ -337,17 +345,19 @@ abstract class UsersAbstractController extends AppController
                                 
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
-                $this->Session->setFlash('Your account could not be created','error');
+                $this->Session->setFlash(__('Your account could not be created'),'error');
             }
 
         }
+        
+        $this->set('title_for_layout', 'Create an ACL ARO Group');
     }
 
     public function admin_index()
     {
         $people = $this->Person->find('all');
         $this->set('people', $people);
-        $this->set('title_for_layout', 'Users');
+        $this->set('title_for_layout', __('Everyone in the System'));
     }    
     
     
@@ -379,6 +389,8 @@ abstract class UsersAbstractController extends AppController
                     break;
             }
         }
+        
+        $this->set('title_for_layout', __('Socailize and Share Your Thoughts'));
         
     }
     
@@ -415,7 +427,7 @@ abstract class UsersAbstractController extends AppController
                 ));
             }
             
-            $this->Session->setFlash('Your social media has been updated', 'success');
+            $this->Session->setFlash(__('Your social media has been updated'), 'success');
             $this->redirect('/users/social_media');
         }
     }
@@ -442,6 +454,7 @@ abstract class UsersAbstractController extends AppController
         
         $userProfile['Person'] = $user['User'];
         $this->set('userProfile', $userProfile);
+        $this->set('title_for_layout', 'Your Account Settings');
     }
     
     public function change_password()
@@ -450,11 +463,11 @@ abstract class UsersAbstractController extends AppController
             
             if($this->User->changePassword($this->data['Person'])){
                 
-                $this->Session->setFlash('Password was changed successfully', 'success');
+                $this->Session->setFlash(__('Password was changed successfully'), 'success');
                 $this->redirect('/users/settings');
             }else{
                 
-                $this->Session->setFlash('An error occured, password could not be changed', 'error');
+                $this->Session->setFlash(__('An error occured, password could not be changed'), 'error');
                 $this->redirect('/users/settings');
             }
         }
