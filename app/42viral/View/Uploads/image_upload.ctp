@@ -12,8 +12,9 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>''));
 ?>
-<h1>Upload an image</h1>
 
 <?php echo $this->Form->create('Member', 
         array('url'=>'/uploads/image_upload', "enctype"=>"multipart/form-data")); ?>
