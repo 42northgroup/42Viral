@@ -112,8 +112,13 @@ abstract class UploadsAbstractController extends AppController
             $this->set('mine', false);
         }
 
-        $userProfile = $this->Person->find('first', array('conditions' => array('Person.id' => $image['Image']['created_person_id'])));
+        $userProfile = $this->Person->find('first', 
+                array('conditions' => array('Person.id' => $image['Image']['created_person_id'])));
+        
         $this->set('userProfile', $userProfile);
+        
+        $imageName = Inflector::humanize($image['Image']['name']);
+        $this->set('title_for_layout', sprintf(__('Image Manager (%s)'), $imageName));
     }
 
     public function crop_image()
@@ -156,6 +161,8 @@ abstract class UploadsAbstractController extends AppController
 
             $this->redirect($this->referer());
         }
+        
+        $this->set('title_for_layout', __('Upload an Image'));
     }
 
 /**
