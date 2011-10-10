@@ -58,12 +58,12 @@ class PersonAbstract extends AppModel
      * @var type
      *
      */
-    public $hasOne = array(
-        'Profile' => array(
-            'className' => 'Profile',
+    public $belongsTo = array(
+        'Person' => array(
+            'className' => 'Person',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        )
+        )  
     );
 
     /**

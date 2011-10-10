@@ -18,17 +18,15 @@
  * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
-    $this->Asset->addAssets(array(
-        'js/vendors/ckeditor/adapters/42viral.js',
-        'js/vendors/ckeditor/ckeditor.js',
-        'js/vendors/ckeditor/adapters/jquery.js'
-    ), 'ck_editor');
+echo $this->element('Navigation' . DS . 'local', array('section'=>'')); 
 
-    echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
+$this->Asset->addAssets(array(
+    'js/vendors/ckeditor/adapters/42viral.js',
+    'js/vendors/ckeditor/ckeditor.js',
+    'js/vendors/ckeditor/adapters/jquery.js'
+), 'ck_editor');
 
-<h1>Update your profile</h1>
-<?php 
+echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
 echo $this->Form->create('Profile', array(
     'action' => 'save',
