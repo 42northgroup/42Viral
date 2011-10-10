@@ -45,6 +45,10 @@ class ContentAbstract extends AppModel
      */
     public $actsAs = array(
         
+        'History' => array(
+            'historyModel'=>'HistoryContent'
+        ),
+        
         'Random' => array(
             'Fields'=>array('short_cut')
         ),

@@ -42,9 +42,10 @@ class RandomBehavior extends ModelBehavior
      */
     public function beforeSave(&$model)
     {  
-        
-        foreach($this->settings[$model->name]['Fields'] as $field){ 
-            $this->__unique($model, $field);
+        if(!isset($model->data[$model->name]['id'])){
+            foreach($this->settings[$model->name]['Fields'] as $field){ 
+                $this->__unique($model, $field);
+            }
         }
         return true;
     }
