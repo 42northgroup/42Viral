@@ -41,8 +41,9 @@
 <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'')); ?>
 
 <?php if(!isset($is_group)): ?>
-    <a href="" id="JoinGroup" >Join Group</a>
 
+    <a href="" id="JoinGroup">Join Group</a>
+    
     <div id="JoinGroupList" style="display: none">
         Groups<br/>
         <?php
