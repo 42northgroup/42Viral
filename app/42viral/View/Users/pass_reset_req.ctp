@@ -14,11 +14,11 @@
  */
 ?>
 
-<h1>Login</h1>
+<h1>Password Reset</h1>
 
 <div class="clearfix">
     <div style="float:left;">
-        <?php
+    <?php
 
         echo $this->Form->create('User', array(
             'url'=>$this->here,
@@ -26,16 +26,10 @@
         ));
 
         echo $this->Form->input('username');
-        echo $this->Form->input('password');
 
         echo $this->Form->submit();
         echo $this->Form->end();
-        ?>
-        
-        <a href="/users/pass_reset_req">Forgot your password?</a>
-    </div>
 
-    <div class="vertical" style="float:left; margin:0 0 0 8px">
-        <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
+    ?>
     </div>
 </div>

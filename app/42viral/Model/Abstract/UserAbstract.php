@@ -217,15 +217,19 @@ class UserAbstract extends PersonAbstract
         $data['password'] = Sec::hashPassword($data['password'], $salt);
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
 
+        //Clear out any password reset request tokens along with a successfull password reset
+        $data['pw_reset_token'] = null;
+        $data['pw_reset_token_expiry'] = null;
+
         //Try to save the new user record
         if($this->save($data)){
             return true;
         }else{
             return false;
         }
-
     }
 
+    
     /**
      * Finds a user by username or email
      * @param string $token
@@ -329,6 +333,73 @@ class UserAbstract extends PersonAbstract
         ));
 
         return $user;
+    }
+
+
+    /**
+     * Given a password reset request token find the user record
+     *
+     * @access public
+     * @param string $requestToken
+     * @return User
+     */
+    public function getUserFromResetToken($requestToken)
+    {
+        $user = $this->find('first', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'pw_reset_token' => $requestToken
+            )
+        ));
+
+        return $user;
+    }
+
+
+    /**
+     * 
+     *
+     * @access public
+     * @param type $requestToken
+     * @return type
+     */
+    public function checkPasswordResetTokenIsValid($requestToken)
+    {
+        $user = $this->find('first', array(
+            'contain' => array(),
+
+            'conditions' => array(
+                'pw_reset_token' => $requestToken
+            ),
+
+            'fields' => array(
+                'pw_reset_token', 'pw_reset_token_expiry'
+            )
+        ));
+
+
+        if(empty($user)) {
+            $this->log('nothing found');
+
+            return false;
+        }
+
+        $tokenExpiry = strtotime($user['User']['pw_reset_token_expiry']);
+        $rightNow = mktime();
+
+        $this->log($tokenExpiry);
+        $this->log($rightNow);
+
+        if($tokenExpiry >= $rightNow) {
+            $this->log('token not expired');
+
+            return true;
+        } else {
+            $this->log('token expired');
+
+            return false;
+        }
     }
 
 }

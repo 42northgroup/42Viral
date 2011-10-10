@@ -137,7 +137,7 @@ abstract class NotificationAbstractController extends AppController
  * @access public
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-    public function test($notificatoinHandle='')
+    public function test($notificationHandle='')
     {
         $userId = $this->Session->read('Auth.User.id');
         $person = $this->Person->fetchPersonWith($userId, array(), 'id');
@@ -149,16 +149,16 @@ abstract class NotificationAbstractController extends AppController
             )
         );
 
-        if(empty($notificatoinHandle)) {
-            $notificatoinHandle = 'test_notification';
+        if(empty($notificationHandle)) {
+            $notificationHandle = 'test_notification';
         }
 
-        $notification = $this->Notification->fetchNotification($notificatoinHandle);
+        $notification = $this->Notification->fetchNotification($notificationHandle);
         if(empty($notification)) {
             $this->Notification->generateDummyTestNotification();
         }
 
-        $this->NotificationCmp->triggerNotification($notificatoinHandle, $person, $additionalObjects);
+        $this->NotificationCmp->triggerNotification($notificationHandle, $person, $additionalObjects);
 
         $this->Session->setFlash('Notification was fired', 'success');
         $this->redirect('/notification/index');
