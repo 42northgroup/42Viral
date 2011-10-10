@@ -125,7 +125,7 @@ abstract class SetupAbstractController extends AppController {
             
             $this->__buildPMA($path, $file);
         }
-        $this->Session->setFlash('Assign permissions to the basic_user group');
+        $this->Session->setFlash('Assign permissions to the basic_user group', 'success');
         $this->flash(__('Data imported. Assign permissions...'), '/setup/give_permissions');
     }
     
