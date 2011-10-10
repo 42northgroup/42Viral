@@ -127,6 +127,10 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
         ),   
     
+        'Locale' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Locale' . DS
+        )
+    
     ));
 
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php');
