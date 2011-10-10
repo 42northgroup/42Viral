@@ -57,7 +57,6 @@ abstract class UsersAbstractController extends AppController
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
     }
 
-
     /**
      * Action to reset(change) a user's password after a reset token was issued
      *
@@ -66,6 +65,7 @@ abstract class UsersAbstractController extends AppController
      */
     public function pass_reset($resetToken)
     {
+        
         if($this->User->checkPasswordResetTokenIsValid($resetToken)) {
             $user = $this->User->getUserFromResetToken($resetToken);
             $userId = $user['User']['id'];

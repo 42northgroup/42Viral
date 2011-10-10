@@ -327,7 +327,8 @@ class UserAbstract extends PersonAbstract
             'conditions' => array(
                 'or' => array(
                     'User.id' => $token,
-                    'User.username' => $token
+                    'User.username' => $token,
+                    'User.email' => $token
                 )
             )
         ));
