@@ -78,7 +78,9 @@ abstract class CompaniesAbstractController extends AppController
         if(is_null($username)){
             $this->set('title_for_layout', __('Company Index')); 
         }else{
-            $this->set('title_for_layout', Member::name($person['Person']) . "'s " . __('Companies'));
+            $this->set('title_for_layout', 
+                    sprintf(__("%s's Photo Stream"), Member::name($person['Person'])),
+                    Member::name($person['Person']) . "'s " . __('Companies'));
         }
         
         

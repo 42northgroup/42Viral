@@ -82,7 +82,11 @@ abstract class UploadsAbstractController extends AppController
 
         $this->set('user', $person);
         $this->set('userProfile', $person);
-        $this->set('title_for_layout', Member::name($person['Person']) . "'s Photo Stream");
+        $this->set('title_for_layout', sprintf(__("%s's Photo Stream"), Member::name($person['Person'])));
+        
+        
+        
+        
     }
 
     /**
