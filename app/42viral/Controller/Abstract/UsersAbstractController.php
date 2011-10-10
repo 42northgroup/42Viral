@@ -82,7 +82,7 @@ abstract class UsersAbstractController extends AppController
                     $this->redirect('/users/login');
                 } else {
                     $this->Session->setFlash('There was a problem changing your password, try again', 'error');
-                    $this->redirect('/users/pass_reset_req');
+                    $this->redirect("/users/pass_reset/{$resetToken}");
                 }
             } else {
                 $this->set('user_id', $userId);
