@@ -14,7 +14,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-
+echo $this->element('Navigation' . DS . 'local', array('section'=>'')); 
 
 echo $this->Form->create('Content', array(
     'url' => $this->here,

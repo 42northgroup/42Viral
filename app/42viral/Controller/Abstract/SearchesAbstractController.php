@@ -125,5 +125,7 @@ abstract class SearchesAbstractController extends AppController {
         $this->set('display', $display);
         
         $this->set('Advanced Search');
+        
+        $this->set('title_for_layout', 'Advanced Search');
     }
 }
