@@ -49,6 +49,10 @@ abstract class AppAbstractController extends Controller
         $this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login'); 
         
         $this->set('mine', false);
+        
+        if(isset($this->params['named']['language'])){
+            $this->Session->write('Config.language', $this->params['named']['language']);
+        }
     }
     
     /**

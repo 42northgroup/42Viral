@@ -145,7 +145,7 @@ msgstr ""
 
 #: /View/Companies/index.ctp:33
 msgid "This user has not added any companies"
-msgstr ""
+msgstr "No, No"
 
 #: /View/Elements/Blocks/right.ctp:4
 msgid "Tag Cloud"

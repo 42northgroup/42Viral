@@ -27,6 +27,11 @@
 Cache::config('default', array('engine' => 'File'));
 
 /**
+ * Loacalization
+ */
+Configure::write('Config.language', 'eng');
+
+/**
  * The settings below can be used to set additional paths to models, views and controllers.
  *
  * App::build(array(
@@ -127,7 +132,7 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
         ),   
     
-        'Locale' => array(
+        'locales' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Locale' . DS
         )
     
