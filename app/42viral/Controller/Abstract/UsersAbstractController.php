@@ -27,13 +27,18 @@ abstract class UsersAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array( 'AclGroup', 'Invite', 'Oauth', 'Person', 'Tweet', 'User',);
+    public $uses = array(
+        'AclGroup', 'Invite', 'Oauth', 'Person', 'Tweet', 'User',
+        //'Notification'
+    );
 
     /**
      * @var array
      * @access public
      */
-    public $components = array('Access', 'ProfileProgress', 'Oauths', 'ControllerList');
+    public $components = array(
+        'Access', 'ProfileProgress', 'Oauths', 'ControllerList', 'NotificationCmp'
+    );
 
 
     /**
@@ -42,7 +47,7 @@ abstract class UsersAbstractController extends AppController
     public function beforeFilter(){
         parent::beforeFilter();
 
-        $this->auth(array('create', 'login', 'logout'));
+        $this->auth(array('create', 'login', 'logout', 'pass_reset_req', 'pass_reset'));
 
         //Allows us to login against either the username or email
         $this->Auth->fields = array('username' => array('username', 'email'));
@@ -50,6 +55,109 @@ abstract class UsersAbstractController extends AppController
         $this->Auth->autoRedirect = true;
         $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
+    }
+
+
+    /**
+     * Action to reset(change) a user's password after a reset token was issued
+     *
+     * @access public
+     * @param string $resetToken
+     */
+    public function pass_reset($resetToken)
+    {
+        if($this->User->checkPasswordResetTokenIsValid($resetToken)) {
+            $user = $this->User->getUserFromResetToken($resetToken);
+            $userId = $user['User']['id'];
+
+            if(!empty($this->data)) {
+                $opStatus = $this->User->changePassword($this->data['Person']);
+
+                if($opStatus) {
+                    $this->Session->setFlash(
+                        'Your password was changed successfully, try logging in with your new password',
+                        'success'
+                    );
+
+                    $this->redirect('/users/login');
+                } else {
+                    $this->Session->setFlash('There was a problem changing your password, try again', 'error');
+                    $this->redirect('/users/pass_reset_req');
+                }
+            } else {
+                $this->set('user_id', $userId);
+                $this->set('reset_token', $resetToken);
+            }
+        } else {
+            $this->Session->setFlash(
+                'The password reset request token is invalid or has expired, try generating a new one',
+                'error'
+            );
+
+            $this->redirect('/users/pass_reset_req');
+        }
+    }
+
+    /**
+     *
+     *
+     * @access public
+     */
+    public function pass_reset_req()
+    {
+        $error = true;
+
+        if(!empty($this->data)) {
+            $user = $this->User->fetchUserWith($this->data['User']['username']);
+
+            if(empty($user)) {
+                $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
+                $error = true;
+            } else {
+                $error = false;
+                $userId = $user['User']['id'];
+
+                //generate password reset authorization link
+                $requestAuthorizationToken = String::uuid();
+                $tokenExpiry = date('Y-m-d H:i:s', mktime() + DAY);
+
+                //store password reset authorization link with person record along with expiration timestamp
+                $tokenData = array();
+                $tokenData['Person']['id'] = $userId;
+                $tokenData['Person']['pw_reset_token'] = $requestAuthorizationToken;
+                $tokenData['Person']['pw_reset_token_expiry'] = $tokenExpiry;
+                $this->Person->save($tokenData);
+
+                //email the person with the password reset authorization link
+                $person = $this->Person->fetchPersonWith($userId, array(), 'id');
+
+                $additionalObjects = array(
+                    'reset_authorization_token' => $requestAuthorizationToken
+                );
+
+                $notificationHandle = 'password_reset_request';
+                $this->NotificationCmp->triggerNotification($notificationHandle, $person, $additionalObjects);
+
+
+                $this->Session->setFlash(
+                    'Check your email for a password reset authentication link',
+                    'success'
+                );
+            }
+
+            if($error) {
+                $this->Session->setFlash(
+                    'Password reset request failed. Please check the username you entered',
+                    'error'
+                );
+            }
+
+            $this->redirect('/users/login');
+        } else {
+
+        }
+
+        
     }
 
     /**
@@ -103,7 +211,7 @@ abstract class UsersAbstractController extends AppController
                 }
             }
 
-            if($error){
+            if($error) {
                 $this->Session->setFlash('You could not be authenticated', 'error');
             }
         }

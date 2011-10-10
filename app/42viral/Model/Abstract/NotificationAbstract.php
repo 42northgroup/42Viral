@@ -52,7 +52,7 @@ class NotificationAbstract extends AppModel
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',
-                'htmlStrict' => array('body_template'),
+                //'htmlStrict' => array('body_template'),
                 'noHTML' => array('id', 'name', 'alias', 'subject_template'),
             )
         )

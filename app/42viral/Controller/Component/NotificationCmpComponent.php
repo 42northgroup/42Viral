@@ -143,6 +143,8 @@ class NotificationCmpComponent extends Component
         
         $this->__customInit();
 
+        $additionalObjects = array_merge($person, $additionalObjects);
+
         //Look for the notification in the cache first before querying the database
         if(array_key_exists($notificationHandle, $this->__notificationCache)) {
             $notification = $this->__notificationCache[$notificationHandle];
@@ -156,12 +158,10 @@ class NotificationCmpComponent extends Component
         $preparedNotification = array();
         
         $subjectText = $notification['Notification']['subject_template'];
-        $subjectText = MicroTemplate::applyTemplate($subjectText, $person);
         $subjectText = MicroTemplate::applyTemplate($subjectText, $additionalObjects);
         $preparedNotification['subject'] = $subjectText;
 
         $bodyText = $notification['Notification']['body_template'];
-        $bodyText = MicroTemplate::applyTemplate($bodyText, $person);
         $bodyText = MicroTemplate::applyTemplate($bodyText, $additionalObjects);
         $preparedNotification['body'] = $bodyText;
             

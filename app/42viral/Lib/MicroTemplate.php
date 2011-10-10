@@ -84,7 +84,7 @@ class MicroTemplate extends Object
         $htmlString = $baseString;
 
         if(!empty(self::$__serverAddress)) {
-            $htmlString = str_replace('#{server_address}', self::$__serverAddress, $htmlString);
+            $htmlString = str_replace('#{_server_address}', self::$__serverAddress, $htmlString);
         }
 
         return $htmlString;
