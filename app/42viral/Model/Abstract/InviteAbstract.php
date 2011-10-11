@@ -47,7 +47,7 @@ class InviteAbstract extends AppModel
         if(empty($invite)){
             return false;
         }else{
-            return false;
+            return true;
         }
         
         return false;
