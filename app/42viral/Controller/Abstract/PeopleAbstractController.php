@@ -31,8 +31,9 @@ abstract class PeopleAbstractController extends AppController
      * @access public
      */
 
-    public $uses = array('CaseModel', 'Person');
+    public $uses = array('CaseModel', 'Person', 'Invite');
 
+    public $components = array('NotificationCmp');
     /**
      * @access public
      */
@@ -70,5 +71,57 @@ abstract class PeopleAbstractController extends AppController
        $this->set('person', $person);
        $this->set('id', $person['Person']['id']);
        $this->set('title_for_layout', "Create a Case for {$person['Person']['name']}");
+   }
+   
+   public function invite()
+   {       
+       if(!empty ($this->data)){
+           $emails = explode(',', $this->data['Invite']['emails']);
+           
+           $validated_emails = array();
+           $bad_emails = array();
+           
+           for($i=0; $i<count($emails); $i++){
+               
+               if(Validation::email($emails[$i])){
+                   array_push($validated_emails, trim($emails[$i]));
+               }else{
+                   array_push($bad_emails, trim($emails[$i]));
+               }
+               
+           }
+           
+           if($this->Invite->save(array('Invite' => array('accepted' => null)))){
+           
+               $invitation_token = $this->Invite->id;
+               $invitee = $this->Session->read('Auth.User.name');
+
+               $additionalObjects = array(
+                   'invitation_token' => $invitation_token,
+                   'invitee' => $invitee,
+                   'invite_body' => Scrub::htmlStrict($this->data['Invite']['message'])
+               );
+
+               $this->NotificationCmp->triggerSimpleNotification("friend_invite", $validated_emails, $additionalObjects);
+               
+               if(!empty ($bad_emails)){
+                   $flash_string = 'An invitaion could not be sent to the following email addresses:';
+                   $this->request->data['Invite']['emails'] = '';
+                   
+                   foreach ($bad_emails as $email){
+                       $flash_string .= '<br/>'.$email;
+                       $this->request->data['Invite']['emails'] .= $email.',';
+                   }
+                   
+                   $this->request->data['Invite']['emails'] = substr($this->request->data['Invite']['emails'], 0, -1);
+                   
+                   $flash_string .= '<br/>Please check to make to sure the of theses addresses is correct.';
+                   $this->Session->setFlash(_($flash_string), 'error');
+               }else{
+                   $this->Session->setFlash(_('Invitations have been sent'), 'success');
+               }
+               
+           }
+       }
    }
 }
