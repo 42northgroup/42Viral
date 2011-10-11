@@ -138,6 +138,7 @@ class BlogAbstract extends ContentAbstract
             switch(strtolower($with)){
                 case 'standard':
                     $with = array(
+                        
                         'CreatedPerson'=>array(
                             'Profile'=>array()
                         ),
