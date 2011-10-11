@@ -15,12 +15,9 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Mangages the person object
- * 
- * @package app
- * @subpackage app.core
- * 
- **** @author Jason D Snider <jason.snider@42viral.org>
+ * The parent class for content objects i.e. Page, Blog, Post etc.
+ * @package content
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class ContentAbstract extends AppModel
 {
@@ -73,13 +70,15 @@ class ContentAbstract extends AppModel
      * Sets up the searchable behavior
      * @var array
      * @access public
+     * @see https://github.com/CakeDC/search
      */
     public $filterArgs = array(
         array('name' => 'status', 'type' => 'value'),
         array('name' => 'object_type', 'type' => 'value'),
         array('name' => 'title', 'type' => 'like', 'field' => 'Content.title'),
         array('name' => 'body', 'type' => 'like', 'field' => 'Content.body'),
-        array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id')
+        array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id'),
+        array('name' => 'filter', 'type' => 'query', 'method' => 'orConditions')
     );    
     
     /**
@@ -101,6 +100,7 @@ class ContentAbstract extends AppModel
      * @param array $data
      * @return array
      * @access public
+     * @see https://github.com/CakeDC/search
      */
     public function findByTags($data = array()) {
         $this->Tagged->Behaviors->attach('Containable', array('autoFields' => false));
@@ -111,6 +111,23 @@ class ContentAbstract extends AppModel
             'contain' => array('Tag')
         ));
         return $query;
+    }
+    
+    /**
+     * A query for or searches
+     * @param array $data
+     * @return array
+     * @access public
+     * @see https://github.com/CakeDC/search
+     */
+    public function orConditions($data = array()) {
+        $filter = $data['filter'];
+        $cond = array(
+            'OR' => array(
+                $this->alias . '.title LIKE' => '%' . $filter . '%',
+                $this->alias . '.body LIKE' => '%' . $filter . '%',
+            ));
+        return $cond;
     }
     
     /**
