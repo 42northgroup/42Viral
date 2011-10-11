@@ -127,5 +127,21 @@ abstract class SearchesAbstractController extends AppController {
         $this->set('Advanced Search');
         
         $this->set('title_for_layout', 'Advanced Search');
+        
+        if(empty($this->data)){
+            $this->request->data['Search'] = 
+                    array('status' => array
+                    (
+                        0 => 'draft',
+                        1 => 'published'
+                    ),
+                    'object_type' => array
+                    (
+                        0 => 'blog',
+                        1 => 'page',
+                        2 => 'post'
+                    ) 
+                );
+        }
     }
 }

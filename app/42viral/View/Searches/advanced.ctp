@@ -24,12 +24,13 @@ echo $this->Form->create('Content', array(
 ?>
 
 <div class="clearfix">
-    <?php
-echo $this->Form->input('title', array('style'=>'width: 254px;', 'type'=>'text'));
+<?php
 
-echo $this->Form->input('body', array('style'=>'width: 254px;', 'type'=>'text'));
+    echo $this->Form->input('title', array('style'=>'width: 254px;', 'type'=>'text'));
 
-echo $this->Form->input('tags', array('style'=>'width: 254px;', 'type'=>'text'));
+    echo $this->Form->input('body', array('style'=>'width: 254px;', 'type'=>'text'));
+
+    echo $this->Form->input('tags', array('style'=>'width: 254px;', 'type'=>'text'));
 ?>
 </div>
 <div class="clearfix">
