@@ -48,6 +48,7 @@ abstract class BlogsAbstractController extends AppController {
         if(is_null($username)){
             $blogs = $this->Blog->fetchBlogsWith();
         }else{
+            
             $profile = $this->Person->fetchPersonWith($username, 'blog');
             
             if (empty($profile)) {
@@ -58,6 +59,7 @@ abstract class BlogsAbstractController extends AppController {
             $showAll = false;
             $pageTitle = Member::name($profile['Person']) . "'s Blogs";
             $this->set('userProfile', $profile);
+            
         }
         
         $this->set('showAll', $showAll);

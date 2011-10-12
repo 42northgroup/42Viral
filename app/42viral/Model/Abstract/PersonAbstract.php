@@ -58,12 +58,12 @@ class PersonAbstract extends AppModel
      * @var type
      *
      */
-    public $hasOne = array(
-        'Profile' => array(
-            'className' => 'Profile',
+    public $belongsTo = array(
+        'Person' => array(
+            'className' => 'Person',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        )
+        )  
     );
 
     /**
@@ -123,6 +123,11 @@ class PersonAbstract extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
+        'Profile' => array(
+            'className' => 'Profile',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        ),        
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',

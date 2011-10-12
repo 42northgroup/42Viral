@@ -53,6 +53,57 @@ abstract class SearchesAbstractController extends AppController {
         $this->auth(array('*'));
     }
 
+    
+    /**
+     * Simple search, converts post data to named params then performs a self redirect to load the named params 
+     * creating a bookmarkable search results page. 
+     * @return void
+     * @access public
+     */
+    public function index() {
+        
+        $q = '';
+        $display = 'none';
+
+        if(!empty($this->data)){
+            $q = $this->data['Content']['q'];
+            $this->redirect("/searches/index/q:{$q}");
+        }elseif(!empty($this->params['named'])){
+            
+            $conditions = array(
+                'title'=>$this->request->params['named']['q'], 
+                'body'=>$this->request->params['named']['q'],
+            );           
+            
+            //Predefined object types and statuses
+            $this->request->params['named']['status'] = 'published';
+            $this->request->params['named']['object_type'] = 'blog page post'; 
+            $conditions['status'] = explode(' ', $this->request->params['named']['status']);
+            $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
+            
+            $criteria = $this->Content->parseCriteria($conditions);
+            
+            
+            
+            $this->paginate = array(
+                'conditions' => $this->Content->parseCriteria($conditions),
+                'limit' => 10
+            );
+
+            $data = $this->paginate('Content');
+            
+            $this->set(compact('data'));   
+            
+            $this->request->data['Content']['q'] = $this->params['named']['q'];
+            $display = 'results';
+        }
+        
+            
+        $this->set('display', $display);
+        $this->set('title_for_layout', 'Search');
+        
+    }
+    
     /**
      * Advanced search, converts post data to named params then performs a self redirect to load the named params 
      * creating a bookmarkable search results page. 
@@ -112,6 +163,22 @@ abstract class SearchesAbstractController extends AppController {
             $this->request->data['Content'] = $conditions;
             
             $display = 'results';
+            
+        }else{
+            
+            //Precheck the most likely boxes, the user can adjust from there
+            $this->request->data['Content'] = 
+                array('status' => array
+                (
+                    1 => 'published'
+                ),
+                'object_type' => array
+                (
+                    0 => 'blog',
+                    1 => 'page',
+                    2 => 'post'
+                ) 
+            );
         }
         
         $this->set('statuses', 
@@ -124,6 +191,7 @@ abstract class SearchesAbstractController extends AppController {
             
         $this->set('display', $display);
         
-        $this->set('Advanced Search');
+        $this->set('title_for_layout', 'Advanced Search');
+        
     }
 }
