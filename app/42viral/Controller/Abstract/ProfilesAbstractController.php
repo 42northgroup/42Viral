@@ -58,11 +58,12 @@ abstract class ProfilesAbstractController extends AppController {
         $userProfile = array();
         $userProfile['Person'] = $this->data['Person'];
         $userProfile['Person']['Profile'] = $this->data['Profile'];
-
+        
         $this->set('userProfile', $userProfile);
         
         $this->set('mine', true);
         
+        $this->set('title_for_layout', 'Edit Profile');
     }
 
 

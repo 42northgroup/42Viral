@@ -54,8 +54,21 @@
 
     <div id="BannerRight">
         <?php 
-            //Temporary placeholder for future search functionality
-            echo $this->Html->link('Search', '/searches/advanced');
+        //Temporary placeholder for future search functionality
+        ///echo $this->Html->link('Search', '/searches/advanced');
+        echo $this->Form->create('Content', array(
+            'url' => '/searches/index',
+            'class'=>'search',
+            'style'=>"border-bottom: 1px solid #EFEFEF; padding: 1px; margin: 0 0 6px;"
+            ));
+
+        echo $this->Form->input('q', 
+                array('style'=>'width: 130px; margin:2px 0 0; padding:1px;', 'type'=>'text', 'label'=>false));
+
+        echo $this->Form->submit(__('S'), 
+                array('style'=>'padding:0 4px; margin:1px 0 0;'));
+        echo $this->Form->end();
+
         ?>
     </div>
 

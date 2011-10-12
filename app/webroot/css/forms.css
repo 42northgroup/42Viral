@@ -136,6 +136,7 @@ form.search{}
 form.search label{
     float:left;
     margin-right:4px;
+    width: 40px;
 }
 
 form.search .input

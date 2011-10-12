@@ -126,6 +126,7 @@ class NotificationCmpComponent extends Component
         $this->Email->template = 'notification';
         
         $this->Email->send($preparedNotification['body']);
+        
     }
 
 /**
@@ -142,7 +143,7 @@ class NotificationCmpComponent extends Component
     {
         
         $this->__customInit();
-
+        
         $additionalObjects = array_merge($person, $additionalObjects);
 
         //Look for the notification in the cache first before querying the database
@@ -169,5 +170,50 @@ class NotificationCmpComponent extends Component
 
         $this->__sendEmail($preparedNotification);
         $this->InboxMessage->addPersonInboxMessage($person['Person']['id'], $preparedNotification);
+    }
+    
+    /**
+ * API method to fire a notification to a number of email using any additional objects to be substituted in the 
+ * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
+ *
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ * @access public
+ * @param string $notificationHandle 
+ * @param array $additionalObjects
+ */
+    public function triggerSimpleNotification($notificationHandle, $emails = array(), $additionalObjects=array())
+    {
+        
+        $this->__customInit();
+
+        //Look for the notification in the cache first before querying the database
+        if(array_key_exists($notificationHandle, $this->__notificationCache)) {
+            $notification = $this->__notificationCache[$notificationHandle];
+        } else {
+            $notification = $this->Notification->fetchNotification($notificationHandle);
+            $this->__notificationCache[$notificationHandle] = $notification;
+        }
+
+        $this->__emailTemplate = $notification['Notification']['email_template'];
+        
+        $preparedNotification = array();
+ 
+        $subjectText = $notification['Notification']['subject_template'];
+        $subjectText = MicroTemplate::applyTemplate($subjectText, $additionalObjects);
+        $preparedNotification['subject'] = $subjectText;
+        
+        $bodyText = $notification['Notification']['body_template'];
+        $bodyText = MicroTemplate::applyTemplate($bodyText, $additionalObjects);
+        $preparedNotification['body'] = $bodyText;
+                     
+        $preparedNotification['recipient_email'] = '';
+        
+        foreach ($emails as $email){
+            $preparedNotification['recipient_email'] .= $email.',';            
+        }
+        
+        $preparedNotification['recipient_email'] = substr($preparedNotification['recipient_email'], 0, -1);
+        
+        $this->__sendEmail($preparedNotification);        
     }
 }
