@@ -306,7 +306,7 @@ class AppSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
 	var $oid_nonces = array(
-		'server_url' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 2047, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
+		'server_url' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 767, 'key' => 'index', 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'timestamp' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'collate' => NULL, 'comment' => ''),
 		'salt' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 40, 'collate' => 'latin1_swedish_ci', 'comment' => '', 'charset' => 'latin1'),
 		'indexes' => array('server_url' => array('column' => array('server_url', 'timestamp', 'salt'), 'unique' => 1)),
