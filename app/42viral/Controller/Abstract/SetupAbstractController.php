@@ -60,7 +60,7 @@ abstract class SetupAbstractController extends AppController {
 
         if(!empty($this->data)){
             $this->data2XML($this->data, $file);
-            $this->flash('Great! Let\'s clean any gunk out of the database', '/setup/truncate');
+            $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
         //Read the current xml file to prepopulate the form
@@ -79,7 +79,7 @@ abstract class SetupAbstractController extends AppController {
 
         if(!empty($this->data)){
             $this->data2XML($this->data, $file);
-            $this->flash('Great! Let\'s clean any gunk out of the database', '/setup/truncate');
+            $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
         //Read the current xml file to prepopulate the form
@@ -88,50 +88,61 @@ abstract class SetupAbstractController extends AppController {
     }
 
  
-    
+    /**
+     * Converts a data array into an XML 
+     * @param type $data
+     * @param type $file 
+     * @todo Move this to a library
+     */
     public function data2XML($data, $file){
         $group=array();
         unset($data['_Token']);
-        $i=0;
+
         //Parse this data into the proper XML structure
         foreach($data as $groupKey => $groupArray){
-
-            foreach($groupArray as $key => $value){
+            
+            for($n=0; $n<count($data); $n++){
                 
-                //How deep is the array; 2 or 3 levels (Theme.HomePage.title or Theme.set)
-                if(is_array($value)){
-                    
-                    $prefix = "{$groupKey}.{$key}";
-                    $group[$i]['group'] = array();
-
-                    foreach($value as $k => $v){
-                        array_push($group[$i]['group'], 
-                            array(
-                                'setting' => "{$prefix}.{$k}",
-                                'value' => $v
-                            )
-                        );
-                    }
-                    
-                }else{
-                    
-                    $prefix = "{$groupKey}";
-                    $group[$i]['group'] = array();
-                    
-                    array_push($group[$i]['group'], 
-                        array(
-                            'setting' => "{$prefix}.{$key}",
-                            'value' => $value
-                        )
-                    );
-                    
+                if(!isset($pointer)){
+                   $pointer = $groupKey; 
                 }
-                $i++;
+                
+                if($pointer != $groupKey){
+                    $pointer = $groupKey;
+                }
+
+                foreach($groupArray as $key => $value){
+
+                    if(is_array($value)){
+
+                        $prefix = "{$groupKey}.{$key}";
+
+                        foreach($value as $k => $v){
+                            $group[$pointer]['group'][] = array(
+                                    'setting' => "{$prefix}.{$k}",
+                                    'value' => $v
+                                );
+                        }
+                        
+
+                    }else{
+
+                        $prefix = "{$groupKey}";
+
+                        $group[$pointer]['group'][] = array(
+                                'setting' => "{$prefix}.{$key}",
+                                'value' => $value
+                            );
+
+                    } 
+                }
+                BREAK;
             }
 
         }
 
-        $xmlData = array('root' => array('groups'=>$group));
+        $xmlData = array('root' => array('groups'=>$group));   
+ 
         $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags')); 
         $xmlString = $xmlObject->asXML();
 
@@ -167,6 +178,8 @@ abstract class SetupAbstractController extends AppController {
             }
             
         }
+        
+        $this->flash(__('Configuration files built. Clean up the database.'), '/setup/truncate');
     }
     
     /**

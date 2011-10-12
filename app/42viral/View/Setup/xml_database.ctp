@@ -27,7 +27,12 @@ foreach($xmlData['root']['groups'] as $groups):
         echo '</div>';
     endforeach;
 endforeach; 
-echo $this->Form->end('Configure Database');
+
+echo $this->Form->submit('Save Configuration', 
+        array(
+            'before'=>$this->Html->link('Next', '/setup/xml_site', 
+                    array('style'=> 'margin-right: 16px'), 'Are you sure? No new changes will be sasved!')));
+echo $this->Form->end();
 ?>
 
 

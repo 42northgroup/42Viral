@@ -1,7 +1,6 @@
 <?php
 Configure::write('Theme.set', 'Default');
 Configure::write('Theme.HomePage.title', 'Default');
-Configure::write('Private.beta', '0');
 Configure::write('Domain.scheme', 'http');
 Configure::write('Domain.host', 'build.42viral.org');
 Configure::write('Domain.url', 'build.42viral.org');
