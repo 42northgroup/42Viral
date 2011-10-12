@@ -120,6 +120,32 @@ abstract class SetupAbstractController extends AppController {
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
+    }
+    
+    public function process(){
+        
+        $setupFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS;
+        
+        foreach(scandir($setupFiles) as $file){
+            
+            if(is_file($setupFiles . DS . $file)){
+                
+                $xmlData = Xml::toArray(Xml::build($setupFiles . DS . $file));
+                
+                $outFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'db.php';
+                
+                $configureString = '';
+                
+                foreach($xmlData['root']['groups'] as $groups){
+                    foreach($groups['group'] as $group){
+                        $configureString .= "Configure::write('{$group['setting']}', '{$group['value']}');\n";
+                    }
+                }
+                
+                file_put_contents ($outFile , $configureString);
+            }
+            
+        }
         
     }
     
