@@ -50,70 +50,16 @@ abstract class SetupAbstractController extends AppController {
         
     }
     
-    
-    function xml_database(){
-          /*
-          $this->request->data=array(
-            'root'=>array(
-                'groups'=>array(
-                    array(
-                        'group'=>array(
-                            array('setting'=>'DataSource.default.datasource', 'value'=>'Database/Mysql'),
-                            array('setting'=>'DataSource.default.persistent', 'value'=>false),
-                            array('setting'=>'DataSource.default.host', 'value'=>'localhost'),
-                            array('setting'=>'DataSource.default.login', 'value'=>'root'),
-                            array('setting'=>'DataSource.default.password', 'value'=>'password'),
-                            array('setting'=>'DataSource.default.database', 'value'=>'app_default'),
-                            array('setting'=>'DataSource.default.prefix', 'value'=>'')
-                        )
-                    ),
-                    array(
-                        'group'=>array(
-                            array('setting'=>'DataSource.test.datasource', 'value'=>'Database/Mysql'),
-                            array('setting'=>'DataSource.test.persistent', 'value'=>false),
-                            array('setting'=>'DataSource.test.host', 'value'=>'localhost'),
-                            array('setting'=>'DataSource.test.login', 'value'=>'root'),
-                            array('setting'=>'DataSource.test.password', 'value'=>'password'),
-                            array('setting'=>'DataSource.test.database', 'value'=>'app_default'),
-                            array('setting'=>'DataSource.test.prefix', 'value'=>'')  
-                        )
-                    )
-                )
-            )
-        );
-        
-        
-        $xmlArray = array('root' => array('child' => 'value'));
-        $xmlObject = Xml::fromArray($this->data, array('format' => 'tags')); 
-        $xmlString = $xmlObject->asXML();
-        */
-        
-        //Set the path to the XML file
+    /**
+     * Provides a UI for setting up the database
+     * @return void
+     * @access public
+     */
+    public function xml_database(){
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'database.xml';
-        
+
         if(!empty($this->data)){
-            //Parse this data into the proper XML structure
-            $i=0;
-            foreach($this->data['DataSource'] as $key => $value){
-                $prefix = "DataSource.{$key}";
-                $group[$i]['group'] = array();
-
-                foreach($value as $k => $v){
-                    array_push($group[$i]['group'], 
-                        array(
-                            'setting' => "{$prefix}.{$k}",
-                            'value' => $v
-                        )
-                    );
-                }
-
-                $i++;
-            }
-
-            $xmlData = array('root' => array('groups'=>$group));
-            $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags')); 
-            $xmlString = $xmlObject->asXML();
-            file_put_contents ($file , $xmlString );
+            $this->data2XML($this->data, $file);
             $this->flash('Great! Let\'s clean any gunk out of the database', '/setup/truncate');
         }
 
@@ -122,8 +68,82 @@ abstract class SetupAbstractController extends AppController {
         $this->set('xmlData', $xmlData);
     }
     
+    
+    /**
+     * Provides a UI for setting up the database
+     * @return void
+     * @access public
+     */
+    public function xml_site(){
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'site.xml';
+
+        if(!empty($this->data)){
+            $this->data2XML($this->data, $file);
+            $this->flash('Great! Let\'s clean any gunk out of the database', '/setup/truncate');
+        }
+
+        //Read the current xml file to prepopulate the form
+        $xmlData = Xml::toArray(Xml::build($file));
+        $this->set('xmlData', $xmlData);
+    }
+
+ 
+    
+    public function data2XML($data, $file){
+        $group=array();
+        unset($data['_Token']);
+        $i=0;
+        //Parse this data into the proper XML structure
+        foreach($data as $groupKey => $groupArray){
+
+            foreach($groupArray as $key => $value){
+                
+                //How deep is the array; 2 or 3 levels (Theme.HomePage.title or Theme.set)
+                if(is_array($value)){
+                    
+                    $prefix = "{$groupKey}.{$key}";
+                    $group[$i]['group'] = array();
+
+                    foreach($value as $k => $v){
+                        array_push($group[$i]['group'], 
+                            array(
+                                'setting' => "{$prefix}.{$k}",
+                                'value' => $v
+                            )
+                        );
+                    }
+                    
+                }else{
+                    
+                    $prefix = "{$groupKey}";
+                    $group[$i]['group'] = array();
+                    
+                    array_push($group[$i]['group'], 
+                        array(
+                            'setting' => "{$prefix}.{$key}",
+                            'value' => $value
+                        )
+                    );
+                    
+                }
+                $i++;
+            }
+
+        }
+
+        $xmlData = array('root' => array('groups'=>$group));
+        $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags')); 
+        $xmlString = $xmlObject->asXML();
+
+        file_put_contents ($file , $xmlString);
+    }
+    
+    /**
+     * Converts XML to configuration files
+     * @return void
+     * @access public
+     */
     public function process(){
-        
         $setupFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS;
         
         foreach(scandir($setupFiles) as $file){
@@ -132,9 +152,10 @@ abstract class SetupAbstractController extends AppController {
                 
                 $xmlData = Xml::toArray(Xml::build($setupFiles . DS . $file));
                 
-                $outFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'db.php';
+                $outFile = 
+                    ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . str_replace('.xml', '.php', $file);
                 
-                $configureString = '';
+                $configureString = "<?php\n";
                 
                 foreach($xmlData['root']['groups'] as $groups){
                     foreach($groups['group'] as $group){
@@ -146,7 +167,6 @@ abstract class SetupAbstractController extends AppController {
             }
             
         }
-        
     }
     
     /**
