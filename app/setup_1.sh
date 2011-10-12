@@ -24,6 +24,47 @@ echo "Usage: $0 {USER} {APACHE_PROCESS}"
 fi
 
 
+
+# An array of all of the config files we need to create
+CONFIG_PATHS="
+    /Config/acl.ini.php
+    /Config/app.php
+    /Config/bootstrap.php
+    /Config/core.php
+    /Config/database.php
+    /Config/email.php
+    /Config/routes.php
+"
+# We will create the config files by make a copy of the defaults
+
+# Are all of the config paths in place?
+for CONFIG_PATH in $CONFIG_PATHS
+do
+    if [ ! -f "$SCRIPT_PATH$CONFIG_PATH.default" ]
+    then
+        echo "*** Missing default config file $SCRIPT_PATH$CONFIG_PATH.default"
+        ERROR=1
+    fi
+done
+
+# If we are missing a config path, stop executing other wise, build them all
+if [ $ERROR -eq 0 ]
+then
+    echo '+++ Success - All default config file are accounted for'
+
+    echo 'Writing config files...'
+
+    for CONFIG_PATH in $CONFIG_PATHS
+    do
+        echo "Writing $SCRIPT_PATH$CONFIG_PATH"
+        cp "$SCRIPT_PATH$CONFIG_PATH.default" "$SCRIPT_PATH$CONFIG_PATH"
+    done
+
+else
+    echo '*** Error - The indicated default config files are missing, exiting setup'
+    exit 0
+fi
+
 echo 'Setting permissions'
 
 touch $SCRIPT_PATH/tmp/logs/error.log
@@ -61,9 +102,9 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Setup"
 chmod 775 -fR "$SCRIPT_PATH/Config/Setup"
 echo ">>>$SCRIPT_PATH/Config/Setup"
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Includes"
-chmod 775 -fR "$SCRIPT_PATH/Config/Includes"
-echo ">>>$SCRIPT_PATH/Config/Includes"
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Includes/Setup"
+chmod 775 -fR "$SCRIPT_PATH/Includes/Setup"
+echo ">>>$SCRIPT_PATH/Includes/Setup"
 
 echo 'Permissions set'
 
