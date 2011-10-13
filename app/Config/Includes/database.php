@@ -13,3 +13,4 @@ Configure::write('DataSource.test.login', 'root');
 Configure::write('DataSource.test.password', 'password');
 Configure::write('DataSource.test.database', 'app_default');
 Configure::write('DataSource.test.prefix', '');
+Configure::write('Aco.next_step', 1);

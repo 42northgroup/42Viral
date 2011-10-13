@@ -206,7 +206,7 @@ abstract class SetupAbstractController extends AppController {
         $this->Acl->Aro->save();
 
         $this->Session->setFlash(__('ACL Set up complete.'));
-        $this->redirect('/setup');
+        $this->redirect('/setup/give_permissions');
     }
     
 
@@ -258,11 +258,10 @@ abstract class SetupAbstractController extends AppController {
             }
             
             $this->Session->setFlash(__('Entering Manual configuration; Choose your next step!'), 'success');
-            if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/configure_root');
-            }           
+            $this->redirect('/setup/configure_root');        
         }
         $this->set('title_for_layout', 'Configuration Manager (Permisions)');
+        
     }
 
         /**
@@ -274,12 +273,10 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
                 $this->Session->setFlash(__('Try your root login'), 'success');
-                if($this->data['Control']['next_step'] == 1){
-                    $this->redirect('/users/login');
-                } 
+                $this->redirect('/users/login');
             }
         }
-        $this->set('title_for_layout', 'Configuration Manager (Database)');
+        $this->set('title_for_layout', 'Configuration Manager (Configure Root)');
     }
     
     /**
