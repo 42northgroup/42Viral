@@ -10,28 +10,13 @@
 
 <?php 
 echo $this->Form->create(null, array('url'=>$this->here));
-foreach($xmlData['root']['groups'] as $groups):
-    foreach($groups as $group):
-        echo '<div style="margin:24px 0 0; background: #efefef; padding:12px 8px; border-radius: 4px;">';
-        foreach($group as $setting):
-                echo $this->Form->input(
-                        $setting['setting'], 
-                        array(
-                            //'name'=>"data[{$setting['setting']}]", 
-                            'label'=>$setting['setting'], 
-                            'value'=>$setting['value'],
-                            'type'=>'text'
-                            )
-                        );
-        endforeach;
-        echo '</div>';
-    endforeach;
-endforeach; 
+
+echo $this->element('Setup' . DS . 'xml_form', array('xmlData'=>$xmlData));
 
 echo $this->Form->submit('Save Configuration', 
         array(
             'before'=>$this->Html->link('Next', '/setup/xml_site', 
-                    array('style'=> 'margin-right: 16px'), 'Are you sure? No new changes will be sasved!')));
+                    array('style'=> 'margin-right: 16px'), 'Are you sure? No new changes will be saved!')));
 echo $this->Form->end();
 ?>
 

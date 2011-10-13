@@ -11,7 +11,7 @@
 <?php 
 echo $this->Form->create(null, array('url'=>$this->here));
 
-echo $this->element('Setup' . DS . 'xml_form', array('xmlData'=>$xmlData));
+echo $this->element('Setup' . DS . 'xml_form', array('xmlData'=>$xmlData)); 
 
 echo $this->Form->submit('Save Configuration', 
         array(
@@ -20,6 +20,3 @@ echo $this->Form->submit('Save Configuration',
                     array('style'=> 'margin-right: 16px'), 'Are you sure? No new changes will be saved!')));
 
 echo $this->Form->end();
-?>
-
-

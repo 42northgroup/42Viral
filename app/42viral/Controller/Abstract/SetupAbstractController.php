@@ -68,7 +68,6 @@ abstract class SetupAbstractController extends AppController {
         $this->set('xmlData', $xmlData);
     }
     
-    
     /**
      * Provides a UI for setting up the database
      * @return void
@@ -86,7 +85,24 @@ abstract class SetupAbstractController extends AppController {
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
     }
+    
+    /**
+     * Provides a UI for setting up the database
+     * @return void
+     * @access public
+     */
+    public function xml_third_party(){
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'third_party.xml';
 
+        if(!empty($this->data)){
+            $this->data2XML($this->data, $file);
+            $this->Session->setFlash(__("Changes Saved"), 'success');
+        }
+
+        //Read the current xml file to prepopulate the form
+        $xmlData = Xml::toArray(Xml::build($file));
+        $this->set('xmlData', $xmlData);
+    }
  
     /**
      * Converts a data array into an XML 
@@ -169,8 +185,15 @@ abstract class SetupAbstractController extends AppController {
                 $configureString = "<?php\n";
                 
                 foreach($xmlData['root']['groups'] as $groups){
+                    
                     foreach($groups['group'] as $group){
-                        $configureString .= "Configure::write('{$group['setting']}', '{$group['value']}');\n";
+                        if(count($group)>1){
+                            $configureString .= "Configure::write('{$group['setting']}', '{$group['value']}');\n";
+                        }else{
+                           $configureString .= 
+                                "Configure::write('{$groups['group']['setting']}', '{$groups['group']['value']}');\n";
+                           BREAK;
+                        }
                     }
                 }
                 
