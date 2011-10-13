@@ -105,17 +105,7 @@ echo $this->Form->create('UserPrivs', array('url'=>'/setup/give_permissions/'.$u
         <?php endforeach; ?>
             <tr>
                 <td colspan="5">
-                <?php 
-                    echo $this->Form->submit('Save Configuration', 
-                            array('before'=>$this->Form->input('Control.next_step', 
-                                    array(
-                                        'type'=>'checkbox', 
-                                        'div'=>false, 
-                                        'style'=>'margin-right: 6px;',
-                                        'checked'=>true,
-                                        'label'=>array('style'=>'display:inline; margin-right: 6px;')))));
-
-                ?>
+                <?php echo $this->Form->submit('Save Configuration'); ?>
                 </td>
             </tr>
     </tbody>

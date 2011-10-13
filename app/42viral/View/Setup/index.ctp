@@ -37,7 +37,7 @@ echo $this->Html->link('Build configuration files', '/setup/process', array('cla
         . 'This will overwrite your exisiting configuration files.'
         );
 
-echo $this->Html->link('Configure ACLs', '/setup/process', array('class'=>'config'), 
+echo $this->Html->link('Configure ACLs', '/setup/acl', array('class'=>'config'), 
         'Are you sure?\n'
         . 'This will reset all ACL (ARO/ACO) permissions.\n'
         . 'We do not recoomend this be done once a site has gone into production!\n'
