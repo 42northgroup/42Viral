@@ -26,7 +26,7 @@ abstract class PrivilegesAbstractController extends AppController {
      */
     public function admin_build_initial_acl()
     {
-       $controllers = $this->ControllerList->get();
+       $controllers = $this->ControllerList->get_all();
        
        $this->Acl->Aco->create(array('alias'=>'root'));
        $this->Acl->Aco->save();
@@ -68,6 +68,8 @@ abstract class PrivilegesAbstractController extends AppController {
     public function admin_user_privileges($username){
         
         $controllers = $this->ControllerList->get();
+        $plugins = $this->ControllerList->get_plugins();
+        
         $this->set('username', $username);
         
         $this->set('person', $this->Person->findByUsername($username));
@@ -97,7 +99,22 @@ abstract class PrivilegesAbstractController extends AppController {
             }
         }
         
+        foreach($plugins as $key => $val){
+            foreach($plugins[$key] as $index => $action){
+                
+                if( !in_array($key.'-'.$action, $acos) ){
+                    $this->Acl->Aco->create(array(
+                        'parent_id'=>1,
+                        'alias'=>$key.'-'.$action,0,0
+                    ));
+                    
+                    $this->Acl->Aco->save();
+                }
+            }
+        }
         
+        
+        $this->set('plugins', $plugins);
         $this->set('controllers', $controllers);
         $this->set('privileges', $this->fetchPrivileges($username));
         
@@ -148,7 +165,7 @@ abstract class PrivilegesAbstractController extends AppController {
     
     public function admin_aco_group($alias)
     {
-        $controllers = $this->ControllerList->get();
+        $controllers = $this->ControllerList->get_all();
         $acos = $this->Aco->find('list', array(
             'fields' => array('Aco.alias', 'Aco.parent_id')
         ));
@@ -241,7 +258,7 @@ abstract class PrivilegesAbstractController extends AppController {
             
             $this->Acl->Aro->save($aro['Aro']);
             
-            $controllers = $this->ControllerList->get();
+            $controllers = $this->ControllerList->get_all();
             
             foreach($controllers as $key => $val){
                 foreach($controllers[$key] as $index => $action){
