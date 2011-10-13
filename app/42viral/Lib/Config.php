@@ -30,6 +30,7 @@ class Config
     public static function data2XML($data, $file){
         $group=array();
         unset($data['_Token']);
+        unset($data['Control']);
 
         //Parse this data into the proper XML structure
         foreach($data as $groupKey => $groupArray){
