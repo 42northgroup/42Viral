@@ -108,7 +108,7 @@ abstract class SetupAbstractController extends AppController {
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/give_permissions');
+                $this->redirect('/setup');
             } 
         }
 
@@ -205,8 +205,8 @@ abstract class SetupAbstractController extends AppController {
 
         $this->Acl->Aro->save();
 
-        $this->Session->setFlash(__('ACL Set up complete.'));
-        $this->redirect('/setup/give_permissions');
+        $this->Session->setFlash(__('ACL Set up complete.'), 'success');
+        $this->redirect('/setup');
     }
     
 
@@ -257,8 +257,8 @@ abstract class SetupAbstractController extends AppController {
                 }
             }
             
-            $this->Session->setFlash(__('Entering Manual configuration; Choose your next step!'), 'success');
-            $this->redirect('/setup/configure_root');        
+            $this->Session->setFlash(__('Permission setting complete!'), 'success');
+            $this->redirect('/setup');        
         }
         $this->set('title_for_layout', 'Configuration Manager (Permisions)');
         
@@ -352,6 +352,32 @@ abstract class SetupAbstractController extends AppController {
                 }
             }
         }
+    }
+    
+    /**
+     * Creates a backup of the XML configuration files
+     * @return void
+     * @access public
+     */
+    public function backup(){
+        
+        $backupPath = 
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
+        
+        if(!is_dir($backupPath)){
+            mkdir($backupPath);
+        }
+        
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml';
+        
+        foreach(scandir($path) as $file){
+            if(is_file($path . DS . $file)){
+                copy($path . DS . $file, $backupPath . DS . $file);
+            }
+        }
+        
+        $this->Session->setFlash(__('Backup Created.'), 'success');
+        $this->redirect('/setup');
     }
    
 }
