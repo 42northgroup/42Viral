@@ -57,9 +57,9 @@ chown "$APACHE_PROCESS":"$USER" -fR webroot/files/people
 chmod 775 -fR "$SCRIPT_PATH/webroot/files/people"
 echo ">>>$SCRIPT_PATH/webroot/files/people"
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Setup"
-chmod 775 -fR "$SCRIPT_PATH/Config/Setup"
-echo ">>>$SCRIPT_PATH/Config/Setup"
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Xml"
+chmod 775 -fR "$SCRIPT_PATH/Config/Xml"
+echo ">>>$SCRIPT_PATH/Config/Xml"
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Includes"
 chmod 775 -fR "$SCRIPT_PATH/Config/Includes"

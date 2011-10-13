@@ -14,6 +14,8 @@
  */
 App::uses('AppController', 'Controller');
 App::uses('Config', 'Lib');
+App::uses('Sec', 'Lib');
+App::uses('Handy', 'Lib');
 
 /**
  * Provides a web interface for running the intial system setup
@@ -57,7 +59,7 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function xml_database(){
-        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'database.xml';
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
 
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
@@ -75,7 +77,7 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function xml_site(){
-        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'site.xml';
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
 
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
@@ -93,7 +95,7 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function xml_third_party(){
-        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'third_party.xml';
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
 
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
@@ -111,13 +113,24 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function xml_core(){ 
-        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'core.xml';
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
 
+        if(isset($this->params['named']['regen'])){
+            $salt = Sec::makeSalt();
+            $cipher = Handy::random(128, false, false, true, false);            
+
+            $this->request->data['Security']['salt'] = $salt;
+            $this->request->data['Security']['cipher'] = $cipher;
+        }
+        
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
+        
+
+        
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
@@ -129,7 +142,7 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function process(){
-        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS;
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
         
         Config::xml2Config($path);
         
