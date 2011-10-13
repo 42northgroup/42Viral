@@ -13,6 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('AppController', 'Controller');
+App::uses('Config', 'Lib');
 
 /**
  * Provides a web interface for running the intial system setup
@@ -59,7 +60,7 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'database.xml';
 
         if(!empty($this->data)){
-            $this->data2XML($this->data, $file);
+            Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
@@ -77,7 +78,7 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'site.xml';
 
         if(!empty($this->data)){
-            $this->data2XML($this->data, $file);
+            Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
@@ -95,7 +96,7 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'third_party.xml';
 
         if(!empty($this->data)){
-            $this->data2XML($this->data, $file);
+            Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
@@ -103,66 +104,23 @@ abstract class SetupAbstractController extends AppController {
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
     }
- 
+    
     /**
-     * Converts a data array into an XML 
-     * @param type $data
-     * @param type $file 
-     * @todo Move this to a library
+     * Provides a UI for setting up the database
+     * @return void
+     * @access public
      */
-    public function data2XML($data, $file){
-        $group=array();
-        unset($data['_Token']);
+    public function xml_core(){ 
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS . 'core.xml';
 
-        //Parse this data into the proper XML structure
-        foreach($data as $groupKey => $groupArray){
-            
-            for($n=0; $n<count($data); $n++){
-                
-                if(!isset($pointer)){
-                   $pointer = $groupKey; 
-                }
-                
-                if($pointer != $groupKey){
-                    $pointer = $groupKey;
-                }
-
-                foreach($groupArray as $key => $value){
-
-                    if(is_array($value)){
-
-                        $prefix = "{$groupKey}.{$key}";
-
-                        foreach($value as $k => $v){
-                            $group[$pointer]['group'][] = array(
-                                    'setting' => "{$prefix}.{$k}",
-                                    'value' => $v
-                                );
-                        }
-                        
-
-                    }else{
-
-                        $prefix = "{$groupKey}";
-
-                        $group[$pointer]['group'][] = array(
-                                'setting' => "{$prefix}.{$key}",
-                                'value' => $value
-                            );
-
-                    } 
-                }
-                BREAK;
-            }
-
+        if(!empty($this->data)){
+            Config::data2XML($this->data, $file);
+            $this->Session->setFlash(__("Changes Saved"), 'success');
         }
 
-        $xmlData = array('root' => array('groups'=>$group));   
- 
-        $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags')); 
-        $xmlString = $xmlObject->asXML();
-
-        file_put_contents ($file , $xmlString);
+        //Read the current xml file to prepopulate the form
+        $xmlData = Xml::toArray(Xml::build($file));
+        $this->set('xmlData', $xmlData);
     }
     
     /**
@@ -171,53 +129,11 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */
     public function process(){
-        $setupFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS;
+        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Setup' . DS;
         
-        foreach(scandir($setupFiles) as $file){
-            
-            if(is_file($setupFiles . DS . $file)){
-                
-                $xmlData = Xml::toArray(Xml::build($setupFiles . DS . $file));
-                
-                $outFile = 
-                    ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . str_replace('.xml', '.php', $file);
-                
-                $configureString = "<?php\n";
-                
-                foreach($xmlData['root']['groups'] as $groups){
-                    
-                    foreach($groups['group'] as $group){
-                        if(count($group)>1){
-                            $configureString .= "Configure::write('{$group['setting']}', '{$group['value']}');\n";
-                        }else{
-                           $configureString .= 
-                                "Configure::write('{$groups['group']['setting']}', '{$groups['group']['value']}');\n";
-                           BREAK;
-                        }
-                    }
-                }
-                
-                file_put_contents ($outFile , $configureString);
-            }
-            
-        }
+        Config::xml2Config($path);
         
-        $this->flash(__('Configuration files built. Clean up the database.'), '/setup/truncate');
-    }
-    
-    /**
-     * Cleans up any exisiting data
-     * @return void
-     * @access public
-     */
-    public function truncate(){
-        $this->Aco->query('TRUNCATE acos;');
-        $this->Aro->query('TRUNCATE aros;');
-        $this->ArosAco->query('TRUNCATE aros_acos;');
-        $this->Group->query('TRUNCATE groups;');
-        $this->Person->query('TRUNCATE people;');
-        $this->Person->query('TRUNCATE contents;');
-        $this->flash('Truncation complete. Set ACLs...', '/setup/acl');
+        $this->flash(__('Configuration files built. Set up privledges.'), '/setup/acl');
     }
 
     /**
