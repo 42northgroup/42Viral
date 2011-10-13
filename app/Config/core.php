@@ -18,22 +18,7 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-/**
- * CakePHP Debug Level:
- *
- * Production Mode:
- * 	0: No error messages, errors, or warnings shown. Flash messages redirect.
- *
- * Development Mode:
- * 	1: Errors and warnings shown, model caches refreshed, flash messages halted.
- * 	2: As in 1, but also with full debug messages and SQL output.
- *
- * In production mode, flash messages redirect after a time interval.
- * In development mode, you need to click the flash message to continue.
- */
-	Configure::write('debug', 2);
-
+Configure::write('debug', 2);
 /**
  * Configure the Error handler used to handle errors for your application.  By default
  * ErrorHandler::handleError() is used.  It will display errors using Debugger, when debug > 0
@@ -180,16 +165,6 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  * The level of CakePHP security.
  */
 	Configure::write('Security.level', 'medium');
-
-/**
- * A random string used in security hashing methods.
- */
-	Configure::write('Security.salt', '1DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
-
-/**
- * A random numeric string (digits only) used to encrypt/decrypt strings.
- */
-	Configure::write('Security.cipherSeed', '176859309657453542496749683645');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
