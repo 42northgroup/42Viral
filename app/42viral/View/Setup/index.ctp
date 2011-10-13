@@ -1,31 +1,51 @@
-<style type="text/css">
-    label{
-        display: block;
-    }
-    
-    input[type='text']{
-        width: 98%;
-    }
-</style>
+<?php
 
-<?php 
-foreach($xmlData['root']['groups'] as $groups):
-    foreach($groups as $group):
-        echo '<div style="margin:24px 0 0; background: #efefef; padding:12px 8px;">';
-        foreach($group as $setting):
-                echo $this->Form->input(
-                        $setting['setting'], 
-                        array(
-                            'name'=>$setting['setting'], 
-                            'label'=>$setting['setting'], 
-                            'value'=>$setting['value'],
-                            'type'=>'text'
-                            )
-                        );
-        endforeach;
-        echo '</div>';
-    endforeach;
-endforeach; 
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/**
+ * @author Jason D Snider <jason.snider@42viral.org>
+ */
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
+
+echo $this->Html->link('Configure the database', '/setup/xml_database', array('class'=>'config'));
+
+echo $this->Html->link('Configure hashes', '/setup/xml_core', array('class'=>'config'));
+
+echo $this->Html->link('Configure the site', '/setup/xml_site', array('class'=>'config'));
+
+echo $this->Html->link('Configure third party APIs', '/setup/xml_third_party', array('class'=>'config'));
+
+echo $this->Html->link('Configure permissions', '/setup/give_permissions', array('class'=>'config'));
+
+echo $this->Html->link('Configure root', '/setup/configure_root', array('class'=>'config'));
+
+echo $this->Html->link('Build configuration files', '/setup/process', array('class'=>'config'), 
+        'Are you sure?\n'
+        . 'This will overwrite your exisiting configuration files.'
+        );
+
+echo $this->Html->link('Configure ACLs', '/setup/process', array('class'=>'config'), 
+        'Are you sure?\n'
+        . 'This will reset all ACL (ARO/ACO) permissions.\n'
+        . 'We do not recoomend this be done once a site has gone into production!\n'
+        );
+
+echo $this->Html->link('Import demo data', '/setup/import_demo', array('class'=>'config'), 
+        'Are you sure?\n'
+        . 'This will populate the database with demo data.\n'
+        . 'This is not reccomended for a production site.'
+        );
 ?>
-
-

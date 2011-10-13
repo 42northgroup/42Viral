@@ -32,9 +32,29 @@
         });
     });
 </script>
-<h1>User Privileges</h1>
+<?php
 
-<?php echo $this->Form->create('UserPrivs', array('url'=>'/setup/give_permissions/'.$username)); ?>
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/**
+ * @author Jason D Snider <jason.snider@42viral.org>
+ */
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
+echo $this->Form->create('UserPrivs', array('url'=>'/setup/give_permissions/'.$username)); 
+?>
 
 <table>
     <thead>
@@ -84,7 +104,19 @@
             <?php endforeach; ?>        
         <?php endforeach; ?>
             <tr>
-                <td colspan="5"><?php echo $this->Form->submit('Submit', array('style'=>'fliat:right')) ?></td>
+                <td colspan="5">
+                <?php 
+                    echo $this->Form->submit('Save Configuration', 
+                            array('before'=>$this->Form->input('Control.next_step', 
+                                    array(
+                                        'type'=>'checkbox', 
+                                        'div'=>false, 
+                                        'style'=>'margin-right: 6px;',
+                                        'checked'=>true,
+                                        'label'=>array('style'=>'display:inline; margin-right: 6px;')))));
+
+                ?>
+                </td>
             </tr>
     </tbody>
 </table>

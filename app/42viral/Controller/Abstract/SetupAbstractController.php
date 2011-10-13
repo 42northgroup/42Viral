@@ -48,8 +48,7 @@ abstract class SetupAbstractController extends AppController {
      */
     public function index(){
         
-        $this->flash('Welcome to The 42 Viral Projects Setup Wizard. Let\'s start by setting up the database.', 
-                '/setup/xml_database');
+        $this->set('title_for_layout', 'Configuration Manager');
         
     }
     
@@ -64,11 +63,15 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/xml_core');
+            }             
         }
 
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
+        $this->set('title_for_layout', 'Configuration Manager (Database)');
     }
     
     /**
@@ -82,11 +85,15 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/xml_third_party');
+            } 
         }
 
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
+        $this->set('title_for_layout', 'Configuration Manager (Site)');
     }
     
     /**
@@ -100,11 +107,15 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/give_permissions');
+            } 
         }
 
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
+        $this->set('title_for_layout', 'Configuration Manager (Third Party APIs)');
     }
     
     /**
@@ -126,14 +137,15 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/xml_site');
+            }             
         }
-
-        
-
         
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
+        $this->set('title_for_layout', 'Configuration Manager (Core)');
     }
     
     /**
@@ -143,10 +155,9 @@ abstract class SetupAbstractController extends AppController {
      */
     public function process(){
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
-        
         Config::xml2Config($path);
-        
-        $this->flash(__('Configuration files built. Set up privledges.'), '/setup/acl');
+        $this->setFlash(__('Configuration files built.'));
+        $this->redirect('/setup');        
     }
 
     /**
@@ -194,7 +205,8 @@ abstract class SetupAbstractController extends AppController {
 
         $this->Acl->Aro->save();
 
-        $this->flash(__('ACL Set up complete. Import default data...'), '/setup/import');
+        $this->Session->setFlash(__('ACL Set up complete.'));
+        $this->redirect('/setup');
     }
     
 
@@ -227,7 +239,6 @@ abstract class SetupAbstractController extends AppController {
         $this->set('controllers', $controllers);
                 
         if(!empty ($this->data)){
-                                    
             foreach($this->data as $controller => $action){
                 if($controller != '_Token'){
                     
@@ -247,8 +258,11 @@ abstract class SetupAbstractController extends AppController {
             }
             
             $this->Session->setFlash(__('Entering Manual configuration; Choose your next step!'), 'success');
-            $this->flash(__('Auto setup complete; Proceed with manual configuration...'), '/setup/finish');            
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/configure_root');
+            }           
         }
+        $this->set('title_for_layout', 'Configuration Manager (Permisions)');
     }
 
         /**
@@ -260,9 +274,12 @@ abstract class SetupAbstractController extends AppController {
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
                 $this->Session->setFlash(__('Try your root login'), 'success');
-                $this->flash( __('Setup complete, try your root login'), '/users/login');
+                if($this->data['Control']['next_step'] == 1){
+                    $this->redirect('/users/login');
+                } 
             }
         }
+        $this->set('title_for_layout', 'Configuration Manager (Database)');
     }
     
     /**
@@ -286,7 +303,10 @@ abstract class SetupAbstractController extends AppController {
             
             $this->__buildPMA($path, $file);
         }
-        $this->flash(__('Demo installed, configure Root'), '/setup/configure_root');
+        
+        $this->setFlash(__('Demo installed, configure Root'));
+        $this->redirect('/setup');
+
     } 
     
     /**

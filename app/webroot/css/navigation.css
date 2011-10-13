@@ -256,3 +256,16 @@ div.section-head{
     font-size: 110%;
     font-weight: bold;
 }
+
+.config:link,
+.config:hover,
+.config:visited{
+    border-radius: 4px;
+    background:#e2e2e2;
+    display: block;
+    margin:6px 0;
+    padding:6px;
+    text-align:center;
+    font-size: 118%;
+    font-weight: bold;
+}
