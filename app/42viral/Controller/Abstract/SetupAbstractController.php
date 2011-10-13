@@ -161,7 +161,7 @@ abstract class SetupAbstractController extends AppController {
 
         $this->Session->delete('Auth');
         
-        $controllers = $this->ControllerList->get();
+        $controllers = $this->ControllerList->get_all();
 
         //Set root's permissions (Root gets full access)
         $this->Acl->Aco->create(array('alias' => 'root', 0, 0));
@@ -217,7 +217,7 @@ abstract class SetupAbstractController extends AppController {
     
     public function give_permissions($username='basic_user')
     {
-        $controllers = $this->ControllerList->get();
+        $controllers = $this->ControllerList->get_all();
         $this->set('username', $username);
         
         $acos = $this->Aco->find('list', array(

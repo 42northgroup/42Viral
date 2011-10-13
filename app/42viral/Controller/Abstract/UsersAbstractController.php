@@ -282,7 +282,7 @@ abstract class UsersAbstractController extends AppController
                     $this->Acl->Aro->save();
 
                     //Update the new users privledges
-                    $controllers = $this->ControllerList->get();
+                    $controllers = $this->ControllerList->get_all();
 
                     foreach($controllers as $key => $val){
                         foreach($controllers[$key] as $index => $action){

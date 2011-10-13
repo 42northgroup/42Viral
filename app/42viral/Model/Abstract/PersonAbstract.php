@@ -58,9 +58,9 @@ class PersonAbstract extends AppModel
      * @var type
      *
      */
-    public $belongsTo = array(
-        'Person' => array(
-            'className' => 'Person',
+    public $hasOne = array(
+        'OwnerPerson' => array(
+            'className' => 'Profile',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
         )  
