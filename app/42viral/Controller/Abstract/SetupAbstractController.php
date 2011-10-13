@@ -25,16 +25,27 @@ App::uses('Handy', 'Lib');
 abstract class SetupAbstractController extends AppController {
 
     /**
-     * Controller name
      * @var string
      * @access public
      */
     public $name = 'Setup';
 
+    /**
+     * @var string
+     * @access public
+     */
     public $components = array('ControllerList');
+    
+    /**
+     * @var string
+     * @access public
+     */    
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
 
-
+    /**
+     * @var string
+     * @access public
+     */
     public function beforeFilter()
     {
         parent::beforeFilter();
@@ -57,7 +68,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function xml_database(){
+    public function xml_database()
+    {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
 
         if(!empty($this->data)){
@@ -79,7 +91,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function xml_site(){
+    public function xml_site()
+    {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
 
         if(!empty($this->data)){
@@ -101,7 +114,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function xml_third_party(){
+    public function xml_third_party()
+    {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
 
         if(!empty($this->data)){
@@ -123,7 +137,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function xml_core(){ 
+    public function xml_core()
+    { 
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
 
         if(isset($this->params['named']['regen'])){
@@ -153,7 +168,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function process(){
+    public function process()
+    {
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
         Config::xml2Config($path);
         $this->setFlash(__('Configuration files built.'));
@@ -215,7 +231,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function import(){
+    public function import()
+    {
 
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Required';
         
@@ -227,6 +244,11 @@ abstract class SetupAbstractController extends AppController {
         $this->flash(__('Data imported. Assign permissions...'), '/setup/give_permissions');
     }
     
+    /**
+     * Allows the user to configure the permissions for the basic_user group
+     * @return void
+     * @access public
+     */    
     public function give_permissions($username='basic_user')
     {
         $controllers = $this->ControllerList->get_all();
@@ -260,16 +282,18 @@ abstract class SetupAbstractController extends AppController {
             $this->Session->setFlash(__('Permission setting complete!'), 'success');
             $this->redirect('/setup');        
         }
+        
         $this->set('title_for_layout', 'Configuration Manager (Permisions)');
         
     }
 
-        /**
+    /**
      * Sets up the root user
      * @return void
      * @access public
      */
-    public function configure_root(){
+    public function configure_root()
+    {
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
                 $this->Session->setFlash(__('Try your root login'), 'success');
@@ -292,7 +316,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function import_demo(){
+    public function import_demo()
+    {
 
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Demo';
         
@@ -309,8 +334,10 @@ abstract class SetupAbstractController extends AppController {
     /**
      * A utility for populating DB tables from an XML file.
      * @return void
+     * @access public
      */
-    private function __buildPMA($path, $file){
+    private function __buildPMA($path, $file)
+    {
         if(is_file($path . DS . $file)){
             $xml = Xml::build($path . DS . $file, array('return' => 'domdocument'));
             $pma = Xml::toArray($xml);
@@ -359,7 +386,8 @@ abstract class SetupAbstractController extends AppController {
      * @return void
      * @access public
      */
-    public function backup(){
+    public function backup()
+    {
         
         $backupPath = 
             ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
