@@ -28,6 +28,12 @@ echo $this->Html->link('Configure the site', '/setup/xml_site', array('class'=>'
 
 echo $this->Html->link('Configure third party APIs', '/setup/xml_third_party', array('class'=>'config'));
 
+echo $this->Html->link('Configure ACLs', '/setup/acl', array('class'=>'config'), 
+        'Are you sure?\n'
+        . 'This will reset all ACL (ARO/ACO) permissions.\n'
+        . 'We do not recoomend this be done once a site has gone into production!\n'
+        );
+
 echo $this->Html->link('Configure permissions', '/setup/give_permissions', array('class'=>'config'));
 
 echo $this->Html->link('Configure root', '/setup/configure_root', array('class'=>'config'));
@@ -37,15 +43,12 @@ echo $this->Html->link('Build configuration files', '/setup/process', array('cla
         . 'This will overwrite your exisiting configuration files.'
         );
 
-echo $this->Html->link('Configure ACLs', '/setup/acl', array('class'=>'config'), 
-        'Are you sure?\n'
-        . 'This will reset all ACL (ARO/ACO) permissions.\n'
-        . 'We do not recoomend this be done once a site has gone into production!\n'
-        );
 
 echo $this->Html->link('Import demo data', '/setup/import_demo', array('class'=>'config'), 
         'Are you sure?\n'
         . 'This will populate the database with demo data.\n'
         . 'This is not reccomended for a production site.'
         );
+
+echo $this->Html->link('Back up configuration files', '/setup/backup', array('class'=>'config'));
 ?>
