@@ -15,8 +15,10 @@
  */
 
 /**
- * Set up a demo or go straight to production
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
 
 echo $this->Html->link('Just log me in', "/setup/configure_root");
 echo '<br />';
