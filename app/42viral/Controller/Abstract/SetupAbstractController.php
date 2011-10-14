@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('AppController', 'Controller');
-App::uses('Config', 'Lib');
+App::uses('Parser', 'Lib');
 App::uses('Sec', 'Lib');
 App::uses('Handy', 'Lib');
 
@@ -73,18 +73,13 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
 
         if(!empty($this->data)){
-            
-            pr($this->data);
-            
-            
-            
-            /*
-            Config::data2XML($this->data, $file);
+
+            Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_core');
             }
-            */             
+                      
         }
 
         //Read the current xml file to prepopulate the form
@@ -103,7 +98,7 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
 
         if(!empty($this->data)){
-            Config::data2XML($this->data, $file);
+            Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_third_party');
@@ -126,7 +121,7 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
 
         if(!empty($this->data)){
-            Config::data2XML($this->data, $file);
+            Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup');
@@ -157,7 +152,7 @@ abstract class SetupAbstractController extends AppController {
         }
         
         if(!empty($this->data)){
-            Config::data2XML($this->data, $file);
+            Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_site');
@@ -178,8 +173,8 @@ abstract class SetupAbstractController extends AppController {
     public function process()
     {
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
-        Config::xml2Config($path);
-        $this->setFlash(__('Configuration files built.'));
+        Parser::xml2Config($path);
+        $this->Session->setFlash(__('Configuration files built.'), 'success');
         $this->redirect('/setup');        
     }
 
