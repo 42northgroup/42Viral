@@ -39,7 +39,8 @@ foreach($xmlData['root'] as $key => $value):
                 'name'=>"data[{$value['name']}][value]", 
                 'label'=>$value['name'], 
                 'value'=>$value['value'],
-                'type'=>'text'
+                'type'=>'text',
+                'between'=>$value['help']
                 )
             );
 
