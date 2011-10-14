@@ -158,7 +158,7 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  *
  */
 	Configure::write('Session', array(
-		'defaults' => 'database'
+		'defaults' => 'php'
 	));
 
 /**

@@ -80,6 +80,13 @@ class DATABASE_CONFIG {
     public $test = array();
     
     /**
+     * The test database
+     * @var type 
+     * @access public
+     */
+    public $no = array();
+    
+    /**
      * 
      * @var type 
      * @access public
@@ -134,6 +141,10 @@ class DATABASE_CONFIG {
             'password' => Configure::read('DataSource.test.password'),
             'database' => Configure::read('DataSource.test.database'),
             'prefix' => Configure::read('DataSource.test.prefix')
+        );
+        
+        $this->no = array(
+            'datasource' => 'No'
         );
         
         $this->twitter = array(
