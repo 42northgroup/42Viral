@@ -73,11 +73,18 @@ abstract class SetupAbstractController extends AppController {
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
 
         if(!empty($this->data)){
+            
+            pr($this->data);
+            
+            
+            
+            /*
             Config::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_core');
-            }             
+            }
+            */             
         }
 
         //Read the current xml file to prepopulate the form
