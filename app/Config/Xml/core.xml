@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root><groups><Security><group><setting>Security.salt</setting><value>DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi</value></group><group><setting>Security.cipher</setting><value>76859309657453542496749683645</value></group></Security></groups></root>
+<root><Security.salt><value>'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi'</value><name>Security.salt</name><default>'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi'</default><help>?</help></Security.salt><Security.cipher><value>'76859309657453542496749683645'</value><name>Security.cipher</name><default>'76859309657453542496749683645'</default><help>?</help></Security.cipher></root>
