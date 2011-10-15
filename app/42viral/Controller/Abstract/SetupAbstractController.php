@@ -41,6 +41,18 @@ abstract class SetupAbstractController extends AppController {
      * @access public
      */    
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
+    
+    /**
+     * The location lock files
+     * @var string
+     * @access public
+     */    
+    public $lockDirectory = '';
+    
+    public function __construct($request = null, $response = null) {
+        parent::__construct($request, $response);
+        $this->lockDirectory = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Lck' . DS;
+    }
 
     /**
      * @var string
@@ -49,7 +61,12 @@ abstract class SetupAbstractController extends AppController {
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('*'));
+        
+        if(file_exists($this->lockDirectory . 'setup.lck')){
+            $this->auth();
+        }else{
+            $this->auth(array('*'));
+        }
     }
 
     /**
@@ -299,6 +316,11 @@ abstract class SetupAbstractController extends AppController {
     {
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
+                
+                //Lock the set controller
+                file_put_contents ($this->lockDirectory . 'setup.lck', date('Y-m-d H:i:s'));
+                
+                //Direct the user to the root login
                 $this->Session->setFlash(__('Try your root login'), 'success');
                 $this->redirect('/users/login');
             }
@@ -325,7 +347,6 @@ abstract class SetupAbstractController extends AppController {
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Demo';
         
         foreach(scandir($path) as $file){      
-            
             $this->__buildPMA($path, $file);
         }
         
