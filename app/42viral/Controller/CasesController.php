@@ -20,7 +20,7 @@ App::uses('AppController', 'Controller');
  * Provides case management. A case is considered anything note worthy.
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-class CasesAbstractController extends AppController {
+class CasesController extends AppController {
     
     /**
      * This controller does not use a model

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+    <Security.salt>
+        <value>'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi'</value>
+        <name>Security.salt</name>
+        <default>'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi'</default>
+        <help>A random string used in security hashing methods.</help>
+    </Security.salt>
+    <Security.cipher>
+        <value>'76859309657453542496749683645'</value>
+        <name>Security.cipher</name>
+        <default>'76859309657453542496749683645'</default>
+        <help>A random numeric string (digits only) used to encrypt/decrypt strings.</help>
+    </Security.cipher>
+</root>

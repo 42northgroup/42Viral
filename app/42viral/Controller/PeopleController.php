@@ -14,16 +14,12 @@
  */
 App::uses('AppController', 'Controller');
 
-//App::uses('ProfileAbstract', 'AbstractModel');
-//App::uses('CompanyAbstract', 'AbstractModel');
-//App::uses('OauthAbstract', 'AbstractModel');
-
 /**
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class PeopleAbstractController extends AppController
+ class PeopleController extends AppController
 {
 
     /**

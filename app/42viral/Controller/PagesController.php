@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 /**
  *
  */
-abstract class PagesAbstractController extends AppController {
+ class PagesController extends AppController {
 
     /**
      * Controller name

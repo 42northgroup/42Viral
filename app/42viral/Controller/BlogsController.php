@@ -7,7 +7,7 @@ App::uses('Member', 'Lib');
  * @package app
  * @subpackage app.core
  */
-abstract class BlogsAbstractController extends AppController {
+class BlogsController extends AppController {
 
     /**
      * This controller does not use a model

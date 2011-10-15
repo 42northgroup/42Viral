@@ -74,8 +74,7 @@ CakePlugin::loadAll();
 App::build(array(
     
         'Controller' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Abstract' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Interface' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS
         ),
     
         'Controller/Component' => array(
@@ -142,9 +141,7 @@ App::build(array(
     
     ));
 
-
-
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'site.php');
-
+require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php');

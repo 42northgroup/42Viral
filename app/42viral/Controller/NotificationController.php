@@ -21,7 +21,7 @@ App::uses('AppController', 'Controller');
  * @subpackage app.core
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class NotificationAbstractController extends AppController
+ class NotificationController extends AppController
 {
 
     public $uses = array('Person', 'Notification');
