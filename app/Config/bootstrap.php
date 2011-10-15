@@ -99,8 +99,7 @@ App::build(array(
         ),   
     
         'Model' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Abstract' . DS ,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Interface' . DS,
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model'  . DS
         ),
     
         'Model/Behavior' => array(
