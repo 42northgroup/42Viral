@@ -19,7 +19,7 @@ App::uses('AppController', 'Controller');
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class UsersAbstractController extends AppController
+ class UsersController extends AppController
 {
 
     /**

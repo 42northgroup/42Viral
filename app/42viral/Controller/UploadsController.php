@@ -21,7 +21,7 @@ App::uses('Member', 'Lib');
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class UploadsAbstractController extends AppController
+ class UploadsController extends AppController
 {
 
     /**

@@ -22,7 +22,9 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration
 
 echo $this->Html->link('Configure the database', '/setup/xml_database', array('class'=>'config'));
 
-echo $this->Html->link('Configure hashes', '/setup/xml_core', array('class'=>'config'));
+echo $this->Html->link('Configure core', '/setup/xml_core', array('class'=>'config'));
+
+echo $this->Html->link('Configure hashes', '/setup/xml_hash', array('class'=>'config'));
 
 echo $this->Html->link('Configure the site', '/setup/xml_site', array('class'=>'config'));
 

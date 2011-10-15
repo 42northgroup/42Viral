@@ -19,7 +19,7 @@ App::uses('Member', 'Lib');
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class MembersAbstractController extends AppController {
+ class MembersController extends AppController {
 
     /**
      * Controller name

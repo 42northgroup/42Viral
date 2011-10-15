@@ -21,7 +21,7 @@ App::uses('AppController', 'Controller');
  * @subpackage app.core
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class InboxMessageAbstractController extends AppController
+ class InboxMessageController extends AppController
 {
     public $uses = array('InboxMessage');
 

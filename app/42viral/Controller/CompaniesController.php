@@ -24,7 +24,7 @@ App::uses('Member', 'Lib');
  *
  ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
-abstract class CompaniesAbstractController extends AppController
+ class CompaniesController extends AppController
 {
 
     /**

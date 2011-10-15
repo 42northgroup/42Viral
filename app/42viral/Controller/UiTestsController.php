@@ -6,7 +6,7 @@ App::uses('AppController', 'Controller');
  * @package app
  * @subpackage app.core
  */
-abstract class UiTestsAbstractController extends AppController
+ class UiTestsController extends AppController
 {
 
     /**

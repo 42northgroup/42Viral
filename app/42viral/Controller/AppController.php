@@ -19,7 +19,7 @@ App::uses('Scrub', 'Lib');
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-abstract class AppAbstractController extends Controller
+class AppController extends Controller
 {
     /**
      * Application wide components

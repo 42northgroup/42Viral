@@ -20,7 +20,7 @@ App::uses('AppController', 'Controller');
  *
  * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-abstract class PicklistsAbstractController extends AppController
+ class PicklistsController extends AppController
 {
 
     /**

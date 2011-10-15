@@ -5,7 +5,7 @@ App::uses('AppController', 'Controller');
 /**
  *
  */
-abstract class PrivilegesAbstractController extends AppController {
+ class PrivilegesController extends AppController {
     
     public $components = array('ControllerList');
     

@@ -27,7 +27,7 @@ App::uses('HttpSocket', 'Network/Http');
  * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
  * @see http://www.slideshare.net/episod/linkedin-oauth-zero-to-hero for oauth_token_secret
  */
-abstract class OauthAbstractController extends AppController
+ class OauthController extends AppController
 {
 
     /**

@@ -22,7 +22,7 @@ App::uses('Handy', 'Lib');
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
-abstract class SetupAbstractController extends AppController {
+ class SetupController extends AppController {
 
     /**
      * @var string
@@ -160,6 +160,29 @@ abstract class SetupAbstractController extends AppController {
     public function xml_core()
     { 
         $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
+        
+        if(!empty($this->data)){
+            Parser::data2XML($this->data, $file);
+            $this->Session->setFlash(__("Changes Saved"), 'success');
+            if($this->data['Control']['next_step'] == 1){
+                $this->redirect('/setup/xml_hash');
+            }             
+        }
+        
+        //Read the current xml file to prepopulate the form
+        $xmlData = Xml::toArray(Xml::build($file));
+        $this->set('xmlData', $xmlData);
+        $this->set('title_for_layout', 'Configuration Manager (Core)');
+    }
+    
+    /**
+     * Provides a UI for setting up the database
+     * @return void
+     * @access public
+     */
+    public function xml_hash()
+    { 
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'hash.xml';
 
         if(isset($this->params['named']['regen'])){
             $salt = Sec::makeSalt();
@@ -180,7 +203,7 @@ abstract class SetupAbstractController extends AppController {
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
         $this->set('xmlData', $xmlData);
-        $this->set('title_for_layout', 'Configuration Manager (Core)');
+        $this->set('title_for_layout', 'Configuration Manager (Security Hashes)');
     }
     
     /**
