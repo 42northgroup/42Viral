@@ -17,14 +17,14 @@
  * Keeps a history of a target table
  *
  * @package History
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 class HistoryBehavior extends ModelBehavior
 {
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     *** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -38,7 +38,7 @@ class HistoryBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     *** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function afterSave(&$model)

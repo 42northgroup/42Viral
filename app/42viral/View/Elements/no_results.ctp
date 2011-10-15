@@ -15,7 +15,7 @@
 
 /**
  * A common element for empty result sets
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 ?>
 

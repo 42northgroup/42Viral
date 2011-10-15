@@ -18,14 +18,14 @@ App::uses('Sanitize', 'Utility');
 
 /**
  * A class for sanitizing user submitted data
- * @author     Jason D Snider <jsnider@jsnider77@gmil.com>
+ *** @author     Jason D Snider <jsnider@jsnider77@gmil.com>
  */
 class ScrubBehavior extends ModelBehavior
 {
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     *** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -40,7 +40,7 @@ class ScrubBehavior extends ModelBehavior
 
     /**
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     *** @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function beforeSave(&$model)
@@ -81,7 +81,7 @@ class ScrubBehavior extends ModelBehavior
      * A wrapper method for trim()
      * @param string $value
      * @return string 
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */
     public function trim($value){
         return trim($value);
@@ -91,7 +91,7 @@ class ScrubBehavior extends ModelBehavior
      * A wrapper for Scrub.html
      * @param string $value
      * @return string 
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */     
     public function html($value){
         return Scrub::html($value);
@@ -101,7 +101,7 @@ class ScrubBehavior extends ModelBehavior
      * A wrapper for Scrub.htmlStrict
      * @param string $value
      * @return string 
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */     
     public function htmlStrict($value){
         return Scrub::htmlStrict($value);
@@ -111,7 +111,7 @@ class ScrubBehavior extends ModelBehavior
      * A wrapper for Scrub.safe
      * @param string $value
      * @return string 
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */   
     public function safe($value){
         return Scrub::safe($value);
@@ -121,7 +121,7 @@ class ScrubBehavior extends ModelBehavior
      * A wrapper for Scrub.noHTML
      * @param string $value
      * @return string 
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */    
     public function noHTML($value){
         return Scrub::noHTML($value);

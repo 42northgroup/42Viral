@@ -15,7 +15,7 @@
 
 /**
  * @package Lib
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class MicroTemplate extends Object
 {
@@ -49,7 +49,7 @@ class MicroTemplate extends Object
 /**
  * Apply the standard objects to the standard template tags
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  * @param string $baseString
  * @return string
@@ -74,7 +74,7 @@ class MicroTemplate extends Object
 /**
  * Apply the server address to the #{server_address} template tag
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  * @param string $baseString
  * @return string
@@ -94,7 +94,7 @@ class MicroTemplate extends Object
 /**
  * Prevent display of missing tag data by cleaning up any remaining tag pseudo-variables
  * 
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  * @param type $baseString
  * @return string
@@ -115,7 +115,7 @@ class MicroTemplate extends Object
  * Expands the objects into the $baseString by using the mappingParams array
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @param string $baseString the base template string to which the objects need to be applied
  * @param array $templateObjects array of objects with which the $baseString needs to be populated
  * @return string the generated string after expanding objects into the base template string

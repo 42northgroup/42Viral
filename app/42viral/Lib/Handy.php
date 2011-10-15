@@ -16,8 +16,8 @@
 /**
  * Container for handy functions
  * @package Lib
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
- * @author Jason D Snider <jason.snider@42viral.org> 
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy
 {
@@ -25,7 +25,7 @@ class Handy
     /**
      * Deep conversion of a php object to an array recusively
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @param object $obj
      * @return array
@@ -269,7 +269,7 @@ class Handy
     /**
      * Check whether a given string is a UUID or not (UUIDs have a standard format of '8-4-4-4-12' hexadecimal digits)
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+     *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param string $string
      * @return bool true if is uuid, false otherwise

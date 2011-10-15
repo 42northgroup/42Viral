@@ -18,7 +18,7 @@ App::uses('AppController', 'Controller');
 /**
  * Picklist controller to manage creation and manipulation of picklists and picklist options
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
  class PicklistsController extends AppController
 {

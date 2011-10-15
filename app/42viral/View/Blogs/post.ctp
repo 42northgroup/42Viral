@@ -15,7 +15,7 @@
 
 /**
  * UI for posting to a blog
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 
 if($mine):

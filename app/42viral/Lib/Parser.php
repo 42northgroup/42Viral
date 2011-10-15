@@ -16,7 +16,7 @@
 /**
  * Common functionality for parsing stuff
  * @package Lib
- * @author Jason D Snider <jason.snider@42viral.org> 
+ *** @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Parser
 {

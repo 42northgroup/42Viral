@@ -19,7 +19,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
  class InboxMessageController extends AppController
 {
@@ -46,7 +46,7 @@ App::uses('AppController', 'Controller');
  * Action to view a single given message
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @param string $messageId
  * @return void
  */
@@ -69,7 +69,7 @@ App::uses('AppController', 'Controller');
 /**
  * Action to be used for archiving individual messages
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  */
@@ -91,7 +91,7 @@ App::uses('AppController', 'Controller');
 /**
  * 
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  */
     public function all_messages()
@@ -105,7 +105,7 @@ App::uses('AppController', 'Controller');
 /**
  * Action to be used for soft deleting individual messages
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  */
@@ -128,7 +128,7 @@ App::uses('AppController', 'Controller');
 /**
  * Temporary action to populate the currently logged in user's message inbox with dummy messages
  * 
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  */
     public function populate_inbox()

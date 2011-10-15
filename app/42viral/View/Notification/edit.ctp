@@ -16,7 +16,7 @@
 /**
  * @package app
  * @package app.core
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 ?>
 

@@ -35,8 +35,8 @@ package org.mozilla.javascript;
  *
  * @see org.mozilla.javascript.Parser
  *
- **** @author Mike McCabe
- **** @author Brendan Eich
+ ****** @author Mike McCabe
+ ****** @author Brendan Eich
  */
 
 public class Token

@@ -19,7 +19,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
  class NotificationController extends AppController
 {
@@ -32,7 +32,7 @@ App::uses('AppController', 'Controller');
  * Default action for the notification controller
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
     public function index()
     {
@@ -47,7 +47,7 @@ App::uses('AppController', 'Controller');
  * 
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @param string $notificationId
   */
     public function view($notificationId)
@@ -62,7 +62,7 @@ App::uses('AppController', 'Controller');
  *
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
     public function create()
     {
@@ -86,7 +86,7 @@ App::uses('AppController', 'Controller');
  *
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
     public function edit($notificationId)
     {
@@ -113,7 +113,7 @@ App::uses('AppController', 'Controller');
  * 
  *
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @param type $notificationId
  */
     public function delete($notificationId)
@@ -135,7 +135,7 @@ App::uses('AppController', 'Controller');
  *
  * @return void
  * @access public
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
     public function test($notificationHandle='')
     {
