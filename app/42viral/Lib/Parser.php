@@ -39,7 +39,9 @@ class Parser
             unset($data['Control']);
         }
         
-        $xmlData = array('root' => $data);   
+        $encodedData = self::arrayEncodeXML($data);  
+
+        $xmlData = array('root' => $encodedData);   
  
         $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags')); 
         $xmlString = $xmlObject->asXML();
@@ -66,8 +68,11 @@ class Parser
                 $configureString = "<?php\n";
 
                 foreach($xmlData['root'] as $key => $value){
-                    $v = empty($value['value'])?$value['default']:$value['value'];
-                    $configureString .= "Configure::write('{$value['name']}', {$v});\n";
+                    $val = empty($value['value'])?$value['default']:$value['value'];
+                    
+                    $decoded = htmlspecialchars_decode($val);
+                    
+                    $configureString .= "Configure::write('{$value['name']}', {$decoded});\n";
                 }
 
                 file_put_contents ($outFile , $configureString);
@@ -75,4 +80,34 @@ class Parser
             
         }
     }
+    
+    /**
+     * Encodes array data with XML safe formatting
+     * @param type $data
+     * @return type 
+     */
+    public static function arrayEncodeXML($data){
+        $encodedData = array();
+        foreach($data as $key => $value){
+            foreach($value as $k => $v){
+                $encodedData[$key][$k] = htmlspecialchars($v, ENT_QUOTES);
+            }
+        }
+        return $encodedData;
+    }
+    
+    /**
+     * Decodes XML safe formatting contained with in an array. 
+     * @param type $data
+     * @return type 
+     */
+    public static function arrayDecodeXML($data){
+        $decodedData = array();
+        foreach($data as $key => $value){
+            foreach($value as $k => $v){
+                $decodedData[$key][$k] = htmlspecialchars_decode($v, ENT_QUOTES);
+            }
+        }
+        return $decodedData;
+    }    
 }

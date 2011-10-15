@@ -1,4 +1,23 @@
+<style type="text/css">
+    .form-help{
+        border: 1px solid #f0f0f0;
+        background: #fff;
+        padding: 3px;
+        margin: 0 4px 0 1px;
+        border-radius: 3px;
+    }
+    
+    .form-box{
+        padding:8px;
+        margin:0 0 8px;
+        background: #e2e2e2;
+        border-radius: 4px;
+    }
+</style>    
+
 <?php
+$x=1;
+echo '<div class="form-box">';
 foreach($xmlData['root'] as $key => $value):
     
     //Parse the $key to identify a grouping change. If the group has changed add some white space.
@@ -29,7 +48,7 @@ foreach($xmlData['root'] as $key => $value):
     }
 
 
-    echo ($switch)?'<br><br>':''; 
+    echo ($switch)?'</div><div class="form-box">':''; 
 
     $fieldName = Inflector::camelize(str_replace('.', ' ', $value['name']));
 
@@ -40,7 +59,7 @@ foreach($xmlData['root'] as $key => $value):
                 'label'=>$value['name'], 
                 'value'=>$value['value'],
                 'type'=>'text',
-                'between'=>$value['help']
+                'between'=>$this->Html->div('form-help', $value['help'])
                 )
             );
 
@@ -79,5 +98,5 @@ foreach($xmlData['root'] as $key => $value):
 ?>
 </div>
 <?php    
+    echo (count($xmlData['root']) == $x++)?'</div>':''; 
 endforeach;
-echo ($switch)?'<br><br>':''; 
