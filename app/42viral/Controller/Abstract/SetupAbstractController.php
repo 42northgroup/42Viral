@@ -176,7 +176,7 @@ abstract class SetupAbstractController extends AppController {
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
         Parser::xml2Config($path);
         $this->Session->setFlash(__('Configuration files built.'), 'success');
-        //$this->redirect('/setup');        
+        $this->redirect('/setup');        
     }
 
     /**
