@@ -22,7 +22,7 @@ App::uses('Member', 'Lib');
 /**
  * Abstract class to represent a generic company object which can be customized by subclassing from this class
  *
- ***** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ ******* @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
  class CompaniesController extends AppController
 {

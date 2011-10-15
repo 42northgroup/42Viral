@@ -16,8 +16,8 @@
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id: mysql.php,v 1.126 2007/09/21 13:32:52 aharvey Exp $
@@ -37,8 +37,8 @@ require_once 'DB/common.php';
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1

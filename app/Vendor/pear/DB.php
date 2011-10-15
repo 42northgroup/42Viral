@@ -15,9 +15,9 @@
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V.Cox <cox@idecnet.com>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V.Cox <cox@idecnet.com>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id: DB.php,v 1.88 2007/08/12 05:27:25 aharvey Exp $
@@ -421,9 +421,9 @@ define('DB_PORTABILITY_ALL', 63);
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V.Cox <cox@idecnet.com>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V.Cox <cox@idecnet.com>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1
@@ -937,7 +937,7 @@ class DB
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1
@@ -984,7 +984,7 @@ class DB_Error extends PEAR_Error
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1
@@ -1449,7 +1449,7 @@ class DB_result
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1

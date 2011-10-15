@@ -17,7 +17,7 @@ App::uses('File', 'Utility');
 App::uses('Scrub', 'Lib');
 
 /**
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 class AppController extends Controller
 {
@@ -78,7 +78,7 @@ class AppController extends Controller
      * @param array $allow 
      * @return void
      * @access public
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      */
     public function auth($allow = array()){
         

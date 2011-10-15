@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 App::uses('Member', 'Lib');
 
 /**
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
  class MembersController extends AppController {
 
@@ -68,7 +68,7 @@ App::uses('Member', 'Lib');
      *
      * @param string $finder
      * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -120,7 +120,7 @@ App::uses('Member', 'Lib');
     /**
      * Action method to use for profile workflow and completing 42viral profile
      *
-     * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      */
     public function complete_profile()

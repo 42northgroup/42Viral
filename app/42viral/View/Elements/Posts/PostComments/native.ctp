@@ -15,7 +15,7 @@
 
 /**
  * UI for creating a web page
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 
 if($this->Session->read('Auth.User')):

@@ -12,7 +12,7 @@
  *
  * @copyright     Jason D Snider 2010. All rights reserved.
  * @link          http://jasonsnider.com
- * @author        Jason D Snider
+ ** @author        Jason D Snider
  * @version       2010-04-03
  * @license       http://www.opensource.org/licenses/mit-license.php The MIT License
  */

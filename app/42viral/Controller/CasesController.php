@@ -18,7 +18,7 @@ App::uses('AppController', 'Controller');
 
 /**
  * Provides case management. A case is considered anything note worthy.
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 class CasesController extends AppController {
     

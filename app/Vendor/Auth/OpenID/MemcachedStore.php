@@ -9,7 +9,7 @@
  * LICENSE: See the COPYING file included in this distribution.
  *
  * @package OpenID
- * @author Artemy Tregubenko <me@arty.name>
+ ** @author Artemy Tregubenko <me@arty.name>
  * @copyright 2008 JanRain, Inc.
  * @license http://www.apache.org/licenses/LICENSE-2.0 Apache
  * Contributed by Open Web Technologies <http://openwebtech.ru/>
