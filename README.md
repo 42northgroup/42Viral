@@ -75,28 +75,7 @@ have write access to the app directory (this is probably your username).
 
     sudo ./setup.sh www-data jasonsnider 
 
-Next you'll want to open app/Config/app.php and add your database configuration.
-
-    Configure::write('DataSource', array(
-        'default' => array(
-            'datasource' => 'Database/Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'login' => 'root',
-            'password' => 'password',
-            'database' => 'app_default',
-            'prefix' => '',
-        ),
-        'test' => array(
-            'datasource' => 'Database/Mysql',
-            'persistent' => false,
-            'host' => 'localhost',
-            'login' => 'root',
-            'password' => 'password',
-            'database' => 'app_default',
-            'prefix' => '',
-        )
-    ));
+Next you'll want open your browser and navigate to /setup
 
 Now we will want to build out database. Navigate to app/Console and run the schema command, but first make sure the Cake
 console is writable.

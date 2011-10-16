@@ -15,37 +15,49 @@
  */
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
 
-echo $this->Html->link('Configure the database', '/setup/xml_database', array('class'=>'config'));
+echo $this->Html->link('Configure the database', '/setup/xml_database', 
+        array('class'=>(in_array('setup_xml_database.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Configure core', '/setup/xml_core', array('class'=>'config'));
+echo $this->Html->link('Configure core', '/setup/xml_core', 
+        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Configure hashes', '/setup/xml_hash', array('class'=>'config'));
+echo $this->Html->link('Configure hashes', '/setup/xml_hash', 
+        array('class'=>(in_array('setup_xml_hash.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Configure the site', '/setup/xml_site', array('class'=>'config'));
+echo $this->Html->link('Configure the site', '/setup/xml_site', 
+        array('class'=>(in_array('setup_xml_database.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Configure third party APIs', '/setup/xml_third_party', array('class'=>'config'));
+echo $this->Html->link('Configure third party APIs', '/setup/xml_third_party', 
+        array('class'=>(in_array('setup_xml_third_party.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Build configuration files', '/setup/process', array('class'=>'config'), 
+echo $this->Html->link('Import core data', '/setup/import', 
+        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
+
+echo $this->Html->link('Build configuration files', '/setup/process',
+        array('class'=>(in_array('setup_process.txt' ,$completed)?' setup-complete':'config')), 
         'Are you sure?\n'
         . 'This will overwrite your exisiting configuration files.'
         );
 
-echo $this->Html->link('Initialize ACLs', '/setup/acl', array('class'=>'config'), 
+echo $this->Html->link('Initialize ACLs', '/setup/acl',
+        array('class'=>(in_array('setup_acl.txt' ,$completed)?' setup-complete':'config')),
         'Are you sure?\n'
         . 'This will reset all ACL (ARO/ACO) permissions.\n'
         . 'We do not recoomend this be done once a site has gone into production!\n'
         );
 
-echo $this->Html->link('Set permissions', '/setup/give_permissions', array('class'=>'config'));
+echo $this->Html->link('Set permissions', '/setup/give_permissions',
+        array('class'=>(in_array('setup_give_permissions.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Create root', '/setup/configure_root', array('class'=>'config'));
+echo $this->Html->link('Create root', '/setup/configure_root',
+        array('class'=>(in_array('setup_configure_root.txt' ,$completed)?' setup-complete':'config')));
 
-
+echo $this->Html->tag('h4', __('Optional'), array('style'=>'text-align: center;'));
 
 echo $this->Html->link('Import demo data', '/setup/import_demo', array('class'=>'config'), 
         'Are you sure?\n'

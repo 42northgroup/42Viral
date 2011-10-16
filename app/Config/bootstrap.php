@@ -114,7 +114,7 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
         ),
     
-        'plugins' => array(
+        'Plugin' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Plugin' . DS
         ),
     
@@ -143,4 +143,5 @@ App::build(array(
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'site.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
+require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'core.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php');

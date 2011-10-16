@@ -69,9 +69,9 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Backup"
 chmod 775 -fR "$SCRIPT_PATH/Config/Backup"
 echo ">>>$SCRIPT_PATH/Config/Backup"
 
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Lck"
-chmod 775 -fR "$SCRIPT_PATH/Config/Lck"
-echo ">>>$SCRIPT_PATH/Config/Lck"
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Log"
+chmod 775 -fR "$SCRIPT_PATH/Config/Log"
+echo ">>>$SCRIPT_PATH/Config/Log"
 
 echo 'Permissions set'
 

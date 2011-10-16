@@ -269,3 +269,17 @@ div.section-head{
     font-size: 118%;
     font-weight: bold;
 }
+
+.setup-complete:link,
+.setup-complete:hover,
+.setup-complete:visited{
+    border-radius: 4px;
+    background:#008800;
+    display: block;
+    margin:6px 0;
+    padding:6px;
+    text-align:center;
+    font-size: 118%;
+    font-weight: bold;
+    color: #fff;
+}
