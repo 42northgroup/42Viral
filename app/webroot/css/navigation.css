@@ -30,6 +30,10 @@
     padding: 0;
 }
 
+#LocalManager{
+    margin: 0 0 12px;
+}
+
 ul.side-navigation{
     font-size: 15px;
     list-style-type: none;
@@ -66,6 +70,10 @@ div.error-message {
 div.avatar{
     margin: 0;
     padding: 0;
+}
+
+div.avatar img{
+    border-radius: 2px;
 }
 
 div.section-box {
@@ -190,7 +198,9 @@ div.section-head{
 /**
  * Profile
  */
-.display-name{}
+ .display-name{
+     text-align: center;
+ }
 
 .display-name a{
 
@@ -199,6 +209,7 @@ div.section-head{
     margin: 0;
     text-decoration: none;
     font-weight: bold;
+    font-size: 110%;
     color: #666;
     line-height: 28px;
 }
@@ -244,4 +255,31 @@ div.section-head{
 .local-navigation h1{
     font-size: 110%;
     font-weight: bold;
+}
+
+.config:link,
+.config:hover,
+.config:visited{
+    border-radius: 4px;
+    background:#e2e2e2;
+    display: block;
+    margin:6px 0;
+    padding:6px;
+    text-align:center;
+    font-size: 118%;
+    font-weight: bold;
+}
+
+.setup-complete:link,
+.setup-complete:hover,
+.setup-complete:visited{
+    border-radius: 4px;
+    background:#008800;
+    display: block;
+    margin:6px 0;
+    padding:6px;
+    text-align:center;
+    font-size: 118%;
+    font-weight: bold;
+    color: #fff;
 }

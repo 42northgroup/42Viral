@@ -17,7 +17,7 @@ App::uses('Handy', 'Lib');
 
 /**
  * Generates a unique random string against a specified field
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 class RandomBehavior extends ModelBehavior
 {
@@ -42,9 +42,10 @@ class RandomBehavior extends ModelBehavior
      */
     public function beforeSave(&$model)
     {  
-        
-        foreach($this->settings[$model->name]['Fields'] as $field){ 
-            $this->__unique($model, $field);
+        if(!isset($model->data[$model->name]['id'])){
+            foreach($this->settings[$model->name]['Fields'] as $field){ 
+                $this->__unique($model, $field);
+            }
         }
         return true;
     }

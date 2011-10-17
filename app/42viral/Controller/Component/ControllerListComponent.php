@@ -7,8 +7,10 @@
 class ControllerListComponent extends Component {
     
     public function get() {
-        $controllerClasses = App::objects('controller');
-
+                
+        $controllerClasses = App::objects('controller', null, false);
+        
+        $parentActions = get_class_methods('AppController');
         
         foreach($controllerClasses as $controller) {
             
@@ -23,13 +25,50 @@ class ControllerListComponent extends Component {
                     }
                 }
                 
-                $parentActions = get_class_methods('AppController');
                 
                 $controllers[$controller] = array_diff($actions, $parentActions);                
             }
         }
         
         return $controllers;
+    }
+    
+    public function get_plugins()
+    {
+        $pluginDirs = App::objects('plugin', null, false);
+        
+        foreach ($pluginDirs as $pluginDir){
+            
+            $pluginClasses = App::objects('controller', APP.'Plugin'. DS .$pluginDir. DS .'Controller', false);
+            
+            App::import('Controller', $pluginDir.'.'.$pluginDir.'App');
+            $parentActions = get_class_methods($pluginDir.'AppController');
+            
+            foreach($pluginClasses as $plugin) {
+                
+                if (strpos($plugin,'App') === false) {
+                    
+                    $plugin = str_ireplace('Controller', '', $plugin);
+                    App::import('Controller', $pluginDir.'.'.$plugin);
+                    $actions = get_class_methods($plugin.'Controller');
+
+                    foreach($actions as $k => $v) {
+                        if ($v{0} == '_') {
+                            unset($actions[$k]);
+                        }
+                    }
+                    
+                    $plugins[$plugin] = array_diff($actions, $parentActions);
+                }
+            }
+        }
+        
+        return $plugins;
+    }
+    
+    public function get_all()
+    {
+        return array_merge($this->get(), $this->get_plugins());
     }
 }
 ?>

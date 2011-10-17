@@ -15,7 +15,7 @@
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <stig@php.net>
+ ** @author     Stig Bakken <stig@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id: storage.php,v 1.24 2007/08/12 05:27:25 aharvey Exp $
@@ -35,7 +35,7 @@ require_once 'DB.php';
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <stig@php.net>
+ ** @author     Stig Bakken <stig@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1

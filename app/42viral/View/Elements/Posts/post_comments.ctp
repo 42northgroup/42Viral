@@ -8,7 +8,7 @@
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
  * @package app
  * @subpackage app.core
- **** @author Jason Snider <jsnider77@gmail.com>
+ *** @author Jason Snider <jsnider77@gmail.com>
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
  */
 

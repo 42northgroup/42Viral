@@ -8,10 +8,10 @@
  *
  * @category   pear
  * @package    PEAR
- * @author     Sterling Hughes <sterling@php.net>
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V.Cox <cox@idecnet.com>
- * @author     Greg Beaver <cellog@php.net>
+ ** @author     Sterling Hughes <sterling@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V.Cox <cox@idecnet.com>
+ ** @author     Greg Beaver <cellog@php.net>
  * @copyright  1997-2009 The Authors
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
  * @version    CVS: $Id: PEAR.php,v 1.112 2009/04/15 04:05:13 dufuz Exp $
@@ -73,9 +73,9 @@ $GLOBALS['_PEAR_error_handler_stack']    = array();
  *
  * @category   pear
  * @package    PEAR
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V. Cox <cox@idecnet.com>
- * @author     Greg Beaver <cellog@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V. Cox <cox@idecnet.com>
+ ** @author     Greg Beaver <cellog@php.net>
  * @copyright  1997-2006 The PHP Group
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
  * @version    Release: 1.8.1
@@ -818,9 +818,9 @@ function _PEAR_call_destructors()
  *
  * @category   pear
  * @package    PEAR
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V. Cox <cox@idecnet.com>
- * @author     Gregory Beaver <cellog@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V. Cox <cox@idecnet.com>
+ ** @author     Gregory Beaver <cellog@php.net>
  * @copyright  1997-2006 The PHP Group
  * @license    http://opensource.org/licenses/bsd-license.php New BSD License
  * @version    Release: 1.8.1

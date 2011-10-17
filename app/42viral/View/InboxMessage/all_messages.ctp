@@ -45,6 +45,6 @@
 
 <?php else: ?>
 
-    <h3>No messages to display</h3>
+    <?php echo $this->element('no_results', array('message'=>__('No messages to display'))); ?>
 
 <?php endif; ?>

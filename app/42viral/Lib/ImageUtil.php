@@ -165,7 +165,7 @@ Class ImageUtil extends Object
 /**
  * Freely crop a given image using crop tool properties passed in from a form
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param array $cropProps
  * @param integer $targetW Target image's width
@@ -251,7 +251,7 @@ Class ImageUtil extends Object
 /**
  * Shrink image proportionally to a pre-defined maximum width
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param integer $maxWidth
  */
@@ -268,7 +268,7 @@ Class ImageUtil extends Object
 /**
  * Shrink image proportionally to a pre-defined maximum width
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param integer $dimension
  */

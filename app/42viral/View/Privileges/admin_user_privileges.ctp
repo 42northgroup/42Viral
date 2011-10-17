@@ -41,8 +41,9 @@
 <?php echo $this->element('Navigation' . DS . 'local', array('section'=>'')); ?>
 
 <?php if(!isset($is_group)): ?>
-    <a href="" id="JoinGroup" >Join Group</a>
 
+    <a href="" id="JoinGroup">Join Group</a>
+    
     <div id="JoinGroupList" style="display: none">
         Groups<br/>
         <?php
@@ -77,6 +78,65 @@
     <tbody>
         <?php foreach($controllers as $key => $val): ?>
             <?php foreach($controllers[$key] as $index => $action): ?>
+            <tr>
+                <td>
+                    <a href="" id="<?php echo $key ?>" ><?php echo $key ?></a>
+                    ->
+                    <?php $action_id = str_ireplace('_', ' ', $action); ?>
+                    <?php $action_id = ucwords($action_id); ?>
+                    <?php $action_id = str_ireplace(' ', '', $action_id); ?>
+                    <a href="" id="<?php echo $key.$action_id ?>" ><?php echo $action ?></a>
+                </td>
+                <td>
+                    <?php echo $this->Form->input("$key.$action.create", array(
+                        'type' => 'checkbox',
+                        'label' => false,
+                        'checked' => (!isset($privileges[$key][$action]['create']) 
+                                    || $privileges[$key][$action]['create'] == -1)?'':'checked',
+                        
+                        'value' => isset($privileges[$key][$action]['create'])?$privileges[$key][$action]['create']+2:1
+                    ))?>
+                </td>
+                <td>
+                    <?php echo $this->Form->input("$key.$action.read", array(
+                        'type' => 'checkbox',
+                        'label' => false,
+                        'checked' => (!isset($privileges[$key][$action]['read']) 
+                                    || $privileges[$key][$action]['read'] == -1)?'':'checked',
+                        
+                        'value' => isset($privileges[$key][$action]['read'])?$privileges[$key][$action]['read']+2:1
+                    ))?>
+                </td>
+                <td>
+                    <?php echo $this->Form->input("$key.$action.update", array(
+                        'type' => 'checkbox',
+                        'label' => false,
+                        'checked' => (!isset($privileges[$key][$action]['update']) 
+                                    || $privileges[$key][$action]['update'] == -1)?'':'checked',
+                        
+                        'value' => isset($privileges[$key][$action]['update'])?$privileges[$key][$action]['update']+2:1
+                    ))?>
+                </td>
+                <td>
+                    <?php echo $this->Form->input("$key.$action.delete", array(
+                        'type' => 'checkbox',
+                        'label' => false,
+                        'checked' => (!isset($privileges[$key][$action]['delete']) 
+                                    || $privileges[$key][$action]['delete'] == -1)?'':'checked',
+                        
+                        'value' => isset($privileges[$key][$action]['delete'])?$privileges[$key][$action]['delete']+2:1
+                    ))?>
+                </td>
+            </tr>
+            <?php endforeach; ?>        
+        <?php endforeach; ?>
+            <tr>
+                <td colspan="5" style=" text-align: center; font-weight: bold; font-size: 16pt" >
+                    Plugins
+                </td>
+            </tr>
+        <?php foreach($plugins as $key => $val): ?>
+            <?php foreach($plugins[$key] as $index => $action): ?>
             <tr>
                 <td>
                     <a href="" id="<?php echo $key ?>" ><?php echo $key ?></a>

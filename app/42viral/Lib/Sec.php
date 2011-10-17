@@ -17,7 +17,7 @@ App::uses('String','Utility');
 /**
  * Additional securitiy methods
  * @package Lib
- * @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
  */
 class Sec 
 {
@@ -25,7 +25,7 @@ class Sec
     /**
      * Creates some pseudo random jibberish to be used as a salt value.
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public static function makeSalt()
@@ -51,7 +51,7 @@ class Sec
      * @param string $password, The string the user has submitted as their password.
      * @param string $salt, The users unique salt value.
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
+     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public static function hashPassword($password, $salt)
