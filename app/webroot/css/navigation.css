@@ -257,6 +257,7 @@ div.section-head{
     font-weight: bold;
 }
 
+.config,
 .config:link,
 .config:hover,
 .config:visited{
@@ -265,11 +266,11 @@ div.section-head{
     display: block;
     margin:6px 0;
     padding:6px;
-    text-align:center;
     font-size: 118%;
     font-weight: bold;
 }
 
+.setup-complete,
 .setup-complete:link,
 .setup-complete:hover,
 .setup-complete:visited{
@@ -278,7 +279,6 @@ div.section-head{
     display: block;
     margin:6px 0;
     padding:6px;
-    text-align:center;
     font-size: 118%;
     font-weight: bold;
     color: #fff;
