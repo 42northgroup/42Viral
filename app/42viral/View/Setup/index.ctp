@@ -41,8 +41,11 @@ echo $this->Html->link('Build configuration files', '/setup/process',
         . 'This will overwrite your exisiting configuration files.'
         );
 
+echo $this->Html->link('Build the database', '/setup/build_database', 
+        array('class'=>(in_array('setup_build_database.txt' ,$completed)?' setup-complete':'config')));
+
 echo $this->Html->link('Import core data', '/setup/import', 
-        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
+        array('class'=>(in_array('setup_import.txt' ,$completed)?' setup-complete':'config')));
 
 echo $this->Html->link('Initialize ACLs', '/setup/acl',
         array('class'=>(in_array('setup_acl.txt' ,$completed)?' setup-complete':'config')),

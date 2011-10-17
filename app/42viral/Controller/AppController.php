@@ -35,7 +35,19 @@ class AppController extends Controller
      * @access public
      */
     public $helpers = array('Access', 'Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
-
+    
+    /**
+     * The location of setup log files
+     * @var string
+     * @access public
+     */    
+    protected $_logDirectory = '';
+    
+    public function __construct($request = null, $response = null) {
+        parent::__construct($request, $response);
+        $this->_logDirectory = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
+    }
+    
     /**
      * Fires before AppController
      * This is a good place for loading data and running security checks
@@ -53,6 +65,16 @@ class AppController extends Controller
         if(isset($this->params['named']['language'])){
             $this->Session->write('Config.language', $this->params['named']['language']);
         }
+        
+        
+        //If the setup isn't complete, force it to be completed
+        if(!in_array('setup.txt', $this->_fetchLogs())){
+            if($this->request->params['controller'] != 'setup'){
+                $this->Session->setFlash('The system needs to be configured!');
+                $this->redirect('/setup');
+            }
+        }
+        
     }
     
     /**
@@ -74,11 +96,29 @@ class AppController extends Controller
     }
     
     /**
+     * Creates a new log file when a setup step has been completed
+     * @param string $log
+     * @return void 
+     * @access private
+     */
+    protected function _setupLog($log){
+        file_put_contents ($this->_logDirectory . "{$log}.txt", date('Y-m-d H:i:s'));    
+    }
+    
+    /**
+     * Returns a list of created setup logs (i.e. completed steps)
+     * @return array
+     * @access private
+     */
+    protected function _fetchLogs(){
+        return scandir($this->_logDirectory);
+    }
+    
+    /**
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
      * @param array $allow 
      * @return void
      * @access public
-     *** @author Jason D Snider <jason.snider@42viral.org>
      */
     public function auth($allow = array()){
         
