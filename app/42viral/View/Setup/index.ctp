@@ -20,7 +20,14 @@
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
 
-echo $this->Html->link('Configure the database', '/setup/xml_database', 
+echo $this->Html->div('config', 
+        __('Create a database.')
+        . "<br /> - "
+        . __("You will need the database name as well as a username and password.")
+        . "<br /> - "
+        . __("We reccomend providing non-root credentials for production sites."));
+
+echo $this->Html->link(__('Configure the database'), '/setup/xml_database', 
         array('class'=>(in_array('setup_xml_database.txt' ,$completed)?' setup-complete':'config')));
 
 echo $this->Html->link('Configure core', '/setup/xml_core', 

@@ -74,4 +74,3 @@ chmod 775 -fR "$SCRIPT_PATH/Config/Log"
 echo ">>>$SCRIPT_PATH/Config/Log"
 
 echo 'Permissions set'
-
