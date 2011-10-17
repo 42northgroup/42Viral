@@ -21,9 +21,5 @@
 
 echo __('Use your DBMS to add your new database, then invoke a cake shell to build your database');
 
-echo $this->Html->link('Initialize ACLs', '/setup/acl',
-        array('class'=>(in_array('setup_acl.txt' ,$completed)?' setup-complete':'config')),
-        'Are you sure?\n'
-        . 'This will reset all ACL (ARO/ACO) permissions.\n'
-        . 'We do not recoomend this be done once a site has gone into production!\n'
-        );
+echo $this->Html->link('Import core data', '/setup/import', 
+        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));

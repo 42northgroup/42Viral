@@ -26,7 +26,7 @@ App::uses('AppHelper', 'View/Helper');
  *
  * @package       Cake.View.Helper
  * @property      HtmlHelper $Html
- * @link http://book.cakephp.org/view/1458/Paginator
+ * @link http://book.cakephp.org/2.0/en/core-libraries/helpers/paginator.html
  */
 class PaginatorHelper extends AppHelper {
 
@@ -557,7 +557,7 @@ class PaginatorHelper extends AppHelper {
 			array(
 				'model' => $this->defaultModel(),
 				'format' => 'pages',
-				'separator' => __d('cake', ' of ')
+				'separator' => __(' of ')
 			),
 		$options);
 

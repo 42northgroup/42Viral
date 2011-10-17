@@ -19,8 +19,8 @@ App::uses('Handy', 'Lib');
 
 /**
  * Provides a web interface for running the intial system setup
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
  class SetupController extends AppController {
 
@@ -63,8 +63,7 @@ App::uses('Handy', 'Lib');
         parent::beforeFilter();
         
         if(file_exists($this->__logDirectory . 'setup.txt')){
-            //$this->auth();
-            $this->auth(array('*'));
+            $this->auth();
         }else{
             $this->auth(array('*'));
         }
@@ -338,7 +337,7 @@ App::uses('Handy', 'Lib');
         }
         
         $this->Session->setFlash('Core data imported', 'success');
-        $this->redirect('/setup/acl');
+        $this->redirect('/setup');
     }
     
     /**
@@ -395,26 +394,18 @@ App::uses('Handy', 'Lib');
         if(!empty($this->data)){
             if($this->User->createUser($this->data['User'])){
                 
-                //Lock the set controller
-                file_put_contents ($this->__logDirectory . 'setup.txt', date('Y-m-d H:i:s'));
-                
-                //Direct the user to the root login
-                $this->Session->setFlash(__('Try your root login'), 'success');
+                //Lock the setup controller
+                $this->__setupLog('setup');
                 $this->__setupLog('setup_configure_root');
+                
+                //Direct the user to the root loging
+                $this->Session->setFlash(__('Try your root login'), 'success');
                 $this->redirect('/users/login');
             }
         }
         $this->set('title_for_layout', 'Configuration Manager (Configure Root)');
     }
-    
-    /**
-     * Run demo data or configure root?
-     * @return void
-     * @access public
-     */
-    public function finish(){}
         
-    
     /**
      * Import the demo 
      * @return void
@@ -511,4 +502,12 @@ App::uses('Handy', 'Lib');
         $this->redirect('/setup');
     }
    
+   /**
+    * Allows one to remove the step-complete files
+    */ 
+    public function deconfig(){
+        exec("rm -fR $this->__logDirectory");
+        $this->Session->setFlash(__('The system has been deconfigured.'), 'success');
+        $this->redirect('/setup');
+    }
 }
