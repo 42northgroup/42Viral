@@ -35,14 +35,14 @@ echo $this->Html->link('Configure the site', '/setup/xml_site',
 echo $this->Html->link('Configure third party APIs', '/setup/xml_third_party', 
         array('class'=>(in_array('setup_xml_third_party.txt' ,$completed)?' setup-complete':'config')));
 
-echo $this->Html->link('Import core data', '/setup/import', 
-        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
-
 echo $this->Html->link('Build configuration files', '/setup/process',
         array('class'=>(in_array('setup_process.txt' ,$completed)?' setup-complete':'config')), 
         'Are you sure?\n'
         . 'This will overwrite your exisiting configuration files.'
         );
+
+echo $this->Html->link('Import core data', '/setup/import', 
+        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
 
 echo $this->Html->link('Initialize ACLs', '/setup/acl',
         array('class'=>(in_array('setup_acl.txt' ,$completed)?' setup-complete':'config')),

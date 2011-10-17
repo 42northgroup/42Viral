@@ -9,6 +9,7 @@ Provide a scalable and robust "kick start" for projects of any size.
 * CakePHP
 * CakePHP Search Plugin, CakeDC <http://cakedc.com/eng/downloads/view/cakephp_search_plugin>
 * CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
+* CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
 * HTMLPurifier
 * jQuery
 * jQuery UI
@@ -31,38 +32,6 @@ Models, Components, Helpers and Behaviors, should be responsible for everything.
 work-flows we should be able to drop all of the controllers (except those that provide web services) and views without 
 losing the ability to manage the data.
 
-## Abstract Classes
-
-I've added an abstract layer that sits between Controller [Some]Controller and Model [Some]Model. These follow the 
-naming convention of SomeAbstractController and SomeController extends SomeAbstractController. All of the core 42viral
-methods, actions, etc live in the abstract models, the running application extends these for use. Never build inside 
-of an core 42viral abstract, always build in the inherited class. This will make upgrading far more feasible.
-
-## Interfaces
-
-Both models and controllers have interface directories, to use an interface drop the interface into one of these 
-directories with the naming convention SomelInterface for models or SomeInterfaceController for controllers. Then
-implement as you would with any OO class. 
-
-##  Configuration  
-
-Any file containing configuration variables should be added to the .gitignore file. The current "Configuration" files 
-are as follows:
-
-* app/Config/core.php
-* app/Config/app.php
-* app/Config/database.php
-* app/Config/email.php
-* /app/Config/routes.php
-
-Once ignored we need to put a ".default" in place:
-
-* app/Config/core.php.default
-* app/Config/app.php.default
-* app/Config/database.php.default
-* app/Config/email.php.default
-* app/Config/routes.php.default
-
 ## Installation
 
 Currently, installation is written for Ubuntu Linux. Installation on other Linux distros is pretty similar; typically 
@@ -75,26 +44,15 @@ have write access to the app directory (this is probably your username).
 
     sudo ./setup.sh www-data jasonsnider 
 
-Next you'll want open your browser and navigate to /setup
+Open a web browser and navigate to the first run wizard.
+
+    https://www.example.com/setup
 
 Now we will want to build out database. Navigate to app/Console and run the schema command, but first make sure the Cake
 console is writable.
 
     sudo chmod +x cake
     sudo ./cake schema create
-
-If you want to turn debugging off (A must in production) navigate to app/Config/core.php and set debugging to 0.
-
-    Configure::write('debug', 0);
-
-Next, open app/Config/core.php and provide new values for Security.salt and Security.cipherSeed.
-
-    Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
-	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
-
-Finally, open a web browser and navigate to the first run wizard.
-
-    https://www.example.com/first_run
 
 This will finish setting up the application and allow you to provide credentials for your root user. 
 
@@ -130,45 +88,3 @@ version pear and fix the issue.
     xdebug.remote_port=9000
 
     sudo /etc/init.d/apache2 restart
-
-
-
-
-
-## Legacy Install - Deprecated but still good to know
-
-### Writable Paths
-
-The following paths must be writable by the server.
-
-* app/tmp
-* app/webroot/cache
-* app/webroot/img/people
-* app/webroot/files/people
-
-Lets say your application belongs to the user jasonsnider, you can use the following method to change owner ship to 
-the web server and jasonsnider's user group, 775 are the desired permissions here. If you have a root shell you'll
-want to remove the sudo command.
-
-    sudo chown www-data:jasonsnider -fR app/tmp && chmod 775 -fR app/tmp 
-    sudo chown www-data:jasonsnider -fR app/webroot/cache && chmod 775 -fR app/webroot/cache
-    sudo chown www-data:jasonsnider -fR app/webroot/img/people && chmod 775 -fR app/webroot/img/people
-    sudo chown www-data:jasonsnider -fR app/webroot/files/people && chmod 775 -fR app/webroot/files/people 
-
-You can also use the following commands to make these writable. Personally, I'm not a fan of this approach as I feel it
-is less secure. If you have a root shell you'll want to remove the sudo command.
-
-    sudo chmod 777 -fR app/tmp 
-    sudo chmod 777 -fR app/webroot/cache
-    sudo chown 777 -fR app/webroot/img/people
-    sudo chown 777 -fR app/webroot/files/people 
-
-We have a few default config files, don't forget to account for these. The follow commands will copy the default files 
-into a production ready state.
-
-    cp /app/Config/app.php.default /app/Config/app.php
-    cp /app/Config/database.php.default /app/Config/database.php
-    cp /app/Config/email.php.default /app/Config/email.php
-    cp /app/Config/core.php.default /app/Config/core.php
-    cp /app/Config/routes.php.default /app/Config/routes.php
-

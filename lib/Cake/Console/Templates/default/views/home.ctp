@@ -7,12 +7,12 @@ $output .= "<h2>Sweet, \"" . Inflector::humanize($app) . "\" got Baked by CakePH
 $output .="
 <?php
 App::uses('Debugger', 'Utility');
-if (Configure::read() > 0):
+if (Configure::read('debug') > 0):
 	Debugger::checkSecurityKeys();
 endif;
 ?>
 <p>
-<?php 
+<?php
 	if (version_compare(PHP_VERSION, '5.2.6', '>=')):
 		echo '<span class=\"notice success\">';
 			echo __d('cake_dev', 'Your version of PHP is 5.2.6 or higher.');
@@ -101,7 +101,7 @@ if (isset(\$filePresent)):
 		echo '</span></p>';
 	}
 ?>\n";
-$output .= "<h3><?php echo __d('cake_dev', 'Editing this Page') ?></h3>\n";
+$output .= "<h3><?php echo __d('cake_dev', 'Editing this Page'); ?></h3>\n";
 $output .= "<p>\n";
 $output .= "<?php\n";
 $output .= "\techo __d('cake_dev', 'To change the content of this page, edit: %s\n";
