@@ -15,9 +15,9 @@
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V. Cox <cox@idecnet.com>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V. Cox <cox@idecnet.com>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id: common.php,v 1.144 2007/11/26 22:54:03 aharvey Exp $
@@ -37,9 +37,9 @@ require_once 'PEAR.php';
  *
  * @category   Database
  * @package    DB
- * @author     Stig Bakken <ssb@php.net>
- * @author     Tomas V.V. Cox <cox@idecnet.com>
- * @author     Daniel Convissor <danielc@php.net>
+ ** @author     Stig Bakken <ssb@php.net>
+ ** @author     Tomas V.V. Cox <cox@idecnet.com>
+ ** @author     Daniel Convissor <danielc@php.net>
  * @copyright  1997-2007 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: 1.7.14RC1

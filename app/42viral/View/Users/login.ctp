@@ -12,33 +12,31 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+echo $this->element('Navigation' . DS . 'local', array('section'=>''));  
+
 ?>
 
-<h1>Login</h1>
 <div class="clearfix">
     <div style="float:left;">
-    <?php
+        <?php
 
-        echo $this->Form->create('User', 
-                array(
-                    'url'=>$this->here,
-                    'class'=>'default'
-
-                ));
+        echo $this->Form->create('User', array(
+            'url'=>$this->here,
+            'class'=>'default'
+        ));
 
         echo $this->Form->input('username');
         echo $this->Form->input('password');
 
         echo $this->Form->submit();
         echo $this->Form->end();
-
-    ?>
+        ?>
+        
+        <a href="/users/pass_reset_req">Forgot your password?</a>
     </div>
+
     <div class="vertical" style="float:left; margin:0 0 0 8px">
-    <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
+        <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
     </div>
 </div>
-
-
-
-

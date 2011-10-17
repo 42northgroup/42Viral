@@ -22,7 +22,7 @@ App::uses('MicroTemplate', 'Lib');
 /**
  * @package app
  * @subpackage app.core
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 class NotificationCmpComponent extends Component
 {
@@ -65,7 +65,7 @@ class NotificationCmpComponent extends Component
 /**
  *
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  */
     private function __customInit()
@@ -79,7 +79,7 @@ class NotificationCmpComponent extends Component
 /**
  * Make sure all required classes are present when being called from anywhere (cake shell, controller, etc.)
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  */
     private function __prepareClasses()
@@ -108,7 +108,7 @@ class NotificationCmpComponent extends Component
 /**
  * Generate and send an email using the information encapsulated within the $preparedNotification object
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access private
  * @param array $preparedNotification A prepared notification object which contains all information for
  * generating an actual email notification
@@ -126,19 +126,62 @@ class NotificationCmpComponent extends Component
         $this->Email->template = 'notification';
         
         $this->Email->send($preparedNotification['body']);
+        
     }
 
 /**
  * API method to fire a notification for a given person using any additional objects to be substituted in the
  * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $notificationHandle
  * @param Person $person
  * @param array $additionalObjects
  */
     public function triggerNotification($notificationHandle, $person, $additionalObjects=array())
+    {
+        
+        $this->__customInit();
+        
+        $additionalObjects = array_merge($person, $additionalObjects);
+
+        //Look for the notification in the cache first before querying the database
+        if(array_key_exists($notificationHandle, $this->__notificationCache)) {
+            $notification = $this->__notificationCache[$notificationHandle];
+        } else {
+            $notification = $this->Notification->fetchNotification($notificationHandle);
+            $this->__notificationCache[$notificationHandle] = $notification;
+        }
+
+        $this->__emailTemplate = $notification['Notification']['email_template'];
+        
+        $preparedNotification = array();
+        
+        $subjectText = $notification['Notification']['subject_template'];
+        $subjectText = MicroTemplate::applyTemplate($subjectText, $additionalObjects);
+        $preparedNotification['subject'] = $subjectText;
+
+        $bodyText = $notification['Notification']['body_template'];
+        $bodyText = MicroTemplate::applyTemplate($bodyText, $additionalObjects);
+        $preparedNotification['body'] = $bodyText;
+            
+        $preparedNotification['recipient_email'] = $person['Person']['email'];
+
+        $this->__sendEmail($preparedNotification);
+        $this->InboxMessage->addPersonInboxMessage($person['Person']['id'], $preparedNotification);
+    }
+    
+    /**
+ * API method to fire a notification to a number of email using any additional objects to be substituted in the 
+ * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
+ *
+ *** @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ * @access public
+ * @param string $notificationHandle 
+ * @param array $additionalObjects
+ */
+    public function triggerSimpleNotification($notificationHandle, $emails = array(), $additionalObjects=array())
     {
         
         $this->__customInit();
@@ -154,20 +197,23 @@ class NotificationCmpComponent extends Component
         $this->__emailTemplate = $notification['Notification']['email_template'];
         
         $preparedNotification = array();
-        
+ 
         $subjectText = $notification['Notification']['subject_template'];
-        $subjectText = MicroTemplate::applyTemplate($subjectText, $person);
         $subjectText = MicroTemplate::applyTemplate($subjectText, $additionalObjects);
         $preparedNotification['subject'] = $subjectText;
-
+        
         $bodyText = $notification['Notification']['body_template'];
-        $bodyText = MicroTemplate::applyTemplate($bodyText, $person);
         $bodyText = MicroTemplate::applyTemplate($bodyText, $additionalObjects);
         $preparedNotification['body'] = $bodyText;
-            
-        $preparedNotification['recipient_email'] = $person['Person']['email'];
-
-        $this->__sendEmail($preparedNotification);
-        $this->InboxMessage->addPersonInboxMessage($person['Person']['id'], $preparedNotification);
+                     
+        $preparedNotification['recipient_email'] = '';
+        
+        foreach ($emails as $email){
+            $preparedNotification['recipient_email'] .= $email.',';            
+        }
+        
+        $preparedNotification['recipient_email'] = substr($preparedNotification['recipient_email'], 0, -1);
+        
+        $this->__sendEmail($preparedNotification);        
     }
 }

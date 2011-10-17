@@ -184,7 +184,7 @@ class Postgres extends DboSource {
 /**
  * Returns an array of the fields in given table name.
  *
- * @param Model $model Name of database table to inspect
+ * @param Model|string $model Name of database table to inspect
  * @return array Fields in table. Keys are name and type
  */
 	public function describe($model) {
@@ -769,10 +769,7 @@ class Postgres extends DboSource {
  * @return boolean True on success, false on failure
  */
 	public function setEncoding($enc) {
-		if ($this->_execute("SET NAMES '?'", array($enc))) {
-			return true;
-		}
-		return false;
+		return $this->_execute('SET NAMES ' . $this->value($enc)) !== false;
 	}
 
 /**
@@ -781,7 +778,11 @@ class Postgres extends DboSource {
  * @return string The database encoding
  */
 	public function getEncoding() {
-		$cosa = $this->_execute('SHOW client_encoding')->fetch();
+		$result = $this->_execute('SHOW client_encoding')->fetch();
+		if ($result === false) {
+			return false;
+		}
+		return (isset($result['client_encoding'])) ? $result['client_encoding'] : false;
 	}
 
 /**

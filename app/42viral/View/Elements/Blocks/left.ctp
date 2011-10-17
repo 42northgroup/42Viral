@@ -33,6 +33,7 @@
         <ul class="side-navigation">
             <li><?php echo $this->Access->link('Notification-index', 'Notifications', '/notification/index'); ?></li>
             <li><?php echo $this->Access->link('Notification-create', ' - Create', '/notification/create'); ?></li>
+            <li><?php echo $this->Access->link('People-invite', 'Invite a Friend', '/people/invite'); ?></li>
         </ul>
 
         <h4 style="margin: 8px 0 0;">Admin</h4>

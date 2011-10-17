@@ -38,3 +38,15 @@
 #FlashSuccess:after{
     content: ' :)';           
 }  
+
+.no-results-message{
+    font-size: 120%;
+    text-align: center;
+    color: #666;
+    font-weight: bold;
+    padding: 16px;
+}
+
+.no-results{
+    border-bottom: 1px solid #e2e2e2;
+}

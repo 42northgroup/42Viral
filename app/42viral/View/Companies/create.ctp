@@ -15,8 +15,8 @@
 
 /**
  * UI for creating a new company
- * @author Jason D Snider <jason.snider@42viral.org>
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ *** @author Jason D Snider <jason.snider@42viral.org>
+ *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
     $this->Asset->addAssets(array(

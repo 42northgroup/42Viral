@@ -149,17 +149,26 @@ class MysqlTest extends CakeTestCase {
 		$restore = setlocale(LC_ALL, null);
 		setlocale(LC_ALL, 'de_DE');
 
-		$result = $this->Dbo->value(3.141593, 'float');
-		$this->assertTrue(strpos((string)$result, ',') === false);
-
 		$result = $this->Dbo->value(3.141593);
-		$this->assertTrue(strpos((string)$result, ',') === false);
+		$this->assertEquals('3.141593', $result);
+
+		$result = $this->db->value(3.141593, 'float');
+		$this->assertEquals('3.141593', $result);
+
+		$result = $this->db->value(1234567.11, 'float');
+		$this->assertEquals('1234567.11', $result);
+
+		$result = $this->db->value(123456.45464748, 'float');
+		$this->assertContains('123456.454647', $result);
+
+		$result = $this->db->value(0.987654321, 'float');
+		$this->assertEquals('0.987654321', (string)$result);
 
 		$result = $this->db->value(2.2E-54, 'float');
-		$this->assertEqual('2.2E-54', (string)$result);
+		$this->assertEquals('2.2E-54', (string)$result);
 
 		$result = $this->db->value(2.2E-54);
-		$this->assertEqual('2.2E-54', (string)$result);
+		$this->assertEquals('2.2E-54', (string)$result);
 
 		setlocale(LC_ALL, $restore);
 	}
@@ -577,10 +586,7 @@ class MysqlTest extends CakeTestCase {
 	public function testBlobSaving() {
 		$this->loadFixtures('BinaryTest');
 		$this->Dbo->cacheSources = false;
-		$data = "GIF87ab 
-		 Ò   4A¿¿¿ˇˇˇ   ,    b 
-		  ¢îè©ÀÌ#¥⁄ã≥ﬁ:¯Ü‚Héá¶jV∂ÓúÎL≥çÀóËıÎ…>ï ≈ vFE%ÒâLFI<†µw˝±≈£7˘ç^H“≤«>ÉÃ¢*∑Ç nÖA•Ù|ﬂêèj£:=ÿ6óUàµ5'∂®àA¬ñ∆ˆGE(gt’≈àÚyÁó«7	‚VìöÇ√˙Ç™
-		k”:;kÀAõ{*¡€Î˚˚[  ;;";
+		$data = file_get_contents(CAKE . 'Test' . DS . 'test_app' . DS . 'webroot' . DS . 'img' . DS . 'cake.power.gif');
 
 		$model = new CakeTestModel(array('name' => 'BinaryTest', 'ds' => 'test'));
 		$model->save(compact('data'));
@@ -750,6 +756,26 @@ class MysqlTest extends CakeTestCase {
 
 		$expected = array('`BinaryTest`.`data`', '(SUM(id)) AS  `BinaryTest_$_other__field`');
 		$this->assertEqual($expected, $result);
+	}
+
+/**
+ * Test describe() on a fixture.
+ *
+ * @return void
+ */
+	public function testDescribe() {
+		$this->loadFixtures('Apple');
+
+		$model = new Apple();
+		$result = $this->Dbo->describe($model);
+
+		$this->assertTrue(isset($result['id']));
+		$this->assertTrue(isset($result['color']));
+
+		$result = $this->Dbo->describe($model->useTable);
+
+		$this->assertTrue(isset($result['id']));
+		$this->assertTrue(isset($result['color']));
 	}
 
 /**

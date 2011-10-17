@@ -12,8 +12,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
 
+echo $this->element('Navigation' . DS . 'local', array('section'=>''));
+
+?>
 <script type="text/javascript">
     $(function() {
         resetCoords();
@@ -58,10 +60,6 @@
         $('#UploadImageH').val(c.h);
     }
 </script>
-
-<h1><?php echo $this->Member->displayName($userProfile['Person']); ?>'s Photo Stream</h1>
-
-<?php echo $this->element('Blocks' . DS . 'Sub' . DS . 'profileNavigation'); ?>
 
 <div style="margin: 8px 0 0; text-align:center;">
     <?php 

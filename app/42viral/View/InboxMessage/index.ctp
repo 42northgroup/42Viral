@@ -15,17 +15,20 @@
     }
 </style>
 
-<?php
-    //debug($all_messages);
-?>
-
-
 <?php if(!empty($all_messages)): ?>
     <div class="inbox-message">
         <table>
             <tbody>
+                <?php $itemCounter = 1; ?>
+
                 <?php foreach($all_messages as $message): ?>
                     <tr class="<?php echo ($message['InboxMessage']['read'])? 'read-message': 'unread-message'; ?>">
+                        <td>
+                            <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
+                                echo $itemCounter++;
+                            ?></a>    
+                        </td>
+
                         <td>
                             <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
                                 echo $message['InboxMessage']['subject'];
@@ -45,6 +48,6 @@
 
 <?php else: ?>
 
-    <h3>No messages to display</h3>
+    <?php echo $this->element('no_results', array('message'=>__('No new messages'))); ?>
     
 <?php endif; ?>
