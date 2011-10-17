@@ -43,18 +43,6 @@ App::uses('Handy', 'Lib');
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
     
     /**
-     * The location lock files
-     * @var string
-     * @access public
-     */    
-    private $__logDirectory = '';
-    
-    public function __construct($request = null, $response = null) {
-        parent::__construct($request, $response);
-        $this->__logDirectory = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
-    }
-    
-    /**
      * @var string
      * @access public
      */
@@ -62,30 +50,11 @@ App::uses('Handy', 'Lib');
     {
         parent::beforeFilter();
         
-        if(file_exists($this->__logDirectory . 'setup.txt')){
+        if(file_exists($this->_logDirectory . 'setup.txt')){
             $this->auth();
         }else{
             $this->auth(array('*'));
         }
-    }
-    
-    /**
-     * Creates a new log file when a setup step has been completed
-     * @param string $log
-     * @return void 
-     * @access private
-     */
-    private function __setupLog($log){
-        file_put_contents ($this->__logDirectory . "{$log}.txt", date('Y-m-d H:i:s'));    
-    }
-    
-    /**
-     *
-     * @return array
-     * @access private
-     */
-    private function __fetchLogs(){
-        return scandir($this->__logDirectory);
     }
     
     /**
@@ -97,7 +66,7 @@ App::uses('Handy', 'Lib');
         
         $this->set('title_for_layout', 'Configuration Manager');
         
-        $this->set('completed', $this->__fetchLogs());
+        $this->set('completed', $this->_fetchLogs());
         
     }
     
@@ -116,7 +85,7 @@ App::uses('Handy', 'Lib');
             Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             
-            $this->__setupLog('setup_xml_database');
+            $this->_setupLog('setup_xml_database');
             
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_core');
@@ -144,7 +113,7 @@ App::uses('Handy', 'Lib');
             Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             
-            $this->__setupLog('setup_xml_site');
+            $this->_setupLog('setup_xml_site');
             
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_third_party');
@@ -170,7 +139,7 @@ App::uses('Handy', 'Lib');
             Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             
-            $this->__setupLog('setup_xml_third_party');
+            $this->_setupLog('setup_xml_third_party');
             
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/process');
@@ -191,7 +160,7 @@ App::uses('Handy', 'Lib');
      */
     public function build_database()
     {
-        $this->set('completed', $this->__fetchLogs());
+        $this->set('completed', $this->_fetchLogs());
     }
     
     /**
@@ -207,7 +176,7 @@ App::uses('Handy', 'Lib');
             Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             
-            $this->__setupLog('setup_xml_core');
+            $this->_setupLog('setup_xml_core');
             
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_hash');
@@ -241,7 +210,7 @@ App::uses('Handy', 'Lib');
             Parser::data2XML($this->data, $file);
             $this->Session->setFlash(__("Changes Saved"), 'success');
             
-            $this->__setupLog('setup_xml_hash');
+            $this->_setupLog('setup_xml_hash');
             
             if($this->data['Control']['next_step'] == 1){
                 $this->redirect('/setup/xml_site');
@@ -266,7 +235,7 @@ App::uses('Handy', 'Lib');
         
         $this->Session->setFlash(__('Configuration files built.'), 'success');
         
-        $this->__setupLog('setup_process');
+        $this->_setupLog('setup_process');
         
         $this->redirect('/setup/build_database');        
     }
@@ -315,7 +284,7 @@ App::uses('Handy', 'Lib');
             'alias' => 'basic_user', 0, 0));
 
         if($this->Acl->Aro->save()){
-            $this->__setupLog('setup_acl');
+            $this->_setupLog('setup_acl');
             $this->Session->setFlash(__('ACL initialization complete.'), 'success');
             $this->redirect('/setup');
         }
@@ -335,6 +304,11 @@ App::uses('Handy', 'Lib');
         foreach(scandir($path) as $file){      
             $this->__buildPMA($path, $file);
         }
+        
+        
+        
+        $this->_setupLog('setup_import');
+        $this->_setupLog('setup_build_database');
         
         $this->Session->setFlash('Core data imported', 'success');
         $this->redirect('/setup');
@@ -376,7 +350,7 @@ App::uses('Handy', 'Lib');
             }
             
             $this->Session->setFlash(__('Permission setting complete!'), 'success');
-            $this->__setupLog('setup_give_permissions');
+            $this->_setupLog('setup_give_permissions');
             $this->redirect('/setup');        
         }
         
@@ -395,8 +369,8 @@ App::uses('Handy', 'Lib');
             if($this->User->createUser($this->data['User'])){
                 
                 //Lock the setup controller
-                $this->__setupLog('setup');
-                $this->__setupLog('setup_configure_root');
+                $this->_setupLog('setup');
+                $this->_setupLog('setup_configure_root');
                 
                 //Direct the user to the root loging
                 $this->Session->setFlash(__('Try your root login'), 'success');
@@ -418,6 +392,21 @@ App::uses('Handy', 'Lib');
         
         foreach(scandir($path) as $file){      
             $this->__buildPMA($path, $file);
+        }
+        
+        $backupPath = 
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
+        
+        if(!is_dir($backupPath)){
+            mkdir($backupPath);
+        }
+        
+        $customDemoFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'DemoCustomPages';
+        $customFiles = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Blogs' . DS . 'Custom';
+        foreach(scandir($customDemoFiles) as $file){
+            if(is_file($customDemoFiles . DS . $file)){
+                copy($customDemoFiles . DS . $file, $customFiles . DS . $file);
+            }
         }
         
         $this->setFlash(__('Demo installed, configure Root'));
@@ -506,7 +495,7 @@ App::uses('Handy', 'Lib');
     * Allows one to remove the step-complete files
     */ 
     public function deconfig(){
-        exec("rm -fR $this->__logDirectory");
+        exec("rm -fR $this->_logDirectory");
         $this->Session->setFlash(__('The system has been deconfigured.'), 'success');
         $this->redirect('/setup');
     }
