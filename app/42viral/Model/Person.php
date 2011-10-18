@@ -63,7 +63,13 @@ class Person extends AppModel
             'className' => 'Profile',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        )  
+        ),
+
+        'Profile' => array(
+            'className' => 'Profile',
+            'foreignKey' => 'owner_person_id',
+            'dependent' => true
+        )
     );
 
     /**
@@ -123,11 +129,7 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        'Profile' => array(
-            'className' => 'Profile',
-            'foreignKey' => 'owner_person_id',
-            'dependent' => true
-        ),        
+        
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',

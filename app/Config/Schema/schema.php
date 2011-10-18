@@ -1,11 +1,14 @@
 <?php 
 /* App schema generated on: 2011-10-11 14:13:03 : 1318360383*/
 class AppSchema extends CakeSchema {
-	function before($event = array()) {
+
+	public $name = 'App';
+
+	public function before($event = array()) {
 		return true;
 	}
 
-	function after($event = array()) {
+	public function after($event = array()) {
 	}
 
 	var $acl_groups = array(

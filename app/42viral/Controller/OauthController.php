@@ -87,7 +87,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_connect($get_token = null)
     {
-        $this->serviceConfiguration('Twitter', 3);
 
         $request = array(
             'uri' => array(
@@ -121,11 +120,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_callback($get_token = null)
     {
-        
 
-        $this->serviceConfiguration('Twitter');
-
-        
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -190,8 +185,6 @@ App::uses('HttpSocket', 'Network/Http');
     public function linkedin_connect($get_token = null)
     {
         
-        $this->serviceConfiguration('LinkedIn', 3);
-        
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -234,9 +227,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function linkedin_callback($get_token = null)
     {
-        
-        $this->serviceConfiguration('LinkedIn', 3);
-        
+
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -405,8 +396,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function facebook_callback($get_token = null)
     {
-
-        $this->serviceConfiguration('Facebook', 3);
         
         $request = array(
             'uri' => array(
@@ -466,58 +455,6 @@ App::uses('HttpSocket', 'Network/Http');
             $oauthUserId = $this->Oauth->oauthed('facebook', $user->id, $params['access_token']);
             $this->__auth($oauthUserId, $response, 'Facebook');
         }
-
-    }
-
-    /**
-     * Handels exceptions for misconfigured services
-     * @param type $service
-     * @param type $configCount 
-     * @return void
-     * @access public
-     */
-    public function serviceConfiguration($service, $configCount = null){
-        
-
-        $config = Configure::read();
-            
-        foreach($config[$service]['Schema'] as $key => $value){
-            
-            //Does the value exist?
-            if(isset($config[$service][$key] )){
-                
-                //Do we have any validation rules set against the configiuration variable
-                if(isset($config[$service]['Schema'][$key]['validate'])){
-
-                    //Yes, loop through the validation rules and look for trouble
-                    foreach($config[$service]['Schema'][$key]['validate'] as $rule){
-
-                        //Will the validation fail?
-                        if( !Validation::$rule($config[$service][$key]) ){
-                            
-                            //Yes, the validation failed, throw an exception
-                            if($config['debug'] == 0){ //Production exception
-                                throw new NotFoundException();
-                            }else{ //Dev exception                            
-                                $message = __("{$key} violates the {$rule} rule set");
-                                $this->Session->setFlash($message, 'error');
-                                throw new MethodNotAllowedException($message);
-                            }
-                        }
-                    }
-                }
-
-            }else{
-                //No, the configuration value is not set, throw an exception
-                if($config['debug'] == 0){  //Production exception
-                    throw new NotFoundException();
-                }else{ //Dev exception
-                    $message = __("{$key} has not been set");
-                    $this->Session->setFlash($message, 'error');
-                    throw new MethodNotAllowedException($message);
-                }
-            }
-        }        
 
     }
     
