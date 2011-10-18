@@ -25,7 +25,7 @@
             <column name="category">generic</column>
             <column name="subject_template">42Viral Password Reset Requested</column>
             <column name="body_template">&lt;p&gt;
-#{Person.first_name},
+{{Person.first_name}},
 &lt;/p&gt;
 
 &lt;p&gt;
@@ -33,7 +33,7 @@ We have received a request for resetting your 42Viral account password. Follow t
 &lt;/p&gt;
 
 &lt;p&gt;
-#{_server_address}users/pass_reset/#{reset_authorization_token}
+{{_server_address}}users/pass_reset/{{reset_authorization_token}}
 &lt;/p&gt;</column>
             <column name="email_template">default</column>
             <column name="created">2011-10-10 10:37:20</column>
