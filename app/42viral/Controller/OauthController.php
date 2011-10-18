@@ -77,7 +77,7 @@ App::uses('HttpSocket', 'Network/Http');
      * Placeholder
      */
     public function connect(){
-
+        pr($this->Session->read());
     }
     
     /**
