@@ -97,7 +97,8 @@ define('FILE_READ_PATH', '/files/people/');
  * ======================= */
 
 Configure::write('Twitter.callback', Configure::read('Domain.url') . 'oauth/twitter_callback');
-
+Configure::write('Facebook.callback', Configure::read('Domain.url') . 'oauth/facebook_callback');
+Configure::write('LinkedIn.callback', Configure::read('Domain.url') . 'oauth/linkedin_callback');
 
 /* ====================
  * == Asset Helper ====

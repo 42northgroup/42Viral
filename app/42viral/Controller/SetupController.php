@@ -142,7 +142,7 @@ App::uses('Handy', 'Lib');
             $this->_setupLog('setup_xml_third_party');
             
             if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/process');
+                $this->redirect('/setup/build_database');
             } 
             
         }
@@ -232,12 +232,9 @@ App::uses('Handy', 'Lib');
     {
         $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS;
         Parser::xml2Config($path);
-        
-        $this->Session->setFlash(__('Configuration files built.'), 'success');
-        
         $this->_setupLog('setup_process');
-        
-        $this->redirect('/setup/build_database');        
+        $this->Session->setFlash(__('Configuration files built.'), 'success');
+        $this->redirect('/setup');        
     }
 
     /**
