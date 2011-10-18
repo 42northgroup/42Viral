@@ -43,10 +43,7 @@ App::uses('HttpSocket', 'Network/Http');
      * @access public
      */
     public $components = array(
-                'Access',
-                'Openid' => array(
-                    'use_database' => true
-                )
+                'Access'
             );
 
     public function __construct($request = null, $response = null) {
@@ -60,9 +57,9 @@ App::uses('HttpSocket', 'Network/Http');
      * @access public
      */
     public function beforeFilter(){
-
+        
         parent::beforeFilter();
-
+        
         $this->auth(array('*'));
 
         //Since this is the only action we want to deny we can get a little lazy
@@ -77,7 +74,7 @@ App::uses('HttpSocket', 'Network/Http');
      * Placeholder
      */
     public function connect(){
-        pr($this->Session->read());
+        
     }
     
     /**
@@ -379,7 +376,7 @@ App::uses('HttpSocket', 'Network/Http');
     public function facebook_connect($get_token = null)
     {
 
-        $this->serviceConfiguration('Facebook', 3);
+        
         
         $this->redirect("https://www.facebook.com/dialog/oauth?client_id=".Configure::read('Facebook.consumer_key')
                                                     ."&redirect_uri=".urlencode(Configure::read('Facebook.callback')
