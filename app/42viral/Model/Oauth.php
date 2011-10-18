@@ -195,7 +195,7 @@ class Oauth extends AppModel
                 $tables = $db->listSources();
 
                 $fields = array();
-
+                pr($tables);
                 foreach($tables as $table) {
                     if(!in_array($table, array('aros', 'acos', 'aros_acos'))){
 
@@ -203,7 +203,12 @@ class Oauth extends AppModel
                         $fields =  Set::extract($result, '/COLUMNS/Field');
                         $class_name = Inflector::classify($table);
 
+                        if($class_name == 'Case'){
+                            $class_name = 'CaseModel';
+                        }
+                        
                         App::uses($class_name, 'Model');
+                        
                         $loaded_table = new $class_name();
 
                         foreach($fields as $field){
