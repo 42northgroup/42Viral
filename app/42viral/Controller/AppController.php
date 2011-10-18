@@ -71,7 +71,7 @@ class AppController extends Controller
         if(!in_array('setup.txt', $this->_fetchLogs())){
             if($this->request->params['controller'] != 'setup'){
                 $this->Session->setFlash('The system needs to be configured!');
-                $this->redirect('/setup');
+                $this->redirect('/install.php');
             }
         }
         

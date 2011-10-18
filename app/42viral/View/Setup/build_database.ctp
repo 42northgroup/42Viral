@@ -19,7 +19,9 @@
  */
 
 
-echo __('Use your DBMS to add your new database, then invoke a cake shell to build your database');
+echo $this->Html->div('config',
+        __("If you've already added your database, build the configuration files."
+                . " Otherwise, create the new database."));
 
-echo $this->Html->link('Import core data', '/setup/import', 
-        array('class'=>(in_array('setup_xml_core.txt' ,$completed)?' setup-complete':'config')));
+echo $this->Html->link('Build the configuration files', '/setup/process', 
+        array('class'=>(in_array('setup_process.txt' ,$completed)?' setup-complete':'config')));
