@@ -1,3 +1,5 @@
+# HttpSocketOauth
+
 Usage instructions (we'll take twitter as an example):
 
 1. Grab the code from my <a href="http://github.com/neilcrookes/http_socket_oauth">github account</a> and add it to app/vendors/http_socket_oauth.php
