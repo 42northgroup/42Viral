@@ -2,7 +2,7 @@
 Configure::write('Theme.set', 'Default');
 Configure::write('Theme.HomePage.title', 'Default');
 Configure::write('Domain.scheme', 'http');
-Configure::write('Domain.host', 'build.42viral.org');
+Configure::write('Domain.host', 'loc.build.42viral.org');
 Configure::write('Email.from', 'app@42viral.org');
 Configure::write('Email.replyTo', 'support@42viral.org');
 Configure::write('ShortURL.scheme', 'http');
