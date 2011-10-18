@@ -92,18 +92,6 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
-/* ================
- * == Comments ====
- * =============== */
-
-/**
- * Configure the systems default commenting engine
- * Comment engines
- *     native - 42Viral's native comment engine (Default)
- *     //See Thrid Party API's for additional configuration
- */
-Configure::write('Comment.engine', 'native');
-
 /* =========================
  * == Thrid Party API's ====
  * ======================= */

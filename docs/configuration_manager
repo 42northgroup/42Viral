@@ -1,0 +1,18 @@
+# Configuration Wizard
+
+The configuration wizard is an XML driven configuration tool. The XML files are stored in app/Config/Xml and they are 
+used to interact with the configuration forms, these form are all actions under the Setup controller. Each XML file 
+represents a single action. Each XML file represents a logical grouping of configuration variables. Each variable is 
+represented by an element containing the full name of a configuration variable, it's set value, default value and 
+help text. Each view's configuration form is built dynamically from the XML file, submitting the form with any changes 
+will update the XML file causing the view to be reloaded; reflecting the new state of the XML file. Once you are happy 
+with the XML files you can run your "Build configuration files" action. This will generate a CakePHP style configuration
+file based on the contents of the XML file. The application will use the resulting configuration file, not the XML file
+itself. This assures we have plenty of time to review the configuration prior to actually pushing the changes. 
+
+## Backing up your configuration
+
+To backup your configuration simply press the "Backup configuration files" options from the configuration managers 
+main page. This will create a timestamped backup under app/Config/Backup/Xml
+
+ 
