@@ -234,7 +234,7 @@ App::uses('Handy', 'Lib');
         Parser::xml2Config($path);
         $this->_setupLog('setup_process');
         $this->Session->setFlash(__('Configuration files built.'), 'success');
-        $this->redirect('/setup');        
+        $this->redirect('/schema.php');        
     }
 
     /**
