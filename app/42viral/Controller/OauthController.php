@@ -87,7 +87,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_connect($get_token = null)
     {
-        $this->serviceConfiguration('Twitter', 3);
 
         $request = array(
             'uri' => array(
@@ -121,11 +120,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_callback($get_token = null)
     {
-        
 
-        $this->serviceConfiguration('Twitter');
-
-        
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -190,8 +185,6 @@ App::uses('HttpSocket', 'Network/Http');
     public function linkedin_connect($get_token = null)
     {
         
-        $this->serviceConfiguration('LinkedIn', 3);
-        
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -234,9 +227,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function linkedin_callback($get_token = null)
     {
-        
-        $this->serviceConfiguration('LinkedIn', 3);
-        
+
         // Issue request for access token
         $request = array(
             'uri' => array(
@@ -405,8 +396,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function facebook_callback($get_token = null)
     {
-
-        $this->serviceConfiguration('Facebook', 3);
         
         $request = array(
             'uri' => array(
