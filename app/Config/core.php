@@ -14,7 +14,7 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package       app.config
+ * @package       app.Config
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -95,7 +95,7 @@
  *	`manager_index()` and `/manager/controller/index`
  *
  */
-Configure::write('Routing.prefixes', array('admin', 'manager'));
+	//Configure::write('Routing.prefixes', array('admin'));
 
 /**
  * Turn off all caching application-wide.
@@ -129,7 +129,7 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  *
  * ## Options
  *
- * - `Session.name` - The name of the cookie to use. Defaults to 'CAKEPHP'
+ * - `Session.cookie` - The name of the cookie to use. Defaults to 'CAKEPHP'
  * - `Session.timeout` - The number of minutes you want sessions to live for. This timeout is handled by CakePHP
  * - `Session.cookieTimeout` - The number of minutes you want session cookies to live for.
  * - `Session.checkAgent` - Do you want the user agent to be checked when starting sessions? You might want to set the
@@ -145,7 +145,7 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  *
  * The built in defaults are:
  *
- * - 'php' -Uses settings defined in your php.ini.
+ * - 'php' - Uses settings defined in your php.ini.
  * - 'cake' - Saves session files in CakePHP's /tmp directory.
  * - 'database' - Uses CakePHP's database sessions.
  * - 'cache' - Use the Cache class to save sessions.
@@ -161,20 +161,16 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
 		'defaults' => 'php'
 	));
 
-/**
- * The level of CakePHP security.
- */
-	Configure::write('Security.level', 'medium');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
  * Will append a querystring parameter containing the time the file was modified. This is
  * useful for invalidating browser caches.
  *
- * Set to `true` to apply timestamps, when debug = 0, or set to 'force' to always enable
- * timestamping.
+ * Set to `true` to apply timestamps when debug > 0. Set to 'force' to always enable
+ * timestamping regardless of debug value.
  */
-	Configure::write('Asset.timestamp', 'force');
+	//Configure::write('Asset.timestamp', true);
 /**
  * Compress CSS output by removing comments, whitespace, repeating tags, etc.
  * This requires a/var/cache directory to be writable by the web server for caching.
@@ -203,7 +199,7 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  * If you are on PHP 5.3 uncomment this line and correct your server timezone
  * to fix the date & time related errors.
  */
-	date_default_timezone_set('America/Chicago');
+	//date_default_timezone_set('UTC');
 
 /**
  *
@@ -222,7 +218,6 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  * 		'serialize' => true, [optional]
  *	));
  *
- *
  * APC (http://pecl.php.net/package/APC)
  *
  * 	 Cache::config('default', array(
@@ -238,11 +233,10 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  *		'engine' => 'Xcache', //[required]
  *		'duration'=> 3600, //[optional]
  *		'probability'=> 100, //[optional]
- * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional] prefix every cache file with this string
+ *		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional] prefix every cache file with this string
  *		'user' => 'user', //user from xcache.admin.user settings
- *      'password' => 'password', //plaintext password (xcache.admin.pass)
+ *		'password' => 'password', //plaintext password (xcache.admin.pass)
  *	));
- *
  *
  * Memcache (http://www.danga.com/memcached/)
  *
@@ -256,9 +250,16 @@ Configure::write('Routing.prefixes', array('admin', 'manager'));
  * 		), //[optional]
  * 		'persistent' => true, // [optional] set this to false for non-persistent connections
  * 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
- * 		'persistent' => true, // [optional] set this to false for non-persistent connections
  *	));
  *
+ *  Wincache (http://php.net/wincache)
+ *
+ * 	 Cache::config('default', array(
+ *		'engine' => 'Wincache', //[required]
+ *		'duration'=> 3600, //[optional]
+ *		'probability'=> 100, //[optional]
+ *		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
+ *	));
  */
 
 /**
@@ -290,7 +291,7 @@ Cache::config('_cake_core_', array(
 ));
 
 /**
- * Configure the cache for model, and datasource caches.  This cache configuration
+ * Configure the cache for model and datasource caches.  This cache configuration
  * is used to store schema descriptions, and table listings in connections.
  */
 Cache::config('_cake_model_', array(
