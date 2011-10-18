@@ -1,10 +1,6 @@
 /nbproject
-
-/app/tmp
 /app/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
 
-/app/Controller/AppTestController.php
-/app/View/AppTest
 
 
 

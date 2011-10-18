@@ -1,5 +1,6 @@
 <?php
 Configure::write('Oauth.password', '');
+Configure::write('Comment.engine', 'native');
 Configure::write('Disqus.shortname', '');
 Configure::write('Disqus.developer', 1);
 Configure::write('Google.setAccount', '');
