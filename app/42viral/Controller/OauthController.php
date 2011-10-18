@@ -457,58 +457,6 @@ App::uses('HttpSocket', 'Network/Http');
         }
 
     }
-
-    /**
-     * Handels exceptions for misconfigured services
-     * @param type $service
-     * @param type $configCount 
-     * @return void
-     * @access public
-     */
-    public function serviceConfiguration($service, $configCount = null){
-        
-
-        $config = Configure::read();
-            
-        foreach($config[$service]['Schema'] as $key => $value){
-            
-            //Does the value exist?
-            if(isset($config[$service][$key] )){
-                
-                //Do we have any validation rules set against the configiuration variable
-                if(isset($config[$service]['Schema'][$key]['validate'])){
-
-                    //Yes, loop through the validation rules and look for trouble
-                    foreach($config[$service]['Schema'][$key]['validate'] as $rule){
-
-                        //Will the validation fail?
-                        if( !Validation::$rule($config[$service][$key]) ){
-                            
-                            //Yes, the validation failed, throw an exception
-                            if($config['debug'] == 0){ //Production exception
-                                throw new NotFoundException();
-                            }else{ //Dev exception                            
-                                $message = __("{$key} violates the {$rule} rule set");
-                                $this->Session->setFlash($message, 'error');
-                                throw new MethodNotAllowedException($message);
-                            }
-                        }
-                    }
-                }
-
-            }else{
-                //No, the configuration value is not set, throw an exception
-                if($config['debug'] == 0){  //Production exception
-                    throw new NotFoundException();
-                }else{ //Dev exception
-                    $message = __("{$key} has not been set");
-                    $this->Session->setFlash($message, 'error');
-                    throw new MethodNotAllowedException($message);
-                }
-            }
-        }        
-
-    }
     
     public function post_and_retrieve_statuses()
     {
