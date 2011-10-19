@@ -57,6 +57,12 @@ class Parser
     public static function xml2Config($path){
         
         foreach(scandir($path) as $file){
+            $ext = pathinfo($file, PATHINFO_EXTENSION);
+
+            //Skip file if it's not XML
+            if(strtolower($ext) !== 'xml') {
+                continue;
+            }
             
             if(is_file($path . DS . $file)){
                 
