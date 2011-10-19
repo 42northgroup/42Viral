@@ -69,6 +69,7 @@ App::uses('AppController', 'Controller');
        $this->set('title_for_layout', "Create a Case for {$person['Person']['name']}");
    }
    
+   
    public function invite()
    {       
        if(!empty ($this->data)){
