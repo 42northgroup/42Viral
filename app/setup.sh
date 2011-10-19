@@ -80,3 +80,5 @@ chmod 775 -fR "$SCRIPT_PATH/Config/Log"
 echo ">>>$SCRIPT_PATH/Config/Log"
 
 echo 'Permissions set'
+
+touch "$SCRIPT_PATH/Config/Log/setup_shell.txt"
