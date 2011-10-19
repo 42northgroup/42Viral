@@ -27,6 +27,9 @@ echo $this->Html->div('config',
         . "<br /> - "
         . __("We reccomend providing non-root credentials for production sites."));
 
+echo $this->Html->link(__('Run setup shell'), '/setup/setup_shell',
+        array('class'=>(in_array('setup_shell.txt', $completed)?' setup-complete':'config')));
+
 echo $this->Html->link(__('Configure the database'), '/setup/xml_database', 
         array('class'=>(in_array('setup_xml_database.txt' ,$completed)?' setup-complete':'config')));
 

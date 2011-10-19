@@ -62,13 +62,25 @@ App::uses('Handy', 'Lib');
      * @return void
      * @access public
      */
-    public function index(){
-        
+    public function index()
+    {
         $this->set('title_for_layout', 'Configuration Manager');
         
         $this->set('completed', $this->_fetchLogs());
         
     }
+
+
+    /**
+     * 
+     *
+     * @access public
+     */
+    public function setup_shell()
+    {
+        $this->set('title_for_layout', 'Configuration Manager (Setup Shell)');
+    }
+
     
     /**
      * Provides a UI for setting up the database
