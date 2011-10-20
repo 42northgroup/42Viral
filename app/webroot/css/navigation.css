@@ -283,3 +283,14 @@ div.section-head{
     font-weight: bold;
     color: #fff;
 }
+
+.setup-disabled {
+    border-radius: 4px;
+    background: #ccc;
+    display: block;
+    margin: 6px 0;
+    padding: 6px;
+    font-size: 118%;
+    font-weight: bold;
+    color: #fff;
+}

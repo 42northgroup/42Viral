@@ -41,6 +41,13 @@ App::uses('Handy', 'Lib');
      * @access public
      */    
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
+
+
+    /**
+     * @var type
+     * @access public
+     */
+    public $helpers = array('InstallerStep');
     
     /**
      * @var string
