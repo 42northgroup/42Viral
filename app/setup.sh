@@ -79,6 +79,10 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Log"
 chmod 775 -fR "$SCRIPT_PATH/Config/Log"
 echo ">>>$SCRIPT_PATH/Config/Log"
 
+chown "$APACHE_PROCESS":"$USER" -fR "../lib/Cake/Cache"
+chmod 775 -fR "../lib/Cake/Cache"
+echo ">>>../lib/Cake/Cache"
+
 echo 'Permissions set'
 
 touch "$SCRIPT_PATH/Config/Log/setup_shell.txt"

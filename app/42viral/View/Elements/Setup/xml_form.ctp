@@ -58,8 +58,13 @@ foreach($xmlData['root'] as $key => $value):
                 'name'=>"data[{$value['name']}][value]", 
                 'label'=>$value['name'], 
                 'value'=>$value['value'],
-                'type'=>'text',
+                'type'=>'textarea',
+                'style'=>'width: 99%;',
+                'rows'=>3,
                 'between'=>$this->Html->div('form-help', $value['help'])
+                . $this->Html->div('form-help', 
+                    '<b>Default: ' . $value['default'] . '</b>', 
+                    array('style'=>'margin:4px 0 0;'))
                 )
             );
 
