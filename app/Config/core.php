@@ -19,25 +19,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-/**
- * Configure the Error handler used to handle errors for your application.  By default
- * ErrorHandler::handleError() is used.  It will display errors using Debugger, when debug > 0
- * and log errors with CakeLog when debug = 0.
- *
- * Options:
- *
- * - `handler` - callback - The callback to handle errors. You can set this to any callback type,
- *    including anonymous functions.
- * - `level` - int - The level of errors you are interested in capturing.
- * - `trace` - boolean - Include stack traces for errors in log files.
- *
- * @see ErrorHandler for more information on error handling and configuration.
- */
-	Configure::write('Error', array(
-		'handler' => 'ErrorHandler::handleError',
-		'level' => E_ALL & ~E_DEPRECATED,
-		'trace' => true
-	));
+
 
 /**
  * Configure the Exception handler used for uncaught exceptions.  By default,

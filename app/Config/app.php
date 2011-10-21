@@ -23,16 +23,6 @@
 Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Configure::read('Domain.host') . '/');
 
 /**
- * From email address to use in the header when sending out emails using the email component
- */
-Configure::write('Email.from', 'app@42viral.org');
-
-/**
- * Reply to email address to use in the header when sending out emails using the email component
- */
-Configure::write('Email.replyTo', 'support@42viral.org');
-
-/**
  * Are we in private beta mode?
  */
 Configure::write('Beta.private', 0);
