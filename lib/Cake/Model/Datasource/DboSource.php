@@ -440,7 +440,9 @@ class DboSource extends DataSource {
 			}
 			if (!$query->columnCount()) {
 				$query->closeCursor();
-				return true;
+				if (!$query->rowCount()) {
+					return true;
+				}
 			}
 			return $query;
 		} catch (PDOException $e) {
@@ -951,8 +953,6 @@ class DboSource extends DataSource {
 
 		for ($i = 0; $i < $count; $i++) {
 			$valueInsert[] = $this->value($values[$i], $model->getColumnType($fields[$i]));
-		}
-		for ($i = 0; $i < $count; $i++) {
 			$fieldInsert[] = $this->name($fields[$i]);
 			if ($fields[$i] == $model->primaryKey) {
 				$id = $values[$i];
@@ -990,7 +990,7 @@ class DboSource extends DataSource {
 		$queryData = $this->_scrubQueryData($queryData);
 
 		$null = null;
-		$array = array();
+		$array = array('callbacks' => $queryData['callbacks']);
 		$linkedModels = array();
 		$bypass = false;
 
@@ -1043,7 +1043,11 @@ class DboSource extends DataSource {
 			return false;
 		}
 
-		$filtered = $this->_filterResults($resultSet, $model);
+		$filtered = array();
+
+		if ($queryData['callbacks'] === true || $queryData['callbacks'] === 'after') {
+			$filtered = $this->_filterResults($resultSet, $model);
+		}
 
 		if ($model->recursive > -1) {
 			foreach ($_associations as $type) {
@@ -1071,7 +1075,9 @@ class DboSource extends DataSource {
 					}
 				}
 			}
-			$this->_filterResults($resultSet, $model, $filtered);
+			if ($queryData['callbacks'] === true || $queryData['callbacks'] === 'after') {
+				$this->_filterResults($resultSet, $model, $filtered);
+			}
 		}
 
 		if (!is_null($recursive)) {
@@ -1162,7 +1168,9 @@ class DboSource extends DataSource {
 						}
 					}
 				}
-				$this->_filterResults($fetch, $model);
+				if ($queryData['callbacks'] === true || $queryData['callbacks'] === 'after') {
+					$this->_filterResults($fetch, $model);
+				}
 				return $this->_mergeHasMany($resultSet, $fetch, $association, $model, $linkModel);
 			} elseif ($type === 'hasAndBelongsToMany') {
 				$ins = $fetch = array();
@@ -2093,6 +2101,7 @@ class DboSource extends DataSource {
 		static $base = null;
 		if ($base === null) {
 			$base = array_fill_keys(array('conditions', 'fields', 'joins', 'order', 'limit', 'offset', 'group'), array());
+			$base['callbacks'] = null;
 		}
 		return (array)$data + $base;
 	}
@@ -2581,6 +2590,10 @@ class DboSource extends DataSource {
 			if (is_object($model) && $model->isVirtualField($key)) {
 				$key =  '(' . $this->_quoteFields($model->getVirtualField($key)) . ')';
 			}
+			list($alias, $field) = pluginSplit($key);
+			if (is_object($model) && $alias !== $model->alias && is_object($model->{$alias}) && $model->{$alias}->isVirtualField($key)) {
+				$key =  '(' . $this->_quoteFields($model->{$alias}->getVirtualField($key)) . ')';
+			}
 
 			if (strpos($key, '.')) {
 				$key = preg_replace_callback('/([a-zA-Z0-9_-]{1,})\\.([a-zA-Z0-9_-]{1,})/', array(&$this, '_quoteMatchedField'), $key);
@@ -2727,9 +2740,11 @@ class DboSource extends DataSource {
 /**
  * Inserts multiple values into a table
  *
- * @param string $table
- * @param string $fields
- * @param array $values
+ * @param string $table The table being inserted into.
+ * @param array $fields The array of field/column names being inserted.
+ * @param array $values The array of values to insert.  The values should
+ *   be an array of rows.  Each row should have values keyed by the column name.
+ *   Each row must have the values in the same order as $fields.
  * @return boolean
  */
 	public function insertMulti($table, $fields, $values) {
@@ -2737,12 +2752,32 @@ class DboSource extends DataSource {
 		$holder = implode(',', array_fill(0, count($fields), '?'));
 		$fields = implode(', ', array_map(array(&$this, 'name'), $fields));
 
+		$pdoMap = array(
+			'integer' => PDO::PARAM_INT,
+			'float' => PDO::PARAM_STR,
+			'boolean' => PDO::PARAM_BOOL,
+			'string' => PDO::PARAM_STR,
+			'text' => PDO::PARAM_STR
+		);
+		$columnMap = array();
+
 		$count = count($values);
 		$sql = "INSERT INTO {$table} ({$fields}) VALUES ({$holder})";
 		$statement = $this->_connection->prepare($sql);
 		$this->begin();
+
+		foreach ($values[0] as $key => $val) {
+			$type = $this->introspectType($val);
+			$columnMap[$key] = $pdoMap[$type];
+		}
+
 		for ($x = 0; $x < $count; $x++) {
-			$statement->execute($values[$x]);
+			$i = 1;
+			foreach ($values[$x] as $key => $val) {
+				$statement->bindValue($i, $val, $columnMap[$key]);
+				$i += 1;
+			}
+			$statement->execute();
 			$statement->closeCursor();
 		}
 		return $this->commit();

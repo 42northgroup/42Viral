@@ -17,8 +17,6 @@
  */
 App::uses('CakeBaseReporter', 'TestSuite/Reporter');
 
-PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'DEFAULT');
-
 /**
  * CakeHtmlReporter Reports Results of TestSuites and Test Cases
  * in an HTML format / context.
@@ -143,8 +141,15 @@ class CakeHtmlReporter extends CakeBaseReporter {
 		echo $this->_paintLinks();
 		echo '</div>';
 		if (isset($this->params['codeCoverage']) && $this->params['codeCoverage']) {
-			$coverage = $result->getCodeCoverage()->getSummary();
-			echo $this->paintCoverage($coverage);
+			$coverage = $result->getCodeCoverage();
+			if (method_exists($coverage, 'getSummary')) {
+				$report = $coverage->getSummary();
+				echo $this->paintCoverage($report);
+			}
+			if (method_exists($coverage, 'getData')) {
+				$report = $coverage->getData();
+				echo $this->paintCoverage($report);
+			}
 		}
 		$this->paintDocumentEnd();
 	}
@@ -156,6 +161,7 @@ class CakeHtmlReporter extends CakeBaseReporter {
  */
 	public function paintCoverage(array $coverage) {
 		App::uses('HtmlCoverageReport', 'TestSuite/Coverage');
+
 		$reporter = new HtmlCoverageReport($coverage, $this);
 		echo $reporter->report();
 	}
