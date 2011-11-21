@@ -81,10 +81,12 @@ class CommandListShell extends Shell {
 	protected function _getShellList() {
 		$shellList = array();
 
-		$shells = App::objects('file', App::core('Console/Command'));
+		$corePath = App::core('Console/Command');
+		$shells = App::objects('file', $corePath[0]);
 		$shellList = $this->_appendShells('CORE', $shells, $shellList);
 
 		$appShells = App::objects('Console/Command', null, false);
+		$appShells = array_diff($appShells, $shells);
 		$shellList = $this->_appendShells('app', $appShells, $shellList);
 
 		$plugins = CakePlugin::loaded();
@@ -144,7 +146,8 @@ class CommandListShell extends Shell {
 			$this->out(" " . $row);
 		}
 		$this->out();
-		$this->out(__d('cake_console', "To run a command, type <info>cake shell_name [args]</info>"));
+		$this->out(__d('cake_console', "To run an app or core command, type <info>cake shell_name [args]</info>"));
+		$this->out(__d('cake_console', "To run a plugin command, type <info>cake Plugin.shell_name [args]</info>"));
 		$this->out(__d('cake_console', "To get help on a specific command, type <info>cake shell_name --help</info>"), 2);
 	}
 

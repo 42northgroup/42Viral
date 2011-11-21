@@ -353,6 +353,9 @@ class ExtractTask extends Shell {
 		foreach ($models as $model) {
 			App::uses($model, $plugin . 'Model');
 			$reflection = new ReflectionClass($model);
+			if (!$reflection->isSubClassOf('Model')) {
+				continue;
+			}
 			$properties = $reflection->getDefaultProperties();
 			$validate = $properties['validate'];
 			if (empty($validate)) {
@@ -606,7 +609,7 @@ class ExtractTask extends Shell {
 		if (!empty($this->_exclude)) {
 			$exclude = array();
 			foreach ($this->_exclude as $e) {
-				if ($e[0] !== DS) {
+				if (DS !== '\\' && $e[0] !== DS) {
 					$e = DS . $e;
 				}
 				$exclude[] = preg_quote($e, '/');

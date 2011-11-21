@@ -15,11 +15,8 @@
  * @since         CakePHP(tm) v 1.3
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 App::uses('CakeBaseReporter', 'TestSuite/Reporter');
 App::uses('TextCoverageReport', 'TestSuite/Coverage');
-
-PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'DEFAULT');
 
 /**
  * CakeTextReporter contains reporting features used for plain text based output
@@ -61,7 +58,7 @@ class CakeTextReporter extends CakeBaseReporter {
 		$context = $context[2];
 
 		printf(
-			"FAIL on line %s\n%s in\n%s %s()\n\n", 
+			"FAIL on line %s\n%s in\n%s %s()\n\n",
 			$context['line'], $message->toString(), $context['file'], $realContext['function']
 		);
 	}
@@ -80,7 +77,7 @@ class CakeTextReporter extends CakeBaseReporter {
 			echo "FAILURES!!!\n";
 		}
 
-		echo "Test cases run: " . $result->count() . 
+		echo "Test cases run: " . $result->count() .
 			"/" . ($result->count() - $result->skippedCount()) .
 			', Passes: ' . $this->numAssertions .
 			', Failures: ' . $result->failureCount() .

@@ -44,9 +44,7 @@
 function config() {
 	$args = func_get_args();
 	foreach ($args as $arg) {
-		if ($arg === 'database' && file_exists(APP . 'Config' . DS . 'database.php')) {
-			include_once(APP . 'Config' . DS . $arg . '.php');
-		} elseif (file_exists(APP . 'Config' . DS . $arg . '.php')) {
+		if (file_exists(APP . 'Config' . DS . $arg . '.php')) {
 			include_once(APP . 'Config' . DS . $arg . '.php');
 
 			if (count($args) == 1) {
@@ -76,6 +74,7 @@ function debug($var = false, $showHtml = null, $showFrom = true) {
 	if (Configure::read('debug') > 0) {
 		$file = '';
 		$line = '';
+		$lineInfo = '';
 		if ($showFrom) {
 			$calledFrom = debug_backtrace();
 			$file = substr(str_replace(ROOT, '', $calledFrom[0]['file']), 1);
@@ -83,32 +82,37 @@ function debug($var = false, $showHtml = null, $showFrom = true) {
 		}
 		$html = <<<HTML
 <div class="cake-debug-output">
-<span><strong>%s</strong> (line <strong>%s</strong>)</span>
+%s
 <pre class="cake-debug">
 %s
 </pre>
 </div>
 HTML;
-			$text = <<<TEXT
-
-%s (line %s)
+		$text = <<<TEXT
+%s
 ########## DEBUG ##########
 %s
 ###########################
-
 TEXT;
 		$template = $html;
-		if (php_sapi_name() == 'cli') {
+		if (php_sapi_name() == 'cli' || $showHtml === false) {
 			$template = $text;
+			if ($showFrom) {
+				$lineInfo = sprintf('%s (line %s)', $file, $line);
+			}
 		}
 		if ($showHtml === null && $template !== $text) {
 			$showHtml = true;
 		}
 		$var = print_r($var, true);
 		if ($showHtml) {
-			$var = htmlentities($var);
+			$template = $html;
+			$var = h($var);
+			if ($showFrom) {
+				$lineInfo = sprintf('<span><strong>%s</strong> (line <strong>%s</strong>)</span>', $file, $line);
+			}
 		}
-		printf($template, $file, $line, $var);
+		printf($template, $lineInfo, $var);
 	}
 }
 
@@ -148,7 +152,9 @@ if (!function_exists('sortByKey')) {
 /**
  * Convenience method for htmlspecialchars.
  *
- * @param string $text Text to wrap through htmlspecialchars
+ * @param mixed $text Text to wrap through htmlspecialchars.  Also works with arrays, and objects.
+ *    Arrays will be mapped and have all their elements escaped.  Objects will be string cast if they
+ *    implement a `__toString` method.  Otherwise the class name will be used.
  * @param boolean $double Encode existing html entities
  * @param string $charset Character set to use when escaping.  Defaults to config value in 'App.encoding' or 'UTF-8'
  * @return string Wrapped text
@@ -161,6 +167,12 @@ function h($text, $double = true, $charset = null) {
 			$texts[$k] = h($t, $double, $charset);
 		}
 		return $texts;
+	} elseif (is_object($text)) {
+		if (method_exists($text, '__toString')) {
+			$text = (string) $text;
+		} else {
+			$text = '(object)' . get_class($text);
+		}
 	}
 
 	static $defaultCharset = false;
