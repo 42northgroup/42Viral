@@ -16,6 +16,7 @@
 
 App::uses('AppModel', 'Model');
 App::uses('User', 'Model');
+App::uses('Profile', 'Model');
 App::uses('Sec', 'Utility');
 
 /**
@@ -188,14 +189,19 @@ class Oauth extends AppModel
         ));
 
         if(!empty ($oauth)){
+            
             if($oauth['Oauth']['person_id'] != $user_id){
-
+                
                 $oauth_person_id = $oauth['Oauth']['person_id'];
+                
+                $profile = new Profile();
+                $profile->deleteAll(array('Profile.owner_person_id' => $oauth_person_id));
+
                 $db = ConnectionManager::getDataSource('default');
                 $tables = $db->listSources();
 
                 $fields = array();
-                pr($tables);
+                
                 foreach($tables as $table) {
                     if(!in_array($table, array('aros', 'acos', 'aros_acos'))){
 
@@ -209,7 +215,27 @@ class Oauth extends AppModel
                         
                         App::uses($class_name, 'Model');
                         
-                        $loaded_table = new $class_name();
+                        if(class_exists($class_name)){
+                            $loaded_table = new $class_name();
+                        }else{
+                            
+                            $pluginDirs = App::objects('plugin', null, false);
+        
+                            foreach ($pluginDirs as $pluginDir){
+                                if(file_exists('Plugin'. DS .$pluginDir. DS .'Model'. DS .$class_name.'php')){
+                                    App::import('Model', $pluginDir.'.'.$class_name);
+                                    
+                                    if(class_exists($class_name)){
+                                        $loaded_table = new $class_name();
+                                    }else{
+                                        echo 'class not found';
+                                    }
+                                }else{
+                                    echo 'model not found';
+                                }
+                            }
+                        }
+                        
 
                         foreach($fields as $field){
 
@@ -227,6 +253,7 @@ class Oauth extends AppModel
 
                 $user = new User();
                 $user->delete($oauth_person_id);
+                
             }
             return true;
         }else{
@@ -256,7 +283,7 @@ class Oauth extends AppModel
         if(empty($connectedServices)) {
             $progress = 0;
         } else {
-            $progress = 100;
+            $progress = ceil(100/3*count($connectedServices));
         }
 
         return $progress;
