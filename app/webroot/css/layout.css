@@ -38,52 +38,47 @@ body{
 }
 
 #Banner{
-    width: 960px;
     margin: 0 auto; 
     background: #F1F1F1;
     border-bottom: 1px solid #e2e2e2;
+}
 
+
+
+#BannerLeft{
+    float:left; 
+    margin-right: 24px;
+    width: 166px;
 }
 
 #BannerContent{
-    float:left;
-    width: 600px;
+    float:left; 
+    width: 67%;
 }
-
-#BannerLeft{
-    float:left;
-    width:166px;    
-    padding:0 9px 0 0;
-}
-
 
 #BannerRight{
-    float:left;
-    width:166px;
-    padding:0 9px 0 0;
+    float:right;
+    padding:4px;
 }
 
 
 #Main{
-    margin: 4px auto 0;
-    width: 960px;
+    margin: 6px 8px;
 }
 
 #MainContent{
-    float:left;
-    width: 600px;
+    float:left; 
+    width: 67%;
 }
 
 #MainLeft{
-    float:left;
-    width:166px;    
-    padding:0 9px 0 0;
-    
+    float:left; 
+    margin-right: 24px;
+    width:166px;
 }
 
 #MainRight{
     float:right;
-    width:166px;    
     padding:0 9px 0 0;
     
 }
