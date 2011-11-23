@@ -65,7 +65,9 @@ Cache::config('default', array('engine' => 'File'));
  */
 
 
-CakePlugin::loadAll();
+CakePlugin::load('Tags');
+CakePlugin::load('Search');
+
 
 App::build(array(
     
