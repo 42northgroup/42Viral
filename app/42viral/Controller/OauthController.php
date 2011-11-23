@@ -472,7 +472,7 @@ App::uses('HttpSocket', 'Network/Http');
 
                 $this->__createAro($user['User']['username'], $user['User']['id']);
 
-                $this->Access->permissions($user['User']);
+                //$this->Access->permissions($user['User']);
 
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
