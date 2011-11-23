@@ -1,21 +1,28 @@
 <?php
 /**
+ * PHP 5.3
+ * 
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+/**
  * Auto-magically populate deals with slug creation and basic SEO behaviors
- *
- * Copyright (c) 2011,  MicroTrain Technologies  (http://www.microtrain.net)
- * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
- *
- * @copyright  Copyright 2011, MicroTrain Technologies  (http://www.microtrain.net)
- * @package    app.core
- ****** @author     Jason D Snider <jsnider@microtrain.net>
- * @license    http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @author Jason D Snider <jason@jasonsnider.com>
  */
 class SeoBehavior extends ModelBehavior
 {
 
     /**
+     * A callback for preping an object
      * @param object $model
-     *** @author Jason D Snider <jsnider@microtrain.net> 
+     * @author Jason D Snider <jsnider@microtrain.net> 
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -32,8 +39,9 @@ class SeoBehavior extends ModelBehavior
     }
 
     /**
+     * A callback for presave data manipulation
      * @param object $model
-     *** @author Jason D Snider <jsnider@microtrain.net> 
+     * @return boolean
      * @access public
      */
     public function beforeSave(&$model)
@@ -58,7 +66,6 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     *** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __baseSlug(&$model, $title)
     {
@@ -73,12 +80,11 @@ class SeoBehavior extends ModelBehavior
     }
     
     /**
-     * Disambiguates slugs by appending a counter to the search string.
+     * Disambiguates slugs by appending a counter to the slug string.
      * @param object $model
      * @param string $baseSlug
      * @return array 
      * @access private 
-     *** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __ambiguity(&$model,$baseSlug)
     {
@@ -91,7 +97,6 @@ class SeoBehavior extends ModelBehavior
      * @param string $title the title of a content record as entered by the user
      * @return string the reformatted version of the input string
      * @access private 
-     *** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __slug(&$model, $baseSlug)
     {
@@ -113,7 +118,6 @@ class SeoBehavior extends ModelBehavior
      * @param string $slug
      * @return string 
      * @access private 
-     *** @author Jason D Snider <jason.snider@42viral.org> 
      */
     private function __canonical(&$model, $slug){
         return Configure::read('Domain.url') . strtolower("{$model->alias}/{$slug}/"); 

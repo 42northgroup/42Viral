@@ -17,7 +17,7 @@ App::uses('File', 'Utility');
 App::uses('Scrub', 'Lib');
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class AppController extends Controller
 {
@@ -130,7 +130,7 @@ class AppController extends Controller
                 $allowAll = true;
             }
         }
-        
+
         //Is this a public controller?
         if(!$allowAll){
             

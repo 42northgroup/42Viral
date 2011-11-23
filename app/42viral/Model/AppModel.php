@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-
+App::uses('Model', 'Model');
 /**
  * Origianally, this existed as an abstract, but that pisses off the shell as of RC1
  *
