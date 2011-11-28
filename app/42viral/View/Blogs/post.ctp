@@ -53,7 +53,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
     
     .meta{
         font-style: italic;
-        color:#555;
+        color:#999;
     }
     
     .meta-head{

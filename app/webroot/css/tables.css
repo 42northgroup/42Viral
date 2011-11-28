@@ -30,3 +30,13 @@ td{
     border-left: none;
     border-right: none;
 }
+
+tr.double-top td{
+    border:none;
+    border-top: 1px solid #E5E5E5;
+}
+
+tr.double-bottom td{
+    border:none;
+    border-bottom: 1px solid #E5E5E5;
+}

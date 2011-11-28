@@ -15,7 +15,7 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
     if($mine):
@@ -42,7 +42,16 @@
     echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 
 ?>
-
+<style type="text/css">    
+    .meta{
+        font-style: italic;
+        color:#999;
+    }
+    
+    .meta-right{
+        text-align: right;
+    }
+</style>
 <div style="margin: 3px 0;"><?php echo $blog['Blog']['tease']; ?></div>
 
 <div id="ResultsPage">
@@ -50,9 +59,15 @@
     <div class="result">
         <h2><?php echo $this->Html->link($post['title'], $post['url']); ?></h2>
         <div class="tease">
-        <?php 
-            echo $post['tease']; 
-        ?>
+            <div class="meta meta-right"><?php echo Handy::date($post['created']); ?></div>
+            <?php echo $this->Text->truncate(
+                    $post['body'], 
+                    750, 
+                    array(
+                        'ending' => ' ' . $this->Html->link('(More...)', $post['url']),
+                        'exact' => false,
+                        'html' => true)); 
+            ?>
         </div>
     </div>
     <?php endforeach; ?>

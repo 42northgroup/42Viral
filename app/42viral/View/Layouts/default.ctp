@@ -39,14 +39,14 @@
             
             <?php echo $this->element('Blocks' . DS . 'banner'); ?>
 
-            <div id="Main" class="clearfix">
-                
-                <div id="MainLeft"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
-                
-                <div id="MainContent"><?php echo $content_for_layout; ?></div>
-                
-                <div id="MainRight"><?php echo $this->element('Blocks' . DS . 'right'); ?></div>
+            <div id="Main">
+                <div class="clearfix squeeze">
+                    <div id="MainLeft"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
 
+                    <div id="MainContent"><?php echo $content_for_layout; ?></div>
+
+                    <div id="MainRight"><?php echo $this->element('Blocks' . DS . 'right'); ?></div>
+                </div>
             </div>
             
             <div id="Footer"><?php echo $this->element('Blocks' . DS . 'footer'); ?></div>
