@@ -20,7 +20,7 @@ App::uses('Content', 'Model');
  * @package app
  * @subpackage app.core
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Post extends Content
 {
@@ -95,7 +95,6 @@ class Post extends Content
     );
     
    /**
-     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeSave()
@@ -109,7 +108,6 @@ class Post extends Content
      * Inject all "finds" against the Post object with lead filtering criteria
      * @param array $query
      * @return type 
-     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeFind(&$query) 
