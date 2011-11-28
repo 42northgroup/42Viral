@@ -6,7 +6,6 @@
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
@@ -15,7 +14,7 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content')); ?>
@@ -44,7 +43,6 @@
     }
 </style>
 
-
 <div class="post clearfix">
     <div class="post-avatar">
         <?php echo $this->Member->avatar($post['CreatedPerson']); ?>
@@ -65,7 +63,7 @@
         $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
         $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS;
         
-        $file = 'accessing-phpmyadmin-after-apt-get-install.ctp';
+        //$file = 'accessing-phpmyadmin-after-apt-get-install.ctp';
         
         
         $file = $post['Post']['custom_file'] . '.ctp';
@@ -81,7 +79,7 @@
 
         }    
     ?>
-    <?php echo $post['Post']['body']; ?>
+    <?php echo $post['Post']['body']; ?> 
     </div>
 </div>
 
@@ -89,7 +87,7 @@
     <span class="meta-head">Last Modified:</span>
     <?php echo $post['Post']['modified']; ?>
 </div>
-
+ 
 <?php foreach($post['Conversation'] as $conversation): ?>
     <div><?php echo $conversation['body']; ?></div>
 <?php endforeach; ?>

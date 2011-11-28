@@ -15,7 +15,7 @@ class BlogsController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Post', 'Person', 'Profile');
+    public $uses = array('Blog', 'Conversation', 'Post', 'Person', 'Profile');
     
     /**
      * @var array
@@ -113,6 +113,19 @@ class BlogsController extends AppController {
         if(empty($post)){
            $this->redirect('/', '404');
         }
+
+                
+        //Add a comment
+        if($this->data){            
+            if($this->Conversation->save($this->data)){
+                $this->Session->setFlash(_('Your comment has been saved') ,'success');
+                $this->redirect($this->referer());
+            }else{
+                $this->Session->setFlash(_('Your comment could not be saved') ,'error');
+            }
+        }
+        
+        
         
         if( !$this->Session->check('Auth.User.id') ){
             

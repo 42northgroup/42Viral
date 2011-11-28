@@ -74,6 +74,11 @@ class User extends Person
                 'message' =>"Please enter an email address",
                 'last' => true
             ),
+            'email' => array(
+                'rule' => 'email',
+                'message' =>"Please enter a valid email.",
+                'last' => true
+            ),
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"This email address is already in use",
