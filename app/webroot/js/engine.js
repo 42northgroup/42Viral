@@ -70,6 +70,19 @@ $.ajaxSetup ({
  */
 $(function(){
     
+    /** Side navigation controls **/
+    $('#MainLeft').delegate('.side-navigation-toggle', 'mouseenter', function(){
+        $(this).attr('style', 'color:#555');     
+    });
+    
+    $('#MainLeft').delegate('.side-navigation-toggle', 'mouseleave', function(){
+        $(this).attr('style', 'color:#e2e2e2');     
+    });    
+    
+    $('#MainLeft').delegate('.side-navigation-toggle', 'click', function(){
+        $(this).parent().next().toggle();        
+    });
+    
     //HeaderRight navigation
     $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){
         $('.navigation-block').hide();

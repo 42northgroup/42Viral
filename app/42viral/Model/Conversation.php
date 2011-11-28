@@ -21,7 +21,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Conversation extends AppModel
 {
@@ -75,5 +75,44 @@ class Conversation extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         )
-    );     
+    );  
+    
+    /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'body' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>'Please say something',
+                'last' => true
+            ),
+        ),
+        'name' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>'Please tell us your name',
+                'last' => true
+            ),
+        ),
+        'email' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' =>"Please enter an email address",
+                'last' => true
+            ),
+            'email' => array(
+                'rule' => 'email',
+                'message' =>"Please enter a valid email.",
+                'last' => true
+            ),
+            'isUnique' => array(
+                'rule' => 'isUnique',
+                'message' =>"This email address is already in use",
+                'last' => true
+            )
+        ),
+    );    
 }
