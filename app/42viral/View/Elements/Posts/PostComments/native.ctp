@@ -15,12 +15,13 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
 if($this->Session->read('Auth.User')):
     
-    echo $this->Form->create('Conversation', array('url'=>'/contents/post_comment')); 
+    echo $this->Html->Tag('h2', __('Leave a Comment'));
+    echo $this->Form->create('Conversation', array('url'=>$this->here)); 
     echo $this->Form->input('content_id', array('type'=>'hidden', 'value'=>$post['Post']['id'])); 
     echo $this->Form->input('body', 
         array(
@@ -35,6 +36,18 @@ if($this->Session->read('Auth.User')):
 else:
     
     echo $this->Html->Tag('h2', __('Leave a Comment'));
-    echo 'Sign In | Twitter | Facebook | LinkedIn | Create an Account' ;
+    echo $this->Form->create('Conversation', array('url'=>$this->here)); 
+    echo $this->Form->input('content_id', array('type'=>'hidden', 'value'=>$post['Post']['id']));
+    echo $this->Form->input('name');
+    echo $this->Form->input('email'); 
+    echo $this->Form->input('body', 
+        array(
+            'class'=>'comment', 
+            'style'=>'width:98%;', 
+            'rows'=>6,
+            'value'=> isset($post_comment)? $post_comment:'',
+            'label'=>array('text'=>'Comment', 'style'=>'display:block;'))); 
+    echo $this->Form->submit(); 
+    echo $this->Form->end(); 
      
 endif;

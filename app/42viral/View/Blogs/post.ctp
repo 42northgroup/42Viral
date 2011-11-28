@@ -104,15 +104,21 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'content', 'ad
 
 <?php foreach($post['Conversation'] as $conversation): ?>
     <div class="result">
-        
-        <div class="meta">
-            <?php echo $this->Member->displayName($conversation['CreatedPerson']); ?>
-            <span class="meta-head">Posted:</span>
-            <?php echo Handy::date($conversation['CreatedPerson']['created']); ?>
-        </div>
+        <?php if(empty($conversation['email'])): ?>
+            <div class="meta">
+                <?php echo $this->Member->displayName($conversation['CreatedPerson']); ?>
+                <span class="meta-head">Posted:</span>
+                <?php echo Handy::date($conversation['created']); ?>
+            </div>
+        <?php else: ?>
+            <div class="meta">
+                <?php echo $conversation['name']; ?>
+                <span class="meta-head">Posted:</span>
+                <?php echo Handy::date($conversation['created']); ?>
+            </div>
+        <?php endif; ?>
         
         <?php echo $conversation['body']; ?>
-        
     </div>
 <?php endforeach; ?>
 

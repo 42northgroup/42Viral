@@ -54,7 +54,7 @@ App::uses('Member', 'Lib');
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('content'));
+        $this->auth(array('content', 'post_comment'));
     }
     
     
@@ -257,9 +257,6 @@ App::uses('Member', 'Lib');
      * @access public
      */
     public function post_comment(){
-        if( $this->Session->check('Auth.post_url') ){
-            $this->redirect($this->Session->read('Auth.post_url'));
-        }
         
         if($this->data){            
             
