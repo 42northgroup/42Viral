@@ -15,7 +15,7 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason@jasonsnider.com>
  */
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
@@ -34,7 +34,16 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
 
             <div class="result">
                 <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
-                <div class="tease"><?php echo $blog['Blog']['tease']; ?></div>
+                <div class="tease">
+                <?php echo $this->Text->truncate(
+                        $blog['Blog']['body'], 
+                        750, 
+                        array(
+                            'ending' => ' ' . $this->Html->link('(More...)', $blog['Blog']['url']),
+                            'exact' => false,
+                            'html' => true)); 
+                ?>
+                </div>
             </div>
             <?php 
             endforeach;
@@ -53,7 +62,14 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
             ?>
             <div class="result">
                 <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
-                <div class="tease"><?php echo $blog['tease']; ?></div>
+                <?php echo $this->Text->truncate(
+                        $blog['body'], 
+                        750, 
+                        array(
+                            'ending' => ' ' . $this->Html->link('(More...)', $blog['url']),
+                            'exact' => false,
+                            'html' => true)); 
+                ?>
             </div>
             <?php 
             endforeach;

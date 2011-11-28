@@ -14,28 +14,42 @@
  */
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'people')); 
 
 ?>
+<script type="text/javascript">
+    $(function(){
+        
+    });
+</script>
 
 <table>
     <thead>
-        <th>Actions</th>
         <th>Name</th>
         <th>Username</th>
         <th>Email</th>
     </thead>
     <tbody>
         <?php foreach ($people as $person): ?>
-        <tr>
-            <td><?php echo $this->Html->link('View', $person['Person']['admin_url']); ?></td>            
+        <tr class="double-top">         
             <td><?php echo $person['Person']['name']; ?></td>
             <td><?php echo $person['Person']['username']; ?></td>
             <td><?php echo $person['Person']['email']; ?></td>
         </tr>
+        <tr style="visibility: hidden;" class="double-bottom">
+            <td colspan="3">
+                <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
+                |
+                <a href="#">Edit</a>
+                |
+                <a href="#">New Case</a>
+                |
+                <a href="#">Delete</a>
+            </td>            
+        </tr>        
         <?php endforeach; ?>
     </tbody>
 </table>

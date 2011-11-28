@@ -38,12 +38,9 @@ body{
 }
 
 #Banner{
-    margin: 0 auto; 
-    background: #F1F1F1;
+    background: #f1f1f1;
     border-bottom: 1px solid #e2e2e2;
 }
-
-
 
 #BannerLeft{
     float:left; 
@@ -53,7 +50,8 @@ body{
 
 #BannerContent{
     float:left; 
-    width: 67%;
+    /* width: 67%; */
+    width: 545px;
 }
 
 #BannerRight{
@@ -61,14 +59,14 @@ body{
     padding:4px;
 }
 
-
 #Main{
-    margin: 6px 8px;
+    margin: 0 8px 6px 0;
 }
 
 #MainContent{
     float:left; 
-    width: 67%;
+    /* width: 67%; */
+    width: 545px;
 }
 
 #MainLeft{
@@ -90,4 +88,9 @@ body{
     font-weight: bold;
     color: #fff;
     background: #000;
+}
+
+.squeeze{
+    margin: 0 auto;
+    width: 960px;
 }
