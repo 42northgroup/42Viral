@@ -46,7 +46,7 @@ Router::connect('/p/:username',
 
 Router::connect(
     '/c/:slug',
-    array('controller' => 'companies', 'action' => 'view'),
+    array('controller' => 'profile_companies', 'action' => 'view'),
     array('pass' => array('slug')
 ));
 

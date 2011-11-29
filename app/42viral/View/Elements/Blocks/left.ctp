@@ -10,7 +10,7 @@
 <ul class="side-navigation" style="display: block;">
     <li><a href="/blogs">Blogs</a></li>
     <li><a href="/members">Members</a></li>
-    <li><a href="/companies">Companies</a></li>
+    <li><a href="/profile_companies">Companies</a></li>
     <li><a href="/pages">Pages</a></li>
 </ul>
 
