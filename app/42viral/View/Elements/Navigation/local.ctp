@@ -31,7 +31,7 @@ switch($section){
             'Items' => array(
                 array(
                     'text'=>'All Companies',
-                    'url'=>'/companies',
+                    'url'=>'/profile_companies',
                     'options' => array(),
                     'confirm'=>null
                 ),
