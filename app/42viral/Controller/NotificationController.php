@@ -143,7 +143,7 @@ App::uses('AppController', 'Controller');
         $person = $this->Person->fetchPersonWith($userId, array(), 'id');
 
         $additionalObjects = array(
-            'Company' => array(
+            'ProfileCompany' => array(
                 'name' => 'ABC Company',
                 'address' => '123 Main St Suite 321, NY 12345'
             )

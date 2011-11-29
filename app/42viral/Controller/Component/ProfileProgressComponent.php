@@ -15,7 +15,7 @@
 
 
 App::uses('Profile', 'Model');
-App::uses('Company', 'Model');
+App::uses('ProfileCompany', 'Model');
 App::uses('Oauth', 'Model');
 
 /**
@@ -31,7 +31,7 @@ class ProfileProgressComponent  extends Component
         parent::__construct($collection, $settings);
 
         $this->Profile = new Profile();
-        $this->Company = new Company();
+        $this->ProfileCompany = new ProfileCompany();
         $this->Oauth = new Oauth();
     }
 
@@ -47,7 +47,7 @@ class ProfileProgressComponent  extends Component
     {
         $progress = array();
         $progress['user'] = $this->Profile->userProfileProgress($userId);
-        $progress['company'] = $this->Company->companyProfileProgress($userId);
+        $progress['company'] = $this->ProfileCompany->companyProfileProgress($userId);
         $progress['connect'] = $this->Oauth->connectProgress($userId);
         $progress['_all'] = ($progress['user'] + $progress['company'] + $progress['connect']) / 3;
 

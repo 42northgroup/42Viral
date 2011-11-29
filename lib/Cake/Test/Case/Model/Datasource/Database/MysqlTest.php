@@ -1913,9 +1913,9 @@ class MysqlTest extends CakeTestCase {
 		$this->assertEquals($expected, $result);
 
 		$letter = $letter = 'd.a';
-		$conditions = array('Company.name like ' => $letter . '%');
+		$conditions = array('ProfileCompany.name like ' => $letter . '%');
 		$result = $this->Dbo->conditions($conditions);
-		$expected = " WHERE `Company`.`name` like 'd.a%'";
+		$expected = " WHERE `ProfileCompany`.`name` like 'd.a%'";
 		$this->assertEquals($expected, $result);
 
 		$conditions = array('Artist.name' => 'JUDY and MARY');
@@ -1928,9 +1928,9 @@ class MysqlTest extends CakeTestCase {
 		$expected = " WHERE `Artist`.`name` = 'JUDY AND MARY'";
 		$this->assertEquals($expected, $result);
 
-		$conditions = array('Company.name similar to ' => 'a word');
+		$conditions = array('ProfileCompany.name similar to ' => 'a word');
 		$result = $this->Dbo->conditions($conditions);
-		$expected = " WHERE `Company`.`name` similar to 'a word'";
+		$expected = " WHERE `ProfileCompany`.`name` similar to 'a word'";
 		$this->assertEquals($result, $expected);
 	}
 

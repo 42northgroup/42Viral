@@ -18,7 +18,7 @@
     </h2>
 <?php else: ?>
     <h2>
-        2. <a href="/companies/create">Company Profile</a>
+        2. <a href="/profile_companies/create">Company Profile</a>
     </h2>
 <?php endif; ?>
 

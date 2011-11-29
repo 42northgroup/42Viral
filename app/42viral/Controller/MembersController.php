@@ -81,7 +81,7 @@ App::uses('Member', 'Lib');
 
         //Get the user data
         $user = $this->User->getUserWith($token, array(
-            'Profile', 'Content', 'Upload', 'Company' => array('Address')
+            'Profile', 'Content', 'Upload', 'ProfileCompany' => array('Address')
         ));
 
         //Does the user really exist?

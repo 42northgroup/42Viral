@@ -83,7 +83,12 @@
                             echo $this->Access->link('Contents-page_create', 'Socialize', '/users/social_media/');  
                             echo $this->Access->link('Contents-blog_create', 'Create a blog', '/contents/blog_create/');
                             echo $this->Access->link('Contents-post_create', 'Create a post', '/contents/post_create/');   
-                            echo $this->Access->link('Companies-create', 'Create a company', '/companies/create');  
+
+                            echo $this->Access->link(
+                                'Companies-create',
+                                'Create a company',
+                                '/profile_companies/create'
+                            );
                         ?>
                     </div>
                 </div>   
@@ -106,7 +111,7 @@
                             echo $this->Html->link('Photos', '/uploads/images/' 
                                     . $this->Session->read('Auth.User.username'));
 
-                            echo $this->Html->link('Companies', '/companies/index/' 
+                            echo $this->Html->link('Companies', '/profile_companies/index/' 
                                     . $this->Session->read('Auth.User.username'));
 
                             echo $this->Html->link('Connect', '/oauth/connect/' );

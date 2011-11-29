@@ -16,27 +16,27 @@
 App::uses('AppModel', 'Model');
 
 /**
- * Mangages the company object
+ * Mangages the profile company object
  *
- ******* @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
-class Company extends AppModel
+class ProfileCompany extends AppModel
 {
-    public $name = 'Company';
+    public $name = 'ProfileCompany';
     
     /**
      *
      * @var string
      * @access public
      */
-    public $useTable = 'companies';
+    public $useTable = 'profile_companies';
     
     public $hasMany = array(
         'Address' => array(
             'foreignKey' => 'model_id',
 
             'conditions' => array(
-                'model' => 'Company'
+                'model' => 'ProfileCompany'
             ),
 
             'dependent' => true
@@ -66,8 +66,8 @@ class Company extends AppModel
         
         $this->virtualFields = array(
             'public_url' => "CONCAT('/c/',`{$this->alias}`.`slug`)",
-            'edit_url' => "CONCAT('/companies/edit/',`{$this->alias}`.`slug`)",
-            'delete_url' => "CONCAT('/companies/delete/',`{$this->alias}`.`id`)"
+            'edit_url' => "CONCAT('/profile_companies/edit/',`{$this->alias}`.`slug`)",
+            'delete_url' => "CONCAT('/profile_companies/delete/',`{$this->alias}`.`id`)"
         );
        
     }
@@ -79,7 +79,7 @@ class Company extends AppModel
      * @access public
      * @param string $userId
      * @param array $with
-     * @return Company
+     * @return ProfileCompany
      */
     public function fetchUserCompaniesWith($userId, $with=array())
     {
@@ -114,12 +114,12 @@ class Company extends AppModel
 
 
     /**
-     * Fetch a company record with associated model records given the company name
+     * Fetch a profile company record with associated model records given the profile company name
      *
      * @access public
      * @param string $companyName
      * @param array $with
-     * @return Company
+     * @return ProfileCompany
      */
     public function fetchCompanyWith($slug, $with=array())
     {
@@ -127,7 +127,7 @@ class Company extends AppModel
             'contain' => $with,
 
             'conditions' => array(
-                'Company.slug' => $slug
+                'ProfileCompany.slug' => $slug
             )
         ));
 
@@ -140,14 +140,14 @@ class Company extends AppModel
      *
      * @access public
      * @param string $companyName
-     * @return boolean|Company
+     * @return boolean|ProfileCompany
      */
     public function findCompanyIdFromName($companyName)
     {
         $company = $this->fetchCompanyByName($companyName);
 
         if(!empty($company)) {
-            return $company['Company']['id'];
+            return $company['ProfileCompany']['id'];
         } else {
             return false;
         }

@@ -4,14 +4,14 @@
     if($mine){
         $additonal = array(
             array(
-                'text'=>"Edit {$this->data['Company']['name']}",
-                'url'=>$company['Company']['edit_url'],
+                'text'=>"Edit {$this->data['ProfileCompany']['name']}",
+                'url'=>$company['ProfileCompany']['edit_url'],
                 'options' => array(),
                 'confirm'=>null
             ),
             array(
-                'text'=>"Delete {$this->data['Company']['name']}",
-                'url'=>$company['Company']['delete_url'],
+                'text'=>"Delete {$this->data['ProfileCompany']['name']}",
+                'url'=>$company['ProfileCompany']['delete_url'],
                 'options' => array(),
                 'confirm'=>Configure::read('System.purge_warning')
             )
@@ -25,7 +25,7 @@
 
 ?>
 
-<div><?php echo $company['Company']['body']; ?></div>
+<div><?php echo $company['ProfileCompany']['body']; ?></div>
 <?php if(isset($company['Address']) && !empty($company['Address'])): ?>
     <h2>Locations</h2>
     <table>
@@ -41,7 +41,7 @@
 
 <hr />
 
-<h2>See what people are saying about <?php echo $company['Company']['name']; ?></h2>
+<h2>See what people are saying about <?php echo $company['ProfileCompany']['name']; ?></h2>
 
 <div style="border: 2px solid #007; padding: 10px; margin: 10px;">
     <img src="http://l.yimg.com/a/i/brand/purplelogo/uh/us/local.gif"

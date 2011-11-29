@@ -27,11 +27,11 @@ class Address extends AppModel
     public $useTable = 'addresses';
     
     public $belongsTo = array(
-        'Company' => array(
+        'ProfileCompany' => array(
             'foreignKey' => 'model_id',
 
             'conditions' => array(
-                'model' => 'Company'
+                'model' => 'ProfileCompany'
             ),
 
             'dependent' => true
