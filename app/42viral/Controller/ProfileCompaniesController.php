@@ -31,7 +31,7 @@ App::uses('Member', 'Lib');
      * @var array
      * @access public
      */
-    public $uses = array('Address', 'Company', 'Person', 'YahooApi', 'YelpApi');
+    public $uses = array('Address', 'ProfileCompany', 'Person', 'YahooApi', 'YelpApi');
 
     /**
      * @var array
@@ -59,24 +59,24 @@ App::uses('Member', 'Lib');
         
         if(!is_null($username)){
             //Show all the accounts for a particular user
-            $person = $this->Person->fetchPersonWith($username, array('Company'=> array('Address')));
-            $companies = $person['Company'];
+            $person = $this->Person->fetchPersonWith($username, array('ProfileCompany'=> array('Address')));
+            $companies = $person['ProfileCompany'];
             //Set the user profile array
             $this->set('userProfile', $person);
 
         }else{
             
             //Show all accounts
-            $companies = $this->Company->fetchAllCompaniesWith(array('Address'));
+            $companies = $this->ProfileCompany->fetchAllCompaniesWith(array('Address'));
             //Make the comopany array look like the person array            
-            $companies = Set::extract('/Company/.',$companies);
+            $companies = Set::extract('/ProfileCompany/.',$companies);
             
         }
         
         $this->set('companies', $companies);
         
         if(is_null($username)){
-            $this->set('title_for_layout', __('Company Index')); 
+            $this->set('title_for_layout', __('Profile Company Index'));
         }else{
             $this->set('title_for_layout', 
                     sprintf(__("%s's Photo Stream"), Member::name($person['Person'])),
@@ -98,7 +98,7 @@ App::uses('Member', 'Lib');
         $mine = false;
         
         //Holds the connection "status" of a various service queries
-        $company = $this->Company->fetchCompanyWith($slug, array('Address'));
+        $company = $this->ProfileCompany->fetchCompanyWith($slug, array('Address'));
 
         //For reviews and the like we will build 2 arrays. $webResults which will hold the results of all of the 
         //services query and $connect which hold the connection status of all of the services.
@@ -178,13 +178,13 @@ App::uses('Member', 'Lib');
         $this->set('company', $company);
         
         //Are we looking at "MY" account? (Where "MY" == the logged in user.)
-        if($this->Session->read('Auth.User.id') == $company['Company']['owner_person_id']){
+        if($this->Session->read('Auth.User.id') == $company['ProfileCompany']['owner_person_id']){
             $mine = true;
         }        
         
         $this->set('mine', $mine);
         $this->set('connect', $connect);
-        $this->set('title_for_layout', $company['Company']['name']);
+        $this->set('title_for_layout', $company['ProfileCompany']['name']);
     }
 
     /**
@@ -208,19 +208,19 @@ App::uses('Member', 'Lib');
         
         $mine = false;
         
-        $this->data = $this->Company->fetchCompanyWith($slug, array('Address'));
+        $this->data = $this->ProfileCompany->fetchCompanyWith($slug, array('Address'));
         
         $userProfile = $this->Person->fetchPersonWith($this->Session->read('Auth.User.username'), 'Profile');
         $this->set('userProfile', $userProfile);
         
         
         //Are we looking at "MY" account? (Where "MY" == the logged in user.)
-        if($this->Session->read('Auth.User.id') == $this->data['Company']['owner_person_id']){
+        if($this->Session->read('Auth.User.id') == $this->data['ProfileCompany']['owner_person_id']){
             $mine = true;
         }        
         
         $this->set('mine', $mine);
-        $this->set('title_for_layout', "Update {$this->data['Company']['name']}");
+        $this->set('title_for_layout', "Update {$this->data['ProfileCompany']['name']}");
     }
     
     /**
@@ -232,9 +232,9 @@ App::uses('Member', 'Lib');
     {
 
         $companyData = $this->data;
-        $companyData['Company']['owner_person_id'] = $this->Session->read('Auth.User.id');
+        $companyData['ProfileCompany']['owner_person_id'] = $this->Session->read('Auth.User.id');
 
-        if($this->Company->saveAll($companyData)) {
+        if($this->ProfileCompany->saveAll($companyData)) {
 
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');
 
@@ -243,13 +243,13 @@ App::uses('Member', 'Lib');
             
             if(isset($this->params['named']['goto'])){
                 
-                $company = $this->Company->find('first', 
+                $company = $this->ProfileCompany->find('first',
                         array(
-                            'conditions'=> array('Company.id'=>$this->Company->id), 
+                            'conditions'=> array('ProfileCompany.id'=>$this->ProfileCompany->id),
                             'contain'=>array()
                         )); 
 
-                $this->redirect("/companies/edit/{$company['Company']['slug']}");
+                $this->redirect("/profile_companies/edit/{$company['ProfileCompany']['slug']}");
             }
 
             if($overallProgress['_all'] < 100) {
@@ -258,7 +258,7 @@ App::uses('Member', 'Lib');
 
         } else {
             $this->Session->setFlash(__('There was a problem saving the company details'), 'error');
-            $this->redirect('/companies/create');
+            $this->redirect('/profile_companies/create');
         }
     }
 
@@ -270,14 +270,14 @@ App::uses('Member', 'Lib');
      */
     public function delete($companyId)
     {
-        if($this->Company->delete($companyId, true /* cascade */)) {
+        if($this->ProfileCompany->delete($companyId, true /* cascade */)) {
             $this->Session->setFlash(__('The company was deleted successfully'), 'success');
         } else {
             $this->Session->setFlash(__('There was a problem deleting the company'), 'error');
         }
 
 
-        $this->redirect('/companies/index');
+        $this->redirect('/profile_companies/index');
     }
 
 
@@ -285,30 +285,30 @@ App::uses('Member', 'Lib');
      * Helper function to fetch Yahoo Local Search listings for the given company
      *
      * @access private
-     * @param Company company object to use for pulling listing data from Yahoo
+     * @param ProfileCompany company object to use for pulling listing data from Yahoo
      * @return mixed
      */
     private function __profileDoYahoo($company)
     {
 
         if(
-            isset($company['Company']['yahoo_listing_id']) &&
-            !empty($company['Company']['yahoo_listing_id'])
+            isset($company['ProfileCompany']['yahoo_listing_id']) &&
+            !empty($company['ProfileCompany']['yahoo_listing_id'])
         ) {
             $requestParams = array(
                 'query' => '*',
-                'listing_id' => $company['Company']['yahoo_listing_id']
+                'listing_id' => $company['ProfileCompany']['yahoo_listing_id']
             );
         } else {
 
             if(isset($company['Address']) && !empty($company['Address'])) {
                 $requestParams = array(
-                    'query' => $company['Company']['name'],
+                    'query' => $company['ProfileCompany']['name'],
                     'location' => $company['Address'][0]['_us_full_address']
                 );
             } else {
                 $requestParams = array(
-                    'query' => $company['Company']['name']
+                    'query' => $company['ProfileCompany']['name']
                 );
             }
 
@@ -324,14 +324,14 @@ App::uses('Member', 'Lib');
      * Helper function to fetch Yelp Business listings and review data for the given company
      *
      * @access private
-     * @param Company company object to use for pulling listing data from Yahoo
+     * @param ProfileCompany company object to use for pulling listing data from Yahoo
      * @return mixed
      */
     private function __profileDoYelp($company)
     {
         $queryTerms = array(
             'limit' => 5,
-            'term' => $company['Company']['name']
+            'term' => $company['ProfileCompany']['name']
         );
 
         if(isset($company['Address']) && !empty($company['Address'])) {

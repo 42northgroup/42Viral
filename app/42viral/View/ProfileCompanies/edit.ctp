@@ -29,14 +29,14 @@
     if($mine){
         $additonal = array(
             array(
-                'text'=>"View {$this->data['Company']['name']}",
-                'url'=>$this->data['Company']['public_url'],
+                'text'=>"View {$this->data['ProfileCompany']['name']}",
+                'url'=>$this->data['ProfileCompany']['public_url'],
                 'options' => array(),
                 'confirm'=>null
             ),
             array(
-                'text'=>"Delete {$this->data['Company']['name']}",
-                'url'=>$this->data['Company']['delete_url'],
+                'text'=>"Delete {$this->data['ProfileCompany']['name']}",
+                'url'=>$this->data['ProfileCompany']['delete_url'],
                 'options' => array(),
                 'confirm'=>Configure::read('System.purge_warning')
             )
@@ -54,7 +54,7 @@
     <?php 
     /*
         if($mine):
-            echo $this->Html->link('Delete', $this->data['Company']['delete_url'], 
+            echo $this->Html->link('Delete', $this->data['ProfileCompany']['delete_url'],
                     null, 
                     Configure::read('System.purge_warning'));
         endif; 
@@ -65,14 +65,14 @@
 
 <div class="company-create-form clearfix">
     <?php
-    echo $this->Form->create('Company', array(
+    echo $this->Form->create('ProfileCompany', array(
         'action' => 'save',
         'class'=> 'content'
     ));
-    echo $this->Form->input('Company.id');
-    echo $this->Form->input('Company.name');
+    echo $this->Form->input('ProfileCompany.id');
+    echo $this->Form->input('ProfileCompany.name');
     
-    echo $this->Form->input('Company.tease', 
+    echo $this->Form->input('ProfileCompany.tease',
     	array(
     	    'label'=>array( 
     	    	'title'=>'How much can you say about your company in 140 characters?',
@@ -82,7 +82,7 @@
     		'rows'=>2
     ));
     
-    echo $this->Form->input('Company.body', array('class'=>'edit-content'));
+    echo $this->Form->input('ProfileCompany.body', array('class'=>'edit-content'));
     ?>
 
     <h3>Addresses:</h3>

@@ -38,7 +38,7 @@ switch($section){
                 
                 array(
                     'text'=>'Create a Company',
-                    'url'=>'/companies/create',
+                    'url'=>'/profile_companies/create',
                     'options' => array(),
                     'confirm'=>null
                 )
