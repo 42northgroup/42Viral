@@ -80,13 +80,6 @@ App::uses('AppController', 'Controller');
 
             if($this->Person->saveAll($profileData)) {
                 $this->Session->setFlash(__('User Profile saved successfully'), 'success');
-
-                $userId = $this->Session->read('Auth.User.id');
-                $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
-                if($overallProgress['_all'] < 100) {
-                    $this->redirect('/members/complete_profile');
-                }
-
             } else {
                 $this->Session->setFlash(__('There was a problem saving your profile data'), 'error');
             }
