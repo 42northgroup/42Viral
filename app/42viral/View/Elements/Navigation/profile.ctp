@@ -20,7 +20,7 @@
  * UI for creating local navigation. Local navigation is defined as navigiation the is local to a specific section of 
  * the web site or a database record.
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 $menu = array();
 

@@ -193,15 +193,6 @@ App::uses('AppController', 'Controller');
 
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
 
-                        //If profile progress is less than a 100 percent, direct the user to the complete profile
-                        //page after successfull login
-                        if($overallProgress['_all'] < 100) {
-                            $this->Auth->loginRedirect = array(
-                                'controller' => 'members',
-                                'action' => 'complete_profile'
-                            );
-                        }
-
                         $this->redirect($this->Auth->redirect());
 
                         $error = false;

@@ -115,30 +115,6 @@ App::uses('Member', 'Lib');
         $this->set('title_for_layout', Member::name($userProfile['Person']) . "'s Profile");
 
     }
-
-
-    /**
-     * Action method to use for profile workflow and completing 42viral profile
-     *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
-     * @access public
-     */
-    public function complete_profile()
-    {
-        $userId = $this->Session->read('Auth.User.id');
-        $token = $this->Session->read('Auth.User.username');
-
-        $user = $this->User->getUserWith($token, array(
-            'Profile'
-        ));
-
-        $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
-        $this->set('user', $user);
-
-        $this->set('overall_progress', $overallProgress);
-        $this->set('title_for_layout', 'Complete Your Profile');
-    }
-    
     
     public function social_media($redirect_url='members/social_media')
     {

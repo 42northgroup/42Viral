@@ -70,18 +70,72 @@ $.ajaxSetup ({
  */
 $(function(){
     
+    /**
+     * A function for removing array elements by value
+     * param string [value] - The target value
+     * return void
+     * author Jason D Snider <jsnider@microtrain.net>
+     */
+    Array.prototype.remove=function(value){
+        for(var i = this.length-1; i >= 0; i--){
+            if(this[i] == value){
+                this.splice(i,1);
+            }
+        }
+    }    
+    
     /** Side navigation controls **/
+    //collects the ids of elements to have opened
+    var values = new Array();
+
+    //Lights up the drop down indicator
     $('#MainLeft').delegate('.side-navigation-toggle', 'mouseenter', function(){
-        $(this).attr('style', 'color:#555');     
+        if(!$(this).parent().next().is(':visible')){
+            $(this).attr('style', 'color:#555'); 
+        }
     });
     
+    //Dims up the drop down indicator
     $('#MainLeft').delegate('.side-navigation-toggle', 'mouseleave', function(){
-        $(this).attr('style', 'color:#e2e2e2');     
-    });    
-    
-    $('#MainLeft').delegate('.side-navigation-toggle', 'click', function(){
-        $(this).parent().next().toggle();        
+        if(!$(this).parent().next().is(':visible')){
+            $(this).attr('style', 'color:#e2e2e2'); 
+        }  
     });
+    
+    //Toggles a menus state
+    $('#MainLeft').delegate('.side-navigation-toggle', 'click', function(){
+        
+        var name = $(this).parent().attr('id');
+        
+        $(this).parent().next().toggle();   
+        if($(this).parent().next().is(':visible')){
+            $(this).attr('style', 'color:#555');
+            values.push(name);
+        }else{
+            $(this).attr('style', 'color:#e2e2e2'); 
+            values.remove(name);
+        }
+        
+        localStorage.setItem('OpenNavigationBlocks', values);
+    });
+    
+    //Parse the localStorage data to determine what menus to open
+    var openNavigationBlocks = localStorage.getItem('OpenNavigationBlocks').split(',');
+    
+    //Get rid of any empty elements
+    openNavigationBlocks.remove(""); 
+    
+    for (i=0;i<openNavigationBlocks.length;i++)
+    {
+        //Open the navigation block (menu)
+        $('#' + openNavigationBlocks[i]).next().show();   
+        $('#' + openNavigationBlocks[i]).find("span.side-navigation-toggle:first").attr('style', 'color:#555');
+        //Rebuild the localStorage array
+        values.push(openNavigationBlocks[i]);
+    }  
+    
+    //Rebuild the localStorage array
+    localStorage.setItem('OpenNavigationBlocks', values);  
     
     //HeaderRight navigation
     $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){

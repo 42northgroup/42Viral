@@ -51,7 +51,7 @@ App::uses('Member', 'Lib');
     
     /**
      * Default index action method to list all companies
-     *
+     * @param string username
      * @access public
      */
     public function index($username = null)
@@ -79,12 +79,10 @@ App::uses('Member', 'Lib');
             $this->set('title_for_layout', __('Profile Company Index'));
         }else{
             $this->set('title_for_layout', 
-                    sprintf(__("%s's Photo Stream"), Member::name($person['Person'])),
+                    sprintf(__("%s's Companies"), Member::name($person['Person'])),
                     Member::name($person['Person']) . "'s " . __('Companies'));
         }
-        
-        
-        
+ 
     }
 
     /**
@@ -239,7 +237,6 @@ App::uses('Member', 'Lib');
             $this->Session->setFlash(__('The company details were saved successfully'), 'success');
 
             $userId = $this->Session->read('Auth.User.id');
-            $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($userId);
             
             if(isset($this->params['named']['goto'])){
                 
@@ -250,10 +247,6 @@ App::uses('Member', 'Lib');
                         )); 
 
                 $this->redirect("/profile_companies/edit/{$company['ProfileCompany']['slug']}");
-            }
-
-            if($overallProgress['_all'] < 100) {
-                $this->redirect('/members/complete_profile');
             }
 
         } else {
@@ -344,4 +337,22 @@ App::uses('Member', 'Lib');
 
         return $results;
     }
+    
+    /**
+     * Admin index action to list all companies
+     *
+     * @access public
+     */
+    public function admin_index()
+    {
+        //Show all accounts
+        $companies = $this->Company->fetchAllCompaniesWith(array('Address'));
+        //Make the comopany array look like the person array            
+        $companies = Set::extract('/Company/.',$companies);
+           
+        $this->set('companies', $companies);
+        $this->set('title_for_layout', __('Company Index')); 
+ 
+    }    
+    
 }

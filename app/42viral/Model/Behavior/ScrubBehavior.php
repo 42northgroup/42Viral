@@ -1,15 +1,10 @@
 <?php
 /**
  * PHP 5.3
- * 
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
+ * @link          https://github.com/jasonsnider/Scrub
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
@@ -17,15 +12,14 @@ App::uses('Scrub', 'Lib');
 App::uses('Sanitize', 'Utility');
 
 /**
- * A class for sanitizing user submitted data
- *** @author     Jason D Snider <jsnider@jsnider77@gmil.com>
+ * This behavior provides "Cake Magic" type of access to htmlpurifier
+ * @author Jason D Snider <jason@jasonsnider.com>
  */
 class ScrubBehavior extends ModelBehavior
 {
 
     /**
-     * @param object $model
-     *** @author Jason D Snider <jsnider@microtrain.net> 
+     * @param object $model 
      * @access public
      */
     public function setup(&$model, $settings = array())

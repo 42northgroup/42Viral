@@ -20,7 +20,7 @@
  * UI for creating local navigation. Local navigation is defined as navigiation the is local to a specific section of 
  * the web site or a database record.
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 $menu = array();
 
@@ -113,14 +113,7 @@ switch($section){
                     'url'=>'/members',
                     'options' => array(),
                     'confirm'=>null
-                ),
-                
-                array(
-                    'text'=>'Complete Your Profile',
-                    'url'=>'/members/complete_profile',
-                    'options' => array(),
-                    'confirm'=>null
-                )             
+                )          
             )
 
         );
