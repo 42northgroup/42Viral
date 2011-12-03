@@ -22,6 +22,13 @@ App::uses('AppController', 'Controller');
  */
  class CompaniesController extends AppController
 {
+   /**
+     * @access public
+     */
+    public function beforeFilter(){
+        parent::beforeFilter();
+    }
+
     /**
      * Admin index action method to list all companies
      *
@@ -33,14 +40,40 @@ App::uses('AppController', 'Controller');
         $companies = $this->Company->fetchCompaniesWith();
                   
         $this->set('companies', $companies);
-        $this->set('title_for_layout', __('Company Index')); 
+        $this->set('title_for_layout', __('Companies (CRM)')); 
         
     }   
     
+    /**
+     * Provides the control logic for the account creation logic
+     * @return void
+     * @access public
+     */
     public function admin_create()
     {
-        $this->request->data['Company']['name'] = 'test';
-        $companies = $this->Company->save($this->data);
+        if(!empty($this->data)){
+            if($this->Company->save($this->data)){
+                $this->Session->setFlash(__('The company has been added'), 'success');
+            }else{
+                $this->Session->setFlash(__('Please correct the errors below'), 'error');    
+            }
+        }
+        $this->set('title_for_layout', __('Create a Company'));        
     }  
+    
+    
+    public function admin_edit($id)
+    {
+        if(!empty($this->data)){
+            if($this->Company->save($this->data)){
+                $this->Session->setFlash(__('The company has been added'), 'success');
+            }else{
+                $this->Session->setFlash(__('Please correct the errors below'), 'error');    
+            }
+        }
+        
+        $this->data = $this->Company->fetchCompanyWith($id);
+        $this->set('title_for_layout', $this->data['Company Name'] .' ' . __('(Edit)'));        
+    }      
     
 }

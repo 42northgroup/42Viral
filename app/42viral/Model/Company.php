@@ -20,7 +20,21 @@ App::uses('AppModel', 'Model');
  */
 class Company extends AppModel
 {
-      
+    
+    /**
+     * @access public
+     */
+    public function __construct($id = false, $table = null, $ds = null) 
+    { 
+        parent::__construct($id, $table, $ds);
+        
+        $this->virtualFields = array(
+            //'admin_view_url'=>"CONCAT('/admin/companies/view/' , `{$this->alias}`.`id`)",
+            //'admin_edit_url'=>"CONCAT('/admin/companies/edit/',`{$this->alias}`.`id`)",
+            //'admin_delete_url'=>"CONCAT('/admin/companies/delete/',`{$this->alias}`.`id`)",
+        );        
+    }
+    
    /**
     * 
     * @param string $token - id or username for retreving records
@@ -46,7 +60,7 @@ class Company extends AppModel
            'contain' => $with,
 
            'conditions' => array(
-               "Profile.{$by}"  => $id
+               "Company.{$by}"  => $id
            )
         ));
 
