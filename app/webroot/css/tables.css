@@ -40,3 +40,10 @@ tr.double-bottom td{
     border:none;
     border-bottom: 1px solid #E5E5E5;
 }
+
+.hide-double-row-controls,
+.hide-double-row-controls a:link,
+.hide-double-row-controls a:visited,
+.hide-double-row-controls a:hover{
+    color: #fff;
+} 

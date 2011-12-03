@@ -26,7 +26,7 @@
         )
     );
 
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'people', 'additional'=>$additional));     
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people', 'additional'=>$additional));     
 ?>
 <?php
     $this->Asset->addAssets(array(

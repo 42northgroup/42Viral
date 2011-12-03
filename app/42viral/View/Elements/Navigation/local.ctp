@@ -26,19 +26,19 @@ $menu = array();
 
 switch($section){
     
-    case 'company':
+    case 'admin_companies':
         $menu = array(
             'Items' => array(
                 array(
-                    'text'=>'All Companies',
-                    'url'=>'/profile_companies',
+                    'text'=>'Companies (CRM)',
+                    'url'=>'/admin/companies',
                     'options' => array(),
                     'confirm'=>null
                 ),
                 
                 array(
-                    'text'=>'Create a Company',
-                    'url'=>'/profile_companies/create',
+                    'text'=>'New Company',
+                    'url'=>'/admin/companies/create',
                     'options' => array(),
                     'confirm'=>null
                 )
@@ -52,7 +52,7 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'All Blogs',
+                    'text'=>'Blogs',
                     'url'=>'/blogs',
                     'options' => array(),
                     'confirm'=>null
@@ -77,11 +77,11 @@ switch($section){
         );
     break;
 
-    case 'people':
+    case 'admin_people':
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'All People',
+                    'text'=>'People (CRM)',
                     'url'=>'/admin/people',
                     'options' => array(),
                     'confirm'=>null
@@ -95,7 +95,7 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'All Picklists',
+                    'text'=>'Picklists',
                     'url'=>'/admin/picklists/index',
                     'options' => array(),
                     'confirm'=>null
@@ -109,7 +109,7 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'All Members',
+                    'text'=>'Members',
                     'url'=>'/members',
                     'options' => array(),
                     'confirm'=>null
@@ -123,7 +123,7 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'All Notifications',
+                    'text'=>'Notifications',
                     'url'=>'/notification',
                     'options' => array(),
                     'confirm'=>null
@@ -145,14 +145,14 @@ switch($section){
             'Items'=>array(
                             
                 array(
-                    'text'=>'All ACL Groups',
+                    'text'=>'ACL Groups',
                     'url'=>'/admin/users/acl_groups',
                     'options' => array(),
                     'confirm'=>null
                 ),
                 
                 array(
-                    'text'=>'Create New Group',
+                    'text'=>'New ACL Group',
                     'url'=>'/admin/users/create_acl_group',
                     'options' => array(),
                     'confirm'=>null

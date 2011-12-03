@@ -183,5 +183,18 @@ $(function(){
     
     $('.delete-confirm').click(function() {
         return confirm('Are you sure you want to delete this record?');
-    }); 
+    });
+    
+    /* Controls table navigation in regaurds to double row stacking */
+    $(function(){
+        $('tr').delegate('.double-row-controls','mouseleave',function(){
+            $(this).addClass('hide-double-row-controls');
+        });
+    });
+
+    $(function(){
+        $('tr').delegate('.double-row-controls','mouseenter',function(){
+            $(this).removeClass('hide-double-row-controls');
+        });
+    });    
 });

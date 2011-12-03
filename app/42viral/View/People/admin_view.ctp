@@ -26,7 +26,7 @@
         )
     );
 
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'people', 'additional'=>$additional));     
+    echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people', 'additional'=>$additional));     
 ?>
 
 <h2>Cases</h2>

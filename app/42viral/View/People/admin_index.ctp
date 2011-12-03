@@ -17,33 +17,9 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'people')); 
+echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people')); 
 
 ?>
-<script type="text/javascript">
-    $(function(){
-        $('tr').delegate('.double-row-controls','mouseleave',function(){
-            $(this).addClass('hide-double-row-controls');
-        });
-    });
-
-    $(function(){
-        $('tr').delegate('.double-row-controls','mouseenter',function(){
-            $(this).removeClass('hide-double-row-controls');
-        });
-    });
-
-</script>
-
-<style type="text/css">
-    .hide-double-row-controls,
-    .hide-double-row-controls a:link,
-    .hide-double-row-controls a:visited,
-    .hide-double-row-controls a:hover{
-        color: #fff;
-    } 
-</style>
-
 <table>
     <thead>
         <th>Name</th>

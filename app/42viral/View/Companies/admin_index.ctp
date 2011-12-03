@@ -17,32 +17,9 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'people')); 
+echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_companies')); 
 
 ?>
-<script type="text/javascript">
-    $(function(){
-        $('tr').delegate('.double-row-controls','mouseleave',function(){
-            $(this).addClass('hide-double-row-controls');
-        });
-    });
-
-    $(function(){
-        $('tr').delegate('.double-row-controls','mouseenter',function(){
-            $(this).removeClass('hide-double-row-controls');
-        });
-    });
-
-</script>
-
-<style type="text/css">
-    .hide-double-row-controls,
-    .hide-double-row-controls a:link,
-    .hide-double-row-controls a:visited,
-    .hide-double-row-controls a:hover{
-        color: #fff;
-    } 
-</style>
 
 <table>
     <thead>
@@ -55,13 +32,11 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'people'));
         </tr>
         <tr class="double-bottom">
             <td colspan="3" class="double-row-controls hide-double-row-controls">
-                <?php echo $this->Html->link('View', '#'); ?>
+                <?php echo $this->Html->link('View', $company['Company']['admin_view_url']); ?>
                 |
-                <a href="#">Edit</a>
+                <?php echo $this->Html->link('Edit', $company['Company']['admin_edit_url']); ?>
                 |
-                <?php echo $this->Html->link('New Case', '#'); ?>
-                |
-                <a href="#">Delete</a>
+                <?php echo $this->Html->link('Delete', $company['Company']['admin_delete_url']); ?>
             </td>            
         </tr>        
         <?php endforeach; ?>
