@@ -23,6 +23,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_compani
 
 <table>
     <thead>
+        <th></th>
         <th>Name</th>
     </thead>
     <tbody>

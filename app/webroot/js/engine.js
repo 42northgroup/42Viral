@@ -72,58 +72,64 @@ $(function(){
     
     /**
      * A function for removing array elements by value
+     * param array [array] the array to be spliced
      * param string [value] - The target value
      * return void
-     * author Jason D Snider <jsnider@microtrain.net>
      */
-    Array.prototype.remove=function(value){
-        for(var i = this.length-1; i >= 0; i--){
-            if(this[i] == value){
-                this.splice(i,1);
+    function spliceByValue(array ,value) {
+        for(var i = array.length-1; i >= 0; i--) {
+            if(array[i] == value) {
+                array.splice(i,1);
             }
         }
-    }    
+    }
     
-    /** Side navigation controls **/
+    /**
+     * Left hand navigation
+     */
     //collects the ids of elements to have opened
     var values = new Array();
-
+    
     //Lights up the drop down indicator
-    $('#MainLeft').delegate('.side-navigation-toggle', 'mouseenter', function(){
-        if(!$(this).parent().next().is(':visible')){
-            $(this).attr('style', 'color:#555'); 
+    $('#MainLeft').delegate('h4', 'mouseenter', function() {
+        if(!$(this).next().is(':visible')) {
+            $(this).find('span.side-navigation-toggle:first').attr('style', 'color:#555'); 
         }
     });
     
     //Dims up the drop down indicator
-    $('#MainLeft').delegate('.side-navigation-toggle', 'mouseleave', function(){
-        if(!$(this).parent().next().is(':visible')){
-            $(this).attr('style', 'color:#e2e2e2'); 
+    $('#MainLeft').delegate('h4', 'mouseleave', function() {
+        if(!$(this).next().is(':visible')) {
+            $(this).find('span.side-navigation-toggle:first').attr('style', 'color:#e2e2e2'); 
         }  
     });
     
     //Toggles a menus state
-    $('#MainLeft').delegate('.side-navigation-toggle', 'click', function(){
+    $('#MainLeft').delegate('h4', 'click', function() {
+        var name = $(this).attr('id');
+        $(this).next().toggle();   
         
-        var name = $(this).parent().attr('id');
-        
-        $(this).parent().next().toggle();   
-        if($(this).parent().next().is(':visible')){
-            $(this).attr('style', 'color:#555');
+        if($(this).next().is(':visible')) {
+            $(this).find('span.side-navigation-toggle:first').attr('style', 'color:#555');
             values.push(name);
-        }else{
-            $(this).attr('style', 'color:#e2e2e2'); 
-            values.remove(name);
+        } else {
+            $(this).find('span.side-navigation-toggle:first').attr('style', 'color:#e2e2e2');
+            spliceByValue(values, name);
         }
         
         localStorage.setItem('OpenNavigationBlocks', values);
+
     });
     
-    //Parse the localStorage data to determine what menus to open
-    var openNavigationBlocks = localStorage.getItem('OpenNavigationBlocks').split(',');
+    var openNavigationBlocks = [];
+    
+    if(localStorage.getItem('OpenNavigationBlocks') !== null) {
+        //Parse the localStorage data to determine what menus to open
+        openNavigationBlocks = localStorage.getItem('OpenNavigationBlocks').split(',');
+    }
     
     //Get rid of any empty elements
-    openNavigationBlocks.remove(""); 
+    spliceByValue(openNavigationBlocks, '');
     
     for (i=0;i<openNavigationBlocks.length;i++)
     {
@@ -135,7 +141,7 @@ $(function(){
     }  
     
     //Rebuild the localStorage array
-    localStorage.setItem('OpenNavigationBlocks', values);  
+    localStorage.setItem('OpenNavigationBlocks', values);    
     
     //HeaderRight navigation
     $('#HeaderRight').delegate('.navigation-link', 'mouseover', function(){

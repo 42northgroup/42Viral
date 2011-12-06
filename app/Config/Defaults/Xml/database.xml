@@ -31,7 +31,7 @@
         <help>The password for the production database</help>
     </DataSource.default.password>
     <DataSource.default.database>
-        <value>'forty_two_viral'</value>
+        <value>'42viral_default'</value>
         <name>DataSource.default.database</name>
         <default>'42viral_default'</default>
         <help>The name of the production database</help>
