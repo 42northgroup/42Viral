@@ -13,13 +13,13 @@
         <help>The title of your home page</help>
     </Theme.HomePage.title>
     <Domain.scheme>
-        <value>'http'</value>
+        <value>'https'</value>
         <name>Domain.scheme</name>
         <default>''</default>
         <help>Declare your site as either http or https</help>
     </Domain.scheme>
     <Domain.host>
-        <value>'loc.build.42viral.org'</value>
+        <value>'build.42viral.org'</value>
         <name>Domain.host</name>
         <default>''</default>
         <help>You'r sites domain</help>

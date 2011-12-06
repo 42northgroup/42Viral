@@ -97,7 +97,7 @@ App::uses('Handy', 'Lib');
     public function xml_database()
     {
         
-        $file = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
+        $file = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
 
         if(!empty($this->data)){
 
@@ -126,7 +126,7 @@ App::uses('Handy', 'Lib');
      */
     public function xml_site()
     {
-        $file = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
+        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
 
         if(!empty($this->data)){
             Parser::data2XML($this->data, $file);
@@ -152,7 +152,7 @@ App::uses('Handy', 'Lib');
      */
     public function xml_third_party()
     {
-        $file = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
+        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
 
         if(!empty($this->data)){
             Parser::data2XML($this->data, $file);
@@ -189,7 +189,7 @@ App::uses('Handy', 'Lib');
      */
     public function xml_core()
     { 
-        $file = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
+        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
         
         if(!empty($this->data)){
             Parser::data2XML($this->data, $file);
@@ -215,7 +215,7 @@ App::uses('Handy', 'Lib');
      */
     public function xml_hash()
     { 
-        $file = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS . 'hash.xml';
+        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'hash.xml';
 
         if(isset($this->params['named']['regen'])){
             $salt = Sec::makeSalt();
@@ -249,7 +249,7 @@ App::uses('Handy', 'Lib');
      */
     public function process()
     {
-        $path = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml' . DS;
+        $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS;
         Parser::xml2Config($path);
         $this->_setupLog('setup_process');
         $this->Session->setFlash(__('Configuration files built.'), 'success');
@@ -315,7 +315,7 @@ App::uses('Handy', 'Lib');
     public function import()
     {
 
-        $path = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Data' . DS . 'Required';
+        $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Required';
         
         foreach(scandir($path) as $file){      
             $this->__buildPMA($path, $file);
@@ -404,20 +404,20 @@ App::uses('Handy', 'Lib');
     public function import_demo()
     {
 
-        $path = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Data' . DS . 'Demo';
+        $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Demo';
         
         foreach(scandir($path) as $file){      
             $this->__buildPMA($path, $file);
         }
         
         $backupPath = 
-            ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
+            ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
         
         if(!is_dir($backupPath)){
             mkdir($backupPath);
         }
         
-        $customDemoFiles = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'DemoCustomPages';
+        $customDemoFiles = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'DemoCustomPages';
         $customFiles = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Blogs' . DS . 'Custom';
         foreach(scandir($customDemoFiles) as $file){
             if(is_file($customDemoFiles . DS . $file)){
@@ -489,13 +489,13 @@ App::uses('Handy', 'Lib');
     {
         
         $backupPath = 
-            ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
+            ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
         
         if(!is_dir($backupPath)){
             mkdir($backupPath);
         }
         
-        $path = ROOT . DS . APP_DIR .DS.'42viral' . DS . 'Config' . DS . 'Xml';
+        $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml';
         
         foreach(scandir($path) as $file){
             if(is_file($path . DS . $file)){

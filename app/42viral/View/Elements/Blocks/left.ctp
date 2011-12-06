@@ -4,10 +4,10 @@
     </div>
 <?php endif; ?>
 <h4 id="Menu" class="side-navigation-header side-navigation-divider">
-    <a href="#">Menu</a> 
+    Menu
     <span class="side-navigation-toggle">&#9660;</span>
 </h4>
-<ul class="side-navigation" style="display: block;">
+<ul class="side-navigation">
     <li><a href="/blogs">Blogs</a></li>
     <li><a href="/members">Members</a></li>
     <li><a href="/profile_companies">Companies</a></li>
@@ -18,7 +18,7 @@
     <?php if($this->Session->read('Auth.User.employee') == 1): ?>
 
         <h4 id="CMS" class="side-navigation-header side-navigation-divider">
-            <a href="#">CMS</a> 
+            CMS
             <span class="side-navigation-toggle">&#9660;</span>
         </h4>
         <ul class="side-navigation">
@@ -30,7 +30,7 @@
         </ul>
 
         <h4 id="CRM" class="side-navigation-header">
-            <a href="#">CRM</a>
+            CRM
             <span class="side-navigation-toggle">&#9660;</span>
         </h4>
         <ul class="side-navigation">
@@ -40,7 +40,7 @@
         </ul>
 
         <h4 id="Messaging" class="side-navigation-header side-navigation-divider">
-            <a href="#">Messaging</a>
+            Messaging
             <span class="side-navigation-toggle">&#9660;</span>
         </h4>
         <ul class="side-navigation">
@@ -50,7 +50,7 @@
         </ul>
 
         <h4 id="System" class="side-navigation-header">
-            <a href="#">System</a>
+            System
             <span class="side-navigation-toggle">&#9660;</span>
         </h4>
         <ul class="side-navigation">

@@ -27,7 +27,6 @@
 #MainLeft h4{
     padding: 4px;
     margin: 0;
-    /*background: #ececec;*/
     background: #f1f1f1;
     font-weight: bold;
     line-height: 18px;
@@ -38,6 +37,10 @@
     border-bottom-color: #DFDFDF;    
     
     position: relative;
+    
+    color: #555;
+    
+    cursor: pointer;
 }
 
 #MainLeft h4.side-navigation-divider{
@@ -54,7 +57,6 @@ span.side-navigation-toggle{
     right: 4px;
     top: 4px;
     color: #e2e2e2;
-    cursor: pointer;
 }
 
 ul.side-navigation{
@@ -316,6 +318,7 @@ div.section-head{
 }
 
 .actions-control{
+    color: #21759B;
     cursor: pointer;
 }
 
