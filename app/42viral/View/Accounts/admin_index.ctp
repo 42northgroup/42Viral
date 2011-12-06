@@ -26,22 +26,22 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_compani
         <th>Name</th>
     </thead>
     <tbody>
-        <?php foreach ($companies as $company): ?>
-        <tr>  
+        <?php foreach ($accounts as $account): ?>
+        <tr>   
             <td class="actions-column"> 
                 <div class="actions-control" style="position: relative;">
                     &#9658;
-                    <div class="actions">
-                        <?php echo $this->Html->link('View', $company['Company']['admin_view_url']); ?>
-                        |
-                        <?php echo $this->Html->link('Edit', $company['Company']['admin_edit_url']); ?>
-                        |
-                        <?php echo $this->Html->link('Delete', $company['Company']['admin_delete_url']); ?>
-                    </div>
+                <div class="actions">
+                    <?php echo $this->Html->link('View', $account['Account']['admin_view_url']); ?>
+                    |
+                    <?php echo $this->Html->link('Edit', $account['Account']['admin_edit_url']); ?>
+                    |
+                    <?php echo $this->Html->link('Delete', $account['Account']['admin_delete_url']); ?>
+                </div>  
                 </div>
             </td>
-            <td><?php echo $company['Company']['name']; ?></td>
-        </tr> 
+            <td><?php echo $account['Account']['name']; ?></td>
+        </tr>                
         <?php endforeach; ?>
     </tbody>
 </table>

@@ -314,3 +314,23 @@ div.section-head{
     font-weight: bold;
     color: #fff;
 }
+
+.actions-control{
+    cursor: pointer;
+}
+
+.actions{
+    width: 200px; 
+    background: #fefefe; 
+    float: left; 
+    z-index: 10; 
+    position:absolute;
+    top: -6px;
+    left: 0px;
+    text-align: left;
+    border: 1px solid #ededed;
+    display:none;
+    padding:5px 3px 5px 34px;
+    border-radius: 1px;
+    box-shadow: inset 1px 1px 0px #e2e2e2;
+}

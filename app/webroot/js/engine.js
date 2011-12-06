@@ -187,14 +187,14 @@ $(function(){
     
     /* Controls table navigation in regaurds to double row stacking */
     $(function(){
-        $('tr').delegate('.double-row-controls','mouseleave',function(){
-            $(this).addClass('hide-double-row-controls');
+        $('tr').delegate('.actions-control','mouseenter',function(){
+            $(this).find('div.actions:first').toggle();
         });
     });
 
     $(function(){
-        $('tr').delegate('.double-row-controls','mouseenter',function(){
-            $(this).removeClass('hide-double-row-controls');
+        $('tr').delegate('.actions-control','mouseleave',function(){
+            $(this).find('div.actions:first').toggle();
         });
     });    
 });

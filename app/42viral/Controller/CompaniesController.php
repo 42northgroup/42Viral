@@ -72,8 +72,13 @@ App::uses('AppController', 'Controller');
             }
         }
         
-        $this->data = $this->Company->fetchCompanyWith($id);
-        $this->set('title_for_layout', $this->data['Company Name'] .' ' . __('(Edit)'));        
-    }      
+        $this->request->data = $this->Company->fetchCompanyWith($id);
+        $this->set('title_for_layout', $this->data['Company']['name'] .' ' . __('(Edit)'));        
+    }  
+    
+    public function admin_view($id){
+        $company = $this->Company->fetchCompanyWith($id);
+        $this->set('title_for_layout', $company['Company']['name'] .' ' . __('(View)'));    
+    }
     
 }
