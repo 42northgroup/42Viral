@@ -1,5 +1,6 @@
+<?php
 /**
- * CSS
+ * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,26 +12,11 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
- 
-table{
-    border-collapse: collapse;
-    width: 100%;
-}
 
-th{
-    border-bottom: 1px solid #C5C5C5;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    text-align: left;
-}
+/**
+ * @author Jason D Snider <jason.snider@42viral.org>
+ */
 
-td{
-    border: 1px solid #E5E5E5;
-    border-left: none;
-    border-right: none;
-}
+echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_companies')); 
 
-td.actions-column{
-    width: 30px;
-}
+?>

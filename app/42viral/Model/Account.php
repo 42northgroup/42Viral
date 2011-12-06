@@ -18,7 +18,7 @@ App::uses('AppModel', 'Model');
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-class Company extends AppModel
+class Account extends AppModel
 {
     
     /**
@@ -29,9 +29,9 @@ class Company extends AppModel
         parent::__construct($id, $table, $ds);
         
         $this->virtualFields = array(
-            'admin_view_url'=>"CONCAT('/admin/companies/view/' , `{$this->alias}`.`id`)",
-            'admin_edit_url'=>"CONCAT('/admin/companies/edit/',`{$this->alias}`.`id`)",
-            'admin_delete_url'=>"CONCAT('/admin/companies/delete/',`{$this->alias}`.`id`)",
+            'admin_view_url'=>"CONCAT('/admin/accounts/view/' , `{$this->alias}`.`id`)",
+            'admin_edit_url'=>"CONCAT('/admin/accounts/edit/',`{$this->alias}`.`id`)",
+            'admin_delete_url'=>"CONCAT('/admin/accounts/delete/',`{$this->alias}`.`id`)",
         );        
     }
     
@@ -41,7 +41,7 @@ class Company extends AppModel
     * @return array
     * @access public
     */
-    public function fetchCompanyWith($token, $with = array(), $by = 'id')
+    public function fetchAccountWith($token, $with = array(), $by = 'id')
     {
         //Allows predefined data associations in the form of containable arrays
         if(!is_array($with)){
@@ -56,15 +56,15 @@ class Company extends AppModel
         }
         
         //Go fetch the company
-        $company = $this->find('first', array(
+        $account = $this->find('first', array(
            'contain' => $with,
 
            'conditions' => array(
-               "Company.{$by}"  => $token
+               "Account.{$by}"  => $token
            )
         ));
 
-        return $company;        
+        return $account;        
     }
     
    /**
@@ -73,7 +73,7 @@ class Company extends AppModel
     * @return array
     * @access public
     */
-    public function fetchCompaniesWith($conditions  = array(), $with = array())
+    public function fetchAccountsWith($conditions  = array(), $with = array())
     {
         //Allows predefined data associations in the form of containable arrays
         if(!is_array($with)){
@@ -85,11 +85,11 @@ class Company extends AppModel
         }
         
         //Go fetch the company
-        $company = $this->find('all', array(
+        $accounts = $this->find('all', array(
            'conditions'=>$conditions,
            'contain' => $with,
         ));
 
-        return $company;        
+        return $accounts;        
     }    
 }
