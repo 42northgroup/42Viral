@@ -1,3 +1,25 @@
+<?php
+
+/**
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/**
+ * @author Lyubomir R Dimov <lyubomir.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ */
+?>
+
 <script type="text/javascript">
     $(function(){
         
@@ -32,29 +54,14 @@
         });
     });
 </script>
+
 <?php
-
-/**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- *
- * Licensed under The MIT License
- * Redistributions of files must retain the above copyright notice.
- *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- */
-
-/**
- *** @author Jason D Snider <jason.snider@42viral.org>
- */
-
 echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));
 echo $this->Form->create('UserPrivs', array('url'=>'/setup/give_permissions/'.$username)); 
 ?>
+
+This provides the default set of permissions for a user. The permissions granted here will be automatically applied to 
+anyone creating an account. So please, think about this for a few moments before proceeding!
 
 <table>
     <thead>

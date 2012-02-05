@@ -66,7 +66,7 @@
                         'type'=>'text', 'label'=>false));
 
             echo $this->Form->submit(
-                    'graphics/icons/solid-white/16/magnifying-glass16.png',
+                    'graphics/icons/solid-white/16/magnifying-glass.png',
                         array(
                             'style'=>'background: #e2e2e2; border-radius: 2px; margin:0; position:absolute; '
                             . 'padding: 2px 0 2px 2px; right: 7px; top: 5px; border-left: 1px solid #e2e2e2;'
