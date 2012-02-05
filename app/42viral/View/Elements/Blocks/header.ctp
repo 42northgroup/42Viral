@@ -38,23 +38,25 @@
                         if($unread_message_count > 0) {
 
                             $inbox = $this->Html->link(
-                                'Inbox (' . $unread_message_count . ')',
+                                $this->Html->image('graphics/icons/solid-white/16/envolope.png').
+                                '(' . $unread_message_count . ')',
                                 '/inbox_message/',
                                 array(
                                     'style' => 'font-weight: bold;',
                                     'id'=>'Inbox', 
-                                    'class'=>'navigation-link'
+                                    'class'=>'navigation-link',
+                                    'escape'=>false
                                 )
                             );
 
                         } else {
 
-                            $inbox = $this->Html->link(
-                                'Inbox',
-                                '/inbox_message/',
+                            $inbox = $this->Html->image(
+                                'graphics/icons/solid-white/16/envolope.png',
                                 array(
                                     'id'=>'Inbox', 
-                                    'class'=>'navigation-link'
+                                    'class'=>'navigation-link',
+                                    'url'=>'/inbox_message/'
                                 )
                             );
 
@@ -77,7 +79,17 @@
                 </div>    
 
                 <div style="position:relative; float:left; padding:0 6px;">
-                    <?php echo $this->Html->link('Share', '#', array('id'=>'Share', 'class'=>'navigation-link')); ?>
+                    
+                    <?php 
+                        echo $this->Html->image(
+                            'graphics/icons/solid-white/16/share-social-network.png',
+                            array(
+                                'id'=>'Share', 
+                                'class'=>'navigation-link',
+                                'url'=>'#'
+                            )
+                        );         
+                    ?>                    
                     <div class="navigation-block" id="ShareBlock">
                         <?php
                             echo $this->Access->link('Contents-page_create', 'Socialize', '/users/social_media/');  
@@ -94,10 +106,15 @@
                 </div>   
 
                 <div style="position:relative; float:left; padding:0 6px;">
-
                     <?php 
-                        echo $this->Html->link('My Account', $this->Session->read('Auth.User.url'), 
-                                array('id'=>'MyAccount', 'class'=>'navigation-link')); 
+                        echo $this->Html->image(
+                            'graphics/icons/solid-white/16/gear.png',
+                            array(
+                                'id'=>'MyAccount', 
+                                'class'=>'navigation-link',
+                                'url'=>$this->Session->read('Auth.User.url')
+                            )
+                        );         
                     ?>
                     <div class="navigation-block" id="MyAccountBlock">
                         <?php 
