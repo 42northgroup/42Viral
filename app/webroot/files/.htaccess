@@ -1,0 +1,8 @@
+# ----------------------------------------------------------------------------------------------------------------------
+# SECURITY ENHANCEMENTS
+# ----------------------------------------------------------------------------------------------------------------------
+# We do not want to allow access to any thing other than allowable file types from the outside world
+<FilesMatch "!*\.(doc|docx|xls|xlsx|pdf|rtf|txt|ppt|pptx|ods|odt)$">
+    Order Allow,Deny
+    Allow from all
+</FilesMatch>
