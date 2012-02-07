@@ -43,7 +43,7 @@
         <help>The domain name of your Google Apps account. This lets us provide a Google Apps link from the site to your apps account.</help>
     </Google.Apps.domain>
     <Twitter.consumer_key>
-        <value>'YxaK8Z1QqU1S5XdZxFGBQ'</value>
+        <value>''</value>
         <name>Twitter.consumer_key</name>
         <default>''</default>
         <help>Twitter Oauth consumer key</help>
