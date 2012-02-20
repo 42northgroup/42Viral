@@ -31,12 +31,15 @@ touch $SCRIPT_PATH/tmp/logs/debug.log
 
 # Set proper permissions to the newly created files
 
+# DO NOT allow the Apache process to write to the config files!
 for CONFIG_PATH in $CONFIG_PATHS
 do
     chown "$USER":"$USER" -fR "$SCRIPT_PATH$CONFIG_PATH" && chmod 775 -fR "$SCRIPT_PATH$CONFIG_PATH"
     echo "+++$SCRIPT_PATH$CONFIG_PATH"
 done
 
+# Allow the Apache Process and at least 1 system user to write to the following directories
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 chmod 777 -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 echo ">>>$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 
