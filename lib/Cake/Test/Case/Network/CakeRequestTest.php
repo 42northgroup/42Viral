@@ -104,9 +104,24 @@ class CakeRequestTest extends CakeTestCase {
 		$_GET = array();
 		$request = new CakeRequest('some/path?one=something&two=else');
 		$expected = array('one' => 'something', 'two' => 'else');
-		$this->assertEquals($request->query, $expected);
+		$this->assertEquals($expected, $request->query);
 		$this->assertEquals('some/path?one=something&two=else', $request->url);
 
+	}
+
+/**
+ * Test that named arguments + querystrings are handled correctly.
+ *
+ * @return void
+ */
+	public function testQueryStringAndNamedParams() {
+		$_SERVER['REQUEST_URI'] = '/tasks/index/page:1?ts=123456';
+		$request = new CakeRequest();
+		$this->assertEquals('tasks/index/page:1', $request->url);
+
+		$_SERVER['REQUEST_URI'] = '/tasks/index/page:1/?ts=123456';
+		$request = new CakeRequest();
+		$this->assertEquals('tasks/index/page:1/', $request->url);
 	}
 
 /**
@@ -162,6 +177,19 @@ class CakeRequestTest extends CakeTestCase {
 		$_POST = array('one' => 1, 'two' => 'three');
 		$request = new CakeRequest('some/path');
 		$this->assertEquals($_POST, $request->data);
+
+		$_POST = array(
+			'data' => array(
+				'Article' => array('title' => 'Testing'),
+			),
+			'action' => 'update'
+		);
+		$request = new CakeRequest('some/path');
+		$expected = array(
+			'Article' => array('title' => 'Testing'),
+			'action' => 'update'
+		);
+		$this->assertEquals($expected, $request->data);
 	}
 
 /**
@@ -621,6 +649,10 @@ class CakeRequestTest extends CakeTestCase {
 		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (Windows NT 5.1; rv:2.0b6pre) Gecko/20100902 Firefox/4.0b6pre Fennec/2.0b1pre';
 		$this->assertTrue($request->is('mobile'));
 		$this->assertTrue($request->isMobile());
+
+		$_SERVER['HTTP_USER_AGENT'] = 'Mozilla/5.0 (compatible; MSIE 9.0; Windows Phone OS 7.5; Trident/5.0; IEMobile/9.0; SAMSUNG; OMNIA7)';
+		$this->assertTrue($request->is('mobile'));
+		$this->assertTrue($request->isMobile());
 	}
 
 /**
@@ -872,7 +904,7 @@ class CakeRequestTest extends CakeTestCase {
 		Configure::write('App.baseUrl', false);
 
 		$_SERVER['DOCUMENT_ROOT'] = '/cake/repo/branches';
-		$_SERVER['SCRIPT_NAME'] = '/1.2.x.x/app/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/1.2.x.x/app/webroot/index.php';
 		$_SERVER['PATH_INFO'] = '/posts/view/1';
 
 		$request = new CakeRequest();
@@ -882,7 +914,7 @@ class CakeRequestTest extends CakeTestCase {
 
 
 		$_SERVER['DOCUMENT_ROOT'] = '/cake/repo/branches/1.2.x.x/app/webroot';
-		$_SERVER['SCRIPT_NAME'] = '/index.php';
+		$_SERVER['PHP_SELF'] = '/index.php';
 		$_SERVER['PATH_INFO'] = '/posts/add';
 		$request = new CakeRequest();
 
@@ -891,7 +923,7 @@ class CakeRequestTest extends CakeTestCase {
 		$this->assertEquals($request->url, 'posts/add');
 
 		$_SERVER['DOCUMENT_ROOT'] = '/cake/repo/branches/1.2.x.x/test/';
-		$_SERVER['SCRIPT_NAME'] = '/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/webroot/index.php';
 		$request = new CakeRequest();
 
 		$this->assertEquals('', $request->base);
@@ -899,7 +931,7 @@ class CakeRequestTest extends CakeTestCase {
 
 
 		$_SERVER['DOCUMENT_ROOT'] = '/some/apps/where';
-		$_SERVER['SCRIPT_NAME'] = '/app/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/app/webroot/index.php';
 		$request = new CakeRequest();
 
 		$this->assertEquals($request->base, '');
@@ -908,7 +940,7 @@ class CakeRequestTest extends CakeTestCase {
 		Configure::write('App.dir', 'auth');
 
 		$_SERVER['DOCUMENT_ROOT'] = '/cake/repo/branches';
-		$_SERVER['SCRIPT_NAME'] = '/demos/auth/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/demos/auth/webroot/index.php';
 
 		$request = new CakeRequest();
 
@@ -918,7 +950,7 @@ class CakeRequestTest extends CakeTestCase {
 		Configure::write('App.dir', 'code');
 
 		$_SERVER['DOCUMENT_ROOT'] = '/Library/WebServer/Documents';
-		$_SERVER['SCRIPT_NAME'] = '/clients/PewterReport/code/webroot/index.php';
+		$_SERVER['PHP_SELF'] = '/clients/PewterReport/code/webroot/index.php';
 		$request = new CakeRequest();
 
 		$this->assertEquals($request->base, '/clients/PewterReport/code');
@@ -932,7 +964,7 @@ class CakeRequestTest extends CakeTestCase {
  */
 	public function testBaseUrlwithModRewriteAlias() {
 		$_SERVER['DOCUMENT_ROOT'] = '/home/aplusnur/public_html';
-		$_SERVER['SCRIPT_NAME'] = '/control/index.php';
+		$_SERVER['PHP_SELF'] = '/control/index.php';
 
 		Configure::write('App.base', '/control');
 
@@ -946,7 +978,7 @@ class CakeRequestTest extends CakeTestCase {
 		Configure::write('App.webroot', 'newaffiliate');
 
 		$_SERVER['DOCUMENT_ROOT'] = '/var/www/abtravaff/html';
-		$_SERVER['SCRIPT_NAME'] = '/newaffiliate/index.php';
+		$_SERVER['PHP_SELF'] = '/newaffiliate/index.php';
 		$request = new CakeRequest();
 
 		$this->assertEquals($request->base, '/newaffiliate');
@@ -1042,6 +1074,29 @@ class CakeRequestTest extends CakeTestCase {
 	}
 
 /**
+ * Check that a sub-directory containing app|webroot doesn't get mishandled when re-writing is off.
+ *
+ * @return void
+ */
+	public function testBaseUrlWithAppAndWebrootInDirname() {
+		Configure::write('App.baseUrl', '/approval/index.php');
+		$_SERVER['DOCUMENT_ROOT'] = '/Users/markstory/Sites/';
+		$_SERVER['SCRIPT_FILENAME'] = '/Users/markstory/Sites/approval/index.php';
+
+		$request = new CakeRequest();
+		$this->assertEquals('/approval/index.php', $request->base);
+		$this->assertEquals('/approval/app/webroot/', $request->webroot);
+
+		Configure::write('App.baseUrl', '/webrootable/index.php');
+		$_SERVER['DOCUMENT_ROOT'] = '/Users/markstory/Sites/';
+		$_SERVER['SCRIPT_FILENAME'] = '/Users/markstory/Sites/webrootable/index.php';
+
+		$request = new CakeRequest();
+		$this->assertEquals('/webrootable/index.php', $request->base);
+		$this->assertEquals('/webrootable/app/webroot/', $request->webroot);
+	}
+
+/**
  * test baseUrl with no rewrite, and using the app/webroot/index.php file as is normal with virtual hosts.
  *
  * @return void
@@ -1054,6 +1109,35 @@ class CakeRequestTest extends CakeTestCase {
 		$request = new CakeRequest();
 		$this->assertEquals('/index.php', $request->base);
 		$this->assertEquals('/', $request->webroot);
+	}
+
+/**
+ * Test that a request with a . in the main GET parameter is filtered out.
+ * PHP changes GET parameter keys containing dots to _.
+ *
+ * @return void
+ */
+	public function testGetParamsWithDot() {
+		$_GET['/posts/index/add_add'] = '';
+		$_SERVER['PHP_SELF'] = '/cake_dev/app/webroot/index.php';
+		$_SERVER['REQUEST_URI'] = '/cake_dev/posts/index/add.add';
+
+		$request = new CakeRequest();
+		$this->assertEquals(array(), $request->query);
+	}
+
+/**
+ * Test that a request with urlencoded bits in the main GET parameter are filtered out.
+ *
+ * @return void
+ */
+	public function testGetParamWithUrlencodedElement() {
+		$_GET['/posts/add/∂∂'] = '';
+		$_SERVER['PHP_SELF'] = '/cake_dev/app/webroot/index.php';
+		$_SERVER['REQUEST_URI'] = '/cake_dev/posts/add/%E2%88%82%E2%88%82';
+
+		$request = new CakeRequest();
+		$this->assertEquals(array(), $request->query);
 	}
 
 /**
@@ -1584,6 +1668,7 @@ XML;
 			$result->getElementsByTagName('title')->item(0)->childNodes->item(0)->wholeText
 		);
 	}
+
 
 /**
  * loadEnvironment method

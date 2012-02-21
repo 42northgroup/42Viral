@@ -15,6 +15,8 @@
  * @since         CakePHP(tm) v 1.2.0.5012
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+App::uses('AppShell', 'Console/Command');
 App::uses('File', 'Utility');
 App::uses('Folder', 'Utility');
 
@@ -23,7 +25,7 @@ App::uses('Folder', 'Utility');
  *
  * @package       Cake.Console.Command.Task
  */
-class ExtractTask extends Shell {
+class ExtractTask extends AppShell {
 
 /**
  * Paths to use when looking for strings
@@ -68,11 +70,18 @@ class ExtractTask extends Shell {
 	protected $_tokens = array();
 
 /**
- * Extracted strings
+ * Extracted strings indexed by domain.
  *
  * @var array
  */
 	protected $_strings = array();
+
+/**
+ * Singular strings and their line numbers.
+ *
+ * @var array
+ */
+	protected $_lines = array();
 
 /**
  * Destination path
@@ -162,7 +171,7 @@ class ExtractTask extends Shell {
 		} else {
 			$message = __d('cake_console', "What is the path you would like to output?\n[Q]uit", $this->_paths[0] . DS . 'Locale');
 			while (true) {
-				$response = $this->in($message, null, $this->_paths[0] . DS . 'Locale');
+				$response = $this->in($message, null, rtrim($this->_paths[0], DS) . DS . 'Locale');
 				if (strtoupper($response) === 'Q') {
 					$this->out(__d('cake_console', 'Extract Aborted'));
 					$this->_stop();
@@ -187,6 +196,7 @@ class ExtractTask extends Shell {
 		if (empty($this->_files)) {
 			$this->_searchFiles();
 		}
+		$this->_output = rtrim($this->_output, DS) . DS;
 		$this->_extract();
 	}
 
@@ -322,8 +332,10 @@ class ExtractTask extends Shell {
 				if ($mapCount == count($strings)) {
 					extract(array_combine($map, $strings));
 					$domain = isset($domain) ? $domain : 'default';
+
 					$string = isset($plural) ? $singular . "\0" . $plural : $singular;
-					$this->_strings[$domain][$string][$this->_file][] = $line;
+					$this->_strings[$domain][] = $string;
+					$this->_lines[$domain][$singular][$this->_file][] = $line;
 				} else {
 					$this->_markerError($this->_file, $line, $functionName, $count);
 				}
@@ -403,7 +415,8 @@ class ExtractTask extends Shell {
 					$message = $rule;
 				}
 				if ($message) {
-					$this->_strings[$domain][$message][$file][] = 'validation for field ' . $field;
+					$this->_strings[$domain][] = $message;
+					$this->_lines[$domain][$message][$file][] =  'validation for field ' . $field;
 				}
 			}
 		}
@@ -416,7 +429,16 @@ class ExtractTask extends Shell {
  */
 	protected function _buildFiles() {
 		foreach ($this->_strings as $domain => $strings) {
-			foreach ($strings as $string => $files) {
+			$added = array();
+			rsort($strings);
+
+			foreach ($strings as $i => $string) {
+				$plural = false;
+				$singular = $string;
+				if (strpos($string, "\0") !== false) {
+					list($singular, $plural) = explode("\0", $string);
+				}
+				$files = $this->_lines[$domain][$singular];
 				$occurrences = array();
 				foreach ($files as $file => $lines) {
 					$occurrences[] = $file . ':' . implode(';', $lines);
@@ -424,17 +446,21 @@ class ExtractTask extends Shell {
 				$occurrences = implode("\n#: ", $occurrences);
 				$header = '#: ' . str_replace($this->_paths, '', $occurrences) . "\n";
 
-				if (strpos($string, "\0") === false) {
+				if ($plural === false && !empty($added[$singular])) {
+					continue;
+				}
+
+				if ($plural === false) {
 					$sentence = "msgid \"{$string}\"\n";
 					$sentence .= "msgstr \"\"\n\n";
 				} else {
-					list($singular, $plural) = explode("\0", $string);
 					$sentence = "msgid \"{$singular}\"\n";
 					$sentence .= "msgid_plural \"{$plural}\"\n";
 					$sentence .= "msgstr[0] \"\"\n";
 					$sentence .= "msgstr[1] \"\"\n\n";
 				}
 
+				$added[$singular] = true;
 				$this->_store($domain, $header, $sentence);
 				if ($domain != 'default' && $this->_merge) {
 					$this->_store('default', $header, $sentence);

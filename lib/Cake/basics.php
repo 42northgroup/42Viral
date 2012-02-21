@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Basic Cake functionality.
  *
@@ -77,7 +76,7 @@ function debug($var = false, $showHtml = null, $showFrom = true) {
 		$lineInfo = '';
 		if ($showFrom) {
 			$calledFrom = debug_backtrace();
-			$file = substr(str_replace(ROOT, '', $calledFrom[0]['file']), 1);
+			$file = substr(str_ireplace(ROOT, '', $calledFrom[0]['file']), 1);
 			$line = $calledFrom[0]['line'];
 		}
 		$html = <<<HTML
@@ -126,6 +125,7 @@ if (!function_exists('sortByKey')) {
 	 * @param string $order  Sort order asc/desc (ascending or descending).
 	 * @param integer $type Type of sorting to perform
 	 * @return mixed Sorted array
+	 * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#sortByKey
 	 */
 	function sortByKey(&$array, $sortby, $order = 'asc', $type = SORT_NUMERIC) {
 		if (!is_array($array)) {
@@ -198,6 +198,7 @@ function h($text, $double = true, $charset = null) {
  * @param boolean $dotAppend Set to true if you want the plugin to have a '.' appended to it.
  * @param string $plugin Optional default plugin to use if no plugin is found. Defaults to null.
  * @return array Array with 2 indexes.  0 => plugin name, 1 => classname
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#pluginSplit
  */
 function pluginSplit($name, $dotAppend = false, $plugin = null) {
 	if (strpos($name, '.') !== false) {
@@ -521,6 +522,7 @@ function __($singular, $args = null) {
  * @param integer $count Count
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return mixed plural form of translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__n
  */
 function __n($singular, $plural, $count, $args = null) {
 	if (!$singular) {
@@ -544,6 +546,7 @@ function __n($singular, $plural, $count, $args = null) {
  * @param string $msg String to translate
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__d
  */
 function __d($domain, $msg, $args = null) {
 	if (!$msg) {
@@ -570,6 +573,7 @@ function __d($domain, $msg, $args = null) {
  * @param integer $count Count
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return plural form of translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__dn
  */
 function __dn($domain, $singular, $plural, $count, $args = null) {
 	if (!$singular) {
@@ -607,6 +611,7 @@ function __dn($domain, $singular, $plural, $count, $args = null) {
  * @param integer $category Category
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__dc
  */
 function __dc($domain, $msg, $category, $args = null) {
 	if (!$msg) {
@@ -648,6 +653,7 @@ function __dc($domain, $msg, $category, $args = null) {
  * @param integer $category Category
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return plural form of translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__dcn
  */
 function __dcn($domain, $singular, $plural, $count, $category, $args = null) {
 	if (!$singular) {
@@ -681,6 +687,7 @@ function __dcn($domain, $singular, $plural, $count, $category, $args = null) {
  * @param integer $category Category
  * @param mixed $args Array with arguments or multiple arguments in function
  * @return translated string
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#__c
  */
 function __c($msg, $category, $args = null) {
 	if (!$msg) {
@@ -700,6 +707,8 @@ function __c($msg, $category, $args = null) {
  * Shortcut to Log::write.
  *
  * @param string $message Message to write to log
+ * @return void
+ * @link http://book.cakephp.org/2.0/en/core-libraries/global-constants-and-functions.html#LogError
  */
 function LogError($message) {
 	App::uses('CakeLog', 'Log');
