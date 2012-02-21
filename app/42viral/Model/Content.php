@@ -41,7 +41,7 @@ class Content extends AppModel
      * @var array
      */
     public $actsAs = array(
-        
+        'AuditLog.Auditable',
         'History' => array(
             'historyModel'=>'HistoryContent'
         ),

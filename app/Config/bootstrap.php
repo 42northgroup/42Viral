@@ -64,9 +64,11 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
-
-CakePlugin::load('Tags');
+CakePlugin::load('AuditLog');
 CakePlugin::load('Search');
+CakePlugin::load('Tags');
+
+
 
 
 App::build(array(
