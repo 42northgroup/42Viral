@@ -36,7 +36,7 @@ class AppController extends Controller
      */
     public $helpers = array('Access', 'Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
     
-    public $uses = array('Audit', 'AuditDelta');
+    //public $uses = array('AuditLog.Audit', 'AuditLog.AuditDelta');
     
     /**
      * The location of setup log files
