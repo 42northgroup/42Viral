@@ -67,7 +67,7 @@ chmod 775 -fR "$SCRIPT_PATH/Config/Xml"
 echo ">>>$SCRIPT_PATH/Config/Xml"
 
 cp -r $SCRIPT_PATH/Config/Defaults/Includes/* $SCRIPT_PATH/Config/Includes/
-cho ">>>Copying default includes configurations to their target $SCRIPT_PATH/Config/Includes/"
+echo ">>>Copying default includes configurations to their target $SCRIPT_PATH/Config/Includes/"
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Includes"
 chmod 775 -fR "$SCRIPT_PATH/Config/Includes"

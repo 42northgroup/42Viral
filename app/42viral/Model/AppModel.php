@@ -15,9 +15,8 @@
 
 App::uses('Model', 'Model');
 /**
- * Origianally, this existed as an abstract, but that pisses off the shell as of RC1
  *
- ** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class AppModel extends Model {
     
@@ -26,5 +25,8 @@ class AppModel extends Model {
      * @var array
      * @access public
      */
-    public $actsAs = array('Containable', 'Log');
+    public $actsAs = array(
+        'Containable', 
+        'Log'
+    );
 }
