@@ -22,7 +22,7 @@ class SeoBehavior extends ModelBehavior
     /**
      * A callback for preping an object
      * @param object $model
-     * @author Jason D Snider <jsnider@microtrain.net> 
+     * @return void
      * @access public
      */
     public function setup(&$model, $settings = array())
@@ -36,6 +36,7 @@ class SeoBehavior extends ModelBehavior
         }else{
            $this->settings[$model->name]['convert'] = 'title';
         }
+        
     }
 
     /**
@@ -119,8 +120,8 @@ class SeoBehavior extends ModelBehavior
      * @return string 
      * @access private 
      */
-    private function __canonical(&$model, $slug){
-        return Configure::read('Domain.url') . strtolower("{$model->alias}/{$slug}/"); 
+    private function __canonical(&$model, $slug){ 
+        return Configure::read('Domain.url') . strtolower(Inflector::underscore($model->alias)) . "/{$slug}/"; 
     }
 
 }
