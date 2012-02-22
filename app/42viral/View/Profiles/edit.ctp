@@ -14,8 +14,8 @@
  */
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'')); 

@@ -26,6 +26,15 @@ class Address extends AppModel
     
     public $useTable = 'addresses';
     
+    /**
+     * Behaviors
+     * @var array
+     * @access public
+     */
+    public $actsAs = array(
+        'AuditLog.Auditable'
+    );
+    
     public $belongsTo = array(
         'ProfileCompany' => array(
             'foreignKey' => 'model_id',

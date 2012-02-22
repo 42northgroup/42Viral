@@ -38,12 +38,14 @@ class Person extends AppModel
      */
     public $useTable = 'people';
 
+    
     /**
-     *
+     * Behaviors
      * @var array
+     * @access public
      */
     public $actsAs = array(
-
+        'AuditLog.Auditable',
         'Scrub' => array(
             'Filters' => array(
                 'trim' => '*',
