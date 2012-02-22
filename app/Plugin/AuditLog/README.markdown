@@ -89,12 +89,4 @@ Applying the `AuditableBehavior` to a model is essentially the same as applying 
 
 ## Limitations
 
-* Only MySQL is supported. It should be (famous last words) a trivial exercise to support other databases, but I don't need to do so for my own use and probably won't do so unless requested.
-
-## License
-
-This code is licensed under the [MIT license](http://www.opensource.org/licenses/mit-license.php).
-
-## Notes
-
-Feel free to submit bug reports or suggest improvements in a ticket or fork this project and improve upon it yourself. Contributions welcome.
+* Currenlty inly tested with MySQL 5.1.

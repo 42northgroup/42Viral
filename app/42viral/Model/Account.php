@@ -20,7 +20,9 @@ App::uses('AppModel', 'Model');
  */
 class Account extends AppModel
 {
-    
+    public $actsAs = array(
+        'AuditLog.Auditable'
+    );
     /**
      * @access public
      */
