@@ -91,7 +91,7 @@ class SeoBehaviorTest extends CakeTestCase {
    * @return void
    * @access public
    */
-  public function testSlugCreate() {
+  public function testCreateSlugFromTitle() {
       
     $createGenericContent = array(
       'GenericContent' => array(
@@ -123,7 +123,7 @@ class SeoBehaviorTest extends CakeTestCase {
    * @return void
    * @access public
    */
-  public function testSlugDisambiguate() {
+  public function testDisambiguateSlugsWithCommonTitles() {
       
     //Set the common title  
     $createGenericContent = array(
@@ -184,7 +184,7 @@ class SeoBehaviorTest extends CakeTestCase {
    * @return void
    * @access public
    */
-  public function testCanonicalCreate() {
+  public function testCreateCanonicalLinkFromTheDerivedSlug() {
       
     $createGenericContent = array(
       'GenericContent' => array(
@@ -214,7 +214,7 @@ class SeoBehaviorTest extends CakeTestCase {
    * @return void
    * @access public
    */
-  public function testConvertSettingSlugCreate() {
+  public function testCreateSlugUsingTheConvertSetting() {
       
     $createArticle = array(
       'Article' => array(
@@ -247,7 +247,7 @@ class SeoBehaviorTest extends CakeTestCase {
    * @return void
    * @access public
    */
-  public function testConvertSettingSlugDisambiguate() {
+  public function testDisambiguateSlugsWithCommonNameUsingTheConvertSetting() {
       
     //Set the common title  
     $createArticle = array(
