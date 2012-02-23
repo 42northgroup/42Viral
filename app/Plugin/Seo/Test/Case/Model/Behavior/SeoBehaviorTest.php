@@ -74,7 +74,10 @@ class SeoBehaviorTest extends CakeTestCase {
    * @var array
    * @access public
    */
-    public $fixtures = array('plugin.GenericContent', 'plugin.Article');
+    public $fixtures = array(
+        'plugin.seo.GenericContent', 
+        'plugin.seo.Article'
+    );
   
   /**
    * Method executed before each test
