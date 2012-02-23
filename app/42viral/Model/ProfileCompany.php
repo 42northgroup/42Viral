@@ -58,7 +58,7 @@ class ProfileCompany extends AppModel
             )
         ),
         
-        'Seo'=>array('convert'=>'name')
+        'Seo.Seo'=>array('convert'=>'name')
     );
     
     public function __construct($id=false, $table=null, $ds=null) {

@@ -60,7 +60,7 @@ class Content extends AppModel
         
         'Search.Searchable',
         
-        'Seo',
+        'Seo.Seo',
         
         'Tags.Taggable'
 
