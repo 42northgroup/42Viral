@@ -1,3 +1,6 @@
 [submodule "app/Plugin/AuditLog"]
 	path = app/Plugin/AuditLog
 	url = git@github.com:microtrain/CakePHP-Audit-Log-Plugin.git
+[submodule "app/Plugin/Seo"]
+	path = app/Plugin/Seo
+	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
