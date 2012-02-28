@@ -10,6 +10,8 @@ Provide a scalable and robust "kick start" for projects of any size.
 * CakePHP Search Plugin, CakeDC <http://cakedc.com/eng/downloads/view/cakephp_search_plugin>
 * CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
 * CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
+* JasonSnider Seo Plugin <https://github.com/jasonsnider/CakePHP-Seo-Plugin>
+* RobWilkerson AuditLog Plugin <https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin>
 * HTMLPurifier
 * jQuery
 * jQuery UI
@@ -37,6 +39,19 @@ losing the ability to manage the data.
 Currently, installation is written for Ubuntu Linux. Installation on other Linux distros is pretty similar; typically 
 this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
 accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
+
+### Git based install
+
+Replace 
+- example.com with the name of your site
+- /var/www/vhosts/ with your server path
+- httpdocs with whatever you want to call it
+
+    cd /var/www/vhosts/example.com
+    git clone git@github.com:microtrain/42Viral.git httpdocs
+    cd httpdocs
+    git submodule init
+    git submodule update
 
 From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to 
 access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
