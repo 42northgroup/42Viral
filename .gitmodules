@@ -10,3 +10,6 @@
 [submodule "app/Plugin/Migrations"]
 	path = app/Plugin/Migrations
 	url = git@github.com:microtrain/migrations.git
+[submodule "app/Plugin/Search"]
+	path = app/Plugin/Search
+	url = git@github.com:microtrain/search.git
