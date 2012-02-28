@@ -9,4 +9,4 @@
 	url = git@github.com:microtrain/tags.git
 [submodule "app/Plugin/Migrations"]
 	path = app/Plugin/Migrations
-	url = git@github.com:microtrain/tags.git
+	url = git@github.com:microtrain/migrations.git
