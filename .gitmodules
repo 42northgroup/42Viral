@@ -4,3 +4,9 @@
 [submodule "app/Plugin/Seo"]
 	path = app/Plugin/Seo
 	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
+[submodule "app/Plugin/Tags"]
+	path = app/Plugin/Tags
+	url = git@github.com:microtrain/tags.git
+[submodule "app/Plugin/Migrations"]
+	path = app/Plugin/Migrations
+	url = git@github.com:microtrain/tags.git
