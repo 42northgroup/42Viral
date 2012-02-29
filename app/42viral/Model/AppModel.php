@@ -29,4 +29,9 @@ class AppModel extends Model {
         'Containable', 
         'Log'
     );
+    
+    public function currentUser() {
+        return $_SESSION['Auth']['User'];
+    }    
+    
 }
