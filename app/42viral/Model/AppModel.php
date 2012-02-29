@@ -29,7 +29,11 @@ class AppModel extends Model {
         'Containable', 
         'Log'
     );
-    
+    /**
+     * Returns the User array of the current user
+     * @return type 
+     * @access public
+     */
     public function currentUser() {
         return $_SESSION['Auth']['User'];
     }    
