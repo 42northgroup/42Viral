@@ -280,15 +280,15 @@ App::uses('Handy', 'Lib');
             'alias' => 'root', 0, 0));
 
         $this->Acl->Aro->save();
-
+        
         foreach ($controllers as $key => $value) {
             foreach ($controllers[$key] as $action) {
                 $this->Acl->Aco->create(array(
                     'parent_id' => 1,
-                    'alias' => $key . '-' . $action, 0, 0
+                    'alias' => "$key-$action", 0, 0
                 ));
                 $this->Acl->Aco->save();
-
+                
                 $this->Acl->allow('root', $key . '-' . $action, '*');
             }
         }
@@ -343,7 +343,7 @@ App::uses('Handy', 'Lib');
         $acos = $this->Aco->find('list', array(
             'fields' => array('Aco.id', 'Aco.alias')
         ));
-                
+        
         $this->set('controllers', $controllers);
                 
         if(!empty ($this->data)){

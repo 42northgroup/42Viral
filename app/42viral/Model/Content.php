@@ -62,7 +62,7 @@ class Content extends AppModel
         
         'Seo.Seo',
         
-        'Tags.Taggable'
+        //'Tags.Taggable'
 
     );
     
