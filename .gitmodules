@@ -13,3 +13,6 @@
 [submodule "app/Plugin/CalendarRecursion"]
 	path = app/Plugin/CalendarRecursion
 	url = git@github.com:microtrain/CakePHP-CalendarRecursion-Plugin.git
+[submodule "app/Plugin/Tags"]
+	path = app/Plugin/Tags
+	url = git@github.com:microtrain/tags.git
