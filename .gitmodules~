@@ -14,5 +14,5 @@
 	path = app/Plugin/Search
 	url = git@github.com:microtrain/search.git
 [submodule "app/Plugin/CalendarRecursion"]
-	path = app/Plugin/CalendarRecursion
+	path = CakePHP-CalendarRecursion-Plugin
 	url = git@github.com:microtrain/CakePHP-CalendarRecursion-Plugin.git

@@ -36,10 +36,11 @@ class ControllerListComponent extends Component {
     public function get_plugins()
     {
         $pluginDirs = App::objects('plugin', null, false);
-        
+       
         foreach ($pluginDirs as $pluginDir){
             
             $pluginClasses = App::objects('controller', APP.'Plugin'. DS .$pluginDir. DS .'Controller', false);
+            $plugins = array();
             
             App::import('Controller', $pluginDir.'.'.$pluginDir.'App');
             $parentActions = get_class_methods($pluginDir.'AppController');
