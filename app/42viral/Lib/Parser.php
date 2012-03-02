@@ -16,7 +16,7 @@
 /**
  * Common functionality for parsing stuff
  * @package Lib
- *** @author Jason D Snider <jason.snider@42viral.org> 
+ * @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Parser
 {
@@ -75,16 +75,15 @@ class Parser
 
                 foreach($xmlData['root'] as $key => $value){
                     $val = empty($value['value'])?$value['default']:$value['value'];
-                    
-                    $decoded = htmlspecialchars_decode($val);
-                    
+                    $decoded = htmlspecialchars_decode($val, ENT_QUOTES);
                     $configureString .= "Configure::write('{$value['name']}', {$decoded});\n";
                 }
-
+                
                 file_put_contents ($outFile , $configureString);
             }
             
         }
+        
     }
     
     /**
