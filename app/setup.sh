@@ -39,9 +39,9 @@ do
 done
 
 # Allow the Apache Process and at least 1 system user to write to the following directories
-chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
-chmod 777 -fR "$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
-echo ">>>$SCRIPT_PATH/42viral/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+chmod 777 -fR "$SCRIPT_PATH/Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+echo ">>>$SCRIPT_PATH/Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"
 chmod 775 -fR "$SCRIPT_PATH/tmp"
