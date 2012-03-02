@@ -50,8 +50,17 @@ Replace
 - httpdocs with whatever you want to call it
 
     cd /var/www/vhosts/example.com
+
+    ## Clone the project
     git clone git@github.com:microtrain/42Viral.git httpdocs
     cd httpdocs
+
+    ## Pull the submodules
+    git submodule init
+    git submodule update
+
+    ## Pull htmlpurifier into the ContentFilter submodule
+    cd app/Plugin/ContentFilters
     git submodule init
     git submodule update
 
