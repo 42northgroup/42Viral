@@ -46,7 +46,7 @@ class Person extends AppModel
      */
     public $actsAs = array(
         'AuditLog.Auditable',
-        'Scrub' => array(
+        'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'safe' => '*'

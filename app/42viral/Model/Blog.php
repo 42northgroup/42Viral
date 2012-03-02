@@ -13,7 +13,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('Content', 'Model');
-App::uses('Scrub', 'Lib');
 
 /**
  * Manaages the Content object from the POV of a blog

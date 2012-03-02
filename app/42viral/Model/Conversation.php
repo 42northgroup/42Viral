@@ -46,7 +46,7 @@ class Conversation extends AppModel
      */
     public $actsAs = array(
         
-        'Scrub'=>array(
+        'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'html'=>array('body')

@@ -14,7 +14,7 @@
  */
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
-App::uses('Scrub', 'Lib');
+App::uses('ContentFilters.Scrubable', 'Lib');
 
 /**
  * @author Jason D Snider <jason.snider@42viral.org>

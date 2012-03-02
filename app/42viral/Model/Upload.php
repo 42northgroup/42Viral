@@ -50,7 +50,7 @@ class Upload extends AppModel
      * @access public 
      */
     public $actsAs = array(
-        'Scrub' => array(
+        'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'safe' => '*'

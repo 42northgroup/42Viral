@@ -58,7 +58,7 @@ class CaseModel extends AppModel
             
         ),
         */
-        'Scrub'=>array(
+        'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlStrict'=>array('body'),

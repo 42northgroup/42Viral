@@ -8,7 +8,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Scrub', 'Lib');
+App::uses('ContentFilters.Scrubable', 'Lib');
 App::uses('Sanitize', 'Utility');
 
 /**

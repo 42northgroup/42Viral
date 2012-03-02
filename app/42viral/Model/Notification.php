@@ -49,7 +49,7 @@ class Notification extends AppModel
     public $actsAs = array(
         'Log',
         
-        'Scrub' => array(
+        'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 //'htmlStrict' => array('body_template'),

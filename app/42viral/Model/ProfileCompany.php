@@ -50,7 +50,7 @@ class ProfileCompany extends AppModel
      */
     public $actsAs = array(
 
-        'Scrub'=>array(
+        'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'noHtml'=>array('name', 'description', 'keywords', 'phone1'),
