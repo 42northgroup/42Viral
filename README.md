@@ -11,7 +11,9 @@ Provide a scalable and robust "kick start" for projects of any size.
 * CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
 * CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
 * JasonSnider Seo Plugin <https://github.com/jasonsnider/CakePHP-Seo-Plugin>
+* JasonSnider Scrub Plugin <https://github.com/jasonsnider/CakePHP-Scrub-Plugin>
 * RobWilkerson AuditLog Plugin <https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin>
+* Lyubomir Dimov CalendarRecursion Plugin <https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin>
 * HTMLPurifier
 * jQuery
 * jQuery UI
@@ -103,3 +105,16 @@ version pear and fix the issue.
     xdebug.remote_port=9000
 
     sudo /etc/init.d/apache2 restart
+
+## License ##
+
+Copyright 2012, [Jason D Snider](https://jasonsnider.com)
+
+Licensed under [The MIT License](http://www.opensource.org/licenses/mit-license.php)<br/>
+Redistributions of files must retain the above copyright notice.
+
+## Copyright ###
+
+Copyright 2012<br/>
+[42NorthGroup](https://42northgroup.com)<br/>
+https://42northgroup.com<br/>
