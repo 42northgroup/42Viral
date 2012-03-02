@@ -65,11 +65,10 @@ Cache::config('default', array('engine' => 'File'));
  */
 
 CakePlugin::load('AuditLog');
+CakePlugin::load('ContentFilters');
 CakePlugin::load('Seo');
 CakePlugin::load('Search');
 CakePlugin::load('Tags');
-
-
 
 
 App::build(array(

@@ -60,9 +60,43 @@ class Scrub
         //Autolink text based links into html tags
         $config->set('AutoFormat.Linkify', true);
         
-        //Allow flash embedding
-        $config->set('HTML.SafeObject', true);
-        $config->set('HTML.SafeEmbed', true);
+        return $HTMLPurifier->purify($value, $config);
+    }
+    
+    /**
+     * Purifies, creates html and fixes broken HTML while allowing iFrames
+     * Purity and security are both decreased, but it's good for media sites.
+     * I'd only reccomend this for use by trusted users.
+     * @param string $value
+     * @return string
+     * @access public 
+     */
+    public static function htmlMedia($value)
+    {
+        $HTMLPurifier = new HTMLPurifier();
+
+        $config = HTMLPurifier_Config::createDefault();
+
+        //Standard scrubbing and repair
+        $config->set('HTML.TidyLevel', 'heavy');
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+        $config->set('Core.Encoding', Configure::read('App.encoding')); 
+        
+        //Auto pargraphs on line break, this is the paragragh version of nl2br
+        $config->set('AutoFormat.AutoParagraph', true);
+        
+        //Strips useless jiberish, typically this is cruft left over from WYSIWYG formatting
+        $config->set('AutoFormat.RemoveEmpty.RemoveNbsp', true);
+        //Remove empty conflicts with iFrames, I'd like to find a fix for this
+        //$config->set('AutoFormat.RemoveEmpty', true);
+        $config->set('AutoFormat.RemoveSpansWithoutAttributes', true);
+        
+        //Autolink text based links into html tags
+        $config->set('AutoFormat.Linkify', true);
+        
+        //Allow iframes for YouTube and such
+        $config->set('HTML.SafeIframe', true);
+        $config->set('URI.SafeIframeRegexp', "%^https://(www.youtube.com/embed/|player.vimeo.com/video/)%");   
         
         return $HTMLPurifier->purify($value, $config);
     }
@@ -97,10 +131,6 @@ class Scrub
         
         //Autolink text based links into html tags
         $config->set('AutoFormat.Linkify', true);
-
-        //Allow flash embedding
-        $config->set('HTML.SafeObject', true);
-        $config->set('HTML.SafeEmbed', true);
         
         $config->set('HTML.AllowedAttributes', array('src', 'href', 'title', 'alt'));
 

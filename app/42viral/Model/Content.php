@@ -50,7 +50,7 @@ class Content extends AppModel
             'Fields'=>array('short_cut')
         ),
         
-        'Scrub'=>array(
+        'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlStrict'=>array('body', 'bio'),
