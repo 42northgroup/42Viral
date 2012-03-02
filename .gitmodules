@@ -19,3 +19,6 @@
 [submodule "app/Plugin/Migrations"]
 	path = app/Plugin/Migrations
 	url = git@github.com:microtrain/migrations.git
+[submodule "app/Plugin/ContentFilters"]
+	path = app/Plugin/ContentFilters
+	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
