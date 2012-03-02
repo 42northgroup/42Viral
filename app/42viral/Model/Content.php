@@ -55,7 +55,7 @@ class Content extends AppModel
         'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
-                'htmlStrict'=>array('body', 'bio'),
+                'htmlMedia'=>array('body', 'bio'),
                 'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
             )
         ),
