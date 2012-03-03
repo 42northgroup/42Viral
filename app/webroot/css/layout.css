@@ -66,7 +66,8 @@ body{
 #MainContent{
     float:left; 
     /* width: 67%; */
-    width: 545px;
+    /* width: 545px; */
+    width: 716px;
 }
 
 #MainLeft{
@@ -75,11 +76,13 @@ body{
     width:166px;
 }
 
+/*
 #MainRight{
     float:right;
     padding:0 9px 0 0;
     
 }
+*/
 
 #Footer{
     text-align: center;
@@ -91,6 +94,6 @@ body{
 }
 
 .squeeze{
-    margin: 0 auto;
+    /* margin: 0 auto; */
     width: 960px;
 }
