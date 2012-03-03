@@ -64,12 +64,7 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
-CakePlugin::load('AuditLog');
-CakePlugin::load('ContentFilters');
-CakePlugin::load('Seo');
-CakePlugin::load('Search');
-CakePlugin::load('Tags');
-
+CakePlugin::loadAll();
 
 App::build(array(
     
@@ -118,7 +113,7 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Plugin' . DS
         ),
     
-        'vendors' => array( //hmmm... this doesn't seem right
+        'vendors' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Vendor' . DS
         ),
     
