@@ -425,7 +425,7 @@ App::uses('Handy', 'Lib');
             }
         }
         
-        $this->setFlash(__('Demo installed, configure Root'));
+        $this->Session->setFlash(__('Demo installed'), 'success');
         $this->redirect('/setup');
 
     } 
