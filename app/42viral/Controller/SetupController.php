@@ -417,7 +417,7 @@ App::uses('Handy', 'Lib');
             mkdir($backupPath);
         }
         
-        $customDemoFiles = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'DemoCustomPages';
+        $customDemoFiles = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'DemoCustomPages';
         $customFiles = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Blogs' . DS . 'Custom';
         foreach(scandir($customDemoFiles) as $file){
             if(is_file($customDemoFiles . DS . $file)){
