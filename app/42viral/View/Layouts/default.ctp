@@ -45,7 +45,11 @@
 
                     <div id="MainContent"><?php echo $content_for_layout; ?></div>
 
-                    <div id="MainRight"><?php echo $this->element('Blocks' . DS . 'right'); ?></div>
+                    <!--
+                    <div id="MainRight">
+                        <?php //echo $this->element('Blocks' . DS . 'right'); ?>
+                    </div>
+                    -->
                 </div>
             </div>
             
