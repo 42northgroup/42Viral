@@ -12,7 +12,7 @@ noty(
     {
         "text":"<?php echo $message; ?>",
         "layout":"top",
-        "type":"error",
+        "type":"alert",
         "textAlign":"center",
         "easing":"swing",
         "animateOpen":{"height":"toggle"},

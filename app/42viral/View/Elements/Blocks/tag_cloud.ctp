@@ -1,4 +1,3 @@
-<div class="side-navigation">
 <?php
     if(isset($tags)):
         echo $this->Html->tag('h4', __('Tag Cloud'));
@@ -14,4 +13,3 @@
         );
     endif;
 ?>
-</div>

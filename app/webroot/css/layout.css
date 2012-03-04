@@ -64,25 +64,15 @@ body{
 }
 
 #MainContent{
-    float:left; 
-    /* width: 67%; */
-    /* width: 545px; */
-    width: 716px;
+    float:right; 
+    width: 780px;
 }
 
 #MainLeft{
     float:left; 
-    margin-right: 24px;
-    width:166px;
+    padding-right: 2px;
+    width:168px;
 }
-
-/*
-#MainRight{
-    float:right;
-    padding:0 9px 0 0;
-    
-}
-*/
 
 #Footer{
     text-align: center;
