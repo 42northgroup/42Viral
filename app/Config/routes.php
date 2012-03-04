@@ -33,6 +33,8 @@ Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home
 
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
+Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'system', 'action' => 'index'));
+
 Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
 
 Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));

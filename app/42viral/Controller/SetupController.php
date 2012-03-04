@@ -19,6 +19,8 @@ App::uses('Handy', 'Lib');
 
 /**
  * Provides a web interface for running the intial system setup
+ * @package app.Controller
+ * @subpackage app.Controller.System
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */

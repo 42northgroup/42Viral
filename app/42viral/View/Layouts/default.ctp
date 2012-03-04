@@ -43,13 +43,10 @@
                 <div class="clearfix squeeze">
                     <div id="MainLeft"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
 
-                    <div id="MainContent"><?php echo $content_for_layout; ?></div>
-
-                    <!--
-                    <div id="MainRight">
-                        <?php //echo $this->element('Blocks' . DS . 'right'); ?>
+                    <div id="MainContent">
+                        <?php echo $content_for_layout; ?>
+                        <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
                     </div>
-                    -->
                 </div>
             </div>
             
