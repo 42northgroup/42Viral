@@ -108,42 +108,25 @@ class BlogsController extends AppController {
     public function post($slug) {
         $mine = false;
         
+        $this->loadModel('Conversation');        
         $post = $this->Post->fetchPostWith($slug, 'standard');    
 
         if(empty($post)){
            $this->redirect('/', '404');
         }
 
-                
         //Add a comment
-        if($this->data){            
+        if($this->data){   
+            
             if($this->Conversation->save($this->data)){
                 $this->Session->setFlash(_('Your comment has been saved') ,'success');
                 $this->redirect($this->referer());
             }else{
                 $this->Session->setFlash(_('Your comment could not be saved') ,'error');
             }
-        }
-        
-        
-        
-        if( !$this->Session->check('Auth.User.id') ){
-            
-            $this->Session->write('Auth.post_url', $this->here);
-        }else{
-            
-            if( $this->Session->check('Auth.post_url') ){
-                $this->Session->delete('Auth.post_url');
-            }
-            
-            if( $this->Session->check('Auth.post_comment') ){
-                
-                $this->set('post_comment', $this->Session->read('Auth.post_comment') );
-                $this->Session->delete('Auth.post_comment');
-            }
             
         }
-       
+                  
         //Build a user profile for use in the elements. The view must recive an array of $userProfile
         $userProfile['Person'] = $post['CreatedPerson'];
         $this->set('userProfile', $userProfile);

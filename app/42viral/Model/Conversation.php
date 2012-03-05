@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('AppModel', 'Model');
-
+App::uses('HttpSocket', 'Network/Http');
 /**
  * Mangages the conversation object.
  * A conversation is any reply, comment or attempt to start a conversation against any piece of Content data
@@ -43,9 +43,17 @@ class Conversation extends AppModel
     /**
      *
      * @var array
+     * @access public
      */
     public $actsAs = array(
-        
+        'Akismet'=>array(
+            'map'=>array(
+                'name'=>'comment_author_name',
+                'email'=>'comment_author_email',
+                'url'=>'comment_author_url',
+                'body'=>'comment_content'
+            )
+        ),
         'ContentFilters.Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
@@ -106,11 +114,6 @@ class Conversation extends AppModel
             'email' => array(
                 'rule' => 'email',
                 'message' =>"Please enter a valid email.",
-                'last' => true
-            ),
-            'isUnique' => array(
-                'rule' => 'isUnique',
-                'message' =>"This email address is already in use",
                 'last' => true
             )
         ),

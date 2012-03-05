@@ -22,7 +22,7 @@ App::uses('HttpSocket', 'Network/Http');
 App::uses('HttpSocketOauth', 'Lib');
 
 /** 
- ******* @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 
 class LinkedinSource extends DataSource {
@@ -201,5 +201,3 @@ class LinkedinSource extends DataSource {
     }
 
 }
-
-?>

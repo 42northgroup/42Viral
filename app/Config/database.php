@@ -121,8 +121,8 @@ class DATABASE_CONFIG {
      */
     public $yahoo = array();
     
-    public function __construct() {
-
+    public function __construct() {  
+        
         $this->default = array(
             'datasource' => Configure::read('DataSource.default.datasource'),
             'persistent' => Configure::read('DataSource.default.persistent'),
@@ -179,6 +179,6 @@ class DATABASE_CONFIG {
         $this->yahoo = array(
             'datasource' => 'YahooApiSource',
             'app_id' => Configure::read('Yahoo.LocalSearch.app_id')
-        );
+        );     
     }
 }
