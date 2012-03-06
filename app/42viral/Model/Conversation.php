@@ -117,4 +117,27 @@ class Conversation extends AppModel
             ),
         ),
     );    
+    
+    /**
+     * @return void
+     * @access public 
+     */
+    public function beforeSave(){
+       
+        //Use the Akismet response to auto approve/deny comments
+        switch($this->data[$this->alias]['akismet_spam_status']){
+            case -1:
+               $this->data[$this->alias]['status'] = 'pending'; 
+            break;
+        
+            case 0:
+                $this->data[$this->alias]['status'] = 'approved';
+            break;
+        
+            case 1:
+                $this->data[$this->alias]['status'] = 'denied';
+            break;
+        }
+        return true;
+    }
 }
