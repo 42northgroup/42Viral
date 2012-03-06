@@ -180,5 +180,6 @@ class DATABASE_CONFIG {
             'datasource' => 'YahooApiSource',
             'app_id' => Configure::read('Yahoo.LocalSearch.app_id')
         );
+
     }
 }

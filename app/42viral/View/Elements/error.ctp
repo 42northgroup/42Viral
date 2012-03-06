@@ -1,7 +1,7 @@
 <?php
     $this->Asset->addAssets(array(
-        'noty/js/jquery.noty.js',
-        'noty/css/jquery.noty.css'
+        'vendors/noty/js/jquery.noty.js',
+        'vendors/noty/css/jquery.noty.css'
     ), 'noty');
 
     echo $this->Asset->buildAssets('js', 'noty', false);
@@ -24,10 +24,3 @@ noty(
     }
 );
 </script>
-<!--
-<div id="SetFlash">
-    <div id="FlashSuccess">
-        <?php //echo $message; ?>
-    </div>
-</div>
--->

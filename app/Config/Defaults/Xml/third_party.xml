@@ -6,6 +6,12 @@
         <default>''</default>
         <help>The standard password for authed users. This is simply used to keep the auth component happy as the User has already been authenticated via Oauth</help>
     </Oauth.password>
+    <Akismet.key>
+        <value>''</value>
+        <name>Akismet.key</name>
+        <default>''</default>
+        <help>The system level key for the Akismet plugin</help>
+    </Akismet.key>
     <Comment.engine>
         <value>'native'</value>
         <name>Comment.engine</name>

@@ -16,8 +16,7 @@ App::uses('HttpSocketOauth', 'Lib');
 
 /**
  * Yelp data source to make Yelp API access consistent with CakePHP models
- *
- ******* @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class YelpApiSource extends DataSource
 {
@@ -97,5 +96,3 @@ class YelpApiSource extends DataSource
     }
 
 }
-
-?>

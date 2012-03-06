@@ -16,8 +16,7 @@ App::uses('HttpSocket', 'Network/Http');
 
 /**
  * Yahoo data source to make Yahoo Local Search API requests consistent with CakePHP models
- *
- ******* @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class YahooApiSource extends DataSource
 {
@@ -110,5 +109,3 @@ class YahooApiSource extends DataSource
     }
 
 }
-
-?>
