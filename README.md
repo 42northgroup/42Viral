@@ -64,6 +64,11 @@ Replace
     git submodule init
     git submodule update
 
+    ## Pull imagine into the Imagine submodule
+    cd app/Plugin/Imagine
+    git submodule init
+    git submodule update
+
 From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to 
 access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
 have write access to the app directory (this is probably your username).
