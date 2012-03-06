@@ -46,7 +46,7 @@ class Conversation extends AppModel
      * @access public
      */
     public $actsAs = array(
-        'Akismet'=>array(
+        'AntiSpam'=>array(
             'map'=>array(
                 'name'=>'comment_author_name',
                 'email'=>'comment_author_email',

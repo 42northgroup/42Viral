@@ -56,7 +56,7 @@ echo $this->Form->input('referrer',
 echo $this->Form->input('blog', 
     array(
         'type'=>'hidden',
-        'value'=>$post['Post']['canonical']));
+        'value'=>Configure::read('Domain.url')));
 
 echo $this->Form->input('permalink', 
         array(
