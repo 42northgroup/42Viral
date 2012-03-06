@@ -2,18 +2,18 @@
  * CSS
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
- ***** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
  
 /* At this level we can't worry about speocifics, only the most general of concepts
@@ -154,4 +154,32 @@ form.search div.checkbox
 {
     float:left;
 }
+
+form.conversation{
+    width: 520px
+}
+
+form.conversation label{
+    display: inline-block;
+    width: 70px;
+    padding-right: 12px;
+    vertical-align: top;
+}
+
+form.conversation input[type="text"]{
+    padding: 7px;
+    width: 260px;
+}
+
+form.conversation textarea{
+    padding: 7px;
+    width: 420px;
+}
+
+form.conversation input[type="text"]:focus,
+form.conversation textarea:focus{
+    border: 2px solid #bbb;
+    padding: 6px;
+}
+
 
