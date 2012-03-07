@@ -96,12 +96,7 @@ class Person extends AppModel
             ),
 
             'dependent' => true
-        ),
-        'ProfileCompany' => array(
-            'className' => 'ProfileCompany',
-            'foreignKey' => 'owner_person_id',
-            'dependent' => true
-        ),        
+        ),      
         'Content' => array(
             'className' => 'Content',
             'foreignKey' => 'created_person_id',

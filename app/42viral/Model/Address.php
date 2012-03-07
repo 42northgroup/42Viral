@@ -35,17 +35,7 @@ class Address extends AppModel
         'AuditLog.Auditable'
     );
     
-    public $belongsTo = array(
-        'ProfileCompany' => array(
-            'foreignKey' => 'model_id',
-
-            'conditions' => array(
-                'model' => 'ProfileCompany'
-            ),
-
-            'dependent' => true
-        )
-    );
+    public $belongsTo = array();
     
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);

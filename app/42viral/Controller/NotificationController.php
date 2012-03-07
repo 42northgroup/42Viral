@@ -141,12 +141,7 @@ App::uses('AppController', 'Controller');
         $userId = $this->Session->read('Auth.User.id');
         $person = $this->Person->fetchPersonWith($userId, array(), 'id');
 
-        $additionalObjects = array(
-            'ProfileCompany' => array(
-                'name' => 'ABC Company',
-                'address' => '123 Main St Suite 321, NY 12345'
-            )
-        );
+        $additionalObjects = array();
 
         if(empty($notificationHandle)) {
             $notificationHandle = 'test_notification';

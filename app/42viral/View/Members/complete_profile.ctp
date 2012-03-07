@@ -12,23 +12,14 @@
     </h2>
 <?php endif; ?>
 
-<?php if($overall_progress['company'] == 100): ?>
-    <h2 style="text-decoration: line-through;">
-        2. Company Profile
-    </h2>
-<?php else: ?>
-    <h2>
-        2. <a href="/profile_companies/create">Company Profile</a>
-    </h2>
-<?php endif; ?>
 
 <?php if($overall_progress['connect'] == 100): ?>
     <h2 style="text-decoration: line-through;">
-        3. Connect
+        2. Connect
     </h2>
 <?php else: ?>
     <h2>
-        3. <a href="/oauth/connect">Connect</a>
+        2. <a href="/oauth/connect">Connect</a>
     </h2>
 <?php endif; ?>
 

@@ -25,27 +25,6 @@
 $menu = array();
 
 switch($section){
-    
-    case 'admin_companies':
-        $menu = array(
-            'Items' => array(
-                array(
-                    'text'=>'Companies (CRM)',
-                    'url'=>'/admin/companies',
-                    'options' => array(),
-                    'confirm'=>null
-                ),
-                
-                array(
-                    'text'=>'New Company',
-                    'url'=>'/admin/companies/create',
-                    'options' => array(),
-                    'confirm'=>null
-                )
-            )
-        );
-    break;    
-
     case 'blog':
         
 

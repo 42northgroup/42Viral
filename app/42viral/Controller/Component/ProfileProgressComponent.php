@@ -15,13 +15,12 @@
 
 
 App::uses('Profile', 'Model');
-App::uses('ProfileCompany', 'Model');
 App::uses('Oauth', 'Model');
 
 /**
  * Component class to use for fetching profile completness information and related tasks
  *
- ******* @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
  */
 class ProfileProgressComponent  extends Component
 {
@@ -31,7 +30,6 @@ class ProfileProgressComponent  extends Component
         parent::__construct($collection, $settings);
 
         $this->Profile = new Profile();
-        $this->ProfileCompany = new ProfileCompany();
         $this->Oauth = new Oauth();
     }
 
@@ -47,9 +45,8 @@ class ProfileProgressComponent  extends Component
     {
         $progress = array();
         $progress['user'] = $this->Profile->userProfileProgress($userId);
-        $progress['company'] = $this->ProfileCompany->companyProfileProgress($userId);
         $progress['connect'] = $this->Oauth->connectProgress($userId);
-        $progress['_all'] = ($progress['user'] + $progress['company'] + $progress['connect']) / 3;
+        $progress['_all'] = ($progress['user'] + $progress['connect']) / 3;
 
         return $progress;
     }
