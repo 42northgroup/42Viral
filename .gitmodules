@@ -25,9 +25,6 @@
 [submodule "app/Plugin/BadBehavior"]
 	path = app/Plugin/BadBehavior
 	url = git@github.com:microtrain/CakePHP-BadBehavior-Plugin.git
-[submodule "Imagine"]
-	path = Imagine
-	url = git@github.com:microtrain/Imagine.git
 [submodule "app/Plugin/Imagine"]
 	path = app/Plugin/Imagine
 	url = git@github.com:microtrain/Imagine.git
