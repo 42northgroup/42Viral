@@ -33,7 +33,15 @@ App::uses('Member', 'Lib');
      * @var array
      * @access public
      */
-    public $uses = array('Image', 'Oauth', 'Person', 'User');
+    public $uses = array(
+        'Conect.Facebook', 
+        'Conect.Linkedin', 
+        'Connect.Tweet', 
+        'Image', 
+        'Oauth', 
+        'Person', 
+        'User'
+    );
 
 
     public $components = array('ProfileProgress', 'Oauths');
@@ -57,7 +65,6 @@ App::uses('Member', 'Lib');
      */
     public function index()
     {
-        $this->loadModel('User');
         $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array('Profile')));
         $this->set('users', $users);
         $this->set('title_for_layout', 'Members');
@@ -170,9 +177,6 @@ App::uses('Member', 'Lib');
             switch($media['Oauth']['service']){
                 
                 case 'facebook':
-                    
-                    $this->loadModel('Facebook');
-                    
                     try{
                         
                         $statuses['posts'] = array_merge($statuses['posts'], $this->Facebook->find('all', array(
@@ -187,8 +191,6 @@ App::uses('Member', 'Lib');
                     break;
                 
                 case 'linked_in':
-                    
-                    $this->loadModel('Linkedin');
                     
                     try{
                         
@@ -207,9 +209,7 @@ App::uses('Member', 'Lib');
                     break;
                 
                 case 'twitter':
-                    
-                    $this->loadModel('Tweet');
-                    
+
                     try{
                         
                         $statuses['posts'] = array_merge($statuses['posts'], $this->Tweet->find('all', array(

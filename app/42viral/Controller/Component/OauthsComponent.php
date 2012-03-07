@@ -12,17 +12,14 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-
-App::uses('Tweet', 'Model');
-App::uses('Linkedin', 'Model');
-App::uses('Facebook', 'Model');
-App::uses('Controller', 'Controller');
-
+App::uses('Tweet', 'Connect.Model');
+App::uses('Linkedin', 'Connect.Model');
+App::uses('Facebook', 'Connect.Model');
+App::uses('Controller', 'Connect.Controller');
 /**
  * Component class to use for fetching Oauth access tokens
  *
- ******* @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 
 class OauthsComponent  extends Component

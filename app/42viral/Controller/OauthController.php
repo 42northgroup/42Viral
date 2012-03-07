@@ -14,16 +14,16 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('HttpSocketOauth', 'Lib');
+App::uses('HttpSocketOauth', 'Connect.Lib');
 App::uses('HttpSocket', 'Network/Http');
 /**
  * @package app
  * @subpackage app.core
- ****** @author Jason D Snider <jason.snider@42viral.org>
- ****** @author Lyubomir R Dimov <ldimov@microtrain.net>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <ldimov@microtrain.net>
  * 
  * //Additional Credits
- ****** @author Neil Crookes <http://www.neilcrookes.com/>
+ * @author Neil Crookes <http://www.neilcrookes.com/>
  * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
  * @see http://www.slideshare.net/episod/linkedin-oauth-zero-to-hero for oauth_token_secret
  */
@@ -36,7 +36,15 @@ App::uses('HttpSocket', 'Network/Http');
      */
 
 
-    public $uses = array('Oauth', 'People', 'User', 'Aro', 'Tweet', 'Linkedin', 'Facebook');
+    public $uses = array(
+        'Aro',
+        'Connect.Tweet', 
+        'Connect.Linkedin', 
+        'Connect.Facebook',
+        'Oauth', 
+        'People', 
+        'User'
+    );
 
     /**
      * @var array

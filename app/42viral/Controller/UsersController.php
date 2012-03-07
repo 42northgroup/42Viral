@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
  class UsersController extends AppController
 {
@@ -28,7 +28,14 @@ App::uses('AppController', 'Controller');
      */
 
     public $uses = array(
-        'AclGroup', 'Invite', 'Oauth', 'Person', 'Tweet', 'User',
+        'AclGroup',
+        'Conect.Facebook', 
+        'Conect.Linkedin', 
+        'Connect.Tweet', 
+        'Invite', 
+        'Oauth', 
+        'Person', 
+        'User',
         //'Notification'
     );
 
@@ -37,7 +44,11 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public $components = array(
-        'Access', 'ProfileProgress', 'Oauths', 'ControllerList', 'NotificationCmp'
+        'Access', 
+        'ControllerList', 
+        'ProfileProgress', 
+        'Oauths', 
+        'NotificationCmp'
     );
 
 
@@ -234,7 +245,6 @@ App::uses('AppController', 'Controller');
      */
     public function create()
     {
-        $this->loadModel('User');
 
         if(!empty($this->data)){
             
@@ -391,7 +401,6 @@ App::uses('AppController', 'Controller');
             
             if( $this->data['SocialMedia']['twitter_post'] == 1 ){
                 
-                $this->loadModel('Tweet');
                 $this->Tweet->save(array(
                     'status' => $this->data['SocialMedia']['twitter'],
                     'oauth_token' => $this->Session->read('Twitter.oauth_token'),
@@ -401,7 +410,6 @@ App::uses('AppController', 'Controller');
             
             if( $this->data['SocialMedia']['linkedin_post'] == 1 ){
                 
-                $this->loadModel('Linkedin');
                 $this->Linkedin->save(array(
                     'status' => $this->data['SocialMedia']['others'],
                     'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
@@ -411,7 +419,6 @@ App::uses('AppController', 'Controller');
             
             if( $this->data['SocialMedia']['facebook_post'] == 1 ){
                 
-                $this->loadModel('Facebook');
                 $this->Facebook->save(array(
                     'status' => $this->data['SocialMedia']['others'],
                     'oauth_token' => $this->Session->read('Facebook.oauth_token')

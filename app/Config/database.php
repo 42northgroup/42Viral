@@ -148,28 +148,28 @@ class DATABASE_CONFIG {
         );
         
         $this->twitter = array(
-            'datasource' => 'TwitterSource',
+            'datasource' => 'Connect.TwitterSource',
             'consumer_key' => Configure::read('Twitter.consumer_key'),
             'consumer_secret' =>Configure::read('Twitter.consumer_secret'),
             'callback' => Configure::read('Twitter.callback')
         );
         
         $this->linkedin = array(
-            'datasource' => 'LinkedinSource',
+            'datasource' => 'Connect.LinkedinSource',
             'consumer_key' => Configure::read('LinkedIn.consumer_key'),
             'consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
             'callback' => Configure::read('LinkedIn.callback')
         );
         
         $this->facebook = array(
-            'datasource' => 'FacebookSource',
+            'datasource' => 'Connect.FacebookSource',
             'consumer_key' => Configure::read('Facebook.consumer_key'),
             'consumer_secret' => Configure::read('Facebook.consumer_secret'),
             'callback' => Configure::read('Facebook.callback')
         );
         
         $this->yelp = array(
-            'datasource' => 'YelpApiSource',
+            'datasource' => 'Connect.YelpApiSource',
             'consumer_key' => Configure::read('Yelp.consumer_key'),
             'consumer_secret' => Configure::read('Yelp.consumer_secret'),
             'token' => Configure::read('Yelp.token'),
@@ -177,7 +177,7 @@ class DATABASE_CONFIG {
         );
         
         $this->yahoo = array(
-            'datasource' => 'YahooApiSource',
+            'datasource' => 'Connect.YahooApiSource',
             'app_id' => Configure::read('Yahoo.LocalSearch.app_id')
         );
 

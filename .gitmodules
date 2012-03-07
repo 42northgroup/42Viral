@@ -31,3 +31,6 @@
 [submodule "app/Plugin/Imagine"]
 	path = app/Plugin/Imagine
 	url = git@github.com:microtrain/Imagine.git
+[submodule "app/Plugin/Connect"]
+	path = app/Plugin/Connect
+	url = git@github.com:microtrain/CakePHP-Connect-Plugin.git
