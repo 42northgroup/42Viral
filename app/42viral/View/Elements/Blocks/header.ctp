@@ -135,11 +135,31 @@
             <?php else: ?>
 
                 <div style="position:relative; float:left; padding:0 6px;">
-                    <?php echo $this->Html->link('New Account', '/users/create'); ?>  
+                    <?php 
+                        echo $this->Html->image(
+                            'graphics/icons/solid-white/16/create-profile.png',
+                            array(
+                                'id'=>'New Account', 
+                                'class'=>'navigation-link',
+                                'url'=>'/users/create',
+                                'title'=>'Create an Account'
+                            )
+                        );       
+                    ?>  
                 </div>
 
-                <div style="position:relative; float:left; padding:0 6px;">     
-                    <?php echo $this->Html->link('Login', '/users/login'); ?>
+                <div style="position:relative; float:left; padding:0 6px;">
+                    <?php 
+                        echo $this->Html->image(
+                            'graphics/icons/solid-white/16/login.png',
+                            array(
+                                'id'=>'Login', 
+                                'class'=>'navigation-link',
+                                'url'=>'/users/login',
+                                'title'=>'Login'
+                            )
+                        );       
+                    ?>                      
                 </div>
 
             <?php endif; ?>
