@@ -152,7 +152,6 @@ class Person extends AppModel
             'name' => "CONCAT(`{$this->alias}`.`first_name`, ' ', `{$this->alias}`.`last_name`)",
             'url' => "CONCAT('/p/',`{$this->alias}`.`username`)",
             'admin_url' => "CONCAT('/admin/people/view/',`{$this->alias}`.`username`)",
-            'companies_url' => "CONCAT('/profile_companies/',`{$this->alias}`.`username`)",
             'file_write_path' => "CONCAT('{$fileWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'image_write_path' => "CONCAT('{$imageWritePath}',`{$this->alias}`.`id` , '{$ds}')",
             'file_read_path' => "CONCAT('{$fileReadPath}',`{$this->alias}`.`id` , '/')",

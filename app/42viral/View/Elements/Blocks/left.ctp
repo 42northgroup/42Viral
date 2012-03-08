@@ -16,7 +16,6 @@
             <ul class="side-navigation">
                 <li><a href="/blogs">Blogs</a></li>
                 <li><a href="/members">Members</a></li>
-                <li><a href="/profile_companies">Companies</a></li>
                 <li><a href="/pages">Pages</a></li>
             </ul>
             <h4 id="CMS" class="side-navigation-header side-navigation-divider">
@@ -37,7 +36,6 @@
             </h4>
             <ul class="side-navigation">
                 <li><?php echo $this->Html->link('Accounts', '/admin/accounts'); ?></li>
-                <li><?php echo $this->Html->link('Companies', '/admin/companies'); ?></li>
                 <li><?php echo $this->Html->link('People', '/admin/people'); ?></li>
             </ul>
 
@@ -72,7 +70,6 @@
     <ul class="side-navigation" style="display:block; padding:6px 0 0;">
         <li><a href="/blogs">Blogs</a></li>
         <li><a href="/members">Members</a></li>
-        <li><a href="/profile_companies">Companies</a></li>
         <li><a href="/pages">Pages</a></li>
     </ul>
     <?php if($this->Session->check('Auth.User.id')): ?>
