@@ -51,8 +51,7 @@ class Person extends AppModel
                 'trim' => '*',
                 'safe' => '*'
             )
-        ),
-        'SoftDelete'
+        )
     );
 
 
