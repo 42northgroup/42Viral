@@ -3,11 +3,7 @@
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
-<<<<<<< HEAD
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
-=======
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
->>>>>>> cleanup
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.

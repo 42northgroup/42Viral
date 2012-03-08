@@ -20,7 +20,7 @@
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <?php 
                     $googleAppsDomain = Configure::read('Google.Apps.domain');
-                    if(isset($googleAppsDomain)):
+                    if(!empty($googleAppsDomain)):
                         echo $this->Html->link('Google Apps', 'https://www.google.com/a/' 
                                 . Configure::read('Google.Apps.domain')); 
                     endif;
@@ -120,9 +120,6 @@
                                     . $this->Session->read('Auth.User.username'));
 
                             echo $this->Html->link('Photos', '/uploads/images/' 
-                                    . $this->Session->read('Auth.User.username'));
-
-                            echo $this->Html->link('Companies', '/profile_companies/index/' 
                                     . $this->Session->read('Auth.User.username'));
 
                             echo $this->Html->link('Connect', '/oauth/connect/' );
