@@ -123,9 +123,9 @@ class Conversation extends AppModel
      * @access public 
      */
     public function beforeSave(){
-       
+
         //Use the span status to auto approve/deny comments
-        switch($this->data[$this->alias]['spam_status']){
+        switch($this->data[$this->alias]['spam_status']){ 
             case -1:
                $this->data[$this->alias]['status'] = 'pending'; 
             break;

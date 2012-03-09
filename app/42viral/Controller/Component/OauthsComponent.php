@@ -15,7 +15,7 @@
 App::uses('Tweet', 'Connect.Model');
 App::uses('Linkedin', 'Connect.Model');
 App::uses('Facebook', 'Connect.Model');
-App::uses('Controller', 'Connect.Controller');
+App::uses('Controller', 'Controller');
 /**
  * Component class to use for fetching Oauth access tokens
  *
