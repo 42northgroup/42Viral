@@ -49,8 +49,9 @@ class Conversation extends AppModel
             'map'=>array(
                 'name'=>'comment_author_name',
                 'email'=>'comment_author_email',
-                'url'=>'comment_author_url',
-                'body'=>'comment_content'
+                'uri'=>'comment_author_url',
+                'body'=>'comment_content',
+                'front_page'=>'blog'
             )
         ),
         'ContentFilters.Scrubable'=>array(

@@ -32,7 +32,7 @@ echo $this->Form->input('name');
 
 echo $this->Form->input('email'); 
 
-echo $this->Form->input('url', array('label'=>'Website'));
+echo $this->Form->input('uri', array('label'=>'Website'));
 
     echo $this->Form->input('body', 
     array(
@@ -56,10 +56,10 @@ echo $this->Form->input('referrer',
             'type'=>'hidden',
             'value'=>env('HTTP_REFERER')));  
 
-echo $this->Form->input('blog', 
+echo $this->Form->input('front_page', 
     array(
         'type'=>'hidden',
-        'value'=>Configure::read('Domain.url')));
+        'value'=>Configure::read('Domain.url') . '/blog/'));
 
 echo $this->Form->input('permalink', 
         array(
