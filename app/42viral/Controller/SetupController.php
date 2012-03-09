@@ -66,6 +66,12 @@ App::uses('Handy', 'Lib');
         }
     }
     
+    public function beforeRender()
+    {
+        parent::beforeRender();
+        $this->layout = 'install';
+    }
+    
     /**
      * The starting pont to the first run wizard
      * @return void
@@ -322,8 +328,6 @@ App::uses('Handy', 'Lib');
         foreach(scandir($path) as $file){      
             $this->__buildPMA($path, $file);
         }
-        
-        
         
         $this->_setupLog('setup_import');
         $this->_setupLog('setup_build_database');

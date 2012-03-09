@@ -36,8 +36,6 @@ class AppController extends Controller
      */
     public $helpers = array('Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
     
-    //public $uses = array('AuditLog.Audit', 'AuditLog.AuditDelta');
-    
     /**
      * The location of setup log files
      * @var string
