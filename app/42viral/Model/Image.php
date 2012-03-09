@@ -22,7 +22,7 @@ App::uses('UploadInterface', 'Model');
  * @package app
  * @subpackage app.core
  *
- * ***** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Image extends Upload
 {
@@ -40,13 +40,14 @@ class Image extends Upload
      * @return type 
      * @access public
      */
-    public function beforeFind(&$query)
-    {
-        $query['conditions'] = !empty($query['conditions']) ? $query['conditions'] : array();
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        
+        $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
         $imageFilter = array('Image.object_type' => 'img');
-        $query['conditions'] = array_merge($query['conditions'], $imageFilter);
+        $queryData['conditions'] = array_merge($query['conditions'], $imageFilter);
 
-        return true;
+        return $queryData;
     }
 
     /**

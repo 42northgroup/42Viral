@@ -21,7 +21,7 @@ App::uses('UploadInterface', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ****** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class File extends Upload
 {
@@ -36,15 +36,16 @@ class File extends Upload
      * Inject all "finds" against the Upload object with file filtering criteria
      * @param array $query
      * @return type 
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
-        $fileFilter = array('File.object_type' =>'file');
-        $query['conditions'] =array_merge($query['conditions'], $fileFilter);
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
         
-        return true;
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
+        $fileFilter = array('File.object_type' =>'file');
+        $queryData['conditions'] =array_merge($queryData['conditions'], $fileFilter);
+        
+        return $queryData;
     }  
 }

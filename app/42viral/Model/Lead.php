@@ -20,7 +20,7 @@ App::uses('Person', 'Model');
  * @package app
  * @subpackage app.core
  * 
- ****** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Lead extends Person
 {
@@ -35,14 +35,15 @@ class Lead extends Person
      * Inject all "finds" against the Lead object with lead filtering criteria
      * @param array $query
      * @return type 
-     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $leadFilter = array('Lead.object_type' =>'lead');
-        $query['conditions'] = array_merge($query['conditions'], $leadFilter);
-        return true;
+        $queryData['conditions'] = array_merge($queryData['conditions'], $leadFilter);
+        
+        return $queryData;
     }
 }

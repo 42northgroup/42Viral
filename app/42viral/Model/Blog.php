@@ -113,12 +113,14 @@ class Blog extends Content
      * @return type 
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $blogFilter = array('Blog.object_type' =>'blog');
-        $query['conditions'] = array_merge($query['conditions'], $blogFilter);
-        return true;
+        $queryData['conditions'] = array_merge($queryData['conditions'], $blogFilter);
+        
+        return $queryData;
     } 
     
     /**

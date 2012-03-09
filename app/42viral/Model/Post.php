@@ -110,12 +110,14 @@ class Post extends Content
      * @return type 
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $postFilter = array('Post.object_type' =>'post');
-        $query['conditions'] = array_merge($query['conditions'], $postFilter);
-        return true;
+        $queryData['conditions'] = array_merge($queryData['conditions'], $postFilter);
+        
+        return $queryData;
     }
 
     /**

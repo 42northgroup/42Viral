@@ -20,7 +20,7 @@ App::uses('Content', 'Model');
  * @package app
  * @subpackage app.core
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Page extends Content
 {
@@ -85,15 +85,16 @@ class Page extends Content
      * Inject all "finds" against the Page object with lead filtering criteria
      * @param array $query
      * @return type 
-     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
+        
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $pageFilter = array('Page.object_type' =>'page');
-        $query['conditions'] = array_merge($query['conditions'], $pageFilter);
-        return true;
+        $queryData['conditions'] = array_merge($queryData['conditions'], $pageFilter);
+
+        return $queryData;
     }
 
     /**

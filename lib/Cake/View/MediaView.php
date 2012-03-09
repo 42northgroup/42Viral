@@ -41,7 +41,7 @@ App::uses('CakeRequest', 'Network');
  *
  * {{{
  * class ExampleController extends AppController {
- *		public function download () {
+ *		public function download() {
  *			$this->viewClass = 'Media';
  *			$params = array(
  *				'id' => 'example.zip',
@@ -58,33 +58,13 @@ App::uses('CakeRequest', 'Network');
  * @package       Cake.View
  */
 class MediaView extends View {
+
 /**
  * Indicates whether response gzip compression was enabled for this class
  *
  * @var boolean
  */
 	protected  $_compressionEnabled = false;
-
-/**
- * Reference to the Response object responsible for sending the headers
- *
- * @var CakeResponse
- */
-	public $response = null;
-
-/**
- * Constructor
- *
- * @param Controller $controller The controller with viewVars
- */
-	public function __construct($controller = null) {
-		parent::__construct($controller);
-		if (is_object($controller) && isset($controller->response)) {
-			$this->response = $controller->response;
-		} else {
-			$this->response = new CakeResponse;
-		}
-	}
 
 /**
  * Display or download the given file
@@ -154,7 +134,7 @@ class MediaView extends View {
 
 				if (preg_match('%Opera(/| )([0-9].[0-9]{1,2})%', $agent)) {
 					$contentType = 'application/octetstream';
-				} else if (preg_match('/MSIE ([0-9].[0-9]{1,2})/', $agent)) {
+				} elseif (preg_match('/MSIE ([0-9].[0-9]{1,2})/', $agent)) {
 					$contentType = 'application/force-download';
 				}
 
@@ -254,4 +234,5 @@ class MediaView extends View {
 		@flush();
 		@ob_flush();
 	}
+
 }

@@ -22,9 +22,9 @@ App::uses('Sec', 'Lib');
  * @package app
  * @subpackage app.core
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 class User extends Person
 {
@@ -120,21 +120,21 @@ class User extends Person
 
     /**
      * To be a user, you must have an email and username
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function beforeFind(&$query)
-    {
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
 
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $userFilter = array(
                 "not"=>array(
                     "Username" => null
                 )
             );
-        $query['conditions'] = array_merge($query['conditions'], $userFilter);
+        $queryData['conditions'] = array_merge($queryData['conditions'], $userFilter);
 
-        return true;
+        return $queryData;
     }
 
 

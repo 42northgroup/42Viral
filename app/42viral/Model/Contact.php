@@ -37,13 +37,14 @@ class Contact extends Person
      * @return type 
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
-        $contactFilter = array('Contact.object_type' =>'contact');
-        $query['conditions'] =array_merge($query['conditions'], $contactFilter);
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
         
-        return true;
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
+        $contactFilter = array('Contact.object_type' =>'contact');
+        $queryData['conditions'] =array_merge($queryData['conditions'], $contactFilter);
+        
+        return $queryData;
     }
     
 }

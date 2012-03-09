@@ -82,13 +82,14 @@ class AclGroup extends Group
      * @return type 
      * @access public
      */
-    public function beforeFind(&$query) 
-    {
-        $query['conditions'] =!empty($query['conditions'])?$query['conditions']:array();
-        $aclGroupFilter = array('AclGroup.object_type' =>'acl');
-        $query['conditions'] =array_merge($query['conditions'], $aclGroupFilter);
+    public function beforeFind($queryDataData) {
+        parent::beforeFind($queryDataData);
         
-        return true;
+        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
+        $aclGroupFilter = array('AclGroup.object_type' =>'acl');
+        $queryData['conditions'] =array_merge($queryData['conditions'], $aclGroupFilter);
+        
+        return $queryData;
     }
     
 }
