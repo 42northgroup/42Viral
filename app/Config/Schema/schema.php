@@ -1,5 +1,5 @@
 <?php 
-/* generated on: 2012-03-08 20:01:30 : 1331258490 */
+/* generated on: 2012-03-08 21:20:10 : 1331263210 */
 class AppSchema extends CakeSchema {
 
 	public function before($event = array()) {
