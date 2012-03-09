@@ -45,12 +45,13 @@ class Conversation extends AppModel
      * @access public 
      */
     public $actsAs = array(
-        'BadBehavior.Akismet'=>array(
+        'ContentFilters.AntiSpamable'=>array(
             'map'=>array(
                 'name'=>'comment_author_name',
                 'email'=>'comment_author_email',
-                'url'=>'comment_author_url',
-                'body'=>'comment_content'
+                'uri'=>'comment_author_url',
+                'body'=>'comment_content',
+                'front_page'=>'blog'
             )
         ),
         'ContentFilters.Scrubable'=>array(
@@ -123,9 +124,9 @@ class Conversation extends AppModel
      * @access public 
      */
     public function beforeSave(){
-       
-        //Use the Akismet response to auto approve/deny comments
-        switch($this->data[$this->alias]['akismet_spam_status']){
+
+        //Use the span status to auto approve/deny comments
+        switch($this->data[$this->alias]['spam_status']){ 
             case -1:
                $this->data[$this->alias]['status'] = 'pending'; 
             break;
@@ -136,6 +137,10 @@ class Conversation extends AppModel
         
             case 1:
                 $this->data[$this->alias]['status'] = 'denied';
+            break;
+            
+            default:
+               $this->data[$this->alias]['status'] = 'pending'; 
             break;
         }
         return true;
