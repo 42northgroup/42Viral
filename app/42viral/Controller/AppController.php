@@ -34,7 +34,7 @@ class AppController extends Controller
      * @var array
      * @access public
      */
-    public $helpers = array('Access', 'Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
+    public $helpers = array('Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
     
     //public $uses = array('AuditLog.Audit', 'AuditLog.AuditDelta');
     
