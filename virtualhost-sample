@@ -1,41 +1,8 @@
-<VirtualHost build.42viral.org:80>
-        ServerName build.42viral.org
-        ServerAdmin webmaster@localhost
+# Quick and dirty example
+<VirtualHost  build.42viral.org:80>
+	ServerAdmin webmaster@build.42viral.org
+	ServerName  build.42viral.org
+	DocumentRoot /var/www/vhosts/build.42viral.org/httpdocs/app
 
-        DocumentRoot /var/www/vhosts/build.42viral.org/httpdocs
-        <Directory />
-                Options FollowSymLinks
-                AllowOverride None
-        </Directory>
-        <Directory /var/www/vhosts/build.42viral.org/httpdocs>
-                Options Indexes FollowSymLinks MultiViews
-                AllowOverride all
-        </Directory>
-
-        ScriptAlias /cgi-bin/ /usr/lib/cgi-bin/
-        <Directory "/usr/lib/cgi-bin">
-                AllowOverride None
-                Options +ExecCGI -MultiViews +SymLinksIfOwnerMatch
-                Order allow,deny
-                Allow from all
-        </Directory>
-
-        ErrorLog ${APACHE_LOG_DIR}/error.log
-
-        # Possible values include: debug, info, notice, warn, error, crit,
-        # alert, emerg.
-        LogLevel warn
-
-        CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-    Alias /doc/ "/usr/share/doc/"
-    <Directory "/usr/share/doc/">
-        Options Indexes MultiViews FollowSymLinks
-        AllowOverride None
-        Order deny,allow
-        Deny from all
-        Allow from 127.0.0.0/255.0.0.0 ::1/128
-    </Directory>
-
-</VirtualHost>
-
+	RewriteEngine On
+</VirtualHost> 

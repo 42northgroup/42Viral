@@ -2,7 +2,7 @@
 
 A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
-_Be warned we are still in dev mode, anything can change with out notice nor remorse_
+__Be warned we are still in dev mode, anything can change without notice or remorse__
 
 ## Libraries and Concepts
 
@@ -44,26 +44,26 @@ accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
 
 I recommend the advanced install options from the CakePHP Cookbook
 
-add the following to you php.ini file
+add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
 
     include_path = '.:/usr/share/php:/usr/share/cakephp-2.0/lib'
+
+### Git based install
 
 Create the CakePHP library
 
     cd /usr/share
     sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 
 
-### Git based install
-
 Replace 
 - example.com with the name of your site
 - /var/www/vhosts/ with your server path
 - httpdocs with whatever you want to call it
 
-    cd /var/www/vhosts/example.com
+    cd /[path/to/your-site.com/htdocs]/app
 
     ## Clone the project
-    git clone git@github.com:microtrain/42Viral.git httpdocs
+    git clone git@github.com:microtrain/42Viral.git app
     cd httpdocs
 
     ## Pull the submodules
@@ -71,7 +71,7 @@ Replace
     git submodule update
 
     ## Pull htmlpurifier into the ContentFilter submodule
-    cd app/Plugin/ContentFilters
+    cd Plugin/ContentFilters
     git submodule init
     git submodule update
 
@@ -133,7 +133,7 @@ version pear and fix the issue.
 
 ## License ##
 
-Copyright 2012, [Jason D Snider](https://jasonsnider.com)
+Copyright 2012, [42NorthGroup](https://42northgroup.com)
 
 Licensed under [The MIT License](http://www.opensource.org/licenses/mit-license.php)<br/>
 Redistributions of files must retain the above copyright notice.
