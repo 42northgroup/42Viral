@@ -93,8 +93,8 @@
                     <div class="navigation-block" id="ShareBlock">
                         <?php
                             echo $this->Html->link('Socialize', '/users/social_media/');  
-                            echo $this->Html->link('Create a blog', '/contents/blog_create/');
-                            echo $this->Html->link('Create a post', '/contents/post_create/');   
+                            echo $this->Html->link('Create a blog', '/blogs/create/');
+                            echo $this->Html->link('Create a post', '/posts/create/');   
                         ?>
                     </div>
                 </div>   

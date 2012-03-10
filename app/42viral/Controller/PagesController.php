@@ -24,12 +24,14 @@ App::uses('AppController', 'Controller');
     public $helpers = array('Html', 'Session', 'Tags.TagCloud');
 
     /**
-     * This controller does not use a model
      *
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array(
+        'Page',
+        'Picklist'
+    );
 
 
     /**
@@ -47,7 +49,6 @@ App::uses('AppController', 'Controller');
      */
     public function index() {
         
-        $this->loadModel('Page');
         $pages = $this->Page->find('all');
         
         $this->set('pages', $pages);
@@ -60,7 +61,7 @@ App::uses('AppController', 'Controller');
      * @param array
      */
     public function view($slug) {
-        $this->loadModel('Page');
+
         $page = $this->Page->fetchPageWith($slug);
         
         if(empty($page)){
@@ -102,9 +103,62 @@ App::uses('AppController', 'Controller');
     }
     
     /**
+     * Creates a traditional web page
+     * 
+     * @return void
+     * @access public
+     */
+    public function admin_create()
+    {
+
+        if(!empty($this->data)){
+
+            if($this->Page->save($this->data)){
+                $this->Session->setFlash(__('Your page has been created'), 'success');
+                $this->redirect("/admin/pages/edit/{$this->Page->id}");
+            }else{
+                $this->Session->setFlash(__('There was a problem creating your page'), 'error');
+            }
+        }
+        
+        $this->set('title_for_layout', __('Create a Page'));
+        
+    }
+ 
+    
+    /**
+     * Updates a web page
+     * 
+     * @param string $id
+     * @return void
+     * @access public
+     */
+    public function admin_edit($id)
+    {
+        if(!empty($this->data)){
+
+            if($this->Page->save($this->data)){
+                $this->Session->setFlash(__('Your page has been updated'), 'success');
+            }else{
+                $this->Session->setFlash(__('There was a problem updating your page'), 'error');
+            }
+        }
+        
+        $this->data = $this->Page->findById($id);
+        
+        
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+     
+        $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
+    }
+    
+    /**
      * 
      */
     public function home(){
+        
         $this->layout = 'home';
         $this->set('title_for_layout', Configure::read('Theme.HomePage.title'));
     }

@@ -42,6 +42,17 @@ Currently, installation is written for Ubuntu Linux. Installation on other Linux
 this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
 accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
 
+I recommend the advanced install options from the CakePHP Cookbook
+
+add the following to you php.ini file
+
+    include_path = '.:/usr/share/php:/usr/share/cakephp-2.0/lib'
+
+Create the CakePHP library
+
+    cd /usr/share
+    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 
+
 ### Git based install
 
 Replace 

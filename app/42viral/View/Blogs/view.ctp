@@ -23,7 +23,7 @@
         $additional  = array(
             array(
                 'text'=>"Edit",
-                'url'=>"/contents/blog_edit/{$blog['Blog']['id']}",
+                'url'=>"/blogss/edit//{$blog['Blog']['id']}",
                 'options' => array(),
                 'confirm'=>null
             ),

@@ -25,7 +25,7 @@
             <ul class="side-navigation">
                 <li>
                     <?php
-                    echo $this->Html->link('Create a web page', '/contents/page_create/');
+                    echo $this->Html->link('Create a web page', '/admin/pages/create/');
                     ?>
                 </li>
             </ul>
@@ -35,8 +35,8 @@
                 <span class="side-navigation-toggle">&#9660;</span>
             </h4>
             <ul class="side-navigation">
-                <li><?php echo $this->Html->link('Accounts', '/admin/accounts'); ?></li>
-                <li><?php echo $this->Html->link('People', '/admin/people'); ?></li>
+                <li><?php echo $this->Html->link('Accounts', '/admin/accounts/'); ?></li>
+                <li><?php echo $this->Html->link('People', '/admin/people/'); ?></li>
             </ul>
 
             <h4 id="Messaging" class="side-navigation-header side-navigation-divider">

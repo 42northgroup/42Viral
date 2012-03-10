@@ -15,13 +15,23 @@ class BlogsController extends AppController {
      * @var array
      * @access public
      */
-    public $uses = array('Blog', 'Conversation', 'Post', 'Person', 'Profile');
+    public $uses = array(
+        'Blog', 
+        'Conversation', 
+        'Post', 
+        'Person', 
+        'Picklist',
+        'Profile'
+    );
     
     /**
      * @var array
      * @access public
      */
-    public $helpers = array('Member', 'Tags.TagCloud');
+    public $helpers = array(
+        'Member', 
+        'Tags.TagCloud'
+    );
 
     /**
      * @access public
@@ -29,7 +39,6 @@ class BlogsController extends AppController {
     public function beforeFilter(){
         parent::beforeFilter();
         $this->auth(array('*'));
-
     }
 
     /**
@@ -99,50 +108,78 @@ class BlogsController extends AppController {
         $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
 
     } 
+
+    /**
+     * Removes a blog and all related posts
+     * 
+     * @return void
+     * @access public
+     */
+    public function delete($id){
+        
+        if($this->Blog->delete($id)){
+            $this->Session->setFlash(__('Your blog and blog posts have been removed'), 'success');
+            $this->redirect($this->referer());
+        }else{
+           $this->Session->setFlash(__('There was a problem removing your blog'), 'error'); 
+           $this->redirect($this->referer());
+        }
+
+    }       
     
     /**
-     * Displays a blog post
-     *
-     * @param array
+     * Creates a blog - a blog contains a collection of posts
+     * 
+     * @return void
+     * @access public
      */
-    public function post($slug) {
-        $mine = false;
+    public function create()
+    {
         
-        $this->loadModel('Conversation');        
-        $post = $this->Post->fetchPostWith($slug, 'standard');    
-
-        if(empty($post)){
-           $this->redirect('/', '404');
-        }
-
-        //Add a comment
-        if($this->data){   
+        if(!empty($this->data)){
             
-            if($this->Conversation->save($this->data)){
-                $this->Session->setFlash(_('Your comment has been saved') ,'success');
-                $this->redirect($this->referer());
+            if($this->Blog->save($this->data)){
+                $this->Session->setFlash(__('Your blog has been created'), 'success');
+                $this->redirect("/blogs/edit/{$this->Blog->id}");
             }else{
-                $this->Session->setFlash(_('Your comment could not be saved') ,'error');
+                $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
             }
         }
-                  
-        //Build a user profile for use in the elements. The view must recive an array of $userProfile
-        $userProfile['Person'] = $post['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
         
-        $this->set('title_for_layout', $post['Post']['title']);
-        $this->set('canonical_for_layout', $post['Post']['canonical']);
+        $this->set('title_for_layout', 'Create a Blog');
         
-        $this->set('post', $post);
-
-        if($this->Session->read('Auth.User.id') == $post['Post']['created_person_id']){
-            $mine = true;
+        
+    }
+    
+    /**
+     * Creates a blog - a blog contains a collection of posts
+     * 
+     * @param string $id
+     * @return void
+     * @access public
+     */
+    public function edit($id)
+    {
+        
+        if(!empty($this->data)){
+            
+            if($this->Blog->save($this->data)){
+                $this->Session->setFlash(__('Your blog has been created'), 'success');
+            }else{
+                $this->Session->setFlash(__('There was a problem creating your blog'), 'error');
+            }
+        }else{
+            //We only want to fire this if the data array is empty
+            $this->data = $this->Blog->findById($id);
         }
         
-        $this->set('mine', $mine);
+        $this->set('statuses', 
+                $this->Picklist->fetchPicklistOptions(
+                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
         
-        $this->set('tags', $this->Post->Tagged->find('cloud', array('limit' => 10)));
-    }       
+        $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");    
+        
+    }    
     
     
 }
