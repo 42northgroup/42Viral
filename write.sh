@@ -1,5 +1,5 @@
 #!/bin/bash
-# Sets write paths and default config files
+# Sets write paths
 
 # Absolute path to this script, e.g. /var/www/htdocs/app/setup.sh
 SCRIPT=`readlink -f $0`
@@ -60,15 +60,9 @@ chown "$APACHE_PROCESS":"$USER" -fR webroot/files/people
 chmod 775 -fR "$SCRIPT_PATH/webroot/files/people"
 echo ">>>$SCRIPT_PATH/webroot/files/people"
 
-cp -r $SCRIPT_PATH/Config/Defaults/Xml/* $SCRIPT_PATH/Config/Xml/
-echo ">>>Copying default xml configurations to their target $SCRIPT_PATH/Config/Xml/"
-
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Xml"
 chmod 775 -fR "$SCRIPT_PATH/Config/Xml"
 echo ">>>$SCRIPT_PATH/Config/Xml"
-
-cp -r $SCRIPT_PATH/Config/Defaults/Includes/* $SCRIPT_PATH/Config/Includes/
-echo ">>>Copying default includes configurations to their target $SCRIPT_PATH/Config/Includes/"
 
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Includes"
 chmod 775 -fR "$SCRIPT_PATH/Config/Includes"
