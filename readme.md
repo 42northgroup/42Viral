@@ -4,17 +4,37 @@ A full CMS and blogging platform to provide a scalable and robust "kick start" f
 
 __Be warned we are still in dev mode, anything can change without notice or remorse__
 
-## Libraries and Concepts
+## Credits
 
-* CakePHP
-* CakePHP Search Plugin, CakeDC <http://cakedc.com/eng/downloads/view/cakephp_search_plugin>
-* CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
-* CakePHP Tags Plugin, CakeDC  <http://cakedc.com/downloads/view/cakephp_tags_plugin> 
+We strive to give credit where credit is due, if we missed something, please let us know!
+
+### The 42viral Projects's core development team
+
+* Jason Snider - Lead, Core Development
+* Zubin Khavarian - Core Development
+* Lyubomir Dimov - Core Development
+* Matt Blake - Graphics
+
+### Plugins
+
+Though we typically fork plugins to our repository prior to modification and use, we rather give credit to the original
+authors
+
+* CakeDC Search Plugin, CakeDC <https://github.com/cakedc/search> 
+* CakeDC Tags Plugin, CakeDC  <https://github.com/cakedc/tags> 
+* CakeDC Migrations Plugin, CakeDC  <https://github.com/cakedc/migrations> 
+* CakePHP Imagine Plugin, CakeDC  <https://github.com/cakedc/Imagine> 
+* MicroTrain Technologies Connect Plugin <https://github.com/microtrain/CakePHP-Connect-Plugin>
 * JasonSnider Seo Plugin <https://github.com/jasonsnider/CakePHP-Seo-Plugin>
-* JasonSnider Scrub Plugin <https://github.com/jasonsnider/CakePHP-Scrub-Plugin>
+* JasonSnider ContentFilters Plugin <https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin>
 * RobWilkerson AuditLog Plugin <https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin>
-* Lyubomir Dimov CalendarRecursion Plugin <https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin>
+* LyubomirDimov CalendarRecursion Plugin <https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin>
+
+### Libraries and Concepts
+
+* [CakePHP](http://cakephp.org)
 * HTMLPurifier
+* Imagine
 * jQuery
 * jQuery UI
 * HTMLBOILERPLATE
@@ -27,6 +47,8 @@ __Be warned we are still in dev mode, anything can change without notice or remo
 * Twitter
 * LinkedIn
 * Facebook
+* Yahoo! Local
+* Yelp
 
 ## Development
 
