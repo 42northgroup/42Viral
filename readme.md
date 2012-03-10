@@ -1,8 +1,8 @@
 # The 42Viral Project
 
-## Goals
+A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
-Provide a scalable and robust "kick start" for projects of any size.
+_Be warned we are still in dev mode, anything can change with out notice nor remorse_
 
 ## Libraries and Concepts
 
