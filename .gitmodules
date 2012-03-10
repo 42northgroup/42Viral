@@ -22,9 +22,6 @@
 [submodule "app/Plugin/ContentFilters"]
 	path = app/Plugin/ContentFilters
 	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
-[submodule "app/Plugin/BadBehavior"]
-	path = app/Plugin/BadBehavior
-	url = git@github.com:microtrain/CakePHP-BadBehavior-Plugin.git
 [submodule "Imagine"]
 	path = Imagine
 	url = git@github.com:microtrain/Imagine.git
