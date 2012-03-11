@@ -98,7 +98,7 @@ class Page extends Content
     }
 
     /**
-     *
+     * Returns a given page based on a given token and a with(query) array
      * @param type $token
      * @param type $with
      * @param type $status
@@ -141,5 +141,44 @@ class Page extends Content
 
         $post = $this->find('first', $query);
         return $post;
-    }  
+    } 
+    
+    /**
+     * Returns a given page based on given with parameters
+     * @param type $token
+     * @param type $with
+     * @param type $status
+     * @return array 
+     */    
+    public function fetchPagesWith($with = null){
+        
+        //Allows predefined data associations in the form of containable arrays
+            
+        switch(strtolower($with)){
+            case 'admin_standard':                
+                $query = array(   
+                    'contain' => array(
+                        'Tag'=>array(),
+                        'Sitemap'=>array()
+                    )
+                );                
+                
+            break;            
+            
+            default:                
+                $query = array(  
+                    'conditions'=>array(
+                    'Page.status'=>array('archieved', 'published')
+                    ), 
+                    'contain' => array(
+                        'Tag'=>array()
+                    )
+                );                
+            break;
+        }
+  
+
+        $post = $this->find('all', $query);
+        return $post;
+    }      
 }

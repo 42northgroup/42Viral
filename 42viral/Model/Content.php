@@ -102,8 +102,8 @@ class Content extends AppModel
         
         $this->virtualFields = array(
             'url'=>"CONCAT('/',`{$this->alias}`.`object_type`,'/',`{$this->alias}`.`slug`)",
-            'edit_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_edit/',`{$this->alias}`.`id`)",
-            'delete_url'=>"CONCAT('/Contents/',`{$this->alias}`.`object_type`,'_delete/',`{$this->alias}`.`id`)",
+            'edit_url'=>"CONCAT('/admin','/',`{$this->alias}`.`object_type`,'s/','edit/',`{$this->alias}`.`id`)",
+            'delete_url'=>"CONCAT('/admin','/',`{$this->alias}`.`object_type`,'s/',`{$this->alias}`.`id`)",
         );        
     }
     

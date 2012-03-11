@@ -42,6 +42,18 @@ App::uses('AppController', 'Controller');
         
         $this->auth(array('*'));
     }
+    
+    /**
+     * provides a generic call for determing the "home page"
+     * @return void
+     * @access public
+     */
+    public function home(){
+        
+        $this->layout = 'home';
+        $this->set('title_for_layout', Configure::read('Theme.HomePage.title'));
+    }    
+    
     /**
      * Displays a list of blogs
      *
@@ -49,7 +61,7 @@ App::uses('AppController', 'Controller');
      */
     public function index() {
         
-        $pages = $this->Page->find('all');
+        $pages = $this->Page->fetchPagesWith();
         
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
@@ -103,6 +115,19 @@ App::uses('AppController', 'Controller');
     }
     
     /**
+     * Displays a list of blogs
+     *
+     * @param array
+     */
+    public function admin_index() {
+        
+        $pages = $this->Page->fetchPagesWith('admin_standard');
+        
+        $this->set('pages', $pages);
+        $this->set('title_for_layout', 'Pages');
+    } 
+    
+    /**
      * Creates a traditional web page
      * 
      * @return void
@@ -151,14 +176,5 @@ App::uses('AppController', 'Controller');
                         'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
      
         $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
-    }
-    
-    /**
-     * 
-     */
-    public function home(){
-        
-        $this->layout = 'home';
-        $this->set('title_for_layout', Configure::read('Theme.HomePage.title'));
-    }
+    } 
 }
