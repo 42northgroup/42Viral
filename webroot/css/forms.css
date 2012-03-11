@@ -13,11 +13,7 @@
  */
 
 /**
-<<<<<<< HEAD
- ***** @author Jason D Snider <jason.snider@42viral.org>
-=======
  * @author Jason D Snider <jason.snider@42viral.org>
->>>>>>> cleanup
  */
  
 /* At this level we can't worry about speocifics, only the most general of concepts
@@ -127,11 +123,12 @@ form.content{
 form.content input[type="text"],
 form.content input[type="password"],
 form.content textarea{
-    border: none;
-    border-top: 1px dashed #bbb;
-    border-bottom: 1px dotted #bbb;
-    padding: 6px;
     width: 98%;
+    padding: 7px;
+}
+
+form.content select{
+    padding: 7px;
 }
 
 form.content input[type="text"]:focus,
