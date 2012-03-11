@@ -202,6 +202,5 @@ App::uses('Member', 'Lib');
 
         $this->set('title_for_layout', "Update {$post['Post']['name']}");
         
-    }
-
+    }      
 }

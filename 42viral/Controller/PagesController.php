@@ -112,7 +112,6 @@ App::uses('AppController', 'Controller');
     {
 
         if(!empty($this->data)){
-
             if($this->Page->save($this->data)){
                 $this->Session->setFlash(__('Your page has been created'), 'success');
                 $this->redirect("/admin/pages/edit/{$this->Page->id}");
@@ -136,8 +135,8 @@ App::uses('AppController', 'Controller');
     public function admin_edit($id)
     {
         if(!empty($this->data)){
-
-            if($this->Page->save($this->data)){
+            $this->request->data['Sitemap']['model'] = 'Page';
+            if($this->Page->saveAll($this->data)){
                 $this->Session->setFlash(__('Your page has been updated'), 'success');
             }else{
                 $this->Session->setFlash(__('There was a problem updating your page'), 'error');

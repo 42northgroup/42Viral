@@ -66,6 +66,19 @@ class Content extends AppModel
     );
     
     /**
+     * 
+     * @var array
+     * @access public
+     */
+    public $hasOne = array(
+        'Sitemap' => array(
+            'className' => 'Sitemap',
+            'foreignKey' => 'model_id',
+            'dependent' => true
+        )
+    );
+    
+    /**
      * Sets up the searchable behavior
      * @var array
      * @access public
@@ -160,4 +173,47 @@ class Content extends AppModel
         
     }
     
+    /**
+     *
+     * @param string $token
+     * @param array $with
+     * @param string $status
+     * @return array
+     * @access public
+     */
+    function fetchContentWith($with = null){
+        
+        if(is_null($with)){
+            $with = array(
+                    'conditions'=>array(),
+                    'contain'=>array()
+                );
+        }
+        //Allows predefined data associations in the form of containable arrays
+        if(!is_array($with)){
+            
+            switch(strtolower($with)){  
+                case 'sitemap':
+                    $with = array(
+                            'conditions'=>array(),
+                            'contain'=>array(
+                                'Sitemap'
+                            ),
+                            'fields' => array(
+                                'Content.canonical',
+                                'Content.modified',
+                                'Sitemap.changefreq',
+                                'Sitemap.priority'
+                            )
+                        );                    
+                    
+                break;  
+            }
+  
+        }
+        
+        $contents = $this->find('all', $with);
+        
+        return $contents;
+    }
 }
