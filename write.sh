@@ -1,5 +1,9 @@
 #!/bin/bash
-# Sets write paths
+# Cleans cache and resets file permissions
+
+rm tmp/cache/models/cake_*
+rm tmp/cache/persistent/cake_*
+rm tmp/cache/views/cake_*
 
 # Absolute path to this script, e.g. /var/www/htdocs/app/setup.sh
 SCRIPT=`readlink -f $0`
@@ -80,6 +84,8 @@ chown "$APACHE_PROCESS":"$USER" -fR "../lib/Cake/Cache"
 chmod 775 -fR "../lib/Cake/Cache"
 echo ">>>../lib/Cake/Cache"
 
-echo 'Permissions set'
+chown "$APACHE_PROCESS":"$USER" -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
+chmod 775 -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
+echo ">>>/usr/share/cakephp-2.0/lib/Cake/Cache"
 
-touch "$SCRIPT_PATH/Config/Log/setup_shell.txt"
+echo 'Permissions set'

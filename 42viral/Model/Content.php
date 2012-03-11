@@ -72,7 +72,7 @@ class Content extends AppModel
      */
     public $hasOne = array(
         'Sitemap' => array(
-            'className' => 'Sitemap',
+            'className' => 'Seo.Sitemap',
             'foreignKey' => 'model_id',
             'dependent' => true
         )

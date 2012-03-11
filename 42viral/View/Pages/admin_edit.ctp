@@ -44,6 +44,9 @@
     echo $this->Form->input('tags');
     echo $this->Form->input('canonical', array('rows'=>1));
     echo $this->Form->input('slug', array('rows'=>1));
+    echo $this->Form->input('Sitemap.id');
+    echo $this->Form->input('Sitemap.priority', array('type'=>'hidden'));
+    echo $this->Form->input('Sitemap.changefreq', array('type'=>'hidden'));
     echo $this->Form->input('status');
     echo $this->Form->submit();
     echo $this->Form->end();

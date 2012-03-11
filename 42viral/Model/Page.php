@@ -104,35 +104,42 @@ class Page extends Content
      * @param type $status
      * @return array 
      */    
-    public function fetchPageWith($token, $with = null, $status = 'published'){
+    public function fetchPageWith($token, $with = null){
         
         //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
+
             
-            switch(strtolower($with)){
-
-                default:
-                    $with = array('Tag'=>array());
-                break;
-            }
-  
-        }
-
-        $post = $this->find('first', 
-                array(  
-                    'conditions'=>array(
-                        'or'=>array(
-                            'Page.slug' => $token, 
-                            'Page.short_cut' => $token
-                        ), 
-                        'Page.status'=>$status
-                    ), 
-                    
-                    'contain' => $with,
-
+        switch(strtolower($with)){
+            case 'edit':                
+                $query = array(  
+                    'conditions'=>array('Page.id' => $token), 
+                    'contain' => array(
+                        'Tag'=>array(),
+                        'Sitemap'=>array()
                     )
-                );
+                );                
+                
+            break;            
+            
+            default:                
+                $query = array(  
+                    'conditions'=>array(
+                    'or'=>array(
+                        'Page.slug' => $token, 
+                        'Page.short_cut' => $token
+                    ), 
+                    'Page.status'=>array('archieved', 'published')
+                    ), 
+                    'contain' => array(
+                        'Tag'=>array()
+                    )
+                );                
+                
+            break;
+        }
+  
 
+        $post = $this->find('first', $query);
         return $post;
     }  
 }

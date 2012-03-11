@@ -64,7 +64,9 @@ Cache::config('default', array('engine' => 'File'));
  *
  */
 
-CakePlugin::loadAll();
+CakePlugin::loadAll(array(
+            'Seo'=>array('bootstrap' => true)
+        ));
 
 App::build(array(
     
