@@ -14,7 +14,7 @@ and open the template in the editor.
             <code>
                 cd app
                 chmod +x Console/cake
-                ./Console/cake schema create
+                sudo ./Console/cake schema create
             </code>
         </pre>
         <a href="/setup">I have ran the schema shell</a>

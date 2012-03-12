@@ -78,9 +78,14 @@ Create the CakePHP library
     sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 
 
 Replace 
+
 - example.com with the name of your site
+
 - /var/www/vhosts/ with your server path
+
 - httpdocs with whatever you want to call it
+
+__app is highly recommended, by default CakePHP will always look for the app directory__
 
     cd /[path/to/your-site.com/htdocs]/app
 
