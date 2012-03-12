@@ -58,7 +58,7 @@ class AppController extends Controller
         $this->Auth->deny('*');
         
         //Force a central login (1 login per prefix by default). 
-        $this->Auth->loginAction = array('admin' => false, 'controller' => 'users', 'action' => 'login'); 
+        $this->Auth->loginAction = array('admin' => false, 'plugin'=>false, 'controller' => 'users', 'action' => 'login'); 
         
         $this->set('mine', false);
         
