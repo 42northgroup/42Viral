@@ -54,8 +54,6 @@ if(isset($additional)){
             echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");           
             echo ' / ';            
             echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
-            echo ' / ';
-            echo $this->Html->link('Companies', "/profile_companies/index/{$userProfile['Person']['username']}");
         else:
             echo '&nbsp;';
         endif; 
