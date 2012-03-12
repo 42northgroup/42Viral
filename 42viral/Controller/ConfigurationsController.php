@@ -44,8 +44,8 @@ class ConfigurationsController extends AppController{
                 $data[$x]['Configuration']['key']=$value['key'];
                 $x++;
             }
-           //pr($data);
-            if($this->Configuration->updateAll($this->data)){
+            pr($data);
+            if($this->Configuration->updateAll($data)){
                 echo 'Saved';
             }
         }
