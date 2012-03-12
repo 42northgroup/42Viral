@@ -80,9 +80,10 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Log"
 chmod 775 -fR "$SCRIPT_PATH/Config/Log"
 echo ">>>$SCRIPT_PATH/Config/Log"
 
-chown "$APACHE_PROCESS":"$USER" -fR "../lib/Cake/Cache"
-chmod 775 -fR "../lib/Cake/Cache"
-echo ">>>../lib/Cake/Cache"
+chown "$USER":"$USER" -fR "$SCRIPT_PATH/Config/application.php"
+chmod 775 -fR "$SCRIPT_PATH/Config/application.php"
+echo ">>>$SCRIPT_PATH/Config/application.php"
+
 
 chown "$APACHE_PROCESS":"$USER" -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
 chmod 775 -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"

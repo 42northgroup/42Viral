@@ -36,7 +36,7 @@ class ConfigurationShell extends AppShell {
                 . " '{$config['Configuration']['value']}');\n";
         }
 
-        $file = new File(ROOT . DS . APP_DIR . DS . 'Config' . DS . '42viral.php', true, 0644);
+        $file = new File(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'application.php', true, 0644);
         $file->create();
         $file->write($configureString, $mode = 'w', false);
         $file->close();       
