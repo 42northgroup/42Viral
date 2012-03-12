@@ -25,7 +25,8 @@ class Parser
      * Converts a data array into an XML 
      * @param type $data
      * @param type $file 
-     * @todo Move this to a library
+     * @access public 
+     * @static
      */
     public static function data2XML($data, $file){
         
@@ -53,6 +54,8 @@ class Parser
      * Parses XML files into config files
      * @param string $path 
      * @return void
+     * @access public 
+     * @static
      */
     public static function xml2Config($path){
         
@@ -90,6 +93,8 @@ class Parser
      * Encodes array data with XML safe formatting
      * @param type $data
      * @return type 
+     * @access public 
+     * @static
      */
     public static function arrayEncodeXML($data){
         $encodedData = array();
@@ -104,7 +109,9 @@ class Parser
     /**
      * Decodes XML safe formatting contained with in an array. 
      * @param type $data
-     * @return type 
+     * @return type
+     * @access public 
+     * @static
      */
     public static function arrayDecodeXML($data){
         $decodedData = array();
@@ -114,5 +121,43 @@ class Parser
             }
         }
         return $decodedData;
-    }    
+    }
+    
+    /**
+     * Noramlizes configuration data so it can easily be saved to the configurations table
+     * @param type $data
+     * @return type
+     * @access public 
+     * @static
+     */
+    public static function pluginConfigWrite($data){
+        $config = array();
+        $x=0;
+        foreach($data as $key=>$value){
+            $config[$x]['Configuration']['id']=$value['id'];
+            $config[$x]['Configuration']['value']=$value['value'];
+            $x++;
+        }
+        return $config;
+    }
+
+        
+    /**
+     * Parses and restructures configuration data so that it is automatically read by configuration forms. 
+     * @param type $data
+     * @return type
+     * @access public 
+     * @static
+     */
+    public static function pluginConfigRead($data){
+        $reconfig = array();
+        $i=0;
+        foreach($data as $config){
+           foreach($config as $k => $v){
+               $reconfig[str_replace('.', '', $v['id'])]=$v; 
+                $i++;
+           }
+        }
+        return $reconfig;
+    }
 }

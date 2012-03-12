@@ -1,7 +1,7 @@
 <?php 
 
 App::uses('AppController', 'Controller');
-App::uses('Member', 'Lib');
+App::uses('Parser', 'Lib');
 
 /**
  * @package app
@@ -36,18 +36,17 @@ class ConfigurationsController extends AppController{
     }
     
     public function admin_content_filters(){
+        
         if(!empty($this->data)){
-            $data = array();
-            $x=0;
-            foreach($this->data as $key=>$value){
-                $data[$x]['Configuration']['id']=$value['id'];
-                $data[$x]['Configuration']['key']=$value['key'];
-                $x++;
-            }
-            pr($data);
-            if($this->Configuration->updateAll($data)){
-                echo 'Saved';
+            $data = Parser::pluginConfigWrite($this->data);
+            if($this->Configuration->saveAll($data)){
+                $this->Session->setFlash('Your configuration has been saved', 'success');
+            }else{
+                $this->Session->setFlash('Your configuration couldn not be saved', 'error');
             }
         }
+        
+        $config = $this->Configuration->find('all');
+        $this->request->data = Parser::pluginConfigRead($config);
     }
 }
