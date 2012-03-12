@@ -82,15 +82,7 @@ App::build(array(
         'Console' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS
         ),
-    
-        'Console/Command' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS
-        ),
-    
-        'Console/Command/Task' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS . 'Task' . DS
-        ),
-    
+
         'Lib' => array(
             ROOT . DS . APP_DIR . DS . 'Lib' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
@@ -144,3 +136,4 @@ require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php')
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'core.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'third_party.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'app.php');
+require(ROOT . DS . APP_DIR . DS . 'Config' . DS . '42viral.php');
