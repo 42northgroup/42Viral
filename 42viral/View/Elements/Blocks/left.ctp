@@ -57,6 +57,7 @@
                 <li><?php echo $this->Html->link('Users', '/admin/users'); ?></li>
                 <li><?php echo $this->Html->link('Groups', '/admin/users/acl_groups'); ?></li>
                 <li><?php echo $this->Html->link('Picklists', '/admin/picklists/index'); ?></li>
+                <li><?php echo $this->Html->link('Plugins', '/admin/plugin_configuration/configurations'); ?></li>
             </ul>
 
         <?php endif; ?>
