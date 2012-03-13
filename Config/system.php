@@ -18,6 +18,11 @@
  * ============= */
 
 /**
+ * The platform identifies itsef as 42Viral 
+ */
+Configure::write('42viral.platform', true);
+
+/**
  * The domains fully configured base url
  */
 Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Configure::read('Domain.host') . '/');

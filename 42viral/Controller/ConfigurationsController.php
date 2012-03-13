@@ -26,7 +26,15 @@ class ConfigurationsController extends AppController{
         foreach(App::path('Plugin') as $path){
             foreach(scandir($path) as $dir){
                 if(!in_array($dir, array('.', '..'))){
-                    $plugins[] = is_dir($path . DS . $dir)?$dir:'';
+                    
+                    if(is_dir($path . DS . $dir)){
+                        
+                        $plugins[] = array(
+                            'label'=>$dir, 
+                            'uri'=> '/admin/' . Inflector::underscore($dir) . '/manage_' . Inflector::underscore($dir)
+                            );
+                                
+                    }
                 }
             }
         }

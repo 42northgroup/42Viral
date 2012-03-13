@@ -2,6 +2,6 @@
 
 <div id="ResultsPage">    
     <?php foreach($plugins as $plugin): ?>
-        <div><?php echo $plugin; ?></div>
+        <div><?php echo $this->Html->link($plugin['label'], $plugin['uri']); ?></div>
     <?php endforeach; ?>
 </div>
