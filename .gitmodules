@@ -31,3 +31,6 @@
 [submodule "Plugin/Connect"]
 	path = Plugin/Connect
 	url = git@github.com:microtrain/CakePHP-Connect-Plugin.git
+[submodule "Plugin/PluginConfiguration"]
+	path = Plugin/PluginConfiguration
+	url = git@github.com:microtrain/CakePHP-PluginConfiguration-Plugin.git
