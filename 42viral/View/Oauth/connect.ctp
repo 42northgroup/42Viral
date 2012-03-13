@@ -36,43 +36,39 @@
 </style> 
 <h1>Get Connected</h1>
 <div class="clearfix">
-    
-    <?php if($this->Access->serviceConfiguration('LinkedIn')): ?>
-        <div class="social-connect">
-            
-            <div class="blurb">
-                <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/linkedin_32.png'); ?>
-                Connect with LinkedIn.
-            </div>
-            
-            <div class="connect">
-                <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
-            </div>
-            
+    <div class="social-connect">
+
+        <div class="blurb">
+            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/linkedin_32.png'); ?>
+            Connect with LinkedIn.
         </div>
-    <?php endif; ?>
-    
-    <?php if($this->Access->serviceConfiguration('Facebook')): ?>
-        <div class="social-connect">
-            <div class="blurb">
-                <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_32.png'); ?>
-                Connect with Facebook.
-            </div>
-            <div class="connect">
-                <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
-            </div>
+
+        <div class="connect">
+            <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
         </div>
-    <?php endif; ?>
+
+    </div>
     
-    <?php if($this->Access->serviceConfiguration('Twitter')): ?>
-        <div class="social-connect">
-            <div class="blurb">
-                <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_32.png'); ?>
-                Connect with Twitter.
-            </div>
-            <div class="connect">
-                <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
-            </div>
+    
+
+    <div class="social-connect">
+        <div class="blurb">
+            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_32.png'); ?>
+            Connect with Facebook.
         </div>
-    <?php endif; ?>
+        <div class="connect">
+            <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
+        </div>
+    </div>
+
+    <div class="social-connect">
+        <div class="blurb">
+            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_32.png'); ?>
+            Connect with Twitter.
+        </div>
+        <div class="connect">
+            <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
+        </div>
+    </div>
+
 </div>
