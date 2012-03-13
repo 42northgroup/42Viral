@@ -321,6 +321,9 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Create a New Account');
     }
 
+    /**
+     * A list of all user groups in the system
+     */
     public function admin_acl_groups()
     {
         $aclGroups = $this->AclGroup->find('all');
@@ -328,6 +331,9 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', __('ACL ARO Groups'));
     }   
     
+    /**
+     * Creates and user group without any conditions
+     */
     public function admin_create_acl_group()
     {
 
@@ -361,20 +367,26 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', __('Everyone in the System'));
     }    
     
-    
+    /**
+     * Allows the user to post to Twitter, Facebook and LinkedIn
+     * @param string $redirect_url 
+     */
     public function social_media($redirect_url='users/social_media')
     {
-        
+        //Do we have a list of the social media the users has connected to through 42Viral
         if( !$this->Session->check('Auth.User.sm_list') ){
-            
+        
+            //Get a list of the social media the user has connected to through 42Viral
             $sm_list = $this->Oauth->find('list', array(
                 'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
                 'fields' => array('Oauth.oauth_id', 'Oauth.service')
             ));
 
+            //Save the list in the session
             $this->Session->write('Auth.User.sm_list', $sm_list);
         }
         
+        //Check if we have an anccess token for every social media
         foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
             switch ($val){
                 
@@ -395,12 +407,14 @@ App::uses('AppController', 'Controller');
         
     }
     
-        
+    //Connects to Twittet/Facebook/LinkedIn and posts the user's status     
     public function socialize(){
         if(!empty ($this->data)){
             
+            //Check if the user checked that he want to post to this social media
             if( $this->data['SocialMedia']['twitter_post'] == 1 ){
                 
+                //If yes then send the post
                 $this->Tweet->save(array(
                     'status' => $this->data['SocialMedia']['twitter'],
                     'oauth_token' => $this->Session->read('Twitter.oauth_token'),
@@ -430,6 +444,7 @@ App::uses('AppController', 'Controller');
         }
     }
     
+    //Takes the user to their account settings
     public function settings($token=null)
     {
         // If we have no token, we will use the logged in user.
@@ -455,6 +470,7 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Your Account Settings');
     }
     
+    //Saves the user's new password
     public function change_password()
     {
         if(!empty ($this->data)){

@@ -31,7 +31,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'acl_groups'))
 
             <tr>
                 <td>     
-                    <?php echo $this->Access->link('Privileges-admin_user_privileges', 
+                    <?php echo $this->Html->link(
                             'User Group Privileges',
                             "/admin/privileges/user_privileges/{$aclGroup['AclGroup']['alias']}"); ?>
                 </td>

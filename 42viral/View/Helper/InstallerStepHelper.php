@@ -66,10 +66,6 @@ class InstallerStepHelper extends AppHelper
                 'setup_shell'
             ),
 
-            'setup_acl' => array(
-                'setup_shell'
-            ),
-
             'setup_give_permissions' => array(
                 'setup_shell'
             ),
@@ -172,20 +168,6 @@ class InstallerStepHelper extends AppHelper
             ),
 
             array(
-                'number' => 10,
-                'key' => 'setup_acl',
-                'label' => 'Initialize ACLs',
-                'action' => '/setup/acl',
-                'status' => 'setup_acl',
-                'dependency' => $this->__dependencyList['setup_acl'],
-                'completed' => false,
-                'confirm' =>
-                    'Are you sure?\n'
-                        . 'This will reset all ACL (ARO/ACO) permissions.\n'
-                        . 'We do not recoomend this be done once a site has gone into production!\n'
-            ),
-
-            array(
                 'number' => 11,
                 'key' => 'setup_give_permissions',
                 'label' => 'Set permissions',
@@ -268,7 +250,6 @@ class InstallerStepHelper extends AppHelper
             'setup_process',
             'setup_build_database',
             'setup_import',
-            'setup_acl',
             'setup_give_permissions',
             'setup_configure_root'
         );

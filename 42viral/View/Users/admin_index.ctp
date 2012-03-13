@@ -28,8 +28,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>''));
         <?php foreach ($people as $person): ?>
         <tr>
             <td>
-                <?php echo $this->Access->link( 
-                        'Privileges-admin_user_privileges', 
+                <?php echo $this->Html->link(                        
                         'Privs', 
                         "/admin/privileges/user_privileges/{$person['Person']['username']}"); ?>
             </td>            

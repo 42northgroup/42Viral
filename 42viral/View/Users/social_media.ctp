@@ -59,7 +59,7 @@ Characters left: <span id="TweetCharsLeft" >140</span>
     <?php echo $this->Form->input('facebook_post', array(
         'type' => 'checkbox', 
         'label' => 'Facebook',
-        'div'=>array('style'=>'float:left; width:80px;')
+        'div'=>array('style'=>'float:left; width:90px;')
         )); ?>
 
     <?php echo $this->Form->input('linkedin_post', array(

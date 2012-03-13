@@ -38,7 +38,7 @@ class OauthsComponent  extends Component
     }
     
     /**
-     * Check if there is a token stored in the Session and calls the 
+     * Checks if there is a token stored in the Session and calls the 
      * appropriate functions to store one if there isn't
      * 
      * @param string $service
