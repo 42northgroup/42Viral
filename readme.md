@@ -50,6 +50,16 @@ authors
 * Yahoo! Local
 * Yelp
 
+## Data Portability
+
+We are working very hard to make all data as portable and as standards compliant as possible
+
+Profile data currently supports 
+
+    * vacard
+    * xcard
+    * hcard
+
 ## Development
 
 Agile, Test Driven Development.
