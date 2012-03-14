@@ -66,10 +66,6 @@ class InstallerStepHelper extends AppHelper
                 'setup_shell'
             ),
 
-            'setup_give_permissions' => array(
-                'setup_shell'
-            ),
-
             'setup_configure_root' => array(
                 'setup_shell'
             )
@@ -166,16 +162,6 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_import'],
                 'completed' => false
             ),
-
-            array(
-                'number' => 11,
-                'key' => 'setup_give_permissions',
-                'label' => 'Set permissions',
-                'action' => '/setup/give_permissions',
-                'status' => 'setup_give_permissions',
-                'dependency' => $this->__dependencyList['setup_give_permissions'],
-                'completed' => false
-            ),
             
             array(
                 'number' => 12,
@@ -250,7 +236,6 @@ class InstallerStepHelper extends AppHelper
             'setup_process',
             'setup_build_database',
             'setup_import',
-            'setup_give_permissions',
             'setup_configure_root'
         );
 

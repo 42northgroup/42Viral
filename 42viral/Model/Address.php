@@ -32,7 +32,8 @@ class Address extends AppModel
      * @access public
      */
     public $actsAs = array(
-        'AuditLog.Auditable'
+        'AuditLog.Auditable',
+        'Log'
     );
     
     public $belongsTo = array();

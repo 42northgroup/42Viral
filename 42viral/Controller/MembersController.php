@@ -40,7 +40,9 @@ App::uses('Member', 'Lib');
         'Image', 
         'Oauth', 
         'Person', 
-        'User'
+        'User',
+        'PersonDetail',
+        'Address'
     );
 
 
@@ -118,11 +120,22 @@ App::uses('Member', 'Lib');
         $userProfile['Person'] = $user['User'];
         $userProfile['Person']['Profile'] = $user['Profile'];
         
+        $person_details = $this->PersonDetail->fetchPersonDetails($userProfile['Person']['id']);
+        $this->set('person_details', $person_details);
+        
+        $addresses = $this->Address->find('all', array(
+            'conditions' => array(
+                'Address.model' => 'Person',
+                'Address.model_id' => $userProfile['Person']['id']
+            )
+        ));
+        $this->set('addresses', $addresses);
+        
         $this->set('userProfile', $userProfile);
         $this->set('title_for_layout', Member::name($userProfile['Person']) . "'s Profile");
 
     }
-    
+
     public function social_media($redirect_url='members/social_media')
     {
         
