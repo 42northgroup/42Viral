@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+- phpMyAdmin XML Dump
+- version 3.4.3.2
+- http://www.phpmyadmin.net
+-
+- Host: localhost
+- Generation Time: Mar 14, 2012 at 01:25 PM
+- Server version: 5.1.58
+- PHP Version: 5.3.6-13ubuntu3.6
+-->
+
+<pma_xml_export version="1.0">
+    <!--
+    - Database: '42viral_default'
+    -->
+    <database name="42viral_default">
+        <!-- Table configurations -->
+        <table name="configurations">
+            <column name="id">ShortURL.Pointer.blog</column>
+            <column name="value">a</column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="created">2012-03-14 13:23:23</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2012-03-14 13:23:23</column>
+        </table>
+        <table name="configurations">
+            <column name="id">ShortURL.Pointer.page</column>
+            <column name="value">b</column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="created">2012-03-14 13:23:23</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2012-03-14 13:23:23</column>
+        </table>
+        <table name="configurations">
+            <column name="id">ShortURL.Pointer.post</column>
+            <column name="value">c</column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="created">2012-03-14 13:23:23</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2012-03-14 13:23:23</column>
+        </table>
+        <table name="configurations">
+            <column name="id">Theme.set</column>
+            <column name="value">Default</column>
+            <column name="created_person_id"></column>
+            <column name="created">2012-03-14 13:23:23</column>
+            <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="modified">2012-03-14 13:23:23</column>
+        </table>
+    </database>
+</pma_xml_export>
