@@ -49,45 +49,90 @@ class Parser
 
         file_put_contents ($file , $xmlString);
     }
+
+
+    /**
+     * 
+     *
+     * @access public
+     * @param array $dbConfig
+     * @param string $sourceFile
+     * @return void
+     * @static
+     */
+    public static function dbConfig2XML($dbConfig, $sourceFile, $targetFile)
+    {
+        $xmlData = Xml::toArray(Xml::build($sourceFile));
+
+        foreach($xmlData['root'] as $key => &$tempRecord) {
+            if(!isset($dbConfig[$key])) {
+                if($key == 'persistent') {
+                    $tempRecord['value'] = false;
+                }
+            } else {
+                $tempRecord['value'] = $dbConfig[$key];
+            }
+        }
+
+        $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags'));
+        $xmlString = $xmlObject->asXML();
+
+        file_put_contents ($targetFile , $xmlString);
+    }
+
     
     /**
      * Parses XML files into config files
+     * 
      * @param string $path 
      * @return void
      * @access public 
      * @static
      */
-    public static function xml2Config($path){
-        
-        foreach(scandir($path) as $file){
+    public static function xml2Config($path)
+    {
+        foreach (scandir($path) as $file) {
             $ext = pathinfo($file, PATHINFO_EXTENSION);
 
             //Skip file if it's not XML
-            if(strtolower($ext) !== 'xml') {
+            if (strtolower($ext) !== 'xml') {
                 continue;
             }
-            
-            if(is_file($path . DS . $file)){
-                
+
+            if (is_file($path . DS . $file)) {
+
                 $xmlData = Xml::toArray(Xml::build($path . DS . $file));
-                
-                $outFile = 
-                    ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . str_replace('.xml', '.php', $file);
-                
+
+                $outFile =
+                        ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . str_replace('.xml', '.php', $file);
+
                 $configureString = "<?php\n";
 
-                foreach($xmlData['root'] as $key => $value){
-                    $val = empty($value['value'])?$value['default']:$value['value'];
+                foreach ($xmlData['root'] as $key => $value) {
+                    $val = empty($value['value']) ? $value['default'] : $value['value'];
                     $decoded = htmlspecialchars_decode($val, ENT_QUOTES);
-                    $configureString .= "Configure::write('{$value['name']}', {$decoded});\n";
+
+
+                    if (isset($value['type'])) {
+                        switch ($value['type']) {
+                            case 'boolean':
+                            case 'integer':
+                                $configureString .= "Configure::write('{$value['name']}', {$decoded}); //Boolean \n";
+                                break;
+
+                            default: //string
+                            case 'string':
+                                $configureString .= "Configure::write('{$value['name']}', '{$decoded}'); //String \n";
+                                break;
+                        }
+                    }
                 }
-                
-                file_put_contents ($outFile , $configureString);
+
+                file_put_contents($outFile, $configureString);
             }
-            
         }
-        
     }
+
     
     /**
      * Encodes array data with XML safe formatting
@@ -100,7 +145,7 @@ class Parser
         $encodedData = array();
         foreach($data as $key => $value){
             foreach($value as $k => $v){
-                $encodedData[$key][$k] = htmlspecialchars($v, ENT_QUOTES);
+                //$encodedData[$key][$k] = htmlspecialchars($v, ENT_QUOTES);
             }
         }
         return $encodedData;

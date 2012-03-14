@@ -38,7 +38,13 @@ class InstallerStepHelper extends AppHelper
         $this->__dependencyList = array(
             'setup_shell' => array(),
 
+            /*
             'setup_xml_database' => array(
+                'setup_shell'
+            ),
+            */
+
+            'setup_database_config' => array(
                 'setup_shell'
             ),
 
@@ -82,6 +88,7 @@ class InstallerStepHelper extends AppHelper
                 'completed' => false
             ),
 
+            /*
             array(
                 'number' => 2,
                 'key' => 'setup_xml_database',
@@ -89,6 +96,17 @@ class InstallerStepHelper extends AppHelper
                 'action' => '/setup/xml_database',
                 'status' => 'setup_xml_database',
                 'dependency' => $this->__dependencyList['setup_xml_database'],
+                'completed' => false
+            ),
+            */
+            
+            array(
+                'number' => 2,
+                'key' => 'setup_database_config',
+                'label' => 'Configure the database',
+                'action' => '/setup/database_config',
+                'status' => 'setup_database_config',
+                'dependency' => $this->__dependencyList['setup_database_config'],
                 'completed' => false
             ),
             
@@ -114,11 +132,11 @@ class InstallerStepHelper extends AppHelper
 
             array(
                 'number' => 5,
-                'key' => 'setup_xml_database',
+                'key' => 'setup_xml_site',
                 'label' => 'Configure the site',
                 'action' => '/setup/xml_site',
-                'status' => 'setup_xml_database',
-                'dependency' => $this->__dependencyList['setup_xml_database'],
+                'status' => 'setup_xml_site',
+                'dependency' => $this->__dependencyList['setup_xml_site'],
                 'completed' => false
             ),
             
@@ -229,7 +247,8 @@ class InstallerStepHelper extends AppHelper
 
         $stepAlias = array(
             'setup_shell',
-            'setup_xml_database',
+            //'setup_xml_database',
+            'setup_database_config',
             'setup_xml_core',
             'setup_xml_hash',
             'setup_xml_third_party',

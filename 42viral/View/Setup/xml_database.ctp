@@ -44,5 +44,3 @@ echo $this->Form->submit('Save Configuration',
 
 echo $this->Form->end();
 ?>
-
-

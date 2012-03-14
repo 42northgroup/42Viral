@@ -122,10 +122,134 @@ App::uses('Handy', 'Lib');
 
         //Read the current xml file to prepopulate the form
         $xmlData = Xml::toArray(Xml::build($file));
+
         $this->set('xmlData', $xmlData);
         $this->set('title_for_layout', 'Configuration Manager (Database)');
-        
     }
+
+    /**
+     *
+     *
+     * @access public
+     */
+    public function database_config()
+    {
+        if(!empty($this->data)) {
+            $sourceFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' .DS. 'Xml' . DS . 'database.xml';
+            $targetFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
+            Parser::dbConfig2XML($this->data, $sourceFile, $targetFile);
+
+            $this->Session->setFlash(__("Changes Saved"), 'success');
+            $this->_setupLog('database_config');
+
+            if($this->data['Control']['next_step'] == 1) {
+                $this->redirect('/setup/xml_core');
+            }
+        }
+
+
+        
+        /// ---- Everthing from here down will live inside else.
+        $dbDrivers = array(
+            array(
+                'label' => 'MySQL',
+                'description' => 'MySQL 4 & 5',
+                'value' => 'Database/Mysql'
+            ),
+
+            array(
+                'label' => 'SQLite',
+                'description' => 'SQLite (PHP5 only)',
+                'value' => 'Database/Sqlite'
+            ),
+
+            array(
+                'label' => 'PostgreSQL',
+                'description' => 'PostgreSQL 7 and higher',
+                'value' => 'Database/Postgres'
+            ),
+
+            array(
+                'label' => 'MS SQL Server',
+                'description' => 'Microsoft SQL Server 2005 and higher',
+                'value' => 'Database/Sqlserver'
+            ),
+
+            array(
+                'label' => 'Oracle',
+                'description' => 'Oracle 8 and higher',
+                'value' => 'Database/Oracle'
+            ),
+
+            array(
+                'label' => 'None',
+                'description' => 'No database',
+                'value' => 'Database/No'
+            )
+        );
+
+        $txtFields = array(
+            array(
+                'label' => 'Host',
+                'description' => 'The host you connect to the database.',
+                'value' => 'localhost'
+            ),
+
+            /*
+            array(
+                'label' => 'Port',
+                'description' => 'Database port number',
+                'value' => ''
+            ),
+            */
+
+            array(
+                'label' => 'Login',
+                'description' => 'Username for the production database',
+                'value' => 'root'
+            ),
+            
+            array(
+                'label' => 'Password',
+                'description' => 'Password for the production database',
+                'value' => 'password'
+            ),
+            
+            array(
+                'label' => 'Database',
+                'description' => 'Name of the production database',
+                'value' => '42viral_default'
+            ),
+
+            array(
+                'label' => 'Prefix',
+                'description' => 'Uses the given prefix for all the tables in this database',
+                'value' => ''
+            )
+        );
+        
+        $this->set('db_drivers', $dbDrivers);
+        $this->set('txt_fields', $txtFields);
+        $this->set('title_for_layout', 'Configuration Manager (Database)');
+    }
+
+
+    /**
+     * 
+     *
+     * @access public
+     */
+    public function database_check_connection() {
+        /*
+        function isDBConnected()
+        {
+            $datasource = ConnectionManager::getDataSource('default');
+            return $datasource->isConnected();
+        }
+         * 
+         */
+    }
+
     
     /**
      * Database setup step
