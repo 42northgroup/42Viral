@@ -128,59 +128,6 @@ App::uses('Handy', 'Lib');
     }
     
     /**
-     * Provides a UI for setting up the database
-     * @return void
-     * @access public
-     */
-    public function xml_site()
-    {
-        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'site.xml';
-
-        if(!empty($this->data)){
-            Parser::data2XML($this->data, $file);
-            $this->Session->setFlash(__("Changes Saved"), 'success');
-            
-            $this->_setupLog('setup_xml_site');
-            
-            if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/xml_third_party');
-            } 
-        }
-
-        //Read the current xml file to prepopulate the form
-        $xmlData = Xml::toArray(Xml::build($file));
-        $this->set('xmlData', $xmlData);
-        $this->set('title_for_layout', 'Configuration Manager (Site)');
-    }
-    
-    /**
-     * Provides a UI for setting up the database
-     * @return void
-     * @access public
-     */
-    public function xml_third_party()
-    {
-        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'third_party.xml';
-
-        if(!empty($this->data)){
-            Parser::data2XML($this->data, $file);
-            $this->Session->setFlash(__("Changes Saved"), 'success');
-            
-            $this->_setupLog('setup_xml_third_party');
-            
-            if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/build_database');
-            } 
-            
-        }
-
-        //Read the current xml file to prepopulate the form
-        $xmlData = Xml::toArray(Xml::build($file));
-        $this->set('xmlData', $xmlData);
-        $this->set('title_for_layout', 'Configuration Manager (Third Party APIs)');
-    }
-    
-    /**
      * Database setup step
      * @return void
      * @access public
@@ -240,7 +187,7 @@ App::uses('Handy', 'Lib');
             $this->_setupLog('setup_xml_hash');
             
             if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/xml_site');
+                 $this->redirect('/setup/build_database');
             }             
         }
         
