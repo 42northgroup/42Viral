@@ -132,10 +132,7 @@ App::build(array(
     ));
 
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
-<<<<<<< HEAD
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'site.php');
-=======
->>>>>>> 3008110... Removed thrid party.php as a config requirement
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'core.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'application.php');
