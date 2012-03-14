@@ -16,10 +16,10 @@
     echo $this->Form->inputs(array(
             'legend'=>'Disqus',
             'Disqusshortname.id'=>array('value'=>'Disqus.shortname', 'type'=>'hidden'),
-            'Disqusshortname.value'=>array('label'=>'Disqus Short Name'),
+            'Disqusshortname.value'=>array('label'=>'Short Name'),
         
             'Disqus.developer.id'=>array('value'=>'Disqus.developer', 'type'=>'hidden'),
-            'Disqus.developer.value'=>array('label'=>'Disqus. Developer'),
+            'Disqus.developer.value'=>array('label'=>'Developer'),
         
         ));
 
