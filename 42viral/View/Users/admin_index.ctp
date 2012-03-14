@@ -16,25 +16,34 @@
 echo $this->element('Navigation' . DS . 'local', array('section'=>''));  
 
 ?>
-
 <table>
     <thead>
-        <th>Actions</th>
         <th>Name</th>
-        <th>Handle</th>
+        <th>Username</th>
         <th>Email</th>
     </thead>
     <tbody>
         <?php foreach ($people as $person): ?>
-        <tr>
-            <td>
+        <tr class="top">   
+            <td><?php echo $person['Person']['username']; ?></td>
+            <td><?php echo $person['Person']['name']; ?></td>
+            <td><?php echo $person['Person']['email']; ?></td>
+        </tr>     
+        <tr class="bottom">
+            <td colspan="3">
+                <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
+                |
+                <a href="#">Edit</a>
+                |
+                <?php echo $this->Html->link('New Case', 
+                        "/admin/people/create_case/{$person['Person']['username']}"); ?>
+                |
                 <?php echo $this->Html->link(                        
                         'Privs', 
                         "/admin/privileges/user_privileges/{$person['Person']['username']}"); ?>
-            </td>            
-            <td><?php echo $person['Person']['name']; ?></td>
-            <td><?php echo $person['Person']['username']; ?></td>
-            <td><?php echo $person['Person']['email']; ?></td>
+                |
+                <a href="#">Delete</a>
+            </td>
         </tr>
         <?php endforeach; ?>
     </tbody>

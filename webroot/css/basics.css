@@ -63,11 +63,25 @@ h3{
     margin-bottom: 4px;
 }
 
-.status,
-.result{
+.status{
     border-bottom: 1px solid #efefef;
     padding:0 0 4px;
     margin:0 0 6px;
+}
+
+.result {
+    padding:3px;
+    padding:5px 4px 2px;
+    margin:0 0 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+    border-bottom: 1px solid #E2E2E2;
+    border: 1px solid #fff;
+}
+
+.result:hover{
+    border-radius: 3px;
+    background: #F2F9FD;
+    border: 1px solid #BEC8D1;
 }
 
 .status-details{

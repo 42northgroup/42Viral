@@ -35,7 +35,6 @@
                 <span class="side-navigation-toggle">&#9660;</span>
             </h4>
             <ul class="side-navigation">
-                <li><?php echo $this->Html->link('Accounts', '/admin/accounts/'); ?></li>
                 <li><?php echo $this->Html->link('People', '/admin/people/'); ?></li>
             </ul>
 

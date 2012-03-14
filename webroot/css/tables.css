@@ -31,6 +31,30 @@ td{
     border-right: none;
 }
 
+tr.top td{
+    border: 1px solid #E5E5E5;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+}
+
+tr.bottom td{
+    border: 1px solid #E5E5E5;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+}
+
+tr.bottom td,
+tr.bottom td a:link,
+tr.bottom td a:visited{
+    color: #ccc;
+}
+
+tr.bottom td a:hover{
+    color: #555;
+}
+
 td.actions-column{
     width: 30px;
 }
