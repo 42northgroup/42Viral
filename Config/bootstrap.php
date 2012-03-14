@@ -132,7 +132,7 @@ App::build(array(
     ));
 
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
-require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'site.php');
+
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'core.php');
 require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'third_party.php');
