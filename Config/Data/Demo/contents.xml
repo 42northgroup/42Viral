@@ -517,7 +517,7 @@ APIs include Google Maps, Twitter and Authorize.net for payment processing.
             <column name="keywords">PHP, MySQL, Linux, Apache, JavaScript, jQuery</column>
             <column name="canonical">/page/resume</column>
             <column name="syntax">html</column>
-            <column name="status">draft</column>
+            <column name="status">published</column>
             <column name="custom_file"></column>
             <column name="object_type">page</column>
             <column name="parent_content_id"></column>

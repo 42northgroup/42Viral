@@ -22,33 +22,29 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people'
 ?>
 <table>
     <thead>
-        <th></th>
         <th>Name</th>
         <th>Username</th>
         <th>Email</th>
     </thead>
     <tbody>
         <?php foreach ($people as $person): ?>
-        <tr>   
-            <td class="actions-column"> 
-                <div class="actions-control" style="position: relative;">
-                    &#9658;
-                    <div class="actions">
-                        <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
-                        |
-                        <a href="#">Edit</a>
-                        |
-                        <?php echo $this->Html->link('New Case', 
-                                "/admin/people/create_case/{$person['Person']['username']}"); ?>
-                        |
-                        <a href="#">Delete</a>
-                    </div> 
-                </div>
-            </td>
-            <td><?php echo $person['Person']['name']; ?></td>
+        <tr class="top">   
             <td><?php echo $person['Person']['username']; ?></td>
+            <td><?php echo $person['Person']['name']; ?></td>
             <td><?php echo $person['Person']['email']; ?></td>
         </tr>     
+        <tr class="bottom">
+            <td colspan="3">
+                <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
+                |
+                <a href="#">Edit</a>
+                |
+                <?php echo $this->Html->link('New Case', 
+                        "/admin/people/create_case/{$person['Person']['username']}"); ?>
+                |
+                <a href="#">Delete</a>
+            </td>
+        </tr>
         <?php endforeach; ?>
     </tbody>
 </table>

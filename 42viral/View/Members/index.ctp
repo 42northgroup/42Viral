@@ -3,7 +3,7 @@
 <div id="ResultsPage">
     <?php foreach($users as $user):?>
 
-        <div class="clearfix status">  
+        <div class="clearfix result">  
 
             <div style="float:left; width:74px">
                 <?php echo $this->Member->avatar($user['User'], 64); ?>

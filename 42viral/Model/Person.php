@@ -132,6 +132,12 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
+        
+        'PersonDetail' => array(
+            'className' => 'PersonDetail',
+            'foreignKey' => 'person_id',
+            'dependent' => true
+        )
     );
 
     /**
