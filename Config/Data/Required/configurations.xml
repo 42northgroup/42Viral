@@ -43,7 +43,7 @@
         <table name="configurations">
             <column name="id">Theme.set</column>
             <column name="value">Default</column>
-            <column name="created_person_id"></column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-14 13:23:23</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2012-03-14 13:23:23</column>
@@ -51,7 +51,7 @@
         <table name="configurations">
             <column name="id">Oauth.password</column>
             <column name="value">password</column>
-            <column name="created_person_id"></column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-14 13:23:23</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2012-03-14 13:23:23</column>
@@ -59,7 +59,7 @@
         <table name="configurations">
             <column name="id">Comment.engine</column>
             <column name="value">native</column>
-            <column name="created_person_id"></column>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-14 13:23:23</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2012-03-14 13:23:23</column>
