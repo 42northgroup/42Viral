@@ -1,0 +1,35 @@
+/* the humans responsible & colophon */
+/* humanstxt.org */
+
+
+/* TEAM */
+  Lead: Jason D Snider
+  Site: jasonsnider.com
+  Twitter:
+  Location: Chicago, IL
+
+/* TEAM */
+  Core Developer: Zubin Khavarian
+  Site: 
+  Twitter:
+  Location: Chicago, IL
+
+/* TEAM */
+  Core Developer: Lyubomir R Dimov
+  Site: 
+  Twitter:
+  Location: Chicago, IL
+
+/* TEAM */
+  Graphics: Matt Blake
+  Site: 
+  Twitter:
+  Location: Columbus, OH
+
+/* THANKS */
+  Names (& URL):
+
+/* SITE */
+  Standards: HTML5, CSS3
+  Components: Modernizr, jQuery, CakePHP
+  Software: 
