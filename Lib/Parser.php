@@ -65,13 +65,7 @@ class Parser
         $xmlData = Xml::toArray(Xml::build($sourceFile));
 
         foreach($xmlData['root'] as $key => &$tempRecord) {
-            if(!isset($dbConfig[$key])) {
-                if($key == 'persistent') {
-                    $tempRecord['value'] = false;
-                }
-            } else {
-                $tempRecord['value'] = $dbConfig[$key];
-            }
+            $tempRecord['value'] = $dbConfig[$key];
         }
 
         $xmlObject = Xml::fromArray($xmlData, array('format' => 'tags'));
@@ -110,21 +104,33 @@ class Parser
 
                 foreach ($xmlData['root'] as $key => $value) {
                     $val = empty($value['value']) ? $value['default'] : $value['value'];
+                    $rawValue = $val;
                     $decoded = htmlspecialchars_decode($val, ENT_QUOTES);
-
 
                     if (isset($value['type'])) {
                         switch ($value['type']) {
                             case 'boolean':
+                                if(in_array(strtolower($decoded), array('1', 'yes', 'true', 'on'))) {
+                                    $configureString .= "Configure::write('{$value['name']}', true);\n";
+                                } elseif(in_array(strtolower($decoded), array('0', 'no', 'false', 'off'))) {
+                                    $configureString .= "Configure::write('{$value['name']}', false);\n";
+                                } else {
+                                    $configureString .= "Configure::write('{$value['name']}', '{$rawValue}');\n";
+                                }
+                                break;
+
                             case 'integer':
-                                $configureString .= "Configure::write('{$value['name']}', {$decoded}); //Boolean \n";
+                            case 'array':
+                                $configureString .= "Configure::write('{$value['name']}', {$rawValue});\n";
                                 break;
 
                             default: //string
                             case 'string':
-                                $configureString .= "Configure::write('{$value['name']}', '{$decoded}'); //String \n";
+                                $configureString .= "Configure::write('{$value['name']}', '{$decoded}');\n";
                                 break;
                         }
+                    } else {
+                        $configureString .= "Configure::write('{$value['name']}', '{$decoded}');\n";
                     }
                 }
 
@@ -145,7 +151,7 @@ class Parser
         $encodedData = array();
         foreach($data as $key => $value){
             foreach($value as $k => $v){
-                //$encodedData[$key][$k] = htmlspecialchars($v, ENT_QUOTES);
+                $encodedData[$key][$k] = htmlspecialchars($v, ENT_QUOTES);
             }
         }
         return $encodedData;

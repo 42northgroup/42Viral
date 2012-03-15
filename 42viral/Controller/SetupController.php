@@ -140,15 +140,13 @@ App::uses('Handy', 'Lib');
             Parser::dbConfig2XML($this->data, $sourceFile, $targetFile);
 
             $this->Session->setFlash(__("Changes Saved"), 'success');
-            $this->_setupLog('database_config');
+            $this->_setupLog('setup_database_config');
 
             if($this->data['Control']['next_step'] == 1) {
                 $this->redirect('/setup/xml_core');
             }
         }
 
-
-        
         /// ---- Everthing from here down will live inside else.
         $dbDrivers = array(
             array(
@@ -192,39 +190,45 @@ App::uses('Handy', 'Lib');
             array(
                 'label' => 'Host',
                 'description' => 'The host you connect to the database.',
-                'value' => 'localhost'
+                'value' => 'localhost',
+                'test_value' => 'localhost'
             ),
 
             /*
             array(
                 'label' => 'Port',
                 'description' => 'Database port number',
-                'value' => ''
+                'value' => '',
+                'test_value' => ''
             ),
             */
 
             array(
                 'label' => 'Login',
                 'description' => 'Username for the production database',
-                'value' => 'root'
+                'value' => 'root',
+                'test_value' => 'root'
             ),
             
             array(
                 'label' => 'Password',
                 'description' => 'Password for the production database',
-                'value' => 'password'
+                'value' => 'password',
+                'test_value' => 'password'
             ),
             
             array(
                 'label' => 'Database',
                 'description' => 'Name of the production database',
-                'value' => '42viral_default'
+                'value' => '42viral_default',
+                'test_value' => '42viral_test'
             ),
 
             array(
                 'label' => 'Prefix',
                 'description' => 'Uses the given prefix for all the tables in this database',
-                'value' => ''
+                'value' => '',
+                'test_value' => ''
             )
         );
         
