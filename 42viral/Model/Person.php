@@ -81,6 +81,13 @@ class Person extends AppModel
      */
     public $hasMany = array(
 
+        'Address' => array(
+            'className' => 'Address',
+            'foreignKey' => 'model_id',
+            'conditions' => array('Address.model' => 'Person'),
+            'dependent' => true
+        ),
+        
         'Blog' => array(
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
@@ -121,6 +128,13 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
+        
+        'PersonDetail' => array(
+            'className' => 'PersonDetail',
+            'foreignKey' => 'person_id',
+            'dependent' => true
+        ),
+        
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'created_person_id',
@@ -130,12 +144,6 @@ class Person extends AppModel
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
-        
-        'PersonDetail' => array(
-            'className' => 'PersonDetail',
-            'foreignKey' => 'person_id',
             'dependent' => true
         )
     );

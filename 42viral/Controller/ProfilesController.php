@@ -85,9 +85,17 @@ App::uses('AppController', 'Controller');
         $person_details = $this->PersonDetail->find('all', array(
             'conditions' => array('PersonDetail.person_id' => $userProfile['Person']['id']),
             'contain' => array()
-        ));
-        
+        ));        
         $this->set('person_details', $person_details);
+        
+        $addresses = $this->Address->find('all', array(
+            'conditions' => array(
+                'Address.model_id' => $userProfile['Person']['id'],
+                'Address.model' => 'Person'
+            ),
+            'contain' => array()
+        ));
+        $this->set('addresses', $addresses);
         
         $this->set('mine', true);
         
@@ -161,6 +169,40 @@ App::uses('AppController', 'Controller');
                 $errors .= '</ul>';
                 $this->Session->setFlash(__('There was a problem saving your address'.$errors), 'error');
             }
+        }
+        
+        $this->redirect($this->referer());
+    }
+    
+    /**
+     * Delete person's detail
+     * 
+     * @access public
+     * @param  string $detailId
+     * @return void
+     */
+    public function delete_person_detail($detailId){
+        if($this->PersonDetail->delete($detailId)){
+            $this->Session->setFlash(__('Detail was deleted successfuly'), 'success');
+        }else{
+            $this->Session->setFlash(__('Detail could not be deleted'), 'error');
+        }
+        
+        $this->redirect($this->referer());
+    }
+    
+    /**
+     * Delete person's address
+     * 
+     * @access public
+     * @param  string $detailId
+     * @return void
+     */
+    public function delete_person_address($addressId){
+        if($this->Address->delete($addressId)){
+            $this->Session->setFlash(__('Address was deleted successfuly'), 'success');
+        }else{
+            $this->Session->setFlash(__('Address could not be deleted'), 'error');
         }
         
         $this->redirect($this->referer());

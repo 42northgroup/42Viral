@@ -49,13 +49,28 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
             $("#details_" + type).toggle();
         });        
         
-        $("#additionalDetailsHolder").delegate('.editDetail', 'click', function(){
+        $("#additionalDetailsHolder").delegate('.editDetail', 'click', function(event){
+            event.preventDefault();
             var element = $(this).parent();
-            $("#PersonDetailId").val(element.attr('id'))
-            $("#PersonDetailValue").val(element.attr('data-value'))
-            $("#PersonDetailType").val(element.attr('data-type'))
-            $("#PersonDetailCategory").val(element.attr('data-category'))
+            $("#PersonDetailId").val(element.attr('id'));
+            $("#PersonDetailValue").val(element.attr('data-value'));
+            $("#PersonDetailType").val(element.attr('data-type'));
+            $("#PersonDetailCategory").val(element.attr('data-category'));
             $("#personDetailsForm").show();
+        });
+        
+        $("#additionalDetailsHolder").delegate('.editAddress', 'click', function(event){
+            event.preventDefault();
+            var element = $(this).parent();
+            $("#AddressId").val(element.attr('id'));
+            $("#AddressLine1").val(element.attr('data-line1'));
+            $("#AddressLine2").val(element.attr('data-line2'));
+            $("#AddressCity").val(element.attr('data-city'));
+            $("#AddressState").val(element.attr('data-state'));
+            $("#AddressZip").val(element.attr('data-zip'));
+            $("#AddressCountry").val(element.attr('data-country'));
+            $("#AddressType").val(element.attr('data-type'));
+            $("#addressForm").show();
         });
         
         $('.popUpForm').hover(function(){ 
@@ -133,7 +148,10 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                         data-category="<?php echo $detail['PersonDetail']['category']; ?>" >
                         
                         <?php echo $detail['PersonDetail']['category'].': '.$detail['PersonDetail']['value']; ?>
-                        <a href="#" style="float: right; margin-left:5px; " >X</a>
+                        <a href="/profiles/delete_person_detail/<?php echo $detail['PersonDetail']['id'] ?>" 
+                           style="float: right; margin-left:5px;" >
+                            X
+                        </a>
                         <a href="#" style=" float: right" class="editDetail">Edit</a>                        
                     </li>
                     
@@ -143,5 +161,36 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
             </div>
         </div>
         <?php endforeach; ?>
+        <div id="type_address" class="additionalDetailFrame" style=" padding: 5px;">
+            <a href="#" data-type="address" class="additionalDetailsType" >
+                Addresses
+            </a>
+
+            <div style="display: none" id="details_address" >
+                <ul style=" margin-left: 0px;">
+                <?php foreach($addresses as $address): ?>
+                                        
+                    <li id="<?php echo $address['Address']['id'] ?>" 
+                        class="additionalDetail"
+                        data-type="<?php echo $address['Address']['type'] ?>" 
+                        data-line1="<?php echo $address['Address']['line1']; ?>"
+                        data-line2="<?php echo $address['Address']['line2']; ?>"
+                        data-city="<?php echo $address['Address']['city']; ?>"
+                        data-state="<?php echo $address['Address']['state']; ?>"
+                        data-zip="<?php echo $address['Address']['zip']; ?>"
+                        data-country="<?php echo $address['Address']['country']; ?>">
+                        
+                        <?php echo $address['Address']['type']; ?>
+                        <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
+                           style="float: right; margin-left:5px;" >
+                            X
+                        </a>
+                        <a href="#" style=" float: right" class="editAddress">Edit</a>                        
+                    </li>                    
+                    
+                <?php endforeach; ?>
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
