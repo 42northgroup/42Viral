@@ -434,9 +434,11 @@ App::uses('Handy', 'Lib');
             'alias' => 'basic_user', 0, 0));
 
         if($this->Acl->Aro->save()){
+            /*
             $this->_setupLog('setup_acl');
             $this->Session->setFlash(__('ACL initialization complete.'), 'success');
             $this->redirect('/setup');
+             */
         }
     }
     
@@ -449,6 +451,8 @@ App::uses('Handy', 'Lib');
     public function import()
     {
 
+        $this->acl();
+        
         $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Required';
         
         foreach(scandir($path) as $file){      
@@ -460,50 +464,6 @@ App::uses('Handy', 'Lib');
         
         $this->Session->setFlash('Core data imported', 'success');
         $this->redirect('/setup');
-    }
-    
-    /**
-     * Allows the user to configure the permissions for the basic_user group
-     * @return void
-     * @access public
-     */    
-    public function give_permissions($username='basic_user')
-    {
-        $controllers = $this->ControllerList->get_all();
-        $this->set('username', $username);
-        
-        $acos = $this->Aco->find('list', array(
-            'fields' => array('Aco.id', 'Aco.alias')
-        ));
-        
-        $this->set('controllers', $controllers);
-                
-        if(!empty ($this->data)){
-            foreach($this->data as $controller => $action){
-                if($controller != '_Token'){
-                    
-                    foreach ($this->data[$controller] as $function => $permission){
-                        
-                        foreach ($this->data[$controller][$function] as $perm => $value){
-                            
-                            if($value == 1){
-                                $this->Acl->allow($username,$controller.'-'.$function, $perm);
-                            }elseif($value == 0){
-                                $this->Acl->deny($username,$controller.'-'.$function, $perm);
-                            }
-                            
-                        }
-                    }
-                }
-            }
-            
-            $this->Session->setFlash(__('Permission setting complete!'), 'success');
-            $this->_setupLog('setup_give_permissions');
-            $this->redirect('/setup');        
-        }
-        
-        $this->set('title_for_layout', 'Configuration Manager (Permisions)');
-        
     }
 
     /**
