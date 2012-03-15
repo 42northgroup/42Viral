@@ -85,7 +85,7 @@ echo $this->Form->create(null, array('url' => $this->here));
 ?>
 
 <div class="form-box">
-    <h1>Database Configuration</h1>
+    <h1>Database Configuration [DEFAULT]</h1>
 
     <div class="form-sub-box">
         <div class="title-help">
@@ -156,7 +156,7 @@ echo $this->Form->create(null, array('url' => $this->here));
 
 
 <div class="form-box">
-    <h1>Test Database Configuration</h1>
+    <h1>Test Database Configuration [TEST]</h1>
 
     <div class="form-sub-box">
         <div class="title-help">
