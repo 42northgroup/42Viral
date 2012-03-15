@@ -8,12 +8,13 @@
         echo $this->Html->meta('icon');
         
         $this->Asset->addAssets(array(
-                    'js' . DS . 'vendors' . DS . 'modernizr.js',
-                    'js' . DS . 'vendors' . DS . 'jquery.js',
-                    'js' . DS . 'vendors' . DS . 'jquery.Jcrop.js',
+                    'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
+                    'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery.js',
+                    'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
                     'js' . DS . 'engine.js',
             
-                    'css' . DS . 'vendors' . DS . 'yui.css',
+                    'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
+                    'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
                     'css' . DS . 'fonts.css',
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'layout.css',
@@ -24,7 +25,7 @@
                     'css' . DS . 'navigation.css',
                     'css' . DS . 'controls.css',
                     'css' . DS . 'controls.social.css',
-                    'css' . DS . 'jquery.Jcrop.css'
+                    'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'
                 ));
 
         echo $this->Asset->buildAssets('js');

@@ -2,7 +2,7 @@
 
 A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
-__Be warned we are still in dev mode, anything can change without notice or remorse__
+__Be warned we are still in alpha development, things can and will change without notice or remorse__
 
 ## Credits
 
@@ -71,6 +71,8 @@ losing the ability to manage the data.
 
 ## Installation
 
+_As we are still in alpha development, these install instructions are written for core development_
+
 Currently, installation is written for Ubuntu Linux. Installation on other Linux distros is pretty similar; typically 
 this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
 accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
@@ -81,9 +83,9 @@ add the following to you php.ini file __Be sure to update this for both your ser
 
     include_path = '.:/usr/share/php:/usr/share/cakephp-2.0/lib'
 
-### Git based install
+### Git based install (Core Development)
 
-Create the CakePHP library
+Create the CakePHP library 
 
     cd /usr/share
     sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 

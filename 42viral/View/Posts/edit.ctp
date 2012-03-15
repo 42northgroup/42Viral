@@ -22,9 +22,9 @@
 
 
     $this->Asset->addAssets(array(
-        'js/vendors/ckeditor/adapters/42viral.js',
-        'js/vendors/ckeditor/ckeditor.js',
-        'js/vendors/ckeditor/adapters/jquery.js'
+        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
+        'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
+        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
     ), 'ck_editor');
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);

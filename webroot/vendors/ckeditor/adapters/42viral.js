@@ -20,7 +20,7 @@
 /**
  *If we are going to combine and minify, this file must be called before ckeditor 
  */
-var CKEDITOR_BASEPATH = "/js/vendors/ckeditor/";
+var CKEDITOR_BASEPATH = "/vendors/ckeditor/";
 
 /**
  * Configure CKEditor instances
