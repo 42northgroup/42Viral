@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Page Not Found :(</title>
+  <title>Setup the application</title>
   <style>
     ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
     ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
@@ -32,7 +32,7 @@
 </head>
 <body>
   <div class="container">
-    <h1>Setup</h1>
+    <h1>Setup the application</h1>
     
     <p>Run the setup shell from the app directory. Omit sudo if your running from a root shell. Running this script
     will provide proper read/write permissions. In short, this allows the web server to do what it needs to do.</p>
