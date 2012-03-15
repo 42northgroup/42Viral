@@ -52,17 +52,21 @@ class InstallerStepHelper extends AppHelper
                 'setup_shell'
             ),
 
+            /*
             'setup_xml_site' => array(
                 'setup_shell'
             ),
+            */
 
             'setup_xml_hash' => array(
                 'setup_shell'
             ),
 
+            /*
             'setup_xml_third_party' => array(
                 'setup_shell'
             ),
+            */
 
             'setup_process' => array(
                 'setup_shell'
@@ -134,6 +138,7 @@ class InstallerStepHelper extends AppHelper
                 'completed' => false
             ),
 
+            /*
             array(
                 'number' => 5,
                 'key' => 'setup_xml_site',
@@ -143,7 +148,9 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_xml_site'],
                 'completed' => false
             ),
-            
+            */
+
+            /*
             array(
                 'number' => 6,
                 'key' => 'setup_xml_third_party',
@@ -153,9 +160,10 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_xml_third_party'],
                 'completed' => false
             ),
+            */
             
             array(
-                'number' => 7,
+                'number' => 5,
                 'key' => 'setup_process',
                 'label' => 'Build configuration files',
                 'action' => '/setup/process',
@@ -166,7 +174,7 @@ class InstallerStepHelper extends AppHelper
             ),
 
             array(
-                'number' => 8,
+                'number' => 6,
                 'key' => 'setup_build_database',
                 'label' => 'Build the database',
                 'action' => '/setup/build_database',
@@ -176,7 +184,7 @@ class InstallerStepHelper extends AppHelper
             ),
 
             array(
-                'number' => 9,
+                'number' => 7,
                 'key' => 'setup_import',
                 'label' => 'Import core data',
                 'action' => '/setup/import',
@@ -186,7 +194,7 @@ class InstallerStepHelper extends AppHelper
             ),
             
             array(
-                'number' => 12,
+                'number' => 8,
                 'key' => 'setup_configure_root',
                 'label' => 'Create root',
                 'action' => '/setup/configure_root',
@@ -255,7 +263,8 @@ class InstallerStepHelper extends AppHelper
             'setup_database_config',
             'setup_xml_core',
             'setup_xml_hash',
-            'setup_xml_third_party',
+            //'setup_xml_site',
+            //'setup_xml_third_party',
             'setup_process',
             'setup_build_database',
             'setup_import',
