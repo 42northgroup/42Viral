@@ -34,11 +34,11 @@ authors
 
 * [CakePHP](http://cakephp.org)
 * [HTMLPurifier](http://htmlpurifier.org/)
-* Imagine
-* jQuery
-* jQuery UI
+* [Imagine](https://github.com/avalanche123/Imagine)
+* [jQuery](http://jquery.com/)
+* [jQuery UI](http://jqueryui.com/)
 * [HTML5BOILERPLATE](http://html5boilerplate.com/)
-* Modernizr
+* [Modernizr](http://www.modernizr.com/)
 * [YUI](http://yuilibrary.com/yui/docs/cssreset/)
 
 ## Third API party support
