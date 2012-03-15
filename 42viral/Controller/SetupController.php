@@ -128,9 +128,73 @@ App::uses('Handy', 'Lib');
     }
 
     /**
+     * Map form database configuration form data to the standard CakePHP database config array
      *
+     * @access private
+     * @param array $formData
+     * @return array
+     */
+    private function __createDbConfigFromForm($formData)
+    {
+        return array(
+            'default' => array(
+                'datasource' => $formData['DataSource.default.datasource'],
+                'persistent' => ($formData['DataSource.default.persistent'] == 0)? false: true,
+                'host' => $formData['DataSource.default.host'],
+                'login' => $formData['DataSource.default.login'],
+                'password' => $formData['DataSource.default.password'],
+                'database' => $formData['DataSource.default.database'],
+                'prefix' => $formData['DataSource.default.prefix'],
+                //'encoding' => 'utf8',
+            ),
+
+            'test' => array(
+                'datasource' => $formData['DataSource.test.datasource'],
+                'persistent' => ($formData['DataSource.test.persistent'] == 0)? false: true,
+                'host' => $formData['DataSource.test.host'],
+                'login' => $formData['DataSource.test.login'],
+                'password' => $formData['DataSource.test.password'],
+                'database' => $formData['DataSource.test.database'],
+                'prefix' => $formData['DataSource.test.prefix'],
+                //'encoding' => 'utf8',
+            )
+        );
+    }
+
+    /**
+     * Test the two db connections 'default', and 'test' using the passed db config params
+     *
+     * @access private
+     * @param array $dbConfig
+     * @return array
+     */
+    private function __testDbConnection($dbConfig)
+    {
+        $connected = array(
+            'default' => true,
+            'test' => true
+        );
+
+        try {
+            ConnectionManager::create('temp_default', $dbConfig['default']);
+        } catch(MissingConnectionException $ex) {
+            $connected['default'] = false;
+        }
+        
+        try {
+            ConnectionManager::create('temp_test', $dbConfig['test']);
+        } catch(MissingConnectionException $ex) {
+            $connected['test'] = false;
+        }
+        
+        return $connected;
+    }
+
+    /**
+     * Action to setup database connections by capturing and testing the connection parameters
      *
      * @access public
+     * @return void
      */
     public function database_config()
     {
@@ -139,122 +203,109 @@ App::uses('Handy', 'Lib');
             $targetFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Xml' . DS . 'database.xml';
             Parser::dbConfig2XML($this->data, $sourceFile, $targetFile);
 
-            $this->Session->setFlash(__("Changes Saved"), 'success');
-            $this->_setupLog('setup_database_config');
+            $dbConfig = $this->__createDbConfigFromForm($this->data);
+            $conStatus = $this->__testDbConnection($dbConfig);
 
-            if($this->data['Control']['next_step'] == 1) {
-                $this->redirect('/setup/xml_core');
+            if(($conStatus['default'] == true) && ($conStatus['test'] == true)) {
+                $this->_setupLog('setup_database_config');
+                $this->Session->setFlash(__("Changes Saved"), 'success');
+
+                if($this->data['Control']['next_step'] == 1) {
+                    $this->redirect('/setup/xml_core');
+                }
+            } else {
+                $testConn = ($conStatus['test'])? '': '[TEST]';
+                $defaultConn = ($conStatus['default'])? '': '[DEFAULT]';
+
+                $this->Session->setFlash(
+                    __("Database config {$testConn} {$defaultConn} failed. Verify your connection parameters"),
+                    'error'
+                );
+                
+                $this->redirect('/setup/database_config');
             }
+        } else {
+            $dbDrivers = array(
+                array(
+                    'label' => 'MySQL',
+                    'description' => 'MySQL 4 & 5',
+                    'value' => 'Database/Mysql'
+                ),
+
+                array(
+                    'label' => 'SQLite',
+                    'description' => 'SQLite (PHP5 only)',
+                    'value' => 'Database/Sqlite'
+                ),
+
+                array(
+                    'label' => 'PostgreSQL',
+                    'description' => 'PostgreSQL 7 and higher',
+                    'value' => 'Database/Postgres'
+                ),
+
+                array(
+                    'label' => 'MS SQL Server',
+                    'description' => 'Microsoft SQL Server 2005 and higher',
+                    'value' => 'Database/Sqlserver'
+                ),
+
+                array(
+                    'label' => 'Oracle',
+                    'description' => 'Oracle 8 and higher',
+                    'value' => 'Database/Oracle'
+                ),
+
+                array(
+                    'label' => 'None',
+                    'description' => 'No database',
+                    'value' => 'Database/No'
+                )
+            );
+
+            $txtFields = array(
+                array(
+                    'label' => 'Host',
+                    'description' => 'The host you connect to the database.',
+                    'value' => 'localhost',
+                    'test_value' => 'localhost'
+                ),
+
+                array(
+                    'label' => 'Login',
+                    'description' => 'Username for the production database',
+                    'value' => 'root',
+                    'test_value' => 'root'
+                ),
+
+                array(
+                    'label' => 'Password',
+                    'description' => 'Password for the production database',
+                    'value' => 'password',
+                    'test_value' => 'password'
+                ),
+
+                array(
+                    'label' => 'Database',
+                    'description' => 'Name of the production database',
+                    'value' => '42viral_default',
+                    'test_value' => '42viral_test'
+                ),
+
+                array(
+                    'label' => 'Prefix',
+                    'description' => 'Uses the given prefix for all the tables in this database',
+                    'value' => '',
+                    'test_value' => ''
+                )
+            );
+
+            $this->set('db_drivers', $dbDrivers);
+            $this->set('txt_fields', $txtFields);
+            $this->set('title_for_layout', 'Configuration Manager (Database)');
         }
-
-        /// ---- Everthing from here down will live inside else.
-        $dbDrivers = array(
-            array(
-                'label' => 'MySQL',
-                'description' => 'MySQL 4 & 5',
-                'value' => 'Database/Mysql'
-            ),
-
-            array(
-                'label' => 'SQLite',
-                'description' => 'SQLite (PHP5 only)',
-                'value' => 'Database/Sqlite'
-            ),
-
-            array(
-                'label' => 'PostgreSQL',
-                'description' => 'PostgreSQL 7 and higher',
-                'value' => 'Database/Postgres'
-            ),
-
-            array(
-                'label' => 'MS SQL Server',
-                'description' => 'Microsoft SQL Server 2005 and higher',
-                'value' => 'Database/Sqlserver'
-            ),
-
-            array(
-                'label' => 'Oracle',
-                'description' => 'Oracle 8 and higher',
-                'value' => 'Database/Oracle'
-            ),
-
-            array(
-                'label' => 'None',
-                'description' => 'No database',
-                'value' => 'Database/No'
-            )
-        );
-
-        $txtFields = array(
-            array(
-                'label' => 'Host',
-                'description' => 'The host you connect to the database.',
-                'value' => 'localhost',
-                'test_value' => 'localhost'
-            ),
-
-            /*
-            array(
-                'label' => 'Port',
-                'description' => 'Database port number',
-                'value' => '',
-                'test_value' => ''
-            ),
-            */
-
-            array(
-                'label' => 'Login',
-                'description' => 'Username for the production database',
-                'value' => 'root',
-                'test_value' => 'root'
-            ),
-            
-            array(
-                'label' => 'Password',
-                'description' => 'Password for the production database',
-                'value' => 'password',
-                'test_value' => 'password'
-            ),
-            
-            array(
-                'label' => 'Database',
-                'description' => 'Name of the production database',
-                'value' => '42viral_default',
-                'test_value' => '42viral_test'
-            ),
-
-            array(
-                'label' => 'Prefix',
-                'description' => 'Uses the given prefix for all the tables in this database',
-                'value' => '',
-                'test_value' => ''
-            )
-        );
-        
-        $this->set('db_drivers', $dbDrivers);
-        $this->set('txt_fields', $txtFields);
-        $this->set('title_for_layout', 'Configuration Manager (Database)');
     }
 
-
-    /**
-     * 
-     *
-     * @access public
-     */
-    public function database_check_connection() {
-        /*
-        function isDBConnected()
-        {
-            $datasource = ConnectionManager::getDataSource('default');
-            return $datasource->isConnected();
-        }
-         * 
-         */
-    }
-
-    
     /**
      * Database setup step
      * @return void
@@ -383,9 +434,9 @@ App::uses('Handy', 'Lib');
             'alias' => 'basic_user', 0, 0));
 
         if($this->Acl->Aro->save()){
-            // $this->_setupLog('setup_acl');
-            // $this->Session->setFlash(__('ACL initialization complete.'), 'success');
-            // $this->redirect('/setup');
+            $this->_setupLog('setup_acl');
+            $this->Session->setFlash(__('ACL initialization complete.'), 'success');
+            $this->redirect('/setup');
         }
     }
     
@@ -397,8 +448,7 @@ App::uses('Handy', 'Lib');
      */
     public function import()
     {
-        $this->acl();
-        
+
         $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Required';
         
         foreach(scandir($path) as $file){      
@@ -410,6 +460,50 @@ App::uses('Handy', 'Lib');
         
         $this->Session->setFlash('Core data imported', 'success');
         $this->redirect('/setup');
+    }
+    
+    /**
+     * Allows the user to configure the permissions for the basic_user group
+     * @return void
+     * @access public
+     */    
+    public function give_permissions($username='basic_user')
+    {
+        $controllers = $this->ControllerList->get_all();
+        $this->set('username', $username);
+        
+        $acos = $this->Aco->find('list', array(
+            'fields' => array('Aco.id', 'Aco.alias')
+        ));
+        
+        $this->set('controllers', $controllers);
+                
+        if(!empty ($this->data)){
+            foreach($this->data as $controller => $action){
+                if($controller != '_Token'){
+                    
+                    foreach ($this->data[$controller] as $function => $permission){
+                        
+                        foreach ($this->data[$controller][$function] as $perm => $value){
+                            
+                            if($value == 1){
+                                $this->Acl->allow($username,$controller.'-'.$function, $perm);
+                            }elseif($value == 0){
+                                $this->Acl->deny($username,$controller.'-'.$function, $perm);
+                            }
+                            
+                        }
+                    }
+                }
+            }
+            
+            $this->Session->setFlash(__('Permission setting complete!'), 'success');
+            $this->_setupLog('setup_give_permissions');
+            $this->redirect('/setup');        
+        }
+        
+        $this->set('title_for_layout', 'Configuration Manager (Permisions)');
+        
     }
 
     /**
