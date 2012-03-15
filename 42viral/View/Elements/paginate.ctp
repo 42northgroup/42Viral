@@ -16,7 +16,7 @@
 
 /**
  * Provides a standard pagination look and feel
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 if($this->Paginator->counter(array('format'=>"%pages%")) > 1){
     echo $this->Html->div(

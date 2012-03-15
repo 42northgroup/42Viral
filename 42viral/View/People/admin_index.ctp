@@ -29,8 +29,12 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people'
     <tbody>
         <?php foreach ($people as $person): ?>
         <tr class="top">   
+            <td>
+                <?php echo empty($person['Person']['name']) 
+                    ? '<span class="empty">[Not Set]</span>'
+                    : $person['Person']['name']; ?>
+            </td>
             <td><?php echo $person['Person']['username']; ?></td>
-            <td><?php echo $person['Person']['name']; ?></td>
             <td><?php echo $person['Person']['email']; ?></td>
         </tr>     
         <tr class="bottom">

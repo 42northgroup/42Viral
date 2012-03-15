@@ -177,4 +177,22 @@ App::uses('AppController', 'Controller');
      
         $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
     } 
+    
+    /**
+     * Removes a web page
+     * 
+     * @return void
+     * @access public
+     */
+    public function admin_delete($id){
+
+        if($this->Page->delete($id)){
+            $this->Session->setFlash(__('Your page has been removed'), 'success');
+            $this->redirect($this->referer());
+        }else{
+           $this->Session->setFlash(__('There was a problem removing your page'), 'error'); 
+           $this->redirect($this->referer());
+        }
+
+    }     
 }

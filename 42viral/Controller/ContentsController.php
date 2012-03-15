@@ -101,26 +101,7 @@ App::uses('Member', 'Lib');
         }
         $this->set('title_for_layout', "Comment on a Blog Post");       
         
-    }
-    
-    
-    /**
-     * Removes a web page
-     * 
-     * @return void
-     * @access public
-     */
-    public function page_delete($id){
-
-        if($this->Page->delete($id)){
-            $this->Session->setFlash(__('Your page has been removed'), 'success');
-            $this->redirect($this->referer());
-        }else{
-           $this->Session->setFlash(__('There was a problem removing your page'), 'error'); 
-           $this->redirect($this->referer());
-        }
-
-    }        
+    }       
     
     /**
      * Displays a list of all content created by a single user
@@ -145,7 +126,7 @@ App::uses('Member', 'Lib');
         $this->set('userProfile', $person);
         $this->set('title_for_layout', Member::name($person['Person']) . "'s Content Stream");        
     }  
-    
+
     /**
      * An action for promoting new content
      *

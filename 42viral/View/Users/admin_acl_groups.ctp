@@ -22,22 +22,20 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'acl_groups'))
             <th>
                 Group
             </th>
-            <th>
-                Actions
-            </th>
         </thead>
         <tbody>
         <?php foreach ($aclGroups as $aclGroup): ?>
 
-            <tr>
+            <tr class="top">
+                <td><?php echo $aclGroup['AclGroup']['alias']; ?></td>            
+            </tr>
+            <tr class="bottom">
                 <td>     
                     <?php echo $this->Html->link(
                             'User Group Privileges',
                             "/admin/privileges/user_privileges/{$aclGroup['AclGroup']['alias']}"); ?>
-                </td>
-                <td><?php echo $aclGroup['AclGroup']['alias']; ?></td>            
+                </td>           
             </tr>
-
         <?php endforeach; ?>            
         </tbody>
     </table>    

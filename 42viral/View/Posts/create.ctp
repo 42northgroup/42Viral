@@ -41,20 +41,27 @@
     ?>
     
 <?php else: ?>
+    
+    <?php if(empty($blogs)): ?> 
+        <h2>
+            <?php echo "You don't have any blogs to post to " 
+                . $this->Html->link('Create One', '/blogs/create/') . " now."; ?>
+        </h2>
+    <?php else: ?>
+        <h2><?php echo __('Choose the blog to which you would like to post.'); ?></h2>
 
-    <h1><?php echo __('Choose the blog to which you would like to post.'); ?></h1>
-    <table>
-        <tbody>
-        <?php foreach($blogs as $blog): ?>
-            <tr>
-                <td>
-                    <?php echo $this->Html->link(
-                            $blog['Blog']['title'], 
-                            "/posts/create/{$blog['Blog']['id']}"); ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
-        </tbody>
+        <table>
+            <tbody>
+            <?php foreach($blogs as $blog):?>
+                <tr>
+                    <td>
+                        <?php echo $this->Html->link(
+                                $blog['Blog']['title'], 
+                                "/posts/create/{$blog['Blog']['id']}"); ?>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+            </tbody>
     </table>
-
+    <?php endif; ?>
 <?php endif; ?>

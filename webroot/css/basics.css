@@ -69,6 +69,10 @@ h3{
     margin:0 0 6px;
 }
 
+.empty{
+    color: #ccc;
+}
+
 .result {
     padding:3px;
     padding:5px 4px 2px;

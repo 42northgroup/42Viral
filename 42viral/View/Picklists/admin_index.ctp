@@ -32,13 +32,12 @@
             <tr>
                 <td>Name</td>
                 <td>Alias</td>
-                <td>Actions</td>
                 <td>Active</td>
             </tr>
         </thead>
         <tbody>
             <?php foreach($picklists as $tempPicklist): ?>
-                <tr>
+                <tr class="top">
                     <td>
                         <a href="/admin/picklists/view/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="View picklist">
@@ -51,6 +50,11 @@
                     </td>
 
                     <td>
+                        <?php echo ($tempPicklist['Picklist']['active'])? 'Yes': 'No'; ?>
+                    </td>
+                </tr>
+                <tr class="bottom">
+                    <td colspan="3">
                         <a href="/admin/picklists/delete/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="Delete picklist"
                            class="delete-confirm">Delete</a>
@@ -61,10 +65,6 @@
                         <a href="/admin/picklists/test/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="Test picklist HTML in grouped and flat versions">Test</a>
                         
-                    </td>
-
-                    <td>
-                        <?php echo ($tempPicklist['Picklist']['active'])? 'Yes': 'No'; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>
