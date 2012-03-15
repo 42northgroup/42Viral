@@ -1,8 +1,5 @@
 # The 42Viral Project
 
-[![project status](http://stillmaintained.com/microtrain/42viral.png)](http://stillmaintained.com/microtrain/42viral)
-[![Build Status](https://secure.travis-ci.org/microtrain/42viral.png)](http://travis-ci.org/microtrain/42viral)
-
 A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
 __Be warned we are still in dev mode, anything can change without notice or remorse__
