@@ -29,7 +29,7 @@
                 ));
 
         echo $this->Asset->buildAssets('js');
-        echo $this->Asset->buildAssets('css');
+        echo $this->Asset->buildAssets('css'); 
     ?>
 </head>
     <body>

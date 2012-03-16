@@ -48,21 +48,21 @@ class InstallerStepHelper extends AppHelper
                 'setup_shell'
             ),
 
+            /*
             'setup_xml_core' => array(
                 'setup_shell'
             ),
 
-            /*
             'setup_xml_site' => array(
                 'setup_shell'
             ),
             */
 
-            /*
+            
             'setup_xml_hash' => array(
                 'setup_shell'
             ),
-            */
+            
             
             /*
             'setup_xml_third_party' => array(
@@ -119,7 +119,7 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_database_config'],
                 'completed' => false
             ),
-            
+            /*
             array(
                 'number' => 3,
                 'key' => 'setup_xml_core',
@@ -129,7 +129,9 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_xml_core'],
                 'completed' => false
             ),
-
+            */
+            
+            
             array(
                 'number' => 4,
                 'key' => 'setup_xml_hash',

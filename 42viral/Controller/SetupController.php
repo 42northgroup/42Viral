@@ -211,7 +211,7 @@ App::uses('Handy', 'Lib');
                 $this->Session->setFlash(__("Changes Saved"), 'success');
 
                 if($this->data['Control']['next_step'] == 1) {
-                    $this->redirect('/setup/xml_core');
+                    $this->redirect('/setup/xml_hash');
                 }
             } else {
                 $testConn = ($conStatus['test'])? '': '[TEST]';
