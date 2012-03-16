@@ -54,7 +54,7 @@
 
         <div id="BannerRight">
             <?php 
-
+/*
             echo $this->Form->create('Content', array(
                 'url' => '/searches/index',
                 'class'=>'search',
@@ -73,7 +73,7 @@
                         )
                     );
             echo $this->Form->end();
-
+*/
             ?>
         </div>
     </div>
