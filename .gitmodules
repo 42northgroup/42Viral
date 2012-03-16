@@ -3,7 +3,7 @@
 	url = git@github.com:jasonsnider/CakePHP-Audit-Log-Plugin.git
 [submodule "Plugin/Seo"]
 	path = Plugin/Seo
-	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
+	url = git@github.com:jasonsnider/CakePHP-Seo-Plugin.git
 [submodule "Plugin/CalendarRecursion"]
 	path = Plugin/CalendarRecursion
 	url = git@github.com:ldimov/CakePHP-CalendarRecursion-Plugin.git
