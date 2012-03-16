@@ -1,30 +1,19 @@
 <?php
 /**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, Zubin Khavarian (http://zubink.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2012, Zubin Khavarian (http://zubink.com)
+ * @link http://zubink.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
 
-<?php
-//debug($picklistGrouped);
-//debug($picklistFlat);
-?>
+<?php echo $this->element('navigation'); ?>
 
-<h1>Picklist - Test</h1>
-
-<div class="">
-    <a href="/admin/picklists/index"
-       title="Index of all picklists">Index</a>
-</div>
+<h2>Picklist - Test</h2>
 
 <h3><u>Picklist Name</u>: <?php echo $picklist['Picklist']['name']; ?></h3>
 
