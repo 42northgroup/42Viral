@@ -3,7 +3,17 @@
 <?php 
 
     echo $this->Form->create(null, array('class'=>'conversation', 'url'=>$this->here)); 
-    
+
+    echo $this->Form->inputs(array(
+            'legend'=>'Core',
+        
+            'debug.id'=>array('value'=>'debug', 'type'=>'hidden'),
+            'debug.value'=>array('label'=>'Security Level'),
+        
+            'Securitylevel.id'=>array('value'=>'Security.level', 'type'=>'hidden'),
+            'Securitylevel.value'=>array('label'=>'Security Level'),
+        ));
+
     echo $this->Form->inputs(array(
             'legend'=>'Google Analytics',
             'GooglesetAccount.id'=>array('value'=>'Google.setAccount', 'type'=>'hidden'),

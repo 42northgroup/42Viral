@@ -29,7 +29,7 @@
                 ));
 
         echo $this->Asset->buildAssets('js');
-        echo $this->Asset->buildAssets('css');
+        echo $this->Asset->buildAssets('css'); 
     ?>
 </head>
     <body>
@@ -38,7 +38,7 @@
             
             <?php echo $this->element('Blocks' . DS . 'header'); ?>
             
-            <?php echo $this->element('Blocks' . DS . 'banner'); ?>
+            <?php //echo $this->element('Blocks' . DS . 'banner'); ?>
 
             <div id="Main">
                 <div class="clearfix squeeze">

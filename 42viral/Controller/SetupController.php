@@ -115,7 +115,7 @@ App::uses('Handy', 'Lib');
             $this->_setupLog('setup_xml_database');
             
             if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/xml_core');
+                $this->redirect('/setup/xml_hash');
             }
                       
         }
@@ -211,7 +211,7 @@ App::uses('Handy', 'Lib');
                 $this->Session->setFlash(__("Changes Saved"), 'success');
 
                 if($this->data['Control']['next_step'] == 1) {
-                    $this->redirect('/setup/xml_core');
+                    $this->redirect('/setup/xml_hash');
                 }
             } else {
                 $testConn = ($conStatus['test'])? '': '[TEST]';
@@ -315,33 +315,7 @@ App::uses('Handy', 'Lib');
     {
         $this->set('completed', $this->_fetchLogs());
     }
-    
-    /**
-     * Provides a UI for setting up the database
-     * @return void
-     * @access public
-     */
-    public function xml_core()
-    { 
-        $file = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Xml' . DS . 'core.xml';
-        
-        if(!empty($this->data)){
-            Parser::data2XML($this->data, $file);
-            $this->Session->setFlash(__("Changes Saved"), 'success');
-            
-            $this->_setupLog('setup_xml_core');
-            
-            if($this->data['Control']['next_step'] == 1){
-                $this->redirect('/setup/xml_hash');
-            }             
-        }
-        
-        //Read the current xml file to prepopulate the form
-        $xmlData = Xml::toArray(Xml::build($file));
-        $this->set('xmlData', $xmlData);
-        $this->set('title_for_layout', 'Configuration Manager (Core)');
-    }
-    
+
     /**
      * Provides a UI for setting up the database
      * @return void
