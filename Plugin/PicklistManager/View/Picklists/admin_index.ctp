@@ -1,29 +1,19 @@
 <?php
 /**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, Zubin Khavarian (http://zubink.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2012, Zubin Khavarian (http://zubink.com)
+ * @link http://zubink.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-    $additonal = array(
-        array(
-            'text'=>"Create",
-            'url'=>'/admin/picklists/create',
-            'options' => array('title'=>"Create a new picklist"),
-            'confirm'=>null
-        )
-    );
-    
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'picklists', 'additional' => $additonal));
 ?>
+
+<?php echo $this->element('navigation'); ?>
+
+<h2>Picklist - Index</h2>
 
 <?php if(!empty($picklists)): ?>
 
@@ -39,7 +29,7 @@
             <?php foreach($picklists as $tempPicklist): ?>
                 <tr class="top">
                     <td>
-                        <a href="/admin/picklists/view/<?php echo $tempPicklist['Picklist']['id']; ?>"
+                        <a href="/admin/picklist_manager/picklists/view/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="View picklist">
                             <?php echo $tempPicklist['Picklist']['name']; ?>
                         </a>
@@ -55,14 +45,14 @@
                 </tr>
                 <tr class="bottom">
                     <td colspan="3">
-                        <a href="/admin/picklists/delete/<?php echo $tempPicklist['Picklist']['id']; ?>"
+                        <a href="/admin/picklist_manager/picklists/delete/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="Delete picklist"
                            class="delete-confirm">Delete</a>
                         /
-                        <a href="/admin/picklists/edit/<?php echo $tempPicklist['Picklist']['id']; ?>"
+                        <a href="/admin/picklist_manager/picklists/edit/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="Edit picklist">Edit</a>
                         /
-                        <a href="/admin/picklists/test/<?php echo $tempPicklist['Picklist']['id']; ?>"
+                        <a href="/admin/picklist_manager/picklists/test/<?php echo $tempPicklist['Picklist']['id']; ?>"
                            title="Test picklist HTML in grouped and flat versions">Test</a>
                         
                     </td>
@@ -74,7 +64,7 @@
 <?php else: ?>
 
     <h3>No picklists created 
-    <a href="/admin/picklists/create"
+    <a href="/admin/picklist_manager/picklists/create"
        title="Create a new picklist">Create one</a></h3>
 
 <?php endif; ?>

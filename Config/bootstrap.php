@@ -65,10 +65,11 @@ Cache::config('default', array('engine' => 'File'));
  */
 
 CakePlugin::loadAll(array(
-            'ContentFilters'=>array('bootstrap' => true),
-            'PluginConfiguration'=>array('bootstrap' => true),
-            'Seo'=>array('bootstrap' => true)
-        ));
+    'ContentFilters' => array('bootstrap' => true),
+    'PluginConfiguration' => array('bootstrap' => true),
+    'Seo' => array('bootstrap' => true),
+    'PicklistManager' => array('bootstrap' => true)
+));
 
 App::build(array(
     

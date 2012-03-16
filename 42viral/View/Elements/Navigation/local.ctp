@@ -70,20 +70,6 @@ switch($section){
         );
     break;
 
-    case 'picklists':
-        $menu = array(
-            'Items'=>array(
-                array(
-                    'text'=>'Picklists',
-                    'url'=>'/admin/picklists/index',
-                    'options' => array(),
-                    'confirm'=>null
-                )             
-            )
-
-        );
-    break;
-
     case 'members':
         $menu = array(
             'Items'=>array(

@@ -1,26 +1,25 @@
 <?php
-
 /**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, Zubin Khavarian (http://zubink.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2012, Zubin Khavarian (http://zubink.com)
+ * @link http://zubink.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('AppController', 'Controller');
 
 /**
  * Picklist controller to manage creation and manipulation of picklists and picklist options
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @package Plugin.PicklistManager
+ * @subpackage Plugin.PicklistManager.Controller
+ * @author Zubin Khavarian
  */
- class PicklistsController extends AppController
+class PicklistsController extends PicklistManagerAppController
 {
 
     /**
@@ -33,7 +32,8 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $uses = array('Picklist', 'PicklistOption');
+    public $uses = array('PicklistManager.Picklist', 'PicklistManager.PicklistOption');
+    //public $uses = array('PicklistOption');
 
     
     /**
@@ -75,7 +75,7 @@ App::uses('AppController', 'Controller');
                 $this->Session->setFlash('There was a problem saving the picklist', 'error');
             }
 
-            $this->redirect('/admin/picklists/index');
+            $this->redirect('/admin/picklist_manager/picklists/index');
 
         }
         
@@ -101,7 +101,7 @@ App::uses('AppController', 'Controller');
                 $this->Session->setFlash('There was a problem updating picklist', 'error');
             }
 
-            $this->redirect('/admin/picklists/index');
+            $this->redirect('/admin/picklist_manager/picklists/index');
 
         } else {
             $picklist = $this->Picklist->fetchPicklist($picklistId);
@@ -142,7 +142,7 @@ App::uses('AppController', 'Controller');
             $this->Session->setFlash('There was a problem deleting the picklist', 'error');
         }
 
-        $this->redirect('/admin/picklists/index');
+        $this->redirect('/admin/picklist_manager/picklists/index');
     }
 
 
@@ -163,7 +163,7 @@ App::uses('AppController', 'Controller');
                 $this->Session->setFlash('There was a problem saving the picklist option', 'error');
             }
 
-            $this->redirect('/admin/picklists/view/' . $picklistId);
+            $this->redirect('/admin/picklist_manager/picklists/view/' . $picklistId);
         }
 
         $this->set('picklist_id', $picklistId);
@@ -192,7 +192,7 @@ App::uses('AppController', 'Controller');
             $picklistOption = $this->PicklistOption->fetchPicklistOption($picklistOptionId);
             $picklistId = $picklistOption['PicklistOption']['picklist_id'];
 
-            $this->redirect("/admin/picklists/view/{$picklistId}");
+            $this->redirect("/admin/picklist_manager/picklists/view/{$picklistId}");
         }
 
         $picklistOption = $this->PicklistOption->fetchPicklistOption($picklistOptionId);
@@ -226,7 +226,7 @@ App::uses('AppController', 'Controller');
             $this->Session->setFlash('There was a problem deleting the picklist option', 'error');
         }
 
-        $this->redirect('/admin/picklists/view/' . $picklistId);
+        $this->redirect('/admin/picklist_manager/picklists/view/' . $picklistId);
     }
 
 

@@ -246,6 +246,21 @@ Configure::write('Yelp', array(
 ));
 
 /**
+ * Google+
+ */
+Configure::write('GooglePlus', array(
+    ## 'consumer_key' => '',
+    ## 'consumer_secret' =>'',
+    ## 'token' => '',
+    ## 'token_secret => ''
+    'Schema' => array(
+        'consumer_key' => array(),
+        'consumer_secret' => array(),
+        'token' => array()
+    )
+));
+
+/**
  * Yahoo
  */
 Configure::write('Yahoo.LocalSearch.app_id', '');

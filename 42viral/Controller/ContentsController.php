@@ -40,7 +40,7 @@ App::uses('Member', 'Lib');
         'Oauth', 
         'Page', 
         'Person', 
-        'Picklist', 
+        'PicklistManager.Picklist',
         'Post'
     );
     

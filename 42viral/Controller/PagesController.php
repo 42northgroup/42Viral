@@ -30,7 +30,7 @@ App::uses('AppController', 'Controller');
      */
     public $uses = array(
         'Page',
-        'Picklist'
+        'PicklistManager.Picklist'
     );
 
 

@@ -1,41 +1,19 @@
 <?php
 /**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, Zubin Khavarian (http://zubink.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2012, Zubin Khavarian (http://zubink.com)
+ * @link http://zubink.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-    $additonal = array(
-        array(
-            'text'=>"Edit",
-            'url'=>$picklist['Picklist']['edit_url'],
-            'options' => array('title'=>"Edit a this picklist"),
-            'confirm'=>null
-        ),
-        array(
-            'text'=>"Delete",
-            'url'=>$picklist['Picklist']['delete_url'],
-            'options' => array('title'=>"Delete a this picklist"),
-            'confirm'=>null
-        ),
-        array(
-            'text'=>"Test",
-            'url'=>"/admin/picklists/test/{$picklist['Picklist']['id']}",
-            'options' => array('title'=>"Test a picklist"),
-            'confirm'=>null
-        ),       
-    );
-    
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'picklists', 'additional' => $additonal));
 ?>
+
+<?php echo $this->element('navigation'); ?>
+
+<h2>Picklist - View</h2>
 
 <table>
     <tbody>
@@ -83,7 +61,7 @@
 
 <div>
     <h2 style="display: inline-block;">Picklist Options</h2>
-    <a href="/admin/picklists/add_option/<?php echo $picklist['Picklist']['id']; ?>"
+    <a href="/admin/picklist_manager/picklists/add_option/<?php echo $picklist['Picklist']['id']; ?>"
        title="Add new picklist option to this picklist">Add picklist option</a>
 </div>
 
@@ -112,7 +90,7 @@
                             <td><?php echo $tempPicklistOption['group']; ?></td>
 
                             <td>
-                                <a href="/admin/picklists/edit_option/<?php echo $tempPicklistOption['id']; ?>"
+                                <a href="/admin/picklist_manager/picklists/edit_option/<?php echo $tempPicklistOption['id']; ?>"
                                    title="Edit picklist option">
                                    <?php echo $tempPicklistOption['pl_key']; ?>
                                 </a>
@@ -123,10 +101,12 @@
                             <td><?php echo ($tempPicklistOption['active'])? 'Yes': 'No'; ?></td>
 
                             <td>
-                                <a href="/admin/picklists/edit_option/<?php echo $tempPicklistOption['id']; ?>"
+                                <a href="/admin/picklist_manager/picklists/edit_option/<?php
+                                    echo $tempPicklistOption['id']; ?>"
                                    title="Edit picklist option">Edit</a>
                                 /
-                                <a href="/admin/picklists/delete_option/<?php echo $tempPicklistOption['id']; ?>"
+                                <a href="/admin/picklist_manager/picklists/delete_option/<?php
+                                    echo $tempPicklistOption['id']; ?>"
                                    title="Delete picklist option"
                                    class="delete-confirm">Delete</a>
                             </td>
@@ -138,7 +118,7 @@
     <?php else: ?>
         <div style="text-align: center;">
             <h3>No picklist options created</h3>
-            <a href="/admin/picklists/add_option/<?php echo $picklist['Picklist']['id']; ?>"
+            <a href="/admin/picklist_manager/picklists/add_option/<?php echo $picklist['Picklist']['id']; ?>"
                title="Add new picklist option to this picklist">Add picklist option</a>
         </div>
     <?php endif; ?>

@@ -38,7 +38,7 @@
             
             <?php echo $this->element('Blocks' . DS . 'header'); ?>
             
-            <?php //echo $this->element('Blocks' . DS . 'banner'); ?>
+            <?php echo $this->element('Blocks' . DS . 'banner'); ?>
 
             <div id="Main">
                 <div class="clearfix squeeze">

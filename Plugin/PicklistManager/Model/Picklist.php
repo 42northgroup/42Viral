@@ -1,29 +1,25 @@
 <?php
 /**
- * PHP 5.3
- *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, Zubin Khavarian (http://zubink.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
- * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright Copyright 2012, Zubin Khavarian (http://zubink.com)
+ * @link http://zubink.com
+ * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 App::uses('AppModel', 'Model');
 
 /**
- * Deals with picklist generation and fetching operations
+ * Picklist model class which deals with picklist generation and fetching operations
  *
- * @package app
- * @subpackage app.core
- *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @package Plugin.PicklistManager
+ * @subpackage Plugin.PicklistManager.Model
+ * @author Zubin Khavarian
  */
-class Picklist extends AppModel
+class Picklist extends PicklistManagerAppModel
 {
     /**
      * @var string

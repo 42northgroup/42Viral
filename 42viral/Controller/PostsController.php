@@ -20,7 +20,7 @@ class PostsController extends AppController {
         'Conversation', 
         'Post', 
         'Person', 
-        'Picklist',
+        'PicklistManager.Picklist',
         'Profile'
     );
     

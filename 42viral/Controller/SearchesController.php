@@ -29,7 +29,7 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $uses = array('Content', 'Page', 'Picklist', 'Tags.Tagged');
+    public $uses = array('Content', 'Page', 'PicklistManager.Picklist', 'Tags.Tagged');
     
     /**
      * Works with the searchable behavior
