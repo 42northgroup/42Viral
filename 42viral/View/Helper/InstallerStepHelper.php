@@ -58,10 +58,12 @@ class InstallerStepHelper extends AppHelper
             ),
             */
 
+            /*
             'setup_xml_hash' => array(
                 'setup_shell'
             ),
-
+            */
+            
             /*
             'setup_xml_third_party' => array(
                 'setup_shell'
