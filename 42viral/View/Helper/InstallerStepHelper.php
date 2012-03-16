@@ -81,7 +81,9 @@ class InstallerStepHelper extends AppHelper
             'setup_import' => array(
                 'setup_shell'
             ),
-
+            'setup_initial_configuration' => array(
+                'setup_import'
+            ),
             'setup_configure_root' => array(
                 'setup_shell'
             )
@@ -133,7 +135,7 @@ class InstallerStepHelper extends AppHelper
             
             
             array(
-                'number' => 4,
+                'number' => 3,
                 'key' => 'setup_xml_hash',
                 'label' => 'Configure hashes',
                 'action' => '/setup/xml_hash',
@@ -167,7 +169,7 @@ class InstallerStepHelper extends AppHelper
             */
             
             array(
-                'number' => 5,
+                'number' => 4,
                 'key' => 'setup_process',
                 'label' => 'Build configuration files',
                 'action' => '/setup/process',
@@ -178,7 +180,7 @@ class InstallerStepHelper extends AppHelper
             ),
 
             array(
-                'number' => 6,
+                'number' => 5,
                 'key' => 'setup_build_database',
                 'label' => 'Build the database',
                 'action' => '/setup/build_database',
@@ -188,7 +190,7 @@ class InstallerStepHelper extends AppHelper
             ),
 
             array(
-                'number' => 7,
+                'number' => 6,
                 'key' => 'setup_import',
                 'label' => 'Import core data',
                 'action' => '/setup/import',
@@ -196,7 +198,16 @@ class InstallerStepHelper extends AppHelper
                 'dependency' => $this->__dependencyList['setup_import'],
                 'completed' => false
             ),
-            
+
+            array(
+                'number' => 7,
+                'key' => 'setup_initial_configuration',
+                'label' => 'Initial application configuration',
+                'action' => '/configuration.php',
+                'status' => 'setup_initial_configuration',
+                'dependency' => $this->__dependencyList['setup_initial_configuration'],
+                'completed' => false
+            ),
             array(
                 'number' => 8,
                 'key' => 'setup_configure_root',
@@ -265,13 +276,14 @@ class InstallerStepHelper extends AppHelper
             'setup_shell',
             //'setup_xml_database',
             'setup_database_config',
-            'setup_xml_core',
+            //'setup_xml_core',
             'setup_xml_hash',
             //'setup_xml_site',
             //'setup_xml_third_party',
             'setup_process',
             'setup_build_database',
             'setup_import',
+            'setup_intial_configuration',
             'setup_configure_root'
         );
 
