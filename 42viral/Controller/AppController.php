@@ -88,11 +88,12 @@ class AppController extends Controller
         $this->theme = Configure::read('Theme.set');
 
         //Fetch the unread message count for current user's message inbox
-        $this->loadModel('InboxMessage');
-        $userId = $this->Session->read('Auth.User.id');
-        $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
-        $this->set('unread_message_count', $unreadMessageCount);
-
+        if(!is_null($this->Session->read('Auth.User'))) {
+            $this->loadModel('InboxMessage');
+            $userId = $this->Session->read('Auth.User.id');
+            $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
+            $this->set('unread_message_count', $unreadMessageCount);
+        }
     }
     
     /**

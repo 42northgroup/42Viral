@@ -22,7 +22,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian <zubin.khavarian@42viral.com>
  */
 class InboxMessage extends AppModel
 {
@@ -57,7 +57,6 @@ class InboxMessage extends AppModel
 /**
  * Verify if the passed notification object matches the requirements for being placed in the inbox message
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param array $notification
  * @return boolean
@@ -73,7 +72,6 @@ class InboxMessage extends AppModel
 /**
  * Add a generated notification to a given person's message inbox
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $personId
  * @param array $notification
@@ -102,7 +100,6 @@ class InboxMessage extends AppModel
 /**
  * Fetch all inbox messages (unarchived and undeleted) of a given user
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $userId
  * @return array
@@ -130,7 +127,6 @@ class InboxMessage extends AppModel
 /**
  * Fetch all messages (including archived) of a given user
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $userId
  * @return array
@@ -142,7 +138,11 @@ class InboxMessage extends AppModel
 
             'conditions' => array(
                 'InboxMessage.owner_person_id' => $userId,
-                'InboxMessage.deleted' => false
+
+                'OR' => array(
+                    'InboxMessage.deleted' => false,
+                    'InboxMessage.deleted IS NULL',
+                )
             ),
 
             'order' => array(
@@ -157,7 +157,6 @@ class InboxMessage extends AppModel
 /**
  * Fetch a single message given the message id
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * @return InboxMessage
@@ -181,7 +180,6 @@ class InboxMessage extends AppModel
  * Verify if a given message really belongs to a given person id
  * (to prevent accidental viewing of someone else's messages by only supplying a message id)
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * @param string $checkAgainstOwnerId
@@ -211,7 +209,6 @@ class InboxMessage extends AppModel
 /**
  * Mark a given message as unread
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  *
@@ -233,7 +230,6 @@ class InboxMessage extends AppModel
 /**
  * Mark a given message as read
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * 
@@ -255,7 +251,6 @@ class InboxMessage extends AppModel
 /**
  * Mark a given message as archived
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * @return boolean
@@ -277,7 +272,6 @@ class InboxMessage extends AppModel
 /**
  * Mark a given message as unarchived
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * @return boolean
@@ -299,7 +293,6 @@ class InboxMessage extends AppModel
 /**
  * Mark a given message as deleted (soft delete)
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $messageId
  * @return boolean
@@ -321,7 +314,6 @@ class InboxMessage extends AppModel
 /**
  * Returns a given person's count of unread inbox notifications
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
  * @access public
  * @param string $personId
  * @return integer
@@ -332,6 +324,7 @@ class InboxMessage extends AppModel
             'contain' => array(),
 
             'conditions' => array(
+                'InboxMessage.owner_person_id' => $personId,
                 'InboxMessage.read' => false
             )
         ));
