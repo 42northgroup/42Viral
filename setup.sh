@@ -1,6 +1,12 @@
 #!/bin/bash
 # Sets write paths and default config files
 
+# git submodule init && git submodule update
+
+# cd Plugin/ContentFilters && git submodule init && git submodule update && cd ../../
+
+# cd Plugin/Imagine && git submodule init && git submodule update && cd ../../
+
 # Absolute path to this script, e.g. /var/www/htdocs/app/setup.sh
 SCRIPT=`readlink -f $0`
 
