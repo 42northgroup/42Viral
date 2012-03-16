@@ -9,7 +9,7 @@
 	url = git@github.com:microtrain/search.git
 [submodule "Plugin/CalendarRecursion"]
 	path = Plugin/CalendarRecursion
-	url = git@github.com:lidimov/CakePHP-CalendarRecursion-Plugin.git
+	url = git@github.com:ldimov/CakePHP-CalendarRecursion-Plugin.git
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
 	url = git@github.com:microtrain/tags.git
