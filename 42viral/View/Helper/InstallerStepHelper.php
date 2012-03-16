@@ -283,7 +283,7 @@ class InstallerStepHelper extends AppHelper
             'setup_process',
             'setup_build_database',
             'setup_import',
-            'setup_intial_configuration',
+            'setup_initial_configuration',
             'setup_configure_root'
         );
 
