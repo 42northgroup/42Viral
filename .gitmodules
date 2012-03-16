@@ -6,7 +6,7 @@
 	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
 [submodule "Plugin/Search"]
 	path = Plugin/Search
-	url = git@github.com:microtrain/search.git
+	url = git@github.com:ldimov/search.git
 [submodule "Plugin/CalendarRecursion"]
 	path = Plugin/CalendarRecursion
 	url = git@github.com:microtrain/CakePHP-CalendarRecursion-Plugin.git
@@ -21,7 +21,7 @@
 	url = git@github.com:microtrain/migrations.git
 [submodule "Plugin/ContentFilters"]
 	path = Plugin/ContentFilters
-	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
+	url = git@github.com:jasonsnider/CakePHP-ContentFilters-Plugin.git
 [submodule "Imagine"]
 	path = Imagine
 	url = git@github.com:microtrain/Imagine.git
