@@ -112,6 +112,13 @@ class DATABASE_CONFIG {
      * @var type 
      * @access public
      */
+    public $google_plus = array();
+    
+    /**
+     * 
+     * @var type 
+     * @access public
+     */
     public $yelp = array();
     
     /**
@@ -166,6 +173,13 @@ class DATABASE_CONFIG {
             'consumer_key' => Configure::read('Facebook.consumer_key'),
             'consumer_secret' => Configure::read('Facebook.consumer_secret'),
             'callback' => Configure::read('Facebook.callback')
+        );
+        
+        $this->google_plus = array(
+            'datasource' => 'Connect.GooglePlusSource',
+            'consumer_key' => Configure::read('GooglePlus.consumer_key'),
+            'consumer_secret' => Configure::read('GooglePlus.consumer_secret'),
+            'callback' => Configure::read('GooglePlus.callback')
         );
         
         $this->yelp = array(

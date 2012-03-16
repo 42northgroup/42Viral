@@ -36,7 +36,8 @@ App::uses('Member', 'Lib');
     public $uses = array(
         'Conect.Facebook', 
         'Conect.Linkedin', 
-        'Connect.Tweet', 
+        'Connect.Tweet',
+        'Connect.GooglePlus',
         'Image', 
         'Oauth', 
         'Person', 
@@ -174,6 +175,14 @@ App::uses('Member', 'Lib');
                     }
                     
                     break;
+                    
+                case 'google_plus':
+                    if( !$this->Oauths->check_session_for_token('google_plus', $redirect_url) ){
+                        
+                        $this->redirect('/oauth/google_connect/');
+                    }
+                    
+                    break;
             }
         }
         
@@ -213,7 +222,7 @@ App::uses('Member', 'Lib');
                                 'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
                             ),
                             'limit' => 5
-                        )));                        
+                        )));    
                     }catch(Exception $e){
                         
                         $statuses['connection']['LinkedIn'] = false;
@@ -235,11 +244,28 @@ App::uses('Member', 'Lib');
                     }
                     
                     break;
+                
+                case 'google_plus':
+
+                    try{
+                        
+                        $statuses['posts'] = array_merge($statuses['posts'], $this->GooglePlus->find('all', array(
+                            'conditions' => array(
+                                'username' => $media['Oauth']['oauth_id'],
+                                'oauth_token' => $this->Session->read('GooglePlus.oauth_token')
+                            ),
+                            'limit' => 5
+                        )));
+                    }catch (Exception $e){
+                        
+                        $statuses['connection']['GooglePlus'] = false;
+                    }
+                    
+                    break;
                             
             }
         }
         
-                
         for($x = 0; $x < count($statuses['posts']); $x++) {
           for($y = 0; $y < count($statuses['posts']); $y++) {
             if($statuses['posts'][$x]['time'] > $statuses['posts'][$y]['time']) {

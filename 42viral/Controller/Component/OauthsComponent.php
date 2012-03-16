@@ -34,6 +34,7 @@ class OauthsComponent  extends Component
         $this->Tweet = new Tweet();
         $this->Linkedin = new Linkedin();
         $this->Facebook = new Facebook();
+        //$this->GooglePlus = new GooglePlus();
         $this->Controller = new Controller();
     }
     
@@ -57,6 +58,26 @@ class OauthsComponent  extends Component
                     //$this->Controller->redirect('/oauth/facebook_connect/');
                     return false;
                 }
+                
+                break;
+                
+            case 'google_plus':
+                $expired = false;
+                $token_expires = $this->Session->read('GooglePlus.oauth_expires');
+                $token_created = $this->Session->read('GooglePlus.oauth_created');
+                
+                if( ($token_created + $token_expires) <= strtotime('now') ){
+                    $expired = true;
+                }
+
+                if( $this->Session->check('GooglePlus.oauth_token') && ($expired == false) ){
+
+                    return true;
+                }else{                    
+                    
+                    $this->Session->write('Auth.redirect', '/'.$redirect_url);                    
+                    return false;
+                }                
                 
                 break;
                 

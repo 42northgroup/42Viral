@@ -315,7 +315,7 @@ App::uses('HttpSocket', 'Network/Http');
         
     } 
     
-        /**
+    /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
      * @return void
      * @access public
@@ -334,12 +334,12 @@ App::uses('HttpSocket', 'Network/Http');
 
 
     /**
-     * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
+     * The Facebook callback page. Takes the Facebook results and writes them to a session.
      * @return void
      * @access public
      */
     public function facebook_callback($get_token = null)
-    {
+    { 
         
         $request = array(
             'uri' => array(
@@ -359,7 +359,7 @@ App::uses('HttpSocket', 'Network/Http');
         $response = $this->HttpSocketOauth->request($request);
         $params = null;
         parse_str($response, $params);
-
+        
         $request1 = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -400,6 +400,102 @@ App::uses('HttpSocket', 'Network/Http');
             $this->__auth($oauthUserId, $response, 'Facebook');
         }
 
+    }
+    
+    /**
+     * The Google connect page. Authorizes "this" application against a users Google account
+     * @return void
+     * @access public
+     */
+    public function google_connect()
+    {
+        $this->redirect("https://accounts.google.com/o/oauth2/auth?".
+                            "scope=".urlencode('https://www.googleapis.com/auth/plus.me')."&".
+                            "state=%2Fprofile&".
+                            "redirect_uri=".  urlencode(Configure::read('GooglePlus.callback'))."&".
+               "response_type=code&client_id=".Configure::read('GooglePlus.consumer_key'));
+        
+    }
+    
+    /**
+     * The Google callback page. Takes the Google results and writes them to a session.
+     * @return void
+     * @access public
+     */
+    public function google_callback($get_token = null)
+    {
+        $request = array(
+            'uri' => array(
+                'scheme' => 'https',
+                'host' => 'accounts.google.com',
+                'path' => '/o/oauth2/token'
+            ),
+            'method' => 'POST',
+            'body' => array(
+                'code' => $this->params['url']['code'],
+                'client_id' => Configure::read('GooglePlus.consumer_key'),
+                'client_secret' => Configure::read('GooglePlus.consumer_secret'),
+                'redirect_uri' => Configure::read('GooglePlus.callback'),
+                'grant_type' => 'authorization_code'
+            ),
+            'header' => array(
+                'Content-Type' => 'application/x-www-form-urlencoded',
+                'Content-Length'
+            )
+        );
+        
+        $response = $this->HttpSocketOauth->request($request);
+        
+        $params = null;
+        $params = json_decode($response);
+        
+        $this->Session->write('GooglePlus.oauth_token', $params->access_token);
+        $this->Session->write('GooglePlus.oauth_expires', $params->expires_in);
+        $this->Session->write('GooglePlus.oauth_created', strtotime('now'));
+        
+        $request1 = array(
+            'uri' => array(
+                'scheme' => 'https',
+                'host' => 'www.googleapis.com',
+                'path' => '/plus/v1/people/me'
+            ),
+            'method' => 'GET',
+            'query' => array(
+                'key' => Configure::read('GooglePlus.consumer_key'),
+                'alt' => 'json',
+            ), 
+            'header' => array(
+                'Authorization' => 'OAuth '.$params->access_token
+            )
+        );
+        
+        $response1 = $this->HttpSocketOauth->request($request1);
+                      
+        $user = json_decode($response1->body);
+        
+        if($this->Session->check('Auth.User.id')){
+
+            if($this->Oauth->doesOauthExist('google_plus', $user->id, $this->Session->read('Auth.User.id'))){
+
+                $this->Aro->deleteAll(array('Aro.alias' => 'google_plus_'.$user->id));
+                $this->Session->setFlash('You have been authenticated', 'success');
+                $this->redirect($this->Auth->redirect());
+            }else{
+
+                $oauthUserId = $this->Oauth->oauthed('google_plus',
+                                                    $user->id,
+                                                    $params->access_token,
+                                                    $this->Session->read('Auth.User.id')
+                                                );
+                $this->__auth($oauthUserId, $response1, 'GooglePlus');
+            }
+
+        }else{
+
+            $oauthUserId = $this->Oauth->oauthed('google_plus', $user->id, $params->access_token);
+            $this->__auth($oauthUserId, $response1, 'GooglePlus');
+        }
+        
     }
     
     public function post_and_retrieve_statuses()
