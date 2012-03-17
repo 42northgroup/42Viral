@@ -26,3 +26,6 @@
 [submodule "Plugin/PicklistManager"]
 	path = Plugin/PicklistManager
 	url = https://github.com/microtrain/CakePHP-PicklistManager-Plugin.git
+[submodule "Plugin/Connect"]
+	path = Plugin/Connect
+	url = git@github.com:microtrain/CakePHP-Connect-Plugin.git
