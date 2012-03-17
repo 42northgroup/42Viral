@@ -104,23 +104,11 @@ __app is highly recommended, by default CakePHP will always look for the app dir
 
     cd /[path/to/your-site.com/htdocs]/app
 
-    ## Clone the project
+## Clone the project
+
     git clone git@github.com:microtrain/42Viral.git app
-    cd httpdocs
-
-    ## Pull the submodules
-    git submodule init
-    git submodule update
-
-    ## Pull htmlpurifier into the ContentFilter submodule
-    cd Plugin/ContentFilters
-    git submodule init
-    git submodule update
-
-    ## Pull imagine into the Imagine submodule
-    cd app/Plugin/Imagine
-    git submodule init
-    git submodule update
+    cd app
+    git submodule update --recursive --init
 
 From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to 
 access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
