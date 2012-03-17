@@ -26,3 +26,6 @@
 [submodule "Plugin/Search"]
 	path = Plugin/Search
 	url = git@github.com:microtrain/search.git
+[submodule "Plugin/PicklistManager"]
+	path = Plugin/PicklistManager
+	url = https://github.com/microtrain/CakePHP-PicklistManager-Plugin.git
