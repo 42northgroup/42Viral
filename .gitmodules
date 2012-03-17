@@ -1,1 +1,28 @@
 
+[submodule "Plugin/AuditLog"]
+	path = Plugin/AuditLog
+	url = git@github.com:microtrain/CakePHP-Audit-Log-Plugin.git
+[submodule "Plugin/Seo"]
+	path = Plugin/Seo
+	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
+[submodule "Plugin/CalendarRecursion"]
+	path = Plugin/CalendarRecursion
+	url = git@github.com:microtrain/CakePHP-CalendarRecursion-Plugin.git
+[submodule "Plugin/Tags"]
+	path = Plugin/Tags
+	url = git@github.com:microtrain/tags.git
+[submodule "Plugin/Migrations"]
+	path = Plugin/Migrations
+	url = git@github.com:microtrain/migrations.git
+[submodule "Plugin/ContentFilters"]
+	path = Plugin/ContentFilters
+	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
+[submodule "Plugin/Connect"]
+	path = Plugin/Connect
+	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
+[submodule "Plugin/PluginConfiguration"]
+	path = Plugin/PluginConfiguration
+	url = git@github.com:microtrain/CakePHP-PluginConfiguration-Plugin.git
+[submodule "Plugin/Search"]
+	path = Plugin/Search
+	url = git@github.com:microtrain/search.git
