@@ -17,9 +17,6 @@
 [submodule "Plugin/ContentFilters"]
 	path = Plugin/ContentFilters
 	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
-[submodule "Plugin/Connect"]
-	path = Plugin/Connect
-	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
 [submodule "Plugin/PluginConfiguration"]
 	path = Plugin/PluginConfiguration
 	url = git@github.com:microtrain/CakePHP-PluginConfiguration-Plugin.git
