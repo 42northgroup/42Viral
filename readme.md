@@ -104,7 +104,7 @@ __app is highly recommended, by default CakePHP will always look for the app dir
 
     cd /[path/to/your-site.com/htdocs]/app
 
-## Clone the project
+#### Clone the project
 
     git clone git@github.com:microtrain/42Viral.git app
     cd app
