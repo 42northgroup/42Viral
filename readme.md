@@ -75,9 +75,11 @@ losing the ability to manage the data.
 
 _As we are still in alpha development, these install instructions are written for core development_
 
-Currently, installation is written for Ubuntu Linux. Installation on other Linux distros is pretty similar; typically 
-this is a case of dropping sudo in favor using a root shell. For non-Debian derivatives you would replace apt-get 
-accordingly. For Red Hat derivatives apt-get would likely be replaced with yum.
+Currently, installation is written for Apache2 on Ubuntu Linux.  
+
+### Git based install
+
+#### Add the CakePHP library
 
 I recommend the advanced install options from the CakePHP Cookbook
 
@@ -85,26 +87,24 @@ add the following to you php.ini file __Be sure to update this for both your ser
 
     include_path = '.:/usr/share/php:/usr/share/cakephp-2.0/lib'
 
-### Git based install (Core Development)
-
-Create the CakePHP library 
+Install CakePHP in the usr/share directory
 
     cd /usr/share
     sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 
-
+    
 Replace 
 
-- example.com with the name of your site
-
-- /var/www/vhosts/ with your server path
-
-- httpdocs with whatever you want to call it
+* example.com with the name of your site
+* /var/www/vhosts/ with your server path
+* httpdocs with whatever you want to call it
 
 __app is highly recommended, by default CakePHP will always look for the app directory__
 
-    cd /[path/to/your-site.com/htdocs]/app
+    cd /[path/to/your-site.com/httpdocs]/app
 
 #### Clone the project
+
+Assuming your installing the 42viral application into a directory called app
 
     git clone git@github.com:microtrain/42Viral.git app
     cd app
@@ -114,11 +114,11 @@ From a command line, navigate to your app directory and gain root access. (Requi
 access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
 have write access to the app directory (this is probably your username).
 
-    sudo ./setup.sh www-data jasonsnider 
+    sudo ./setup.sh [www-data] [production] 
 
 Open a web browser and navigate to the first run wizard.
 
-    https://www.example.com/setup
+    https://www.example.com/install.php
 
 Now we will want to build out database. Navigate to app/Console and run the schema command, but first make sure the Cake
 console is writable.
