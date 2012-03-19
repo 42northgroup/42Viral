@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<phpdoc>
+    <parser>
+        <target>webroot/docs/api</target>
+    </parser>
+    <transformer>
+        <target>webroot/docs/api</target>
+    </transformer>
+    <files>
+        <directory>.</directory>
+        <ignore>webroot/vendors/ckeditor/*</ignore>
+        <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
+    </files>
+    <external-class-documentation>
+        <prefix>HTML_QuickForm2</prefix>
+        <uri>http://htmlpurifier.org/doxygen/html/</uri>
+    </external-class-documentation>  
+</phpdoc>
+
