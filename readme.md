@@ -50,6 +50,7 @@ authors
 * Twitter
 * LinkedIn
 * Facebook
+* Google+
 * Yahoo! Local
 * Yelp
 
