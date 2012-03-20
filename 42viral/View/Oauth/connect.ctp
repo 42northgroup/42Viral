@@ -70,5 +70,15 @@
             <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
         </div>
     </div>
+    
+    <div class="social-connect">
+        <div class="blurb">
+            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/google_plus_32.png'); ?>
+            Connect with Google+.
+        </div>
+        <div class="connect">
+            <?php echo $this->Html->link('', '/oauth/google_connect', array('class'=>'oauth-button google-plus')); ?>
+        </div>
+    </div>
 
 </div>
