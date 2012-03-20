@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
  
-echo $this->Html->link('', "javascript:alert('Comming Soon')", array('class'=>'oauth-button google-plus'));
+echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus'));
 echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin'));
 echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook'));
 echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter'));

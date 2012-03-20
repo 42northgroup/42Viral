@@ -60,7 +60,7 @@ class PersonDetail extends AppModel
      * @var array
      * @access public
      */
-    public $hasOne = array(
+    public $belongsTo = array(
         'Person' => array(
             'className' => 'Person',
             'foreignKey' => 'person_id',
