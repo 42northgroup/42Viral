@@ -11,12 +11,42 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+@font-face {
+    font-family: 'Droid Sans';
+    src: url('/fonts/Droid_Sans/DroidSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
  
+@font-face {
+    font-family: 'Droid Sans Mono';
+    src: url('/fonts/Droid_Sans/DroidSansMono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Droid Serif';
+    src: url('/fonts/Droid_Sans/DroidSerif.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('/fonts/Inconsolata/Inconsolata.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+
 body {
-    font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 13px "Droid Sans Serif", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #444;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
+    line-height: 18px;
 }
 
 p, 
@@ -32,12 +62,15 @@ h5{
 input,
 textarea,
 select{ 
-    font: 14px/21px "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 13px "Droid Sans Serif", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #444;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
+    line-height: 18px;
 }
 
 label{
 	font-weight: bold;
 }
+
+

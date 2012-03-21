@@ -54,6 +54,9 @@
             
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/blogs/">Blogs</a></div>
+                    <div class="navigation"><a href="/members/">Members</a></div>
+                    <div class="navigation"><a href="/pages/">Pages</a></div>
                     <div class="navigation">
                         <?php 
                             $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
@@ -93,6 +96,9 @@
                 </div>
             <?php else: ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/blogs/">Blogs</a></div>
+                    <div class="navigation"><a href="/members/">Members</a></div>
+                    <div class="navigation"><a href="/pages/">Pages</a></div>
                     <div class="navigation"><?php echo $this->Html->link('New Account', '/users/create'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link('Login', '/users/login'); ?></div>
                 </div>

@@ -18,24 +18,17 @@ body{
  
 #Header{
     position:relative;
-    font-weight: bold;
-    line-height: 30px;
+    background-color: #2C2C2C;
+    background-image: linear-gradient(top, #333, #222);
+    background-repeat: repeat-x;
+    border-radius: 0px;
+    box-shadow: rgba(0, 0, 0, 0.246094) 0px 1px 3px 0px, rgba(0, 0, 0, 0.0976563) 0px -1px 0px 0px inset;
+    color: #fff;
+    display: block;
+    line-height: 18px;
+    padding: 11px 6px;
+    margin: 0px;
     
-    border: 1px solid #111;
-    background: #000;
-
-    color: #dedede;
-    text-shadow: 0 1px 1px black;
-    background-image: -webkit-gradient(linear, left top, left bottom, from( #333 ), to( #000 ));
-    background-image: -webkit-linear-gradient( #333 , #000 );
-    background-image: -moz-linear-gradient( #333 , #000 );
-    background-image: -ms-linear-gradient( #333 , #000 );
-    background-image: -o-linear-gradient( #333 , #000 );
-    background-image: linear-gradient( #333 , #000 );
-    
-    
-    margin: 0;
-    padding: 4px 4px 3px;
 }
 
 #Banner{
