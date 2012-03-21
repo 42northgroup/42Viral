@@ -209,6 +209,7 @@ class Oauth extends AppModel
                         $fields =  Set::extract($result, '/COLUMNS/Field');
                         $class_name = Inflector::classify($table);
 
+                        /*
                         if($class_name == 'Case'){
                             $class_name = 'CaseModel';
                         }
@@ -216,7 +217,7 @@ class Oauth extends AppModel
                         App::uses($class_name, 'Model');
                         
                         if(class_exists($class_name)){
-                            $loaded_table = new $class_name();
+                            $loaded_table = ClassRegistry::init($class_name);
                         }else{
                             
                             $pluginDirs = App::objects('plugin', null, false);
@@ -226,7 +227,7 @@ class Oauth extends AppModel
                                     App::import('Model', $pluginDir.'.'.$class_name);
                                     
                                     if(class_exists($class_name)){
-                                        $loaded_table = new $class_name();
+                                        $loaded_table = ClassRegistry::init($class_name);
                                     }else{
                                         echo 'class not found';
                                     }
@@ -236,22 +237,40 @@ class Oauth extends AppModel
                             }
                         }
                         
-
+                        if(!isset ($loaded_table)){
+                            $loaded_table = ClassRegistry::init($class_name);
+                        }
+                        
+                         * 
+                         */
+                        
                         foreach($fields as $field){
 
                             if(!(strpos($field, 'person_id') === false)){
+                                
+                                $query = "UPDATE {$table} SET $table.$field = '{$user_id}'
+                                            WHERE $table.$field LIKE '$oauth_person_id'";
+                                
+                                $this->query($query);
+                                
+                                $query = "";
 
+                                /*
                                 $loaded_table->updateAll(
                                         array($class_name. '.' .$field => "'$user_id'"),
                                         array($class_name. '.' .$field." LIKE '$oauth_person_id'")
                                     );
+                                 * 
+                                 */
                             }
                         }
+                        
                     }
 
                 }
 
-                $user = new User();
+                App::uses('User', 'Model');
+                $user = ClassRegistry::init('User');
                 $user->delete($oauth_person_id);
                 
             }

@@ -44,8 +44,8 @@ class Image extends Upload
         parent::beforeFind($queryData);
         
         $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
-        $imageFilter = array('Image.object_type' => 'img');
-        $queryData['conditions'] = array_merge($query['conditions'], $imageFilter);
+        $imageFilter = array('Image.object_type' => 'img');        
+        $queryData['conditions'] = array_merge($queryData['conditions'], $imageFilter);
 
         return $queryData;
     }

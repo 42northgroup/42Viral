@@ -83,7 +83,7 @@ class CaseModel extends AppModel
             'foreignKey' => 'model_id',
 
             'conditions' => array(
-                'model' => 'Person'
+                'CaseModel.model' => 'Person'
             ),
 
             'dependent' => true
