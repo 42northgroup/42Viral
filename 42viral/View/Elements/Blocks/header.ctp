@@ -3,7 +3,7 @@
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
@@ -13,154 +13,91 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
+<script type="text/javascript">
+    $(function(){
+        $("#NavigationTrigger, #MobileNavigationTrigger").click(function(){
+            $("#Navigation").toggle();
+        });
+       
+        $(function(){
+            $('#Navigation').delegate('.navigation','click',function(){
+                $(this).find('div.subnavigation:first').toggle();
+            });
+        }); 
+    });
+</script>
+
 <div id="Header">
-    <div class="clearfix squeeze">
-        <div id="HeaderLeft">
-            The 42Viral Project
-            <?php if($this->Session->check('Auth.User.id')): ?>
-                <?php 
-                    $googleAppsDomain = Configure::read('Google.Apps.domain');
-                    if(!empty($googleAppsDomain)):
-                        echo $this->Html->link('Google Apps', 'https://www.google.com/a/' 
-                                . Configure::read('Google.Apps.domain')); 
-                    endif;
-                ?>
-            <?php endif; ?>
+    <div class="clearfix">
+        <div id="LogoContainer">The 42Viral Project</div>
+        
+        <div id="MobileHeader" class="clearfix">
+            
+            <div class="logo-container">The 42Viral Project</div>
+            
+            <a id="MobileNavigationTrigger" class="btn btn-navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
+            
         </div>
-
-        <div id="HeaderContent"></div>
-
-        <div id="HeaderRight">      
-
+        
+        <div id="NavigationContainer">
+            <div id="NavigationHeader">
+                <a id="NavigationTrigger" class="btn btn-navbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </a>
+            </div>
+            
             <?php if($this->Session->check('Auth.User.id')): ?>
-                <div style="position:relative; float:left; padding:0 6px;">
-                    <?php 
-                        if($unread_message_count > 0) {
-
-                            $inbox = $this->Html->link(
-                                $this->Html->image('graphics/icons/solid-white/16/envolope.png').
-                                '(' . $unread_message_count . ')',
-                                '/inbox_message/',
-                                array(
-                                    'style' => 'font-weight: bold;',
-                                    'id'=>'Inbox', 
-                                    'class'=>'navigation-link',
-                                    'escape'=>false
-                                )
-                            );
-
-                        } else {
-
-                            $inbox = $this->Html->image(
-                                'graphics/icons/solid-white/16/envolope.png',
-                                array(
-                                    'id'=>'Inbox', 
-                                    'class'=>'navigation-link',
-                                    'url'=>'/inbox_message/'
-                                )
-                            );
-
-                        }                    
-
-                        echo $inbox;
-                    ?>
-
-                    <div class="navigation-block" id="InboxBlock">     
-                        <?php
-
-                            echo $this->Html->link(
-                                'All Messages',
-                                '/inbox_message/all_messages/'
-                            );
-                            echo $this->Html->link('[Populate Inbox - temp]', '/inbox_message/populate_inbox/' );
-                        ?>
-                    </div>
-
-                </div>    
-
-                <div style="position:relative; float:left; padding:0 6px;">
-                    
-                    <?php 
-                        echo $this->Html->image(
-                            'graphics/icons/solid-white/16/share-social-network.png',
-                            array(
-                                'id'=>'Share', 
-                                'class'=>'navigation-link',
-                                'url'=>'#'
-                            )
-                        );         
-                    ?>                    
-                    <div class="navigation-block" id="ShareBlock">
-                        <?php
-                            echo $this->Html->link('Socialize', '/users/social_media/');  
-                            echo $this->Html->link('Create a blog', '/blogs/create/');
-                            echo $this->Html->link('Create a post', '/posts/create/');   
-                        ?>
-                    </div>
-                </div>   
-
-                <div style="position:relative; float:left; padding:0 6px;">
-                    <?php 
-                        echo $this->Html->image(
-                            'graphics/icons/solid-white/16/gear.png',
-                            array(
-                                'id'=>'MyAccount', 
-                                'class'=>'navigation-link',
-                                'url'=>$this->Session->read('Auth.User.url')
-                            )
-                        );         
-                    ?>
-                    <div class="navigation-block" id="MyAccountBlock">
+                <div id="Navigation">
+                    <div class="navigation">
                         <?php 
+                            $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
+                            echo $this->Html->link("Inbox{$messageBadge}", '#'); ?>
+                        <div class="subnavigation">
+                            <div><?php echo $this->Html->link("All Messages", '/inbox_message/'); ?></div>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <a href="#">Share</a>
+                        <div class="subnavigation">
+                            <div><?php echo $this->Html->link('Socialize', '/users/social_media/'); ?></div>
+                            <div><?php echo $this->Html->link('Create a blog', '/blogs/create/'); ?></div>
+                            <div><?php echo $this->Html->link('Create a post', '/posts/create/'); ?></div>
+                        </div>
+                    </div>
+                    <div class="navigation">
+                        <a href="#">My Account</a>
+                        <div class="subnavigation">
 
-                            echo $this->Html->link('Profile', '/members/view/' 
-                                    . $this->Session->read('Auth.User.username'));
+                            <div><?php echo $this->Html->link('Profile', 
+                                    '/members/view/' . $this->Session->read('Auth.User.username')); ?></div> 
 
-                            echo $this->Html->link('Content', '/contents/content/' 
-                                    . $this->Session->read('Auth.User.username'));
+                            <div><?php echo $this->Html->link('Content', 
+                                    '/contents/content/' . $this->Session->read('Auth.User.username')); ?></div> 
 
-                            echo $this->Html->link('Photos', '/uploads/images/' 
-                                    . $this->Session->read('Auth.User.username'));
+                            <div><?php echo $this->Html->link('Photos', 
+                                    '/uploads/images/' . $this->Session->read('Auth.User.username')); ?></div> 
 
-                            echo $this->Html->link('Connect', '/oauth/connect/' );
-                            echo $this->Html->link('Settings', '/users/settings/' );
-                            echo $this->Html->link('Logout', '/users/logout');
-                        ?>
-                    </div>             
+                            <div><?php echo $this->Html->link('Connect', '/oauth/connect/' ); ?></div>  
+
+                            <div><?php echo $this->Html->link('Settings', '/users/settings/' ); ?></div> 
+
+                            <div><?php echo $this->Html->link('Logout', '/users/logout'); ?></div>  
+                        </div>
+                    </div>
                 </div>
-
             <?php else: ?>
-
-                <div style="position:relative; float:left; padding:0 6px;">
-                    <?php 
-                        echo $this->Html->image(
-                            'graphics/icons/solid-white/16/create-profile.png',
-                            array(
-                                'id'=>'New Account', 
-                                'class'=>'navigation-link',
-                                'url'=>'/users/create',
-                                'title'=>'Create an Account'
-                            )
-                        );       
-                    ?>  
+                <div id="Navigation">
+                    <div class="navigation"><?php echo $this->Html->link('New Account', '/users/create'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link('Login', '/users/login'); ?></div>
                 </div>
-
-                <div style="position:relative; float:left; padding:0 6px;">
-                    <?php 
-                        echo $this->Html->image(
-                            'graphics/icons/solid-white/16/login.png',
-                            array(
-                                'id'=>'Login', 
-                                'class'=>'navigation-link',
-                                'url'=>'/users/login',
-                                'title'=>'Login'
-                            )
-                        );       
-                    ?>                      
-                </div>
-
             <?php endif; ?>
-
         </div>
+        
     </div>
 </div>

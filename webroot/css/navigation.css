@@ -12,14 +12,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-#Header a:link,
-#Header a:hover,
-#Header a:visited{
-    color: #999;
-    text-decoration: none;
-    font-weight: 700;
-}
-
 #LocalManager{
     margin: 0 0 12px;
 }
@@ -117,32 +109,6 @@ div.section-head{
     padding:0 2px;
     line-height: 24px;
     border-bottom: 1px solid #dedede;
-}
-
-/* #HeaderRight flyout menus */
-.navigation-block{
-    width: 200px; 
-    background: #fefefe; 
-    float: left; 
-    z-index: 10; 
-    position:absolute;
-    display: none;
-    right: 0px;
-    text-align: left;
-    border: 1px solid #ececec;
-    border-radius-bottom: 4px;
-    box-shadow: -3px 3px 3px #888;
-    border-top: none;
-}
-
-.navigation-block a{
-    display: block;
-    padding: 2px 3px;
-    margin: 0;
-    border-bottom: 1px solid #ececec;
-    text-decoration: none;
-    font-weight: bold;
-    color: #999;
 }
 
 /* #HeaderRight flyout menus */
