@@ -21,6 +21,10 @@
        
         $(function(){
             $('#Navigation').delegate('.navigation','click',function(){
+                /*
+                var state = $(this).is(':visible');
+                */
+               $(".subnavigation").hide();
                 $(this).find('div.subnavigation:first').toggle();
             });
         }); 
@@ -93,6 +97,40 @@
                             <div><?php echo $this->Html->link('Logout', '/users/logout'); ?></div>  
                         </div>
                     </div>
+                    <?php if($this->Session->check('Auth.User.id')): ?>
+                        <?php if($this->Session->read('Auth.User.employee') == 1): ?>
+                            <div class="navigation">
+                                <a href="#">Admin</a>
+                                <div class="subnavigation">
+                                    
+                                    <strong>CMS</strong>
+                                    <div>
+                                        <?php echo $this->Html->link('Create a web page', '/admin/pages/create/'); ?>
+                                    </div>
+                                    <div>
+                                        <?php echo $this->Html->link('Pages', '/admin/pages/'); ?>
+                                    </div>
+                                    
+                                    <strong>CRM</strong>
+                                    <div><?php echo $this->Html->link('People', '/admin/people/'); ?></div>
+                                    
+                                    <strong>Messaging</strong>
+                                    <div><?php echo $this->Html->link('Notifications', '/notification/index/'); ?></div>
+                                    <div><?php echo $this->Html->link(' - Create', '/notification/create/'); ?></div>
+                                    <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
+                                    
+                                    <strong>System</strong>
+                                    <div><?php echo $this->Html->link('Users', '/admin/users/'); ?></div>
+                                    <div><?php echo $this->Html->link('Groups', 
+                                            '/admin/users/acl_groups/'); ?></div>
+                                    <div><?php echo $this->Html->link('Picklists', 
+                                            '/admin/picklist_manager/picklists/'); ?></div>
+                                    <div><?php echo $this->Html->link('Plugins', 
+                                            '/admin/plugin_configuration/configurations/'); ?></div>
+                                </div>
+                            </div>
+                        <?php endif; ?>
+                    <?php endif; ?>
                 </div>
             <?php else: ?>
                 <div id="Navigation">
