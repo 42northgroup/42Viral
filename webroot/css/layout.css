@@ -18,23 +18,11 @@ body{
  
 #Header{
     position:relative;
-
     background: #000;
-    
     font-weight: bold;
     line-height: 30px;
-
     margin: 0;
-
-}
-
-#HeaderLeft{
-    float: left;
-    color: #fff;
-}
-
-#HeaderRight{
-    float: right;
+    padding: 4px 4px 3px;
 }
 
 #Banner{
