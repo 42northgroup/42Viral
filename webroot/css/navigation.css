@@ -12,14 +12,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-#Header a:link,
-#Header a:hover,
-#Header a:visited{
-    color: #999;
-    text-decoration: none;
-    font-weight: 700;
-}
-
 #LocalManager{
     margin: 0 0 12px;
 }

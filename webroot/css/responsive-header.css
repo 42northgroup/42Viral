@@ -1,0 +1,244 @@
+/**
+ * Responsive CSS for the sitewide header
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/* #Default Header
+===============================*/
+#LogoContainer{
+    float: left;
+    color: #fff;
+}
+
+#NavigationContainer{
+    float:right;
+}
+
+#NavigationContainer a:link,
+#NavigationContainer a:visited{
+    color: #fff;
+}
+
+#MobileHeader{
+    display: none;
+} 
+
+#NavigationHeader{
+    display: none;
+} 
+
+#Navigation{}
+
+.navigation{
+    display:inline;
+    position: relative;
+}
+
+.navigation a:link,
+.navigation a:visited{
+    color: #fff;
+    font-size: 1.2em; 
+    padding: .2em .2em; 
+}
+
+.subnavigation{
+    float: left;
+    position: absolute;
+    background: #000;
+    display: none;
+    z-index: 100;
+}
+
+.subnavigation a:link,
+.subnavigation a:visited{
+    color: #fff;
+    font-size: 1.0em; 
+    padding: .1em .1em; 
+} 
+
+/* Twitter Bootstrap */
+.btn-navbar .icon-bar + .icon-bar {
+    margin: 3px 4px 0 0;
+}
+.btn-navbar .icon-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: whiteSmoke;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* #xxx Header
+===============================*/
+@media screen and (max-width: 1024px){}
+
+/* #Sub 800 Header
+===============================*/
+@media screen and (max-width: 768px){
+    #LogoContainer{
+        float: left;
+        color: #fff;
+    }
+
+    #NavigationContainer{
+        float:right;
+    }
+
+    #NavigationContainer a:link,
+    #NavigationContainer a:visited{
+        color: #fff;
+    }
+
+    #MobileHeader{
+        display: none;
+    } 
+
+    #NavigationHeader{
+        display: block;
+    } 
+
+    #Navigation{
+        background: #000;
+        display: none;
+        float:left;
+        position: absolute;
+        border-bottom-left-radius: 6px;
+        right: 0;   
+    }
+
+    .navigation{
+        display:block;
+        position: relative;
+    }
+
+    .navigation a:link,
+    .navigation a:visited{
+        border: 1px solid #111;
+        background: #000;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 1px 1px black;
+        background-image: -webkit-gradient(linear, left top, left bottom, from( #333 ), to( #000 ));
+        background-image: -webkit-linear-gradient( #333 , #000 );
+        background-image: -moz-linear-gradient( #333 , #000 );
+        background-image: -ms-linear-gradient( #333 , #000 );
+        background-image: -o-linear-gradient( #333 , #000 );
+        background-image: linear-gradient( #333 , #000 );
+        
+        font-family: Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #fff;
+        font-size: 15px; 
+        padding: .5em 15px .5em 15px; 
+        display:block;
+    }
+
+    .subnavigation{
+        float: none;
+        position: relative;
+        margin: 0 0 0 8px;
+        z-index: 100;
+    }
+
+    .subnavigation a:link,
+    .subnavigation a:visited{
+        color: #fff;
+        font-size: 1.0em; 
+        padding: .3em 1.0em; 
+    }    
+}
+
+/* #Mobile Device Header
+===============================*/
+@media screen and (max-width: 480px) {
+
+    #MobileHeader{
+        display: block;
+        color: #fff;
+    }     
+
+    #LogoContainer{
+        display:none;
+    }
+
+    .logo-container{
+        float:left;
+    }
+
+    #MobileNavigationTrigger{
+        float:right;
+    }
+
+    #NavigationContainer{
+        float: none;
+        display:block;
+    }
+
+    #NavigationHeader{
+        display: none;
+    } 
+
+    #Navigation{
+        background: #000;
+        display: none;
+        float:none;
+        position: relative;
+        border-radius: 0; 
+        margin:0 -4px;
+    }
+
+    .navigation{
+        display:block;
+        position: relative;
+    }
+
+    .navigation a:link,
+    .navigation a:visited{
+        border: 1px solid #111;
+        background: #000;
+        font-weight: bold;
+        color: white;
+        text-shadow: 0 1px 1px black;
+        background-image: -webkit-gradient(linear, left top, left bottom, from( #333 ), to( #000 ));
+        background-image: -webkit-linear-gradient( #333 , #000 );
+        background-image: -moz-linear-gradient( #333 , #000 );
+        background-image: -ms-linear-gradient( #333 , #000 );
+        background-image: -o-linear-gradient( #333 , #000 );
+        background-image: linear-gradient( #333 , #000 );
+        
+        font-family: Helvetica, Arial, sans-serif;
+        text-decoration: none;
+        color: #fff;
+        font-size: 18px; 
+        padding: .7em 15px .7em 15px; 
+        display:block;
+    }
+
+    .subnavigation{
+        float: none;
+        position: relative;
+        margin: 0 0 0 8px;
+        z-index: 100;
+    }
+
+    .subnavigation a:link,
+    .subnavigation a:visited{
+        color: #fff;
+        font-size: 1.0em; 
+        padding: .3em 1.0em; 
+    } 
+}

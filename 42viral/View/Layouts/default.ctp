@@ -16,6 +16,9 @@
                     'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
                     'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
                     'css' . DS . 'fonts.css',
+            
+                    'css' . DS . 'responsive-header.css',
+            
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'layout.css',
                     'css' . DS . 'basics.css',
