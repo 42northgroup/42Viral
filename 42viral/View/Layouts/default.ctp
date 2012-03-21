@@ -15,6 +15,8 @@
             
                     'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
                     'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
+                    'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
+            
                     'css' . DS . 'fonts.css',
             
                     'css' . DS . 'responsive-header.css',

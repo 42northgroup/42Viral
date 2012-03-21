@@ -41,7 +41,12 @@ authors
 * [jQuery UI](http://jqueryui.com/)
 * [HTML5BOILERPLATE](http://html5boilerplate.com/)
 * [Modernizr](http://www.modernizr.com/)
-* [YUI](http://yuilibrary.com/yui/docs/cssreset/)
+* [YUI CSS](http://yuilibrary.com/yui/css/)
+* [YUT Compressor](http://developer.yahoo.com/yui/compressor/)
+* [Skeleton](http://www.getskeleton.com/)
+* [Google Webfonts](http://www.google.com/webfonts)
+* [Google Closure](https://developers.google.com/closure/)
+
 
 ## Third API party support
 
