@@ -43,6 +43,7 @@ endif;
 <h1><?php echo $title_for_layout; ?></h1>
 
 <div class="container">
+    
     <div class="two-thirds column">
         <?php
 
@@ -101,6 +102,7 @@ endif;
 
         <?php echo $this->element('Posts' . DS . 'post_comments'); ?>
     </div>
+    
     <div class="one-third column">
         <?php echo $this->element('Navigation' . DS . 'profile', array('mine'=>$mine)); ?>
         
@@ -109,4 +111,5 @@ endif;
         <?php echo $this->element(
                 'Navigation' . DS . 'local', array('section'=>'content', 'additional'=>$additional)); ?>
     </div>
+    
 </div>

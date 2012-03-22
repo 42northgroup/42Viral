@@ -42,11 +42,11 @@
 
 
 body {
-    font: 13px "Droid Sans";
+    font: 13px/1.231 "Droid Sans";
     color: #444;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
-    line-height: 18px;
+    line-height: 1.6em;
 }
 
 h1, 
@@ -61,8 +61,8 @@ h4,
 h5{ 
     font-family: "Droid Sans";
     margin: 0 0 1em 0; 
-    line-height: 1.6em;
     font-weight: bold;
+    line-height: 1.6em;
 }
 
 p{
@@ -74,16 +74,25 @@ p{
 input,
 textarea,
 select{ 
-    font: 13px "Droid Sans Mono";
+    font: 102% "Droid Sans Mono";
     color: #444;
-    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
-    -webkit-text-size-adjust: 100%;
-    line-height: 18px;
+    line-height: 1.6em;
 }
 
 label{
-    font: 13px "Droid Sans";
-	font-weight: bold;
+    font: 100% "Droid Sans";
+    font-weight: bold;
+    line-height: 1.6em;
 }
+
+pre,
+code,
+kbd,
+samp,
+tt {
+    font: 100% "Droid Sans Mono";
+    line-height: 1.6em;
+}
+
 
 
