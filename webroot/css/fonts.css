@@ -21,14 +21,14 @@
  
 @font-face {
     font-family: 'Droid Sans Mono';
-    src: url('/fonts/Droid_Sans/DroidSansMono.ttf') format('truetype');
+    src: url('/fonts/Droid_Sans_Mono/DroidSansMono.ttf') format('truetype');
     font-weight: normal;
     font-style: normal; 
 } 
 
 @font-face {
     font-family: 'Droid Serif';
-    src: url('/fonts/Droid_Sans/DroidSerif.ttf') format('truetype');
+    src: url('/fonts/Droid_Serif/DroidSerif.ttf') format('truetype');
     font-weight: normal;
     font-style: normal; 
 } 
@@ -42,19 +42,31 @@
 
 
 body {
-    font: 13px "Droid Sans Serif", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 13px "Droid Sans";
     color: #444;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
     line-height: 18px;
 }
 
-p, 
 h1, 
 h2, 
-h3, 
+h3{ 
+    font-family: "Droid Serif";
+    margin: 0 0 1em 0; 
+    line-height: 1.6em;
+}
+
 h4, 
 h5{ 
+    font-family: "Droid Sans";
+    margin: 0 0 1em 0; 
+    line-height: 1.6em;
+    font-weight: bold;
+}
+
+p{
+    font: 13px "Droid Sans";
     margin: 0 0 1em 0; 
     line-height: 1.6em;
 }
@@ -62,7 +74,7 @@ h5{
 input,
 textarea,
 select{ 
-    font: 13px "Droid Sans Serif", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font: 13px "Droid Sans Mono";
     color: #444;
     -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
     -webkit-text-size-adjust: 100%;
@@ -70,6 +82,7 @@ select{
 }
 
 label{
+    font: 13px "Droid Sans";
 	font-weight: bold;
 }
 

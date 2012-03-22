@@ -20,7 +20,7 @@
 
 echo $this->Html->Tag('h2', __('Leave a Comment'));
 
-echo $this->Form->create('Conversation', array('url'=>$this->here, 'class'=>'conversation')); 
+echo $this->Form->create('Conversation', array('url'=>$this->here, 'class'=>'responsive')); 
 
 echo $this->Form->input('content_id', array('type'=>'hidden', 'value'=>$post['Post']['id']));
 

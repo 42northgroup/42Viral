@@ -143,15 +143,6 @@ if(isset($additional)){
 
 <div id ="LocalManager" class="clearfix local-navigation">
     
-    <h1 style="float:left;">
-        <?php 
-            // DO NOT!!! do an isset check here to supress errors. If their is an error finding the title, resolve it at
-            // the controller level by using $this->set('title_for_layout') this will help assure page title are being 
-            // set.
-            echo $title_for_layout; 
-        ?>
-    </h1>
-    
     <div style ="position:relative; float:right;">
         <?php if(count($menu['Items']) > 0): ?>
         

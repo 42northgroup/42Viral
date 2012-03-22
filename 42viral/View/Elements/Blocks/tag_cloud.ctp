@@ -1,5 +1,5 @@
 <?php
-    if(isset($tags)):
+    //if(isset($tags)):
         echo $this->Html->tag('h4', __('Tag Cloud'));
         echo $this->TagCloud->display($tags, array(
 			'before' => '<span style="font-size:%size%%" class="tag">',
@@ -11,5 +11,5 @@
             'named'=>'tags'
             )
         );
-    endif;
+    //endif;
 ?>

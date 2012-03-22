@@ -28,6 +28,7 @@ form.responsive input[type="text"],
 form.responsive input[type="password"],
 form.responsive select,
 form.responsive textarea{
+    border: 1px solid #bbb;
     padding: 7px;
     width: 98%;
 }

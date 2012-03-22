@@ -22,7 +22,25 @@
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-$menu = array();
+$mine = isset($mine)?$mine:false; 
+$section = isset($section)?$section:'profile';
+
+if($mine){
+
+    $profileId = !empty($userProfile['Person']['Profile']) ? 
+            $userProfile['Person']['Profile']['id'] : $userProfile['Profile']['id'];
+
+    $additional = array(
+        array(
+            'text'=>"Edit Profile",
+            'url'=>"/profiles/edit/{$profileId}",
+            'options' => array(),
+            'confirm'=>null
+        )
+    );
+}else{
+    $additional = array();
+}
 
 switch($section){
     
@@ -40,39 +58,24 @@ if(isset($additional)){
 
 ?>
 
-
-<div id ="ProfileManager" class="clearfix profile-navigation">
-
+<div>
     <?php 
-    
         if(isset($userProfile)):
-
             echo $this->Html->link('Profile', $userProfile['Person']['url']);
-            echo ' / ';
             echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
-            echo ' / ';
-            echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");           
-            echo ' / ';            
+            echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");                  
             echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
         else:
             echo '&nbsp;';
         endif; 
     ?> 
-    <div style ="position:relative; float:right;">
-        <?php if(count($menu['Items']) > 0): ?>
-        
-            <?php echo $this->Html->link('&#9660;', '#', 
-                    array('id'=>'Profile', 'class'=>'profile-navigation-link', 'escape'=>false)); ?>
-
-            <div id="ProfileBlock" class="profile-navigation-block">
-                <?php foreach($menu['Items'] as $item): ?>
-                    <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
-                <?php endforeach; ?>
-            </div>
-        
-        <?php //else: ?>
-            <?php //echo '&#9660;'; ?>
-        <?php endif; ?>
-    </div>
-    
 </div>
+
+<?php if(count($menu['Items']) > 0): ?>
+    <div>
+        <?php foreach($menu['Items'] as $item): ?>
+            <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>
+
