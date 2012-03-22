@@ -8,10 +8,41 @@
             'legend'=>'Core',
         
             'debug.id'=>array('value'=>'debug', 'type'=>'hidden'),
-            'debug.value'=>array('label'=>'Security Level'),
+            'debug.value'=>array('label'=>'Debug Level'),
         
             'Securitylevel.id'=>array('value'=>'Security.level', 'type'=>'hidden'),
-            'Securitylevel.value'=>array('label'=>'Security Level'),
+            'Securitylevel.value'=>array('label'=>'Security Level')
+        ));
+    
+    echo $this->Form->inputs(array(
+            'legend'=>'Security',
+        
+            'LoginAttempts.id'=>array('value'=>'Login.attempts', 'type'=>'hidden'),
+            'LoginAttempts.value'=>array('label'=>'Login Attempts Allowed'),
+        
+            'LoginLockout.id'=>array('value'=>'Login.lockout', 'type'=>'hidden'),
+            'LoginLockout.value'=>array('label'=>'Login Lockout Duration'),
+        
+            'PasswordExpiration.id'=>array('value'=>'Password.expiration', 'type'=>'hidden'),
+            'PasswordExpiration.value'=>array('label'=>'Password Expiration(days)'),
+        
+            'PasswordMinLength.id'=>array('value'=>'Password.minLength', 'type'=>'hidden'),
+            'PasswordMinLength.value'=>array('label'=>'Password Minimum Length'),        
+        
+            'PasswordAlphanumeric.id'=>array('value'=>'Password.alphanumeric', 'type'=>'hidden'),
+            'PasswordAlphanumeric.value'=>array(
+                'label'=>'Force Alphanumeric Password',
+                'type'=>'checkbox',
+            ),
+        
+            'PasswordSpecialChars.id'=>array('value'=>'Password.specialChars', 'type'=>'hidden'),
+            'PasswordSpecialChars.value'=>array(
+                'label'=>'Force Special Chraracters Password',
+                'type'=>'checkbox'
+            ),
+        
+            'PasswordDifference.id'=>array('value'=>'Password.difference', 'type'=>'hidden'),
+            'PasswordDifference.value'=>array('label'=>'New Password Difference')
         ));
 
     echo $this->Form->inputs(array(

@@ -36,7 +36,7 @@ App::uses('AppController', 'Controller');
         'Oauth', 
         'Person', 
         'User',
-        //'Notification'
+        'OldPassword'
     );
 
     /**
@@ -181,7 +181,7 @@ App::uses('AppController', 'Controller');
      * @todo TestCase
      */
     public function login()
-    {        
+    {             
         $error = true;
         if(!empty($this->data)){
 
@@ -191,7 +191,27 @@ App::uses('AppController', 'Controller');
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
                 $error = true;
             }else{
-
+                
+                if(Configure::read('Login.attempts') > 0){
+                
+                    if($user['User']['last_login_attempt'] != null){
+                        if(($user['User']['last_login_attempt'] + (Configure::read('Login.lockout')*60)) 
+                                                                                                    > strtotime('now')){
+                            
+                            if($user['User']['login_attempts'] == Configure::read('Login.attempts')){
+                                $this->set('lockout', 1);
+                                $this->request->data['User']['password'] = null;
+                            }
+                            
+                        }else{
+                            $person['Person']['login_attempts'] = 0;
+                            $person['Person']['last_login_attempt'] = null;
+                            $person['Person']['id'] = $user['User']['id'];
+                            $this->Person->save($person);
+                        }
+                    }
+                }
+                
                 $hash = Sec::hashPassword($this->data['User']['password'], $user['User']['salt']);
                 if($hash == $user['User']['password']){
 
@@ -200,9 +220,15 @@ App::uses('AppController', 'Controller');
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Session->write('Auth.User.Profile', $user['Profile']);
+                                                
                         $this->Access->permissions($user['User']);
 
                         $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
+                        
+                        $person['Person']['login_attempts'] = 0;
+                        $person['Person']['last_login_attempt'] = null;
+                        $person['Person']['id'] = $user['User']['id'];
+                        $this->Person->save($person);
 
                         $this->redirect($this->Auth->redirect());
 
@@ -212,12 +238,25 @@ App::uses('AppController', 'Controller');
                     }
 
                 }else{
+                    
+                    if(Configure::read('Login.attempts') > 0){
+                                        
+                        if($user['User']['login_attempts'] < Configure::read('Login.attempts')){                        
+                            $person['Person']['last_login_attempt'] = strtotime('now');                        
+                            $person['Person']['login_attempts'] = ($user['User']['login_attempts']+1);
+                            $person['Person']['id'] = $user['User']['id'];
+
+                            $this->Person->save($person);
+                        }                    
+                    
+                    }
+                    
                     $this->log("Password mismatch {$this->data['User']['username']}", 'weekly_user_login');
                     $error = true;
                 }
             }
 
-            if($error) {
+            if($error) {                
                 $this->Session->setFlash(__('You could not be authenticated'), 'error');
             }
         }
@@ -295,12 +334,18 @@ App::uses('AppController', 'Controller');
                     //Log the new user into the system
                     $user = $this->User->findByUsername($this->data['User']['username']);
 
+                    $oldPassword['OldPassword']['person_id'] = $user['User']['id'];
+                    $oldPassword['OldPassword']['password'] = $user['User']['password'];
+                    $oldPassword['OldPassword']['salt'] = $user['User']['salt'];
+                    $this->OldPassword->save($oldPassword);
+                    
                     if($this->Auth->login($user)){
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Access->permissions($user['User']);
 
-                        $this->Session->setFlash(__('Your account has been created and you have been logged in'),'success');
+                        $this->Session->setFlash(__('Your account has been created and you have been logged in'),
+                                                                                                            'success');                        
                         $this->redirect($this->Auth->redirect());
                         
                     }else{
@@ -446,7 +491,7 @@ App::uses('AppController', 'Controller');
     
     //Takes the user to their account settings
     public function settings($token=null)
-    {
+    {   
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
@@ -472,15 +517,35 @@ App::uses('AppController', 'Controller');
     
     //Saves the user's new password
     public function change_password()
-    {
+    {   
         if(!empty ($this->data)){
             
-            if($this->User->changePassword($this->data['Person'])){
+            $oldPassword = $this->OldPassword->find('all', array(
+                'conditions' => array(
+                    'OldPassword.person_id' => $this->data['Person']['id']
+                ),
+                'order' => "OldPassword.created DESC",
+                'limit' => Configure::read('Password.difference')
+            ));
+            
+            $this->request->data['Person']['OldPassword'] = $oldPassword;
+            
+            $changePassowrd = $this->User->changePassword($this->data['Person']);
+            
+            if(!empty ($changePassowrd)){
+                $oldPassword = array(
+                    'OldPassword' => array(
+                        'person_id' => $this->data['Person']['id'],
+                        'password' => $changePassowrd['password'],
+                        'salt' => $changePassowrd['salt']
+                    )
+                );
+                
+                $this->OldPassword->save($oldPassword);
                 
                 $this->Session->setFlash(__('Password was changed successfully'), 'success');
                 $this->redirect('/users/settings');
-            }else{
-                
+            }else{                
                 $this->Session->setFlash(__('An error occured, password could not be changed'), 'error');
                 $this->redirect('/users/settings');
             }

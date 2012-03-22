@@ -95,6 +95,26 @@ class User extends Person
                 'rule' => 'verifyPassword',
                 'message' => 'Your passwords do not match',
                 'last' => true
+            ),
+            'minimalLength' => array(
+                'rule' => 'minimalLength',
+                'message' => "Password must be at least 7 characters long.",
+                'last' => true
+            ),
+            'forceAlphaNumeric' => array(
+                'rule'    => 'forceAlphaNumeric',
+                'message' => 'password must contain letters and numbers.',
+                'last' => true
+            ),
+            'forceSpecialChars' => array(
+                'rule'    => 'forceSpecialChars',
+                'message' => 'password must contain special characters.',
+                'last' => true
+            ),
+            'checkPreviousPasswords' => array(
+                'rule' => 'checkPreviousPasswords',
+                'message' => 'Your password needs to different from the last 4 passwords you used',
+                'last' => true
             )
         ),
         'verify_password' => array(
@@ -117,6 +137,36 @@ class User extends Person
             )
         ),
     );
+    
+    public function beforeValidate()
+    {                                
+        if(Configure::read('Password.alphanumeric') == 0){
+            unset($this->validate['password']['forceAlphaNumeric']);
+        }
+        
+        if(Configure::read('Password.specialChars') == 0){
+            unset($this->validate['password']['forceSpecialChars']);
+        }
+        
+        if(Configure::read('Password.difference') == 0){
+            unset($this->validate['password']['checkPreviousPasswords']);
+        }else{
+        
+            $this->validate['password']['checkPreviousPasswords']['message'] = 
+                    "Your password needs to be different from the last "
+                    .Configure::read('Password.difference')." passwords you used";
+        }
+        
+        if(Configure::read('Password.minLength') == 0){
+            unset($this->validate['password']['minimalLength']);
+        }else{
+            $this->validate['password']['minimalLength']['message'] = 
+                    "Password must be at least  "
+                    .Configure::read('Password.minLength')." characters long";
+        }
+        
+        return true;
+    }
 
     /**
      * To be a user, you must have an email and username
@@ -141,7 +191,7 @@ class User extends Person
     /**
      * Returns true if the user has submitted the same password twice.
      * @return boolean
-     *** @author Jason D Snider <jsnider@microtain.net>
+     * @author Jason D Snider <jsnider@microtain.net>
      * @access public
      */
     public function verifyPassword()
@@ -153,6 +203,88 @@ class User extends Person
         return $valid;
     }
     
+    /**
+     * Returns true if the user has has entered both numeric and alphabetical characters.
+     * @return boolean
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @access public
+     */
+    public function forceAlphaNumeric()
+    {   
+        $valid = false;
+        if (!ctype_alpha($this->data[$this->alias]['temp_password']) 
+                && !ctype_digit($this->data[$this->alias]['temp_password'])){
+            $valid = true;
+        }
+        
+        return $valid;
+    }
+    
+    /**
+     * Returns true if the user has has entered special characters.
+     * @return boolean
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @access public
+     */
+    public function forceSpecialChars()
+    {   
+        $valid = false;
+        if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/',$this->data[$this->alias]['temp_password'])){
+            $valid = true;
+        }
+        
+        return $valid;
+    }
+    
+    /**
+     * Check if passwords is at least 7 characters long
+     * @return boolean
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @access public
+     */
+    public function minimalLength()
+    {        
+        $valid = false;
+        if (strlen($this->data[$this->alias]['temp_password']) > Configure::read('Password.minLength')){
+            $valid = true;
+        }
+        
+        return $valid;
+    }
+    
+    /**
+     * Check if the password is different than the previous passwords
+     * @return boolean
+     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+     * @access public
+     */
+    public function checkPreviousPasswords()
+    {
+        $valid = false;
+        $match = 0;
+        
+        if(!isset ($this->data[$this->alias]['OldPassword'])){
+            $valid = true;
+        }else{
+            foreach ($this->data[$this->alias]['OldPassword'] as $oldPassword){
+                
+                $password = Sec::hashPassword($this->data[$this->alias]['temp_password'], 
+                                                                                $oldPassword['OldPassword']['salt']);
+                
+                if($password == $oldPassword['OldPassword']['password']){
+                    $match = 1;
+                }
+            }
+            
+            if($match == 0){
+                $valid = true;
+            }
+        }
+        
+        return $valid;
+    }
+
+
     public function emptyPassword($check){
         
         $field = key($check);
@@ -183,9 +315,14 @@ class User extends Person
         //Load salt into the data array
         $data['salt'] = $salt;
 
+        $data['temp_password'] = $data['password'];
+        
         //Hash the password and its verifcation then load it into the data array        
         $data['password'] = Sec::hashPassword($data['password'], $salt);
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
+                
+        //set expiration date for the password
+        $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
 
         //Try to save the new user record
         if($this->save($data)){
@@ -203,7 +340,7 @@ class User extends Person
     /**
      *
      * @param data array - A 1 deminisonal array focused in the user data
-     * @return boolean
+     * @return array
      * @access public
      */
     public function changePassword($data)
@@ -215,20 +352,28 @@ class User extends Person
 
         //Load salt into the data array
         $data['salt'] = $salt;
-
+        
+        
+        $data['temp_password'] = $data['password'];
+                
         //Hash the password and its verifcation then load it into the data array
         $data['password'] = Sec::hashPassword($data['password'], $salt);
-        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
+        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);        
+        
+        //set expiration date for the password
+        $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+90 Days"));
 
         //Clear out any password reset request tokens along with a successfull password reset
         $data['pw_reset_token'] = null;
         $data['pw_reset_token_expiry'] = null;
-
+                
         //Try to save the new user record
         if($this->save($data)){
-            return true;
+            $_SESSION['Auth']['User']['password_expires'] = $data['password_expires'];
+            
+            return array('password' => $data['password'], 'salt' => $data['salt']);
         }else{
-            return false;
+            return array();
         }
     }
 

@@ -25,10 +25,17 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>''));
             'class'=>'responsive'
         ));
 
-        echo $this->Form->input('username');
-        echo $this->Form->input('password');
-
-        echo $this->Form->submit();
+        if(!isset($lockout)):
+            echo $this->Form->input('username');
+            echo $this->Form->input('password');
+            echo $this->Form->submit();
+        
+        else:
+            echo '<span style="color:red; font-weight:bold" >'.
+                    'Too many failed login attempts. Your account will be locked out for the next 30 minutes.'
+                .'</span>';
+        endif;
+        
         echo $this->Form->end();
         ?>
         
