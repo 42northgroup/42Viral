@@ -30,50 +30,55 @@
     });
 </script>
 
-<?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
+<div class="container">
+    <div class="two-thirds column">
+        <?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
 
-<?php  echo $this->Form->create('SocialMedia', 
-        array(
-            'url' => '/users/socialize',
-            'class'=>'content'
+        <?php  echo $this->Form->create('SocialMedia', 
+                array(
+                    'url' => '/users/socialize',
+                    'class'=>'responsive'
+                    )); ?>
+
+        <?php echo $this->Form->input('message', array(
+            'type'=>'textarea',
+            'label'=>'Your Massage',
             )); ?>
-    
-<?php echo $this->Form->input('message', array(
-    'type'=>'textarea',
-    'label'=>'Your Massage',
-    )); ?>
 
-<?php echo $this->Form->input('twitter_post', array(
-    'type' => 'checkbox', 
-    'label' => 'Twitter'
-    )); ?>
+        <?php echo $this->Form->input('twitter_post', array(
+            'type' => 'checkbox', 
+            'label' => 'Twitter'
+            )); ?>
 
-<?php echo $this->Form->input('twitter', array(
-    'type'=>'textarea',
-    'maxlength' => 140,
-    'label'=>false
-    )); ?>
-Characters left: <span id="TweetCharsLeft" >140</span>
+        <?php echo $this->Form->input('twitter', array(
+            'type'=>'textarea',
+            'maxlength' => 140,
+            'label'=>false
+            )); ?>
+        Characters left: <span id="TweetCharsLeft" >140</span>
 
-<div class="clearfix">
-    <?php echo $this->Form->input('facebook_post', array(
-        'type' => 'checkbox', 
-        'label' => 'Facebook',
-        'div'=>array('style'=>'float:left; width:90px;')
-        )); ?>
+        <div class="clearfix">
+            <?php echo $this->Form->input('facebook_post', array(
+                'type' => 'checkbox', 
+                'label' => 'Facebook'
+                )); ?>
 
-    <?php echo $this->Form->input('linkedin_post', array(
-        'type' => 'checkbox', 
-        'label' => 'LinkedIn',
-        'div'=>array('style'=>'float:left; width:78px;')
-        )); ?>
+            <?php echo $this->Form->input('linkedin_post', array(
+                'type' => 'checkbox', 
+                'label' => 'LinkedIn'
+                )); ?>
+        </div>
+
+        <?php echo $this->Form->input('others', array(
+            'type'=>'textarea',
+            'label'=>false         
+            )); ?>
+
+        <?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
+
+        <?php echo $this->Form->end(); ?>
+    </div>
+    <div class="one-third column">
+
+    </div>
 </div>
-
-<?php echo $this->Form->input('others', array(
-    'type'=>'textarea',
-    'label'=>false         
-    )); ?>
-
-<?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
-    
-<?php echo $this->Form->end(); ?>

@@ -21,10 +21,14 @@
             
                     'css' . DS . 'responsive-header.css',
             
+                    'css' . DS . 'forms.css', //depricated
+                    'css' . DS . 'responsive-form.css',
+            
+            
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'layout.css',
                     'css' . DS . 'basics.css',
-                    'css' . DS . 'forms.css',
+                    
                     'css' . DS . 'tables.css',
                     'css' . DS . 'messages.css',
                     'css' . DS . 'navigation.css',
@@ -43,19 +47,16 @@
             
             <?php echo $this->element('Blocks' . DS . 'header'); ?>
             
-            <?php //echo $this->element('Blocks' . DS . 'banner'); ?>
-
+            
             <div id="Main">
                 <div class="clearfix squeeze">
-                    <div id="MainLeft"><?php echo $this->element('Blocks' . DS . 'left'); ?></div>
-
                     <div id="MainContent">
                         <?php echo $content_for_layout; ?>
                         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
                     </div>
                 </div>
             </div>
-            
+
             <div id="Footer"><?php echo $this->element('Blocks' . DS . 'footer'); ?></div>
             
         </div> 

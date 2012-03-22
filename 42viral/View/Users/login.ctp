@@ -16,14 +16,13 @@
 echo $this->element('Navigation' . DS . 'local', array('section'=>''));  
 
 ?>
-
-<div class="clearfix">
-    <div style="float:left;">
+<div class="container">
+    <div class="one-third column">
         <?php
 
         echo $this->Form->create('User', array(
             'url'=>$this->here,
-            'class'=>'default'
+            'class'=>'responsive'
         ));
 
         echo $this->Form->input('username');
@@ -35,8 +34,11 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>''));
         
         <a href="/users/pass_reset_req">Forgot your password?</a>
     </div>
-
-    <div class="vertical" style="float:left; margin:0 0 0 8px">
-        <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
+    <div class="one-third column">
+        <?php echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus')); ?>
+        <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
+        <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
+        <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
     </div>
+    <div class="one-third column"></div>
 </div>
