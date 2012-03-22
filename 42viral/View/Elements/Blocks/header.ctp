@@ -15,24 +15,19 @@
 ?>
 <script type="text/javascript">
     $(function(){
+        
         $("#NavigationTrigger, #MobileNavigationTrigger").click(function(){
             $("#Navigation").toggle();
         });
-       
-        $(function(){
-            $('#Navigation').delegate('.navigation','click',function(){
-                /*
-                var state = $(this).is(':visible');
-                */
-               $(".subnavigation").hide();
-                $(this).find('div.subnavigation:first').toggle();
-            });
-        }); 
+        
+        $('#Navigation').delegate('.navigation','click',function(){
+            $(this).find('div.subnavigation:first').toggle();
+        });
     });
 </script>
 
 <div id="Header">
-    <div class="clearfix">
+    <div class="clearfix squeeze">
         <div id="LogoContainer">The 42Viral Project</div>
         
         <div id="MobileHeader" class="clearfix">

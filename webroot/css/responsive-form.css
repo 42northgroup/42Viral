@@ -1,0 +1,102 @@
+/**
+ * CSS
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+
+/* Table of Content
+==================================================
+	#Base 960 Form
+	#Media Queries*/
+
+/* #Base 960 Form
+================================================== */
+form.responsive label{
+    display: block;
+}
+
+form.responsive input[type="text"],
+form.responsive input[type="password"],
+form.responsive select,
+form.responsive textarea{
+    padding: 7px;
+    width: 98%;
+}
+
+form.responsive input[type="text"]:focus,
+form.responsive input[type="password"]:focus,
+form.responsive select:focus,
+form.responsive textarea:focus{
+    border: 2px solid #bbb;
+    padding: 6px;
+}
+
+form.responsive div.checkbox label,
+form.responsive div.checkbox input[type="checkbox"]{
+    width: auto;
+    display: inline;
+}
+
+form.responsive div.checkbox label{
+    margin: 0 3px;
+}
+
+form.responsive .input{
+    margin: 0 0 4px;
+}
+
+form.responsive .submit{
+    text-align: left;
+    padding: 0;
+    margin: 4px 0 0;
+}
+
+form.responsive input[type="submit"]{
+    padding: 6px 8px;
+}
+
+/* Smaller than standard 960 (devices and browsers) */
+@media only screen and (max-width: 959px) {}
+
+/* Tablet Portrait size to standard 960 (devices and browsers) */
+@media only screen and (min-width: 768px) and (max-width: 959px) {}
+
+/* All Mobile Sizes (devices and browser) */
+@media only screen and (max-width: 767px) {}
+
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    form.responsive .submit{
+        text-align: center;
+        padding: 0;
+        margin: 4px 0 0;
+    }  
+    
+    form.responsive input[type="submit"]{
+        width: 98%;
+        padding: 8px;
+    }    
+}
+
+/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
+@media only screen and (max-width: 479px) {
+    form.responsive .submit{
+        text-align: center;
+        padding: 0;
+        margin: 4px 0 0;
+    }    
+    
+    form.responsive input[type="submit"]{
+        width: 98%;
+        padding: 8px;
+    }   
+}
