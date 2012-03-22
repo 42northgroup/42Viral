@@ -18,13 +18,12 @@
                     'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
                     'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
             
-                    //'css' . DS . 'fonts.css',
+                    'css' . DS . 'fonts.css',
             
                     'css' . DS . 'responsive-header.css',
+                    'css' . DS . 'responsive-navigation.css',
                     'css' . DS . 'responsive-form.css',
-                    //'css' . DS . 'responsive-form.css',
-            
-                    //'css' . DS . 'forms.css', //depricated
+
                     
             
             
@@ -34,7 +33,7 @@
                     
                     'css' . DS . 'tables.css',
                     'css' . DS . 'messages.css',
-                    //'css' . DS . 'navigation.css', //depricated
+
                     'css' . DS . 'controls.css',
                     'css' . DS . 'controls.social.css',
                     'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'

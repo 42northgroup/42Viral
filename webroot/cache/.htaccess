@@ -1,8 +1,0 @@
-# ----------------------------------------------------------------------------------------------------------------------
-# SECURITY ENHANCEMENTS
-# ----------------------------------------------------------------------------------------------------------------------
-# We do not want to allow access to any thing other than js or css from the outside world
-<FilesMatch "!*\.(css|js)$">
-    Order Allow,Deny
-    Allow from all
-</FilesMatch>

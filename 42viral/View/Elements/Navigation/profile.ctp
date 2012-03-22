@@ -22,60 +22,64 @@
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-$mine = isset($mine)?$mine:false; 
-$section = isset($section)?$section:'profile';
-
-if($mine){
-
-    $profileId = !empty($userProfile['Person']['Profile']) ? 
-            $userProfile['Person']['Profile']['id'] : $userProfile['Profile']['id'];
-
-    $additional = array(
-        array(
-            'text'=>"Edit Profile",
-            'url'=>"/profiles/edit/{$profileId}",
-            'options' => array(),
-            'confirm'=>null
-        )
-    );
-}else{
-    $additional = array();
-}
-
-switch($section){
-    
-    case 'profile':
-        $menu = array(
-            'name'=>'Profile',
-            'Items' => array()
-        );
-    break;    
-}
-
-if(isset($additional)){
-    $menu['Items'] = array_merge($menu['Items'], $additional);
-}
-
 ?>
+<div class="column-block">
+    <div class="navigation-block">
+        <?php 
+            if(isset($userProfile)):
 
-<div>
-    <?php 
-        if(isset($userProfile)):
-            echo $this->Html->link('Profile', $userProfile['Person']['url']);
-            echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
-            echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");                  
-            echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
-        else:
-            echo '&nbsp;';
-        endif; 
-    ?> 
-</div>
-
-<?php if(count($menu['Items']) > 0): ?>
-    <div>
-        <?php foreach($menu['Items'] as $item): ?>
-            <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
-        <?php endforeach; ?>
+                echo $this->Html->link('Profile', $userProfile['Person']['url']);
+                echo $this->Html->link('Content', "/contents/content/{$userProfile['Person']['username']}");
+                echo $this->Html->link('Blogs', "/blogs/index/{$userProfile['Person']['username']}");                  
+                echo $this->Html->link('Photos', "/uploads/images/{$userProfile['Person']['username']}");
+            else:
+                echo '&nbsp;';
+            endif; 
+        ?> 
     </div>
-<?php endif; ?>
+
+    <?php
+    $mine = isset($mine)?$mine:false; 
+    $section = isset($section)?$section:'profile';
+
+    if($mine){
+
+        $profileId = !empty($userProfile['Person']['Profile']) ? 
+                $userProfile['Person']['Profile']['id'] : $userProfile['Profile']['id'];
+
+        $additional = array(
+            array(
+                'text'=>"Edit Profile",
+                'url'=>"/profiles/edit/{$profileId}",
+                'options' => array(),
+                'confirm'=>null
+            )
+        );
+    }else{
+        $additional = array();
+    }
+
+    switch($section){
+
+        case 'profile':
+            $menu = array(
+                'name'=>'Profile',
+                'Items' => array()
+            );
+        break;    
+    }
+
+    if(isset($additional)){
+        $menu['Items'] = array_merge($menu['Items'], $additional);
+    }
+
+    ?>
+    <?php if(count($menu['Items']) > 0): ?>
+        <div>
+            <?php foreach($menu['Items'] as $item): ?>
+                <?php echo $this->Html->link($item['text'], $item['url'], $item['options'], $item['confirm']); ?>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+</div>
 

@@ -63,12 +63,14 @@
         <div class="avatar">
             <?php echo $this->Member->avatar($userProfile['Person']) ?>
         </div>
-    <?php endif; ?>        
+    <?php endif; ?>     
+
     <ul class="side-navigation" style="display:block; padding:6px 0 0;">
         <li><a href="/blogs/">Blogs</a></li>
         <li><a href="/members/">Members</a></li>
         <li><a href="/pages/">Pages</a></li>
     </ul>
+
     <?php if($this->Session->check('Auth.User.id')): ?>
         <?php if($this->Session->read('Aue deth.User.employee') == 1): ?>
             <ul class="side-navigation" style="display:block; padding:6px 0 0;">
