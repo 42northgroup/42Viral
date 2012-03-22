@@ -83,7 +83,6 @@
 .subnavigation a:link,
 .subnavigation a:visited{
     background-image: -webkit-linear-gradient(top, #333, #222);
-    cursor: auto;
     display: block;
     float: none;
     height: 16px;
@@ -159,7 +158,6 @@
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
-        cursor: auto;
         display: block;
         float: none;
         height: 19px;
@@ -238,7 +236,6 @@
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
-        cursor: auto;
         display: block;
         float: none;
         height: 19px;
@@ -320,7 +317,6 @@
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
-        cursor: auto;
         display: block;
         float: none;
         height: 19px;
