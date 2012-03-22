@@ -96,3 +96,14 @@ h3{
 .status-details img{
     margin: 0 4px 0 0;
 }
+
+/* Meta data for blog posts and the like */
+.meta{
+    font-style: italic;
+    color:#999;
+}
+
+.meta-head{
+    font-style: normal;
+    font-weight: bold;
+}
