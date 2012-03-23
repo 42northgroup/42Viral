@@ -42,9 +42,9 @@ endif;
 
 <h1><?php echo $title_for_layout; ?></h1>
 
-<div class="container">
+<div class="row">
     
-    <div class="two-thirds column">
+    <div class="two-thirds column alpha">
         <?php
 
             //Find some custom theme paths
@@ -103,7 +103,10 @@ endif;
         <?php echo $this->element('Posts' . DS . 'post_comments'); ?>
     </div>
     
-    <div class="one-third column">
+    <div class="one-third column omega">
+        
+        <?php echo $this->element('Blocks' . DS . 'hcard'); ?>
+        
         <?php echo $this->element('Navigation' . DS . 'profile', array('mine'=>$mine)); ?>
         
         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
