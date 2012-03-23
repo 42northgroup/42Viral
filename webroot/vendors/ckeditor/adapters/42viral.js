@@ -29,13 +29,9 @@ $(function(){
     
     var configContent = {
         toolbar_Content : [
-            ['Source', '-', 
-                'Format', 'Bold', 'Italic', 'Underline', 'Strike', '-',
-                'Link', 'Image','-',
-                'SelectAll','RemoveFormat', '-',
-                'NumberedList','BulletedList', '-',
-                'SpellChecker', 'Scayt',
-                'About']
+            ['Source', '-', 'Format', 'Bold', 'Italic', 'Underline'], 
+            [ 'Strike', '-','Link', 'Image', 'SelectAll','RemoveFormat','-','NumberedList','BulletedList', 
+                '-', 'SpellChecker', 'Scayt', 'About']
         ],
         
         toolbar : 'Content',
