@@ -15,13 +15,20 @@
 ?>
 <script type="text/javascript">
     $(function(){
-        
         $("#NavigationTrigger, #MobileNavigationTrigger").click(function(){
-            $("#Navigation").toggle();
+            if($('#Navigation').is(':visible')) {
+                $('#Navigation').attr('style', '');
+            } else {
+                $('#Navigation').show();
+            }
         });
         
-        $('#Navigation').delegate('.navigation','click',function(){
-            $(this).find('div.subnavigation:first').toggle();
+        $('#Navigation').delegate('.navigation', 'mouseenter',function() {
+            $(this).find('div.subnavigation:first').show();
+        });
+
+        $('#Navigation').delegate('.navigation', 'mouseleave',function() {
+            $(this).find('div.subnavigation:first').hide();
         });
     });
 </script>
