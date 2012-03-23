@@ -83,7 +83,7 @@
             <column name="id">Login.attempts</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -92,7 +92,7 @@
             <column name="id">Login.lockout</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -101,7 +101,7 @@
             <column name="id">Password.alphanumeric</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -110,7 +110,7 @@
             <column name="id">Password.difference</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -119,7 +119,7 @@
             <column name="id">Password.expiration</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -128,7 +128,7 @@
             <column name="id">Password.minLength</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
@@ -137,7 +137,7 @@
             <column name="id">Password.specialChars</column>
             <column name="value">0</column>
             <column name="type">string</column>
-            <column name="created_person_id"/>
+            <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="created">2012-03-22 13:18:01</column>
             <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
             <column name="modified">2012-03-22 14:00:12</column>
