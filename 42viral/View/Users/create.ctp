@@ -13,34 +13,38 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>''));  
-
 ?>
-<div class="clearfix">
-    <div style="float:left;">
-    <?php
+<h1><?php echo $title_for_layout; ?></h1>
+<div class="row">
+    <div class="one-third column alpha">
+        <?php
+            echo $this->Form->create('User', 
+                        array(
+                            'url'=>$this->here, 
+                            'class'=>'responsive'
+                        )
+                    );
 
-        echo $this->Form->create('User', 
-                    array(
-                        'url'=>$this->here, 
-                        'class'=>'default'
-                    )
-                );
+            echo $this->Form->input('email');
+            echo $this->Form->input('username');
+            echo $this->Form->input('password');
+            echo $this->Form->input('verify_password', array('type'=>'password'));
 
-        echo $this->Form->input('email');
-        echo $this->Form->input('username');
-        echo $this->Form->input('password');
-        echo $this->Form->input('verify_password', array('type'=>'password'));
-        
-        if(Configure::read('Beta.private') == 1){ 
-            echo $this->Form->input('invite', array('type'=>'text', 'value'=>$this->params['named']['invite']));
-        }
+            if(Configure::read('Beta.private') == 1){ 
+                echo $this->Form->input('invite', array('type'=>'text', 'value'=>$this->params['named']['invite']));
+            }
 
-        echo $this->Form->submit();
-        echo $this->Form->end();
-    ?>
+            echo $this->Form->submit();
+            echo $this->Form->end();
+        ?>
     </div>
-    <div class="vertical" style="float:left; margin:0 0 0 8px">
-    <?php echo $this->element('Blocks' . DS . 'Oauth' . DS . 'login'); ?>
+
+    <div class="one-third column">
+        <?php echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus')); ?>
+        <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
+        <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
+        <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
     </div>
+
+    <div class="one-third column omega"></div>
 </div>

@@ -30,8 +30,8 @@
     });
 </script>
 
-<div class="container">
-    <div class="two-thirds column">
+<div class="row">
+    <div class="two-thirds column alpha">
         <?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
 
         <?php  echo $this->Form->create('SocialMedia', 
@@ -78,7 +78,5 @@
 
         <?php echo $this->Form->end(); ?>
     </div>
-    <div class="one-third column">
-
-    </div>
+    <div class="one-third column omega"></div>
 </div>

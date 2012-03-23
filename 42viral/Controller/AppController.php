@@ -75,11 +75,15 @@ class AppController extends Controller
             }
         }
         
+        //test for an expired password
         if($this->Session->check("Auth.User")){
-            if($this->Session->read("Auth.User.password_expires") < date("Y-m-d H:i:s")){
-                if(!in_array($this->request->params['action'], array('change_password', 'logout'))){
-                    $this->Session->setFlash(__('Your password has expired') ,'error');
-                    $this->redirect('/users/change_password');
+            $passwordExpiration = Configure::read('Password.expiration');
+            if(!empty($passwordExpiration)){
+                if($this->Session->read("Auth.User.password_expires") < date("Y-m-d H:i:s")){
+                    if(!in_array($this->request->params['action'], array('change_password', 'logout'))){
+                        $this->Session->setFlash(__('Your password has expired') ,'error');
+                        $this->redirect('/users/change_password');
+                    }
                 }
             }
         }
