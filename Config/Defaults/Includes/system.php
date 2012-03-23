@@ -65,7 +65,7 @@ define('IMAGE_THUMB_DIM_1', 75);
 /**
  * Thumbnail dimension for uploaded images - Dimension 2
  */
-define('IMAGE_THUMB_DIM_2', 166);
+define('IMAGE_THUMB_DIM_2', 120);
 
 /**
  * The maximum allowable width for image uploads to use for proportional image shrinks
