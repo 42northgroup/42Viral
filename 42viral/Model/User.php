@@ -361,7 +361,7 @@ class User extends Person
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);        
         
         //set expiration date for the password
-        $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+90 Days"));
+        $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
 
         //Clear out any password reset request tokens along with a successfull password reset
         $data['pw_reset_token'] = null;
