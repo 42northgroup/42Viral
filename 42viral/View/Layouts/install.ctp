@@ -12,7 +12,7 @@
                     'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
                     'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery.js',
                     'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
-                    'js' . DS . 'engine.js',
+                    'js' . DS . 'startup.js',
             
                     'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
                     'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
