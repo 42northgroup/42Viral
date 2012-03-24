@@ -13,25 +13,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<script type="text/javascript">
-    $(function(){
-        $("#NavigationTrigger, #MobileNavigationTrigger").click(function(){
-            if($('#Navigation').is(':visible')) {
-                $('#Navigation').attr('style', '');
-            } else {
-                $('#Navigation').show();
-            }
-        });
-        
-        $('#Navigation').delegate('.navigation', 'mouseenter',function() {
-            $(this).find('div.subnavigation:first').show();
-        });
-
-        $('#Navigation').delegate('.navigation', 'mouseleave',function() {
-            $(this).find('div.subnavigation:first').hide();
-        });
-    });
-</script>
 
 <div id="Header">
     <div class="clearfix squeeze">

@@ -19,24 +19,26 @@
  */
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
+<?php
+    $this->Asset->addAssets(array(
+        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
+        'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
+        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
+    ), 'ck_editor');
+
+    echo $this->Asset->buildAssets('js', 'ck_editor', false);
+
+    echo $this->Form->create('Page', 
+                array(
+                    'url'=>$this->here, 
+                    'class'=>'responsive'
+                )
+            );
+?>
 <div class="row">
     <div class="two-thirds column alpha">
+
         <?php
-            $this->Asset->addAssets(array(
-                'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-                'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-                'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
-            ), 'ck_editor');
-
-            echo $this->Asset->buildAssets('js', 'ck_editor', false);
-
-            echo $this->Form->create('Page', 
-                        array(
-                            'url'=>$this->here, 
-                            'class'=>'responsive'
-                        )
-                    );
-
             echo $this->Form->input('id');
             echo $this->Form->input('title', array('rows'=>1));
             echo $this->Form->input('body', array('class'=>'edit-content'));
@@ -46,7 +48,11 @@
             echo $this->Form->input('tags');
             echo $this->Form->input('canonical', array('rows'=>1));
             echo $this->Form->input('slug', array('rows'=>1));
-
+            
+        ?>
+    </div>
+    <div class="one-third column omega">
+        <?php
             echo $this->Form->inputs(
                     array('legend'=>'Sitemap',
                         'Sitemap.id',
@@ -55,7 +61,8 @@
 
             echo $this->Form->input('status');
             echo $this->Form->submit();
-            echo $this->Form->end();
+            
         ?>
     </div>
 </div>
+<?php echo $this->Form->end(); ?>
