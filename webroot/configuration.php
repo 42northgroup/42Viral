@@ -40,7 +40,17 @@
                 sudo ./Console/cake configuration
             </code>
         </pre>
-        <a href="/setup">I have ran the configuration shell</a>
+
+        After you've ran the configuration shell make sure any new cache files are writable.
+        <pre>
+            <code>
+                cd app
+                chmod +x setup.sh
+                sudo ./setup.sh [www-data] [username]
+            </code>
+        </pre>
+                      
+        <a href="/setup">I have ran the configuration shell and write files</a>
   </div>
 
 

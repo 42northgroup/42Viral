@@ -91,12 +91,12 @@ I recommend the advanced install options from the CakePHP Cookbook
 
 add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
 
-    include_path = '.:/usr/share/php:/usr/share/cakephp-2.0/lib'
+    include_path = '.:/usr/share/php:/usr/share/cakephp-2.1/lib'
 
 Install CakePHP in the usr/share directory
 
     cd /usr/share
-    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.0 
+    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.1 
     
 Replace 
 

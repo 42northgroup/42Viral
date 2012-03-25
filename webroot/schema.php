@@ -31,8 +31,8 @@
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Build the database</h1>
+    <div class="container">
+        <h1>Build the database</h1>
         Run the schema shell from your CakePHP Console
         <pre>
             <code>
@@ -41,7 +41,18 @@
                 sudo ./Console/cake schema create
             </code>
         </pre>
-        <a href="/setup">I have ran the schema shell</a>
-  </div>
+
+        After you've ran the schema shell make sure any new cache files are writable.
+        <pre>
+            <code>
+                cd app
+                chmod +x setup.sh
+                sudo ./setup.sh [www-data] [username]
+            </code>
+        </pre>
+            
+        <a href="/setup">I have ran the schema shell and write files</a>        
+    </div>
+</body>
 
 
