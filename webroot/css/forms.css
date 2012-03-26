@@ -20,8 +20,6 @@
  * We shouldn't do to much in the way of styling the native form elements. For sanities sake this better suited for 
  * form classes
  */
-form{}
-
 input[type="text"],
 input[type="password"],
 select,

@@ -550,5 +550,7 @@ App::uses('AppController', 'Controller');
                 $this->redirect('/users/settings');
             }
         }
+        
+        $this->set('title_for_layout', __('Change Your Password'));
     }
 }

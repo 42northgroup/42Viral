@@ -20,8 +20,18 @@
 
 /* #Base 960 Form
 ================================================== */
+form{
+    -webkit-appearance:none;
+}
+ 
 form.responsive label{
     display: block;
+}
+
+form.responsive .required label:after {
+	color: #900;
+	content: ' *';
+	display:inline;
 }
 
 form.responsive input[type="text"],
@@ -63,6 +73,16 @@ form.responsive .submit{
 
 form.responsive input[type="submit"]{
     padding: 6px 8px;
+}
+
+form.responsive .file{
+    text-align: left;
+    padding: 0;
+    margin: 4px 0 0;
+}
+
+form.responsive input[type="file"]{
+    padding: 6px 8px 6px 0px;
 }
 
 /* Smaller than standard 960 (devices and browsers) */

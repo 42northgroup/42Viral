@@ -15,8 +15,9 @@
 
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
+
 <div class="row">
-    <div class="one-third column alpha">
+    <div class="four columns alpha">
         <?php
             echo $this->Form->create('User', 
                         array(
@@ -39,12 +40,13 @@
         ?>
     </div>
 
-    <div class="one-third column">
-        <?php echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus')); ?>
-        <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
-        <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
-        <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
+    <div class="four columns omega">
+        <div class="block">
+            <?php echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus')); ?>
+            <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
+            <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
+            <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
+        </div>
     </div>
-
-    <div class="one-third column omega"></div>
+    
 </div>

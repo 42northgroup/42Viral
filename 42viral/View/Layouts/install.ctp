@@ -8,47 +8,62 @@
         echo $this->Html->meta('icon');
         
         $this->Asset->addAssets(array(
-            
-                    'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
-                    'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery.js',
-                    'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
-                    'js' . DS . 'startup.js',
-            
-                    'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
-                    'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
-                    'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
-            
-                    'css' . DS . 'fonts.css',
-            
-                    'css' . DS . 'responsive-header.css',
-                    'css' . DS . 'responsive-navigation.css',
-                    'css' . DS . 'responsive-form.css',
+            'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
+            'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery.js',
+            'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
+            'js' . DS . 'startup.js',
 
-                    
-                    'css' . DS . 'forms.css',
-                    'css' . DS . 'navigation.css',
-            
-                    'css' . DS . 'cake.stripped.css',
-                    'css' . DS . 'layout.css',
-                    'css' . DS . 'basics.css',
-                    
-                    'css' . DS . 'tables.css',
-                    'css' . DS . 'messages.css',
+            'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
+            'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
+            'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
 
-                    'css' . DS . 'controls.css',
-                    'css' . DS . 'controls.social.css',
-                    'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'
-                ));
+            'css' . DS . 'fonts.css',
+
+            'css' . DS . 'responsive-header.css',
+            'css' . DS . 'responsive-navigation.css',
+            'css' . DS . 'responsive-form.css',
+
+
+            'css' . DS . 'forms.css',
+            'css' . DS . 'navigation.css',
+
+            'css' . DS . 'cake.stripped.css',
+            'css' . DS . 'layout.css',
+            'css' . DS . 'basics.css',
+
+            'css' . DS . 'tables.css',
+            'css' . DS . 'messages.css',
+
+            'css' . DS . 'controls.css',
+            'css' . DS . 'controls.social.css',
+            'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'
+        ));
 
         echo $this->Asset->buildAssets('js');
         echo $this->Asset->buildAssets('css');
     ?>
+
+    <style type="text/css">
+        pre {
+            color: #000;
+            background: #f0f0f0;
+            padding: 15px;
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+        
+        pre,
+        code {
+            overflow: auto;
+            font-size: 12px;
+        }
+    </style>
 </head>
     <body>
         <div id="Container">
             <?php echo $this->Session->flash(); ?>
             
-            <?php echo $this->element('Blocks' . DS . 'header'); ?>
+            <?php echo $this->element('Blocks' . DS . 'header_blank'); ?>
             
             <div id="Main">
                 <div class="clearfix squeeze">

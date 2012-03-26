@@ -92,14 +92,25 @@ chown "$USER":"$USER" -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/applic
 chmod 775 -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
 echo ">>>$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
 
-# We need to find a better way
-chown "$APACHE_PROCESS":"$USER" -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
-chmod 775 -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
-echo ">>>/usr/share/cakephp-2.0/lib/Cake/Cache"
 
-chown "$APACHE_PROCESS":"$USER" -fR "/usr/share/cakephp-2.1/lib/Cake/Cache"
-chmod 775 -fR "/usr/share/cakephp-2.1/lib/Cake/Cache"
-echo ">>>/usr/share/cakephp-2.1/lib/Cake/Cache"
+
+#Determine CakePHP core library location from php.ini include paths and set proper cache folder permissions
+LIB=$(cd -P -- "$(dirname -- "$0")" && pwd -P) && LIB=$LIB/$(basename -- "$0")
+LIB=$(dirname -- "$LIB")/
+
+PHP_INC_PATH=($(exec php -q "$LIB"Console/get_php_inc_path.php))
+
+len=${#PHP_INC_PATH[*]}
+i=0
+while [ $i -lt $len ]; do
+    chown "$APACHE_PROCESS":"$USER" -fR "${PHP_INC_PATH[$i]}/Cake/Cache"
+    chmod 775 -fR "${PHP_INC_PATH[$i]}/Cake/Cache"
+    echo ">>>${PHP_INC_PATH[$i]}/Cake/Cache"
+
+	let i++
+done
+
+
 
 echo 'Permissions set'
 

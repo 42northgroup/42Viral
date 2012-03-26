@@ -1,15 +1,6 @@
 <style type="text/css">
     #personDetailsForm{
-        z-index: 1000000;
-        padding: 10px;
-        border: 1px solid black;
-        background-color: white;
-        border-radius: 10px;
-        position: absolute;
-        top: 200px;
-        left: 350px;
         display: none;
-        width: 300px;
     }
 </style>
 <div id="personDetailsForm" class="popUpForm" >
@@ -17,7 +8,7 @@
     echo $this->Form->create('PersonDetail', array(
         'url' => '/profiles/save_person_details',
         'action' => 'save',
-        'class' => 'content',
+        'class' => 'responsive',
         'style' => 'width:290px;'
     ));
     echo $this->Form->input('person_id', array(
