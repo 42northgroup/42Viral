@@ -73,8 +73,7 @@ class MemberHelper extends AppHelper
                         array(
                             'alt'=>$displayName, 
                             'title'=>$displayName, 
-                            'class'=>'photo', 
-                            'style'=>'margin: 0 6px 6px 0')
+                            'class'=>'photo')
             );
         }
     }

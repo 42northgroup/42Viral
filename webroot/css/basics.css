@@ -107,3 +107,22 @@ h3{
     font-style: normal;
     font-weight: bold;
 }
+
+.image-frame {
+    /*float: left;*/
+    display: inline-block;
+    padding: 6px;
+    background: #efefef;
+    border: 1px solid #dedede;
+    margin: 0;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.image-title {
+    overflow: hidden;
+    width: 128px;
+    display: block;
+    margin-top: 5px;
+    text-align: center;
+}

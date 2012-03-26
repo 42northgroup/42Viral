@@ -16,14 +16,14 @@
 <?php if(isset($userProfile)):?>
     <div class="column-block clearfix">
 
-        <div style="float:left;">
+        <div class="image-frame" style="float:left; margin: 0 6px 6px 0;">
             <?php echo $this->Member->avatar($userProfile['Person']); ?>
+            <div class="image-title">
+                <span class="fn"><?php echo $this->Member->name($userProfile['Person']); ?></span>
+            </div>
         </div>
 
         <div>
-            <h4 class="fn" style="display:inline;">
-                <?php echo $this->Member->name($userProfile['Person']); ?>
-            </h4>
             <?php echo $userProfile['Person']['Profile']['bio']; ?>
         </div>
 

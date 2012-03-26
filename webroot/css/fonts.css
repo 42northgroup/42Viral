@@ -41,6 +41,20 @@
 } 
 
 
+@font-face {
+    font-family: 'Nothing You Could Do';
+    src: url('/fonts/Nothing_You_Could_Do/NothingYouCouldDo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Shadows Into Light';
+    src: url('/fonts/Shadows_Into_Light/ShadowsIntoLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
 body {
     font: 13px/1.231 "Droid Sans";
     color: #444;
@@ -92,6 +106,10 @@ samp,
 tt {
     font: 100% "Droid Sans Mono";
     line-height: 1.6em;
+}
+
+.image-title{
+    font: 140% 'Nothing You Could Do';
 }
 
 

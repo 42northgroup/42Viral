@@ -13,29 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<style type="text/css">
-    .image-frame {
-        /*float: left;*/
-        display: inline-block;
-        padding: 6px;
-        background: #efefef;
-        border: 1px solid #dedede;
-        margin: 8px 4px 0 0;
-        vertical-align: middle;
-    }
-
-    .image-title {
-        overflow: hidden;
-        width: 128px;
-        display: block;
-        margin-top: 5px;
-        /*border: 1px solid red;*/
-    }
-</style>
-
 <h1><?php echo $title_for_layout; ?></h1>
-
-
 
 <div class="row">
     <div class="sixteen columns alpha omega">
