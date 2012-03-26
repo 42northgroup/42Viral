@@ -14,15 +14,15 @@
  */
 ?>
 
-<?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
+<h1><?php echo $title_for_layout; ?></h1>
 
-<div class="clearfix">
-    <div style="float:left;">
+<div class="row">
+    <div class="four columns alpha omega">
     <?php
 
         echo $this->Form->create('User', array(
             'url'=>$this->here,
-            'class'=>'default'
+            'class'=>'responsive'
         ));
 
         echo $this->Form->input('username');

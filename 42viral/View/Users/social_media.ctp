@@ -30,9 +30,10 @@
     });
 </script>
 
+<h1><?php echo $title_for_layout; ?></h1>
+
 <div class="row">
     <div class="two-thirds column alpha">
-        <?php echo $this->element('Navigation' . DS . 'local', array('section'=>''));  ?>
 
         <?php  echo $this->Form->create('SocialMedia', 
                 array(
