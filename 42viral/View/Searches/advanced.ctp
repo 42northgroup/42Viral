@@ -13,82 +13,84 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-echo $this->element('Navigation' . DS . 'local', array('section'=>'')); 
-
-echo $this->Form->create('Content', array(
-    'url' => $this->here,
-    'class'=>'search',
-    'style'=>"border-bottom: 1px solid #EFEFEF; padding: 0 0 4px; margin: 0 0 6px;"
-    ));
 ?>
+<h1><?php echo $title_for_layout; ?></h1>
 
-<div class="clearfix">
-<?php
-
-    echo $this->Form->input('title', array('style'=>'width: 240px; margin-right: 8px;', 'type'=>'text'));
-
-    echo $this->Form->input('body', array('style'=>'width: 240px;', 'type'=>'text'));
-
-    echo $this->Form->input('tags', array('style'=>'width: 240px; margin-right: 8px;', 'type'=>'text'));
-?>
-</div>
-<div class="clearfix">
-<?php
-echo $this->Form->input('object_type', 
-        array(
-            'multiple' => 'checkbox',
-            'div'=>array('style'=>'margin-right:20px;')
+<div class="row">
+    <div class="two-thirds column alpha">
+        <?php
+        echo $this->Form->create('Content', array(
+            'url' => $this->here,
+            'class'=>'responsive'
             ));
 
-echo $this->Form->input('status', 
-        array(
-            'multiple' => 'checkbox'
-            ));
-?>
-</div>    
-<div class="clearfix">
-<?php
-echo $this->Html->link('Simple Search', '/searches', array('style'=>'float:left; margin:19px 0 0;'));
-echo $this->Form->submit(__('Search'), array('div'=>array('float:right;')));
-?>
-</div>
-<?php 
-echo $this->Form->end();
-if($display == 'results'):
- 
 
-    if(!empty($data)): ?>
-        <div id="ResultsPage">
-            <?php foreach($data as $content): ?>
+        echo $this->Form->input('title', array('type'=>'text'));
 
-            <div class="result">
+        echo $this->Form->input('body', array('type'=>'text'));
 
+        echo $this->Form->input('tags', array('type'=>'text'));
 
-                <div class="clearfix">
+        echo $this->Form->input('object_type', 
+                array(
+                    'multiple' => 'checkbox',
 
-                    <h2 style="float:left;">
-                        <?php echo $this->Html->link($content['Content']['title'], $content['Content']['url']); ?> </h2>
+                    ));
 
-                    <div style="float:right; font-style: italic;">
-                        <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
+        echo $this->Form->input('status', 
+                array(
+                    'multiple' => 'checkbox'
+                    ));
 
-                </div>
+        echo $this->Form->submit(__('Search'));
 
-                <div class="tease"><?php echo $this->Text->truncate($content['Content']['tease'], 180); ?></div>
-
-            </div>
-            <?php endforeach; ?>
+        echo $this->Form->end();
+        ?>
+        <div class="block top">
+            <?php echo $this->Html->link('Simple Search', '/searches'); ?>
 
         </div>
-    <?php
-       // echo $this->element('paginate');
+        
+        <div class="block">
+        <?php
+        if($display == 'results'):
+            if(!empty($data)): ?>
+                <div id="ResultsPage">
+                    <?php foreach($data as $content): ?>
+
+                    <div class="result">
 
 
-    else:
-        echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
-    endif;
+                        <div class="clearfix">
 
-else:
-    echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
-endif;
+                            <h2 style="float:left;">
+                                <?php echo $this->Html->link($content['Content']['title'], 
+                                        $content['Content']['url']); ?> 
+                            </h2>
+
+                            <div style="float:right; font-style: italic;">
+                                <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
+
+                        </div>
+
+                        <div class="tease"><?php echo $this->Text->truncate($content['Content']['tease'], 180); ?></div>
+
+                    </div>
+                    <?php endforeach; ?>
+
+                </div>
+            <?php
+            else:
+                echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
+            endif;
+
+        else:
+            echo $this->element('no_results', array('message'=>__("I'm sorry, there are no results to display.")));
+        endif;
+        ?>
+        </div>
+    </div>
+    
+    <div class="one-third column omega"></div>
+    
+</div>

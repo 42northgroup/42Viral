@@ -51,6 +51,6 @@ body{
     margin-bottom: 20px;
 }
 
-.block:first-child{
+.block.top{
     margin-top: 20px;
 }
