@@ -3,12 +3,12 @@
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
@@ -18,67 +18,70 @@
  * @author Jason D Snider <jason@jasonsnider.com>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'blog'));
-
 ?>
+<h1><?php echo $title_for_layout; ?></h1>
+<div class="row">
+    <div class="two-thirds column alpha">
+        <div id="ResultsPage" class="container">
+            <div class="rows">
+                <?php  
+                if($showAll):
 
-<div id="ResultsPage">
-    
-    <?php  
-    if($showAll):
-        
-        $nothing = empty($blogs)?true:false;
-        if(!$nothing):
-            
-            foreach($blogs as $blog): ?>
+                    $nothing = empty($blogs)?true:false;
+                    if(!$nothing):
 
-            <div class="result">
-                <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
-                <div class="tease">
-                <?php echo $this->Text->truncate(
-                        $blog['Blog']['body'], 
-                        750, 
-                        array(
-                            'ending' => ' ' . $this->Html->link('(More...)', $blog['Blog']['url']),
-                            'exact' => false,
-                            'html' => true)); 
-                ?>
-                </div>
+                        foreach($blogs as $blog): ?>
+
+                        <div class="result sixteen columns">
+                            <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
+                            <div class="tease">
+                            <?php echo $this->Text->truncate(
+                                    $blog['Blog']['body'], 
+                                    750, 
+                                    array(
+                                        'ending' => ' ' . $this->Html->link('(More...)', $blog['Blog']['url']),
+                                        'exact' => false,
+                                        'html' => true)); 
+                            ?>
+                            </div>
+                        </div>
+                        <?php 
+                        endforeach;
+
+                    else:    
+                        echo __('Their are no blogs to display');
+                    endif;
+
+                else:
+
+                    $nothing = empty($blogs['Blog'])?true:false;
+
+                    if(!$nothing):
+
+                        foreach($blogs['Blog'] as $blog): 
+                        ?>
+                        <div class="result sixteen columns">
+                            <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
+                            <?php echo $this->Text->truncate(
+                                    $blog['body'], 
+                                    750, 
+                                    array(
+                                        'ending' => ' ' . $this->Html->link('(More...)', $blog['url']),
+                                        'exact' => false,
+                                        'html' => true)); 
+                            ?>
+                        </div>
+                        <?php 
+                        endforeach;
+
+                    else:    
+                        echo __("This user hasn't created any blogs");
+                    endif;
+
+                endif; 
+
+                ?>  
             </div>
-            <?php 
-            endforeach;
-            
-        else:    
-            echo __('Their are no blogs to display');
-        endif;
-        
-    else:
-        
-        $nothing = empty($blogs['Blog'])?true:false;
-        
-        if(!$nothing):
-            
-            foreach($blogs['Blog'] as $blog): 
-            ?>
-            <div class="result">
-                <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
-                <?php echo $this->Text->truncate(
-                        $blog['body'], 
-                        750, 
-                        array(
-                            'ending' => ' ' . $this->Html->link('(More...)', $blog['url']),
-                            'exact' => false,
-                            'html' => true)); 
-                ?>
-            </div>
-            <?php 
-            endforeach;
-            
-        else:    
-            echo __("This user hasn't created any blogs");
-        endif;
-        
-    endif; 
-    
-    ?>    
+        </div>
+    </div>
 </div>
