@@ -12,9 +12,6 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-echo $this->element('Navigation' . DS . 'local', array('section'=>''));
-
 ?>
 <script type="text/javascript">
     $(function() {
@@ -61,82 +58,90 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>''));
     }
 </script>
 
-<div style="margin: 8px 0 0; text-align:center;">
-    <?php 
-        echo $this->Html->image(
-            $path,
-            array(
-                //'style' => 'width: 512px;',
-                'id' => 'cropbox'
-            )
-        );
-    ?>
+<h1><?php echo $title_for_layout; ?></h1>
+
+<div class="row">
+    <div class="sixteen columns alpha omega">
+        <div>
+        <?php 
+            echo $this->Html->image(
+                $path,
+                array(
+                    //'style' => 'width: 512px;',
+                    'id' => 'cropbox'
+                )
+            );
+        ?>
+        </div>
+    </div>
 </div>
 
-<div>
-    <?php if($mine): ?>
+<div class="row"> 
+    
+    <div class="block">
+        <?php if($mine): ?>
+            <?php
+            echo $this->Html->link('Set as Avatar',
+                "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}"
+            );
+            ?>
+            /
+            <?php
+            echo $this->Html->link('Use Gravatar Instead',
+                "/uploads/use_gravatar/{$this->Session->read('Auth.User.id')}"
+            );
+            ?>
+            /
+            <?php
+            echo $this->Html->link('Delete',
+                "/uploads/delete/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}",
+                array(
+                    'id' => 'image_delete'
+                )
+            );
+            ?>
+        <?php endif; ?>    
+    </div>
+
+    <div class="block">
         <?php
-        echo $this->Html->link('Set as Avatar',
-            "/uploads/set_avatar/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}"
-        );
+        echo $this->Form->create('Upload', array(
+            'action' => 'crop_image'
+        ));
+
+        echo $this->Form->input('image_uuid', array(
+            'type' => 'hidden',
+            'value' => $image['Image']['id']
+        ));
+
+        echo $this->Form->text('image_x', array(
+            'type' => 'hidden'
+        ));
+
+        echo $this->Form->text('image_y', array(
+            'type' => 'hidden'
+        ));
+
+        echo $this->Form->text('image_x2', array(
+            'type' => 'hidden'
+        ));
+
+        echo $this->Form->text('image_y2', array(
+            'type' => 'hidden'
+        ));
+
+        echo $this->Form->text('image_w', array(
+            'type' => 'hidden'
+        ));
+
+        echo $this->Form->text('image_h', array(
+            'type' => 'hidden'
+        ));
+
         ?>
-        /
-        <?php
-        echo $this->Html->link('Use Gravatar Instead',
-            "/uploads/use_gravatar/{$this->Session->read('Auth.User.id')}"
-        );
-        ?>
-        /
-        <?php
-        echo $this->Html->link('Delete',
-            "/uploads/delete/{$this->Session->read('Auth.User.id')}/{$image['Image']['id']}",
-            array(
-                'id' => 'image_delete'
-            )
-        );
-        ?>
-    <?php endif; ?>    
+
+
+        <?php echo $this->Form->submit('Crop'); ?>
+        <?php echo $this->Form->end(); ?>
+    </div>
 </div>
-
-<?php
-echo $this->Form->create('Upload', array(
-    'action' => 'crop_image'
-));
-?>
-
-<?php
-
-echo $this->Form->input('image_uuid', array(
-    'type' => 'hidden',
-    'value' => $image['Image']['id']
-));
-
-echo $this->Form->text('image_x', array(
-    'type' => 'hidden'
-));
-
-echo $this->Form->text('image_y', array(
-    'type' => 'hidden'
-));
-
-echo $this->Form->text('image_x2', array(
-    'type' => 'hidden'
-));
-
-echo $this->Form->text('image_y2', array(
-    'type' => 'hidden'
-));
-
-echo $this->Form->text('image_w', array(
-    'type' => 'hidden'
-));
-
-echo $this->Form->text('image_h', array(
-    'type' => 'hidden'
-));
-
-?>
-
-
-<?php echo $this->Form->submit('Crop'); ?>
-<?php echo $this->Form->end(); ?>
