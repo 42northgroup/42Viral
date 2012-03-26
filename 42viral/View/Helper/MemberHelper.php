@@ -64,13 +64,17 @@ class MemberHelper extends AppHelper
             //Yes, use it
             return $this->Html->image(
                 IMAGE_READ_PATH . $id . DS . 'avatar' . DS . $avatar,
-                array('width' => $size)
+                array('width' => $size, 'class'=>'photo')
             );
         } else {
             //No, fallback to gravatar
             return $this->Html->image(
                 'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($email))) . "?r=pg&amp;s={$size}",
-                        array('alt'=>$displayName, 'title'=>$displayName)
+                        array(
+                            'alt'=>$displayName, 
+                            'title'=>$displayName, 
+                            'class'=>'photo', 
+                            'style'=>'margin: 0 6px 6px 0')
             );
         }
     }
@@ -87,9 +91,9 @@ class MemberHelper extends AppHelper
 
         //Currently this is just looking to see if you have entered your name.
         if (strlen(trim($name)) == 0) {
-            return $this->Html->link($username, $url, array('title'=>$username));
+            return $this->Html->link($username, $url, array('title'=>$username, 'class'=>'fn'));
         } else {
-            return $this->Html->link($name, $url, array('title'=>$name));
+            return $this->Html->link($name, $url, array('title'=>$name, 'class'=>'fn'));
         }
     }
     

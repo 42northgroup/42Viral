@@ -21,8 +21,8 @@
         </div>
 
         <div>
-            <h4 style="display:inline;">
-                <?php echo $this->Member->displayName($userProfile['Person']); ?>
+            <h4 class="fn" style="display:inline;">
+                <?php echo $this->Member->name($userProfile['Person']); ?>
             </h4>
             <?php echo $userProfile['Person']['Profile']['bio']; ?>
         </div>
