@@ -61,12 +61,20 @@
                         </div>
                     </div>
                     <div class="navigation">
+                        
                         <a href="#">My Account</a>
                         <div class="subnavigation">
-
-                            <div><?php echo $this->Html->link('Profile', 
-                                    '/members/view/' . $this->Session->read('Auth.User.username')); ?></div> 
-
+                            <strong>Profile</strong>
+                            <div>
+                                <div>
+                                <?php echo $this->Html->link('My Profile', 
+                                    '/members/view/' . $this->Session->read('Auth.User.username')); ?>
+                                </div>
+                                <?php echo $this->Html->link('Edit', 
+                                    '/profiles/edit/' . $this->Session->read('Auth.User.Profile.id')); ?>
+                            </div>
+                            
+                            <strong>Misc</strong>
                             <div><?php echo $this->Html->link('Content', 
                                     '/contents/content/' . $this->Session->read('Auth.User.username')); ?></div> 
 

@@ -19,8 +19,6 @@
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'')); 
-
 $this->Asset->addAssets(array(
     'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
     'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
@@ -29,6 +27,7 @@ $this->Asset->addAssets(array(
 
 echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
+
 <script type="text/javascript">
     $(function(){
         var mouse_is_inside = false;
@@ -85,6 +84,7 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
     });
 </script>
+
 <style>
     .div-header{
         width: 244px; 
@@ -95,102 +95,116 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         padding: 3px;
     }
 </style>
-<div style="float: left; width: 500px;" >
-    <div style=" margin-bottom: 5px;" id="personDetailsLinks" >
-        <a href="#" id="addressLink" >Add Address</a>
-        <a href="#" class="personDetailsLink" id="email" style="margin-left: 5px;" >Add Email</a>
-        <a href="#" class="personDetailsLink" id="phone" style="margin-left: 5px;" >Add Phone</a>
+
+<h1><?php echo $title_for_layout; ?></h1>
+<div class="row">
+    <div class="two-thirds column alpha">
+        <?
+        echo $this->Form->create('Profile', array(
+            'action' => 'save',
+            'class'=>'responsive'
+        ));
+
+        echo $this->Form->input('id');
+
+        echo $this->Form->input('owner_person_id', array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
+
+        echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
+        echo $this->Form->input('Person.first_name');
+        echo $this->Form->input('Person.last_name');
+        echo $this->Form->input('tease', array('type' => 'textarea', 'rows'=>2));
+        echo $this->Form->input('bio', array('class' => 'edit-basic'));
+
+        echo $this->Form->submit('Submit');
+
+        echo $this->Form->end();
+        ?>
     </div>
-    <?
-    echo $this->Form->create('Profile', array(
-        'action' => 'save',
-        'class'=>'content'
-    ));
+    
+    <div class="one-third column omega">
+        <div id="additionalDetailsHolder" class="column-block">
+            <h4>Additional Details</h4>
+            <?php foreach($types as $key => $value): ?>
+                <div id="type_<?php echo $key ?>" class="additionalDetailFrame" style=" padding: 5px;">
+                    <a href="#" data-type="<?php echo $key ?>" class="additionalDetailsType" >
+                        <?php echo $value ?>s
+                    </a>
 
-    echo $this->Form->input('id');
+                    <div style="display: none" id="details_<?php echo $key ?>" >
+                        <ul style=" margin-left: 0px;">
+                        <?php foreach($person_details as $detail): ?>
+                            <?php if($detail['PersonDetail']['type'] == $key): ?>
 
-    echo $this->Form->input('owner_person_id', array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
+                            <li id="<?php echo $detail['PersonDetail']['id'] ?>" 
+                                class="additionalDetail"
+                                data-type="<?php echo $key ?>" 
+                                data-value="<?php echo $detail['PersonDetail']['value']; ?>"
+                                data-category="<?php echo $detail['PersonDetail']['category']; ?>" >
 
-    echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
-    echo $this->Form->input('Person.first_name');
-    echo $this->Form->input('Person.last_name');
-    echo $this->Form->input('tease', array('type' => 'textarea', 'rows'=>2));
-    echo $this->Form->input('bio', array('class' => 'edit-basic'));
+                                <?php echo $detail['PersonDetail']['category'].': '.$detail['PersonDetail']['value']; ?>
+                                <a href="/profiles/delete_person_detail/<?php echo $detail['PersonDetail']['id'] ?>" 
+                                style="float: right; margin-left:5px;" >
+                                    X
+                                </a>
+                                <a href="#" style=" float: right" class="editDetail">Edit</a>                        
+                            </li>
 
-    echo $this->Form->submit('Submit');
+                            <?php endif; ?>
+                        <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+                
+                <div id="type_address" class="additionalDetailFrame">
+                    <a href="#" data-type="address" class="additionalDetailsType" >
+                        Addresses
+                    </a>
 
-    echo $this->Form->end();
+                    <div style="display: none" id="details_address" >
+                        <ul style=" margin-left: 0px;">
+                        <?php foreach($addresses as $address): ?>
 
-    echo $this->element('Profiles/person_details_form');
-    echo $this->element('Profiles/address_form');
-    ?>
-</div>
-<div style="float: right" id="additionalDetailsHolder">
-    <div style=" border: 1px solid black; width: 250px;" >
-        <div class="div-header" >
-            Additional Details
-        </div>
-        <?php foreach($types as $key => $value): ?>
-        <div id="type_<?php echo $key ?>" class="additionalDetailFrame" style=" padding: 5px;">
-            <a href="#" data-type="<?php echo $key ?>" class="additionalDetailsType" >
-                <?php echo $value ?>s
-            </a>
+                            <li id="<?php echo $address['Address']['id'] ?>" 
+                                class="additionalDetail"
+                                data-type="<?php echo $address['Address']['type'] ?>" 
+                                data-line1="<?php echo $address['Address']['line1']; ?>"
+                                data-line2="<?php echo $address['Address']['line2']; ?>"
+                                data-city="<?php echo $address['Address']['city']; ?>"
+                                data-state="<?php echo $address['Address']['state']; ?>"
+                                data-zip="<?php echo $address['Address']['zip']; ?>"
+                                data-country="<?php echo $address['Address']['country']; ?>">
 
-            <div style="display: none" id="details_<?php echo $key ?>" >
-                <ul style=" margin-left: 0px;">
-                <?php foreach($person_details as $detail): ?>
-                    <?php if($detail['PersonDetail']['type'] == $key): ?>
-                    
-                    <li id="<?php echo $detail['PersonDetail']['id'] ?>" 
-                        class="additionalDetail"
-                        data-type="<?php echo $key ?>" 
-                        data-value="<?php echo $detail['PersonDetail']['value']; ?>"
-                        data-category="<?php echo $detail['PersonDetail']['category']; ?>" >
-                        
-                        <?php echo $detail['PersonDetail']['category'].': '.$detail['PersonDetail']['value']; ?>
-                        <a href="/profiles/delete_person_detail/<?php echo $detail['PersonDetail']['id'] ?>" 
-                           style="float: right; margin-left:5px;" >
-                            X
-                        </a>
-                        <a href="#" style=" float: right" class="editDetail">Edit</a>                        
-                    </li>
-                    
-                    <?php endif; ?>
-                <?php endforeach; ?>
-                </ul>
+                                <?php echo $address['Address']['type']; ?>
+                                <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
+                                style="float: right; margin-left:5px;" >
+                                    X
+                                </a>
+                                <a href="#" style=" float: right" class="editAddress">Edit</a>                        
+                            </li>                    
+
+                        <?php endforeach; ?>
+                        </ul>
+                    </div>
+                </div>
             </div>
-        </div>
-        <?php endforeach; ?>
-        <div id="type_address" class="additionalDetailFrame" style=" padding: 5px;">
-            <a href="#" data-type="address" class="additionalDetailsType" >
-                Addresses
-            </a>
-
-            <div style="display: none" id="details_address" >
-                <ul style=" margin-left: 0px;">
-                <?php foreach($addresses as $address): ?>
-                                        
-                    <li id="<?php echo $address['Address']['id'] ?>" 
-                        class="additionalDetail"
-                        data-type="<?php echo $address['Address']['type'] ?>" 
-                        data-line1="<?php echo $address['Address']['line1']; ?>"
-                        data-line2="<?php echo $address['Address']['line2']; ?>"
-                        data-city="<?php echo $address['Address']['city']; ?>"
-                        data-state="<?php echo $address['Address']['state']; ?>"
-                        data-zip="<?php echo $address['Address']['zip']; ?>"
-                        data-country="<?php echo $address['Address']['country']; ?>">
-                        
-                        <?php echo $address['Address']['type']; ?>
-                        <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
-                           style="float: right; margin-left:5px;" >
-                            X
-                        </a>
-                        <a href="#" style=" float: right" class="editAddress">Edit</a>                        
-                    </li>                    
-                    
-                <?php endforeach; ?>
-                </ul>
+        
+            <div class="column-block">
+                <div id="personDetailsLinks" >
+                    <a href="#" id="addressLink" >Add Address</a>
+                    <a href="#" class="personDetailsLink" id="email" style="margin-left: 5px;" >Add Email</a>
+                    <a href="#" class="personDetailsLink" id="phone" style="margin-left: 5px;" >Add Phone</a>
+                </div>
             </div>
+
+            <div class="column-block">
+            <?php
+                echo $this->element('Profiles/person_details_form');
+                echo $this->element('Profiles/address_form');
+            ?>   
+            </div>
+        
         </div>
-    </div>
 </div>
+    
+
