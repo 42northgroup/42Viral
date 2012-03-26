@@ -14,8 +14,8 @@ After you've ran the schema shell make sure any new cache files are writable.
 <pre>
     <code>
         cd app
-        chmod +x setup.sh
-        sudo ./setup.sh [www-data] [username]
+        chmod +x write.sh
+        sudo ./write.sh [www-data] [username]
     </code>
 </pre>
 
