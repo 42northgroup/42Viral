@@ -203,7 +203,7 @@ class InstallerStepHelper extends AppHelper
                 'number' => 7,
                 'key' => 'setup_initial_configuration',
                 'label' => 'Initial application configuration',
-                'action' => '/configuration.php',
+                'action' => '/setup/configuration',
                 'status' => 'setup_initial_configuration',
                 'dependency' => $this->__dependencyList['setup_initial_configuration'],
                 'completed' => false

@@ -28,4 +28,4 @@ Run the setup shell from your CakePHP Console
         sudo ./setup.sh www-data username
     </code>
 </pre>
-<a href="/setup">I have ran the setup shell</a>
+<a href="/setup" class="setup-complete">I have ran the setup shell</a>

@@ -87,6 +87,29 @@ App::uses('Handy', 'Lib');
 
 
     /**
+     *
+     * @access public
+     * @return void
+     */
+    public function schema()
+    {
+        $this->set('title_for_layout', 'Build the Database');
+    }
+
+
+    /**
+     *
+     * @access public
+     * @return void
+     */
+    public function configuration()
+    {
+        $this->set('title_for_layout', 'Build the Initial Application Configuration');
+
+    }
+
+
+    /**
      * 
      *
      * @access public
@@ -361,7 +384,7 @@ App::uses('Handy', 'Lib');
         Parser::xml2Config($path);
         $this->_setupLog('setup_process');
         $this->Session->setFlash(__('Configuration files built.'), 'success');
-        $this->redirect('/schema.php');        
+        $this->redirect('/setup/schema');
     }
 
     /**
