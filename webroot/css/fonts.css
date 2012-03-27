@@ -109,8 +109,11 @@ tt {
 }
 
 .image-title{
-    font: 140% 'Nothing You Could Do';
+    font: 138.5% 'Nothing You Could Do';
 }
 
-
-
+.image-title h1{
+    padding:0;
+    margin: 0;
+    font: 100% 'Nothing You Could Do';
+}

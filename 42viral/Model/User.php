@@ -461,9 +461,20 @@ class User extends Person
     public function fetchUserWith($token, $with=array())
     {
         switch($with){
+            
             case 'profile':
                 $with = array('Profile'=>array());
-            break;    
+            break;   
+        
+            case 'full_profile':
+                $with = array(
+                    'Address'=>array(),
+                    'Content'=>array(),
+                    'PersonDetail'=>array(),
+                    'Profile'=>array(),
+                    'Upload'=>array()
+                );
+            break; 
         }
         
         $user= $this->find('first', array(

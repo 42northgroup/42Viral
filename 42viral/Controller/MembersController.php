@@ -90,9 +90,7 @@ App::uses('Member', 'Lib');
         }
 
         //Get the user data
-        $user = $this->User->getUserWith($token, array(
-            'Profile', 'Content', 'Upload'
-        ));
+        $user = $this->User->fetchUserWith($token, 'full_profile');
 
         //Does the user really exist?
         if(empty($user)) {
@@ -117,24 +115,16 @@ App::uses('Member', 'Lib');
         $this->set('services', $services);
         $this->set('user', $user);
         
+        
+        $person = array();
+        $person['Person'] = $user['User'];
+        
         $userProfile = array();
-        $userProfile['Person'] = $user['User'];
-        $userProfile['Person']['Profile'] = $user['Profile'];
-        
-        $person_details = $this->PersonDetail->fetchPersonDetails($userProfile['Person']['id']);
-        $this->set('person_details', $person_details);
-        
-        $addresses = $this->Address->find('all', array(
-            'conditions' => array(
-                'Address.model' => 'Person',
-                'Address.model_id' => $userProfile['Person']['id']
-            )
-        ));
-        $this->set('addresses', $addresses);
+        $userProfile = array_replace($user, $person);
+        unset($userProfile['User']);
         
         $this->set('userProfile', $userProfile);
         $this->set('title_for_layout', Member::name($userProfile['Person']) . "'s Profile");
-
     }
 
     public function social_media($redirect_url='members/social_media')

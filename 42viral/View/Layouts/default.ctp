@@ -21,11 +21,13 @@
                 'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
                 'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
 
-                'css' . DS . 'fonts.css',
+
 
                 'css' . DS . 'responsive-header.css',
                 'css' . DS . 'responsive-navigation.css',
                 'css' . DS . 'responsive-form.css',
+
+                'css' . DS . 'hcard.css',
 
                 'css' . DS . 'cake.stripped.css',
                 'css' . DS . 'layout.css',
@@ -36,7 +38,9 @@
 
                 'css' . DS . 'controls.css',
                 'css' . DS . 'controls.social.css',
-                'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'
+                'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css',
+
+                'css' . DS . 'fonts.css'
             ));
 
             echo $this->Asset->buildAssets('js');

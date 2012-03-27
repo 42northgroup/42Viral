@@ -127,3 +127,13 @@ h3{
     margin-top: 5px;
     text-align: center;
 }
+
+/* 
+    Use in in lieu of a starting h1 tag for consistent , site wide spacing
+    Usage: <div class="h1shim"></div> or <div class="h1shim">&nbsp;</div>
+*/
+.h1shim {
+    font-size:138.5%;  
+    margin:1em 0;
+    font-weight:bold; 
+}
