@@ -29,3 +29,6 @@
 [submodule "Plugin/Connect"]
 	path = Plugin/Connect
 	url = git@github.com:microtrain/CakePHP-Connect-Plugin.git
+[submodule "42viral/Vendor/Imagine"]
+	path = 42viral/Vendor/Imagine
+	url = git@github.com:microtrain/Imagine.git
