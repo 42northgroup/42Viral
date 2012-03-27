@@ -16,8 +16,9 @@
 /**
  * Container for handy functions
  * @package Lib
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
- *** @author Jason D Snider <jason.snider@42viral.org> 
+ * @subpackage Lib.Handy
+ * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy
 {
@@ -25,7 +26,6 @@ class Handy
     /**
      * Deep conversion of a php object to an array recusively
      *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
      * @access public
      * @param object $obj
      * @return array
@@ -269,7 +269,6 @@ class Handy
     /**
      * Check whether a given string is a UUID or not (UUIDs have a standard format of '8-4-4-4-12' hexadecimal digits)
      *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
      * @access public
      * @param string $string
      * @return bool true if is uuid, false otherwise
@@ -288,47 +287,79 @@ class Handy
     }
     
     /**
-    * Provides standard formatting for phone numbers
-    * @param integer $phoneNumber
-    * @param boolean $doNotCall
-    * @return string 
-    */
-    function phoneNumber($phoneNumber, $doNotCall=false){
+     * Provides standard formatting for phone numbers
+     * @param integer $phoneNumber
+     * @param boolean $international
+     * @param boolean $doNotCall
+     * @return string 
+     * 
+     * @todo How do we detect the system dialer?
+     */
+    function phoneNumber($phoneNumber, $options = array()){
         
+        $defaultOptions = array(
+            'international' => false,
+            'doNotCall'     => false
+        );
+        
+        $settings = array_merge($defaultOptions, $options);
+        
+        //initialize $plusOne for international numbers
+        $plusOne = null;
+        
+        //detect the systems dialer
         $dialer = null;
         
-        if($doNotCall) {
-                return '<span class="grayed-out">Do not call</span>';
+        //initialize the dialer protocol
+        $protocol = null;
+        
+        //if the person is flagged as DO NOT CALL then don't
+        if($settings['doNotCall']) {
+            return '<span class="grayed-out">Do not call</span>';
+        }
+        
+        //if the person is flagged as DO NOT CALL then don't
+        if($settings['international']) {
+            $plusOne = "+1";
         }
 
+        //Remove all non-numeric cruft
         $phoneNumber = preg_replace('/[^\d]/', '', $phoneNumber);
 
+        //if we have a phone number, build the phone number string
         if ($phoneNumber != "") {
+            
+            //Make sure we only have 10 digits
             if(strlen($phoneNumber > 10) && strpos($phoneNumber, '1') == 0) {
                 $phoneNumber = preg_replace('/^1/', '', $phoneNumber);
             }
 
+            //parse the number into a readable format
             $num1 = substr($phoneNumber, 0, 3);
             $num2 = substr($phoneNumber, 3, 3);
             $num3 = substr($phoneNumber, 6, 4);
             
+            //use the dialer to create the right protocol
             switch($dialer):
                 
                 case 'iphone':
+                case 'skype':
                 case 'nokia':
-                    $dialer = "callto:{$num1}{$num2}{$num3}";
+                    $protocol = "callto:{$plusOne}{$num1}{$num2}{$num3}";
                 break;   
                 
                 case 'android':
-                    $dialer = "wtai://wp/mc;{$num1}{$num2}{$num3}";
+                    $protocol = "wtai://wp/mc;{$plusOne}{$num1}{$num2}{$num3}";
                 break;                 
                 
                 default:
-                    $dialer = "tel:{$num1}{$num2}{$num3}";
+                    $protocol = "tel:{$plusOne}{$num1}{$num2}{$num3}";
                 break;   
+            
             endswitch;
             
-            return "<a href=\"{$dialer}\">({$num1}){$num2}-{$num3}</a>";
+            return "<a href=\"{$protocol}\">({$num1}) {$num2}-{$num3}</a>";
+            
         } else {
             return "N/A";
         }
