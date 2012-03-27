@@ -18,6 +18,7 @@
  */
 
 //Create additional navigation
+/*
 if($mine):
     
     //If it's your post you'll be provided CMS links
@@ -38,6 +39,7 @@ if($mine):
 else:
      $additional  = array();
 endif; 
+ * */
 ?>
 
 <h1><?php echo $title_for_layout; ?></h1>
@@ -104,8 +106,7 @@ endif;
     </div>
     
     <div class="one-third column omega">
-        
-        <?php echo $this->element('Blocks' . DS . 'hcard'); ?>
+        <?php echo $this->element('Blocks' . DS . 'hcard', array('userProfile'=>$userProfile, 'allOpen'=>false)); ?>
         
         <?php echo $this->element('Navigation' . DS . 'profile', array('mine'=>$mine)); ?>
         

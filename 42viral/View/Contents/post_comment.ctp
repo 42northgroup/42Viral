@@ -15,11 +15,12 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
-
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
-
 ?>
-<h1>Comment on a blog post</h1>
-<?php echo $this->element('Posts' . DS . 'post_comments'); ?>
+<h1><?php echo $title_for_layout; ?></h1>
+
+<div class="row">
+    <div class="two-thirds column alpha"><?php echo $this->element('Posts' . DS . 'post_comments'); ?></div>
+    <div class="one-third column omega"></div>
+</div>

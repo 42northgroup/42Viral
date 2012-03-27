@@ -103,6 +103,7 @@ class BlogsController extends AppController {
 
         $userProfile['Person'] = $blog['CreatedPerson'];
         $this->set('userProfile', $userProfile);
+        
         $this->set('mine', $mine); 
         
         $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));

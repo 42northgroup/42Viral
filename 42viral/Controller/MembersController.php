@@ -78,7 +78,6 @@ App::uses('Member', 'Lib');
      *
      * @param string $finder
      * @return void
-     *** @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      * @todo TestCase
      */
@@ -114,7 +113,6 @@ App::uses('Member', 'Lib');
         
         $this->set('services', $services);
         $this->set('user', $user);
-        
         
         $person = array();
         $person['Person'] = $user['User'];

@@ -172,9 +172,10 @@ class PostsController extends AppController {
                 $this->Session->setFlash(_('Your comment could not be saved') ,'error');
             }
         }
-                  
+        
         //Build a user profile for use in the elements. The view must recive an array of $userProfile
         $userProfile['Person'] = $post['CreatedPerson'];
+        $userProfile['Profile'] = $post['CreatedPerson'];
         $this->set('userProfile', $userProfile);
         
         $this->set('title_for_layout', $post['Post']['title']);

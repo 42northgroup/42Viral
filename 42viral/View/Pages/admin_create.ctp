@@ -15,18 +15,24 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));     
+?>
+<div class="row">
+    <div class="two-thirds column alpha">
+        <?php
+            echo $this->Form->create('Page', 
+                        array(
+                            'url'=>$this->here, 
+                            'class'=>'content'
+                        )
+                    );
 
-echo $this->Form->create('Page', 
-            array(
-                'url'=>$this->here, 
-                'class'=>'content'
-            )
-        );
-
-echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
-echo $this->Form->submit();
-echo $this->Form->end();
+            echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
+            echo $this->Form->submit();
+        echo $this->Form->end();
+        ?>
+    </div>
+    <div class="one-third column omega"></div>
+</div>

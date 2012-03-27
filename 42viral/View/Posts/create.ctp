@@ -17,51 +17,59 @@
  * UI for creating a web page
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
 ?>
 
-<?php if(isset($this->params['pass'][0])): ?>
+<h1><?php echo $title_for_layout; ?></h1>
+<div class="row">
+    <div class="two-thirds column alpha">
+        <?php if(isset($this->params['pass'][0])): ?>
 
-    <h1>Post to the blog</h1>
-    
-    <?php
+            <?php
 
-        echo $this->Form->create('Post', 
-                    array(
-                        'url'=>$this->here, 
-                        'class'=>'content'
-                    )
-                );
-        echo $this->Form->input('parent_content_id', array('value'=>$this->params['pass'][0], 'type'=>'hidden'));
-        echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
-        echo $this->Form->submit();
-        echo $this->Form->end();
+                echo $this->Form->create('Post', 
+                            array(
+                                'url'=>$this->here, 
+                                'class'=>'responsive'
+                            )
+                        );
+                
+                echo $this->Form->input('parent_content_id', 
+                        array('value'=>$this->params['pass'][0], 'type'=>'hidden'));
+                
+                echo $this->Form->input('title');
+                
+                echo $this->Form->submit();
+                
+                echo $this->Form->end();
 
-    ?>
-    
-<?php else: ?>
-    
-    <?php if(empty($blogs)): ?> 
-        <h2>
-            <?php echo "You don't have any blogs to post to " 
-                . $this->Html->link('Create One', '/blogs/create/') . " now."; ?>
-        </h2>
-    <?php else: ?>
-        <h2><?php echo __('Choose the blog to which you would like to post.'); ?></h2>
+            ?>
 
-        <table>
-            <tbody>
-            <?php foreach($blogs as $blog):?>
-                <tr>
-                    <td>
-                        <?php echo $this->Html->link(
-                                $blog['Blog']['title'], 
-                                "/posts/create/{$blog['Blog']['id']}"); ?>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-            </tbody>
-    </table>
-    <?php endif; ?>
-<?php endif; ?>
+        <?php else: ?>
+
+            <?php if(empty($blogs)): ?> 
+                <h2>
+                    <?php echo "You don't have any blogs to post to " 
+                        . $this->Html->link('Create One', '/blogs/create/') . " now."; ?>
+                </h2>
+            <?php else: ?>
+        
+                <h2><?php echo __('Choose the blog to which you would like to post.'); ?></h2>
+
+                <table>
+                    <tbody>
+                    <?php foreach($blogs as $blog):?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Html->link(
+                                        $blog['Blog']['title'], 
+                                        "/posts/create/{$blog['Blog']['id']}"); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+            </table>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+    <div class="one-third column omega"></div>
+</div>

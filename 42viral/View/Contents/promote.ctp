@@ -3,19 +3,19 @@
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
@@ -53,47 +53,53 @@
     });
 </script>
 
-<h1>Promote your <?php echo strtolower(Inflector::humanize($content['Content']['object_type'])); ?></h1>
+<h1><?php echo $title_for_layout; ?></h1>
 
-<?php  echo $this->Form->create('SocialMedia', 
-        array(
-            'url' => '/contents/promote',
-            'class'=>'content'
+<div class="row">
+    <div class="two-thirds column alpha">
+
+    <?php  echo $this->Form->create('SocialMedia', 
+            array(
+                'url' => '/contents/promote',
+                'class'=>'responsive'
+                )); ?>
+
+    <?php echo $this->Form->input('twitter_post', array(
+        'type' => 'checkbox', 
+        'label' => 'Twitter'
+        )); ?>
+
+    <?php echo $this->Form->input('twitter', array(
+        'type'=>'textarea',
+        'maxlength' => 140,
+        'label'=>false,
+        'value' => $promo['twitter']
+        )); ?>
+    Characters left: <span id="TweetCharsLeft" >140</span>
+
+    <div class="clearfix">
+        <?php echo $this->Form->input('facebook_post', array(
+            'type' => 'checkbox', 
+            'label' => 'Facebook',
+            'div'=>array('style'=>'float:left; width:80px;')
             )); ?>
-    
-<?php echo $this->Form->input('twitter_post', array(
-    'type' => 'checkbox', 
-    'label' => 'Twitter'
-    )); ?>
 
-<?php echo $this->Form->input('twitter', array(
-    'type'=>'textarea',
-    'maxlength' => 140,
-    'label'=>false,
-    'value' => $promo['twitter']
-    )); ?>
-Characters left: <span id="TweetCharsLeft" >140</span>
+        <?php echo $this->Form->input('linkedin_post', array(
+            'type' => 'checkbox', 
+            'label' => 'LinkedIn',
+            'div'=>array('style'=>'float:left; width:78px;')
+            )); ?>
+    </div>
 
-<div class="clearfix">
-    <?php echo $this->Form->input('facebook_post', array(
-        'type' => 'checkbox', 
-        'label' => 'Facebook',
-        'div'=>array('style'=>'float:left; width:80px;')
+    <?php echo $this->Form->input('others', array(
+        'type'=>'textarea',
+        'label'=>false,
+        'value' => $promo['other']
         )); ?>
 
-    <?php echo $this->Form->input('linkedin_post', array(
-        'type' => 'checkbox', 
-        'label' => 'LinkedIn',
-        'div'=>array('style'=>'float:left; width:78px;')
-        )); ?>
+    <?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
+
+    <?php echo $this->Form->end(); ?>
+    </div>
+    <div class="one-third column omega"></div>
 </div>
-
-<?php echo $this->Form->input('others', array(
-    'type'=>'textarea',
-    'label'=>false,
-    'value' => $promo['other']
-    )); ?>
-
-<?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
-    
-<?php echo $this->Form->end(); ?>

@@ -1,6 +1,6 @@
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
-    <div class="sixteen columns">
+    <div class="sixteen columns alpha omega">
 
     <?php if($overall_progress['user'] == 100): ?>
         <h2 style="text-decoration: line-through;">

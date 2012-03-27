@@ -14,11 +14,11 @@
  */
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 
 
-
+/*
     $additional  = array(
         array(
             'text'=>"Complete",
@@ -43,6 +43,21 @@
 
 
     echo $this->element('Navigation' . DS . 'local', array('section'=>'cases', 'additional'=>$additional));
-
+*/
 ?>
-<div><?php echo $case['CaseModel']['body']; ?></div>
+<h1><?php echo $title_for_layout; ?></h1>
+
+<div class="row">
+    <div class="two-thirds column alpha">
+        <div><?php echo $case['CaseModel']['body']; ?></div>
+        
+    </div>
+
+    <div class="one-third column omega">
+        <?php foreach($post['Conversation'] as $conversation): ?>
+            <div><?php echo $conversation['body']; ?></div>
+        <?php endforeach; ?>
+
+        <?php echo $this->element('Posts' . DS . 'post_comments'); ?>
+    </div>
+</div>

@@ -181,7 +181,7 @@ App::uses('Member', 'Lib');
         
         $this->set('promo', $promo);
 
-        $this->set('title_for_layout', "Update {$post['Post']['name']}");
+        $this->set('title_for_layout', "Promote {$content['Content']['name']}");
         
     }      
 }

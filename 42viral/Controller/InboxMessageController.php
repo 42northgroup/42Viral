@@ -36,7 +36,7 @@ App::uses('AppController', 'Controller');
         $userId = $this->Session->read('Auth.User.id');
         $allMessages = $this->InboxMessage->fetchAllUserInboxMessages($userId);
         $this->set('all_messages', $allMessages);
-
+        $this->set('title_for_layout', 'Inbox');
 
     }
 
@@ -95,6 +95,7 @@ App::uses('AppController', 'Controller');
         $userId = $this->Session->read('Auth.User.id');
         $allMessages = $this->InboxMessage->fetchAllUserMessages($userId);
         $this->set('all_messages', $allMessages);
+        $this->set('title_for_layout', 'Inbox');
     }
 
 

@@ -15,10 +15,12 @@
 
 /**
  * UI for creating a web page
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
+?>
 
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
+<h1><?php echo $title_for_layout; ?></h1>
+<?php
 
 
     $this->Asset->addAssets(array(
@@ -32,21 +34,40 @@
     echo $this->Form->create('Post', 
                 array(
                     'url'=>$this->here, 
-                    'class'=>'content'
+                    'class'=>'responsive'
                 )
             );
-    
-    echo $this->Form->input('id');
-    echo $this->Form->input('title', array('rows'=>1));
-    echo $this->Form->input('body', array('class'=>'edit-content'));
-    echo $this->Form->input('tease', array('class'=>'edit-content'));
-    echo $this->Form->input('description');
-    echo $this->Form->input('keywords');
-    echo $this->Form->input('tags');
-    echo $this->Form->input('custom_file', array('empty'=>true));   
-    echo $this->Form->input('canonical', array('rows'=>1));
-    echo $this->Form->input('slug', array('rows'=>1));
-    echo $this->Form->input('status');
-    echo $this->Form->submit();
+?>
+<div class="row">
+    <div class="two-thirds column alpha">
 
-    echo $this->Form->end();
+        <?php
+            echo $this->Form->input('id');
+            echo $this->Form->input('title', array('rows'=>1));
+            echo $this->Form->input('body', array('class'=>'edit-content'));
+            echo $this->Form->input('tease', array('class'=>'edit-content'));
+            echo $this->Form->input('description');
+            echo $this->Form->input('keywords');
+            echo $this->Form->input('tags');
+            echo $this->Form->input('custom_file', array('empty'=>true));   
+            echo $this->Form->input('canonical', array('rows'=>1));
+            echo $this->Form->input('slug', array('rows'=>1));
+
+        ?>
+    </div>
+    <div class="one-third column omega">
+        <?php
+        
+        /*
+            echo $this->Form->inputs(
+                    array('legend'=>'Sitemap',
+                        'Sitemap.id',
+                        'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
+                        'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
+*/
+            echo $this->Form->input('status');
+            echo $this->Form->submit();
+        ?>
+    </div>
+</div>
+<?php echo $this->Form->end(); ?>
