@@ -99,6 +99,13 @@ label{
     line-height: 1.6em;
 }
 
+legend{
+    font: 128% "Droid Sans";
+    font-weight: normal;
+    font-style: italic;
+    line-height: 1.6em;
+}
+
 pre,
 code,
 kbd,

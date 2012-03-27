@@ -45,11 +45,11 @@
             echo $this->Form->input('id');
             echo $this->Form->input('title', array('rows'=>1));
             echo $this->Form->input('body', array('class'=>'edit-content'));
-            echo $this->Form->input('tease', array('class'=>'edit-content'));
+            echo $this->Form->input('tease', array('type'=>'textarea','class'=>'edit-content'));
             echo $this->Form->input('description');
             echo $this->Form->input('keywords');
             echo $this->Form->input('tags');
-            echo $this->Form->input('custom_file', array('empty'=>true));   
+               
             echo $this->Form->input('canonical', array('rows'=>1));
             echo $this->Form->input('slug', array('rows'=>1));
 
@@ -58,14 +58,15 @@
     <div class="one-third column omega">
         <?php
         
-        /*
+            /*
             echo $this->Form->inputs(
                     array('legend'=>'Sitemap',
                         'Sitemap.id',
                         'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
                         'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
-*/
-            echo $this->Form->input('status');
+            */
+            echo $this->Form->inputs(array('legend'=>'Alt. Content Creation', 'custom_file'=>array('empty'=>true)));
+            echo $this->Form->inputs(array('legend'=>'Publish', 'status'));
             echo $this->Form->submit();
         ?>
     </div>
