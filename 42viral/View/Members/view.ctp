@@ -52,13 +52,38 @@
     
     <div class="one-third column omega">
         
-        <?php echo $this->element('Blocks' . DS . 'hcard', 
-                array(
-                        'userProfile'=>$userProfile, 
-                        'allOpen'=>true,
-                        'h1'=>true
-                    )
-                ); ?>
+        <?php 
+            echo $this->element(
+                    'Blocks' . DS . 'hcard', 
+                    array(
+                            'userProfile'=>$userProfile, 
+                            'allOpen'=>true,
+                            'h1'=>true
+                        )
+                    ); 
+            
+
+        
+            //Privides navigation for manageing an asset
+            if($mine):
+
+                //If it's your post you'll be provided CMS links
+                $additional = array(
+                    array(
+                        'text'=>"Edit Profile",
+                        'url'=>"/profiles/edit/{$profileId}",
+                        'options' => array(),
+                        'confirm'=>null
+                    )               
+                );
+                        
+                echo $this->element('Navigation' . DS . 'manage', 
+                            array('section'=>'profile', 
+                                'additional'=>$additional
+                            )
+                        );
+            endif; 
+        ?>
 
     </div>
     

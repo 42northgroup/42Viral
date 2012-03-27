@@ -175,7 +175,7 @@ class PostsController extends AppController {
         
         //Build a user profile for use in the elements. The view must recive an array of $userProfile
         $userProfile['Person'] = $post['CreatedPerson'];
-        $userProfile['Profile'] = $post['CreatedPerson'];
+        $userProfile['Profile'] = $post['CreatedPerson']['Profile'];
         $this->set('userProfile', $userProfile);
         
         $this->set('title_for_layout', $post['Post']['title']);

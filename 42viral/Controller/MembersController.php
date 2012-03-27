@@ -122,6 +122,7 @@ App::uses('Member', 'Lib');
         unset($userProfile['User']);
         
         $this->set('userProfile', $userProfile);
+        $this->set('profileId', $userProfile['Profile']['id']);
         $this->set('title_for_layout', Member::name($userProfile['Person']) . "'s Profile");
     }
 

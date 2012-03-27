@@ -16,30 +16,6 @@
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-
-//Create additional navigation
-/*
-if($mine):
-    
-    //If it's your post you'll be provided CMS links
-    $additional = array(
-        array(
-            'text' => 'Edit',
-            'url' => "/contents/post_edit/{$post['Post']['id']}",
-            'options'=>array(),
-            'confirm'=>null
-        ),
-        array(
-            'text' => 'Delete',
-            'url' => "/contents/post_delete/{$post['Post']['id']}",
-            'options'=>array(),
-            'confirm'=>Configure::read('System.purge_warning')
-        )                
-    );
-else:
-     $additional  = array();
-endif; 
- * */
 ?>
 
 <h1><?php echo $title_for_layout; ?></h1>
@@ -112,8 +88,33 @@ endif;
         
         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
         
-        <?php echo $this->element(
-                'Navigation' . DS . 'local', array('section'=>'content', 'additional'=>$additional)); ?>
+        <?php 
+            //Privides navigation for manageing an asset
+            if($mine):
+
+                //If it's your post you'll be provided CMS links
+                $additional = array(
+                    array(
+                        'text' => 'Edit',
+                        'url' => "/posts/edit/{$post['Post']['id']}",
+                        'options'=>array(),
+                        'confirm'=>null
+                    ),
+                    array(
+                        'text' => 'Delete',
+                        'url' => "/posts/delete/{$post['Post']['id']}",
+                        'options'=>array(),
+                        'confirm'=>Configure::read('System.purge_warning')
+                    )                
+                );
+                        
+                echo $this->element('Navigation' . DS . 'manage', 
+                            array('section'=>'post', 
+                                'additional'=>$additional
+                            )
+                        );
+            endif; 
+        ?>
     </div>
     
 </div>
