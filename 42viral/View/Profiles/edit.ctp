@@ -31,18 +31,25 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
 <script type="text/javascript">
     $(function(){
-        var mouse_is_inside = false;
-
-        $("#personDetailsLinks").delegate('.personDetailsLink', 'click', function(event){            
+        
+        $("#additionalDetailsHolder").delegate('.personDetailsLink', 'click', function(event){            
             event.preventDefault();
-            $("#personDetailsForm").show();
-            $("#PersonDetailType").val($(this).attr('id'));
+            
+            var element = $(this);
+            
+            $("#form_"+element.attr('id')).clearForm();
+            
+            $('.' + element.attr('id')).toggle();
+            
+            $("#PersonDetailType").val(element.attr('id'));
+            
+            if($.trim(element.text()) == "+"){
+                element.text("-")
+            }else{
+                element.text("+")
+            }
         });
         
-        $('#addressLink').click(function(event){            
-            event.preventDefault();
-            $("#addressForm").show();
-        });
         
         /*
         $("#additionalDetailsHolder").delegate('.additionalDetailsType', 'click', function(){            
@@ -53,11 +60,13 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         $("#additionalDetailsHolder").delegate('.editDetail', 'click', function(event){
             event.preventDefault();
             var element = $(this).parent();
-            $("#PersonDetailId").val(element.attr('id'));
-            $("#PersonDetailValue").val(element.attr('data-value'));
-            $("#PersonDetailType").val(element.attr('data-type'));
-            $("#PersonDetailCategory").val(element.attr('data-category'));
-            $("#personDetailsForm").show();
+            var formClass = $(this).attr('id').replace('edit_', '');
+            
+            $("#form_" + formClass + " input[id=PersonDetailType]").val(element.attr('data-type'));
+            $("#form_" + formClass + " input[id=PersonDetailId]").val(element.attr('id'));
+            $("#form_" + formClass + " input[id=PersonDetailValue]").val(element.attr('data-value'));
+            $("#form_" + formClass + " input[id=PersonDetailCategory]").val(element.attr('data-category'));
+            $("." + formClass ).toggle();
         });
         
         $("#additionalDetailsHolder").delegate('.editAddress', 'click', function(event){
@@ -71,20 +80,27 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
             $("#AddressZip").val(element.attr('data-zip'));
             $("#AddressCountry").val(element.attr('data-country'));
             $("#AddressType").val(element.attr('data-type'));
-            $("#addressForm").show();
+            $("#addressForm").toggle();
         });
         
-        $('.popUpForm').hover(function(){ 
-            mouse_is_inside=true; 
-        }, function(){ 
-            mouse_is_inside=false; 
-        });
-
-        $("body").mouseup(function(){ 
-            if(! mouse_is_inside) $('.popUpForm').hide();
-        });
 
     });
+    
+    $.fn.clearForm = function() {
+      return this.each(function() {
+        var type = this.type, tag = this.tagName.toLowerCase();
+        if (tag == 'form')
+          return $(':input',this).clearForm();
+        if (type == 'text' || type == 'password' || tag == 'textarea')
+          this.value = '';
+        else if (type == 'checkbox' || type == 'radio')
+          this.checked = false;
+        else if (tag == 'select')
+          this.selectedIndex = -1;
+      });
+    };
+
+
 </script>
 
 <style>
@@ -96,6 +112,30 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         font-weight: bold; 
         padding: 3px;
     }
+    
+    .personDetailsLink:link, .personDetailsLink:visited{
+        color: #FFF;
+    }
+    
+    div.column-block .personDetailsLink:hover{
+        box-shadow: 1px 1px 1px green inset;
+        background-color: #FFF;
+        border-color: #FFF;
+        color: green;
+    }
+    
+    .personDetailsLink{
+        background-color: green;
+        border: 1px solid green;
+        border-radius: 5px 5px 5px 5px;
+        box-shadow: 1px 1px 1px #FFFFFF inset;
+        color: #FFF;
+        font-weight: bold;
+        font-size: 13pt;
+        cursor: pointer;
+        padding: 3px 12px 0px 12px;
+    }
+    
 </style>
 
 <h1><?php echo $title_for_layout; ?></h1>
@@ -128,7 +168,13 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
             <h4>Additional Details</h4>
             <?php foreach($types as $key => $value): ?>
                 <div id="type_<?php echo $key ?>" class="additionalDetailFrame">
-                    <h5><?php echo $value ?></h5>
+                    <h5 class=" clearfix">
+                        <?php echo $value ?>
+                        <a href="#" style="float:right" class="personDetailsLink" id="<?php echo $key ?>" >
+                            +
+                        </a>
+                    </h5>
+                    
 
                     <div id="details_<?php echo $key ?>" >
                         <div>
@@ -160,7 +206,9 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                                 style="float: right; margin-left:5px;" >
                                     X
                                 </a>
-                                <a href="#" style=" float: right" class="editDetail">Edit</a>                        
+                                <a href="#" style=" float: right" id="edit_<?php echo $key ?>" class="editDetail">
+                                    Edit
+                                </a>                        
                             </div>
 
                             <?php endif; ?>
@@ -168,12 +216,20 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                         <?php endforeach; ?>
                         </div>
                     </div>
+                    
+                    <?php echo $this->element('Profiles/person_details_form', array(
+                        'type' => $key
+                    )); ?>  
+                    
                 </div>
             <?php endforeach; ?>
                 
                 <div id="type_address" class="additionalDetailFrame">
-                    <h5>Addresses</h5>
-
+                    <h5>
+                        Addresses
+                        <a href="#" style="float:right" class="personDetailsLink" id="address" >+</a>
+                    </h5>
+                    
                     <div id="details_address" >
                         <div>
                         <?php foreach($addresses as $address): ?>
@@ -188,6 +244,12 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                                 data-zip="<?php echo $address['Address']['zip']; ?>"
                                 data-country="<?php echo $address['Address']['country']; ?>">
 
+                                <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
+                                style="float: right; margin-left:5px;" >
+                                    X
+                                </a>
+                                <a href="#" style=" float: right" class="editAddress">Edit</a>
+                                
                                 <em><?php echo $address['Address']['type']; ?></em>
                                 
                                 <div><?php echo $address['Address']['line1']; ?></div>
@@ -197,36 +259,17 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                                     <?php echo ", " . $address['Address']['country'], ', Earth'; ?>  
                                 </div>
                                 <div><?php echo $address['Address']['zip']; ?></div>
-                                                            
-                                
-                                <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
-                                style="float: right; margin-left:5px;" >
-                                    X
-                                </a>
-                                <a href="#" style=" float: right" class="editAddress">Edit</a>                        
+                                                                       
                             </div>                    
 
                         <?php endforeach; ?>
                         </div>
                     </div>
+                    
+                    <?php echo $this->element('Profiles/address_form'); ?>
                 </div>
-            </div>
-        
-            <div class="column-block">
-                <div id="personDetailsLinks" >
-                    <a href="#" id="addressLink" >Add Address</a>
-                    <a href="#" class="personDetailsLink" id="email" style="margin-left: 5px;" >Add Email</a>
-                    <a href="#" class="personDetailsLink" id="phone" style="margin-left: 5px;" >Add Phone</a>
-                </div>
-            </div>
+            </div>        
 
-            <div class="column-block">
-            <?php
-                echo $this->element('Profiles/person_details_form');
-                echo $this->element('Profiles/address_form');
-            ?>   
-            </div>
-        
         </div>
 </div>
     

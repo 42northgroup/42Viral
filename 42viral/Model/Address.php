@@ -36,6 +36,18 @@ class Address extends AppModel
         'Log'
     );
     
+    /**
+     *
+     * @var array
+     * @access public
+     */
+    public $validate = array(
+        'zip' => array(
+            'rule'    => array('postal', null, 'us'),
+            'message' => 'Invalid Zip Code'
+        )
+    );
+    
     public $belongsTo = array();
     
     public function __construct($id=false, $table=null, $ds=null) {

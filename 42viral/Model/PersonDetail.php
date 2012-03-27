@@ -79,14 +79,40 @@ class PersonDetail extends AppModel
             'message' => 'Type field can not be empty'
         ),
         'value' => array(
-            'rule'    => array('notEmpty'),
-            'message' => 'Entry field can not be empty'
+            'validateEntry' => array(
+                'rule'    => array('validateEntry'),
+                'message' => 'Information entered in the Enrty filed does not correspond to the Type'
+            ),
+            
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => 'Entry field can not be empty'
+            )
         ),
         'category' => array(
             'rule'    => array('notEmpty'),
             'message' => 'Category field can not be empty'
         )
     );
+    
+    /**
+     * Returns true if the user has submitted the same password twice.
+     * @return boolean
+     * @author Jason D Snider <jsnider@microtain.net>
+     * @access public
+     */
+    public function validateEntry()
+    {
+        $valid = false;
+        
+        if($this->data[$this->alias]['type'] == 'email') {
+            
+            return Validation::email($this->data[$this->alias]['value']);
+        }elseif($this->data[$this->alias]['type'] == 'phone'){
+            
+            return Validation::phone($this->data[$this->alias]['value']);
+        }
+    }
     
     /**
      * Fetches a person's phones and emails and combines them in 1 array which is then returned

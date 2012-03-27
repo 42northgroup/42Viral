@@ -3,12 +3,13 @@
         display: none;
     }
 </style>
-<div id="addressForm" class="popUpForm">
+<div id="addressForm" class="popUpForm address">
     <?php
     echo $this->Form->create('Address', array(
         'url' => '/profiles/save_person_address',
         'action' => 'save',
         'class' => 'responsive',
+        'id' => 'form_address',
         'style' => 'width:290px;'
     ));
     echo $this->Form->input('model_id', array(
@@ -22,7 +23,7 @@
     ));
 
     echo $this->Form->input('type', array(
-        'label' => 'Category',
+        'label' => 'Label',
         'type' => 'text'
     ));
     
