@@ -20,7 +20,9 @@
  * @see $time
  */
 
-require_once("dUnzip2.inc.php");
+//require_once("dUnzip2.inc.php");
+
+App::uses('dUnzip2', 'PageFromDoc.Vendor/PostOffice');
 
 class PostOffice
 {

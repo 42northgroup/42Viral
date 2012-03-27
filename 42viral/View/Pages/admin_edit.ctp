@@ -32,24 +32,66 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
 echo $this->Form->create('Page', 
     array(
         'url' => $this->here,
-        'class' => 'responsive'
+        'class' => 'responsive',
+
+        'type' => 'file'
     )
 );
 ?>
+
+<style type="text/css">
+    .or-group {
+        background-color: #fff;
+        border: 1px solid #aaa;
+        padding: 10px;
+    }
+
+    .or-choice {
+        margin: 10px 0px;
+        padding: 10px;
+        background-color: #eee;
+    }
+</style>
+
 <div class="row">
     <div class="two-thirds column alpha">
 
         <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('title', array('rows'=>1));
-            echo $this->Form->input('body', array('class'=>'edit-content'));
-            echo $this->Form->input('tease', array('class'=>'edit-content'));
-            echo $this->Form->input('description');
-            echo $this->Form->input('keywords');
-            echo $this->Form->input('tags');
-            echo $this->Form->input('canonical', array('rows'=>1));
-            echo $this->Form->input('slug', array('rows'=>1));
             
+        echo $this->Form->input('id');
+        echo $this->Form->input('title', array('rows'=>1));
+        ?>
+
+        <div class="or-group">
+            <h3>Load body content by uploading a file or typing in the editor:</h3>
+            <div class="or-choice">
+                <?php
+                echo $this->Form->input('body_content_file', array(
+                    'type' => 'file',
+                    'label' => 'Upload from file'
+                ));
+                ?>
+            </div>
+
+            <h3>OR</h3>
+
+            <div class="or-choice">
+                <?php
+                echo $this->Form->input('body', array(
+                    'class' => 'edit-content',
+                    'label' => 'Type'
+                ));
+                ?>
+            </div>
+        </div>
+
+        <?php
+        echo $this->Form->input('tease', array('class'=>'edit-content'));
+        echo $this->Form->input('description');
+        echo $this->Form->input('keywords');
+        echo $this->Form->input('tags');
+        echo $this->Form->input('canonical', array('rows'=>1));
+        echo $this->Form->input('slug', array('rows'=>1));
         ?>
     </div>
     <div class="one-third column omega">
@@ -61,6 +103,7 @@ echo $this->Form->create('Page',
                         'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
 
             echo $this->Form->input('status');
+
             echo $this->Form->submit();
         ?>
     </div>

@@ -35,7 +35,10 @@ class AppModel extends Model {
      * @access public
      */
     public function currentUser() {
-        return $_SESSION['Auth']['User'];
-    }    
-    
+        if(isset($_SESSION['Auth']['User'])) {
+            return $_SESSION['Auth']['User'];
+        } else {
+            return false;
+        }
+    }
 }

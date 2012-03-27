@@ -5,6 +5,7 @@
  * @author Zubin Khavarian <zkhavarian@microtrain.net>
  */
 
+/*
 App::import('Vendor', 'PostOffice', array(
     'file' => 'post_office/lib/class.PostOffice.php'
 ));
@@ -12,12 +13,15 @@ App::import('Vendor', 'PostOffice', array(
 App::import('Vendor', 'DOCXtoHTML', array(
     'file' => 'post_office/lib/class.DOCX-HTML.php'
 ));
+*/
 
+App::uses('PostOffice', 'PageFromDoc.Vendor/PostOffice');
+App::uses('DOCXtoHTML', 'PageFromDoc.Vendor/PostOffice');
 
 /**
  *
  */
-class CakeDocxToHtmlComponent extends Object
+class CakeDocxToHtmlComponent extends Component
 {
     /**
      *
@@ -111,7 +115,7 @@ class CakeDocxToHtmlComponent extends Object
      * @param string $folderLocation
      * @return string
      */
-    public function convertDocumentToHtml($uploadedFileName, $folderLocation='files/Contacts/')
+    public function convertDocumentToHtml($uploadedFileName, $folderLocation='files/temp/')
     {
         $uploadedFilePath = WWW_ROOT . $folderLocation . $uploadedFileName;
         $resumeHtml = '';

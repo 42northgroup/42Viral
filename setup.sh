@@ -50,6 +50,10 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Plugin/ContentFilters/Vendor/h
 chmod 777 -fR "$SCRIPT_PATH/Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 echo ">>>$SCRIPT_PATH/Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
 
+chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Plugin/PageFromDoc/Vendor/PostOffice"
+chmod 777 -fR "$SCRIPT_PATH/Plugin/PageFromDoc/Vendor/PostOffice"
+echo ">>>$SCRIPT_PATH/Plugin/PageFromDoc/Vendor/PostOffice"
+
 chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/tmp"
 chmod 775 -fR "$SCRIPT_PATH/tmp"
 echo ">>>$SCRIPT_PATH/tmp"
@@ -65,6 +69,10 @@ echo ">>>$SCRIPT_PATH/img/people"
 chown "$APACHE_PROCESS":"$USER" -fR webroot/files/people
 chmod 775 -fR "$SCRIPT_PATH/webroot/files/people"
 echo ">>>$SCRIPT_PATH/webroot/files/people"
+
+chown "$APACHE_PROCESS":"$USER" -fR webroot/files/temp
+chmod 775 -fR "$SCRIPT_PATH/webroot/files/temp"
+echo ">>>$SCRIPT_PATH/webroot/files/temp"
 
 cp -r $SCRIPT_PATH/Config/Defaults/Xml/* $SCRIPT_PATH/Config/Xml/
 echo ">>>Copying default xml configurations to their target $SCRIPT_PATH/Config/Xml/"

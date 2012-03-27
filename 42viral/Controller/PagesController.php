@@ -1,5 +1,4 @@
 <?php
-
 App::uses('AppController', 'Controller');
 
 /**
@@ -30,7 +29,10 @@ App::uses('AppController', 'Controller');
      * @access public
      * @var array
      */
-    public $components = array();
+    public $components = array(
+        'PageFromDoc.CakeDocxToHtml',
+        'FileUpload.FileUpload'
+    );
 
     /**
      *
@@ -50,6 +52,36 @@ App::uses('AppController', 'Controller');
         parent::beforeFilter();
         
         $this->auth(array('*'));
+
+        $this->FileUpload->fileModel = 'Page';
+        $this->FileUpload->skipModel = true;
+        $this->FileUpload->fileVar = 'body_content_file';
+        $this->FileUpload->uploadDir = 'files/temp';
+        $this->FileUpload->allowedTypes = array(
+            //Doc
+            'application/doc',
+            'application/msword',
+            'application/msword-doc',
+            'application/vnd.msword',
+            'application/winword',
+            'application/word',
+            'application/x-msw6',
+            'application/x-msword',
+            'application/x-msword-doc',
+
+            //DocX
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.openxmlformats-officedocument.word',
+            'application/vnd.ms-word.document.12',
+
+            //PDF
+            'application/acrobat',
+            'application/nappdf',
+            'application/x-pdf',
+            'application/vnd.pdf',
+            'text/pdf',
+            'text/x-pdf'
+        );
     }
     
     /**
@@ -170,6 +202,15 @@ App::uses('AppController', 'Controller');
     public function admin_edit($id)
     {
         if(!empty($this->data)){
+            if($this->FileUpload->uploadDetected) {
+                //$filePath = WWW_ROOT . 'files' . DS . 'temp' . DS  . $this->FileUpload->finalFile;
+
+                $this->request->data['Page']['body'] =
+                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile);
+
+                $this->FileUpload->removeFile($this->FileUpload->finalFile);
+            }
+
             if($this->Page->saveAll($this->data)){
                 $this->Session->setFlash(__('Your page has been updated'), 'success');
             }else{
