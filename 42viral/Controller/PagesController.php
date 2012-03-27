@@ -21,7 +21,16 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $helpers = array('Html', 'Session', 'Tags.TagCloud');
+    public $helpers = array('Html', 'Session', 'Tags.TagCloud', 'FileUpload.FileUpload');
+
+
+    /**
+     * 
+     *
+     * @access public
+     * @var array
+     */
+    public $components = array('FileUpload.FileUpload');
 
     /**
      *
