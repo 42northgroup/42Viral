@@ -34,7 +34,7 @@ class AppController extends Controller
      * @var array
      * @access public
      */
-    public $helpers = array('Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
+    public $helpers = array('AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
     
     /**
      * The location of setup log files
