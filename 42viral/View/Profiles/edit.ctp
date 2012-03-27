@@ -1,4 +1,5 @@
 <?php
+App::uses('Handy', 'Lib');
 /**
  * PHP 5.3
  *
@@ -43,11 +44,12 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
             $("#addressForm").show();
         });
         
+        /*
         $("#additionalDetailsHolder").delegate('.additionalDetailsType', 'click', function(){            
             var type = $(this).attr('data-type');
             $("#details_" + type).toggle();
         });        
-        
+        */
         $("#additionalDetailsHolder").delegate('.editDetail', 'click', function(event){
             event.preventDefault();
             var element = $(this).parent();
@@ -112,7 +114,7 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
         echo $this->Form->input('Person.first_name');
         echo $this->Form->input('Person.last_name');
-        echo $this->Form->input('tease', array('type' => 'textarea', 'rows'=>2));
+        echo $this->Form->input('tease', array('type' => 'textarea'));
         echo $this->Form->input('bio', array('class' => 'edit-basic'));
 
         echo $this->Form->submit('Submit');
@@ -125,47 +127,58 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         <div id="additionalDetailsHolder" class="column-block">
             <h4>Additional Details</h4>
             <?php foreach($types as $key => $value): ?>
-                <div id="type_<?php echo $key ?>" class="additionalDetailFrame" style=" padding: 5px;">
-                    <a href="#" data-type="<?php echo $key ?>" class="additionalDetailsType" >
-                        <?php echo $value ?>s
-                    </a>
+                <div id="type_<?php echo $key ?>" class="additionalDetailFrame">
+                    <h5><?php echo $value ?></h5>
 
-                    <div style="display: none" id="details_<?php echo $key ?>" >
-                        <ul style=" margin-left: 0px;">
+                    <div id="details_<?php echo $key ?>" >
+                        <div>
                         <?php foreach($person_details as $detail): ?>
+                            
                             <?php if($detail['PersonDetail']['type'] == $key): ?>
 
-                            <li id="<?php echo $detail['PersonDetail']['id'] ?>" 
+                            <div id="<?php echo $detail['PersonDetail']['id'] ?>" 
                                 class="additionalDetail"
                                 data-type="<?php echo $key ?>" 
                                 data-value="<?php echo $detail['PersonDetail']['value']; ?>"
                                 data-category="<?php echo $detail['PersonDetail']['category']; ?>" >
 
-                                <?php echo $detail['PersonDetail']['category'].': '.$detail['PersonDetail']['value']; ?>
+                                <?php echo "<em>" . $detail['PersonDetail']['category']. '</em>: '; ?> 
+                                
+                                <?php
+                                    switch($key){
+                                        case 'email':
+                                            echo Handy::email($detail['PersonDetail']['value']);
+                                        break;
+                                    
+                                       case 'phone':
+                                            echo Handy::phoneNumber($detail['PersonDetail']['value']);
+                                        break;                                    
+                                    } 
+                                ?>
+                                
                                 <a href="/profiles/delete_person_detail/<?php echo $detail['PersonDetail']['id'] ?>" 
                                 style="float: right; margin-left:5px;" >
                                     X
                                 </a>
                                 <a href="#" style=" float: right" class="editDetail">Edit</a>                        
-                            </li>
+                            </div>
 
                             <?php endif; ?>
+                            
                         <?php endforeach; ?>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             <?php endforeach; ?>
                 
                 <div id="type_address" class="additionalDetailFrame">
-                    <a href="#" data-type="address" class="additionalDetailsType" >
-                        Addresses
-                    </a>
+                    <h5>Addresses</h5>
 
-                    <div style="display: none" id="details_address" >
-                        <ul style=" margin-left: 0px;">
+                    <div id="details_address" >
+                        <div>
                         <?php foreach($addresses as $address): ?>
 
-                            <li id="<?php echo $address['Address']['id'] ?>" 
+                            <div id="<?php echo $address['Address']['id'] ?>" 
                                 class="additionalDetail"
                                 data-type="<?php echo $address['Address']['type'] ?>" 
                                 data-line1="<?php echo $address['Address']['line1']; ?>"
@@ -175,16 +188,26 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
                                 data-zip="<?php echo $address['Address']['zip']; ?>"
                                 data-country="<?php echo $address['Address']['country']; ?>">
 
-                                <?php echo $address['Address']['type']; ?>
+                                <em><?php echo $address['Address']['type']; ?></em>
+                                
+                                <div><?php echo $address['Address']['line1']; ?></div>
+                                <div><?php echo $address['Address']['line2']; ?></div>
+                                <div>
+                                    <?php echo $address['Address']['city'] . ", " .$address['Address']['state']; ?>
+                                    <?php echo ", " . $address['Address']['country'], ', Earth'; ?>  
+                                </div>
+                                <div><?php echo $address['Address']['zip']; ?></div>
+                                                            
+                                
                                 <a href="/profiles/delete_person_address/<?php echo $address['Address']['id'] ?>" 
                                 style="float: right; margin-left:5px;" >
                                     X
                                 </a>
                                 <a href="#" style=" float: right" class="editAddress">Edit</a>                        
-                            </li>                    
+                            </div>                    
 
                         <?php endforeach; ?>
-                        </ul>
+                        </div>
                     </div>
                 </div>
             </div>

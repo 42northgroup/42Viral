@@ -286,5 +286,66 @@ class Handy
 
         }
     }
+    
+    /**
+    * Provides standard formatting for phone numbers
+    * @param integer $phoneNumber
+    * @param boolean $doNotCall
+    * @return string 
+    */
+    function phoneNumber($phoneNumber, $doNotCall=false){
+        
+        $dialer = null;
+        
+        if($doNotCall) {
+                return '<span class="grayed-out">Do not call</span>';
+        }
 
+        $phoneNumber = preg_replace('/[^\d]/', '', $phoneNumber);
+
+        if ($phoneNumber != "") {
+            if(strlen($phoneNumber > 10) && strpos($phoneNumber, '1') == 0) {
+                $phoneNumber = preg_replace('/^1/', '', $phoneNumber);
+            }
+
+            $num1 = substr($phoneNumber, 0, 3);
+            $num2 = substr($phoneNumber, 3, 3);
+            $num3 = substr($phoneNumber, 6, 4);
+            
+            switch($dialer):
+                
+                case 'iphone':
+                case 'nokia':
+                    $dialer = "callto:{$num1}{$num2}{$num3}";
+                break;   
+                
+                case 'android':
+                    $dialer = "wtai://wp/mc;{$num1}{$num2}{$num3}";
+                break;                 
+                
+                default:
+                    $dialer = "tel:{$num1}{$num2}{$num3}";
+                break;   
+            endswitch;
+            
+            return "<a href=\"{$dialer}\">({$num1}){$num2}-{$num3}</a>";
+        } else {
+            return "N/A";
+        }
+    }    
+    
+    /**
+    * Provides standard formatting for email
+    * @param string $phoneNumber
+    * @return string 
+    */
+    function email($email){
+
+        if ($email != "") {
+            return "<a href=\"mailto:{$email}\">{$email}</a>";
+        } else {
+            return "N/A";
+        }
+    }  
+    
 }
