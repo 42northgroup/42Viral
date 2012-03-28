@@ -15,8 +15,8 @@ App::import('Vendor', 'DOCXtoHTML', array(
 ));
 */
 
-App::uses('PostOffice', 'PageFromDoc.Vendor/PostOffice');
-App::uses('DOCXtoHTML', 'PageFromDoc.Vendor/PostOffice');
+App::uses('PostOffice', 'HtmlFromDoc.Vendor/PostOffice');
+App::uses('DOCXtoHTML', 'HtmlFromDoc.Vendor/PostOffice');
 
 /**
  *

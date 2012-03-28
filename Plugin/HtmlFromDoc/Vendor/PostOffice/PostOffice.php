@@ -22,7 +22,7 @@
 
 //require_once("dUnzip2.inc.php");
 
-App::uses('dUnzip2', 'PageFromDoc.Vendor/PostOffice');
+App::uses('dUnzip2', 'HtmlFromDoc.Vendor/PostOffice');
 
 class PostOffice
 {

@@ -30,7 +30,7 @@ App::uses('AppController', 'Controller');
      * @var array
      */
     public $components = array(
-        'PageFromDoc.CakeDocxToHtml',
+        'HtmlFromDoc.CakeDocxToHtml',
         'FileUpload.FileUpload'
     );
 
