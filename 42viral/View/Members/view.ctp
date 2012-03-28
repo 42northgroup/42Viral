@@ -1,3 +1,71 @@
+<style type="text/css">
+    .facebook-post-wrapper{
+        background-color: #3B5998;
+        padding: 5px;
+        border-radius: 5px;
+        border: 1px solid black;
+    }
+    
+    .facebook-post{
+        padding: 5px 5px 15px 5px;
+        border-left: 1px solid #3B5998;
+    }
+    
+    .google_plus-post{
+        padding: 5px 5px 15px 5px;
+        border-left: 1px solid #000;
+    }
+    
+    .twitter-post{
+        padding: 5px 5px 15px 5px;
+        border-left: 1px solid #4099FF;
+    }
+    
+    .linkedin-post{
+        padding: 5px 5px 15px 5px;
+        border-left: 1px solid #006699;
+    }
+    
+    .google_plus-triangle{
+        border-top-width: 0px;
+        border-left-width: 0px;
+        border-right-width: 20px;
+        border-bottom-width: 20px;
+        border-right-color: black;
+        border-bottom-color: transparent;        
+        border-style: solid;
+        float: left;
+        margin-right: -1px;
+        margin-top: 31px;
+    }
+    
+    .facebook-triangle{
+        border-top-width: 0px;
+        border-left-width: 0px;
+        border-right-width: 20px;
+        border-bottom-width: 20px;
+        border-right-color: #3B5998;
+        border-bottom-color: transparent;        
+        border-style: solid;
+        float: left;
+        margin-right: -1px;
+        margin-top: 31px;
+    }
+    
+    .twitter-triangle{
+        border-top-width: 0px;
+        border-left-width: 0px;
+        border-right-width: 20px;
+        border-bottom-width: 20px;
+        border-right-color: #4099FF;
+        border-bottom-color: transparent;        
+        border-style: solid;
+        float: left;
+        margin-right: -1px;
+        margin-top: 31px;
+    }
+</style>
+
 <div class="h1shim"></div>
 <div class="row">
     
@@ -36,7 +104,7 @@
                                 "/img/social_media_icons/social_networking_iconpack/{$status['source']}_32.png"); 
                     ?>
                     </div>
-                    <div style="float:left; width: 510px;">
+                    <div style="float:left; width: 510px;" class="<?php echo $status['source'].'-post'; ?>">
                         <?php echo $this->Html->div(null, $status['post']); ?>
                         <div class="status-details">
                             <?php echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; ?>
