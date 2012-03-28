@@ -152,10 +152,12 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
         echo $this->Form->input('owner_person_id', array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
 
         echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
+        
         echo $this->Form->input('Person.first_name');
         echo $this->Form->input('Person.last_name');
+        
         echo $this->Form->input('tease', array('type' => 'textarea'));
-        echo $this->Form->input('bio', array('class' => 'edit-basic'));
+        echo $this->Form->input('bio', array('rows' => 2));
 
         echo $this->Form->submit('Submit');
 

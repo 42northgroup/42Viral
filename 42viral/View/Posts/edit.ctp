@@ -40,20 +40,30 @@
 ?>
 <div class="row">
     <div class="two-thirds column alpha">
+    <?php
+        echo $this->Form->input('id');
+        echo $this->Form->input('title', array('rows'=>1));
+        echo $this->Form->input('tease', array('rows'=>2));
+        
+        echo $this->Form->input('body', array('class'=>'edit-content'));
+        
+        
+        echo $this->Form->inputs(array(
+                    'legend'=>'Meta Data',
+                    'description'=>array('rows'=>3),
+                    'keywords' => array('rows'=>3),
+                    'tags'
+                    )
+                );
+        
+        echo $this->Form->inputs(array(
+                'legend'=>'SEO',
+                'canonical'=>array('rows'=>1),
+                'slug'=>array('rows'=>1)
+                )
+            );
 
-        <?php
-            echo $this->Form->input('id');
-            echo $this->Form->input('title', array('rows'=>1));
-            echo $this->Form->input('body', array('class'=>'edit-content'));
-            echo $this->Form->input('tease', array('type'=>'textarea','class'=>'edit-content'));
-            echo $this->Form->input('description');
-            echo $this->Form->input('keywords');
-            echo $this->Form->input('tags');
-               
-            echo $this->Form->input('canonical', array('rows'=>1));
-            echo $this->Form->input('slug', array('rows'=>1));
-
-        ?>
+    ?>
     </div>
     <div class="one-third column omega">
         <?php

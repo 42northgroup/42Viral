@@ -23,7 +23,15 @@
 form{
     -webkit-appearance:none;
 }
- 
+
+form.responsive fieldset{
+    background-color: #fff;
+    outline: 1px solid #aaa;
+    padding: 10px;
+    margin: 6px 0;
+    border-radius: 1px;
+}
+
 form.responsive label{
     display: block;
 }
@@ -38,6 +46,7 @@ form.responsive input[type="text"],
 form.responsive input[type="password"],
 form.responsive select,
 form.responsive textarea{
+    border-radius: 1px;
     border: 1px solid #bbb;
     padding: 7px;
     width: 98%;

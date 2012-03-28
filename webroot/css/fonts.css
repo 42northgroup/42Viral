@@ -65,7 +65,8 @@ body {
 
 h1, 
 h2, 
-h3{ 
+h3,
+legend{ 
     font-family: "Droid Serif";
     margin: 0 0 1em 0; 
     line-height: 1.6em;
@@ -100,10 +101,12 @@ label{
 }
 
 legend{
-    font: 128% "Droid Sans";
-    font-weight: normal;
-    font-style: italic;
+    font: 108% "Droid Serif";
+    margin: 0 0 1em 0; 
+    font-weight: bold;
+    font-style: normal;
     line-height: 1.6em;
+    padding: 6px 0 0;
 }
 
 pre,

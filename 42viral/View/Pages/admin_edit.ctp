@@ -60,6 +60,7 @@ echo $this->Form->create('Page',
             
         echo $this->Form->input('id');
         echo $this->Form->input('title', array('rows'=>1));
+        echo $this->Form->input('tease', array('rows'=>2));
         ?>
 
         <div class="or-group">
@@ -86,12 +87,21 @@ echo $this->Form->create('Page',
         </div>
 
         <?php
-        echo $this->Form->input('tease', array('class'=>'edit-content'));
-        echo $this->Form->input('description');
-        echo $this->Form->input('keywords');
-        echo $this->Form->input('tags');
-        echo $this->Form->input('canonical', array('rows'=>1));
-        echo $this->Form->input('slug', array('rows'=>1));
+        
+        echo $this->Form->inputs(array(
+                    'legend'=>'Meta Data',
+                    'description'=>array('rows'=>3),
+                    'keywords' => array('rows'=>3),
+                    'tags'
+                    )
+                );
+        
+        echo $this->Form->inputs(array(
+                'legend'=>'SEO',
+                'canonical'=>array('rows'=>1),
+                'slug'=>array('rows'=>1)
+                )
+            );
         ?>
     </div>
     <div class="one-third column omega">
@@ -102,7 +112,7 @@ echo $this->Form->create('Page',
                         'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
                         'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
 
-            echo $this->Form->input('status');
+            echo $this->Form->inputs(array('legend'=>'Publish' ,'status'));
 
             echo $this->Form->submit();
         ?>
