@@ -241,11 +241,6 @@ div.section-head{
     border: solid 1px #2E6AB1;
 }
 
-.local-navigation h1{
-    font-size: 110%;
-    font-weight: bold;
-}
-
 .config,
 .config:link,
 .config:hover,

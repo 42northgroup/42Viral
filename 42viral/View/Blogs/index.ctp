@@ -21,9 +21,10 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
-    <div class="sixteen columns alpha">
+    <div class="sixteen columns alpha omega">
+
         <div id="ResultsPage" class="container">
-            <div class="rows">
+
                 <?php  
                 if($showAll):
 
@@ -32,7 +33,7 @@
 
                         foreach($blogs as $blog): ?>
 
-                        <div class="result sixteen columns">
+                        <div class="result">
                             <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
                             <div class="tease">
                             <?php echo $this->Text->truncate(
@@ -60,7 +61,7 @@
 
                         foreach($blogs['Blog'] as $blog): 
                         ?>
-                        <div class="result sixteen columns">
+                        <div class="result">
                             <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
                             <?php echo $this->Text->truncate(
                                     $blog['body'], 
@@ -81,7 +82,8 @@
                 endif; 
 
                 ?>  
-            </div>
+
         </div>
+
     </div>
 </div>

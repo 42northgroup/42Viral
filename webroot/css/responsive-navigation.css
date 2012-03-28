@@ -48,14 +48,11 @@ div.column-block a:hover{
 div.navigation-block a{
     display: block;
     margin: 0;
-    padding: 6px 0;
+    padding: 6px 0 0;
     list-style: none;
-    border-top: solid 1px #ccc;
+    border-bottom: solid 1px #eee;
 }
 
-div.navigation-block a:last-child{
-    border-bottom: solid 1px #ccc;
-}
 
 div.navigation-block a:link,
 div.navigation-block a:visited{
@@ -63,6 +60,29 @@ div.navigation-block a:visited{
 }
 
 div.navigation-block a:hover{
+    color: #21759B;
+    background: #eee;
+}
+
+div.details-block div{
+    display: block;
+    margin: 0;
+    padding: 6px 0 0;
+    list-style: none;
+    border-bottom: solid 1px #eee;
+}
+
+div.details-block div:link,
+div.details-block div:visited{
+    text-decoration: none;
+}
+
+div.details-block div:hover{
+    color: #21759B;
+    background: #eee;
+}
+
+div.details-block div a:hover{
     color: #21759B;
     background: #eee;
 }

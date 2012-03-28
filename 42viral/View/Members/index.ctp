@@ -5,7 +5,7 @@
             <?php foreach($users as $user):?>
                 <div class="row result">
                     <div class="two columns alpha">
-                        <?php echo $this->Member->avatar($user['User'], 64); ?>
+                        <div class="image-frame"><?php echo $this->Member->avatar($user['User'], 64); ?></div>
                     </div>
 
                     <div class="fourteen columns omega">

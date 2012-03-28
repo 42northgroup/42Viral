@@ -24,10 +24,14 @@ form{
     -webkit-appearance:none;
 }
 
+form.responsive legend{
+    text-align: left;
+}
+
 form.responsive fieldset{
     background-color: #fff;
-    outline: 1px solid #aaa;
-    padding: 10px;
+    
+    padding: 10px 0;
     margin: 6px 0;
     border-radius: 1px;
 }
@@ -76,7 +80,7 @@ form.responsive .input{
 
 form.responsive .submit{
     text-align: left;
-    padding: 0;
+    padding: 4px 0 0;
     margin: 4px 0 0;
 }
 
@@ -105,9 +109,12 @@ form.responsive input[type="file"]{
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
+    form.responsive legend{
+        text-align: left;
+    }
+    
     form.responsive .submit{
         text-align: center;
-        padding: 0;
         margin: 4px 0 0;
     }  
     
@@ -119,6 +126,10 @@ form.responsive input[type="file"]{
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
 @media only screen and (max-width: 479px) {
+    form.responsive legend{
+        text-align: center;
+    }
+    
     form.responsive .submit{
         text-align: center;
         padding: 0;
@@ -128,5 +139,6 @@ form.responsive input[type="file"]{
     form.responsive input[type="submit"]{
         width: 98%;
         padding: 8px;
-    }   
+    }  
+    
 }

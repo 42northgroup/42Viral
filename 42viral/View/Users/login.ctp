@@ -28,7 +28,7 @@
         if(!isset($lockout)):
             echo $this->Form->input('username');
             echo $this->Form->input('password');
-            echo $this->Form->submit();
+            echo $this->Form->submit('Login');
         
         else:
             echo '<span style="color:red; font-weight:bold" >'.
@@ -39,7 +39,11 @@
         echo $this->Form->end();
         ?>
 
-        <a href="/users/pass_reset_req">Forgot your password?</a>
+        <div class="column-block">
+            <div  class="navigation-block">
+                <a href="/users/pass_reset_req">Forgot your password?</a>
+            </div>
+        </div>
     </div>
 
     <div class="four columns omega">

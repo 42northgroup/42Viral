@@ -21,8 +21,10 @@
                 'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
 
                 'css' . DS . 'cake.stripped.css',
-                'css' . DS . 'layout.css',
                 'css' . DS . 'basics.css',
+                
+                'css' . DS . 'responsive-layout.css',
+                'css' . DS . 'responsive-elements.css',
                 
                 'css' . DS . 'responsive-header.css',
                 'css' . DS . 'responsive-navigation.css',

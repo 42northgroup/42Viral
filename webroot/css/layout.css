@@ -10,6 +10,8 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ *
+ * @deprecated
  */
 
 body{ 
@@ -34,12 +36,12 @@ body{
 #Main{}
 
 #Footer{
-    text-align: center;
-    margin: 8px 0 0;
+    text-align: right;
+    margin: 12px 0 0;
     padding: 4px 0;
-    font-weight: bold;
-    color: #fff;
-    background: #000;
+    
+    color: #ccc;
+    text-shadow: rgba(0,0,0,0.3) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.3) 0 1px, rgba(0,0,0,0.3) -1px -1px;
 }
 
 .squeeze{

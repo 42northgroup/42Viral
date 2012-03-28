@@ -50,10 +50,12 @@ var HeaderNavigation = {
 
         //Controls mouseover navigation on large devices
         $('#Navigation').delegate('.navigation', 'mouseenter',function() {
+            $(this).addClass('active');
             $(this).find('div.subnavigation:first').show();
         });
 
         $('#Navigation').delegate('.navigation', 'mouseleave',function() {
+            $(this).removeClass('active');
             $(this).find('div.subnavigation:first').hide();
         });           
     },

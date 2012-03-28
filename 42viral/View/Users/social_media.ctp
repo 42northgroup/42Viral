@@ -75,7 +75,7 @@
             'label'=>false         
             )); ?>
 
-        <?php echo $this->Form->submit('Submit', array('style' => 'float: right')) ?>
+        <?php echo $this->Form->submit('Post', array('style' => 'float: right')) ?>
 
         <?php echo $this->Form->end(); ?>
     </div>

@@ -1,3 +1,3 @@
 <div id="Footer">
-    <div class="container">Powered by The 42 Viral Project</div>
+    <div class="container">Powered by <a href="https://42viral.org">The 42Viral Project</a></div>
 </div>

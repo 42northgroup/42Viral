@@ -65,19 +65,18 @@ body {
 
 h1, 
 h2, 
-h3,
-legend{ 
+h3{ 
     font-family: "Droid Serif";
-    margin: 0 0 1em 0; 
-    line-height: 1.6em;
+    margin: 0 0 0.3em 0; 
 }
 
 h4, 
-h5{ 
+h5,
+h6{ 
     font-family: "Droid Sans";
-    margin: 0 0 1em 0; 
-    font-weight: bold;
-    line-height: 1.6em;
+    margin: 0 0 0.3em 0;
+    padding: 0;
+    font-weight: bold;;
 }
 
 p{
@@ -89,7 +88,7 @@ p{
 input,
 textarea,
 select{ 
-    font: 102% "Droid Sans Mono";
+    font: 106% "Droid Serif";
     color: #444;
     line-height: 1.6em;
 }
@@ -97,7 +96,6 @@ select{
 label{
     font: 100% "Droid Sans";
     font-weight: bold;
-    line-height: 1.6em;
 }
 
 legend{
@@ -127,3 +125,9 @@ tt {
     margin: 0;
     font: 100% 'Nothing You Could Do';
 }
+
+/*
+div.navigation-block a{
+    font: 138% 'Nothing You Could Do';
+}
+*/

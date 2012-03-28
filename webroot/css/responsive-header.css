@@ -57,6 +57,11 @@
     position: relative;
 }
 
+.navigation.active{
+    background: transparent;
+    padding: 12px 0;
+}
+
 .navigation a:link,
 .navigation a:visited{
     color: white;
@@ -78,7 +83,7 @@
     display: none;
     z-index: 10000;
     right: 0;
-    top: 20px;
+    top: 38px;
 }
 
 .subnavigation strong {
@@ -160,7 +165,12 @@
         display:block;
         position: relative;
     }
-
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
@@ -238,7 +248,12 @@
         display:block;
         position: relative;
     }
-
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
@@ -319,7 +334,12 @@
         display:block;
         position: relative;
     }
-
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
     .navigation a:link,
     .navigation a:visited{
         background-image: -webkit-linear-gradient(top, #333, #222);
