@@ -19,13 +19,14 @@
  */
 
 ?>
+<h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
     <div class="two-thirds column alpha">
         <?php
             echo $this->Form->create('Page', 
                         array(
                             'url'=>$this->here, 
-                            'class'=>'content'
+                            'class'=>'responsive'
                         )
                     );
 
