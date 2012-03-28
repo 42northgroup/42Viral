@@ -39,10 +39,8 @@
         echo $this->Form->end();
         ?>
 
-        <div class="column-block">
-            <div  class="navigation-block">
+        <div class="block top navigation-block">
                 <a href="/users/pass_reset_req">Forgot your password?</a>
-            </div>
         </div>
     </div>
 
