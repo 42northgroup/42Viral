@@ -24,6 +24,24 @@ h1, h2, h3, h4, h5, h6{
     text-align: left;
 }  
 
+.connect{
+    display: block;
+    background: #fff;
+    padding: 6px;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 32px;
+    margin:0 0 20px;
+    white-space: nowrap;
+    text-shadow: 0 2px 1px #fff;
+    box-shadow:inset 1px 1px #ddd;    
+}  
+
+.connect:hover{
+    background: #eee;
+} 
+
+
 /* Smaller than standard 960 (devices and browsers) */
 @media only screen and (max-width: 959px) {}
 

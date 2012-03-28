@@ -3,82 +3,48 @@
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-?>
+?> 
+<h1><?php //echo $title_for_layout; ?></h1>
 
-<style type="text/css">
-    .social-connect{
-        margin:0 20px 12px;
-        float:left;
-        color: #999;
-        background: #ddd;
-        padding: 6px;
-        border-radius: 4px;
-    }   
-    
-    .social-connect .blurb{
-        margin:0 0 3px;
-        vertical-align: top;
-    } 
-    
-    .social-connect .connect{
-        text-align: center;
-    }       
-    
-</style> 
-<h1>Get Connected</h1>
-<div class="clearfix">
-    <div class="social-connect">
-
-        <div class="blurb">
-            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/linkedin_32.png'); ?>
-            Connect with LinkedIn.
-        </div>
-
-        <div class="connect">
-            <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
-        </div>
-
+<div class="row">
+    <div class="five columns alpha">    
+        <a href="/oauth/linkedin_connect"  class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
+            Connect with LinkedIn
+        </a>
     </div>
-    
-    
-
-    <div class="social-connect">
-        <div class="blurb">
-            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/facebook_32.png'); ?>
-            Connect with Facebook.
-        </div>
-        <div class="connect">
-            <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
-        </div>
-    </div>
-
-    <div class="social-connect">
-        <div class="blurb">
-            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/twitter_32.png'); ?>
-            Connect with Twitter.
-        </div>
-        <div class="connect">
-            <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
-        </div>
-    </div>
-    
-    <div class="social-connect">
-        <div class="blurb">
-            <?php echo $this->Html->image('/img/social_media_icons/social_networking_iconpack/google_plus_32.png'); ?>
-            Connect with Google+.
-        </div>
-        <div class="connect">
-            <?php echo $this->Html->link('', '/oauth/google_connect', array('class'=>'oauth-button google-plus')); ?>
-        </div>
-    </div>
-
+    <div class="five columns"> 
+        <a href="/oauth/facebook_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
+            Connect with Facebook
+        </a>
+    </div>        
+    <div class="five columns"> 
+        <a href="/oauth/twitter_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
+            Connect with Twitter
+        </a>
+    </div>     
+    <div class="one column omega"></div>     
 </div>
+<div class="row">
+    <div class="five columns alpha"> 
+        <a href="/oauth/google_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
+            Connect with Google+
+        </a>
+    </div> 
+    <div class="five columns"></div> 
+    <div class="five columns"></div>     
+    <div class="one column omega"></div>      
+</div>
+

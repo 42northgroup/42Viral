@@ -44,12 +44,30 @@
         </div>
     </div>
 
-    <div class="four columns omega">
-        <div class="block">
-            <?php echo $this->Html->link('', "/oauth/google_connect", array('class'=>'oauth-button google-plus')); ?>
-            <?php echo $this->Html->link('', '/oauth/linkedin_connect', array('class'=>'oauth-button linkedin')); ?>
-            <?php echo $this->Html->link('', '/oauth/facebook_connect', array('class'=>'oauth-button facebook')); ?>
-            <?php echo $this->Html->link('', '/oauth/twitter_connect', array('class'=>'oauth-button twitter')); ?>
-        </div>
-    </div>
+    <div class="one column">&nbsp;</div>
+    
+    <div class="five columns">    
+        <a href="/oauth/linkedin_connect"  class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
+            Connect with LinkedIn
+        </a>
+
+        <a href="/oauth/facebook_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
+            Connect with Facebook
+        </a>
+
+        <a href="/oauth/twitter_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
+            Connect with Twitter
+        </a>
+
+        <a href="/oauth/google_connect" class="connect">
+            <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
+            Connect with Google+
+        </a>
+    </div> 
+    
+    <div class="six columns alpha"></div>
+
 </div>
