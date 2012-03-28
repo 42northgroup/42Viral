@@ -74,6 +74,10 @@ chown "$APACHE_PROCESS":"$USER" -fR webroot/files/temp
 chmod 775 -fR "$SCRIPT_PATH/webroot/files/temp"
 echo ">>>$SCRIPT_PATH/webroot/files/temp"
 
+chown "$APACHE_PROCESS":"$USER" -fR webroot/files/doc_images
+chmod 775 -fR "$SCRIPT_PATH/webroot/files/doc_images"
+echo ">>>$SCRIPT_PATH/webroot/files/doc_images"
+
 cp -r $SCRIPT_PATH/Config/Defaults/Xml/* $SCRIPT_PATH/Config/Xml/
 echo ">>>Copying default xml configurations to their target $SCRIPT_PATH/Config/Xml/"
 

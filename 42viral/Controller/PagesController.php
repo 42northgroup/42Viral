@@ -206,7 +206,7 @@ App::uses('AppController', 'Controller');
                 //$filePath = WWW_ROOT . 'files' . DS . 'temp' . DS  . $this->FileUpload->finalFile;
 
                 $this->request->data['Page']['body'] =
-                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile);
+                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile, true);
 
                 $this->FileUpload->removeFile($this->FileUpload->finalFile);
             }

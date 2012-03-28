@@ -53,9 +53,10 @@ class CakeDocxToHtmlComponent extends Component
      *
      * @access private
      * @param string $filePath
+     * @param boolean $doImages (Default = false)
      * @return string
      */
-    private function __giveMeHtmlNow($filePath)
+    private function __giveMeHtmlNow($filePath, $doImages=false)
     {
         $this->PostOffice = new PostOffice($filePath, false /* debug mode */);
 
@@ -63,7 +64,7 @@ class CakeDocxToHtmlComponent extends Component
             $this->log('The files contents could not be extracted.');
             return '';
         } else {
-            $html = $this->__parseDocXFile($filePath);
+            $html = $this->__parseDocXFile($filePath, $doImages);
 
             if(!empty($html)) {
                 return $html[0];
@@ -79,9 +80,10 @@ class CakeDocxToHtmlComponent extends Component
      *
      * @access private
      * @param string $filePath
+     * @param boolean $doImages (Default = false)
      * @return string
      */
-    private function __parseDocXFile($filePath)
+    private function __parseDocXFile($filePath, $doImages=false)
     {
         $pathInfo = pathinfo($filePath);
 
@@ -92,11 +94,14 @@ class CakeDocxToHtmlComponent extends Component
         $extract->content_folder =
             strtolower(str_replace("." . $pathInfo['extension'], "", str_replace(" ", "-", $pathInfo['basename'])));
 
-        $extract->image_max_width = 10;
-        //$extract->imagePathPrefix = plugins_url();
-
-        $extract->keepOriginalImage = false;
-        $extract->doImages = false;
+        if($doImages) {
+            $extract->keepOriginalImage = true;
+            $extract->doImages = true;
+        } else {
+            $extract->keepOriginalImage = false;
+            $extract->doImages = false;
+        }
+        
         $extract->split = false;
         $extract->allowColor = false;
         $extract->Init($this->PostOffice);
@@ -112,10 +117,11 @@ class CakeDocxToHtmlComponent extends Component
      *
      * @access public
      * @param string $uploadedFileName
+     * @param boolean $doImages (Default = false)
      * @param string $folderLocation
      * @return string
      */
-    public function convertDocumentToHtml($uploadedFileName, $folderLocation='files/temp/')
+    public function convertDocumentToHtml($uploadedFileName, $doImages=false, $folderLocation='files/temp/')
     {
         $uploadedFilePath = WWW_ROOT . $folderLocation . $uploadedFileName;
         $resumeHtml = '';
@@ -142,12 +148,12 @@ class CakeDocxToHtmlComponent extends Component
 
                 //Convert DocX to HTML and then delete docx
                 if(is_file($newFilePath)) {
-                    $resumeHtml = $this->__giveMeHtmlNow($newFilePath);
+                    $resumeHtml = $this->__giveMeHtmlNow($newFilePath, $doImages);
                     unlink($newFilePath);
                 }
             } else if($fileExtension == 'docx') {
                 //Convert DocX to HTML
-                $resumeHtml = $this->__giveMeHtmlNow($uploadedFilePath);
+                $resumeHtml = $this->__giveMeHtmlNow($uploadedFilePath, $doImages);
             }
 
             return $resumeHtml;
