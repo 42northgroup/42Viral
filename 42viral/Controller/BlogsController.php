@@ -35,10 +35,20 @@ class BlogsController extends AppController {
 
     /**
      * @access public
+     * @var array
+     */
+    public $components = array(
+        'HtmlFromDoc.CakeDocxToHtml',
+        'FileUpload.FileUpload'
+    );
+
+    /**
+     * @access public
      */
     public function beforeFilter(){
         parent::beforeFilter();
         $this->auth(array('*'));
+        $this->prepareDocUpload('Blog');
     }
 
     /**
@@ -161,8 +171,13 @@ class BlogsController extends AppController {
      */
     public function edit($id)
     {
-        
-        if(!empty($this->data)){
+        if(!empty($this->data)) {
+            if($this->FileUpload->uploadDetected) {
+                $this->request->data['Blog']['body'] =
+                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile, true);
+
+                $this->FileUpload->removeFile($this->FileUpload->finalFile);
+            }
             
             if($this->Blog->save($this->data)){
                 $this->Session->setFlash(__('Your blog has been created'), 'success');

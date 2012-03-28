@@ -35,10 +35,20 @@ class PostsController extends AppController {
 
     /**
      * @access public
+     * @var array
+     */
+    public $components = array(
+        'HtmlFromDoc.CakeDocxToHtml',
+        'FileUpload.FileUpload'
+    );
+
+    /**
+     * @access public
      */
     public function beforeFilter(){
         parent::beforeFilter();
         $this->auth(array('*'));
+        $this->prepareDocUpload('Post');
     }
     
     /**
@@ -101,6 +111,12 @@ class PostsController extends AppController {
     public function edit($id)
     {
         if(!empty($this->data)){
+            if($this->FileUpload->uploadDetected) {
+                $this->request->data['Post']['body'] =
+                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile, true);
+
+                $this->FileUpload->removeFile($this->FileUpload->finalFile);
+            }
 
             if($this->Post->save($this->data)){
                 $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');

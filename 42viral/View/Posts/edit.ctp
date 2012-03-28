@@ -31,40 +31,62 @@
 
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
-    echo $this->Form->create('Post', 
-                array(
-                    'url'=>$this->here, 
-                    'class'=>'responsive'
-                )
-            );
+    echo $this->Form->create('Post', array(
+        'url' => $this->here, 
+        'class' => 'responsive',
+        'type' => 'file'
+    ));
 ?>
 <div class="row">
     <div class="two-thirds column alpha">
+
     <?php
-        echo $this->Form->input('id');
-        echo $this->Form->input('title', array('rows'=>1));
-        echo $this->Form->input('tease', array('rows'=>2));
+    echo $this->Form->input('id');
+    echo $this->Form->input('title', array('rows'=>1));
+    echo $this->Form->input('tease', array('rows'=>2));
+    ?>
         
-        echo $this->Form->input('body', array('class'=>'edit-content'));
+    <div class="or-group">
+        <h3>Load body content by uploading a file or typing in the editor:</h3>
+        <div class="or-choice">
+            <?php
+            echo $this->Form->input('body_content_file', array(
+                'type' => 'file',
+                'label' => 'Upload from file'
+            ));
+            ?>
+        </div>
+
+        <h3>OR</h3>
+
+        <div class="or-choice">
+            <?php
+            echo $this->Form->input('body', array(
+                'class' => 'edit-content',
+                'label' => 'Type'
+            ));
+            ?>
+        </div>
+    </div>
         
-        
-        echo $this->Form->inputs(array(
-                    'legend'=>'Meta Data',
-                    'description'=>array('rows'=>3),
-                    'keywords' => array('rows'=>3),
-                    'tags'
-                    )
-                );
-        
-        echo $this->Form->inputs(array(
-                'legend'=>'SEO',
-                'canonical'=>array('rows'=>1),
-                'slug'=>array('rows'=>1)
+    <?php
+    echo $this->Form->inputs(array(
+                'legend'=>'Meta Data',
+                'description'=>array('rows'=>3),
+                'keywords' => array('rows'=>3),
+                'tags'
                 )
             );
 
+    echo $this->Form->inputs(array(
+            'legend'=>'SEO',
+            'canonical'=>array('rows'=>1),
+            'slug'=>array('rows'=>1)
+            )
+        );
     ?>
     </div>
+    
     <div class="one-third column omega">
         <?php
         

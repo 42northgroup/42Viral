@@ -54,3 +54,15 @@ body{
 .block.top{
     margin-top: 20px;
 }
+
+.or-group {
+    background-color: #fff;
+    border: 1px solid #aaa;
+    padding: 10px;
+}
+
+.or-choice {
+    margin: 10px 0px;
+    padding: 10px;
+    background-color: #eee;
+}

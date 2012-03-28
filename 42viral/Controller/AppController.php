@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP 5.3
  * 
@@ -21,12 +22,12 @@ App::uses('ContentFilters.Scrubable', 'Lib');
  */
 class AppController extends Controller
 {
+
     /**
      * Application wide components
      * @var type
      * @access public
      */
-
     public $components = array('Acl', 'Auth', 'RequestHandler', 'Security', 'Session');
 
     /**
@@ -35,61 +36,61 @@ class AppController extends Controller
      * @access public
      */
     public $helpers = array('AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
-    
+
     /**
      * The location of setup log files
      * @var string
      * @access public
-     */    
+     */
     protected $_logDirectory = '';
-    
-    public function __construct($request = null, $response = null) {
+
+    public function __construct($request = null, $response = null)
+    {
         parent::__construct($request, $response);
         $this->_logDirectory = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
     }
-    
+
     /**
      * Fires before AppController
      * This is a good place for loading data and running security checks
      * @access public
      */
     public function beforeFilter()
-    {        
+    {
         $this->Auth->deny('*');
-        
-        //Force a central login (1 login per prefix by default). 
-        $this->Auth->loginAction = array('admin' => false, 'plugin'=>false, 'controller' => 'users', 'action' => 'login'); 
-        
+
+        //Force a central login (1 login per prefix by default).
+        $this->Auth->loginAction = array('admin' => false, 'plugin' => false, 'controller' => 'users', 'action' => 'login');
+
         $this->set('mine', false);
-        
-        if(isset($this->params['named']['language'])){
+
+        if (isset($this->params['named']['language'])) {
             $this->Session->write('Config.language', $this->params['named']['language']);
         }
-        
-        
+
+
         //If the setup isn't complete, force it to be completed
-        if(!in_array('setup.txt', $this->_fetchLogs())){
-            if($this->request->params['controller'] != 'setup'){
+        if (!in_array('setup.txt', $this->_fetchLogs())) {
+            if ($this->request->params['controller'] != 'setup') {
                 $this->Session->setFlash('The system needs to be configured!');
                 $this->redirect('/install.php');
             }
         }
-        
+
         //test for an expired password
-        if($this->Session->check("Auth.User")){
+        if ($this->Session->check("Auth.User")) {
             $passwordExpiration = Configure::read('Password.expiration');
-            if(!empty($passwordExpiration)){
-                if($this->Session->read("Auth.User.password_expires") < date("Y-m-d H:i:s")){
-                    if(!in_array($this->request->params['action'], array('change_password', 'logout'))){
-                        $this->Session->setFlash(__('Your password has expired') ,'error');
+            if (!empty($passwordExpiration)) {
+                if ($this->Session->read("Auth.User.password_expires") < date("Y-m-d H:i:s")) {
+                    if (!in_array($this->request->params['action'], array('change_password', 'logout'))) {
+                        $this->Session->setFlash(__('Your password has expired'), 'error');
                         $this->redirect('/users/change_password');
                     }
                 }
             }
         }
-        
     }
-    
+
     /**
      * Fires after AppController but before the action
      * This is a good place for calling themes
@@ -101,88 +102,125 @@ class AppController extends Controller
         $this->theme = Configure::read('Theme.set');
 
         //Fetch the unread message count for current user's message inbox
-        if(!is_null($this->Session->read('Auth.User'))) {
+        if (!is_null($this->Session->read('Auth.User'))) {
             $this->loadModel('InboxMessage');
             $userId = $this->Session->read('Auth.User.id');
             $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
             $this->set('unread_message_count', $unreadMessageCount);
         }
     }
-    
+
     /**
      * Creates a new log file when a setup step has been completed
      * @param string $log
      * @return void 
      * @access private
      */
-    protected function _setupLog($log){
-        file_put_contents ($this->_logDirectory . "{$log}.txt", date('Y-m-d H:i:s'));    
+    protected function _setupLog($log)
+    {
+        file_put_contents($this->_logDirectory . "{$log}.txt", date('Y-m-d H:i:s'));
     }
-    
+
     /**
      * Returns a list of created setup logs (i.e. completed steps)
      * @return array
      * @access private
      */
-    protected function _fetchLogs(){
+    protected function _fetchLogs()
+    {
         return scandir($this->_logDirectory);
     }
-    
+
     /**
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
      * @param array $allow 
      * @return void
      * @access public
      */
-    public function auth($allow = array()){
-        
+    public function auth($allow = array())
+    {
+
         $allowAll = false;
-        
+
         //Allow all = true denotes a public controller
-        if(!empty($allow)){
-            if($allow[0]=='*'){
+        if (!empty($allow)) {
+            if ($allow[0] == '*') {
                 $allowAll = true;
             }
         }
 
         //Is this a public controller?
-        if(!$allowAll){
-            
-            //No, this is not a public controller. 
+        if (!$allowAll) {
+
+            //No, this is not a public controller.
             //Is this a public action?
-            if(!in_array($this->request->params['action'], $allow)){
+            if (!in_array($this->request->params['action'], $allow)) {
                 //No, this in not a public action. 
                 //Is the user logged in?
-                if($this->Session->check('Auth.User.id')){
+                if ($this->Session->check('Auth.User.id')) {
                     //Yes, the user is logged in.
                     //Does the user have access to this Controller-action?
-                    if(!$this->Acl->check($this->Session->read('Auth.User.username'), 
-
-                                Inflector::camelize($this->request->params['controller']) 
-                                        . '-' 
-                                        . $this->request->params['action'],
-
-                                '*'
-                            )){
+                    if (!$this->Acl->check($this->Session->read('Auth.User.username'), Inflector::camelize($this->request->params['controller'])
+                                    . '-'
+                                    . $this->request->params['action'], '*'
+                    )) {
                         //No, the user does not have access; bounce them out.
                         $this->Session->setFlash('You can\'t do that!', 'error');
                         $this->redirect('/users/login', '401');
                     }
-
-                }else{
+                } else {
                     //Deny access.
                     $this->Auth->deny($this->request->params['action']);
                 }
-
-            }else{
+            } else {
                 //Yes, this is a public action; allow it.
                 $this->Auth->allow($this->request->params['action']);
             }
-        }else{
+        } else {
             //Yes, this is a public controller; allow the action.
             $this->Auth->allow($this->request->params['action']);
         }
+    }
 
+    
+    /**
+     * Initialize doc upload settings upon request for given model
+     *
+     * @access public
+     * @param string $modelName (Default = null)
+     * @return void
+     */
+    public function prepareDocUpload($modelName=null)
+    {
+        $this->FileUpload->fileModel = $modelName;
+        $this->FileUpload->skipModel = true;
+        $this->FileUpload->fileVar = 'body_content_file';
+        $this->FileUpload->uploadDir = 'files/temp';
+        $this->FileUpload->allowedTypes = array(
+            //Doc
+            'application/doc',
+            'application/msword',
+            'application/msword-doc',
+            'application/vnd.msword',
+            'application/winword',
+            'application/word',
+            'application/x-msw6',
+            'application/x-msword',
+            'application/x-msword-doc',
+
+            //DocX
+            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'application/vnd.openxmlformats-officedocument.word',
+            'application/vnd.ms-word.document.12',
+            
+            //PDF
+            'application/acrobat',
+            'application/nappdf',
+            'application/x-pdf',
+            'application/vnd.pdf',
+            'text/pdf',
+            'text/x-pdf'
+        );
     }
 
 }

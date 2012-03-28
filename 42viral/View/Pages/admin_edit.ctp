@@ -39,20 +39,6 @@ echo $this->Form->create('Page',
 );
 ?>
 
-<style type="text/css">
-    .or-group {
-        background-color: #fff;
-        border: 1px solid #aaa;
-        padding: 10px;
-    }
-
-    .or-choice {
-        margin: 10px 0px;
-        padding: 10px;
-        background-color: #eee;
-    }
-</style>
-
 <div class="row">
     <div class="two-thirds column alpha">
 
