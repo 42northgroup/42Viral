@@ -85,7 +85,11 @@ App::build(array(
         'Console' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS
         ),
-
+    
+        'Console/Command' => array(
+            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS
+        ),
+    
         'Lib' => array(
             ROOT . DS . APP_DIR . DS . 'Lib' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
@@ -133,7 +137,10 @@ App::build(array(
     
     ));
 
-require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
-require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
-require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
 
+//We only want to require these if the set shell has been ran, we check this by testing for database.php
+if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php')){
+    require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
+    require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
+    require(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
+}
