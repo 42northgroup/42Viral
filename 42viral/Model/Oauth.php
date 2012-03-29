@@ -210,11 +210,6 @@ class Oauth extends AppModel
                         $class_name = Inflector::classify($table);
 
                         /*
-                        if($class_name == 'Case'){
-                            $class_name = 'CaseModel';
-                        }
-                        
-                        App::uses($class_name, 'Model');
                         
                         if(class_exists($class_name)){
                             $loaded_table = ClassRegistry::init($class_name);

@@ -92,17 +92,7 @@ class Person extends AppModel
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ), 
-        'Case' => array(
-            'className' => 'CaseModel',
-            'foreignKey' => 'model_id',
-
-            'conditions' => array(
-                'model' => 'Person'
-            ),
-
-            'dependent' => true
-        ),      
+        ),     
         'Content' => array(
             'className' => 'Content',
             'foreignKey' => 'created_person_id',

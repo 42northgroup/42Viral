@@ -36,9 +36,6 @@
                         |
                         <a href="#">Edit</a>
                         |
-                        <?php echo $this->Html->link('New Case', 
-                                "/admin/people/create_case/{$person['Person']['username']}"); ?>
-                        |
                         <?php echo $this->Html->link(                        
                                 'Privs', 
                                 "/admin/privileges/user_privileges/{$person['Person']['username']}"); ?>

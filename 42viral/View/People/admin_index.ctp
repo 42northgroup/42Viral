@@ -43,9 +43,6 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'admin_people'
                 |
                 <a href="#">Edit</a>
                 |
-                <?php echo $this->Html->link('New Case', 
-                        "/admin/people/create_case/{$person['Person']['username']}"); ?>
-                |
                 <a href="#">Delete</a>
             </td>
         </tr>
