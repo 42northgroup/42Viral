@@ -52,24 +52,6 @@ App::uses('AppController', 'Controller');
                $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
    }
    
-    
-   public function admin_create_case($username){
-       
-       $person = $this->Person->fetchPersonWith($username);
-       
-       if(!empty($this->data)){
-           if($this->CaseModel->save($this->data)){
-               $this->redirect("/admin/people/view/{$username}");
-           }
-       }
-       
-       
-       $this->set('person', $person);
-       $this->set('id', $person['Person']['id']);
-       $this->set('title_for_layout', "Create a Case for {$person['Person']['name']}");
-   }
-   
-   
    public function invite()
    {       
        if(!empty ($this->data)){

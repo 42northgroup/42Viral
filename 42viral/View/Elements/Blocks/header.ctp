@@ -75,9 +75,6 @@
                             </div>
                             
                             <strong>Misc</strong>
-                            <div><?php echo $this->Html->link('Content', 
-                                    '/contents/content/' . $this->Session->read('Auth.User.username')); ?></div> 
-
                             <div><?php echo $this->Html->link('Photos', 
                                     '/uploads/images/' . $this->Session->read('Auth.User.username')); ?></div> 
 

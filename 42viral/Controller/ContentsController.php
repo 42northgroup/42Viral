@@ -66,67 +66,6 @@ App::uses('Member', 'Lib');
         $this->auth(array('content', 'post_comment'));
     }
     
-    
-    /* === Blog Management ========================================================================================== */
-    
-    /**
-     * A index of all blogs
-     * 
-     * @return void
-     * @access public
-     */
-    public function blogs(){
-        $blogs = $this->Blog->find('all');
-        $this->set('blogs', $blogs);
-        $this->set('title_for_layout', 'Blogs');
-    }        
-
-    
-    /**
-     * An action for commenting on a blog post
-     * @return void
-     * @access public
-     */
-    public function post_comment(){
-        
-        if($this->data){            
-            
-            if($this->Conversation->save($this->data)){
-                $this->Session->setFlash(_('Your comment has been saved') ,'success');
-                $this->redirect($this->referer());
-            }else{
-                $this->Session->setFlash(_('Your comment could not be saved') ,'error');
-                $this->redirect($this->referer());
-            }
-        }
-        $this->set('title_for_layout', "Comment on a Blog Post");       
-        
-    }       
-    
-    /**
-     * Displays a list of all content created by a single user
-     *
-     * @return void
-     * @access public
-     */
-    public function content($username) 
-    {
-        
-        $mine = false;
-        
-        $person = $this->Person->fetchPersonWith($username, array('Profile', 'Content'));
-        
-        if($this->Session->check('Auth.User.id')){
-            if($this->Session->read('Auth.User.username') == $username){
-                $mine = true;
-            }
-        }
-        
-        $this->set('mine', $mine);
-        $this->set('userProfile', $person);
-        $this->set('title_for_layout', Member::name($person['Person']) . "'s Content Stream");        
-    }  
-
     /**
      * An action for promoting new content
      *
