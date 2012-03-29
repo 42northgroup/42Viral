@@ -40,7 +40,7 @@ echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications
 <?php
 echo $this->Form->create('Notification', array(
     'url' => $this->here,
-    'class' => 'content'
+    'class'=>'responsive'
 ));
 ?>
 

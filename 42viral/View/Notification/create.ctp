@@ -16,7 +16,7 @@
 <?php
 echo $this->Form->create('Notification', array(
     'url' => $this->here,
-    'class' => 'content'
+    'class'=>'responsive'
 ));
 ?>
 

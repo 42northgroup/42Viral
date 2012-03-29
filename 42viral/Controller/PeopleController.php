@@ -45,7 +45,7 @@ App::uses('AppController', 'Controller');
     }    
     
    public function admin_view($username){
-       $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
+       $person = $this->Person->fetchPersonWith($username);
        $this->set('person', $person);
        $this->set('userProfile', $person);
        $this->set('title_for_layout', 
