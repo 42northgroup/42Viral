@@ -1,30 +1,29 @@
-<style type="text/css">
-    .inbox-message {
-        border: 1px solid #aaa;
-        padding: 10px;
-        margin: 10px;
-    }
-</style>
 <h1><?php echo $title_for_layout; ?></h1>
+
 <div class="row">
     <div class="sixteen columns alpha omega">
-        <div class="inbox-message-navigation">
+        <div>
+            Message:
             <?php
                 echo $this->Html->link(
                     'Archive',
                     '/inbox_message/archive/' . $inbox_message['InboxMessage']['id']
                 );
             ?>
-            /
+            |
             <?php
                 echo $this->Html->link(
                     'Delete',
-                    '/inbox_message/delete/' . $inbox_message['InboxMessage']['id']
+                    '/inbox_message/delete/' . $inbox_message['InboxMessage']['id'],
+                        
+                    array(
+                        'class' => 'delete-confirm'
+                    )
                 );
             ?>
         </div>
 
-        <div class="inbox-message">
+        <div class="result" style="margin-top: 20px;">
             <h3><?php echo $inbox_message['InboxMessage']['subject']; ?></h3>
 
             <p>

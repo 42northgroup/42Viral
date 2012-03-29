@@ -86,24 +86,22 @@ switch($section){
 
     case 'notifications':
         $menu = array(
-            'Items'=>array(
+            'Items' => array(
                 array(
-                    'text'=>'Notifications',
-                    'url'=>'/notification',
+                    'text' => 'Index',
+                    'url' => '/notification',
                     'options' => array(),
-                    'confirm'=>null
+                    'confirm' => null
                 ),
-                
                 array(
-                    'text'=>'Create',
-                    'url'=>'/notification/create',
+                    'text' => 'Create',
+                    'url' => '/notification/create',
                     'options' => array(),
-                    'confirm'=>null
-                )             
+                    'confirm' => null
+                )
             )
-
         );
-    break;
+        break;
 
     case 'acl_groups':
         $menu = array(

@@ -1,31 +1,31 @@
-<?php 
+<h1><?php echo $title_for_layout; ?></h1>
 
-$additional  = array(
+<?php
+$additional = array(
     array(
-        'text'=>"Edit",
-        'url'=>"/notification/edit/{$notification['Notification']['id']}",
+        'text' => "Edit",
+        'url' => "/notification/edit/{$notification['Notification']['id']}",
         'options' => array(),
-        'confirm'=>null
+        'confirm' => null
     ),
     array(
-        'text'=>"Delete",
-        'url'=>"/notification/delete/{$notification['Notification']['id']}",
+        'text' => "Delete",
+        'url' => "/notification/delete/{$notification['Notification']['id']}",
         'options' => array(),
-        'confirm'=>'Are you sure you want to delete this? \n This action CANNOT be reversed!'
+        'confirm' => 'Are you sure you want to delete this? \n This action CANNOT be reversed!'
     ),
     array(
-        'text'=>"Test Fire",
-        'url'=>"/notification/test/{$notification['Notification']['id']}",
+        'text' => "Test Fire",
+        'url' => "/notification/test/{$notification['Notification']['id']}",
         'options' => array(),
-        'confirm'=>null
+        'confirm' => null
     )
 );
 
-echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications', 'additional' => $additional)); 
+echo $this->element('Navigation' . DS . 'local', array('section' => 'notifications', 'additional' => $additional));
 ?>
 
-
-<table>
+<table class="vertical-label-tb">
     <tbody>
         <tr>
             <td>

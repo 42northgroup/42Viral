@@ -92,7 +92,7 @@ code{
 .image-frame {
     /*float: left;*/
     display: inline-block;
-    padding: 6px;
+    padding: 3px;
     background: #efefef;
     border: 1px solid #dedede;
     margin: 0;

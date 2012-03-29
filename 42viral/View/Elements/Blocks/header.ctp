@@ -46,11 +46,13 @@
                     <div class="navigation"><a href="/pages/">Pages</a></div>
                     <div class="navigation">
                         <?php 
-                            $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
-                            echo $this->Html->link("Inbox{$messageBadge}", '#'); ?>
-                        <div class="subnavigation">
-                            <div><?php echo $this->Html->link("All Messages", '/inbox_message/'); ?></div>
-                        </div>
+                        $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
+                        
+                        echo $this->Html->link(
+                            "Inbox{$messageBadge}",
+                            '/inbox_message'
+                        );
+                        ?>
                     </div>
                     <div class="navigation">
                         <a href="#">Share</a>
@@ -103,8 +105,28 @@
                                     <div><?php echo $this->Html->link('People', '/admin/people/'); ?></div>
                                     
                                     <strong>Messaging</strong>
-                                    <div><?php echo $this->Html->link('Notifications', '/notification/index/'); ?></div>
-                                    <div><?php echo $this->Html->link(' - Create', '/notification/create/'); ?></div>
+                                    <div>
+                                        <?php echo $this->Html->link('Notification list', '/notification/index/'); ?>
+                                    </div>
+
+                                    <div>
+                                        <?php
+                                        echo $this->Html->link(
+                                            'Create new notification',
+                                            '/notification/create/'
+                                        );
+                                        ?>
+                                    </div>
+
+                                    <div>
+                                        <?php
+                                        echo $this->Html->link(
+                                            'Populate message inbox (test)',
+                                            '/inbox_message/populate_inbox/'
+                                        );
+                                        ?>
+                                    </div>
+
                                     <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
                                     
                                     <strong>System</strong>

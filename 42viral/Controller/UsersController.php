@@ -448,7 +448,7 @@ App::uses('AppController', 'Controller');
             }
         }
         
-        $this->set('title_for_layout', __('Socailize and Share Your Thoughts'));
+        $this->set('title_for_layout', __('Socialize and share your thoughts'));
         
     }
     
