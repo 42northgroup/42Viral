@@ -58,3 +58,7 @@ tr.bottom td a:hover{
 td.actions-column{
     width: 30px;
 }
+
+.vertical-label-tb tr td:first-child {
+    font-weight: bold;
+}

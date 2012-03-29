@@ -1,15 +1,16 @@
-<?php echo $this->element('Navigation' . DS . 'local', array('section'=>'notifications')); ?>
+<h1><?php echo $title_for_layout; ?></h1>
+
+<?php echo $this->element('Navigation' . DS . 'local', array('section' => 'notifications')); ?>
 
 <?php if(!empty($notifications)): ?>
-
     <table>
         <thead>
             <tr>
-                <td></td>
-                <td>Name</td>
-                <td>Alias</td>
-                <td>Actions</td>
-                <td>Active</td>
+                <th></th>
+                <th>Name</th>
+                <th>Alias</th>
+                <th>Actions</th>
+                <th>Active</th>
             </tr>
         </thead>
 
