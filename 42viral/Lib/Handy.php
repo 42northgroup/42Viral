@@ -432,4 +432,50 @@ class Handy
         
     }
     
+    /**
+     * Generate a Lorem Ipsum string of a given length
+     * 
+     * @access public
+     * @static
+     * @param integer $length Length of the required lorem ipsum string (default = 100 characters)
+     * @return string
+     */
+    public static function lipsum($length = 100)
+    {
+        $text = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam dapibus nunc sed sem volutpat et volutpat dolor iaculis. Suspendisse interdum feugiat gravida. Integer sit amet commodo est. Phasellus et ultricies metus. Nunc mollis elit quis ante pellentesque venenatis. Suspendisse quis libero eros, ac aliquam est. Fusce condimentum tincidunt dolor eget sodales. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vestibulum, ipsum vitae dictum malesuada, mi sapien adipiscing leo, vitae molestie lorem lorem sit amet dui. Donec viverra, nibh tristique aliquam convallis, dui quam porta magna, eu scelerisque purus quam sed tortor. Maecenas dapibus interdum leo, et gravida odio tincidunt quis. Cras elementum varius euismod. Cras luctus luctus dolor eu scelerisque.
+Quisque eget leo nunc. Morbi in mauris porttitor dui congue malesuada. Maecenas eget elit dui. Nulla facilisi. Nulla bibendum volutpat mattis. Proin enim dui, tempor eget interdum ac, laoreet vitae nisl. Etiam ac ligula nec lectus bibendum porta et non justo. Sed vitae est nisl. Mauris nec lacus tortor, pulvinar bibendum nulla. Phasellus rhoncus nisl sed ligula pretium vel cursus eros placerat. Morbi ac mi et ipsum ultrices scelerisque eget a dolor.
+Sed ultrices cursus rhoncus. Cras rhoncus tempus nibh, id convallis quam blandit sit amet. Aenean pretium, lectus sit amet tristique porttitor, quam justo posuere est, eget feugiat purus ante vel nisl. Nunc dapibus nisl nec enim lobortis in mattis metus lobortis. Nulla fringilla, velit volutpat vehicula luctus, erat nulla tincidunt nisl, sed sollicitudin magna nunc nec arcu. Nam feugiat iaculis ultrices. Nullam condimentum turpis quis odio porttitor commodo. Aliquam elementum nulla id lectus placerat sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Pellentesque pharetra lobortis nibh, ac sagittis dui laoreet eu.
+Aliquam dictum erat vitae dolor pharetra venenatis. Morbi turpis nibh, pulvinar at sagittis vel, elementum vel lectus. Curabitur aliquet facilisis felis sit amet tincidunt. In tincidunt odio non nibh viverra tincidunt. Nunc ante quam, facilisis nec ullamcorper in, varius a tortor. Morbi leo dui, pulvinar a rutrum eu, pretium ut quam. Proin nec varius nibh. Sed tempus viverra arcu, ac lacinia libero ornare ut. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed a urna a ipsum euismod facilisis. Etiam neque ante, interdum congue bibendum ac, dapibus sed sapien. Suspendisse luctus consequat iaculis. Pellentesque sollicitudin vestibulum ipsum id faucibus. Donec sollicitudin, lectus vitae pellentesque imperdiet, eros mi tempus neque, non eleifend metus felis id leo. Duis a turpis lacus. Mauris imperdiet, quam sed adipiscing gravida, nisi nisi bibendum felis, eu congue risus eros vel diam. Ut adipiscing purus dolor. Sed pulvinar dignissim lorem. Donec quis metus sed nulla eleifend viverra non non ligula.
+Nam porttitor tortor quis quam molestie vehicula. In risus urna, sollicitudin laoreet vulputate et, mollis a sem. Praesent cursus tincidunt vestibulum. Donec tristique bibendum odio in iaculis. Pellentesque aliquet est est. Morbi porttitor pharetra lectus, sollicitudin tincidunt lectus egestas eu. Phasellus eget purus velit, eget pulvinar tellus. Donec id pulvinar ipsum. Aliquam erat volutpat. Duis at mauris at erat porttitor bibendum ut sed nunc. Pellentesque ac accumsan ante. In fringilla eros at massa placerat commodo. Aenean in dui ligula, ut interdum quam. Maecenas viverra dolor vitae velit condimentum pulvinar. Mauris mollis luctus augue, vulputate luctus elit interdum vitae.';
+
+        return substr($text, 0, $length);
+    }
+
+
+    /**
+     * Generate random lipsum text using external lipsum.com service and a fallback if service fails
+     *
+     * @access public
+     * @static
+     * @param integer $amount How much of $what you want.
+     * @param string $what Either 'paras', 'words', 'bytes 'or 'lists'.
+     * @param integer $start Whether or not to start the result with 'Lorem ipsum dolor sit amet…'
+     * @return string
+     */
+    public static function randomLipsum($amount = 1, $what = 'paras', $start = 0)
+    {
+        $url = "http://www.lipsum.com/feed/xml?amount=$amount&what=$what&start=$start";
+
+        if(file_get_contents($url, 0, null, 0, 1) !== false) {
+            $randomStringObject = simplexml_load_file($url);
+        } else {
+            $randomStringObject = false;
+        }
+
+        if($randomStringObject !== false) {
+            return $randomStringObject->lipsum;
+        } else {
+            return self::lipsum(100);
+        }
+    }
 }

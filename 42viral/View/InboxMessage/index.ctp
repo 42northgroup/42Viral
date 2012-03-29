@@ -7,51 +7,71 @@
         font-weight: bold;
         background-color: #ddd;
     }
-
-    .inbox-message {
-        border: 1px solid #aaa;
-        padding: 10px;
-        margin: 10px;
-    }
 </style>
+
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
     <div class="sixteen columns alpha omega">
-    <?php if(!empty($all_messages)): ?>
-        <div class="inbox-message">
-            <table>
-                <tbody>
-                    <?php $itemCounter = 1; ?>
-
-                    <?php foreach($all_messages as $message): ?>
-                        <tr class="<?php echo ($message['InboxMessage']['read'])? 'read-message': 'unread-message'; ?>">
-                            <td>
-                                <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
-                                    echo $itemCounter++;
-                                ?></a>    
-                            </td>
-
-                            <td>
-                                <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
-                                    echo $message['InboxMessage']['subject'];
-                                ?></a>
-                            </td>
-
-                            <td>
-                                <?php echo date('m/d/Y H:i:s', strtotime($message['InboxMessage']['created'])); ?>
-                            </td>
-                        </tr>
-
-
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
+        <div>
+            Archived messages:
+            <?php
+                echo $this->Html->link(
+                    'Show',
+                    '/inbox_message/index/show_archived:1'
+                );
+            ?>
+            |
+            <?php
+                echo $this->Html->link(
+                    'Hide',
+                    '/inbox_message/index'
+                );
+            ?>
         </div>
+        
+        <?php if(!empty($messages)): ?>
+            <div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Subject</th>
+                            <th>Date/Time</th>
+                        </tr>
+                    </thead>
 
-    <?php else: ?>
+                    <tbody>
+                        <?php $itemCounter = 1; ?>
 
-        <?php echo $this->element('no_results', array('message'=>__('No new messages'))); ?>
+                        <?php foreach($messages as $message): ?>
+                            <tr class="<?php echo ($message['InboxMessage']['read'])? 'read-message': 'unread-message'; ?>">
+                                <td>
+                                    <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
+                                        echo $itemCounter++;
+                                    ?></a>
+                                </td>
 
-    <?php endif; ?>
+                                <td>
+                                    <a href="/inbox_message/view/<?php echo $message['InboxMessage']['id']; ?>"><?php
+                                        echo $message['InboxMessage']['subject'];
+                                    ?></a>
+                                </td>
+
+                                <td>
+                                    <?php echo date('m/d/Y H:i:s', strtotime($message['InboxMessage']['created'])); ?>
+                                </td>
+                            </tr>
+
+
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+
+        <?php else: ?>
+
+            <?php echo $this->element('no_results', array('message'=>__('No new messages'))); ?>
+
+        <?php endif; ?>
     </div>
 </div>

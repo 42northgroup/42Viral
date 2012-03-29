@@ -112,7 +112,11 @@ class InboxMessage extends AppModel
             'conditions' => array(
                 'InboxMessage.owner_person_id' => $userId,
                 'InboxMessage.archived' => false,
-                'InboxMessage.deleted' => false
+
+                'OR' => array(
+                    'InboxMessage.deleted' => false,
+                    'InboxMessage.deleted IS NULL',
+                )
             ),
 
             'order' => array(
