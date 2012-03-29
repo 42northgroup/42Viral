@@ -101,7 +101,7 @@
                     <div style="float:left; width: 40px;">
                     <?php 
                         echo $this->Html->image(
-                                "/img/social_media_icons/social_networking_iconpack/{$status['source']}_32.png"); 
+                                "/img/graphics/social_media/production/{$status['source']}32.png"); 
                     ?>
                     </div>
                     <div style="float:left; width: 510px;" class="<?php echo $status['source'].'-post'; ?>">

@@ -99,7 +99,7 @@
             'div' => array('style' => 'display:none')
         )); ?>
         
-        <?php echo $this->Html->image("/img/social_media_icons/social_networking_iconpack/twitter_32.png", array(
+        <?php echo $this->Html->image("/img/graphics/social_media/production/twitter_32.png", array(
             'class' => 'mediaIcon',
             'data-color' => '#4099FF',
             'id' => 'TwitterIcon'
@@ -122,7 +122,7 @@
             'div' => array('style' => 'display: none')
         )); ?>
 
-        <?php echo $this->Html->image("/img/social_media_icons/social_networking_iconpack/facebook_32.png", array(
+        <?php echo $this->Html->image("/img/graphics/social_media/production/facebook_32.png", array(
             'class' => 'mediaIcon',
             'data-color' => '#3B5998',
             'id' => 'FacebookIcon'
@@ -142,7 +142,7 @@
             'div' => array('style' => 'display:none')
         )); ?>
 
-        <?php echo $this->Html->image("/img/social_media_icons/social_networking_iconpack/linkedin_32.png", array(
+        <?php echo $this->Html->image("/img/graphics/social_media/production/linkedin_32.png", array(
             'class' => 'mediaIcon',
             'data-color' => '#006699',
             'id' => 'LinkedinIcon'
