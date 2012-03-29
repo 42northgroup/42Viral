@@ -37,6 +37,7 @@ form.responsive fieldset{
 }
 
 form.responsive label{
+    margin: 6px 0 0;
     display: block;
 }
 
