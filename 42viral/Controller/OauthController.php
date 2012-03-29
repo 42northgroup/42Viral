@@ -343,9 +343,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function facebook_connect($get_token = null)
     {
-
-        
-        
         $this->redirect("https://www.facebook.com/dialog/oauth?client_id=".Configure::read('Facebook.consumer_key')
                                                     ."&redirect_uri=".urlencode(Configure::read('Facebook.callback')
                                                                                                 . '/' . $get_token)
@@ -589,7 +586,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-        $user = $this->User->fetchUserWith($userId, 'profile', 'username');
+        $user = $this->User->fetchUserWith($userId, array('Profile', 'UserSetting'));
 
         if(empty($user)){
 
@@ -601,6 +598,7 @@ App::uses('HttpSocket', 'Network/Http');
 
                 $this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.Profile', $user['Profile']);
+                $this->Session->write('Auth.User.Settings', $user['UserSetting']);
                 
                 $session = $this->Session->read('Auth');
                 $oauthData = array($oauthKey => $response);

@@ -45,7 +45,12 @@ class User extends Person
             'className' => 'Profile',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        ),        
+        ),
+        'UserSetting' => array(
+            'className' => 'UserSetting',
+            'foreignKey' => 'person_id',
+            'dependent' => true
+        )
     );
     
     /**
@@ -472,7 +477,8 @@ class User extends Person
                     'Content'=>array(),
                     'PersonDetail'=>array(),
                     'Profile'=>array(),
-                    'Upload'=>array()
+                    'Upload'=>array(),
+                    'UserSetting'=>array()
                 );
             break; 
         }
