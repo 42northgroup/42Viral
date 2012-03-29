@@ -15,7 +15,7 @@
  */
 
 /**
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 
 echo $this->element('Navigation' . DS . 'local', array('section'=>'configuration', 'class'=>'config'));

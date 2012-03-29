@@ -18,7 +18,7 @@
  *
  * @package app
  * @subpackage app.core
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class LogBehavior extends ModelBehavior
 {

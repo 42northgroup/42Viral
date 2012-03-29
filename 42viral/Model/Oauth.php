@@ -25,8 +25,8 @@ App::uses('Sec', 'Utility');
  * @package app
  * @subpackage app.core
  * 
- ****** @author Jason D Snider <jason.snider@42viral.org>
- ******* @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 class Oauth extends AppModel
 {

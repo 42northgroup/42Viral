@@ -3,33 +3,33 @@
 
 
 /* TEAM */
-  Lead: Jason D Snider
-  Site: jasonsnider.com
-  Twitter:
-  Location: Chicago, IL
+Lead: Jason D Snider
+Site: jasonsnider.com
+Twitter:
+Location: Chicago, IL
 
 /* TEAM */
-  Core Developer: Zubin Khavarian
-  Site: 
-  Twitter:
-  Location: Chicago, IL
+Core Developer: Zubin Khavarian
+Site: http://zubink.com
+Twitter: https://twitter.com/#!/zubinkhavarian
+Location: Chicago, IL
 
 /* TEAM */
-  Core Developer: Lyubomir R Dimov
-  Site: 
-  Twitter:
-  Location: Chicago, IL
+Core Developer: Lyubomir R Dimov
+Site: 
+Twitter:
+Location: Chicago, IL
 
 /* TEAM */
-  Graphics: Matt Blake
-  Site: 
-  Twitter:
-  Location: Columbus, OH
+Graphics: Matt Blake
+Site: 
+Twitter:
+Location: Columbus, OH
 
 /* THANKS */
-  Names (& URL):
+Names (& URL):
 
 /* SITE */
-  Standards: HTML5, CSS3
-  Components: Modernizr, jQuery, CakePHP
-  Software: 
+Standards: HTML5, CSS3
+Components: Modernizr, jQuery, CakePHP
+Software: 

@@ -16,7 +16,7 @@
  * Configures and initializes sitewide functionality 
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 

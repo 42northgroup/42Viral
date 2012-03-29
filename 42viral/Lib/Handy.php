@@ -17,7 +17,7 @@
  * Container for handy functions
  * @package Lib
  * @subpackage Lib.Handy
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy

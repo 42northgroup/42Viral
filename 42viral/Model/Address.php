@@ -18,7 +18,7 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the address objects
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class Address extends AppModel
 {

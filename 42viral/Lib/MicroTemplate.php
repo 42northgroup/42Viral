@@ -17,7 +17,7 @@ App::uses('Mustache', 'Lib');
 
 /**
  * @package Lib
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class MicroTemplate extends Object
 {

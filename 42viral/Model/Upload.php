@@ -22,8 +22,8 @@ App::uses('ImageUtil', 'Lib');
  * @package app
  * @subpackage app.core
  *
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  *
  * @todo Improve whitelist/blacklist data and functionality
  */
@@ -78,7 +78,7 @@ class Upload extends AppModel
     public $validate = array();
 
     /**
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function __construct($id = false, $table = null, $ds = null)
@@ -102,7 +102,7 @@ class Upload extends AppModel
     /**
      * Creates a whitelist of allowable file extensions
      * @return void
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
      */
     protected function _setWhitelist()
@@ -134,7 +134,7 @@ class Upload extends AppModel
     /**
      * Returns a whitelist of allowable file extensions
      * @return array
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function getWhitelist()
@@ -145,7 +145,7 @@ class Upload extends AppModel
     /**
      * Creates a blacklist of forbidden file extensions
      * @return void
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
      */
     protected function _setBlacklist()

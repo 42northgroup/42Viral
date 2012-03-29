@@ -16,7 +16,7 @@ App::uses('AppModel', 'Model');
 
 /**
  * Functionality for sending out invites, this was inspired by a need for private beta,
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Invite extends AppModel
 {

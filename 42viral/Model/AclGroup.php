@@ -22,8 +22,8 @@ App::uses('Group', 'Model');
  * @package app
  * @subpackage app.core
  * 
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */
 class AclGroup extends Group
 {
