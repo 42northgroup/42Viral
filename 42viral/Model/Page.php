@@ -71,7 +71,7 @@ class Page extends Content
     }
     
    /**
-     *** @author Jason D Snider <jason.snider@42viral.org>
+     * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
     public function beforeSave()

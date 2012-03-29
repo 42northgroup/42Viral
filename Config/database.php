@@ -59,7 +59,7 @@
 /**
  * Data source configuration. Modifieid from the original CakePHP database config file. See app/Config/app.php for 
  * setting the variables
- ** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  ** @author CakePHP Developers <cakephp.org>
  * @see http://book.cakephp.org/view/922/Database-Configuration
  */

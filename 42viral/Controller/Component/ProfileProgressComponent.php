@@ -20,7 +20,7 @@ App::uses('Oauth', 'Model');
 /**
  * Component class to use for fetching profile completness information and related tasks
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class ProfileProgressComponent  extends Component
 {
@@ -36,7 +36,7 @@ class ProfileProgressComponent  extends Component
     /**
      * Fetch profile completness criteria from different models for the given user
      *
-     *** @author Zubin Khavarian <zubin.khavarian@42viral.org>
+     * @author Zubin Khavarian (https://github.com/zubinkhavarian)
      * @access public
      * @param string $userId
      * @return array

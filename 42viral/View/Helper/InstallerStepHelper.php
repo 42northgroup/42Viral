@@ -17,7 +17,7 @@
 /**
  * Helper class to help with generation of the installer steps html, considering step dependency data
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class InstallerStepHelper extends AppHelper
 {

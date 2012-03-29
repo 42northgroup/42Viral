@@ -2,7 +2,7 @@
 /**
  * 
  *
- * @author Zubin Khavarian <zkhavarian@microtrain.net>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 
 /*

@@ -22,7 +22,7 @@ App::uses('MicroTemplate', 'Lib');
 /**
  * @package app
  * @subpackage app.core
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class NotificationCmpComponent extends Component
 {
@@ -65,7 +65,7 @@ class NotificationCmpComponent extends Component
 /**
  *
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access private
  */
     private function __customInit()
@@ -79,7 +79,7 @@ class NotificationCmpComponent extends Component
 /**
  * Make sure all required classes are present when being called from anywhere (cake shell, controller, etc.)
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access private
  */
     private function __prepareClasses()
@@ -108,7 +108,7 @@ class NotificationCmpComponent extends Component
 /**
  * Generate and send an email using the information encapsulated within the $preparedNotification object
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access private
  * @param array $preparedNotification A prepared notification object which contains all information for
  * generating an actual email notification
@@ -133,7 +133,7 @@ class NotificationCmpComponent extends Component
  * API method to fire a notification for a given person using any additional objects to be substituted in the
  * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access public
  * @param string $notificationHandle
  * @param Person $person
@@ -176,7 +176,7 @@ class NotificationCmpComponent extends Component
  * API method to fire a notification to a number of email using any additional objects to be substituted in the 
  * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
  *
- *** @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  * @access public
  * @param string $notificationHandle 
  * @param array $additionalObjects

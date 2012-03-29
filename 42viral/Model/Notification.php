@@ -23,7 +23,7 @@ App::uses('Handy', 'Lib');
  * @package app
  * @subpackage app.core
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class Notification extends AppModel
 {
@@ -103,7 +103,7 @@ class Notification extends AppModel
  * Used for generating a dummy test notification for testing purposes
  *
  * @access public
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
     public function generateDummyTestNotification()
     {
@@ -122,7 +122,7 @@ class Notification extends AppModel
 /**
  * Fetch a notification using a notification handle (id or alias)
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access public
  * @param string $notificationHandle
  * @return Notification
@@ -142,7 +142,7 @@ class Notification extends AppModel
 /**
  * Fetch a notification record using its given id
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access public
  * @param string $notificationId
  * @return Notification
@@ -164,7 +164,7 @@ class Notification extends AppModel
 /**
  * Fetch a notification record using its given alias
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access public
  * @param string $alias
  * @return Notification
@@ -187,7 +187,7 @@ class Notification extends AppModel
  * Fetch all notifications sorted by their name in ascending order
  *
  * @access public
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @return array
  */
     public function fetchAllNotifications()
@@ -207,7 +207,7 @@ class Notification extends AppModel
  * Deletes a single given notification using its ID
  *
  * @access public
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @param $notificationId
  * @return boolean
  */

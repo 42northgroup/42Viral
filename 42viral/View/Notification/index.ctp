@@ -6,21 +6,15 @@
     <table>
         <thead>
             <tr>
-                <th></th>
                 <th>Name</th>
                 <th>Alias</th>
-                <th>Actions</th>
                 <th>Active</th>
             </tr>
         </thead>
 
         <tbody>
             <?php foreach($notifications as $tempNotification): ?>
-                <tr>
-                    <td>
-
-                    </td>
-
+                <tr class="top">
                     <td>
                         <a href="/notification/view/<?php echo $tempNotification['Notification']['id']; ?>">
                             <?php echo $tempNotification['Notification']['name']; ?>
@@ -32,6 +26,12 @@
                     </td>
 
                     <td>
+                        <?php echo ($tempNotification['Notification']['active'])? 'Y': 'N'; ?>
+                    </td>
+                </tr>
+                
+                <tr class="bottom">
+                    <td colspan="3">
                         <a href="/notification/edit/<?php echo $tempNotification['Notification']['id']; ?>">Edit</a>
                         /
                         <a href="/notification/delete/<?php echo $tempNotification['Notification']['id']; ?>"
@@ -39,10 +39,6 @@
                         /
                         <a href="/notification/test/<?php echo $tempNotification['Notification']['id']; ?>"
                            >Test Fire</a>
-                    </td>
-
-                    <td>
-                        <?php echo ($tempNotification['Notification']['active'])? 'Y': 'N'; ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

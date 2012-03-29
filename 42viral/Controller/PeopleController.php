@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 /**
  * @package app
  * @subpackage app.core
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
  class PeopleController extends AppController
 {
@@ -45,7 +45,7 @@ App::uses('AppController', 'Controller');
     }    
     
    public function admin_view($username){
-       $person = $this->Person->fetchPersonWith($username, array('Case'=>array()));
+       $person = $this->Person->fetchPersonWith($username);
        $this->set('person', $person);
        $this->set('userProfile', $person);
        $this->set('title_for_layout', 

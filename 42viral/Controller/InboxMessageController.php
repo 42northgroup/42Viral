@@ -19,7 +19,7 @@ App::uses('Handy', 'Lib');
 /**
  * @package app
  * @subpackage app.core
- * @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class InboxMessageController extends AppController
 {

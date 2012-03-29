@@ -36,7 +36,7 @@ var configContent = {
     scayt_autoStartup : true,
     /*toolbarStartupExpanded : false,*/
     basePath : '/ckeditior/',
-    contentsCss : ['/css/vendors/yui.css', '/css/fonts.css'],
+    contentsCss : ['/vendors/yui/css/yui.css', '/css/fonts.css'],
     skin: 'v2'
 
 };
@@ -60,7 +60,7 @@ var configBasic = {
     scayt_autoStartup : true,
     /*toolbarStartupExpanded : false,*/
     basePath : '/ckeditior/',
-    contentsCss : ['/css/vendors/yui.css', '/css/fonts.css'],
+    contentsCss : ['/vendors/yui/css/yui.css', '/css/fonts.css'],
     skin: 'v2'
 
 };

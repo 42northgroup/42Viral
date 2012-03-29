@@ -36,7 +36,8 @@ App::uses('AppController', 'Controller');
         'Oauth', 
         'Person', 
         'User',
-        'OldPassword'
+        'OldPassword',
+        'UserSetting'
     );
 
     /**
@@ -185,7 +186,7 @@ App::uses('AppController', 'Controller');
         $error = true;
         if(!empty($this->data)){
 
-            $user = $this->User->fetchUserWith($this->data['User']['username'], 'profile', 'username');
+            $user = $this->User->fetchUserWith($this->data['User']['username'], array('Profile', 'UserSetting'));
 
             if(empty($user)){
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -220,6 +221,7 @@ App::uses('AppController', 'Controller');
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Session->write('Auth.User.Profile', $user['Profile']);
+                        $this->Session->write('Auth.User.Settings', $user['UserSetting']);
                                                 
                         $this->Access->permissions($user['User']);
 
@@ -492,6 +494,11 @@ App::uses('AppController', 'Controller');
     //Takes the user to their account settings
     public function settings($token=null)
     {   
+        
+        if(!empty ($this->data)){
+            $this->UserSetting->save($this->data);
+        }
+        
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
@@ -499,7 +506,7 @@ App::uses('AppController', 'Controller');
 
         //Get the user data
         $user = $this->User->getUserWith($token, array(
-            'Profile', 'Content', 'Upload'
+            'Profile', 'Content', 'Upload', 'UserSetting'
         ));
 
         //Does the user really exist?
@@ -511,6 +518,9 @@ App::uses('AppController', 'Controller');
         $this->set('user', $user);
         
         $userProfile['Person'] = $user['User'];
+        
+        $this->request->data['UserSetting'] = $user['UserSetting'];
+        
         $this->set('userProfile', $userProfile);
         $this->set('title_for_layout', 'Your Account Settings');
     }
@@ -553,4 +563,5 @@ App::uses('AppController', 'Controller');
         
         $this->set('title_for_layout', __('Change Your Password'));
     }
+    
 }

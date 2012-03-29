@@ -17,7 +17,7 @@ App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
 App::uses('Member', 'Lib');
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
+ * @author Jason D Snider <jason.snider@42viral.org>
  */
  class ContentsController extends AppController {
 

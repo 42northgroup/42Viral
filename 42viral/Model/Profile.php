@@ -18,7 +18,7 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages the person profile objects
  *
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  */

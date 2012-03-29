@@ -34,13 +34,20 @@
                     <td colspan="3">
                         <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
                         |
+
+                        <!--
                         <a href="#">Edit</a>
                         |
+                        -->
+
                         <?php echo $this->Html->link(                        
                                 'Privs', 
                                 "/admin/privileges/user_privileges/{$person['Person']['username']}"); ?>
+
+                        <!--
                         |
                         <a href="#">Delete</a>
+                        -->
                     </td>
                 </tr>
                 <?php endforeach; ?>

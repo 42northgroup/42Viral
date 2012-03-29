@@ -20,7 +20,7 @@ App::uses('AppHelper', 'View/Helper');
  * 
  * @package app
  * @subpackage app.core
- *** @author Jason Snider <jsnider77@gmail.com>
+ * @author Jason D Snider <jsnider77@gmail.com>
  */
 class UploadHelper extends AppHelper
 {

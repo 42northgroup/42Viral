@@ -22,7 +22,7 @@ App::uses('AppModel', 'Model');
  * @package app
  * @subpackage app.core
  *
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class InboxNotification extends AppModel
 {

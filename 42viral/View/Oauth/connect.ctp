@@ -12,8 +12,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 ?> 
 <h1><?php //echo $title_for_layout; ?></h1>
+
 
 <div class="row">
     <div class="five columns alpha">    
@@ -22,6 +24,7 @@
             Connect with LinkedIn
         </a>
     </div>
+
     <div class="five columns"> 
         <a href="/oauth/facebook_connect" class="connect">
             <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
@@ -35,6 +38,7 @@
         </a>
     </div>     
     <div class="one column omega"></div>     
+
 </div>
 <div class="row">
     <div class="five columns alpha"> 

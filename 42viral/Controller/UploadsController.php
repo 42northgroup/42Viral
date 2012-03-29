@@ -18,8 +18,8 @@ App::uses('ImageUtil', 'Lib');
 App::uses('Member', 'Lib');
 
 /**
- *** @author Jason D Snider <jason.snider@42viral.org>
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
  class UploadsController extends AppController
 {
@@ -201,7 +201,7 @@ App::uses('Member', 'Lib');
  * Delete a given image and clear user upload record for the image
  * 
  * @access public
- *** @author Zubin Khavarian <zubin.khavarian@42viral.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @param string $personId
  * @param string $imageId
  * @return void

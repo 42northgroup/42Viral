@@ -12,12 +12,12 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
+App::uses('Session', 'Component');
 /**
  * Container for handy functions
  * @package Lib
  * @subpackage Lib.Handy
- * @author Zubin Khavarian <zubin.khavarian@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org> 
  */
 class Handy
@@ -339,26 +339,13 @@ class Handy
             $num2 = substr($phoneNumber, 3, 3);
             $num3 = substr($phoneNumber, 6, 4);
             
-            //use the dialer to create the right protocol
-            switch($dialer):
-                
-                case 'iphone':
-                case 'skype':
-                case 'nokia':
-                    $protocol = "callto:{$plusOne}{$num1}{$num2}{$num3}";
-                break;   
-                
-                case 'android':
-                    $protocol = "wtai://wp/mc;{$plusOne}{$num1}{$num2}{$num3}";
-                break;                 
-                
-                default:
-                    $protocol = "tel:{$plusOne}{$num1}{$num2}{$num3}";
-                break;   
-            
-            endswitch;
-            
-            return "<a href=\"{$protocol}\">({$num1}) {$num2}-{$num3}</a>";
+            //check the settings to determine whether to use a protocol
+            if($this->Session->read('Auth.User.Settings.phone_number_protocol_type') != null){
+                $protocol = $this->Session->read('Auth.User.Settings.phone_number_protocol');
+                return "<a href=\"{$protocol}:{$num1}{$num2}{$num3}\">({$num1}) {$num2}-{$num3}</a>";
+            }else{
+                return "<span class=\"tel\">({$num1}) {$num2}-{$num3}</span>";
+            }
             
         } else {
             return "N/A";
