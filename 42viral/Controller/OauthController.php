@@ -53,6 +53,14 @@ App::uses('HttpSocket', 'Network/Http');
     public $components = array(
                 'Access'
             );
+    
+    /**
+     * @var array
+     * @access public
+     */
+    public $helpers = array(
+                'Connect.SocialMedia'
+            );
 
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -108,14 +116,21 @@ App::uses('HttpSocket', 'Network/Http');
             )
         );
 
-        $response = $this->HttpSocketOauth->request($request);
+        try{
+            $response = $this->HttpSocketOauth->request($request);
+        }  catch (Exception $e){
+            $this->Session->setFlash("A connection with Twitter could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
 
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
+        
         //pr($response); die();
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->redirect('http://api.twitter.com/oauth/authenticate?oauth_token=' . $response['oauth_token']);
-
+        
     }
 
     /**
@@ -209,12 +224,17 @@ App::uses('HttpSocket', 'Network/Http');
             ),
         );
 
-        $response = $this->HttpSocketOauth->request($request);
-
+        try{
+            $response = $this->HttpSocketOauth->request($request);
+        }  catch (Exception $e){
+            $this->Session->setFlash("A connection with Linkedin could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
         // Redirect user to LinkedIn to authorize  my application
         parse_str($response, $response);
         
-        //pr($response); die();
+        
         //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
         //so that we can use it when we are signing the oauth_access_token request
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
@@ -222,6 +242,7 @@ App::uses('HttpSocket', 'Network/Http');
         $this->Session->write('LinkedIn.oauth_created', strtotime('now'));
 
         $this->redirect('https://www.linkedin.com/uas/oauth/authenticate?oauth_token=' . $response['oauth_token']);
+        
     }
 
 
@@ -340,7 +361,12 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function facebook_callback($get_token = null)
     { 
-        
+        if(!isset ($this->params['url']['code'])){
+            $this->Session->setFlash("A connection with Facebook could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
+      
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -359,7 +385,7 @@ App::uses('HttpSocket', 'Network/Http');
         $response = $this->HttpSocketOauth->request($request);
         $params = null;
         parse_str($response, $params);
-        
+
         $request1 = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -372,11 +398,11 @@ App::uses('HttpSocket', 'Network/Http');
             'method' => 'GET'
         );
 
-        
+
         $this->Session->write('Facebook.oauth_token', $params['access_token']);
-                      
+
         $user = json_decode($this->HttpSocketOauth->request($request1));
-        
+
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('facebook', $user->id, $this->Session->read('Auth.User.id'))){
@@ -424,6 +450,12 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function google_callback($get_token = null)
     {
+        if(!isset ($this->params['url']['code'])){
+            $this->Session->setFlash("A connection with Google could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
+        
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -452,7 +484,7 @@ App::uses('HttpSocket', 'Network/Http');
         $this->Session->write('GooglePlus.oauth_token', $params->access_token);
         $this->Session->write('GooglePlus.oauth_expires', $params->expires_in);
         $this->Session->write('GooglePlus.oauth_created', strtotime('now'));
-        
+
         $request1 = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -468,11 +500,11 @@ App::uses('HttpSocket', 'Network/Http');
                 'Authorization' => 'OAuth '.$params->access_token
             )
         );
-        
+
         $response1 = $this->HttpSocketOauth->request($request1);
-                      
+
         $user = json_decode($response1->body);
-        
+
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('google_plus', $user->id, $this->Session->read('Auth.User.id'))){
@@ -557,9 +589,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-
-
-        $user = $this->User->getUser($userId);
+        $user = $this->User->fetchUserWith($userId, 'profile', 'username');
 
         if(empty($user)){
 
@@ -569,6 +599,9 @@ App::uses('HttpSocket', 'Network/Http');
 
             if($this->Auth->login($user['User'])){
 
+                $this->Session->write('Auth.User', $user['User']);
+                $this->Session->write('Auth.User.Profile', $user['Profile']);
+                
                 $session = $this->Session->read('Auth');
                 $oauthData = array($oauthKey => $response);
 

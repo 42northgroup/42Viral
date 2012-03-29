@@ -82,7 +82,7 @@ App::uses('Member', 'Lib');
      * @todo TestCase
      */
     public function view($token = null)
-    {
+    {        
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
