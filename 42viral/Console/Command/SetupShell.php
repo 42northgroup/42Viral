@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Copyright 2012, Jason D Snider (https://jasonsnider.com)
  *
@@ -9,73 +10,103 @@
  * @link https://jasonsnider.com
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 App::uses('Handy', 'Lib');
-/**
- * Creates an XML sitemap
- * @package Plugin.ContentFilter
- * @subpackage Plugin.ContentFilter.Console.Command
- * @author Jason D Snider <root@jasonsnider.com>
- */
-class SetupShell extends AppShell {
 
+App::uses('ConnectionManager', 'Model');
+
+/**
+ * A shell to enable the 42Viral framework user to setup their application by answering the required custom
+ * configuration parameters.
+ * 
+ * @package Console
+ * @subpackage Console.Command
+ * @author Jason D Snider <root@jasonsnider.com>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ */
+class SetupShell extends AppShell
+{
     
     /**
-     * @return void
+     * Main entry point to the setup shell. This ties together all the different steps of the setup
+     *
      * @access public
+     * @return void
      */
-    public function main() 
-    { 
+    public function main()
+    {
+        $this->out('>>> Welcome to the 42Viral setup shell.');
+        $this->hr();
+        $this->out('Started - ' . date('m/d/Y H:i:s'));
+        $this->__initConfig();
+        $this->__securityCodes();
+        $this->__databaseConfig();
+        $this->__writePermissions();
+
+        //$this->__createSchema();
+        //$this->__runConfiguration();
+        //$this->__importCoreData();
+        //$this->__createRootUser();
+
+        $this->__createSetupShellMarker();
         
-    }   
+        $this->out('Ended - ' . date('m/d/Y H:i:s'));
+    }
 
     /**
-     * Create the initial configuration files 
-     * 
+     * Create the initial configuration files by copying the default provided with the framework
+     *
+     * @access private
      * @return void
-     * @access public
      */
-    public function config(){
-        $dir = new Folder(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS);  
+    private function __initConfig()
+    {
+        $this->out('... Making a copy of the default configuration files');
+
+        $dir = new Folder(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS);
         $files = $dir->find();
-        
-        
+
+
         //Copy the default files to a git safe (ignored) location
         foreach ($files as $file) {
             $file = new File($dir->pwd() . DS . $file);
             $file->copy(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . $file->name);
-            $this->out($file->name . ' has been created');
+            //$this->out($file->name . ' has been created');
             $file->close();
-        } 
+        }
     }
-    
+
     /**
-     * Set the proper file write permissions 
-     * 
+     * Set the proper file/folder permissions
+     *
+     * @access private
      * @return void
-     * @access public
      */
-    public function write(){
-        
+    private function __writePermissions()
+    {
+        $this->out('... Setting file/folder permissions');
+
         //We want to try and guess a default group, I would assume the user group that cloned the repo is the owner
         //so lets get one of those files and use its owner as a default option
         $sampleFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS . 'database.php';
         $sampleFileGroup = posix_getgrgid(filegroup($sampleFile));
-        
-        
+
+
         //Ask the user to provide the the PID and user group
         $pid = $this->in('Enter the name of the server process', null, 'www-data');
-        $group = $this->in(
-                'Enter the name of the group that will have write access to the application, this should NOT be root!', 
-                null, $sampleFileGroup['name']);
         
+        $group = $this->in(
+            'Enter the name of the group that will have write access to the application, this should NOT be root!', 
+            null,
+            $sampleFileGroup['name']
+        );
+
         //Paths that require chmod 777
         $paths777 = array(
             "Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
         );
-        
+
         //Paths that can run with more restrivite permissions
         $paths775 = array(
             'tmp',
@@ -93,162 +124,311 @@ class SetupShell extends AppShell {
         );
 
         //Make all of the 777 directories and files writable
-        foreach($paths777 as $path){
-            
+        foreach ($paths777 as $path) {
+
             //Test for dir, file or doesn't exist. Process the permissions accordingly
-            if(is_file($path)){
-                
+            if (is_file($path)) {
                 exec("chmod 777 {$path}");
-                $this->out("777 access given to {$path}");
-                
-            }elseif(is_dir($path)){
-                
+                //$this->out("777 access given to {$path}");
+            } elseif (is_dir($path)) {
                 exec("chmod 777 {$path}");
-                $this->out("777 access given to {$path}");
-                
-            }else{
-                
-                $this->out($path .' doesn\'t seem to exist');
-                
+                //$this->out("777 access given to {$path}");
+            } else {
+                $this->out($path . ' doesn\'t seem to exist');
             }
         }
-        
+
         //Make all of the 775 directories and files writable
-        foreach($paths775 as $path){
-            
+        foreach ($paths775 as $path) {
+
             //Test for dir, file or doesn't exist. Process the permissions accordingly
-            if(is_file($path)){
-                
+            if (is_file($path)) {
                 exec("chown -fR {$pid}:{$group} {$path}");
-                $this->out("{$pid}:{$group} now owns  the file {$path}");
-                
+                //$this->out("{$pid}:{$group} now owns  the file {$path}");
+
                 exec("chmod 775 {$path}");
-                $this->out("775 access given to {$path}");
-                
-            }elseif(is_dir($path)){
-                
+                //$this->out("775 access given to {$path}");
+            } elseif (is_dir($path)) {
                 exec("chown -fR {$pid}:{$group} {$path}");
-                $this->out("{$pid}:{$group} now owns  the directory {$path}");
-                
+                //$this->out("{$pid}:{$group} now owns  the directory {$path}");
+
                 exec("chmod 775 {$path}");
-                $this->out("775 access given to {$path}");
-                
-            }else{
-                
-                $this->out($path .' doesn\'t seem to exist');
-                
+                //$this->out("775 access given to {$path}");
+            } else {
+                $this->out($path . ' doesn\'t seem to exist');
             }
         }
-        
     }
-    
+
     /**
      * Creates the systems salt and hash values 
      * 
+     * @access private
      * @return void
-     * @access public
      */
-    public function hash(){
-        
-        $configurations = array('cipher'=>array(), 'salt'=>array());
-        
-        $cipher = $this->in(
-                'Set a security cipher (Numbers only)', null, Handy::random(128, false, false, true));
-        
-        $salt = $this->in(
-                'Set a system salt (Mixed case and alphanumeric)', null,  Handy::random(128, true, true, true));
-       
-        
+    private function __securityCodes()
+    {
         $configurations = array(
-                'cipher'=>array('type'=>'string', 'value'=>$cipher), 
-                'salt'=>array('type'=>'string', 'value'=>$salt)
+            'cipher' => array(),
+            'salt' => array()
+        );
+
+        do {
+            $cipher = $this->in(
+                'Set a security cipher (Numbers only) (ENTER to accept default):',
+                null,
+                Handy::random(128, false, false, true)
             );
-        
+
+            if(!intval($cipher)) {
+                $this->out('** ERROR ** Please enter a number for security cipher');
+                $cipher = false;
+            }
+        } while(!$cipher);
+
+
+        $salt = $this->in(
+            'Set a system salt (Mixed case and alphanumeric) (ENTER to accept default):',
+            null,
+            Handy::random(128, true, true, true)
+        );
+
+
+        $configurations = array(
+            'cipher' => array('type' => 'string', 'value' => $cipher),
+            'salt' => array('type' => 'string', 'value' => $salt)
+        );
+
         $configureString = "<?php\n";
 
-        foreach($configurations as $key => $value){
+        foreach ($configurations as $key => $value) {
 
-                //Type detection, this basically determines if we need to quote the value
-                switch($value['type']){
-                    case 'string':
-                        $configureString .= "Configure::write('{$key}',"
+            //Type detection, this basically determines if we need to quote the value
+            switch ($value['type']) {
+                case 'string':
+                    $configureString .= "Configure::write('{$key}',"
                             . " '{$value['value']}');\n";
                     break;
 
-                    default:
-                        $configureString .= "Configure::write('{$key}',"
+                default:
+                    $configureString .= "Configure::write('{$key}',"
                             . " {$value['value']});\n";
-                    break;    
+                    break;
             }
         }
-        
+
         $file = new File(
-                ROOT 
-                . DS . APP_DIR . DS . 'Config' .  DS . 'Includes' . DS . 'hash.php', 
-                true, 
-                0755);
-        
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php',
+            true,
+            0755
+        );
+
         $file->write($configureString, $mode = 'w', false);
-        $file->close();   
-        
+        $file->close();
+    }
+
+    /**
+     * Generate database configuration file from user entered data for default and test databases
+     *
+     * @access private
+     * @return void
+     */
+    private function __databaseConfig()
+    {
+        $dbSettings = array();
+        $dbSettings['default'] = $this->__inputDatabaseConfig('default');
+        $dbSettings['test'] = $this->__inputDatabaseConfig('test');
+
+        $configString = $this->__generateDBConfigurationString($dbSettings);
+        $this->__writeDBConfigFile($configString);
+    }
+
+    /**
+     * Write the db configuration string to file
+     *
+     * @access private
+     * @param string $configString
+     * @return void
+     */
+    private function __writeDBConfigFile($configString)
+    {
+        //Save config string
+        $file = new File(
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php',
+            true,
+            0755
+        );
+
+        $file->write($configString, $mode = 'w', false);
+        $file->close();
+    }
+
+    /**
+     * Generate the dabase configuration string from db settings
+     *
+     * @access private
+     * @param array $dbSettings
+     * @return string
+     */
+    private function __generateDBConfigurationString($dbSettings)
+    {
+        $default = $dbSettings['default'];
+        $test = $dbSettings['test'];
+
+        $this->__testDbConnection($dbSettings);
+
+        $configurationString =
+            "<?php\n" .
+                
+            //Default
+            "Configure::write('DataSource.default.datasource', '{$default['datasource']}');\n" .
+            "Configure::write('DataSource.default.persistent', false);\n" .
+            "Configure::write('DataSource.default.host', '{$default['host']}');\n" .
+            "Configure::write('DataSource.default.login', '{$default['login']}');\n" .
+            "Configure::write('DataSource.default.password', '{$default['password']}');\n" .
+            "Configure::write('DataSource.default.database', '{$default['database']}');\n" .
+            "Configure::write('DataSource.default.prefix', '{$default['prefix']}');\n" .
+
+            //Test
+            "Configure::write('DataSource.test.datasource', '{$test['datasource']}');\n" .
+            "Configure::write('DataSource.test.persistent', false);\n" .
+            "Configure::write('DataSource.test.host', '{$test['host']}');\n" .
+            "Configure::write('DataSource.test.login', '{$test['login']}');\n" .
+            "Configure::write('DataSource.test.password', '{$test['password']}');\n" .
+            "Configure::write('DataSource.test.database', '{$test['database']}');\n" .
+            "Configure::write('DataSource.test.prefix', '{$test['prefix']}');";
+
+        return $configurationString;
     }
     
     /**
-     * Creates the configuration for the production database
-     * 
-     * @return void
-     * @access public
+     * Capture user entered database parameters
+     *
+     * @access private
+     * @param string $whichDB (Default = 'default')
+     * @return string
      */
-    public function production(){
+    private function __inputDatabaseConfig($whichDB='default')
+    {
+        //Reject any values other than these
+        if(!in_array($whichDB, array('default', 'test'))) {
+            exit();
+        } else {
+            switch($whichDB) {
+                case 'default':
+                default:
+                    $defaultDBName = '42viral_default';
+                    break;
+                
+                case 'test':
+                    $defaultDBName = '42viral_test';
+                    break;
+            }
+        }
+
+        $this->hr();
         
+        $this->out(
+            "... Provide your '" .
+            strtoupper($whichDB) .
+            "' database configuration parameters (ENTER to select default)"
+        );
+
         $configurations = array(
-            'drivers'=>array(), 
-            'host'=>array(),
-            'login'=>array(),
-            'password'=>array(),
-            'databse'=>array(),
-            'prefix'=>array(),
+            'drivers' => array(),
+            'host' => array(),
+            'login' => array(),
+            'password' => array(),
+            'databse' => array(),
+            'prefix' => array(),
+        );
+        
+        $driversLabels = array(
+            '[1] MySQL',
+            '[2] SQLite',
+            '[3] PostgreSQL',
+            '[4] SQLServer',
+            '[5] Oracle',
+            '[6] None'
         );
         
         $drivers = array(
-            'MySQL' => 'Database/Mysql',
-            'SQLite' => 'Database/Sqlite',
-            'PostgreSQL' => 'Database/Postgres',
-            'SQLServer' => 'Database/Sqlserver',
-            'Oracle'=>'Database/Oracle',
-            'None'=>'Database/No'
+            1 => 'Database/Mysql',
+            2 => 'Database/Sqlite',
+            3 => 'Database/Postgres',
+            4 => 'Database/Sqlserver',
+            5 => 'Database/Oracle',
+            6 => 'Database/No'
         );
-        
-        $driverLabels = array('MySQL','SQLite','PostgreSQL','SQLServer','Oracle','None');
 
-        $driver = $this->in('Select your database driver', $driverLabels, 'MySQL');
+        foreach($driversLabels as $tempLabel) {
+            $this->out(__($tempLabel));
+        }
         
-        $driver = $drivers[$driver];
-        $host = $this->in('Host', null, 'localhost');
-        $login = $this->in('Login', null, 'login');
-        $password = $this->in('Password', null, 'password');
-        $database = $this->in('Database', null, '42viral_default');
-        $prefix = $this->in('Prefix', null, '');
-        
+        $driverOptions = array(1, 2, 3, 4, 5, 6);
+        $driverSelection = $this->in('DB datasource: ', $driverOptions, '1');
+        $driverSetting = $drivers[$driverSelection];
+
+        $host = $this->in('DB host (name or ip): ', null, 'localhost');
+        $login = $this->in('DB user: ', null, 'root');
+        $password = $this->in('DB password: ', null, 'password');
+        $database = $this->in('DB name: ', null, $defaultDBName);
+        $prefix = $this->in('DB table prefix: ', null, '');
+
         $configurations = array(
-            'drivers'=>array('type'=>'string','value'=>$driver), 
-            'host'=>array('type'=>'string','value'=>$host),
-            'login'=>array('type'=>'string','value'=>$login),
-            'password'=>array('type'=>'string','value'=>$password),
-            'databse'=>array('type'=>'string','value'=>$database),
-            'prefix'=>array('type'=>'string','value'=>$prefix)
+            'datasource' => $driverSetting,
+            'host' => $host,
+            'login' => $login,
+            'password' => $password,
+            'database' => $database,
+            'prefix' => $prefix
         );
-        
-        debug($configurations);
+
+        return $configurations;
     }
-    
+
     /**
-     * Creates the configuration for the production database
-     * 
-     * @return void
-     * @access public
+     * Test the two db connections 'default', and 'test' using the passed db config params
+     *
+     * @access private
+     * @param array $dbConfig
+     * @return array
      */
-    public function test(){
-        
+    private function __testDbConnection($dbConfig)
+    {
+        $connected = array(
+            'default' => true,
+            'test' => true
+        );
+
+        try {
+            $this->out('Trying "default" database connection');
+
+            ConnectionManager::create('temp_default', $dbConfig['default']);
+        } catch(MissingConnectionException $ex) {
+            $connected['default'] = false;
+        }
+
+        try {
+            $this->out('Trying "test" database connection');
+
+            ConnectionManager::create('temp_test', $dbConfig['test']);
+        } catch(MissingConnectionException $ex) {
+            $connected['test'] = false;
+        }
+
+        return $connected;
+    }
+
+    /**
+     * Creates a file in the logs folder indicating that the setup shell has been executed successfully
+     *
+     * @access private
+     * @return void
+     */
+    private function __createSetupShellMarker()
+    {
+        $logDir = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
+        file_put_contents($logDir . "setup_shell_run.txt", date('Y-m-d H:i:s'));
     }
 }
