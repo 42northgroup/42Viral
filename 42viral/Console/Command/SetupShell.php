@@ -15,6 +15,12 @@ App::uses('File', 'Utility');
 App::uses('Handy', 'Lib');
 
 App::uses('ConnectionManager', 'Model');
+App::uses('MissingConnectionException', 'Error/exceptions');
+
+App::uses('SchemaShell', 'Console/Command');
+App::uses('SetupController', 'Controller');
+
+App::uses('ConfigurationShell', 'Plugin/PluginConfiguration/Console/Command');
 
 /**
  * A shell to enable the 42Viral framework user to setup their application by answering the required custom
@@ -27,6 +33,7 @@ App::uses('ConnectionManager', 'Model');
  */
 class SetupShell extends AppShell
 {
+    private $__setupControllerInstance = null;
     
     /**
      * Main entry point to the setup shell. This ties together all the different steps of the setup
@@ -39,15 +46,16 @@ class SetupShell extends AppShell
         $this->out('>>> Welcome to the 42Viral setup shell.');
         $this->hr();
         $this->out('Started - ' . date('m/d/Y H:i:s'));
-        $this->__initConfig();
-        $this->__securityCodes();
-        $this->__databaseConfig();
-        $this->__writePermissions();
-
-        //$this->__createSchema();
-        //$this->__runConfiguration();
-        //$this->__importCoreData();
-        //$this->__createRootUser();
+        
+        $this->init_config();
+        $this->security_codes();
+        $this->database_config();
+        $this->build_configuration_files();
+        $this->write_permissions();
+        $this->run_schema_shell();
+        $this->import_core_data();
+        //$this->run_configuration_shell();
+        //$this->create_root_user();
 
         $this->__createSetupShellMarker();
         
@@ -57,10 +65,10 @@ class SetupShell extends AppShell
     /**
      * Create the initial configuration files by copying the default provided with the framework
      *
-     * @access private
+     * @access public
      * @return void
      */
-    private function __initConfig()
+    public function init_config()
     {
         $this->out('... Making a copy of the default configuration files');
 
@@ -75,15 +83,115 @@ class SetupShell extends AppShell
             //$this->out($file->name . ' has been created');
             $file->close();
         }
+
+        $this->__writeSetupLog('setup_shell');
+    }
+
+    /**
+     * Creates the systems salt and hash values
+     *
+     * @access public
+     * @return void
+     */
+    public function security_codes()
+    {
+        $configurations = array(
+            'cipher' => array(),
+            'salt' => array()
+        );
+
+        do {
+            $cipher = $this->in(
+                'Set a security cipher (Numbers only) (ENTER to accept default):',
+                null,
+                Handy::random(128, false, false, true)
+            );
+
+            if(!intval($cipher)) {
+                $this->out('** ERROR ** Please enter a number for security cipher');
+                $cipher = false;
+            }
+        } while(!$cipher);
+
+
+        $salt = $this->in(
+            'Set a system salt (Mixed case and alphanumeric) (ENTER to accept default):',
+            null,
+            Handy::random(128, true, true, true)
+        );
+
+
+        $configurations = array(
+            'cipher' => array('type' => 'string', 'value' => $cipher),
+            'salt' => array('type' => 'string', 'value' => $salt)
+        );
+
+        $configureString = "<?php\n";
+
+        foreach ($configurations as $key => $value) {
+
+            //Type detection, this basically determines if we need to quote the value
+            switch ($value['type']) {
+                case 'string':
+                    $configureString .= "Configure::write('{$key}',"
+                            . " '{$value['value']}');\n";
+                    break;
+
+                default:
+                    $configureString .= "Configure::write('{$key}',"
+                            . " {$value['value']});\n";
+                    break;
+            }
+        }
+
+        $file = new File(
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php',
+            true,
+            0755
+        );
+
+        $file->write($configureString, $mode = 'w', false);
+        $file->close();
+
+        $this->__writeSetupLog('setup_xml_hash');
+    }
+
+    /**
+     * Generate database configuration file from user entered data for default and test databases
+     *
+     * @access public
+     * @return void
+     */
+    public function database_config()
+    {
+        $dbSettings = array();
+        $dbSettings['default'] = $this->__inputDatabaseConfig('default');
+        $dbSettings['test'] = $this->__inputDatabaseConfig('test');
+
+        $configString = $this->__generateDBConfigurationString($dbSettings);
+        $this->__writeDBConfigFile($configString);
+
+        $this->__writeSetupLog('setup_database_config');
+    }
+
+    /**
+     * 
+     *
+     * @access public
+     * @return void
+     */
+    public function build_configuration_files()
+    {
+        $this->__writeSetupLog('setup_process');
     }
 
     /**
      * Set the proper file/folder permissions
      *
-     * @access private
+     * @access public
      * @return void
      */
-    private function __writePermissions()
+    public function write_permissions()
     {
         $this->out('... Setting file/folder permissions');
 
@@ -95,9 +203,9 @@ class SetupShell extends AppShell
 
         //Ask the user to provide the the PID and user group
         $pid = $this->in('Enter the name of the server process', null, 'www-data');
-        
+
         $group = $this->in(
-            'Enter the name of the group that will have write access to the application, this should NOT be root!', 
+            'Enter the name of the group that will have write access to the application, this should NOT be root!',
             null,
             $sampleFileGroup['name']
         );
@@ -161,86 +269,70 @@ class SetupShell extends AppShell
     }
 
     /**
-     * Creates the systems salt and hash values 
-     * 
-     * @access private
+     * Trigger the execution of the standard CakePHP schema shell
+     *
+     * @access public
      * @return void
      */
-    private function __securityCodes()
+    public function run_schema_shell()
     {
-        $configurations = array(
-            'cipher' => array(),
-            'salt' => array()
-        );
-
-        do {
-            $cipher = $this->in(
-                'Set a security cipher (Numbers only) (ENTER to accept default):',
-                null,
-                Handy::random(128, false, false, true)
-            );
-
-            if(!intval($cipher)) {
-                $this->out('** ERROR ** Please enter a number for security cipher');
-                $cipher = false;
-            }
-        } while(!$cipher);
-
-
-        $salt = $this->in(
-            'Set a system salt (Mixed case and alphanumeric) (ENTER to accept default):',
-            null,
-            Handy::random(128, true, true, true)
-        );
-
-
-        $configurations = array(
-            'cipher' => array('type' => 'string', 'value' => $cipher),
-            'salt' => array('type' => 'string', 'value' => $salt)
-        );
-
-        $configureString = "<?php\n";
-
-        foreach ($configurations as $key => $value) {
-
-            //Type detection, this basically determines if we need to quote the value
-            switch ($value['type']) {
-                case 'string':
-                    $configureString .= "Configure::write('{$key}',"
-                            . " '{$value['value']}');\n";
-                    break;
-
-                default:
-                    $configureString .= "Configure::write('{$key}',"
-                            . " {$value['value']});\n";
-                    break;
-            }
-        }
-
-        $file = new File(
-            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php',
-            true,
-            0755
-        );
-
-        $file->write($configureString, $mode = 'w', false);
-        $file->close();
+        $this->hr();
+        $schemaShell = new SchemaShell();
+        $schemaShell->startup();
+        $schemaShell->create();
+        $this->__writeSetupLog('setup_build_database');
     }
 
     /**
-     * Generate database configuration file from user entered data for default and test databases
      *
-     * @access private
+     *
+     * @access public
      * @return void
      */
-    private function __databaseConfig()
+    public function import_core_data()
     {
-        $dbSettings = array();
-        $dbSettings['default'] = $this->__inputDatabaseConfig('default');
-        $dbSettings['test'] = $this->__inputDatabaseConfig('test');
+        $this->hr();
+        $this->out('... Importing core data, please wait (this might take a while).');
 
-        $configString = $this->__generateDBConfigurationString($dbSettings);
-        $this->__writeDBConfigFile($configString);
+        $this->__setupControllerInstance = new SetupController();
+        $this->__setupControllerInstance->constructClasses();
+
+        $this->__setupControllerInstance->acl();
+
+        $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Required';
+
+        foreach(scandir($path) as $file) {
+            $this->__setupControllerInstance->buildPMA($path, $file);
+        }
+
+        $this->__writeSetupLog('setup_import');
+    }
+
+    /**
+     * 
+     *
+     * @access public
+     * @return void
+     */
+    public function run_configuration_shell()
+    {
+        //[TODO] Fix bug
+        $configurationShell = new ConfigurationShell();
+        $configurationShell->startup();
+        $configurationShell->main();
+        $this->__writeSetupLog('setup_initial_configuration');
+    }
+
+
+    /**
+     * 
+     *
+     * @access public
+     * @return void
+     */
+    public function create_root_user()
+    {
+
     }
 
     /**
@@ -275,7 +367,7 @@ class SetupShell extends AppShell
         $default = $dbSettings['default'];
         $test = $dbSettings['test'];
 
-        $this->__testDbConnection($dbSettings);
+        //$this->__testDbConnection($dbSettings);
 
         $configurationString =
             "<?php\n" .
@@ -428,7 +520,19 @@ class SetupShell extends AppShell
      */
     private function __createSetupShellMarker()
     {
+        $this->__writeSetupLog('setup_shell_full');
+    }
+
+    /**
+     * 
+     *
+     * @access private
+     * @param string $logName
+     * @return void
+     */
+    private function __writeSetupLog($logName)
+    {
         $logDir = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
-        file_put_contents($logDir . "setup_shell_run.txt", date('Y-m-d H:i:s'));
+        file_put_contents($logDir . $logName . '.txt', date('Y-m-d H:i:s'));
     }
 }

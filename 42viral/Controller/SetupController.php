@@ -453,7 +453,7 @@ App::uses('Handy', 'Lib');
         $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Required';
         
         foreach(scandir($path) as $file){      
-            $this->__buildPMA($path, $file);
+            $this->buildPMA($path, $file);
         }
         
         $this->_setupLog('setup_import');
@@ -496,7 +496,7 @@ App::uses('Handy', 'Lib');
         $path = ROOT . DS . APP_DIR. DS . 'Config' . DS . 'Data' . DS . 'Demo';
         
         foreach(scandir($path) as $file){      
-            $this->__buildPMA($path, $file);
+            $this->buildPMA($path, $file);
         }
         
         $backupPath = 
@@ -524,7 +524,7 @@ App::uses('Handy', 'Lib');
      * @return void
      * @access public
      */
-    private function __buildPMA($path, $file)
+    public function buildPMA($path, $file)
     {
         if(is_file($path . DS . $file)){
             $xml = Xml::build($path . DS . $file, array('return' => 'domdocument'));
