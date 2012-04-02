@@ -82,8 +82,8 @@ class AclGroup extends Group
      * @return type 
      * @access public
      */
-    public function beforeFind($queryDataData) {
-        parent::beforeFind($queryDataData);
+    public function beforeFind($queryData) {
+        parent::beforeFind($queryData);
         
         $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $aclGroupFilter = array('AclGroup.object_type' =>'acl');
