@@ -375,7 +375,7 @@ class FileUploadComponent extends Component
     {
         if (is_array($haystack)) {
             foreach ($haystack as $key => $value) {
-                if ($needle == $key) {
+                if ($needle == $key && $value != null && $value != '') {
                     return true;
                 }
                 if (is_array($value)) {
