@@ -564,4 +564,27 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', __('Change Your Password'));
     }
     
+    public function admin_allot_invites()
+    {
+        if(!empty ($this->data)){
+            $people = $this->Person->find('all', array(
+                'conditions' => array(
+                    'Person.username NOT' => array('root', 'system')
+                )
+            ));
+            
+            foreach ($people as &$person){
+                $person['Person']['invitations_available'] = $this->data['Inivitations']['number_of_invitations'];
+            }
+            
+            if($this->Person->saveAll($people)){
+                $this->Session->setFlash('Invitations have been allotted to users', 'success');
+            }else{
+                $this->Session->setFlash('An error occurred. Invitations could not be dsitributed', 'err');
+            }
+        }
+        
+        $this->set('title_for_layout', 'Allot Invitations to Users');
+    }
+    
 }

@@ -48,7 +48,16 @@
                 ),
 
                 'PasswordDifference.id'=>array('value'=>'Password.difference', 'type'=>'hidden'),
-                'PasswordDifference.value'=>array('label'=>'New Password Difference')
+                'PasswordDifference.value'=>array('label'=>'New Password Difference'),
+            
+                'BetaPrivate.id'=>array('value'=>'Beta.private', 'type'=>'hidden'),
+                'BetaPrivate.value'=>array(
+                    'label'=>'New Members Can Only Join if Invited',
+                    'type'=>'checkbox'
+                ),
+            
+                'BetaInvitations.id'=>array('value'=>'Beta.invitations', 'type'=>'hidden'),
+                'BetaInvitations.value'=>array('label'=>'Number of Ivitations Per User')
             ));
 
         echo $this->Form->inputs(array(

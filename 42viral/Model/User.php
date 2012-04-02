@@ -332,7 +332,10 @@ class User extends Person
                 
         //set expiration date for the password
         $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
-
+        
+        //set number of invitations alotted per user
+        $data['invitations_available'] = Configure::read('Beta.invitations');
+        
         //Try to save the new user record
         if($this->save($data)){
             $userProfile = array();

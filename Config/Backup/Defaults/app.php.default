@@ -79,6 +79,11 @@ Configure::write('Email.replyTo', 'support@42viral.org');
  */
 Configure::write('Beta.private', 0);
 
+/**
+ * If we are in private mode, how many invatations can a user send?(0 for infinite)
+ */
+Configure::write('Beta.invitations', 0);
+
 
 /**
  * Short URL configuration

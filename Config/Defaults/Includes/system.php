@@ -32,6 +32,11 @@ Configure::write('Domain.url', Configure::read('Domain.scheme') . '://' . Config
  */
 Configure::write('Beta.private', 0);
 
+/**
+ * If we are in private mode, how many invatations can a user send?(0 for infinite)
+ */
+Configure::write('Beta.invitations', 0);
+
 Configure::write('Shorty', 
         array(
             'page'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
