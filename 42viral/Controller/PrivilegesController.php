@@ -25,12 +25,14 @@ App::uses('AppController', 'Controller');
      * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      */
     public function admin_build_initial_acl()
-    {
+    {        
+       //get a list of all controllers and their actions in the system(including plugins)
        $controllers = $this->ControllerList->get_all();
        
        $this->Acl->Aco->create(array('alias'=>'root'));
        $this->Acl->Aco->save();
        
+       //create the ARO for the root user
        $this->Acl->Aro->create(array(            
             'model'=>'User',
             'foreign_key'=>'4e27efec-ece0-4a36-baaf-38384bb83359',
@@ -39,6 +41,7 @@ App::uses('AppController', 'Controller');
         
         $this->Acl->Aro->save();
        
+       //loop through all controllers and actions, create ACL for each action and give root persmissions for that ACL
        foreach($controllers as $key => $value){
             foreach($controllers[$key] as $action){
                 $this->Acl->Aco->create(array(
@@ -65,15 +68,16 @@ App::uses('AppController', 'Controller');
      * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
      * @param String $username 
      */
-    public function admin_user_privileges($username){
-        
+    public function admin_user_privileges($username)
+    {
+        //get a list of all main controllers and their actions
         $controllers = $this->ControllerList->get();
+        
+        //get a list of Plugin controllers and their actions
         $plugins = $this->ControllerList->get_plugins();
         
         $this->set('username', $username);
-        
-        $this->set('person', $this->Person->findByUsername($username));
-       
+               
         $acos = $this->Aco->find('list', array(
             'fields' => array('Aco.id', 'Aco.alias')
         ));
@@ -84,10 +88,12 @@ App::uses('AppController', 'Controller');
         ));
         
         $this->set('acl_groups', $acl_groups);
-        
+                
+        //loop through all main controllers and their actions
         foreach($controllers as $key => $val){
             foreach($controllers[$key] as $index => $action){
                 
+                //if controller_action ACL does not exist, create it
                 if( !in_array($key.'-'.$action, $acos) ){
                     $this->Acl->Aco->create(array(
                         'parent_id'=>1,
@@ -99,9 +105,11 @@ App::uses('AppController', 'Controller');
             }
         }
         
+        //loop through all Plugin controllers and their actions
         foreach($plugins as $key => $val){
             foreach($plugins[$key] as $index => $action){
                 
+                //if controller_action ACL does not exist, create it
                 if( !in_array($key.'-'.$action, $acos) ){
                     $this->Acl->Aco->create(array(
                         'parent_id'=>1,
@@ -124,30 +132,39 @@ App::uses('AppController', 'Controller');
             
             $aro = $this->Aro->findByAlias($username);
             
+            //check if the permission we are setting are for a group
             if( $aro['Aro']['model']=='Group' ){
                 
                 $aro_group = true;
                 
+                //get a list of all group members
                 $group_members = $this->Aro->find('list', array(
                     'conditions' => array('Aro.parent_id' => $aro['Aro']['id']),
                     'fields' => array('Aro.id', 'Aro.alias')
                 ));
             }
             
+            //loop through all submitted controller->actions and give/take appropriate permissions to the user 
             foreach($this->data as $controller => $action){
                 if($controller != '_Token'){
                     
+                    //loop through each permission
                     foreach ($this->data[$controller] as $function => $permission){
                         
+                        //loop through each controller->action
                         foreach ($this->data[$controller][$function] as $perm => $value){
                             
+                            //give or take away the permission
                             if($value == 1){
                                 $this->Acl->allow($username,$controller.'-'.$function, $perm);
                             }elseif($value == 0){
                                 $this->Acl->deny($username,$controller.'-'.$function, $perm);
                             }
                             
+                            //check if we are dealing with permissions for a group
                             if($aro_group == true){
+                                
+                                //loop through all group members and have them re-inherit permissions from their group 
                                 foreach ($group_members as $member){
                                     $this->Acl->inherit($member,$controller.'-'.$function, $perm);
                                 }
@@ -199,6 +216,7 @@ App::uses('AppController', 'Controller');
         
         $this->set('controllers', $controllers);
     }
+    
     
     public function admin_add_to_group($new_parent_id){
         

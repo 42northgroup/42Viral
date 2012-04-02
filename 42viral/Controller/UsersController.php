@@ -379,7 +379,7 @@ App::uses('AppController', 'Controller');
     }   
     
     /**
-     * Creates and user group without any conditions
+     * Creates and user group without any permissions
      */
     public function admin_create_acl_group()
     {
@@ -391,7 +391,7 @@ App::uses('AppController', 'Controller');
                 $acl_group = $this->AclGroup->findByAlias($this->data['AclGroup']['alias']);
 
                 $this->Acl->Aro->create(array(
-                    'model'=>'AclGroup',
+                    'model'=>'Group',
                     'foreign_key'=>$acl_group['AclGroup']['id'],
                     'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
 
@@ -399,7 +399,7 @@ App::uses('AppController', 'Controller');
                                 
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
-                $this->Session->setFlash(__('Your account could not be created'),'error');
+                $this->Session->setFlash(__('Group could not be created'),'error');
             }
 
         }

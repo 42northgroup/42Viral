@@ -37,7 +37,12 @@
                                     "/admin/privileges/user_privileges/{$aclGroup['AclGroup']['alias']}"); ?>
                         </td>           
                     </tr>
-                <?php endforeach; ?>            
+                <?php endforeach; ?>
+                    <tr class="top">
+                        <td><?php echo $this->Html->link(
+                                    'Create New Group',
+                                    "/admin/users/create_acl_group"); ?></td>            
+                    </tr>
                 </tbody>
             </table>    
         <?php endif; ?>
