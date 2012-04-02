@@ -92,6 +92,7 @@ class SetupShell extends AppShell
         }
 
         $this->__writeSetupLog('setup_shell');
+        require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
     }
 
     /**
@@ -163,6 +164,8 @@ class SetupShell extends AppShell
         $file->close();
 
         $this->__writeSetupLog('setup_xml_hash');
+        
+        require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
     }
 
     /**
@@ -183,6 +186,8 @@ class SetupShell extends AppShell
         $this->__writeDBConfigFile($configString);
 
         $this->__writeSetupLog('setup_database_config');
+
+        require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
     }
 
     /**
