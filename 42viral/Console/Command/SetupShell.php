@@ -254,6 +254,16 @@ class SetupShell extends AppShell
             'Plugin/PluginConfiguration/Config/application.php'
         );
 
+        $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
+        $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
+        foreach ($paths as $path) {
+            if(stripos($path, 'cake')) {
+                if (file_exists($path . DS . $dispatcher)) {
+                    array_push($paths775, $path);
+                }
+            }
+        }
+
         //Make all of the 777 directories and files writable
         foreach ($paths777 as $path) {
 
