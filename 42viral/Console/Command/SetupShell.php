@@ -183,11 +183,11 @@ class SetupShell extends AppShell
         
         do {
             $dbSettings['default'] = $this->__inputDatabaseConfig('default');
-        } while(!$this->__testDbConnection($dbSettings['default'], 'Default'));
+        } while(!$this->__testDbConnection($dbSettings['default'], 'default'));
 
         do {
             $dbSettings['test'] = $this->__inputDatabaseConfig('test');
-        } while(!$this->__testDbConnection($dbSettings['test'], 'Test'));
+        } while(!$this->__testDbConnection($dbSettings['test'], 'test'));
 
         $configString = $this->__generateDBConfigurationString($dbSettings);
         $this->__writeDBConfigFile($configString);
@@ -222,9 +222,11 @@ class SetupShell extends AppShell
             $this->out('...... Setting file/folder permissions');
         }
 
+        $fixedAppPath = ROOT . DS . APP_DIR . DS;
+
         //We want to try and guess a default group, I would assume the user group that cloned the repo is the owner
         //so lets get one of those files and use its owner as a default option
-        $sampleFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS . 'database.php';
+        $sampleFile = $fixedAppPath . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS . 'database.php';
         $sampleFileGroup = posix_getgrgid(filegroup($sampleFile));
 
         if(is_null($this->__pid)) {
@@ -242,23 +244,52 @@ class SetupShell extends AppShell
 
         //Paths that require chmod 777
         $paths777 = array(
-            "Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+            ROOT . DS . APP_DIR . DS .
+                "Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
         );
+
+        //Make all of the 777 directories and files writable
+        foreach ($paths777 as $path) {
+
+            //Test for dir, file or doesn't exist. Process the permissions accordingly
+            if (is_file($path)) {
+                shell_exec("chmod 777 {$path}");
+
+                if(!$silentMode) {
+                    //$this->out("777 access given to {$path}");
+                }
+            } elseif (is_dir($path)) {
+                shell_exec("chmod 777 {$path}");
+
+                if(!$silentMode) {
+                    //$this->out("777 access given to {$path}");
+                }
+            } else {
+                if(!$silentMode) {
+                    $this->out($path . ' doesn\'t seem to exist');
+                }
+            }
+        }
+
 
         //Paths that can run with more restrivite permissions
         $paths775 = array(
-            'tmp',
-            'Plugin/HtmlFromDoc/Vendor/PostOffice',
-            'webroot/cache',
-            'webroot/img/people',
-            'webroot/files/people',
-            'webroot/files/temp',
-            'webroot/files/doc_images',
-            'Config/Xml',
-            'Config/Includes',
-            'Config/Backup',
-            'Config/Log',
-            'Plugin/PluginConfiguration/Config/application.php'
+            $fixedAppPath .'tmp',
+            $fixedAppPath .'tmp/cache/persistent',
+            $fixedAppPath .'tmp/cache/models',
+            $fixedAppPath .'tmp/cache/views',
+            
+            $fixedAppPath .'Plugin/HtmlFromDoc/Vendor/PostOffice',
+            $fixedAppPath .'webroot/cache',
+            $fixedAppPath .'webroot/img/people',
+            $fixedAppPath .'webroot/files/people',
+            $fixedAppPath .'webroot/files/temp',
+            $fixedAppPath .'webroot/files/doc_images',
+            $fixedAppPath .'Config/Xml',
+            $fixedAppPath .'Config/Includes',
+            $fixedAppPath .'Config/Backup',
+            $fixedAppPath .'Config/Log',
+            $fixedAppPath .'Plugin/PluginConfiguration/Config/application.php'
         );
 
         $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
@@ -271,50 +302,26 @@ class SetupShell extends AppShell
             }
         }
 
-        //Make all of the 777 directories and files writable
-        foreach ($paths777 as $path) {
-
-            //Test for dir, file or doesn't exist. Process the permissions accordingly
-            if (is_file($path)) {
-                exec("chmod 777 {$path}");
-
-                if(!$silentMode) {
-                    //$this->out("777 access given to {$path}");
-                }
-            } elseif (is_dir($path)) {
-                exec("chmod 777 {$path}");
-
-                if(!$silentMode) {
-                    //$this->out("777 access given to {$path}");
-                }
-            } else {
-                if(!$silentMode) {
-                    $this->out($path . ' doesn\'t seem to exist');
-                }
-            }
-        }
-
         //Make all of the 775 directories and files writable
         foreach ($paths775 as $path) {
-
             //Test for dir, file or doesn't exist. Process the permissions accordingly
             if (is_file($path)) {
-                exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
+                shell_exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
                 if(!$silentMode) {
                     //$this->out("{$this->__pid}:{$group} now owns  the file {$path}");
                 }
 
-                exec("chmod 775 {$path}");
+                shell_exec("chmod 775 {$path}");
                 if(!$silentMode) {
                     //$this->out("775 access given to {$path}");
                 }
             } elseif (is_dir($path)) {
-                exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
+                shell_exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
                 if(!$silentMode) {
                     //$this->out("{$this->__pid}:{$group} now owns  the directory {$path}");
                 }
 
-                exec("chmod 775 {$path}");
+                shell_exec("chmod 775 {$path}");
                 if(!$silentMode) {
                     //$this->out("775 access given to {$path}");
                 }
@@ -567,12 +574,12 @@ class SetupShell extends AppShell
         $prefix = $this->in('DB table prefix: ', null, '');
 
         $configurations = array(
-            'datasource' => $driverSetting,
-            'host' => $host,
-            'login' => $login,
-            'password' => $password,
-            'database' => $database,
-            'prefix' => $prefix
+            'datasource' => (string) $driverSetting,
+            'host' => (string) $host,
+            'login' => (string) $login,
+            'password' => (string) $password,
+            'database' => (string) $database,
+            'prefix' => (string) $prefix
         );
 
         return $configurations;
@@ -591,11 +598,12 @@ class SetupShell extends AppShell
 
         try {
             $this->out("Trying '{$connectionName}' database connection");
-            ConnectionManager::create(String::uuid(), $dbConfig);
+            ConnectionManager::create($connectionName, $dbConfig);
 
             $this->out("++ Successfully connected to database using entered connection parameters");
             $connected = true;
         } catch(MissingConnectionException $ex) {
+            ConnectionManager::drop($connectionName);
             $this->out("** ERROR ** '" . ucfirst($connectionName) . "' database connection parameters failed");
         }
 
