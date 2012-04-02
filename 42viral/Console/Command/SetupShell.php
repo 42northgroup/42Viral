@@ -37,6 +37,9 @@ class SetupShell extends AppShell
 {
     private $__setupControllerInstance = null;
 
+    private $__pid = null;
+    private $__group = null;
+
     /**
      * Main entry point to the setup shell. This ties together all the different steps of the setup
      *
@@ -58,6 +61,7 @@ class SetupShell extends AppShell
         $this->import_core_data();
         $this->run_configuration_shell();
         $this->create_root_user();
+        $this->write_permissions(true /* silent mode */);
 
         $this->__createSetupShellMarker();
 
@@ -197,26 +201,32 @@ class SetupShell extends AppShell
      * Set the proper file/folder permissions
      *
      * @access public
+     * @param boolean $silentMode
      * @return void
      */
-    public function write_permissions()
+    public function write_permissions($silentMode=false)
     {
-        $this->out('...... Setting file/folder permissions');
+        if(!$silentMode) {
+            $this->out('...... Setting file/folder permissions');
+        }
 
         //We want to try and guess a default group, I would assume the user group that cloned the repo is the owner
         //so lets get one of those files and use its owner as a default option
         $sampleFile = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS . 'database.php';
         $sampleFileGroup = posix_getgrgid(filegroup($sampleFile));
 
+        if(is_null($this->__pid)) {
+            //Ask the user to provide the the PID and user group
+            $this->__pid = $this->in('Enter the name of the server process', null, 'www-data');
+        }
 
-        //Ask the user to provide the the PID and user group
-        $pid = $this->in('Enter the name of the server process', null, 'www-data');
-
-        $group = $this->in(
-            'Enter the name of the group that will have write access to the application, this should NOT be root!',
-            null,
-            $sampleFileGroup['name']
-        );
+        if(is_null($this->__group)) {
+            $this->__group = $this->in(
+                'Enter the name of the group that will have write access to the application, this should NOT be root!',
+                null,
+                $sampleFileGroup['name']
+            );
+        }
 
         //Paths that require chmod 777
         $paths777 = array(
@@ -245,12 +255,20 @@ class SetupShell extends AppShell
             //Test for dir, file or doesn't exist. Process the permissions accordingly
             if (is_file($path)) {
                 exec("chmod 777 {$path}");
-                //$this->out("777 access given to {$path}");
+
+                if(!$silentMode) {
+                    //$this->out("777 access given to {$path}");
+                }
             } elseif (is_dir($path)) {
                 exec("chmod 777 {$path}");
-                //$this->out("777 access given to {$path}");
+
+                if(!$silentMode) {
+                    //$this->out("777 access given to {$path}");
+                }
             } else {
-                $this->out($path . ' doesn\'t seem to exist');
+                if(!$silentMode) {
+                    $this->out($path . ' doesn\'t seem to exist');
+                }
             }
         }
 
@@ -259,19 +277,29 @@ class SetupShell extends AppShell
 
             //Test for dir, file or doesn't exist. Process the permissions accordingly
             if (is_file($path)) {
-                exec("chown -fR {$pid}:{$group} {$path}");
-                //$this->out("{$pid}:{$group} now owns  the file {$path}");
+                exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
+                if(!$silentMode) {
+                    //$this->out("{$this->__pid}:{$group} now owns  the file {$path}");
+                }
 
                 exec("chmod 775 {$path}");
-                //$this->out("775 access given to {$path}");
+                if(!$silentMode) {
+                    //$this->out("775 access given to {$path}");
+                }
             } elseif (is_dir($path)) {
-                exec("chown -fR {$pid}:{$group} {$path}");
-                //$this->out("{$pid}:{$group} now owns  the directory {$path}");
+                exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
+                if(!$silentMode) {
+                    //$this->out("{$this->__pid}:{$group} now owns  the directory {$path}");
+                }
 
                 exec("chmod 775 {$path}");
-                //$this->out("775 access given to {$path}");
+                if(!$silentMode) {
+                    //$this->out("775 access given to {$path}");
+                }
             } else {
-                $this->out($path . ' doesn\'t seem to exist');
+                if(!$silentMode) {
+                    $this->out($path . ' doesn\'t seem to exist');
+                }
             }
         }
     }
