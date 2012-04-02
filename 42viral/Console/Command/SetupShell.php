@@ -12,6 +12,7 @@
  */
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
+App::uses('String', 'Utility');
 App::uses('Handy', 'Lib');
 
 App::uses('ConnectionManager', 'Model');
@@ -179,8 +180,14 @@ class SetupShell extends AppShell
         $this->out('...... Running database config');
         
         $dbSettings = array();
-        $dbSettings['default'] = $this->__inputDatabaseConfig('default');
-        $dbSettings['test'] = $this->__inputDatabaseConfig('test');
+        
+        do {
+            $dbSettings['default'] = $this->__inputDatabaseConfig('default');
+        } while(!$this->__testDbConnection($dbSettings['default'], 'Default'));
+
+        do {
+            $dbSettings['test'] = $this->__inputDatabaseConfig('test');
+        } while(!$this->__testDbConnection($dbSettings['test'], 'Test'));
 
         $configString = $this->__generateDBConfigurationString($dbSettings);
         $this->__writeDBConfigFile($configString);
@@ -461,8 +468,6 @@ class SetupShell extends AppShell
         $default = $dbSettings['default'];
         $test = $dbSettings['test'];
 
-        //$this->__testDbConnection($dbSettings);
-
         $configurationString =
             "<?php\n" .
 
@@ -580,27 +585,18 @@ class SetupShell extends AppShell
      * @param array $dbConfig
      * @return array
      */
-    private function __testDbConnection($dbConfig)
+    private function __testDbConnection($dbConfig, $connectionName)
     {
-        $connected = array(
-            'default' => true,
-            'test' => true
-        );
+        $connected = false;
 
         try {
-            $this->out('Trying "default" database connection');
+            $this->out("Trying '{$connectionName}' database connection");
+            ConnectionManager::create(String::uuid(), $dbConfig);
 
-            ConnectionManager::create('temp_default', $dbConfig['default']);
+            $this->out("++ Successfully connected to database using entered connection parameters");
+            $connected = true;
         } catch(MissingConnectionException $ex) {
-            $connected['default'] = false;
-        }
-
-        try {
-            $this->out('Trying "test" database connection');
-
-            ConnectionManager::create('temp_test', $dbConfig['test']);
-        } catch(MissingConnectionException $ex) {
-            $connected['test'] = false;
+            $this->out("** ERROR ** '" . ucfirst($connectionName) . "' database connection parameters failed");
         }
 
         return $connected;
