@@ -17,6 +17,8 @@ App::uses('Handy', 'Lib');
 App::uses('ConnectionManager', 'Model');
 App::uses('MissingConnectionException', 'Error/exceptions');
 
+App::uses('User', 'Model');
+
 App::uses('SchemaShell', 'Console/Command');
 App::uses('SetupController', 'Controller');
 
@@ -25,7 +27,7 @@ App::uses('ConfigurationShell', 'Plugin/PluginConfiguration/Console/Command');
 /**
  * A shell to enable the 42Viral framework user to setup their application by answering the required custom
  * configuration parameters.
- * 
+ *
  * @package Console
  * @subpackage Console.Command
  * @author Jason D Snider <root@jasonsnider.com>
@@ -34,7 +36,7 @@ App::uses('ConfigurationShell', 'Plugin/PluginConfiguration/Console/Command');
 class SetupShell extends AppShell
 {
     private $__setupControllerInstance = null;
-    
+
     /**
      * Main entry point to the setup shell. This ties together all the different steps of the setup
      *
@@ -45,8 +47,8 @@ class SetupShell extends AppShell
     {
         $this->out('>>> Welcome to the 42Viral setup shell.');
         $this->hr();
-        $this->out('Started - ' . date('m/d/Y H:i:s'));
-        
+        $this->out('42Viral setup started - ' . date('m/d/Y H:i:s'));
+
         $this->init_config();
         $this->security_codes();
         $this->database_config();
@@ -54,12 +56,13 @@ class SetupShell extends AppShell
         $this->write_permissions();
         $this->run_schema_shell();
         $this->import_core_data();
-        //$this->run_configuration_shell();
-        //$this->create_root_user();
+        $this->run_configuration_shell();
+        $this->create_root_user();
 
         $this->__createSetupShellMarker();
-        
-        $this->out('Ended - ' . date('m/d/Y H:i:s'));
+
+        $this->hr();
+        $this->out('42Viral setup ended - ' . date('m/d/Y H:i:s'));
     }
 
     /**
@@ -70,7 +73,7 @@ class SetupShell extends AppShell
      */
     public function init_config()
     {
-        $this->out('... Making a copy of the default configuration files');
+        $this->out('...... Making a copy of the default configuration files');
 
         $dir = new Folder(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS);
         $files = $dir->find();
@@ -95,6 +98,8 @@ class SetupShell extends AppShell
      */
     public function security_codes()
     {
+        $this->out('...... Running system security setup');
+
         $configurations = array(
             'cipher' => array(),
             'salt' => array()
@@ -164,6 +169,8 @@ class SetupShell extends AppShell
      */
     public function database_config()
     {
+        $this->out('...... Running database config');
+        
         $dbSettings = array();
         $dbSettings['default'] = $this->__inputDatabaseConfig('default');
         $dbSettings['test'] = $this->__inputDatabaseConfig('test');
@@ -175,13 +182,14 @@ class SetupShell extends AppShell
     }
 
     /**
-     * 
+     * Build configuration files using user entered data
      *
      * @access public
      * @return void
      */
     public function build_configuration_files()
     {
+        //Does nothing at this time. This is here to mirror the previous setup system.
         $this->__writeSetupLog('setup_process');
     }
 
@@ -193,7 +201,7 @@ class SetupShell extends AppShell
      */
     public function write_permissions()
     {
-        $this->out('... Setting file/folder permissions');
+        $this->out('...... Setting file/folder permissions');
 
         //We want to try and guess a default group, I would assume the user group that cloned the repo is the owner
         //so lets get one of those files and use its owner as a default option
@@ -276,7 +284,8 @@ class SetupShell extends AppShell
      */
     public function run_schema_shell()
     {
-        $this->hr();
+        $this->out('...... Running schema shell');
+
         $schemaShell = new SchemaShell();
         $schemaShell->startup();
         $schemaShell->create();
@@ -291,8 +300,7 @@ class SetupShell extends AppShell
      */
     public function import_core_data()
     {
-        $this->hr();
-        $this->out('... Importing core data, please wait (this might take a while).');
+        $this->out('...... Importing core data, please wait (this might take a while).');
 
         $this->__setupControllerInstance = new SetupController();
         $this->__setupControllerInstance->constructClasses();
@@ -309,30 +317,73 @@ class SetupShell extends AppShell
     }
 
     /**
-     * 
+     * Trigger execution of the plugin configuration shell
      *
      * @access public
      * @return void
      */
     public function run_configuration_shell()
     {
-        //[TODO] Fix bug
+        $this->out('...... Running configuration shell for plugin configuration');
+
         $configurationShell = new ConfigurationShell();
         $configurationShell->startup();
         $configurationShell->main();
         $this->__writeSetupLog('setup_initial_configuration');
     }
 
-
     /**
-     * 
+     * Gather the root user login credentials and create the root user
      *
      * @access public
      * @return void
      */
     public function create_root_user()
     {
+        $this->out('...... Create root user');
 
+        $userModel = new User();
+
+        $user = array();
+        $user['User']['id'] = '4e27efec-ece0-4a36-baaf-38384bb83359';
+        $user['User']['employee'] = 1;
+
+        $emailValidates = true;
+        do {
+            if(!$emailValidates) {
+                $invalidData = $userModel->invalidFields();
+                $this->out('** ERROR ** ' . $invalidData['email'][0]);
+            }
+            
+            $user['User']['email'] = $this->in('Email: ');
+            $userModel->set($user);
+            $emailValidates = $userModel->validates(array('fieldList' => array('email')));
+        } while(!$emailValidates);
+
+
+        $passwordValidates = true;
+        do {
+            if(!$passwordValidates) {
+                $invalidData = $userModel->invalidFields();
+                $this->out('** ERROR ** ' . $invalidData['password'][0]);
+            }
+
+            $user['User']['password'] = $this->in('Password: ');
+            $user['User']['verify_password'] = $this->in('Verify Password: ');
+            
+            $userModel->set($user);
+            $passwordValidates = $userModel->validates(array('fieldList' => array('password')));
+
+        } while(!$passwordValidates);
+
+        
+        if($userModel->createUser($user['User'])) {
+            $this->out('+++ Successfully created "root"');
+            $this->__writeSetupLog('setup_configure_root');
+        } else {
+            $this->out('** ERROR ** There was a problem creating root user, please try again');
+            $this->create_root_user();
+        }
     }
 
     /**
@@ -371,7 +422,7 @@ class SetupShell extends AppShell
 
         $configurationString =
             "<?php\n" .
-                
+
             //Default
             "Configure::write('DataSource.default.datasource', '{$default['datasource']}');\n" .
             "Configure::write('DataSource.default.persistent', false);\n" .
@@ -392,7 +443,7 @@ class SetupShell extends AppShell
 
         return $configurationString;
     }
-    
+
     /**
      * Capture user entered database parameters
      *
@@ -411,7 +462,7 @@ class SetupShell extends AppShell
                 default:
                     $defaultDBName = '42viral_default';
                     break;
-                
+
                 case 'test':
                     $defaultDBName = '42viral_test';
                     break;
@@ -419,7 +470,7 @@ class SetupShell extends AppShell
         }
 
         $this->hr();
-        
+
         $this->out(
             "... Provide your '" .
             strtoupper($whichDB) .
@@ -434,7 +485,7 @@ class SetupShell extends AppShell
             'databse' => array(),
             'prefix' => array(),
         );
-        
+
         $driversLabels = array(
             '[1] MySQL',
             '[2] SQLite',
@@ -443,7 +494,7 @@ class SetupShell extends AppShell
             '[5] Oracle',
             '[6] None'
         );
-        
+
         $drivers = array(
             1 => 'Database/Mysql',
             2 => 'Database/Sqlite',
@@ -456,7 +507,7 @@ class SetupShell extends AppShell
         foreach($driversLabels as $tempLabel) {
             $this->out(__($tempLabel));
         }
-        
+
         $driverOptions = array(1, 2, 3, 4, 5, 6);
         $driverSelection = $this->in('DB datasource: ', $driverOptions, '1');
         $driverSetting = $drivers[$driverSelection];
@@ -521,10 +572,11 @@ class SetupShell extends AppShell
     private function __createSetupShellMarker()
     {
         $this->__writeSetupLog('setup_shell_full');
+        $this->__writeSetupLog('setup');
     }
 
     /**
-     * 
+     *
      *
      * @access private
      * @param string $logName

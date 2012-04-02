@@ -289,17 +289,21 @@ class User extends Person
         return $valid;
     }
 
-
-    public function emptyPassword($check){
-        
+    /**
+     * Validation function for checking if the entered password is empty or not
+     *
+     * @access public
+     * @param array $check
+     * @return boolean
+     */
+    public function emptyPassword($check)
+    {
         $field = key($check);
-        $value = $check[$field];
-        
-        $empty_salt =  Sec::hashPassword('', $this->data[$this->alias]['salt']);
-        
-        if($empty_salt == $value){
+        $value = trim($check[$field]);
+
+        if ($value == '') {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
