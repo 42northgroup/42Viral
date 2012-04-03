@@ -122,19 +122,12 @@ have write access to the app directory (this is probably your username).
 
     sudo ./setup.sh [www-data] [production] 
 
-Open a web browser and navigate to the first run wizard.
+You'll know the setup is complete when you see the following message 42Viral setup ended - _xx/xx/xxxx xx:xx:xx_. Open 
+a browser and navigate to example.com and your site will be up and running.
 
-    https://www.example.com/install.php
+### Development Environment 
 
-Now we will want to build out database. Navigate to app/Console and run the schema command, but first make sure the Cake
-console is writable.
-
-    sudo chmod +x cake
-    sudo ./cake schema create
-
-This will finish setting up the application and allow you to provide credentials for your root user. 
-
-### Debugging and testing
+This section will provide additional details for setting up a full development environment
 
 #### Installing PHPUnit
 

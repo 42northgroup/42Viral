@@ -130,6 +130,13 @@
                                     <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
                                     
                                     <strong>System</strong>
+                                    
+                                    <?php if(Configure::read('Beta.private') == 1): ?>
+                                    <div>
+                                        <?php echo $this->Html->link('Allot Invites', '/admin/users/allot_invites'); ?>
+                                    </div>
+                                    <?php endif; ?>
+                                    
                                     <div><?php echo $this->Html->link('Users', '/admin/users/'); ?></div>
                                     <div><?php echo $this->Html->link('Groups', 
                                             '/admin/users/acl_groups/'); ?></div>

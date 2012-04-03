@@ -379,7 +379,7 @@ App::uses('AppController', 'Controller');
     }   
     
     /**
-     * Creates and user group without any conditions
+     * Creates and user group without any permissions
      */
     public function admin_create_acl_group()
     {
@@ -391,7 +391,7 @@ App::uses('AppController', 'Controller');
                 $acl_group = $this->AclGroup->findByAlias($this->data['AclGroup']['alias']);
 
                 $this->Acl->Aro->create(array(
-                    'model'=>'AclGroup',
+                    'model'=>'Group',
                     'foreign_key'=>$acl_group['AclGroup']['id'],
                     'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
 
@@ -399,7 +399,7 @@ App::uses('AppController', 'Controller');
                                 
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
-                $this->Session->setFlash(__('Your account could not be created'),'error');
+                $this->Session->setFlash(__('Group could not be created'),'error');
             }
 
         }
@@ -562,6 +562,29 @@ App::uses('AppController', 'Controller');
         }
         
         $this->set('title_for_layout', __('Change Your Password'));
+    }
+    
+    public function admin_allot_invites()
+    {
+        if(!empty ($this->data)){
+            $people = $this->Person->find('all', array(
+                'conditions' => array(
+                    'Person.username NOT' => array('root', 'system')
+                )
+            ));
+            
+            foreach ($people as &$person){
+                $person['Person']['invitations_available'] = $this->data['Inivitations']['number_of_invitations'];
+            }
+            
+            if($this->Person->saveAll($people)){
+                $this->Session->setFlash('Invitations have been allotted to users', 'success');
+            }else{
+                $this->Session->setFlash('An error occurred. Invitations could not be dsitributed', 'err');
+            }
+        }
+        
+        $this->set('title_for_layout', 'Allot Invitations to Users');
     }
     
 }

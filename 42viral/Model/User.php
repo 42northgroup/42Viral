@@ -289,17 +289,21 @@ class User extends Person
         return $valid;
     }
 
-
-    public function emptyPassword($check){
-        
+    /**
+     * Validation function for checking if the entered password is empty or not
+     *
+     * @access public
+     * @param array $check
+     * @return boolean
+     */
+    public function emptyPassword($check)
+    {
         $field = key($check);
-        $value = $check[$field];
-        
-        $empty_salt =  Sec::hashPassword('', $this->data[$this->alias]['salt']);
-        
-        if($empty_salt == $value){
+        $value = trim($check[$field]);
+
+        if ($value == '') {
             return false;
-        }else{
+        } else {
             return true;
         }
     }
@@ -328,7 +332,10 @@ class User extends Person
                 
         //set expiration date for the password
         $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
-
+        
+        //set number of invitations alotted per user
+        $data['invitations_available'] = Configure::read('Beta.invitations');
+        
         //Try to save the new user record
         if($this->save($data)){
             $userProfile = array();

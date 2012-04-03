@@ -114,7 +114,7 @@ class AppController extends Controller
      * Creates a new log file when a setup step has been completed
      * @param string $log
      * @return void 
-     * @access private
+     * @access protected
      */
     protected function _setupLog($log)
     {
@@ -124,7 +124,7 @@ class AppController extends Controller
     /**
      * Returns a list of created setup logs (i.e. completed steps)
      * @return array
-     * @access private
+     * @access protected
      */
     protected function _fetchLogs()
     {
