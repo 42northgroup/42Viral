@@ -25,6 +25,12 @@ rm -f $SCRIPT_PATH/tmp/cache/models/cake_*
 rm -f $SCRIPT_PATH/tmp/cache/persistent/cake_*
 rm -f $SCRIPT_PATH/tmp/cache/views/cake_*
 
+# Check if the setup shell log file exists (this would happen if setup shell was run before) if not, create it
+if [ ! -f $SCRIPT_PATH/Config/Log/setup_shell.json ]
+then
+    touch $SCRIPT_PATH/Config/Log/setup_shell.json
+fi
+
 # Trigger the execution of the cake setup shell
 sudo $SCRIPT_PATH/Console/cake setup main $APACHE_PROCESS $USER_GROUP
 

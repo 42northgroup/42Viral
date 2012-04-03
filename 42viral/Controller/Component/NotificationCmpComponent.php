@@ -16,7 +16,7 @@
 App::uses('Notification', 'Model');
 App::uses('InboxMessage', 'Model');
 App::uses('Person', 'Model');
-
+App::uses('CakeEmail', 'Network/Email');
 App::uses('MicroTemplate', 'Lib');
 
 /**
@@ -115,7 +115,20 @@ class NotificationCmpComponent extends Component
  */
     private function __sendEmail($preparedNotification)
     {
+        $email = new CakeEmail();
+        $email->template('notification', null);
+        
+        $email->from($this->__fromEmail);
+        
+        $email->to($preparedNotification['recipient_email']);
+        $email->subject($preparedNotification['subject']);
+        $email->replyTo($this->__replyToEmail);
+        $email->emailFormat('html');
+        
+        $email->send($preparedNotification['body']);
+         
 
+        /*
         $this->Email->to = $preparedNotification['recipient_email'];
 
         $this->Email->subject = $preparedNotification['subject'];
@@ -123,10 +136,10 @@ class NotificationCmpComponent extends Component
 
         $this->Email->from = $this->__fromEmail;
         $this->Email->replyTo = $this->__replyToEmail;
-        $this->Email->template = 'notification';
-        
+        //$this->Email->template = 'notification';
+        CakeEmail::template('notification', null);
         $this->Email->send($preparedNotification['body']);
-        
+        */
     }
 
 /**

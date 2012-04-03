@@ -41,7 +41,7 @@ class SetupShell extends AppShell
      * functionality. That controller will be made obsolete. )
      *
      * @access private
-     * @var type
+     * @var object
      */
     private $__setupControllerInstance = null;
 
@@ -51,7 +51,7 @@ class SetupShell extends AppShell
      * setup shell
      *
      * @access private
-     * @var type
+     * @var string
      */
     private $__pid = null;
 
@@ -59,9 +59,17 @@ class SetupShell extends AppShell
      * Stores the group name for setting file/folder permissions passed in as an argument to the setup shell
      *
      * @access private
-     * @var type
+     * @var string
      */
     private $__group = null;
+
+    /**
+     *
+     *
+     * @access private
+     * @var array
+     */
+    private $__setupState = null;
 
     /**
      * Main entry point to the setup shell. This ties together all the different steps of the setup
@@ -77,6 +85,13 @@ class SetupShell extends AppShell
 
         if(isset($this->args[1])) {
             $this->__group = $this->args[1];
+        }
+
+        $this->__setupState = $this->__parseSetupLog();
+
+        //If first run is detected, make sure the init config step runs before anything to copy default settings
+        if(!$this->__getSetupStateStepCompleteByStepAlias('init_config')) {
+            $this->__initConfig();
         }
 
         $this->out('>>> Welcome to the 42Viral setup shell.');
@@ -100,16 +115,30 @@ class SetupShell extends AppShell
         $this->nl();
         $this->out('Select an option from the list below: ');
         $this->out('0. >> Run all setup steps');
-        $this->out('1. Security cipher and salt');
-        $this->out('2. Database connection parameters');
-        $this->out('3. Create database tables (cake schema create)');
-        $this->out('4. Import core system data');
-        $this->out('5. Create root user');
+
+        $this->out('1. Security cipher and salt [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(1))? 'Completed': 'Not complete') . ']');
+
+        $this->out('2. Database connection parameters [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(2))? 'Completed': 'Not complete') . ']');
+        
+        $this->out('3. Create database tables (cake schema create) [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(3))? 'Completed': 'Not complete') . ']');
+
+        $this->out('4. Import core system data [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(4))? 'Completed': 'Not complete') . ']');
+
+        $this->out('5. Run configuration shell [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(5))? 'Completed': 'Not complete') . ']');
+
+        $this->out('6. Create root user [' .
+            (($this->__getSetupStateStepCompleteByUiIndex(6))? 'Completed': 'Not complete') . ']');
+
         $this->out('x. Exit setup');
 
         $userSelection = $this->in(
             'Select: ',
-            array('0', '1', '2', '3', '4', '5', 'x'),
+            array('0', '1', '2', '3', '4', '5', '6', 'x'),
             '0'
         );
 
@@ -123,7 +152,7 @@ class SetupShell extends AppShell
                 $this->__runStandardSteps();
                 $this->__interactiveSetup();
                 break;
-
+            
             case '2': // Database connection parameter settings
                 $this->__databaseConfig();
                 $this->__runStandardSteps();
@@ -142,7 +171,13 @@ class SetupShell extends AppShell
                 $this->__interactiveSetup();
                 break;
 
-            case '5': // Create root user
+            case '5': // Run configuration shell
+                $this->__runConfigurationShell();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            case '6': // Create root user
                 $this->__createRootUser();
                 $this->__runStandardSteps();
                 $this->__interactiveSetup();
@@ -163,8 +198,8 @@ class SetupShell extends AppShell
      */
     private function __runStandardSteps()
     {
-        $this->__runConfigurationShell();
         $this->__writePermissions();
+        $this->__finalizeSetupState();
     }
 
     /**
@@ -175,18 +210,17 @@ class SetupShell extends AppShell
      */
     private function __runAll()
     {
-        $this->__initConfig();
+        //$this->__initConfig();
         $this->__securityCodes();
         $this->__databaseConfig();
-        //$this->__buildConfigurationFiles();
         $this->__writePermissions();
         $this->__runSchemaShell();
         $this->__importCoreData();
         $this->__runConfigurationShell();
         $this->__createRootUser();
         $this->__writePermissions(true /* silent mode */);
-        
-        $this->__createSetupShellMarker();
+
+        $this->__updateSetupState('_all_steps');
     }
 
     /**
@@ -211,8 +245,9 @@ class SetupShell extends AppShell
             $file->close();
         }
 
-        $this->__writeSetupLog('setup_shell');
         require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
+
+        $this->__updateSetupState('init_config');
     }
 
     /**
@@ -283,9 +318,9 @@ class SetupShell extends AppShell
         $file->write($configureString, $mode = 'w', false);
         $file->close();
 
-        $this->__writeSetupLog('setup_xml_hash');
-        
         require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
+
+        $this->__updateSetupState('security_codes');
     }
 
     /**
@@ -311,21 +346,9 @@ class SetupShell extends AppShell
         $configString = $this->__generateDBConfigurationString($dbSettings);
         $this->__writeDBConfigFile($configString);
 
-        $this->__writeSetupLog('setup_database_config');
-
         require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
-    }
-
-    /**
-     * Build configuration files using user entered data
-     *
-     * @access private
-     * @return void
-     */
-    private function __buildConfigurationFiles()
-    {
-        //Does nothing at this time. This is here to mirror the previous setup system.
-        $this->__writeSetupLog('setup_process');
+        
+        $this->__updateSetupState('database_config');
     }
 
     /**
@@ -450,6 +473,8 @@ class SetupShell extends AppShell
                 }
             }
         }
+
+        $this->__updateSetupState('permissions');
     }
 
     /**
@@ -465,7 +490,8 @@ class SetupShell extends AppShell
         $schemaShell = new SchemaShell();
         $schemaShell->startup();
         $schemaShell->create();
-        $this->__writeSetupLog('setup_build_database');
+
+        $this->__updateSetupState('run_schema_shell');
     }
 
     /**
@@ -489,7 +515,7 @@ class SetupShell extends AppShell
             $this->__setupControllerInstance->buildPMA($path, $file);
         }
 
-        $this->__writeSetupLog('setup_import');
+        $this->__updateSetupState('import_core_data');
     }
 
     /**
@@ -505,7 +531,8 @@ class SetupShell extends AppShell
         $configurationShell = new ConfigurationShell();
         $configurationShell->startup();
         $configurationShell->main();
-        $this->__writeSetupLog('setup_initial_configuration');
+
+        $this->__updateSetupState('run_configuration_shell');
     }
 
     /**
@@ -555,11 +582,12 @@ class SetupShell extends AppShell
         
         if($userModel->createUser($user['User'])) {
             $this->out('+++ Successfully created "root"');
-            $this->__writeSetupLog('setup_configure_root');
         } else {
             $this->out('** ERROR ** There was a problem creating root user, please try again');
             $this->__createRootUser();
         }
+
+        $this->__updateSetupState('create_root_user');
     }
 
     /**
@@ -730,28 +758,173 @@ class SetupShell extends AppShell
     }
 
     /**
-     * Creates a file in the logs folder indicating that the setup shell has been executed successfully
+     *
      *
      * @access private
-     * @return void
+     * @return array
      */
-    private function __createSetupShellMarker()
+    private function __parseSetupLog()
     {
-        $this->__writeSetupLog('setup_shell_full');
-        $this->__writeSetupLog('setup');
+        $file = 'setup_shell.json';
+
+        $file = new File(ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file);
+        $fileContents = $file->read();
+        
+        $setupStateData = json_decode($fileContents, true);
+
+        if(is_null($setupStateData) || empty($setupStateData)) {
+            $setupStateData = $this->__initializeSetupState();
+            $file->write(json_encode($setupStateData), $mode = 'w', false);
+        }
+
+        $file->close();
+
+        return $setupStateData;
     }
 
     /**
-     * Write individual setup step log files (This is to keep track of which step completed)
-     * TODO: Come up with a better way to keep a log of setup steps, probably in one single file in XML or JSON form
+     * 
      *
      * @access private
-     * @param string $logName
      * @return void
      */
-    private function __writeSetupLog($logName)
+    private function __finalizeSetupState()
     {
-        $logDir = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
-        file_put_contents($logDir . $logName . '.txt', date('Y-m-d H:i:s'));
+        $completeFlag = true;
+
+        foreach($this->__setupState as $tempStepKey => $tempStep) {
+            if($tempStepKey !== '_all_steps') {
+                if($tempStep['completed'] === false) {
+                    $completeFlag = false;
+                }
+            }
+        }
+
+        $this->__setupState['_all_steps']['completed'] = $completeFlag;
+        $this->__writeSetupState();
+    }
+
+    /**
+     *
+     *
+     * @access private
+     * @return void
+     */
+    private function __initializeSetupState()
+    {
+        $setupState = array(
+            '_all_steps' => array(
+                'ui_index' => 0,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'init_config' => array(
+                'ui_index' => null,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'security_codes' => array(
+                'ui_index' => 1,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'database_config' => array(
+                'ui_index' => 2,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'run_schema_shell' => array(
+                'ui_index' => 3,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'permissions' => array(
+                'ui_index' => null,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'import_core_data' => array(
+                'ui_index' => 4,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'run_configuration_shell' => array(
+                'ui_index' => 5,
+                'completed' => false,
+                'timestamp' => null
+            ),
+
+            'create_root_user' => array(
+                'ui_index' => 6,
+                'completed' => false,
+                'timestamp' => null
+            )
+        );
+
+        return $setupState;
+    }
+
+    /**
+     *
+     *
+     * @access private
+     * @return boolean
+     */
+    private function __getSetupStateStepCompleteByUiIndex($uiIndex) {
+        foreach($this->__setupState as $tempState) {
+            if(!is_null($tempState['ui_index']) && ($tempState['ui_index'] === $uiIndex)) {
+                return $tempState['completed'];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     *
+     *
+     * @access private
+     * @return boolean
+     */
+    private function __getSetupStateStepCompleteByStepAlias($stepAlias) {
+        if(array_key_exists($stepAlias, $this->__setupState)) {
+            return $this->__setupState[$stepAlias]['completed'];
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 
+     *
+     * @access private
+     * @return void
+     */
+    private function __updateSetupState($stepKey)
+    {
+        $this->__setupState[$stepKey]['completed'] = true;
+        $this->__setupState[$stepKey]['timestamp'] = date('Y-m-d H:i:s');
+        $this->__writeSetupState();
+    }
+
+    /**
+     * 
+     *
+     * @access private
+     * @return void
+     */
+    private function __writeSetupState()
+    {
+        $file = 'setup_shell.json';
+        $file = new File(ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file);
+        $file->write(json_encode($this->__setupState), $mode = 'w', false);
+        $file->close();
     }
 }

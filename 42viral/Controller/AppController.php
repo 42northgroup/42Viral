@@ -37,17 +37,10 @@ class AppController extends Controller
      */
     public $helpers = array('AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
 
-    /**
-     * The location of setup log files
-     * @var string
-     * @access public
-     */
-    protected $_logDirectory = '';
 
     public function __construct($request = null, $response = null)
     {
         parent::__construct($request, $response);
-        $this->_logDirectory = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Log' . DS;
     }
 
     /**
@@ -60,7 +53,12 @@ class AppController extends Controller
         $this->Auth->deny('*');
 
         //Force a central login (1 login per prefix by default).
-        $this->Auth->loginAction = array('admin' => false, 'plugin' => false, 'controller' => 'users', 'action' => 'login');
+        $this->Auth->loginAction = array(
+            'admin' => false,
+            'plugin' => false,
+            'controller' => 'users',
+            'action' => 'login'
+        );
 
         $this->set('mine', false);
 
@@ -68,13 +66,10 @@ class AppController extends Controller
             $this->Session->write('Config.language', $this->params['named']['language']);
         }
 
-
         //If the setup isn't complete, force it to be completed
-        if (!in_array('setup.txt', $this->_fetchLogs())) {
-            if ($this->request->params['controller'] != 'setup') {
-                $this->Session->setFlash('The system needs to be configured!');
-                $this->redirect('/install.php');
-            }
+        if (!$this->isSetupComplete()) {
+            $this->Session->setFlash('The system needs to be configured!');
+            $this->redirect('/install.php');
         }
 
         //test for an expired password
@@ -111,24 +106,34 @@ class AppController extends Controller
     }
 
     /**
-     * Creates a new log file when a setup step has been completed
-     * @param string $log
-     * @return void 
-     * @access protected
+     * 
+     *
+     * @access public
+     * @return boolean
      */
-    protected function _setupLog($log)
+    public function isSetupComplete()
     {
-        file_put_contents($this->_logDirectory . "{$log}.txt", date('Y-m-d H:i:s'));
-    }
+        $file = 'setup_shell.json';
+        $fileFullPath = ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file;
 
-    /**
-     * Returns a list of created setup logs (i.e. completed steps)
-     * @return array
-     * @access protected
-     */
-    protected function _fetchLogs()
-    {
-        return scandir($this->_logDirectory);
+        if(file_exists($fileFullPath)) {
+            $file = new File($fileFullPath);
+            $fileContents = $file->read();
+
+            $setupStateData = json_decode($fileContents, true);
+
+            if(is_null($setupStateData) || empty($setupStateData)) {
+                return false;
+            } else {
+                $setupIsComplete = ($setupStateData['_all_steps']['completed'])? true: false;
+            }
+
+            $file->close();
+        } else {
+            $setupIsComplete = false;
+        }
+
+        return $setupIsComplete;
     }
 
     /**

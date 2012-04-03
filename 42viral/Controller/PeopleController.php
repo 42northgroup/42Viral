@@ -13,6 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('AppController', 'Controller');
+App::uses('Scrub', 'ContentFilters.Lib');
 
 /**
  * @package app
@@ -53,7 +54,7 @@ App::uses('AppController', 'Controller');
    }
    
    public function invite()
-   {       
+   {         
        if(!empty ($this->data)){
            $emails = explode(',', $this->data['Invite']['emails']);
            
@@ -61,7 +62,7 @@ App::uses('AppController', 'Controller');
            $bad_emails = array();
            
            for($i=0; $i<count($emails); $i++){
-               
+               $emails[$i] = trim($emails[$i]);
                if(Validation::email($emails[$i])){
                    array_push($validated_emails, trim($emails[$i]));
                }else{
@@ -69,38 +70,43 @@ App::uses('AppController', 'Controller');
                }
                
            }
+                      
+           foreach($validated_emails as $email){
            
-           if($this->Invite->save(array('Invite' => array('accepted' => null)))){
-           
-               $invitation_token = $this->Invite->id;
-               $invitee = $this->Session->read('Auth.User.name');
+               if($this->Invite->add()){
 
-               $additionalObjects = array(
-                   'invitation_token' => $invitation_token,
-                   'invitee' => $invitee,
-                   'invite_body' => Scrub::htmlStrict($this->data['Invite']['message'])
-               );
+                   $invitation_token = $this->Invite->id;
+                   $invitee = $this->Session->read('Auth.User.name');
+                   
+                   $additionalObjects = array(
+                       'invitation_token' => $invitation_token,
+                       'invitee' => $invitee,
+                       'invite_body' => Scrub::htmlStrict($this->data['Invite']['message'])
+                   );
 
-               $this->NotificationCmp->triggerSimpleNotification("friend_invite", $validated_emails, $additionalObjects);
-               
-               if(!empty ($bad_emails)){
-                   $flash_string = 'An invitaion could not be sent to the following email addresses:';
-                   $this->request->data['Invite']['emails'] = '';
-                   
-                   foreach ($bad_emails as $email){
-                       $flash_string .= '<br/>'.$email;
-                       $this->request->data['Invite']['emails'] .= $email.',';
-                   }
-                   
-                   $this->request->data['Invite']['emails'] = substr($this->request->data['Invite']['emails'], 0, -1);
-                   
-                   $flash_string .= '<br/>Please check to make to sure the of theses addresses is correct.';
-                   $this->Session->setFlash(_($flash_string), 'error');
-               }else{
-                   $this->Session->setFlash(_('Invitations have been sent'), 'success');
+                   $this->NotificationCmp->triggerSimpleNotification("friend_invite", array($email),$additionalObjects);
+
                }
-               
+           }
+           
+           if(!empty ($bad_emails)){
+               $flash_string = 'An invitaion could not be sent to the following email addresses:';
+               $this->request->data['Invite']['emails'] = '';
+
+               foreach ($bad_emails as $email){
+                   $flash_string .= '<br/>'.$email;
+                   $this->request->data['Invite']['emails'] .= $email.',';
+               }
+
+               $this->request->data['Invite']['emails'] = substr($this->request->data['Invite']['emails'], 0, -1);
+
+               $flash_string .= '<br/>Please check to make to sure the of theses addresses is correct.';
+               $this->Session->setFlash(_($flash_string), 'error');
+           }else{
+               $this->Session->setFlash(_('Invitations have been sent'), 'success');
            }
        }
+       
+       $this->set('title_for_layout', "Invite Your Friends");
    }
 }
