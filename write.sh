@@ -1,6 +1,6 @@
 #!/bin/bash
-# Cleans cache and resets file permissions
 
+# Cleans cache and resets file permissions
 rm tmp/cache/models/cake_*
 rm tmp/cache/persistent/cake_*
 rm tmp/cache/views/cake_*

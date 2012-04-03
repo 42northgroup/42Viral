@@ -36,9 +36,31 @@ App::uses('ConfigurationShell', 'Plugin/PluginConfiguration/Console/Command');
  */
 class SetupShell extends AppShell
 {
+    /**
+     * Holds an instance of the setup controller after instantiating (The import is for reusing the setup controller
+     * functionality. That controller will be made obsolete. )
+     *
+     * @access private
+     * @var type
+     */
     private $__setupControllerInstance = null;
 
+
+    /**
+     * Stores the web server process user name for setting file/folder permissions passed in as an argument to the
+     * setup shell
+     *
+     * @access private
+     * @var type
+     */
     private $__pid = null;
+
+    /**
+     * Stores the group name for setting file/folder permissions passed in as an argument to the setup shell
+     *
+     * @access private
+     * @var type
+     */
     private $__group = null;
 
     /**
@@ -49,34 +71,131 @@ class SetupShell extends AppShell
      */
     public function main()
     {
+        if(isset($this->args[0])) {
+            $this->__pid = $this->args[0];
+        }
+
+        if(isset($this->args[1])) {
+            $this->__group = $this->args[1];
+        }
+
         $this->out('>>> Welcome to the 42Viral setup shell.');
         $this->hr();
         $this->out('42Viral setup started - ' . date('m/d/Y H:i:s'));
 
-        $this->init_config();
-        $this->security_codes();
-        $this->database_config();
-        $this->build_configuration_files();
-        $this->write_permissions();
-        $this->run_schema_shell();
-        $this->import_core_data();
-        $this->run_configuration_shell();
-        $this->create_root_user();
-        $this->write_permissions(true /* silent mode */);
-
-        $this->__createSetupShellMarker();
+        $this->__interactiveSetup();
 
         $this->hr();
         $this->out('42Viral setup ended - ' . date('m/d/Y H:i:s'));
     }
 
     /**
-     * Create the initial configuration files by copying the default provided with the framework
+     * Control the interactive setup UI
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function init_config()
+    private function __interactiveSetup()
+    {
+        $this->nl();
+        $this->out('Select an option from the list below: ');
+        $this->out('0. >> Run all setup steps');
+        $this->out('1. Security cipher and salt');
+        $this->out('2. Database connection parameters');
+        $this->out('3. Create database tables (cake schema create)');
+        $this->out('4. Import core system data');
+        $this->out('5. Create root user');
+        $this->out('x. Exit setup');
+
+        $userSelection = $this->in(
+            'Select: ',
+            array('0', '1', '2', '3', '4', '5', 'x'),
+            '0'
+        );
+
+        switch($userSelection) {
+            case '0': // All steps
+                $this->__runAll();
+                break;
+
+            case '1': // Security cipher and salt settings
+                $this->__securityCodes();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            case '2': // Database connection parameter settings
+                $this->__databaseConfig();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            case '3': // Create database tables
+                $this->__runSchemaShell();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            case '4': // Import core system data
+                $this->__importCoreData();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            case '5': // Create root user
+                $this->__createRootUser();
+                $this->__runStandardSteps();
+                $this->__interactiveSetup();
+                break;
+
+            default: // Exit
+            case 'x':
+                break;
+        }
+    }
+
+
+    /**
+     * Wrapper to run standard steps run after each individual step run
+     *
+     * @access private
+     * @return void
+     */
+    private function __runStandardSteps()
+    {
+        $this->__runConfigurationShell();
+        $this->__writePermissions();
+    }
+
+    /**
+     * Wrapper to run all steps in sequence
+     *
+     * @access private
+     * @return void
+     */
+    private function __runAll()
+    {
+        $this->__initConfig();
+        $this->__securityCodes();
+        $this->__databaseConfig();
+        //$this->__buildConfigurationFiles();
+        $this->__writePermissions();
+        $this->__runSchemaShell();
+        $this->__importCoreData();
+        $this->__runConfigurationShell();
+        $this->__createRootUser();
+        $this->__writePermissions(true /* silent mode */);
+        
+        $this->__createSetupShellMarker();
+    }
+
+    /**
+     * Create the initial configuration files by copying the default provided with the framework
+     *
+     * @access private
+     * @return void
+     */
+    private function __initConfig()
     {
         $this->out('...... Making a copy of the default configuration files');
 
@@ -99,10 +218,10 @@ class SetupShell extends AppShell
     /**
      * Creates the systems salt and hash values
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function security_codes()
+    private function __securityCodes()
     {
         $this->out('...... Running system security setup');
 
@@ -172,10 +291,10 @@ class SetupShell extends AppShell
     /**
      * Generate database configuration file from user entered data for default and test databases
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function database_config()
+    private function __databaseConfig()
     {
         $this->out('...... Running database config');
         
@@ -200,10 +319,10 @@ class SetupShell extends AppShell
     /**
      * Build configuration files using user entered data
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function build_configuration_files()
+    private function __buildConfigurationFiles()
     {
         //Does nothing at this time. This is here to mirror the previous setup system.
         $this->__writeSetupLog('setup_process');
@@ -212,11 +331,11 @@ class SetupShell extends AppShell
     /**
      * Set the proper file/folder permissions
      *
-     * @access public
+     * @access private
      * @param boolean $silentMode
      * @return void
      */
-    public function write_permissions($silentMode=false)
+    private function __writePermissions($silentMode=false)
     {
         if(!$silentMode) {
             $this->out('...... Setting file/folder permissions');
@@ -311,7 +430,7 @@ class SetupShell extends AppShell
                     //$this->out("{$this->__pid}:{$group} now owns  the file {$path}");
                 }
 
-                shell_exec("chmod 775 {$path}");
+                shell_exec("chmod 775 -fR {$path}");
                 if(!$silentMode) {
                     //$this->out("775 access given to {$path}");
                 }
@@ -321,7 +440,7 @@ class SetupShell extends AppShell
                     //$this->out("{$this->__pid}:{$group} now owns  the directory {$path}");
                 }
 
-                shell_exec("chmod 775 {$path}");
+                shell_exec("chmod 775 -fR {$path}");
                 if(!$silentMode) {
                     //$this->out("775 access given to {$path}");
                 }
@@ -336,10 +455,10 @@ class SetupShell extends AppShell
     /**
      * Trigger the execution of the standard CakePHP schema shell
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function run_schema_shell()
+    private function __runSchemaShell()
     {
         $this->out('...... Running schema shell');
 
@@ -350,12 +469,12 @@ class SetupShell extends AppShell
     }
 
     /**
+     * Import the core system data and populate the database tables after the schema has been created
      *
-     *
-     * @access public
+     * @access private
      * @return void
      */
-    public function import_core_data()
+    private function __importCoreData()
     {
         $this->out('...... Importing core data, please wait (this might take a while).');
 
@@ -376,10 +495,10 @@ class SetupShell extends AppShell
     /**
      * Trigger execution of the plugin configuration shell
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function run_configuration_shell()
+    private function __runConfigurationShell()
     {
         $this->out('...... Running configuration shell for plugin configuration');
 
@@ -392,10 +511,10 @@ class SetupShell extends AppShell
     /**
      * Gather the root user login credentials and create the root user
      *
-     * @access public
+     * @access private
      * @return void
      */
-    public function create_root_user()
+    private function __createRootUser()
     {
         $this->out('...... Create root user');
 
@@ -439,7 +558,7 @@ class SetupShell extends AppShell
             $this->__writeSetupLog('setup_configure_root');
         } else {
             $this->out('** ERROR ** There was a problem creating root user, please try again');
-            $this->create_root_user();
+            $this->__createRootUser();
         }
     }
 
@@ -623,7 +742,8 @@ class SetupShell extends AppShell
     }
 
     /**
-     *
+     * Write individual setup step log files (This is to keep track of which step completed)
+     * TODO: Come up with a better way to keep a log of setup steps, probably in one single file in XML or JSON form
      *
      * @access private
      * @param string $logName
