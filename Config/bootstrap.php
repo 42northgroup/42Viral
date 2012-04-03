@@ -138,7 +138,7 @@ App::build(array(
     ));
 
 
-//We only want to require these if the set shell has been ran, we check this by testing for database.php
+//We only want to require these if the setup shell has been ran, we check this by testing for database.php
 if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php')) {
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
