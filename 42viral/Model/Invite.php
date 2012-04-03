@@ -76,8 +76,8 @@ class Invite extends AppModel
      * @access public 
      */
     public function add(){
-        $this->Invite->create();
-        if($this->Invite->save()){
+        $this->create();
+        if($this->save()){
             return true;
         }else{
             return false;
