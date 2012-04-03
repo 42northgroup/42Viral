@@ -54,7 +54,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
    }
    
    public function invite()
-   {  
+   {         
        if(!empty ($this->data)){
            $emails = explode(',', $this->data['Invite']['emails']);
            

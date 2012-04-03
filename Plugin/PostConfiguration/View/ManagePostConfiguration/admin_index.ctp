@@ -1,5 +1,10 @@
 <h1>Post Configuration Plugin</h1>
 <p>Deals with non-plugin post setup configuration.</p>
+<p style="color:red" >
+    There are certain fields that must be filled out, in order for 42Viral to function properly. Those fields are
+    outlined in RED.
+</p>
+
 <div class="row">
     <div class="two-thirds column alpha">
     <?php 
@@ -57,7 +62,7 @@
                 ),
             
                 'BetaInvitations.id'=>array('value'=>'Beta.invitations', 'type'=>'hidden'),
-                'BetaInvitations.value'=>array('label'=>'Number of Ivitations Per User')
+                'BetaInvitations.value'=>array('label'=>'Number of Ivitations Per User (0 for inifinite)')
             ));
 
         echo $this->Form->inputs(array(
@@ -102,12 +107,14 @@
                 'Domainscheme.id'=>array('value'=>'Domain.scheme', 'type'=>'hidden'),
                 'Domainscheme.value'=>array(
                     'label'=>'Domain Scheme', 
-                    'value'=> empty($this->data['Domainscheme']['value'])?$scheme:$this->data['Domainscheme']['value']),
+                    'value'=> empty($this->data['Domainscheme']['value'])?$scheme:$this->data['Domainscheme']['value'],
+                    'style'=> 'border-color:red'),
 
                 'Domainhost.id'=>array('value'=>'Domain.host', 'type'=>'hidden'),
                 'Domainhost.value'=>array('label'=>'Domain Host', 
                     'value'=>
-                        empty($this->data['Domainhost']['value'])?env('SERVER_NAME'):$this->data['Domainhost']['value'])
+                        empty($this->data['Domainhost']['value'])?env('SERVER_NAME'):$this->data['Domainhost']['value'],
+                    'style'=> 'border-color:red')
 
             ));
 
@@ -115,10 +122,16 @@
                 'legend'=>'Email Settings',
 
                 'Emailfrom.id'=>array('value'=>'Email.from', 'type'=>'hidden'),
-                'Emailfrom.value'=>array('label'=>'From'),
+                'Emailfrom.value'=>array(
+                    'label'=>'From',
+                    'style'=> 'border-color:red'
+                ),
 
                 'EmailreplyTo.id'=>array('value'=>'Email.replyTo', 'type'=>'hidden'),
-                'EmailreplyTo.value'=>array('label'=>'Reply To'),
+                'EmailreplyTo.value'=>array(
+                    'label'=>'Reply To',
+                    'style'=> 'border-color:red'
+                ),
             ));
 
         echo $this->Form->inputs(array(
