@@ -47,7 +47,7 @@ App::uses('Member', 'Lib');
     );
 
 
-    public $components = array('ProfileProgress', 'Oauths');
+    public $components = array('Oauths');
 
     /**
      * @return void

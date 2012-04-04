@@ -276,31 +276,4 @@ class Oauth extends AppModel
         }
     }
 
-
-    /**
-     *
-     * @param type $userId
-     * @return int
-     */
-    public function connectProgress($userId)
-    {
-        $connectedServices = $this->find('all', array(
-            'contain' => array(),
-
-            'conditions' => array(
-                'person_id' => $userId
-            )
-        ));
-
-        $progress = 0;
-
-        if(empty($connectedServices)) {
-            $progress = 0;
-        } else {
-            $progress = ceil(100/3*count($connectedServices));
-        }
-
-        return $progress;
-    }
-
 }

@@ -36,13 +36,6 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public 
      */
-    public $components = array('ProfileProgress');
-
-    /**
-     *
-     * @var array
-     * @access public 
-     */
     public $uses = array('Profile', 'Person', 'PersonDetail', 'Address');
 
     public $test_profile = array(
@@ -72,7 +65,7 @@ App::uses('AppController', 'Controller');
      */
     public function edit($profileId) {
         
-        $this->data = $this->Profile->fetchProfileWith($profileId, 'person'); 
+        $this->data = $this->Profile->getProfileWith($profileId, 'person'); 
         
         /* Restructure the Profile data to fit the the userProfile hook */
         $userProfile = array();

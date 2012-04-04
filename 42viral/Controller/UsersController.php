@@ -47,7 +47,6 @@ App::uses('AppController', 'Controller');
     public $components = array(
         'Access', 
         'ControllerList', 
-        'ProfileProgress', 
         'Oauths', 
         'NotificationCmp'
     );
@@ -224,8 +223,6 @@ App::uses('AppController', 'Controller');
                         $this->Session->write('Auth.User.Settings', $user['UserSetting']);
                                                 
                         $this->Access->permissions($user['User']);
-
-                        $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
                         
                         $person['Person']['login_attempts'] = 0;
                         $person['Person']['last_login_attempt'] = null;
