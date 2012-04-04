@@ -174,7 +174,7 @@ class Person extends AppModel
      */ 
     public function getPerson($id)
     {
-        $person = $this->find('first', array('conditions'=>array($this->name.'.id' => $id)));
+        $person = $this->find('first', array('conditions'=>array($this->alias.'.id' => $id)));
         return $person;
     }
       
@@ -240,7 +240,7 @@ class Person extends AppModel
      */
     public function getPersonByUsername($username)
     {
-        $person = $this->find('first', array('conditions'=>array($this->name.'.username' => $username)));
+        $person = $this->find('first', array('conditions'=>array($this->alias.'.username' => $username)));
         return $person;
     }
 

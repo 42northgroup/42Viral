@@ -89,7 +89,7 @@ App::uses('Member', 'Lib');
         }
 
         //Get the user data
-        $user = $this->User->fetchUserWith($token, 'full_profile');
+        $user = $this->User->getUserWith($token, 'full_profile');
 
         //Does the user really exist?
         if(empty($user)) {

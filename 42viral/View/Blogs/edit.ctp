@@ -27,7 +27,7 @@
     ), 'ck_editor');
 ?>
 <div class="row">
-    <div class="two-thirds column alpha">
+    
     <?php
     echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
@@ -36,7 +36,11 @@
         'class' => 'responsive',
         'type' => 'file'
     ));
+    ?>
+    
+    <div class="two-thirds column alpha">
 
+    <?php
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('tease', array('rows'=>2));
@@ -80,9 +84,14 @@
             )
         );
 
-    echo $this->Form->submit();
-    echo $this->Form->end();
     ?>
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php 
+            echo $this->Form->inputs(array('legend'=>'Publish', 'status')); 
+            echo $this->Form->submit();
+        ?>
+    </div>
+    
+    <?php echo $this->Form->end(); ?>
 </div>
