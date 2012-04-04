@@ -776,7 +776,7 @@ class SetupShell extends AppShell
                 break;
 
             case 'php_serialize':
-                $setupStateData = unserialize($fileContents, true);
+                $setupStateData = unserialize($fileContents);
                 break;
         }
 

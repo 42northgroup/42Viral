@@ -101,7 +101,7 @@ define('FILE_READ_PATH', '/files/people/');
  *     json
  */
 if (!defined('SETUP_STATE_ENCODING_METHOD')) {
-    define('SETUP_STATE_ENCODING_METHOD', 'json');
+    define('SETUP_STATE_ENCODING_METHOD', 'php_serialize');
 }
 
 /* =========================

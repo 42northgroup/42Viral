@@ -137,6 +137,17 @@ App::build(array(
     
     ));
 
+/**
+ * Encoding method to use for encoding and decoding the setup state array structure
+ *
+ * Options:
+ *     php_serialize
+ *     json
+ */
+if (!defined('SETUP_STATE_ENCODING_METHOD')) {
+    define('SETUP_STATE_ENCODING_METHOD', 'php_serialize');
+}
+
 
 //We only want to require these if the setup shell has been ran, we check this by testing for database.php
 if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php')) {
