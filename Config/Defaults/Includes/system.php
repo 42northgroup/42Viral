@@ -92,6 +92,18 @@ define('IMAGE_READ_PATH', '/img/people/');
  */
 define('FILE_READ_PATH', '/files/people/');
 
+
+/**
+ * Encoding method to use for encoding and decoding the setup state array structure
+ *
+ * Options:
+ *     php_serialize
+ *     json
+ */
+if (!defined('SETUP_STATE_ENCODING_METHOD')) {
+    define('SETUP_STATE_ENCODING_METHOD', 'json');
+}
+
 /* =========================
  * == Thrid Party API's ====
  * ======================= */
