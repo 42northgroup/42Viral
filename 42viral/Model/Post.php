@@ -30,7 +30,40 @@ class Post extends Content
      * @access public
      */
     public $name = 'Post';
-    
+        
+    /**
+    * Predefined data sets
+    * @var array
+    * @access public 
+    */
+    public $dataSet = array(
+
+        'nothing'=>array(
+            'contain'=>array()
+        ),
+        'created_person' => array(
+            'contain' =>    array(
+                'CreatedPerson'=>array(
+                    'Profile'=>array()
+                )
+            ),
+            'conditions' => array()
+        ),
+        'standard' => array(
+            'contain' =>    array(
+                'Conversation'=>array(
+                    'CreatedPerson'=>array(
+                        'Profile'=>array()
+                    )
+                ),
+                'CreatedPerson'=>array(
+                    'Profile'=>array()
+                )
+            ),
+            'conditions' => array()
+        )        
+    );
+            
     /**
      * 
      * @var array
@@ -127,54 +160,19 @@ class Post extends Content
      * @param string|array $status
      * @return array 
      */    
-    public function fetchPostWith($token, $with = null, $status = null){
-        
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
-            
-            switch(strtolower($with)){
-                case 'standard':
-                    $with = array(
-                        'Conversation'=>array('CreatedPerson'=>array('Profile'=>array())),
-                        'CreatedPerson'=>array('Profile'=>array())
-                    );
-                break;  
-            
-                case 'created_person':
-                    $with = array(
-                        'CreatedPerson'=>array('Profile'=>array())
-                    );
-                break;  
-            
-                default:
-                    $with = array();
-                break;
-            }
-  
-        }
-        
-        //Build the inital conditions array
-        $conditions = array(
-                        'or'=>array(
-                            'Post.id' => $token, 
-                            'Post.slug' => $token, 
-                            'Post.short_cut' => $token
-                        )
-                        
-                    );
-        
-        //if we care about the status, inject that into the conditions array
-        if(!is_null($status)){
-            $conditions = array_merge($conditions, array('Post.status' => $status));
-        }
+    public function getPostWith($token, $with = null){
 
-        //Query the table
-        $post = $this->find('first', 
-                array(  
-                    'conditions'=>$conditions, 
-                    'contain' => $with
-                    )
-                );
+        $theToken = array(
+            'or' => array(
+                'Post.id' => $token, 
+                'Post.slug' => $token, 
+                'Post.short_cut' => $token
+            )
+        );
+        
+        $finder = array_merge($this->dataSet[$with], $theToken);
+        
+        $post = $this->find('first', $finder);
 
         return $post;
     }    
