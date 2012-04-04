@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHP 5.3
  * 
@@ -23,15 +24,16 @@ App::uses('UploadInterface', 'Model');
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-class File extends Upload
+class FileUpload extends Upload
 {
+
     /**
      * 
      * @var string
      * @access public
      */
-    public $name = 'File';
-    
+    public $name = 'FileUpload';
+
     /**
      * Inject all "finds" against the Upload object with file filtering criteria
      * @param array $query
@@ -39,13 +41,15 @@ class File extends Upload
      * @author Jason D Snider <jason.snider@42viral.org>
      * @access public
      */
-    public function beforeFind($queryData) {
+    public function beforeFind($queryData)
+    {
         parent::beforeFind($queryData);
-        
-        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
-        $fileFilter = array('File.object_type' =>'file');
-        $queryData['conditions'] =array_merge($queryData['conditions'], $fileFilter);
-        
+
+        $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
+        $fileFilter = array('File.object_type' => 'file');
+        $queryData['conditions'] = array_merge($queryData['conditions'], $fileFilter);
+
         return $queryData;
-    }  
+    }
+
 }

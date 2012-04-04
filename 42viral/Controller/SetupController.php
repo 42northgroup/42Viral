@@ -563,7 +563,7 @@ App::uses('Handy', 'Lib');
                     //Nothing to do here
                 }else{
                     $details = "{$table['@name']} {$table['column'][$i]['@id']}";
-                    $this->log(sprintf(__("INSERT FAILED! s%"),  $details), 'setup');
+                    $this->log(sprintf(__("INSERT FAILED! %s"),  $details), 'setup');
                 }
             }
         }

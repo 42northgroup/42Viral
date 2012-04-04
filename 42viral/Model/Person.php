@@ -102,12 +102,14 @@ class Person extends AppModel
             'className' => 'Conversation',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),         
-         'File' => array(
-            'className' => 'File',
+        ),
+
+        'FileUpload' => array(
+            'className' => 'FileUpload',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
+        
         'Image' => array(
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
@@ -249,5 +251,22 @@ class Person extends AppModel
      */
     public function getDisplayName($data){
         return $data[$data['display_name']];
+    }
+
+
+    /**
+     * 
+     *
+     * @access public
+     * @param array $with
+     * @return array
+     */
+    public function fetchAllPeople($with=array())
+    {
+        $people = $this->find('all', array(
+            'contain' => $with
+        ));
+
+        return $people;
     }
 }

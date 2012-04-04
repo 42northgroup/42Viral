@@ -401,7 +401,7 @@ class SetupShell extends AppShell
                     //$this->out("777 access given to {$path}");
                 }
             } elseif (is_dir($path)) {
-                shell_exec("chmod 777 {$path}");
+                shell_exec("chmod 777 -R {$path}");
 
                 if(!$silentMode) {
                     //$this->out("777 access given to {$path}");

@@ -19,6 +19,7 @@ App::uses('ContentFilters.Scrubable', 'Lib');
 
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class AppController extends Controller
 {
@@ -50,6 +51,11 @@ class AppController extends Controller
      */
     public function beforeFilter()
     {
+        //If the setup isn't complete, force it to be completed
+        if (!$this->isSetupComplete()) {
+            $this->redirect('/install.php');
+        }
+
         $this->Auth->deny('*');
 
         //Force a central login (1 login per prefix by default).
@@ -64,12 +70,6 @@ class AppController extends Controller
 
         if (isset($this->params['named']['language'])) {
             $this->Session->write('Config.language', $this->params['named']['language']);
-        }
-
-        //If the setup isn't complete, force it to be completed
-        if (!$this->isSetupComplete()) {
-            $this->Session->setFlash('The system needs to be configured!');
-            $this->redirect('/install.php');
         }
 
         //test for an expired password

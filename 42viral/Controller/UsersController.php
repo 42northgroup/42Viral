@@ -409,7 +409,7 @@ App::uses('AppController', 'Controller');
 
     public function admin_index()
     {
-        $people = $this->Person->find('all');
+        $people = $this->Person->fetchAllPeople(array('FileUpload'));
         $this->set('people', $people);
         $this->set('title_for_layout', __('Everyone in the System'));
     }    
