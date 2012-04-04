@@ -50,6 +50,13 @@ class AppController extends Controller
      */
     public function beforeFilter()
     {
+        
+        //if(!is_file(CACHE . DS . 'configure')){
+        $this->loadModel('PluginConfiguration.Configuration');
+        $this->Configuration->cache();
+        pr($this->Configuration->load());
+        //}
+        
         $this->Auth->deny('*');
 
         //Force a central login (1 login per prefix by default).
@@ -227,5 +234,4 @@ class AppController extends Controller
             'text/x-pdf'
         );
     }
-
 }
