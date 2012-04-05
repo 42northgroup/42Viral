@@ -418,7 +418,8 @@ class SetupShell extends AppShell
             $fixedAppPath .'Config/Includes',
             $fixedAppPath .'Config/Backup',
             $fixedAppPath .'Config/Log',
-            $fixedAppPath .'Plugin/PluginConfiguration/Config/application.php'
+            $fixedAppPath .'Plugin/PluginConfiguration/Config/application.php',
+            $fixedAppPath .'Plugin/PluginConfiguration/Config/application.default.php'
         );
 
         $paths = explode(PATH_SEPARATOR, ini_get('include_path'));

@@ -125,8 +125,7 @@ class PostsController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->getPostWith($id, 'created_person');
-        
+        $this->data = $this->Post->getPostWith($id, 'for_edit');
         
         $this->set('statuses', 
                 $this->Picklist->fetchPicklistOptions(
