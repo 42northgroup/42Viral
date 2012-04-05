@@ -37,10 +37,10 @@ class Post extends Content
     * @access public 
     */
     public $dataSet = array(
-
         'nothing'=>array(
             'contain'=>array()
         ),
+
         'created_person' => array(
             'contain' =>    array(
                 'CreatedPerson'=>array(
@@ -49,6 +49,7 @@ class Post extends Content
             ),
             'conditions' => array()
         ),
+
         'standard' => array(
             'contain' =>    array(
                 'Conversation'=>array(
@@ -61,7 +62,17 @@ class Post extends Content
                 )
             ),
             'conditions' => array()
-        )        
+        ),
+
+        'for_edit' => array(
+            'contain' => array(
+                'CreatedPerson' => array(
+                    'Profile' => array()
+                ),
+                'Tag'
+            ),
+            'conditions' => array()
+        )
     );
             
     /**
