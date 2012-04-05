@@ -96,6 +96,10 @@ chown "$USER":"$USER" -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/applic
 chmod 775 -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
 echo ">>>$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
 
+chown "$USER":"$USER" -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.default.php"
+chmod 775 -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.default.php"
+echo ">>>$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.default.php"
+
 # We need to find a better way
 chown "$APACHE_PROCESS":"$USER" -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
 chmod 775 -fR "/usr/share/cakephp-2.0/lib/Cake/Cache"
