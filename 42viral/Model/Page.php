@@ -141,9 +141,9 @@ class Page extends Content
         );      
             
         $finder = array_merge($this->dataSet[$with], $theToken);        
-        $post = $this->find('first', $finder);
+        $page = $this->find('first', $finder);
 
-        return $post;
+        return $page;
     } 
     
     /**
@@ -155,7 +155,7 @@ class Page extends Content
      */    
     public function fetchPagesWith($with = 'public'){
         $finder = $this->dataSet[$with];        
-        $pages = $this->find('first', $finder);
-        $this->set('pages', $pages);
+        $pages = $this->find('all', $finder);
+        return $pages;
     }      
 }

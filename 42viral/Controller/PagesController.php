@@ -74,7 +74,6 @@ App::uses('AppController', 'Controller');
     public function index() {
         
         $pages = $this->Page->fetchPagesWith();
-        
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
     } 
@@ -133,7 +132,7 @@ App::uses('AppController', 'Controller');
      */
     public function admin_index() {
         
-        $pages = $this->Page->fetchPagesWith('admin_standard', 'nothing');
+        $pages = $this->Page->fetchPagesWith('nothing');
         
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');

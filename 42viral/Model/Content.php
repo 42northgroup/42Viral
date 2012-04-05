@@ -41,22 +41,22 @@ class Content extends AppModel
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Page.status'=>array('archieved', 'published'))
+            'conditions' => array('Content.status'=>array('archieved', 'published'))
         ),
         'admin_nothing'=>array('contain'=>array()),        
         'nothing'=>array(
             'contain'=>array(),
-            'conditions' => array('Page.status'=>array('archieved', 'published'))
+            'conditions' => array('Content.status'=>array('archieved', 'published'))
         ),
         'public'=>array(
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Page.status'=>array('archieved', 'published'))
+            'conditions' => array('Content.status'=>array('archieved', 'published'))
         ),
         'sitemap'=>array(
             'conditions' => array(
-                'Page.status'=>array(
+                'Content.status'=>array(
                     'archieved', 
                     'published'
                 )
@@ -228,7 +228,7 @@ class Content extends AppModel
     function fetchContentWith($with = 'public'){
           
         $finder = $this->dataSet[$with];        
-        $contents = $this->find('first', $finder);
-        $this->set('contents', $contents);
+        $content = $this->find('first', $finder);
+        return $content;
     }
 }
