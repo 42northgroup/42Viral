@@ -12,8 +12,8 @@ App::uses('AppController', 'Controller');
      * @var string
      * @access public
      */
-    public $name = 'Pages';
-
+    public $name = 'Pages'; 
+    
     /**
      * Default helper
      *
@@ -86,7 +86,7 @@ App::uses('AppController', 'Controller');
      */
     public function view($slug) {
 
-        $page = $this->Page->fetchPageWith($slug);
+        $page = $this->Page->getPageWith($slug);
         
         if(empty($page)){
            $this->redirect('/', '404');
@@ -133,7 +133,7 @@ App::uses('AppController', 'Controller');
      */
     public function admin_index() {
         
-        $pages = $this->Page->fetchPagesWith('admin_standard');
+        $pages = $this->Page->fetchPagesWith('admin_standard', 'nothing');
         
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
@@ -187,7 +187,7 @@ App::uses('AppController', 'Controller');
             }
         }
         
-        $this->data = $this->Page->fetchPageWith($id, 'edit');
+        $this->data = $this->Page->getPageWith($id, 'edit');
         
         
         $this->set('statuses', 

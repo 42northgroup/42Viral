@@ -70,7 +70,7 @@ class Oauth extends AppModel
      * @return string
      */
     public function oauthed($service, $oauthId, $token=null, $user_id=null){
-        $theOauthed = $this->fetchOauthed($service, $oauthId);
+        $theOauthed = $this->getOauthed($service, $oauthId);
         if($theOauthed){
 
             return $theOauthed;
@@ -82,12 +82,12 @@ class Oauth extends AppModel
     }
 
     /**
-     * Fetches an Oauth record
+     * Gets an Oauth record
      * @param string $service
      * @param string $oauthId
      * @return string
      */
-    public function fetchOauthed($service, $oauthId){
+    public function getOauthed($service, $oauthId){
         $oauthed =
             $this->find('first',
                 array(

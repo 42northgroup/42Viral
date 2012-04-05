@@ -37,8 +37,41 @@ class Person extends AppModel
      * @access public
      */
     public $useTable = 'people';
+        
+    /**
+     * Predefined data sets
+     * @var array
+     * @access public 
+     */
+    public $dataSet = array(
+        'blog'=>array(
+            'contain'=>array(
+                'Profile'=>array(), 
+                'Blog'=>array(
+                    'conditions'=>array(
+                        'Blog.object_type'=>'blog',
+                        'Blog.status'=>'published'
+                        ),
+                        'order'=>array('Blog.title ASC')
+                    )
+            )
+        ),
+        'nothing'=>array(
+            'contain'=>array()
+        ),
+        'profile' => array(
+            'contain' => array('Profile'),
+            'conditions' => array()
+        ),
+        'upload' => array(
+            'contain' => array(
+                'Profile'=>array(),
+                'Upload'=>array()
+            ),
+            'conditions' => array()
+        )        
+    ); 
 
-    
     /**
      * Behaviors
      * @var array
@@ -164,19 +197,6 @@ class Person extends AppModel
         );
 
     }
-
-    /**
-     * Returns the data for a single person
-     * @param string $id
-     * @return array
-     * @access public
-     * @deprecated 9/6/2011, retired in favor of fetchPersonWith
-     */ 
-    public function getPerson($id)
-    {
-        $person = $this->find('first', array('conditions'=>array($this->alias.'.id' => $id)));
-        return $person;
-    }
       
    /**
     * Returns a person's profile data with the specified associated data. 
@@ -188,85 +208,21 @@ class Person extends AppModel
     * @return array
     * @access public
     */
-    public function fetchPersonWith($token, $with = array(), $by = 'username')
+    public function getPersonWith($token, $with = 'nothing')
     {
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
 
-            switch(strtolower($with)){
-                case 'profile':
-                    $with = array('Profile');
-                break;   
+        $theToken = array(
+                'conditions'=>array('or' => array(
+                    'Person.id' => $token,
+                    'Person.username' => $token,
+                    'Person.email' => $token
+                ))
+        );
 
-                case 'blog':
-                    $with = array(
-                        'Profile'=>array(), 
-                        'Blog'=>array(
-                            'conditions'=>array(
-                                'Blog.object_type'=>'blog',
-                                'Blog.status'=>'published'
-                                ),
-                                'order'=>array('Blog.title ASC')
-                            )
-                        );
-                break;               
-            
-                default:
-                    $with = array();
-                break;
-            }
-
-        }
-
-        //Go fetch the profile
-        $userPerson = $this->find('first', array(
-           'contain' => $with,
-
-           'conditions' => array(
-               "Person.{$by}"  => $token
-           )
-        ));
-
-        return $userPerson;        
+        $finder = array_merge($this->dataSet[$with], $theToken);
         
-    }
-        
-    /**
-     * Returns the data for a single person
-     * @param string $username
-     * @return array
-     * @author Jason D Snider <jason.snider@42viral.org>
-     * @access public
-     */
-    public function getPersonByUsername($username)
-    {
-        $person = $this->find('first', array('conditions'=>array($this->alias.'.username' => $username)));
-        return $person;
-    }
+        $person = $this->find('first', $finder);
 
-    /**
-     * Parses an array of user data and returns the desired display name
-     * @param type $data
-     * @return type
-     */
-    public function getDisplayName($data){
-        return $data[$data['display_name']];
-    }
-
-
-    /**
-     * 
-     *
-     * @access public
-     * @param array $with
-     * @return array
-     */
-    public function fetchAllPeople($with=array())
-    {
-        $people = $this->find('all', array(
-            'contain' => $with
-        ));
-
-        return $people;
+        return $person;        
     }
 }
