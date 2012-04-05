@@ -132,7 +132,7 @@ App::uses('AppController', 'Controller');
     public function test($notificationHandle='')
     {
         $userId = $this->Session->read('Auth.User.id');
-        $person = $this->Person->fetchPersonWith($userId, array(), 'id');
+        $person = $this->Person->getPersonWith($userId, 'nothing');
 
         $additionalObjects = array();
 

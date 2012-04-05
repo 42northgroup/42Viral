@@ -143,7 +143,7 @@ App::uses('AppController', 'Controller');
                 $this->Person->save($tokenData);
 
                 //email the person with the password reset authorization link
-                $person = $this->Person->fetchPersonWith($userId, array(), 'id');
+                $person = $this->Person->getPersonWith($userId, 'nothing');
 
                 $additionalObjects = array(
                     'reset_authorization_token' => $requestAuthorizationToken

@@ -68,7 +68,7 @@ class BlogsController extends AppController {
             $blogs = $this->Blog->fetchBlogsWith();
         }else{
             
-            $profile = $this->Person->fetchPersonWith($username, 'blog');
+            $profile = $this->Person->getPersonWith($username, 'blog');
             
             if (empty($profile)) {
                 throw new NotFoundException("{$username} " . __("doesn't seem to exist"));

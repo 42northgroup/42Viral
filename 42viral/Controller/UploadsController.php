@@ -65,7 +65,7 @@ App::uses('Member', 'Lib');
         }
 
         //Get the data
-        $person = $this->Person->fetchPersonWith($token, array('Profile', 'Upload'));
+        $person = $this->Person->getPersonWith($token, 'upload');
 
         //Does the user really exist?
         if (empty($person)):

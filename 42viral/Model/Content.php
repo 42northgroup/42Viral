@@ -29,7 +29,50 @@ class Content extends AppModel
      * @access public
      */
     public $name = 'Content';
-    
+
+    /**
+     * Predefined data sets
+     * @var array
+     * @access public 
+     */
+    public $dataSet = array(
+
+        'admin'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            ),
+            'conditions' => array('Page.status'=>array('archieved', 'published'))
+        ),
+        'admin_nothing'=>array('contain'=>array()),        
+        'nothing'=>array(
+            'contain'=>array(),
+            'conditions' => array('Page.status'=>array('archieved', 'published'))
+        ),
+        'public'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            ),
+            'conditions' => array('Page.status'=>array('archieved', 'published'))
+        ),
+        'sitemap'=>array(
+            'conditions' => array(
+                'Page.status'=>array(
+                    'archieved', 
+                    'published'
+                )
+            ),
+            'contain'=>array(
+                'Sitemap'
+            ),
+            'fields' => array(
+                'Content.canonical',
+                'Content.modified',
+                'Sitemap.changefreq',
+                'Sitemap.priority'
+            )
+        )
+    );
+
     /**
      *
      * @var string
@@ -177,46 +220,15 @@ class Content extends AppModel
     }
     
     /**
-     *
-     * @param string $token
+     * Returns all content based on predefined conditions
      * @param array $with
-     * @param string $status
      * @return array
      * @access public
      */
-    function fetchContentWith($with = null){
-        
-        if(is_null($with)){
-            $with = array(
-                    'conditions'=>array(),
-                    'contain'=>array()
-                );
-        }
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
-            
-            switch(strtolower($with)){  
-                case 'sitemap':
-                    $with = array(
-                            'conditions'=>array(),
-                            'contain'=>array(
-                                'Sitemap'
-                            ),
-                            'fields' => array(
-                                'Content.canonical',
-                                'Content.modified',
-                                'Sitemap.changefreq',
-                                'Sitemap.priority'
-                            )
-                        );                    
-                    
-                break;  
-            }
-  
-        }
-        
-        $contents = $this->find('all', $with);
-        
-        return $contents;
+    function fetchContentWith($with = 'public'){
+          
+        $finder = $this->dataSet[$with];        
+        $contents = $this->find('first', $finder);
+        $this->set('contents', $contents);
     }
 }
