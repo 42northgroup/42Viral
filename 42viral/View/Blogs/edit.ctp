@@ -107,11 +107,14 @@ $(function () {
 
     <div class="input text">
         <label for="PageTagsProxy">Tags</label>
+        <span>(Separate with comma)</span>
         <div id="TagsContainer"></div>
     </div>
 
     <?php
-    echo $this->Form->text('tags_proxy');
+    echo $this->Form->text('tags_proxy', array(
+        'maxlength' => '30'
+    ));
     echo $this->Form->hidden('tags');
     ?>
 

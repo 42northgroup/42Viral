@@ -55,24 +55,30 @@ $this->Form->unlockField('Page.tags');
 
 <script type="text/javascript">
 $(function () {
-    $('#TagsContainer').selectit({
-        targetFieldId: 'BlogTags',
-        proxyFieldId: 'BlogTagsProxy',
-        values: (function() {
-            var tags = "<?php echo $this->data['Blog']['tags']; ?>".split(',');
-            var cleanTags = [];
+    $('#TagsContainer')
+    
+        .selectit({
+            targetFieldId: 'PageTags',
+            proxyFieldId: 'PageTagsProxy',
+            values: (function() {
+                var tags = "<?php echo $this->data['Page']['tags']; ?>".split(',');
+                var cleanTags = [];
 
-            for(var i in tags) {
-                if(tags.hasOwnProperty(i)) {
-                    if(tags[i] != "") {
-                        cleanTags.push(tags[i]);
+                for(var i in tags) {
+                    if(tags.hasOwnProperty(i)) {
+                        if(tags[i] != "") {
+                            cleanTags.push(tags[i]);
+                        }
                     }
                 }
-            }
 
-            return cleanTags;
-        })()
-    });
+                return cleanTags;
+            })()
+        })
+
+        .click(function() {
+            $('.selectit-input').focus();
+        });
 });
 </script>
 
@@ -114,11 +120,14 @@ $(function () {
         
         <div class="input text">
             <label for="PageTagsProxy">Tags</label>
+            <span>(Separate with comma)</span>
             <div id="TagsContainer"></div>
         </div>
 
         <?php 
-        echo $this->Form->text('tags_proxy');
+        echo $this->Form->text('tags_proxy', array(
+            'maxlength' => '30'
+        ));
         echo $this->Form->hidden('tags');
         ?>
 

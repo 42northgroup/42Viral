@@ -50,7 +50,6 @@
 
 .selectit .selectit-new input 
 {
-    background: inherit;
     border: none;
     outline: none;
     float: left;
@@ -61,7 +60,7 @@
 }
 
 form.responsive .selectit .selectit-new input[type="text"] {
-    /*border: none;*/
+    border: none;
     outline: none;
 }
 

@@ -4,6 +4,7 @@
 // http://creativecommons.org/licenses/by/3.0/us/
 (function ($) {
     var keyCodes = {
+        tab: 9,
         space: 32,
         enter: 13,
         comma: 188,
@@ -49,7 +50,8 @@
                 addClass('selectit-close').
                 attr('title', 'remove').
                 html('x').
-                click(function () {
+                click(function (e) {
+                    e.stopPropagation();
                     $(this).parent().remove();
                     updateTargetField(options);
                 })
@@ -73,6 +75,8 @@
     
     function splitString(str) {
         var arr = str.split(',');
+
+        /*
         var finishedArray = [];
         for (var i = 0; i < arr.length; i++) {
             var temp = arr[i].split(' ');
@@ -81,6 +85,9 @@
             }
         }
         return finishedArray;
+        */
+
+       return arr;
     }
 
     $.fn.selectit = function (opts) {
@@ -92,16 +99,22 @@
                 var input = 
                     $('#' + options.proxyFieldId).
                     addClass('selectit-input').
-                    keyup(function (e) {
+                    keyup(function(e) {
                         var elem = $(this);
-                        if (keyCodes.isMatch(e.which, keyCodes.comma, keyCodes.control, keyCodes.enter, keyCodes.space)) {
+                        if (keyCodes.isMatch(
+                            e.which
+                            ,keyCodes.comma
+                            ,keyCodes.control
+                            ,keyCodes.enter
+                            //,keyCodes.space
+                        )) {
                             parseValues.call(elem, that.data('selectit-options'));
                         }
                     }).
                     blur(function () {
                         parseValues.call($(this), that.data('selectit-options'));
                     }).
-                    keydown(function (e) {
+                    keydown(function(e) {
                         var elem = $(this);
                         if (keyCodes.isMatch(e.which, keyCodes.backspace)) {
                             if (elem.val().length === 0) {
