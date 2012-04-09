@@ -33,6 +33,58 @@ class Blog extends Content
     public $name = 'Blog';
     
     /**
+        * Predefined data sets
+        * @var array
+        * @access public 
+        */
+    public $dataSet = array(
+
+        'admin'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            ),
+            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+        ),
+        'admin_nothing'=>array('contain'=>array()),        
+        'nothing'=>array(
+            'contain'=>array(),
+            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+        ),
+        'public'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            ),
+            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+        ),
+        'sitemap'=>array(
+            'conditions' => array(
+                'Blog.status'=>array(
+                    'archieved', 
+                    'published'
+                )
+            ),
+            'contain'=>array(
+                'Sitemap'
+            ),
+            'fields' => array(
+                'Blog.canonical',
+                'Blog.modified',
+                'Sitemap.changefreq',
+                'Sitemap.priority'
+            )
+        ),
+        'standard'=>array(
+            'CreatedPerson'=>array(
+                'Profile'=>array()
+            ),
+            'Post'=>array(
+                'conditions'=>array('Blog.status'=>'published'), 
+                'order'=>array('Blog.created DESC')
+            )
+        )
+    );
+
+    /**
      * 
      * @var array
      * @access public
@@ -131,45 +183,21 @@ class Blog extends Content
      * @return array
      * @access public
      */
-    function fetchBlogWith($token, $with = null, $status = 'published'){
-        
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
+    function fetchBlogWith($token, $with = 'public'){
             
-            switch(strtolower($with)){
-                case 'standard':
-                    $with = array(
-                        
-                        'CreatedPerson'=>array(
-                            'Profile'=>array()
-                        ),
-                        'Post'=>array(
-                            'conditions'=>array('Post.status'=>'published'), 
-                            'order'=>array('Post.created DESC'))
-                    );
-                break;   
+        $theToken = array(
+            'conditions'=>array('or' => array(
+                'Blog.id' => $token,
+                'Blog.slug' => $token, 
+                'Blog.short_cut' => $token
+            ))
+        );      
             
-                default:
-                    $with = array();
-                break;
-            }
-  
-        }
-        
-        $blog = $this->find('first', 
-                array(  'conditions'=>array(
-                        'or'=>array(
-                            'Blog.slug' => $token,
-                            'Blog.short_cut' => $token
-                        ), 
-                        'Blog.status'=>$status), 
-                        'contain'=>$with
-                    )
-                );
-        
+        $finder = array_merge($this->dataSet[$with], $theToken);        
+        $blog = $this->find('first', $finder);
+
         return $blog;
     }
-    
     
     /**
      *
@@ -178,38 +206,9 @@ class Blog extends Content
      * @return array
      * @access public
      */
-    public function fetchBlogsWith($with = null, $status = 'published'){
-        
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
-            
-            switch(strtolower($with)){
-                case 'standard':
-                    $with = array(
-                        'CreatedPerson'=>array(
-                            'Profile'=>array()
-                        ),
-                        'Post'=>array(
-                            'conditions'=>array('Post.status'=>'published'), 
-                            'order'=>array('Post.created DESC'))
-                    );
-                break;   
-            
-                default:
-                    $with = array();
-                break;
-            }
-  
-        }
-        
-        $blog = $this->find('all', 
-                array(  'conditions'=>array(
-                        'Blog.status'=>$status
-                        ), 
-                        'contain'=>$with
-                    )
-                );
-        
+    public function fetchBlogsWith($with = 'public'){
+        $finder = $this->dataSet[$with];        
+        $blog = $this->find('all', $finder);
         return $blog;
     }    
 }

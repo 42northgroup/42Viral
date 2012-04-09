@@ -30,7 +30,33 @@ class Page extends Content
      * @access public
      */
     public $name = 'Page';
-    
+
+    /**
+     * Predefined data sets
+     * @var array
+     * @access public 
+     */
+    public $dataSet = array(
+
+        'edit' => array(
+            'contain' =>    array(
+                'Tag'=>array(),
+                'Sitemap'=>array()
+            ),
+            'conditions'=>array()
+        ),
+        'nothing'=>array(
+            'contain'=>array(),
+            'conditions' => array()
+        ),
+        'public'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            ),
+            'conditions' => array('Page.status'=>array('archieved', 'published'))
+        )        
+    );
+
     /**
      * 
      * @var array
@@ -104,81 +130,33 @@ class Page extends Content
      * @param type $status
      * @return array 
      */    
-    public function fetchPageWith($token, $with = null){
-        
-        //Allows predefined data associations in the form of containable arrays
-
+    public function getPageWith($token, $with = 'public'){
             
-        switch(strtolower($with)){
-            case 'edit':                
-                $query = array(  
-                    'conditions'=>array('Page.id' => $token), 
-                    'contain' => array(
-                        'Tag'=>array(),
-                        'Sitemap'=>array()
-                    )
-                );                
-                
-            break;            
+        $theToken = array(
+            'conditions'=>array('or' => array(
+                'Page.id' => $token,
+                'Page.slug' => $token, 
+                'Page.short_cut' => $token
+            ))
+        );      
             
-            default:                
-                $query = array(  
-                    'conditions'=>array(
-                    'or'=>array(
-                        'Page.slug' => $token, 
-                        'Page.short_cut' => $token
-                    ), 
-                    'Page.status'=>array('archieved', 'published')
-                    ), 
-                    'contain' => array(
-                        'Tag'=>array()
-                    )
-                );                
-                
-            break;
-        }
-  
+        $finder = array_merge($this->dataSet[$with], $theToken);        
+        $page = $this->find('first', $finder);
 
-        $post = $this->find('first', $query);
-        return $post;
+        return $page;
     } 
     
     /**
-     * Returns a given page based on given with parameters
+     * Returns a given page based predefinded conditions
      * @param type $token
      * @param type $with
      * @param type $status
      * @return array 
      */    
-    public function fetchPagesWith($with = null){
-        
-        //Allows predefined data associations in the form of containable arrays
-            
-        switch(strtolower($with)){
-            case 'admin_standard':                
-                $query = array(   
-                    'contain' => array(
-                        'Tag'=>array(),
-                        'Sitemap'=>array()
-                    )
-                );                
-                
-            break;            
-            
-            default:                
-                $query = array(  
-                    'conditions'=>array(
-                    'Page.status'=>array('archieved', 'published')
-                    ), 
-                    'contain' => array(
-                        'Tag'=>array()
-                    )
-                );                
-            break;
-        }
-  
+    public function fetchPagesWith($with = 'public'){
+        $finder = $this->dataSet[$with];        
 
-        $post = $this->find('all', $query);
-        return $post;
+        $pages = $this->find('all', $finder);
+        return $pages;
     }      
 }
