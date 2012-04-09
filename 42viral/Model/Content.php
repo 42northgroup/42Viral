@@ -234,12 +234,7 @@ class Content extends AppModel
     function fetchContentWith($with = 'public'){
           
         $finder = $this->dataSet[$with];        
-<<<<<<< HEAD
         $content = $this->find('first', $finder);
         return $content;
-=======
-        $contents = $this->find('first', $finder);
-        $this->set('contents', $contents);
->>>>>>> Mass cleanup
     }
 }
