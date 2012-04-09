@@ -155,6 +155,7 @@ class Page extends Content
      */    
     public function fetchPagesWith($with = 'public'){
         $finder = $this->dataSet[$with];        
+
         $pages = $this->find('all', $finder);
         return $pages;
     }      

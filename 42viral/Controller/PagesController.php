@@ -133,7 +133,7 @@ App::uses('AppController', 'Controller');
     public function admin_index() {
         
         $pages = $this->Page->fetchPagesWith('nothing');
-        
+
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
     } 

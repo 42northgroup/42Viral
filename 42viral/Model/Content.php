@@ -41,19 +41,25 @@ class Content extends AppModel
             'contain'=>array(
                 'Tag'=>array()
             ),
+
             'conditions' => array('Content.status'=>array('archieved', 'published'))
         ),
-        'admin_nothing'=>array('contain'=>array()),        
+        
+        'admin_nothing'=>array('contain'=>array()),    
+        
         'nothing'=>array(
             'contain'=>array(),
             'conditions' => array('Content.status'=>array('archieved', 'published'))
+
         ),
+        
         'public'=>array(
             'contain'=>array(
                 'Tag'=>array()
             ),
             'conditions' => array('Content.status'=>array('archieved', 'published'))
         ),
+        
         'sitemap'=>array(
             'conditions' => array(
                 'Content.status'=>array(
@@ -228,7 +234,12 @@ class Content extends AppModel
     function fetchContentWith($with = 'public'){
           
         $finder = $this->dataSet[$with];        
+<<<<<<< HEAD
         $content = $this->find('first', $finder);
         return $content;
+=======
+        $contents = $this->find('first', $finder);
+        $this->set('contents', $contents);
+>>>>>>> Mass cleanup
     }
 }
