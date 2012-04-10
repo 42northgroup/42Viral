@@ -92,9 +92,9 @@ chown "$APACHE_PROCESS":"$USER" -fR "$SCRIPT_PATH/Config/Log"
 chmod 775 -fR "$SCRIPT_PATH/Config/Log"
 echo ">>>$SCRIPT_PATH/Config/Log"
 
-chown "$USER":"$USER" -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
-chmod 775 -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
-echo ">>>$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.php"
+chown "$USER":"$USER" -fR "$SCRIPT_PATH/Config/application.php"
+chmod 775 -fR "$SCRIPT_PATH/Config/application.php"
+echo ">>>$SCRIPT_PATH/Config/application.php"
 
 chown "$USER":"$USER" -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.default.php"
 chmod 775 -fR "$SCRIPT_PATH/Plugin/PluginConfiguration/Config/application.default.php"

@@ -22,14 +22,3 @@ App::build(array(
     ));
 
 
-/**
- * Allows the Plugin to identify itself
- * @var string
- */
-Configure::write('Plugin.42viral.Configuration', true);
-
-/**
- * Bootstrap the ConfigurationPlugin path
- * @var string
- */
-require(ROOT . DS . APP_DIR . DS .'Plugin' . DS . 'PluginConfiguration' . DS . 'Config' . DS . 'application.php');

@@ -51,7 +51,7 @@ class ConfigurationShell extends AppShell
         }
 
         $file = new File(
-            ROOT . DS . APP_DIR . DS . 'Plugin' . DS . 'PluginConfiguration' . DS . 'Config' . DS . 'application.php',
+            ROOT . DS . APP_DIR . DS . 'application.php',
             true,
             0644
         );

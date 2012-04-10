@@ -155,3 +155,19 @@ if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'databas
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
 }
+
+/**
+ * Bootstrap the ConfigurationPlugin path
+ * @var string
+ */
+if(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php') {
+    require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php');
+}else{
+    require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.default.php');
+}
+
+/**
+ * Allows the Plugin to identify itself
+ * @var string
+ */
+Configure::write('Plugin.42viral.Configuration', true);
