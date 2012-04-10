@@ -1,5 +1,5 @@
 <?php
-App::uses('Utility', 'PluginConfiguration.Lib');
+App::uses('Utility', 'Lib');
 class ManagePostConfigurationController extends PostConfigurationAppController {
     
     public $uses = array('PluginConfiguration.Configuration');

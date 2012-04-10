@@ -1,5 +1,5 @@
 <?php
-App::uses('Utility', 'PluginConfiguration.Lib');
+App::uses('Utility', 'Lib');
 class ManageCmsController extends CmsAppController {
     
     public $uses = array('Configuration');
