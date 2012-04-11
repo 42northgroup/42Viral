@@ -67,7 +67,7 @@ App::uses('AppController', 'Controller');
     }    
     
     /**
-     * Displays a list of blogs
+     * Displays a list of pages
      *
      * @param array
      */
@@ -77,6 +77,19 @@ App::uses('AppController', 'Controller');
         $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
     } 
+
+    /**
+     * Resirect short links to their proper url
+     * @param type $shortCut 
+     * @return void
+     */
+    public function short_cut($shortCut) {
+
+        $page = $this->Page->getPageWith($shortCut, 'nothing');
+
+        //Avoid Google duplication penalties by using a 301 redirect
+        $this->redirect($page['Page']['canonical'], 301);
+    }  
     
     /**
      * Displays a blog post

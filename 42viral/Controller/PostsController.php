@@ -161,6 +161,19 @@ class PostsController extends AppController {
         $this->set('customFiles', $paths);
         $this->set('title_for_layout', "Edit {$this->data['Post']['title']}");
     }
+
+    /**
+     * Resirect short links to their proper url
+     * @param type $shortCut 
+     * @return void
+     */
+    public function short_cut($shortCut) {
+
+        $post = $this->Post->getPageWith($shortCut, 'nothing');
+
+        //Avoid Google duplication penalties by using a 301 redirect
+        $this->redirect($post['Post']['canonical'], 301);
+    }  
     
     /**
      * Displays a blog post

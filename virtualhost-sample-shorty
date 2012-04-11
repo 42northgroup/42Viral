@@ -3,7 +3,7 @@
     ServerName short.example.com
     ServerAdmin webmaster@example.com
 
-    RedirectMatch 301 /a/(.*) http://example.com/page/$1
-    RedirectMatch 301 /b/(.*) http://example.com/blog/$1
-    RedirectMatch 301 /c/(.*) http://example.com/post/$1
+    RedirectMatch 301 /a/(.*) http://example.com/pages/short_cut/$1
+    RedirectMatch 301 /b/(.*) http://example.com/blogs/short_cut/$1
+    RedirectMatch 301 /c/(.*) http://example.com/posts/short_cut/$1
 </VirtualHost>
