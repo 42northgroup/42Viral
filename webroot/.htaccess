@@ -16,10 +16,6 @@
 ### github.com/h5bp/server-configs
 ###
 
-
-
-
-
 # ----------------------------------------------------------------------
 # Better website experience for IE users
 # ----------------------------------------------------------------------
@@ -35,7 +31,6 @@
     Header unset X-UA-Compatible
   </FilesMatch>
 </IfModule>
-
 
 # ----------------------------------------------------------------------
 # Cross-domain AJAX requests
@@ -448,7 +443,12 @@ AddDefaultCharset utf-8
 # Force UTF-8 for a number of file formats
 AddCharset utf-8 .css .js .xml .json .rss .atom
 
+# ----------------------------------------------------------------------
+# Defend against clickjacking/framejacking
+# ----------------------------------------------------------------------
 
+# Uncomment the following line to prevent your site from being loaded into frames
+# Header always append X-Frame-Options DENY
 
 # ----------------------------------------------------------------------
 # A little more security

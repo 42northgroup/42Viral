@@ -20,37 +20,32 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-//Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-
-/**
- * ...and connect the rest of 'Pages' controller's urls.
- */
-//Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
 
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
-//Router::connect('/', array('controller' => 'pages', 'action' => 'home'));
-
-Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
-
+//A convenience route for accessing admin sections
 Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'system', 'action' => 'index'));
 
+//Extra pretty URLs for content actions
 Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
 
 Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));
 
 Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'), array('pass' => array('slug')));
 
-Router::connect('/case/:id', array('controller' => 'cases', 'action' => 'view'), array('pass' => array('id')));
+//URL short cut resolutions
+Router::connect('/page/short_cut/:short_cut', 
+        array('controller' => 'pages', 'action' => 'short_cut'), array('pass' => array('short_cut')));
 
+Router::connect('/blog/short_cut/:short_cut', 
+        array('controller' => 'blog', 'action' => 'short_cut'), array('pass' => array('short_cut')));
+
+Router::connect('/post/short_cut/:short_cut', 
+        array('controller' => 'posts', 'action' => 'short_cut'), array('pass' => array('short_cut')));
+
+//a convenience route for accesing a profile
 Router::connect('/p/:username',
         array('controller' => 'members', 'action' => 'view'), array('pass' => array('username')));
-
-Router::connect(
-    '/c/:slug',
-    array('controller' => 'profile_companies', 'action' => 'view'),
-    array('pass' => array('slug')
-));
 
 Router::parseExtensions(); 
 
@@ -58,10 +53,10 @@ Router::parseExtensions();
  * Load all plugin routes.  See the CakePlugin documentation on 
  * how to customize the loading of plugin routes.
  */
-	CakePlugin::routes();
+CakePlugin::routes();
 
 /**
  * Load the CakePHP default routes. Remove this if you do not want to use
  * the built-in default routes.
  */
-	require CAKE . 'Config' . DS . 'routes.php';
+require CAKE . 'Config' . DS . 'routes.php';

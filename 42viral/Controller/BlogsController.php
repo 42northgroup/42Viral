@@ -86,6 +86,19 @@ class BlogsController extends AppController {
         $this->set('title_for_layout', $pageTitle);
         
     }
+
+    /**
+     * Resirect short links to their proper url
+     * @param type $shortCut 
+     * @return void
+     */
+    public function short_cut($shortCut) {
+
+        $blog = $this->Blog->getPageWith($shortCut, 'nothing');
+        
+        //Avoid Google duplication penalties by using a 301 redirect
+        $this->redirect($blog['Blog']['canonical'], 301);
+    }  
     
     /**
      * Displays a blog
