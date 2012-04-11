@@ -1,0 +1,9 @@
+# Shorty example, forces system generated short urls into our application
+<VirtualHost *:80>
+    ServerName short.example.com
+    ServerAdmin webmaster@example.com
+
+    RedirectMatch 301 /a/(.*) http://example.com/page/$1
+    RedirectMatch 301 /b/(.*) http://example.com/blog/$1
+    RedirectMatch 301 /c/(.*) http://example.com/post/$1
+</VirtualHost>

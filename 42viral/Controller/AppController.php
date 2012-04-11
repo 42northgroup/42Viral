@@ -103,6 +103,7 @@ class AppController extends Controller
             $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
             $this->set('unread_message_count', $unreadMessageCount);
         }
+        
     }
 
     /**
