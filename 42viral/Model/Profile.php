@@ -27,7 +27,25 @@ class Profile extends AppModel
     public $name = 'Profile';
     
     public $useTable = 'profiles';
+    
+    /**
+     * Predefined data sets
+     * @var array
+     * @access public 
+     */
+    public $dataSet = array(
 
+        'nothing'=>array(
+            'contain'=>array()
+        ),
+        'person' => array(
+            'contain' =>    array(
+                'Person'=>array()
+            ),
+            'conditions' => array()
+        )
+    ); 
+    
     /**
      *
      * @var array
@@ -55,98 +73,24 @@ class Profile extends AppModel
         )
     );
 
-   /**
-    * Fetch a given user's profile data
-    *
-    * @access public
-    * @param string $userId
-    * @return Profile
-    */
-   public function fetchUserProfile($userId)
-   {
-       $userProfile = $this->find('first', array(
-           'contain' => array(),
-
-           'conditions' => array(
-               'Profile.owner_person_id' => $userId
-           )
-       ));
-
-       return $userProfile;
-   }
-   
-      
     /**
      * Returns a person's profile data with the specified associated data. 
-     * NOTE: When using the by clause please understand, this MUST be a unique index in the profiles table
      * 
-     * @param string $id - An id for retreving records
-     * @param string|array $with
-     * @param string $by - This will usally be id, but sometimes we want to use something else
+     * @param string $id - The profile id
+     * @param string $with
      * @return array
      * @access public
      */
-    public function fetchProfileWith($id, $with = array(), $by = 'id')
+    public function getProfileWith($token, $with = 'nothing')
     {
-
-        //Allows predefined data associations in the form of containable arrays
-        if(!is_array($with)){
-            
-            switch(strtolower($with)){
-                case 'person':
-                    $with = array('Person');
-                break;   
-            
-                default:
-                    $with = array();
-                break;
-            }
-  
-        }
+        $theToken = array('conditions'=>array('Profile.id' => $token));
         
-        //Go fetch the profile
-        $userProfile = $this->find('first', array(
-           'contain' => $with,
-
-           'conditions' => array(
-               "Profile.{$by}"  => $id
-           )
-        ));
-
+        $finder = array_merge($this->dataSet[$with], $theToken);
+        
+        $userProfile = $this->find('first', $finder);
+        
         return $userProfile;
     }
-
-
-   /**
-    * Calculate user profile progress based on what fields have been compelted
-    *
-    * @access public
-    * @param string $userId
-    * @return integer
-    */
-   public function userProfileProgress($userId)
-   {
-       $userProfile = $this->fetchProfileWith($userId, 'person', 'owner_person_id');
-
-       $progress = 0;
-
-       if(empty($userProfile)) {
-           $progress = 0;
-       } else {
-           if(
-               !empty($userProfile['Person']['first_name']) ||
-               !empty($userProfile['Person']['last_name'])
-           ) {
-               $progress += 20;
-           }
-
-           if(!empty($userProfile['Profile']['tease'])) {
-               $progress += 80;
-           }
-       }
-
-       return $progress;
-   }
    
    /**
     * Uses the information from the user profile to build an xCard
@@ -155,7 +99,7 @@ class Profile extends AppModel
     * @param array $profile
     * @return string 
     */
-   public function fetchXcard($profile)
+   public function getXcard($profile)
     {              
         $label = (isset($profile['address1'])?$profile['address1'].' ':'').
                (isset($profile['address2'])?$profile['address2'].' ':' ').
@@ -253,7 +197,7 @@ class Profile extends AppModel
      * @param int $version
      * @return string 
      */
-    public function fetchVcard($profile, $version)
+    public function getVcard($profile, $version)
     {
         $adr = (isset($profile['address1'])?$profile['address1'].' ':'').
                (isset($profile['address2'])?$profile['address2'].';':';').

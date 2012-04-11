@@ -1,34 +1,31 @@
 
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
-	url = git@github.com:microtrain/CakePHP-Audit-Log-Plugin.git
+	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
 [submodule "Plugin/Seo"]
 	path = Plugin/Seo
-	url = git@github.com:microtrain/CakePHP-Seo-Plugin.git
+	url = git@github.com:42northgroup/CakePHP-Seo-Plugin.git
 [submodule "Plugin/CalendarRecursion"]
 	path = Plugin/CalendarRecursion
-	url = git@github.com:microtrain/CakePHP-CalendarRecursion-Plugin.git
+	url = git@github.com:42northgroup/CakePHP-CalendarRecursion-Plugin.git
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
-	url = git@github.com:microtrain/tags.git
+	url = git@github.com:42northgroup/tags.git
 [submodule "Plugin/Migrations"]
 	path = Plugin/Migrations
-	url = git@github.com:microtrain/migrations.git
+	url = git@github.com:42northgroup/migrations.git
 [submodule "Plugin/ContentFilters"]
 	path = Plugin/ContentFilters
-	url = git@github.com:microtrain/CakePHP-ContentFilters-Plugin.git
-[submodule "Plugin/PluginConfiguration"]
-	path = Plugin/PluginConfiguration
-	url = git@github.com:microtrain/CakePHP-PluginConfiguration-Plugin.git
+	url = git@github.com:42northgroup/CakePHP-ContentFilters-Plugin.git
 [submodule "Plugin/Search"]
 	path = Plugin/Search
-	url = git@github.com:microtrain/search.git
+	url = git@github.com:42northgroup/search.git
 [submodule "Plugin/PicklistManager"]
 	path = Plugin/PicklistManager
-	url = https://github.com/microtrain/CakePHP-PicklistManager-Plugin.git
+	url = https://github.com/42northgroup/CakePHP-PicklistManager-Plugin.git
 [submodule "Plugin/Connect"]
 	path = Plugin/Connect
-	url = git@github.com:microtrain/CakePHP-Connect-Plugin.git
+	url = git@github.com:42northgroup/CakePHP-Connect-Plugin.git
 [submodule "42viral/Vendor/Imagine"]
 	path = 42viral/Vendor/Imagine
-	url = git@github.com:microtrain/Imagine.git
+	url = git@github.com:42northgroup/Imagine.git

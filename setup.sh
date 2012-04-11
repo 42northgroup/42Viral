@@ -26,9 +26,9 @@ rm -f $SCRIPT_PATH/tmp/cache/persistent/cake_*
 rm -f $SCRIPT_PATH/tmp/cache/views/cake_*
 
 # Check if the setup shell log file exists (this would happen if setup shell was run before) if not, create it
-if [ ! -f $SCRIPT_PATH/Config/Log/setup_shell.json ]
+if [ ! -f $SCRIPT_PATH/Config/Log/setup_shell ]
 then
-    touch $SCRIPT_PATH/Config/Log/setup_shell.json
+    touch $SCRIPT_PATH/Config/Log/setup_shell
 fi
 
 # Trigger the execution of the cake setup shell

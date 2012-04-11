@@ -70,27 +70,76 @@
 		define('WWW_ROOT', dirname(__FILE__) . DS);
 	}
 
-	if (!defined('CAKE_CORE_INCLUDE_PATH')) {
-		if (function_exists('ini_set')) {
-			ini_set('include_path', ROOT . DS . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
-		}
-		if (!include('Cake' . DS . 'bootstrap.php')) {
-			$failed = true;
-		}
-	} else {
-		if (!include(CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php')) {
-			$failed = true;
-		}
-	}
-	if (!empty($failed)) {
-		trigger_error("CakePHP core could not be found.  Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php.  It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
-	}
+    if (!defined('SETUP_STATE_ENCODING_METHOD')) {
+        define('SETUP_STATE_ENCODING_METHOD', 'php_serialize');
+    }
 
-	if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] == '/favicon.ico') {
-		return;
-	}
+/**
+ * Check if the installer shell has been executed or not
+ *
+ * @return boolean
+ */
+    function isSetupComplete()
+    {
+        $file = 'setup_shell';
+        $fileFullPath = ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file;
 
-	App::uses('Dispatcher', 'Routing');
+        if(file_exists($fileFullPath)) {
+            $file = fopen($fileFullPath, 'r');
+            $fileContents = fread($file, filesize($fileFullPath));
 
-	$Dispatcher = new Dispatcher();
-	$Dispatcher->dispatch(new CakeRequest(), new CakeResponse(array('charset' => Configure::read('App.encoding'))));
+            switch(SETUP_STATE_ENCODING_METHOD) {
+                case 'json':
+                    $setupStateData = json_decode($fileContents, true);
+                    break;
+                
+                case 'php_serialize':
+                default:
+                    $setupStateData = unserialize($fileContents);
+                    break;
+            }
+            
+
+            if(is_null($setupStateData) || empty($setupStateData)) {
+                return false;
+            } else {
+                $setupIsComplete = ($setupStateData['_all_steps']['completed'])? true: false;
+            }
+
+            fclose($file);
+        } else {
+            $setupIsComplete = false;
+        }
+
+        return $setupIsComplete;
+    }
+
+
+    if(!isSetupComplete()) {
+        require 'install.php';
+    } else {
+        if (!defined('CAKE_CORE_INCLUDE_PATH')) {
+            if (function_exists('ini_set')) {
+                ini_set('include_path', ROOT . DS . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
+            }
+            if (!include('Cake' . DS . 'bootstrap.php')) {
+                $failed = true;
+            }
+        } else {
+            if (!include(CAKE_CORE_INCLUDE_PATH . DS . 'Cake' . DS . 'bootstrap.php')) {
+                $failed = true;
+            }
+        }
+        if (!empty($failed)) {
+            trigger_error("CakePHP core could not be found.  Check the value of CAKE_CORE_INCLUDE_PATH in APP/webroot/index.php.  It should point to the directory containing your " . DS . "cake core directory and your " . DS . "vendors root directory.", E_USER_ERROR);
+        }
+
+        if (isset($_SERVER['PATH_INFO']) && $_SERVER['PATH_INFO'] == '/favicon.ico') {
+            return;
+        }
+
+        App::uses('Dispatcher', 'Routing');
+
+        $Dispatcher = new Dispatcher();
+        $Dispatcher->dispatch(new CakeRequest(), new CakeResponse(array('charset' => Configure::read('App.encoding'))));
+    }

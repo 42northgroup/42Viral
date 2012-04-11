@@ -21,22 +21,58 @@
 
 <h1><?php echo $title_for_layout; ?></h1>
 <?php
+$this->Asset->addAssets(array(
+    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
+    'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
+    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
+), 'ck_editor');
 
-
-    $this->Asset->addAssets(array(
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-        'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
-    ), 'ck_editor');
-
-    echo $this->Asset->buildAssets('js', 'ck_editor', false);
-
-    echo $this->Form->create('Post', array(
-        'url' => $this->here, 
-        'class' => 'responsive',
-        'type' => 'file'
-    ));
+echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
+
+<?php
+$this->Asset->addAssets(array(
+    'vendors' .DS. 'selectit-0.1' .DS. 'js' .DS. 'jquery.selectit.js',
+    'vendors' .DS. 'selectit-0.1' .DS. 'css' .DS. 'jquery.selectit.css'
+), 'selectit');
+
+echo $this->Asset->buildAssets('js', 'selectit', false);
+echo $this->Asset->buildAssets('css', 'selectit', false);
+?>
+
+<script type="text/javascript">
+$(function () {
+    $('#TagsContainer').selectit({
+        targetFieldId: 'PostTags',
+        proxyFieldId: 'PostTagsProxy',
+        values: (function() {
+            var tags = "<?php echo $this->data['Post']['tags']; ?>".split(',');
+            var cleanTags = [];
+
+            for(var i in tags) {
+                if(tags.hasOwnProperty(i)) {
+                    if(tags[i] != "") {
+                        cleanTags.push(tags[i]);
+                    }
+                }
+            }
+
+            return cleanTags;
+        })()
+    });
+});
+</script>
+
+<?php
+echo $this->Form->create('Post', array(
+    'url' => $this->here, 
+    'class' => 'responsive',
+    'type' => 'file'
+));
+
+$this->Form->unlockField('Post.tags');
+?>
+
 <div class="row">
     <div class="two-thirds column alpha">
 
@@ -68,16 +104,22 @@
             ?>
         </div>
     </div>
-        
-    <?php
-    echo $this->Form->inputs(array(
-                'legend'=>'Meta Data',
-                'description'=>array('rows'=>3),
-                'keywords' => array('rows'=>3),
-                'tags'
-                )
-            );
 
+
+    <div class="input text">
+        <label for="PostTagsProxy">Tags</label>
+        <span>(Separate with comma)</span>
+        <div id="TagsContainer"></div>
+    </div>
+
+    <?php
+    echo $this->Form->text('tags_proxy', array(
+        'maxlength' => '30'
+    ));
+    echo $this->Form->hidden('tags');
+    ?>
+
+    <?php
     echo $this->Form->inputs(array(
             'legend'=>'SEO',
             'canonical'=>array('rows'=>1),

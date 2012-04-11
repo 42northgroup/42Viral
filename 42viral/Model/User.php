@@ -36,6 +36,43 @@ class User extends Person
     public $name = 'User';
 
     /**
+     * Predefined data sets
+     * @var array
+     * @access public 
+     */
+    public $dataSet = array(
+        
+        'full_profile' => array(
+            'contain' =>    array(
+                'Address'=>array(),
+                'Content'=>array(),
+                'PersonDetail'=>array(),
+                'Profile'=>array(),
+                'Upload'=>array(),
+                'UserSetting'=>array()
+            ),
+            'conditions' => array()
+        ),
+        'nothing'=>array(
+            'contain'=>array()
+        ),
+        'profile' => array(
+            'contain' =>    array(
+                'Profile'=>array()
+            ),
+            'conditions' => array()
+        ), 
+        
+        'session_data' => array(
+            'contain' =>    array(
+                'Profile'=>array(),
+                'UserSetting'=>array(),
+            ),
+            'conditions' => array()
+        )
+    ); 
+
+    /**
      *
      * @var array
      * @access public
@@ -143,6 +180,11 @@ class User extends Person
         ),
     );
     
+    /**
+     * pre validation callback
+     * @return boolean
+     * @access public
+     */
     public function beforeValidate()
     {                                
         if(Configure::read('Password.alphanumeric') == 0){
@@ -175,7 +217,7 @@ class User extends Person
 
     /**
      * To be a user, you must have an email and username
-     * @author Jason D Snider <jason.snider@42viral.org>
+     * @return array
      * @access public
      */
     public function beforeFind($queryData) {
@@ -391,78 +433,29 @@ class User extends Person
 
     
     /**
-     * Finds a user by username or email
+     * Finds a user by id, username or email and returns the requsted data set
      * @param string $token
      * @return array
      * @access public
      */
-    public function getUser($token)
+    public function getUserWith($token, $with)
     {
-        $user = $this->find('first',
-                    array(
-                        'conditions'=>array(
-                            'or'=>array(
-                                'Username'=>$token,
-                                'User.email'=>$token,
-                                'User.id'=>$token
-                            )
-                        ),
-                        'contain'=>array()
-                    )
-                );
+
+        $theToken = array(
+                'conditions'=>array('or' => array(
+                    'User.id' => $token,
+                    'User.username' => $token,
+                    'User.email' => $token
+                ))
+        );
+
+        $finder = array_merge($this->dataSet[$with], $theToken);
+        
+        $user = $this->find('first', $finder);
 
         return $user;
     }
-
-    /**
-     * Finds a user by username or id
-     * @param string $token
-     * @return array
-     * @access public
-     */
-    public function getProfile($token)
-    {
-        $user = $this->find('first', array(
-            'contain' => array(
-                'Content',
-                'Upload'
-            ),
-
-            'conditions' => array(
-                'or' => array(
-                    'User.id' => $token,
-                    'User.username' => $token
-                )
-            )
-        ));
-
-        return $user;
-    }
-
-    /**
-     * Returns the data for a single user
-     *
-     * @param string $userId
-     * @return array
-     * @access public
-     * @deprecated 9/27/2011 replaced by User::fetchUserWith()
-     */
-    public function getUserWith($token, $with=array())
-    {
-        $person = $this->find('first', array(
-            'contain' => $with,
-
-            'conditions' => array(
-                'or' => array(
-                    'User.id' => $token,
-                    'User.username' => $token
-                )
-            )
-        ));
-
-        return $person;
-    }
-
+    
     /**
      * An alias for getUserWith
      *
@@ -470,48 +463,21 @@ class User extends Person
      * @return array
      * @access public
      */
-    public function fetchUserWith($token, $with=array())
+    public function fetchUsersWith($with)
     {
-        switch($with){
-            
-            case 'profile':
-                $with = array('Profile'=>array());
-            break;   
+        $finder = $this->dataSet[$with];
         
-            case 'full_profile':
-                $with = array(
-                    'Address'=>array(),
-                    'Content'=>array(),
-                    'PersonDetail'=>array(),
-                    'Profile'=>array(),
-                    'Upload'=>array(),
-                    'UserSetting'=>array()
-                );
-            break; 
-        }
+        $users = $this->find('all', $finder);
         
-        $user= $this->find('first', array(
-            'contain' => $with,
-
-            'conditions' => array(
-                'or' => array(
-                    'User.id' => $token,
-                    'User.username' => $token,
-                    'User.email' => $token
-                )
-            )
-        ));
-
-        return $user;
+        return $users;
     }
-
 
     /**
      * Given a password reset request token find the user record
      *
      * @access public
      * @param string $requestToken
-     * @return User
+     * @return array
      */
     public function getUserFromResetToken($requestToken)
     {
@@ -525,7 +491,6 @@ class User extends Person
 
         return $user;
     }
-
 
     /**
      * 

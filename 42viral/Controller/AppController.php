@@ -19,6 +19,7 @@ App::uses('ContentFilters.Scrubable', 'Lib');
 
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class AppController extends Controller
 {
@@ -50,6 +51,11 @@ class AppController extends Controller
      */
     public function beforeFilter()
     {
+        //If the setup isn't complete, force it to be completed
+        if (!isSetupComplete()) {
+            $this->redirect('/install.php');
+        }
+
         $this->Auth->deny('*');
 
         //Force a central login (1 login per prefix by default).
@@ -64,12 +70,6 @@ class AppController extends Controller
 
         if (isset($this->params['named']['language'])) {
             $this->Session->write('Config.language', $this->params['named']['language']);
-        }
-
-        //If the setup isn't complete, force it to be completed
-        if (!$this->isSetupComplete()) {
-            $this->Session->setFlash('The system needs to be configured!');
-            $this->redirect('/install.php');
         }
 
         //test for an expired password
@@ -103,37 +103,7 @@ class AppController extends Controller
             $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
             $this->set('unread_message_count', $unreadMessageCount);
         }
-    }
-
-    /**
-     * 
-     *
-     * @access public
-     * @return boolean
-     */
-    public function isSetupComplete()
-    {
-        $file = 'setup_shell.json';
-        $fileFullPath = ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file;
-
-        if(file_exists($fileFullPath)) {
-            $file = new File($fileFullPath);
-            $fileContents = $file->read();
-
-            $setupStateData = json_decode($fileContents, true);
-
-            if(is_null($setupStateData) || empty($setupStateData)) {
-                return false;
-            } else {
-                $setupIsComplete = ($setupStateData['_all_steps']['completed'])? true: false;
-            }
-
-            $file->close();
-        } else {
-            $setupIsComplete = false;
-        }
-
-        return $setupIsComplete;
+        
     }
 
     /**

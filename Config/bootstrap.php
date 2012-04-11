@@ -66,7 +66,6 @@ Cache::config('default', array('engine' => 'File'));
 
 CakePlugin::loadAll(array(
     'ContentFilters' => array('bootstrap' => true),
-    'PluginConfiguration' => array('bootstrap' => true),
     'Seo' => array('bootstrap' => true),
     'PicklistManager' => array('bootstrap' => true),
     'AssetManager' => array('bootstrap' => true)
@@ -137,10 +136,69 @@ App::build(array(
     
     ));
 
+/**
+ * Encoding method to use for encoding and decoding the setup state array structure
+ *
+ * Options:
+ *     php_serialize
+ *     json
+ */
+if (!defined('SETUP_STATE_ENCODING_METHOD')) {
+    define('SETUP_STATE_ENCODING_METHOD', 'php_serialize');
+}
 
-//We only want to require these if the setup shell has been ran, we check this by testing for database.php
+/**
+ * Your applications default scheme http or https
+ * You may want to hard code this depending on your server's configuration
+ * @var string
+ */
+Configure::write('Domain.scheme', (env('HTTPS')?'https':'http'));
+
+/**
+ * Your applications host domain exaomple.com, www.example.com, example.example.com, etc
+ * You may want to hard code this depending on your server's configuration
+ * @var string
+ */
+Configure::write('Domain.host', env('SERVER_NAME'));
+
+
+// We only want to require these if the setup shell has been ran, we check this by testing for database.php
 if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php')) {
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'hash.php');
     require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'system.php');
 }
+
+// Bootstrap applications configruation path
+if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
+    require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php');
+}else{
+    require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.default.php');
+}
+
+/**
+ * Allows the Plugin to identify itself
+ * @var string
+ */
+Configure::write('Plugin.42viral.Configuration', true);
+
+
+/**
+ * Provides a list of supported commenting engines
+ * @var array
+ */
+Configure::write('Picklist.Cms.comment_engines', 
+        array(
+            'native'=>'Native', 
+            'disqus'=>'Disqus')
+        );
+
+/**
+ * Provides a list of supported Antispam Services
+ * @var array
+ */
+Configure::write('Picklist.ContentFilter.AntispamServices', 
+        array(
+            ''=>'None', 
+            'akismet'=>'Akismet')
+        );

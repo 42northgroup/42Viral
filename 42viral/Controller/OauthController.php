@@ -586,7 +586,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-        $user = $this->User->fetchUserWith($userId, array('Profile', 'UserSetting'));
+        $user = $this->User->getUserWith($userId, 'session_data');
 
         if(empty($user)){
 

@@ -45,7 +45,6 @@ class SetupShell extends AppShell
      */
     private $__setupControllerInstance = null;
 
-
     /**
      * Stores the web server process user name for setting file/folder permissions passed in as an argument to the
      * setup shell
@@ -64,12 +63,28 @@ class SetupShell extends AppShell
     private $__group = null;
 
     /**
-     *
+     * Holds the setup step state structure
      *
      * @access private
      * @var array
      */
     private $__setupState = null;
+
+    /**
+     * An alias to index mapping of setup steps
+     *
+     * @access private
+     * @var array
+     */
+    private $__stepIndexList = array(
+        '_all_steps' => 0,
+        'security_codes' => 1,
+        'database_config' => 2,
+        'run_schema_shell' => 3,
+        'import_core_data' => 4,
+        'run_configuration_shell' => 5,
+        'create_root_user' => 6
+    );
 
     /**
      * Main entry point to the setup shell. This ties together all the different steps of the setup
@@ -116,24 +131,12 @@ class SetupShell extends AppShell
         $this->out('Select an option from the list below: ');
         $this->out('0. >> Run all setup steps');
 
-        $this->out('1. Security cipher and salt [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(1))? 'Completed': 'Not complete') . ']');
-
-        $this->out('2. Database connection parameters [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(2))? 'Completed': 'Not complete') . ']');
-        
-        $this->out('3. Create database tables (cake schema create) [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(3))? 'Completed': 'Not complete') . ']');
-
-        $this->out('4. Import core system data [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(4))? 'Completed': 'Not complete') . ']');
-
-        $this->out('5. Run configuration shell [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(5))? 'Completed': 'Not complete') . ']');
-
-        $this->out('6. Create root user [' .
-            (($this->__getSetupStateStepCompleteByUiIndex(6))? 'Completed': 'Not complete') . ']');
-
+        $this->out('1. '. (($this->__getStepCompleteByIndex(1))? '[x]': '[ ]'). ' Security cipher and salt');
+        $this->out('2. '. (($this->__getStepCompleteByIndex(2))? '[x]': '[ ]'). ' Database connection parameters');
+        $this->out('3. '. (($this->__getStepCompleteByIndex(3))? '[x]': '[ ]'). ' Create database tables');
+        $this->out('4. '. (($this->__getStepCompleteByIndex(4))? '[x]': '[ ]'). ' Import core system data');
+        $this->out('5. '. (($this->__getStepCompleteByIndex(5))? '[x]': '[ ]'). ' Run configuration shell');
+        $this->out('6. '. (($this->__getStepCompleteByIndex(6))? '[x]': '[ ]'). ' Create root user');
         $this->out('x. Exit setup');
 
         $userSelection = $this->in(
@@ -218,7 +221,7 @@ class SetupShell extends AppShell
         $this->__importCoreData();
         $this->__runConfigurationShell();
         $this->__createRootUser();
-        $this->__writePermissions(true /* silent mode */);
+        $this->__writePermissions();
 
         $this->__updateSetupState('_all_steps');
     }
@@ -259,6 +262,19 @@ class SetupShell extends AppShell
     private function __securityCodes()
     {
         $this->out('...... Running system security setup');
+
+        if($this->__getStepCompleteByIndex($this->__stepIndexList['security_codes'])) {
+            $this->out(
+                ' >>>> WARNING <<<< The security cipher and salt have been configured before.' .
+                ' Changing these values can render your currently hashed data obsolete.'
+            );
+
+            $userInput = $this->in('Are you sure you want to continue?', array('Yes', 'No'), 'No');
+
+            if($userInput == 'No') {
+                return;
+            }
+        }
 
         $configurations = array(
             'cipher' => array(),
@@ -355,34 +371,16 @@ class SetupShell extends AppShell
      * Set the proper file/folder permissions
      *
      * @access private
-     * @param boolean $silentMode
      * @return void
      */
-    private function __writePermissions($silentMode=false)
+    private function __writePermissions()
     {
-        if(!$silentMode) {
-            $this->out('...... Setting file/folder permissions');
-        }
-
         $fixedAppPath = ROOT . DS . APP_DIR . DS;
 
         //We want to try and guess a default group, I would assume the user group that cloned the repo is the owner
         //so lets get one of those files and use its owner as a default option
         $sampleFile = $fixedAppPath . 'Config' . DS . 'Defaults' . DS . 'Includes' . DS . 'database.php';
         $sampleFileGroup = posix_getgrgid(filegroup($sampleFile));
-
-        if(is_null($this->__pid)) {
-            //Ask the user to provide the the PID and user group
-            $this->__pid = $this->in('Enter the name of the server process', null, 'www-data');
-        }
-
-        if(is_null($this->__group)) {
-            $this->__group = $this->in(
-                'Enter the name of the group that will have write access to the application, this should NOT be root!',
-                null,
-                $sampleFileGroup['name']
-            );
-        }
 
         //Paths that require chmod 777
         $paths777 = array(
@@ -396,20 +394,9 @@ class SetupShell extends AppShell
             //Test for dir, file or doesn't exist. Process the permissions accordingly
             if (is_file($path)) {
                 shell_exec("chmod 777 {$path}");
-
-                if(!$silentMode) {
-                    //$this->out("777 access given to {$path}");
-                }
             } elseif (is_dir($path)) {
-                shell_exec("chmod 777 {$path}");
-
-                if(!$silentMode) {
-                    //$this->out("777 access given to {$path}");
-                }
+                shell_exec("chmod 777 -R {$path}");
             } else {
-                if(!$silentMode) {
-                    $this->out($path . ' doesn\'t seem to exist');
-                }
             }
         }
 
@@ -431,7 +418,8 @@ class SetupShell extends AppShell
             $fixedAppPath .'Config/Includes',
             $fixedAppPath .'Config/Backup',
             $fixedAppPath .'Config/Log',
-            $fixedAppPath .'Plugin/PluginConfiguration/Config/application.php'
+            $fixedAppPath .'Config/application.php',
+            $fixedAppPath .'Config/application.default.php'
         );
 
         $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
@@ -449,28 +437,11 @@ class SetupShell extends AppShell
             //Test for dir, file or doesn't exist. Process the permissions accordingly
             if (is_file($path)) {
                 shell_exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
-                if(!$silentMode) {
-                    //$this->out("{$this->__pid}:{$group} now owns  the file {$path}");
-                }
-
                 shell_exec("chmod 775 -fR {$path}");
-                if(!$silentMode) {
-                    //$this->out("775 access given to {$path}");
-                }
             } elseif (is_dir($path)) {
                 shell_exec("chown -fR {$this->__pid}:{$this->__group} {$path}");
-                if(!$silentMode) {
-                    //$this->out("{$this->__pid}:{$group} now owns  the directory {$path}");
-                }
-
                 shell_exec("chmod 775 -fR {$path}");
-                if(!$silentMode) {
-                    //$this->out("775 access given to {$path}");
-                }
             } else {
-                if(!$silentMode) {
-                    $this->out($path . ' doesn\'t seem to exist');
-                }
             }
         }
 
@@ -486,6 +457,11 @@ class SetupShell extends AppShell
     private function __runSchemaShell()
     {
         $this->out('...... Running schema shell');
+
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['database_config'])) {
+            $this->out('*** ERROR *** You first need to run the database configuration step');
+            return;
+        }
 
         $schemaShell = new SchemaShell();
         $schemaShell->startup();
@@ -503,6 +479,16 @@ class SetupShell extends AppShell
     private function __importCoreData()
     {
         $this->out('...... Importing core data, please wait (this might take a while).');
+
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['database_config'])) {
+            $this->out('*** ERROR *** You first need to run the database configuration step');
+            return;
+        }
+
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['run_schema_shell'])) {
+            $this->out('*** ERROR *** You first need to run the schema generation step');
+            return;
+        }
 
         $this->__setupControllerInstance = new SetupController();
         $this->__setupControllerInstance->constructClasses();
@@ -544,6 +530,21 @@ class SetupShell extends AppShell
     private function __createRootUser()
     {
         $this->out('...... Create root user');
+
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['security_codes'])) {
+            $this->out('*** ERROR *** You first need to run the security cipher and salt generation step');
+            return;
+        }
+        
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['database_config'])) {
+            $this->out('*** ERROR *** You first need to run the database configuration step');
+            return;
+        }
+
+        if(!$this->__getStepCompleteByIndex($this->__stepIndexList['run_schema_shell'])) {
+            $this->out('*** ERROR *** You first need to run the schema generation step');
+            return;
+        }
 
         $userModel = new User();
 
@@ -758,19 +759,27 @@ class SetupShell extends AppShell
     }
 
     /**
-     *
+     * Parse the setup log file and load for reference and updates
      *
      * @access private
      * @return array
      */
     private function __parseSetupLog()
     {
-        $file = 'setup_shell.json';
+        $file = 'setup_shell';
 
         $file = new File(ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file);
         $fileContents = $file->read();
-        
-        $setupStateData = json_decode($fileContents, true);
+
+        switch(SETUP_STATE_ENCODING_METHOD) {
+            case 'json':
+                $setupStateData = json_decode($fileContents, true);
+                break;
+
+            case 'php_serialize':
+                $setupStateData = unserialize($fileContents);
+                break;
+        }
 
         if(is_null($setupStateData) || empty($setupStateData)) {
             $setupStateData = $this->__initializeSetupState();
@@ -783,7 +792,7 @@ class SetupShell extends AppShell
     }
 
     /**
-     * 
+     * Run through each setup step and if all steps are completed, mark the _all_steps as completed
      *
      * @access private
      * @return void
@@ -805,7 +814,7 @@ class SetupShell extends AppShell
     }
 
     /**
-     *
+     * If no setup state file was found, use this initializer structure to generate the content for the log file
      *
      * @access private
      * @return void
@@ -872,12 +881,12 @@ class SetupShell extends AppShell
     }
 
     /**
-     *
+     * Given a setup step index, determine whether the step has been completed or not
      *
      * @access private
      * @return boolean
      */
-    private function __getSetupStateStepCompleteByUiIndex($uiIndex) {
+    private function __getStepCompleteByIndex($uiIndex) {
         foreach($this->__setupState as $tempState) {
             if(!is_null($tempState['ui_index']) && ($tempState['ui_index'] === $uiIndex)) {
                 return $tempState['completed'];
@@ -888,7 +897,7 @@ class SetupShell extends AppShell
     }
 
     /**
-     *
+     * Given a setup step alias, determine whether the step has been completed or not
      *
      * @access private
      * @return boolean
@@ -902,29 +911,69 @@ class SetupShell extends AppShell
     }
 
     /**
-     * 
+     * Update a particular setup step's status and write to setup log file
      *
      * @access private
      * @return void
      */
-    private function __updateSetupState($stepKey)
+    private function __updateSetupState($stepAlias)
     {
-        $this->__setupState[$stepKey]['completed'] = true;
-        $this->__setupState[$stepKey]['timestamp'] = date('Y-m-d H:i:s');
+        $this->__setupState[$stepAlias]['completed'] = true;
+        $this->__setupState[$stepAlias]['timestamp'] = date('Y-m-d H:i:s');
         $this->__writeSetupState();
     }
 
     /**
-     * 
+     * Write in memory setup state structure to setup log file
      *
      * @access private
      * @return void
      */
     private function __writeSetupState()
     {
-        $file = 'setup_shell.json';
+        $file = 'setup_shell';
         $file = new File(ROOT . DS . APP_DIR .DS. 'Config' .DS. 'Log' .DS. $file);
-        $file->write(json_encode($this->__setupState), $mode = 'w', false);
+        $file->write($this->__encodeState(), $mode = 'w', false);
         $file->close();
+    }
+
+    /**
+     * Encode the setup state array structure into string for persistent file storage
+     * 
+     * @access private
+     * @return string
+     */
+    private function __encodeState()
+    {
+        switch(SETUP_STATE_ENCODING_METHOD) {
+            case 'json':
+                return json_encode($this->__setupState);
+                break;
+
+            case 'php_serialize':
+            default:
+                return serialize($this->__setupState);
+                break;
+        }
+    }
+
+    /**
+     * Decode the setup log structure after reading it from the log file
+     *
+     * @access private
+     * @return array
+     */
+    private function __decodeState()
+    {
+        switch(SETUP_STATE_ENCODING_METHOD) {
+            case 'json':
+                return json_decode($this->__setupState, true);
+                break;
+
+            case 'php_serialize':
+            default:
+                return unserialize($this->__setupState);
+                break;
+        }
     }
 }

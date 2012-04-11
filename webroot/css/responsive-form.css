@@ -24,17 +24,31 @@ form{
     -webkit-appearance:none;
 }
 
-form.responsive legend{
-    text-align: left;
-}
-
 form.responsive fieldset{
     background-color: #fff;
-    
+    display:block;
     padding: 10px 0;
     margin: 6px 0;
     border-radius: 1px;
 }
+
+form.responsive legend{
+    text-align: left;
+    display:block;
+}
+
+form.responsive.configurations fieldset{
+    padding: 36px 1% 8px;
+    background-color: #efefef;
+    position: relative;
+}
+
+form.responsive.configurations legend{
+    position: absolute;
+    top: 0px;
+}
+
+
 
 form.responsive label{
     margin: 6px 0 0;
@@ -42,9 +56,9 @@ form.responsive label{
 }
 
 form.responsive .required label:after {
-	color: #900;
-	content: ' *';
-	display:inline;
+    color: #900;
+    content: ' *';
+    display:inline;
 }
 
 form.responsive input[type="text"],
@@ -53,16 +67,17 @@ form.responsive select,
 form.responsive textarea{
     border-radius: 1px;
     border: 1px solid #bbb;
-    padding: 7px;
+    padding: 4px 0;
     width: 98%;
+    display: block;
 }
 
 form.responsive input[type="text"]:focus,
 form.responsive input[type="password"]:focus,
 form.responsive select:focus,
 form.responsive textarea:focus{
-    border: 2px solid #bbb;
-    padding: 6px;
+    outline: 2px solid #bbb;
+    padding: 4px 0px;
 }
 
 form.responsive div.checkbox label,

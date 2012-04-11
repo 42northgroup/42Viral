@@ -18,25 +18,64 @@
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 
-    //echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));    
+//echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));    
 
-    $this->Asset->addAssets(array(
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-        'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
-    ), 'ck_editor');
+$this->Asset->addAssets(array(
+    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
+    'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
+    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
+), 'ck_editor');
+
+echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
-<div class="row">
-    <div class="two-thirds column alpha">
-    <?php
-    echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
+<?php
+$this->Asset->addAssets(array(
+    'vendors' .DS. 'selectit-0.1' .DS. 'js' .DS. 'jquery.selectit.js',
+    'vendors' .DS. 'selectit-0.1' .DS. 'css' .DS. 'jquery.selectit.css'
+), 'selectit');
+
+echo $this->Asset->buildAssets('js', 'selectit', false);
+echo $this->Asset->buildAssets('css', 'selectit', false);
+?>
+
+<script type="text/javascript">
+$(function () {
+    $('#TagsContainer').selectit({
+        targetFieldId: 'BlogTags',
+        proxyFieldId: 'BlogTagsProxy',
+        values: (function() {
+            var tags = "<?php echo $this->data['Blog']['tags']; ?>".split(',');
+            var cleanTags = [];
+
+            for(var i in tags) {
+                if(tags.hasOwnProperty(i)) {
+                    if(tags[i] != "") {
+                        cleanTags.push(tags[i]);
+                    }
+                }
+            }
+
+            return cleanTags;
+        })()
+    });
+});
+</script>
+
+<div class="row">
+    <?php
     echo $this->Form->create('Blog', array(
         'url' => $this->here, 
         'class' => 'responsive',
         'type' => 'file'
     ));
 
+    $this->Form->unlockField('Blog.tags');
+    ?>
+    
+    <div class="two-thirds column alpha">
+
+    <?php
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('tease', array('rows'=>2));
@@ -64,15 +103,22 @@
             ?>
         </div>
     </div>
-    <?php
-    echo $this->Form->inputs(array(
-                'legend'=>'Meta Data',
-                'description'=>array('rows'=>3),
-                'keywords' => array('rows'=>3),
-                'tags'
-                )
-            );
 
+
+    <div class="input text">
+        <label for="PageTagsProxy">Tags</label>
+        <span>(Separate with comma)</span>
+        <div id="TagsContainer"></div>
+    </div>
+
+    <?php
+    echo $this->Form->text('tags_proxy', array(
+        'maxlength' => '30'
+    ));
+    echo $this->Form->hidden('tags');
+    ?>
+
+    <?php
     echo $this->Form->inputs(array(
             'legend'=>'SEO',
             'canonical'=>array('rows'=>1),
@@ -80,9 +126,14 @@
             )
         );
 
-    echo $this->Form->submit();
-    echo $this->Form->end();
     ?>
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php 
+            echo $this->Form->inputs(array('legend'=>'Publish', 'status')); 
+            echo $this->Form->submit();
+        ?>
+    </div>
+    
+    <?php echo $this->Form->end(); ?>
 </div>

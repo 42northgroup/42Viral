@@ -47,7 +47,6 @@ App::uses('AppController', 'Controller');
     public $components = array(
         'Access', 
         'ControllerList', 
-        'ProfileProgress', 
         'Oauths', 
         'NotificationCmp'
     );
@@ -123,7 +122,7 @@ App::uses('AppController', 'Controller');
         $error = true;
 
         if(!empty($this->data)) {
-            $user = $this->User->fetchUserWith($this->data['User']['username']);
+            $user = $this->User->getUserWith($this->data['User']['username'], 'nothing');
 
             if(empty($user)) {
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -144,7 +143,7 @@ App::uses('AppController', 'Controller');
                 $this->Person->save($tokenData);
 
                 //email the person with the password reset authorization link
-                $person = $this->Person->fetchPersonWith($userId, array(), 'id');
+                $person = $this->Person->getPersonWith($userId, 'nothing');
 
                 $additionalObjects = array(
                     'reset_authorization_token' => $requestAuthorizationToken
@@ -186,7 +185,7 @@ App::uses('AppController', 'Controller');
         $error = true;
         if(!empty($this->data)){
 
-            $user = $this->User->fetchUserWith($this->data['User']['username'], array('Profile', 'UserSetting'));
+            $user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
 
             if(empty($user)){
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -224,8 +223,6 @@ App::uses('AppController', 'Controller');
                         $this->Session->write('Auth.User.Settings', $user['UserSetting']);
                                                 
                         $this->Access->permissions($user['User']);
-
-                        $overallProgress = $this->ProfileProgress->fetchOverallProfileProgress($user['User']['id']);
                         
                         $person['Person']['login_attempts'] = 0;
                         $person['Person']['last_login_attempt'] = null;
@@ -334,7 +331,7 @@ App::uses('AppController', 'Controller');
                     }
 
                     //Log the new user into the system
-                    $user = $this->User->findByUsername($this->data['User']['username']);
+                    $user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
 
                     $oldPassword['OldPassword']['person_id'] = $user['User']['id'];
                     $oldPassword['OldPassword']['password'] = $user['User']['password'];
@@ -407,11 +404,17 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Create an ACL ARO Group');
     }
 
+    /**
+     * Provides an admin view of users
+     * 
+     * @return void
+     * @access public 
+     */
     public function admin_index()
     {
-        $people = $this->Person->find('all');
-        $this->set('people', $people);
-        $this->set('title_for_layout', __('Everyone in the System'));
+        $users = $this->User->fetchUsersWith('profile');
+        $this->set('users', $users);
+        $this->set('title_for_layout', __('All users in the system'));
     }    
     
     /**
@@ -505,9 +508,7 @@ App::uses('AppController', 'Controller');
         }
 
         //Get the user data
-        $user = $this->User->getUserWith($token, array(
-            'Profile', 'Content', 'Upload', 'UserSetting'
-        ));
+        $user = $this->User->getUserWith($token, 'full_profile');
 
         //Does the user really exist?
         if(empty($user)) {

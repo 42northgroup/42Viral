@@ -125,8 +125,7 @@ class PostsController extends AppController {
             }
         }  
         
-        $this->data = $this->Post->fetchPostWith($id, 'created_person');
-        
+        $this->data = $this->Post->getPostWith($id, 'for_edit');
         
         $this->set('statuses', 
                 $this->Picklist->fetchPicklistOptions(
@@ -172,7 +171,7 @@ class PostsController extends AppController {
     public function view($slug) {
         $mine = false;
                
-        $post = $this->Post->fetchPostWith($slug, 'standard');    
+        $post = $this->Post->getPostWith($slug, 'standard');    
 
         if(empty($post)){
            $this->redirect('/', '404');

@@ -120,7 +120,7 @@ class PersonDetail extends AppModel
      * @param string $personId
      * @return array
      */
-    public function fetchPersonDetails($personId)
+    public function allDetails($personId)
     {
         $person_emails = $this->find('all', array(
             'conditions' => array(

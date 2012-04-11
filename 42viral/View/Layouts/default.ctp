@@ -25,7 +25,7 @@
                 
                 'css' . DS . 'responsive-layout.css',
                 'css' . DS . 'responsive-elements.css',
-                
+
                 'css' . DS . 'responsive-header.css',
                 'css' . DS . 'responsive-navigation.css',
                 'css' . DS . 'responsive-form.css',

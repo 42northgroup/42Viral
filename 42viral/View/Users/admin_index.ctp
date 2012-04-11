@@ -15,6 +15,8 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
+<?php //debug($people); ?>
+
 <div class="row">
     <div class="sixteen columns alpha omega">
         <table>
@@ -24,15 +26,15 @@
                 <th>Email</th>
             </thead>
             <tbody>
-                <?php foreach ($people as $person): ?>
-                <tr class="top">   
-                    <td><?php echo $person['Person']['username']; ?></td>
-                    <td><?php echo $person['Person']['name']; ?></td>
-                    <td><?php echo $person['Person']['email']; ?></td>
+                <?php foreach ($users as $user): ?>
+                <tr class="top"> 
+                    <td><?php echo $user['User']['name']; ?></td>
+                    <td><?php echo $user['User']['username']; ?></td>
+                    <td><?php echo $user['User']['email']; ?></td>
                 </tr>     
                 <tr class="bottom">
                     <td colspan="3">
-                        <?php echo $this->Html->link('View', $person['Person']['admin_url']); ?>
+                        <?php echo $this->Html->link('View', $user['User']['admin_url']); ?>
                         |
 
                         <!--
@@ -42,7 +44,7 @@
 
                         <?php echo $this->Html->link(                        
                                 'Privs', 
-                                "/admin/privileges/user_privileges/{$person['Person']['username']}"); ?>
+                                "/admin/privileges/user_privileges/{$user['User']['username']}"); ?>
 
                         <!--
                         |
