@@ -159,7 +159,7 @@ if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'databas
  * Bootstrap the ConfigurationPlugin path
  * @var string
  */
-if(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php') {
+if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
     require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php');
 }else{
     require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.default.php');
