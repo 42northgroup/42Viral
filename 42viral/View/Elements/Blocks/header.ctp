@@ -142,8 +142,8 @@
                                             '/admin/users/acl_groups/'); ?></div>
                                     <div><?php echo $this->Html->link('Picklists', 
                                             '/admin/picklist_manager/picklists/'); ?></div>
-                                    <div><?php echo $this->Html->link('Plugins', 
-                                            '/admin/plugin_configuration/configurations/'); ?></div>
+                                    <div><?php echo $this->Html->link('Configuration', 
+                                            '/admin/configurations/'); ?></div>
                                 </div>
                             </div>
                         <?php endif; ?>
