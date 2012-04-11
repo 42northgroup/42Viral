@@ -12,8 +12,9 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('Content', 'Model');
 
+App::uses('AppModel', 'Model');
+App::uses('Content', 'Model');
 /**
  * Mangages the person object from the POV of a Lead
  * 

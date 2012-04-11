@@ -12,8 +12,8 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('AppModel', 'Model');
 
+App::uses('AppModel', 'Model');
 /**
  * Functionality for sending out invites, this was inspired by a need for private beta,
  * @author Jason D Snider <jason.snider@42viral.org>

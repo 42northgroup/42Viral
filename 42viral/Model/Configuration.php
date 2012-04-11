@@ -10,6 +10,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::uses('AppModel', 'Model');
 /**
  * Provides a model for dealing with plugin and application configurations
  * 
@@ -20,7 +21,7 @@
 class Configuration extends AppModel
 {
     /**
-     * 
+     * Provides aa static name for the model
      * @var string
      * @access public
      */

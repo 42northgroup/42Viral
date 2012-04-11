@@ -15,7 +15,6 @@
  */
 
 App::uses('AppModel', 'Model');
-
 /**
  * Manage person notification inbox
  *

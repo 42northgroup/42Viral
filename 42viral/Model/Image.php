@@ -13,9 +13,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+App::uses('AppModel', 'Model');
 App::uses('Upload', 'Model');
 App::uses('UploadInterface', 'Model');
-
 /**
  * Mangages file uploads
  *

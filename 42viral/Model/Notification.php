@@ -16,7 +16,6 @@
 
 App::uses('AppModel', 'Model');
 App::uses('Handy', 'Lib');
-
 /**
  * Manage notification template objects
  *

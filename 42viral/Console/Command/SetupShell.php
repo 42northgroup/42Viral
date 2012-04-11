@@ -23,7 +23,7 @@ App::uses('User', 'Model');
 App::uses('SchemaShell', 'Console/Command');
 App::uses('SetupController', 'Controller');
 
-App::uses('ConfigurationShell', 'Plugin/PluginConfiguration/Console/Command');
+App::uses('ConfigurationShell', 'Console/Command');
 
 /**
  * A shell to enable the 42Viral framework user to setup their application by answering the required custom

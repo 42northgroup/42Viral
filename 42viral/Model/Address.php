@@ -14,7 +14,6 @@
  */
 
 App::uses('AppModel', 'Model');
-
 /**
  * Mangages the address objects
  *

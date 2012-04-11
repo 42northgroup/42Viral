@@ -11,7 +11,7 @@
  * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 App::uses('File', 'Utility');
-App::uses('Configuration', 'Plugin/PluginConfiguration/Model');
+App::uses('Configuration', 'Model');
 
 /**
  * Creates a configuration file from stored DB values
@@ -21,7 +21,13 @@ App::uses('Configuration', 'Plugin/PluginConfiguration/Model');
  */
 class ConfigurationShell extends AppShell
 {
-
+    /**
+     * Make the required models accessable to this shell
+     * @var array
+     * @access public
+     */
+    public $uses = array('Configuration');
+    
     /**
      * @return void
      * @access public
@@ -31,6 +37,8 @@ class ConfigurationShell extends AppShell
         $configurationModel = new Configuration();
 
         $configurations = $configurationModel->find('all', array('contain' => array()));
+        
+        //$configurations = $this->Configuration->find('all', array('contain' => array()));
 
         $configureString = "<?php\n";
 
@@ -51,7 +59,7 @@ class ConfigurationShell extends AppShell
         }
 
         $file = new File(
-            ROOT . DS . APP_DIR . DS . 'application.php',
+            ROOT . DS . APP_DIR . DS . 'Config' . DS . 'application.php',
             true,
             0644
         );

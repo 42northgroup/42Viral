@@ -18,7 +18,6 @@ App::uses('AppModel', 'Model');
 App::uses('User', 'Model');
 App::uses('Profile', 'Model');
 App::uses('Sec', 'Utility');
-
 /**
  * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person.
  *  
