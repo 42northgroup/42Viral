@@ -156,7 +156,7 @@ if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'databas
 }
 
 /**
- * Bootstrap the ConfigurationPlugin path
+ * Bootstrap applications configruation path
  * @var string
  */
 if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
@@ -170,3 +170,9 @@ if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
  * @var string
  */
 Configure::write('Plugin.42viral.Configuration', true);
+
+Configure::write('Picklist.Cms.comment_engines', 
+        array(
+            'native'=>'Native', 
+            'disqus'=>'Disqus')
+        );

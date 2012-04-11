@@ -1,5 +1,3 @@
-<h1>CMS Plugin</h1>
-
 <?php
 echo $this->Form->create(
     null,
@@ -28,5 +26,3 @@ echo $this->Form->inputs(array(
     'Disqus.developer.id' => array('value' => 'Disqus.developer', 'type' => 'hidden'),
     'Disqus.developer.value' => array('label' => 'Developer'),
 ));
-
-echo $this->Form->submit();

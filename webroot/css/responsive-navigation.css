@@ -45,7 +45,9 @@ div.column-block a:hover{
     color: #eee;
 }
 
-div.navigation-block a {
+div.navigation-block a,
+div.column-block .well-spaced,
+div.column-block .block-well-spaced{
     display: inline-block;
     margin: 0;
     padding: 6px 10px;
@@ -63,6 +65,13 @@ div.navigation-block a:hover{
     color: #21759B;
     background: #eee;
 }
+
+div.navigation-block.block-links a,
+div.column-block .block-well-spaced{
+    display: block;
+    padding: 6px 0;
+}
+
 
 div.details-block div{
     display: block;

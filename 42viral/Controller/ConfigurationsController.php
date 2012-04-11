@@ -89,7 +89,7 @@ class ConfigurationsController extends AppController{
      * @return void
      * @access public
      */
-    public function admin_post_configuration(){
+    public function admin_configuration(){
         $this->__adminEdit();
         $this->set('title_for_layout', "Content Filter Configuration");  
     }
