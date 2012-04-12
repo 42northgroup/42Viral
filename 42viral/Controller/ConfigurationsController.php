@@ -15,6 +15,10 @@
 
 App::uses('AppController', 'Controller');
 App::uses('Utility', 'Lib');
+
+App::uses('AppShell', 'Console/Command');
+App::uses('ConfigurationShell', 'Console/Command');
+
 /**
  * Provides a means for managing manageable plugins
  * 
@@ -109,26 +113,28 @@ class ConfigurationsController extends AppController{
     
     /**
      * Common edit functionality for dealing with configuration forms
-     * @return void
+     *
      * @access public
+     * @return void
      */
-    private function __adminEdit(){
-        if(!empty($this->data)){
-            
+    private function __adminEdit()
+    {
+        if (!empty($this->data)) {
+
             $data = Utility::pluginConfigWrite($this->data);
-            
-            if($this->Configuration->saveAll($data)){
+
+            if ($this->Configuration->saveAll($data)) {
                 $this->Session->setFlash('Your configuration has been saved', 'success');
-            }else{
+
+                $configurationShell = new ConfigurationShell();
+                $configurationShell->startup();
+                $configurationShell->main();
+            } else {
                 $this->Session->setFlash('Your configuration could not be saved', 'error');
             }
         }
-        
+
         $config = $this->Configuration->find('all');
         $this->request->data = Utility::pluginConfigRead($config);
-    }    
-    
-    
-    
-    
+    }
 }
