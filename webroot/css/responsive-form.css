@@ -67,7 +67,7 @@ form.responsive select,
 form.responsive textarea{
     border-radius: 1px;
     border: 1px solid #bbb;
-    padding: 4px 0;
+    padding: 4px;
     width: 98%;
     display: block;
 }
@@ -77,7 +77,6 @@ form.responsive input[type="password"]:focus,
 form.responsive select:focus,
 form.responsive textarea:focus{
     outline: 2px solid #bbb;
-    padding: 4px 0px;
 }
 
 form.responsive div.checkbox label,

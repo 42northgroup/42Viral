@@ -15,8 +15,10 @@
 
 App::uses('Handy', 'Lib');
 ?>
+
 <h1><?php echo $title_for_layout; ?></h1>
 
+<?php
 $this->Asset->addAssets(array(
     'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
     'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
