@@ -13,13 +13,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-echo $this->Form->create(
-    null,
-    array(
-        'class' => 'responsive'
-    )
-);
-
 echo $this->Form->inputs(array(
     'legend' => 'Comment Engine',
     'Commentengine.id' => array(
