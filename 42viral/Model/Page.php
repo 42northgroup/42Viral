@@ -149,9 +149,7 @@ class Page extends Content
     
     /**
      * Returns a given page based predefinded conditions
-     * @param type $token
-     * @param type $with
-     * @param type $status
+     * @param string $token
      * @return array 
      */    
     public function fetchPagesWith($with = 'public'){
@@ -159,5 +157,5 @@ class Page extends Content
 
         $pages = $this->find('all', $finder);
         return $pages;
-    }      
+    }     
 }

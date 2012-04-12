@@ -15,6 +15,7 @@
  */
 
 App::uses('AppModel', 'Model');
+App::uses('Utility', 'Lib');
 /**
  * The parent class for content objects i.e. Page, Blog, Post etc.
  * @package content
@@ -237,4 +238,13 @@ class Content extends AppModel
         $content = $this->find('first', $finder);
         return $content;
     }
+    
+    /**
+     * Parses text as markdown and converts it to HTML
+     * @param string $text
+     * @return string
+     */
+    public function markdown($text){
+        return  Utility::markdown($text);  
+    }    
 }

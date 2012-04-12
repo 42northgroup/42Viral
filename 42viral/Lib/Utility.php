@@ -13,6 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::import('Vendor', 'Markdown', array('file'=>'Markdown' . DS  . 'markdown.php'));
 /**
  * A utility class for managing plugin configurations
  * @package Lib
@@ -75,4 +76,13 @@ class Utility
             fclose($fp);
         }
     }
+    
+    /**
+     * Parses text as markdown and converts it to HTML
+     * @param string $text
+     * @return string
+     */
+    public static function markdown($text){
+        return  Markdown($text);  
+    }      
 }

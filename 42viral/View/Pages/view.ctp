@@ -12,10 +12,23 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
-    <div class="two-thirds column alpha"><?php echo $page['Page']['body']; ?></div>
+    <div class="two-thirds column alpha">
+        <?php 
+            switch($page['Page']['syntax']):
+                case 'markdown':
+                    echo Utility::markdown($page['Page']['body']); 
+                break;
+
+                default:
+                    echo $page['Page']['body']; 
+                break;        
+            endswitch;
+        ?>
+    </div>
     <div class="one-third column omega">
     <?php 
             //Privides navigation for manageing an asset

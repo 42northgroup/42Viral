@@ -111,9 +111,10 @@ App::uses('AppController', 'Controller');
      * Displays a blog post
      *
      * @param array
+     * @return void
+     * @access public
      */
     public function view($slug) {
-
         $page = $this->Page->getPageWith($slug);
         
         if(empty($page)){
@@ -124,7 +125,7 @@ App::uses('AppController', 'Controller');
         $this->set('canonical_for_layout', $page['Page']['canonical']);
         $this->set('page', $page); 
         
-        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));
+        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));      
     }  
     
     /**
