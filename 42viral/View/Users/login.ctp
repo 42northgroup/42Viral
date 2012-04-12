@@ -46,26 +46,34 @@
 
     <div class="one column">&nbsp;</div>
     
-    <div class="five columns">    
-        <a href="/oauth/linkedin_connect"  class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
-            Connect with LinkedIn
-        </a>
+    <div class="five columns">
+        <?php if (Configure::read('LinkedIn.active')): ?>
+            <a href="/oauth/linkedin_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
+                Connect with LinkedIn
+            </a>
+        <?php endif; ?>
 
-        <a href="/oauth/facebook_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
-            Connect with Facebook
-        </a>
+        <?php if (Configure::read('Facebook.active')): ?>
+            <a href="/oauth/facebook_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
+                Connect with Facebook
+            </a>
+        <?php endif; ?>
 
-        <a href="/oauth/twitter_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
-            Connect with Twitter
-        </a>
+        <?php if (Configure::read('Twitter.active')): ?>
+            <a href="/oauth/twitter_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
+                Connect with Twitter
+            </a>
+        <?php endif; ?>
 
-        <a href="/oauth/google_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
-            Connect with Google+
-        </a>
+        <?php if (Configure::read('GooglePlus.active')): ?>
+            <a href="/oauth/google_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
+                Connect with Google+
+            </a>
+        <?php endif; ?>
     </div> 
     
     <div class="six columns alpha"></div>

@@ -24,17 +24,19 @@ h1, h2, h3, h4, h5, h6{
     text-align: left;
 }  
 
-.connect{
-    display: block;
+.connect {
+    display: inline-block;
+    width: 250px;
     background: #fff;
-    padding: 6px;
+    padding: 6px 10px;
     border-radius: 4px;
     font-size: 18px;
     line-height: 32px;
-    margin:0 0 20px;
+    margin:0 10px 20px;
     white-space: nowrap;
     text-shadow: 0 2px 1px #fff;
-    box-shadow:inset 1px 1px #ddd;    
+    box-shadow:inset 1px 1px #ddd;
+    float: left;
 }  
 
 .connect:hover{

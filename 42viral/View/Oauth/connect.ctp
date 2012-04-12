@@ -13,41 +13,38 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<h1><?php //echo $title_for_layout; ?></h1>
-
+<h1><?php //echo $title_for_layout;  ?></h1>
 
 <div class="row">
-    <div class="five columns alpha">    
-        <a href="/oauth/linkedin_connect"  class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
-            Connect with LinkedIn
-        </a>
+    <div class="twelve columns alpha">
+        <?php if (Configure::read('LinkedIn.active')): ?>
+            <a href="/oauth/linkedin_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/linkedin32.png'); ?>
+                Connect with LinkedIn
+            </a>
+        <?php endif; ?>
+
+        <?php if (Configure::read('Facebook.active')): ?>
+            <a href="/oauth/facebook_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
+                Connect with Facebook
+            </a>
+        <?php endif; ?>
+
+        <?php if (Configure::read('Twitter.active')): ?>
+            <a href="/oauth/twitter_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
+                Connect with Twitter
+            </a>
+        <?php endif; ?>
+
+        <?php if (Configure::read('GooglePlus.active')): ?>
+            <a href="/oauth/google_connect" class="connect">
+                <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
+                Connect with Google+
+            </a>
+        <?php endif; ?>
     </div>
 
-    <div class="five columns"> 
-        <a href="/oauth/facebook_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/facebook32.png'); ?>
-            Connect with Facebook
-        </a>
-    </div>        
-    <div class="five columns"> 
-        <a href="/oauth/twitter_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/twitter32.png'); ?>
-            Connect with Twitter
-        </a>
-    </div>     
-    <div class="one column omega"></div>     
-
+    <div class="four columns omega"></div>
 </div>
-<div class="row">
-    <div class="five columns alpha"> 
-        <a href="/oauth/google_connect" class="connect">
-            <?php echo $this->Html->image('/img/graphics/social_media/production/GooglePlus32.png'); ?>
-            Connect with Google+
-        </a>
-    </div> 
-    <div class="five columns"></div> 
-    <div class="five columns"></div>     
-    <div class="one column omega"></div>      
-</div>
-

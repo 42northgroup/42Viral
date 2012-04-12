@@ -16,6 +16,9 @@
     echo $this->Form->inputs(array(
             'legend'=>'Twitter Service',
 
+            'Twitteractive.id' => array('value' => 'Twitter.active', 'type' => 'hidden'),
+            'Twitteractive.value' => array('label' => 'Active', 'type' => 'checkbox'),
+
             'Twitterconsumer_key.id'=>array('value'=>'Twitter.consumer_key', 'type'=>'hidden'),
             'Twitterconsumer_key.value'=>array('label'=>'Consumer Key'),
 
@@ -25,6 +28,9 @@
 
     echo $this->Form->inputs(array(
             'legend'=>'LinkedIn Service',
+
+            'LinkedInactive.id' => array('value' => 'LinkedIn.active', 'type' => 'hidden'),
+            'LinkedInactive.value' => array('label' => 'Active', 'type' => 'checkbox'),
 
             'LinkedInconsumer_key.id'=>array('value'=>'LinkedIn.consumer_key', 'type'=>'hidden'),
             'LinkedInconsumer_key.value'=>array('label'=>'Consumer Key'),
@@ -36,6 +42,9 @@
     echo $this->Form->inputs(array(
             'legend'=>'Facebook Service',
 
+            'Facebookactive.id' => array('value' => 'Facebook.active', 'type' => 'hidden'),
+            'Facebookactive.value' => array('label' => 'Active', 'type' => 'checkbox'),
+
             'Facebookconsumer_key.id'=>array('value'=>'Facebook.consumer_key', 'type'=>'hidden'),
             'Facebookconsumer_key.value'=>array('label'=>'Consumer Key'),
 
@@ -45,6 +54,9 @@
 
     echo $this->Form->inputs(array(
             'legend'=>'Yelp Service',
+
+            'Yelpactive.id' => array('value' => 'Yelp.active', 'type' => 'hidden'),
+            'Yelpactive.value' => array('label' => 'Active', 'type' => 'checkbox'),
 
             'Yelpconsumer_key.id'=>array('value'=>'Yelp.consumer_key', 'type'=>'hidden'),
             'Yelpconsumer_key.value'=>array('label'=>'Consumer Key'),
@@ -56,6 +68,9 @@
     echo $this->Form->inputs(array(
             'legend'=>'Google+ Service',
 
+            'GooglePlusactive.id' => array('value' => 'GooglePlus.active', 'type' => 'hidden'),
+            'GooglePlusactive.value' => array('label' => 'Active', 'type' => 'checkbox'),
+
             'GooglePlusconsumer_key.id'=>array('value'=>'GooglePlus.consumer_key', 'type'=>'hidden'),
             'GooglePlusconsumer_key.value'=>array('label'=>'Consumer Key'),
 
@@ -65,6 +80,10 @@
 
     echo $this->Form->inputs(array(
             'legend'=>'Yahoo! Local',
+
+            'YahooLocalSearchactive.id' => array('value' => 'YahooLocalSearch.active', 'type' => 'hidden'),
+            'YahooLocalSearchactive.value' => array('label' => 'Active', 'type' => 'checkbox'),
+
             'YahooLocalSearchapp_id.id'=>array('value'=>'Yahoo.LocalSearch.app_id', 'type'=>'hidden'),
             'YahooLocalSearchapp_id.value'=>array('label'=>'App Id')
         ));
