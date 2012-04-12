@@ -32,10 +32,13 @@ class AppController extends Controller
 
     /**
      * Application-wide helpers
-     * @var array
+     *
      * @access public
+     * @var array
      */
-    public $helpers = array('AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text');
+    public $helpers = array(
+        'AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text', 'Connect.SocialMedia'
+    );
 
 
     public function __construct($request = null, $response = null)

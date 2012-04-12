@@ -50,6 +50,9 @@ App::uses('AppController', 'Controller');
         'NotificationCmp'
     );
 
+    public $helpers = array(
+        
+    );
 
     /**
      * @access public
