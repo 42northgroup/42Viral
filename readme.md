@@ -162,11 +162,10 @@ authors
 
 Copyright 2012, [42NorthGroup](https://42northgroup.com)
 
-Licensed under [The MIT License](http://www.opensource.org/licenses/mit-license.php)<br/>
+Licensed under [The MIT License](http://www.opensource.org/licenses/mit-license.php)
+
 Redistributions of files must retain the above copyright notice.
 
 ## Copyright
 
-Copyright 2012<br/>
-[42NorthGroup](https://42northgroup.com)<br/>
-https://42northgroup.com<br/>
+Copyright 2012 [42NorthGroup](https://42northgroup.com)
