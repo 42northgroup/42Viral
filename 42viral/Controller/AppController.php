@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PHP 5.3
  * 
@@ -13,10 +12,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('ContentFilters.Scrubable', 'Lib');
-
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)

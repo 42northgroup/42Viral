@@ -21,7 +21,6 @@
  */
 
 App::uses('Helper', 'View');
-
 /**
  * This is a placeholder class.
  * Create the same file in app/View/Helper/AppHelper.php
@@ -31,5 +30,4 @@ App::uses('Helper', 'View');
  *
  * @package       Cake.View.Helper
  */
-class AppHelper extends Helper {
-}
+class AppHelper extends Helper {}

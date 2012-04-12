@@ -12,14 +12,8 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-/**
- * UI for creating a web page
- * @author Jason D Snider <jason.snider@42viral.org>
- */
-
-    echo $this->element('Navigation' . DS . 'local', array('section'=>'content'));
 ?>
+<h1><?php echo $title_for_layout; ?></h1>
 
 <script type="text/javascript">
     $(function(){

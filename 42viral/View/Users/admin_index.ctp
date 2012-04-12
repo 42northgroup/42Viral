@@ -15,8 +15,6 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
-<?php //debug($people); ?>
-
 <div class="row">
     <div class="sixteen columns alpha omega">
         <table>
