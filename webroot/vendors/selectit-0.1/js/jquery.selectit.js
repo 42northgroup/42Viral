@@ -129,7 +129,12 @@
                     });
 
                 $('<span/>').addClass('selectit-new').append(input).appendTo(this);
+            })
+
+            .click(function() {
+                $('.selectit-input').focus();
             });
+
             if (options.values) {
                 this.selectit('add', options.values);
             }

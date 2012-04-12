@@ -69,10 +69,6 @@ $(function () {
 
                 return cleanTags;
             })()
-        })
-
-        .click(function() {
-            $('.selectit-input').focus();
         });
 });
 </script>
