@@ -209,6 +209,19 @@ App::uses('AppController', 'Controller');
                 $this->FileUpload->removeFile($this->FileUpload->finalFile);
             }
 
+            
+            if($this->data['Page']['syntax']=='markdown'){
+                $this->Page->Behaviors->attach(
+                        'ContentFilters.Scrubable', 
+                        array('Filters'=>array(
+                                    'trim'=>'*',
+                                    'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 
+                                        'syntax', 'short_cut', 'body'),
+                                )
+                            )
+                        );
+            }
+            
             if($this->Page->saveAll($this->data)){
                 $this->Session->setFlash(__('Your page has been updated'), 'success');
             }else{
