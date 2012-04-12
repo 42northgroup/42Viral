@@ -30,6 +30,6 @@ echo $this->Form->inputs(array(
     'legend' => 'Disqus',
     'Disqusshortname.id' => array('value' => 'Disqus.shortname', 'type' => 'hidden'),
     'Disqusshortname.value' => array('label' => 'Short Name'),
-    'Disqus.developer.id' => array('value' => 'Disqus.developer', 'type' => 'hidden'),
-    'Disqus.developer.value' => array('label' => 'Developer'),
+    'Disqusdeveloper.id' => array('value' => 'Disqus.developer', 'type' => 'hidden'),
+    'Disqusdeveloper.value' => array('label' => 'Developer'),
 ));
