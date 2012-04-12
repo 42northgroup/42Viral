@@ -13,14 +13,17 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+App::uses('Scrub', 'ContentFilters.Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
     <div class="two-thirds column alpha">
-        <?php 
+        <?php
             switch($page['Page']['syntax']):
                 case 'markdown':
-                    echo Utility::markdown($page['Page']['body']); 
+                    //Parse the markdown to HTML
+                    //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
+                    echo Scrub::htmlMedia(Utility::markdown($page['Page']['body'])); 
                 break;
 
                 default:

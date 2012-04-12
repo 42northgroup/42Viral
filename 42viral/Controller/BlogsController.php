@@ -204,6 +204,19 @@ class BlogsController extends AppController {
                 $this->FileUpload->removeFile($this->FileUpload->finalFile);
             }
             
+            //If we are saving as Markdown, don't allow any HTML
+            if($this->data['Blog']['syntax']=='markdown'){
+                $this->Page->Behaviors->attach(
+                        'ContentFilters.Scrubable', 
+                        array('Filters'=>array(
+                                    'trim'=>'*',
+                                    'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 
+                                        'syntax', 'short_cut', 'body'),
+                                )
+                            )
+                        );
+            }
+            
             if($this->Blog->save($this->data)){
                 $this->Session->setFlash(__('Your blog has been created'), 'success');
             }else{

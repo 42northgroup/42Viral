@@ -131,7 +131,20 @@ class PostsController extends AppController {
 
                 $this->FileUpload->removeFile($this->FileUpload->finalFile);
             }
-
+            
+            //If we are saving as Markdown, don't allow any HTML
+            if($this->data['Post']['syntax']=='markdown'){
+                $this->Page->Behaviors->attach(
+                        'ContentFilters.Scrubable', 
+                        array('Filters'=>array(
+                                    'trim'=>'*',
+                                    'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 
+                                        'syntax', 'short_cut', 'body'),
+                                )
+                            )
+                        );
+            }
+            
             if($this->Post->save($this->data)){
                 $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
             }else{

@@ -21,7 +21,9 @@
             <?php 
             switch($blog['Blog']['syntax']):
                 case 'markdown':
-                    echo Utility::markdown($blog['Blog']['body']); 
+                    //Parse the markdown to HTML
+                    //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
+                    echo Scrub::htmlMedia(Utility::markdown($blog['Blog']['body'])); 
                 break;
 
                 default:

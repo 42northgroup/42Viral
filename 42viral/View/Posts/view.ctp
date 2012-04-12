@@ -47,7 +47,9 @@
         <?php 
             switch($post['Post']['syntax']):
                 case 'markdown':
-                    echo Utility::markdown($post['Post']['body']); 
+                    //Parse the markdown to HTML
+                    //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
+                    echo Scrub::htmlMedia(Utility::markdown($post['Post']['body'])); 
                 break;
 
                 default:
