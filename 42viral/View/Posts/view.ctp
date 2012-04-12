@@ -44,7 +44,17 @@
 
             }    
         ?>
-        <?php echo $post['Post']['body']; ?>
+        <?php 
+            switch($post['Post']['syntax']):
+                case 'markdown':
+                    echo Utility::markdown($post['Post']['body']); 
+                break;
+
+                default:
+                    echo $post['Post']['body']; 
+                break;        
+            endswitch;
+        ?>
 
         <div class="meta" style="margin: 6px 0;">
             <span class="meta-head">Posted:</span>

@@ -54,6 +54,11 @@ $(function () {
             return cleanTags;
         })()
     });
+    
+    // "Instansiates prototypical objects"
+    $(function(){
+        SetEditor.init('{"syntax":"<?php echo $this->data['Post']['syntax']; ?>", "element":"PostBody"}');
+    });
 });
 </script>
 
@@ -74,6 +79,7 @@ $this->Form->unlockField('Post.tags');
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('tease', array('rows'=>2));
+    echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
     ?>
         
     <div class="or-group">
@@ -92,7 +98,6 @@ $this->Form->unlockField('Post.tags');
         <div class="or-choice">
             <?php
             echo $this->Form->input('body', array(
-                'class' => 'edit-content',
                 'label' => 'Type'
             ));
             ?>

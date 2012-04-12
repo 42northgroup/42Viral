@@ -17,7 +17,19 @@
 
 <div class="row">
     <div class="two-thirds column alpha">
-        <div><?php echo $blog['Blog']['tease']; ?></div>
+        <div>
+            <?php 
+            switch($blog['Blog']['syntax']):
+                case 'markdown':
+                    echo Utility::markdown($blog['Blog']['body']); 
+                break;
+
+                default:
+                    echo $blog['Blog']['body']; 
+                break;        
+            endswitch;
+            ?>
+        </div>
 
         <div id="ResultsPage">
             <?php foreach($blog['Post'] as $post): ?>

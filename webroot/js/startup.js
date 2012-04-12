@@ -71,6 +71,76 @@ var HeaderNavigation = {
     }
 };
 
+/**
+* Loads the desired editor
+*/
+var SetEditor = {
+    /**
+    * 
+    *
+    * @property {boolean}
+    * @access private
+    */
+    _initialized: false,
+
+    /**
+    * @property {string}
+    * @access private
+    */
+    _syntax: 'markdown',
+
+    /**
+    * @property {string}
+    * @access private
+    */
+    _element: 'ContentBody',
+
+    /**
+    * Prepares functionality for use in the UI
+    * @access private
+    */
+    _setupUi: function() {
+        if(this._syntax == 'markdown'){
+            $("#" + this._element).removeClass('edit-content');
+        }else{
+            $("#" + this._element).addClass('edit-content');
+            // Browser compatibility test. If CKEditor like the browser, load a class based configuration. Other wise 
+            // we'll fallback to a "plain jane" textarea
+            if ( CKEDITOR.env.isCompatible ){
+                $('textarea.edit-content').ckeditor(configContent);
+            }   
+        }
+    },
+
+    /**
+    * Builds the UI interactions
+    * 
+    * @return void
+    * @access public
+    */
+    init: function(config) {
+
+        //If config params are being passed, replace default configurations
+        if(typeof config != 'undefined') {
+
+            //parse the configuration object
+            var obj = jQuery.parseJSON(config);
+
+            if(typeof obj.syntax != 'undefined') {
+                this._syntax = obj.syntax;
+            }
+
+            if(typeof obj.element != 'undefined') {
+                this._element = obj.element;
+            }
+
+        }
+        console.log(this._syntax);
+        this._setupUi();
+        this._initialized = true;
+    }
+};
+
 // "Instansiates prototypical objects"
 $(function(){
     HeaderNavigation.init();
