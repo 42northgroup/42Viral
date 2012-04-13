@@ -1,33 +1,23 @@
 <?php
-
 /**
- * Copyright 2012, Jason D Snider (https://jasonsnider.com)
+ * PHP 5.3
+ * 
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright Copyright 2012, Jason D Snider (https://jasonsnider.com)
- * @link https://jasonsnider.com
- * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-App::uses('File', 'Utility');
-App::uses('Configuration', 'Model');
 
 /**
- * Creates a configuration file from stored DB values
- * @package Plugin.ContentFilter
- * @subpackage Plugin.ContentFilter.Console.Command
- * @author Jason D Snider <root@jasonsnider.com>
  */
 class DocumentationShell extends AppShell
 {
-    /**
-     * Make the required models accessable to this shell
-     * @var array
-     * @access public
-     */
-    public $uses = array('Configuration');
-    
+ 
     /**
      * @return void
      * @access public
