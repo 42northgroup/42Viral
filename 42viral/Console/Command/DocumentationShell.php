@@ -34,9 +34,8 @@ class DocumentationShell extends AppShell
      */
     public function main()
     {
-        $documentation_path = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'DocumentationMarkdown';
-        echo $documentation_path;
-        print_r($this->__fetchFolders($documentation_path));
+        $documentationPath = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'DocumentationMarkdown';
+        print_r($this->__fetchFolders($documentationPath));
     }
     
     private function __fetchFolders($path){
