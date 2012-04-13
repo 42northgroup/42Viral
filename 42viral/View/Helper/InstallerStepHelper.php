@@ -230,16 +230,6 @@ class InstallerStepHelper extends AppHelper
                     'Are you sure?\n'
                         . 'This will populate the database with demo data.\n'
                         . 'This is not reccomended for a production site.'
-            ),
-
-            array(
-                'number' => '',
-                'key' => 'setup_backup',
-                'label' => 'Back up configuration files (optional)',
-                'action' => '/setup/backup',
-                'status' => 'setup_backup',
-                'dependency' => array(),
-                'completed' => false
             )
         );
 

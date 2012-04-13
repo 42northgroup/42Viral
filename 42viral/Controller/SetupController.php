@@ -152,13 +152,6 @@ class SetupController extends AppController
             $this->buildPMA($path, $file);
         }
 
-        $backupPath =
-                ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Backup' . DS . 'Xml' . DS . date('Y-m-d');
-
-        if (!is_dir($backupPath)) {
-            mkdir($backupPath);
-        }
-
         $customDemoFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'DemoCustomPages';
         $customFiles = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Blogs' . DS . 'Custom';
         foreach (scandir($customDemoFiles) as $file) {

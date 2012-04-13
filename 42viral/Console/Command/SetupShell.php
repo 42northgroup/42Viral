@@ -418,7 +418,6 @@ class SetupShell extends AppShell
             $fixedAppPath .'webroot/files/doc_images',
             $fixedAppPath .'Config/Xml',
             $fixedAppPath .'Config/Includes',
-            $fixedAppPath .'Config/Backup',
             $fixedAppPath .'Config/Log',
             $fixedAppPath .'Config/application.php',
             $fixedAppPath .'Config/application.default.php'
