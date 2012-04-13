@@ -96,7 +96,7 @@ class Page extends Content
     public function beforeSave()
     {        
         parent::beforeSave();
-        $model->data['Page']['object_type'] = 'page';
+        $this->data['Page']['object_type'] = 'page';
         return true;
     }    
     

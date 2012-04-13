@@ -87,7 +87,7 @@ class Documentation extends Content
     public function beforeSave()
     {        
         parent::beforeSave();
-        $model->data['Documentation']['object_type'] = 'Documentation';
+        $this->data['Documentation']['object_type'] = 'Documentation';
         return true;
     }    
     
