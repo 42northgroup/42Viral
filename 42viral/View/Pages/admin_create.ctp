@@ -25,6 +25,8 @@
                     );
 
             echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
+            echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
+            
             echo $this->Form->submit();
         echo $this->Form->end();
         ?>

@@ -31,6 +31,7 @@
                         array('value'=>$this->params['pass'][0], 'type'=>'hidden'));
                 
                 echo $this->Form->input('title');
+                echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
                 
                 echo $this->Form->submit();
                 
