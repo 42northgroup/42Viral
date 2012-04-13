@@ -139,7 +139,11 @@ class BlogsController extends AppController {
         $userProfile['Person'] = $blog['CreatedPerson'];
         $this->set('userProfile', $userProfile);
         
-        $this->set('mine', $mine); 
+        if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
+            $mine = true;
+        }
+        
+        $this->set('mine', $mine);
         
         $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
 

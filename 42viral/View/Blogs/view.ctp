@@ -52,6 +52,36 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+    <?php 
+
+            //Privides navigation for manageing an asset
+            if($mine):
+
+                //If it's your post you'll be provided CMS links
+                $additional = array(
+                    array(
+                        'text' => 'Edit',
+                        'url' => "/blogs/edit/{$blog['Blog']['id']}",
+                        'options'=>array(),
+                        'confirm'=>null
+                    ),
+                    array(
+                        'text' => 'Delete',
+                        'url' => "/blogs/delete/{$blog['Blog']['id']}",
+                        'options'=>array(),
+                        'confirm'=>Configure::read('System.purge_warning')
+                    )                
+                );
+                        
+                echo $this->element('Navigation' . DS . 'manage', 
+                            array('section'=>'post', 
+                                'additional'=>$additional
+                            )
+                        );
+            endif; 
+
+        ?>        
+    </div>
 </div>
 
