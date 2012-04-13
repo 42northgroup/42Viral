@@ -73,7 +73,10 @@ $(function () {
     
     // "Instansiates prototypical objects"
     $(function(){
-        SetEditor.init('{"syntax":"<?php echo $this->data['Page']['syntax']; ?>", "element":"PageBody"}');
+        SetEditor.init({
+            syntax: '<?php echo $this->data['Page']['syntax']; ?>',
+            element: 'PageBody'
+        });
     });
 });
 </script>

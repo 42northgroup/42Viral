@@ -55,11 +55,16 @@ $(function () {
     
     // "Instansiates prototypical objects"
     $(function(){
-        SetEditor.init('{"syntax":"<?php echo $this->data['Blog']['syntax']; ?>", "element":"BlogBody"}');
+        SetEditor.init({
+            syntax: '<?php echo $this->data['Blog']['syntax']; ?>',
+            element: 'BlogBody'
+        });
     });
 });
 </script>
+
 <h1><?php echo $title_for_layout; ?></h1>
+
 <div class="row">
     <?php
     echo $this->Form->create('Blog', array(

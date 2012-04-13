@@ -57,7 +57,10 @@ $(function () {
     
     // "Instansiates prototypical objects"
     $(function(){
-        SetEditor.init('{"syntax":"<?php echo $this->data['Post']['syntax']; ?>", "element":"PostBody"}');
+        SetEditor.init({
+            syntax: '<?php echo $this->data['Post']['syntax']; ?>',
+            element: 'PostBody'
+        });
     });
 });
 </script>
