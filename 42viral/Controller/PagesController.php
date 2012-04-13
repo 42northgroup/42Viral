@@ -67,7 +67,7 @@ App::uses('AppController', 'Controller');
     public function beforeFilter(){
         parent::beforeFilter();
         
-        $this->auth(array('*'));
+        $this->auth(array('home', 'index', 'short_cut', 'view', 'display'));
         $this->prepareDocUpload('Page');
     }
     

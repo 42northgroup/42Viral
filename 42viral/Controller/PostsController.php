@@ -61,7 +61,7 @@ class PostsController extends AppController {
      */
     public function beforeFilter(){
         parent::beforeFilter();
-        $this->auth(array('*'));
+        $this->auth(array('short_cut', 'view'));
         $this->prepareDocUpload('Post');
     }
     
