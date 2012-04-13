@@ -131,16 +131,7 @@ class Blog extends Content
                 'message' =>"There is a problem with the slug",
                 'last' => true                
             )
-        ),
-        
-        'status' => array(
-            'publishable' => array(
-                'rule' => 'publishable',
-                'message' =>"This blog is not ready to be published",
-                'last' => true
-            )
         )
-        
     );
     
     public function __construct($id=false, $table=null, $ds=null) {

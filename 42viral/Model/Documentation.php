@@ -23,14 +23,14 @@ App::uses('Content', 'Model');
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  */
-class Page extends Content
+class Documentation extends Content
 {
     /**
      * 
      * @var string
      * @access public
      */
-    public $name = 'Page';
+    public $name = 'Documentation';
 
     /**
      * Predefined data sets
@@ -38,14 +38,6 @@ class Page extends Content
      * @access public 
      */
     public $dataSet = array(
-
-        'edit' => array(
-            'contain' =>    array(
-                'Tag'=>array(),
-                'Sitemap'=>array()
-            ),
-            'conditions'=>array()
-        ),
         'nothing'=>array(
             'contain'=>array(),
             'conditions' => array()
@@ -53,8 +45,7 @@ class Page extends Content
         'public'=>array(
             'contain'=>array(
                 'Tag'=>array()
-            ),
-            'conditions' => array('Page.status'=>array('archieved', 'published'))
+            )
         )        
     );
 
@@ -96,12 +87,12 @@ class Page extends Content
     public function beforeSave()
     {        
         parent::beforeSave();
-        $model->data['Page']['object_type'] = 'page';
+        $model->data['Documentation']['object_type'] = 'Documentation';
         return true;
     }    
     
     /**
-     * Inject all "finds" against the Page object with lead filtering criteria
+     * Inject all "finds" against the Documentation object with lead filtering criteria
      * @param array $query
      * @return type 
      * @access public
@@ -110,44 +101,44 @@ class Page extends Content
         parent::beforeFind($queryData);
         
         $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
-        $pageFilter = array('Page.object_type' =>'page');
-        $queryData['conditions'] = array_merge($queryData['conditions'], $pageFilter);
+        $DocumentationFilter = array('Documentation.object_type' =>'Documentation');
+        $queryData['conditions'] = array_merge($queryData['conditions'], $DocumentationFilter);
 
         return $queryData;
     }
 
     /**
-     * Returns a given page based on a given token and a with(query) array
+     * Returns a given Documentation based on a given token and a with(query) array
      * @param type $token
      * @param type $with
      * @param type $status
      * @return array 
      */    
-    public function getPageWith($token, $with = 'public'){
+    public function getDocumentationWith($token, $with = 'public'){
             
         $theToken = array(
             'conditions'=>array('or' => array(
-                'Page.id' => $token,
-                'Page.slug' => $token, 
-                'Page.short_cut' => $token
+                'Documentation.id' => $token,
+                'Documentation.slug' => $token, 
+                'Documentation.short_cut' => $token
             ))
         );      
             
         $finder = array_merge($this->dataSet[$with], $theToken);        
-        $page = $this->find('first', $finder);
+        $Documentation = $this->find('first', $finder);
 
-        return $page;
+        return $Documentation;
     } 
     
     /**
-     * Returns a given page based predefinded conditions
+     * Returns a given Documentation based predefinded conditions
      * @param string $token
      * @return array 
      */    
-    public function fetchPagesWith($with = 'public'){
+    public function fetchDocumentationsWith($with = 'public'){
         $finder = $this->dataSet[$with];        
 
-        $pages = $this->find('all', $finder);
-        return $pages;
+        $Documentations = $this->find('all', $finder);
+        return $Documentations;
     }     
 }

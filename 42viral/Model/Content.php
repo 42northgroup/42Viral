@@ -196,37 +196,6 @@ class Content extends AppModel
     }
     
     /**
-     * Returns true if the blog is ready to be published
-     * @return boolean 
-     * @access public
-     */
-    public function publishable(){
-       
-        $error = 0;
-        
-        if($this->data[$this->alias]['status'] != 'draft'){
-            if (strlen($this->data[$this->alias]['title']) == 0){
-                $error++;
-            }
-
-            if (strlen($this->data[$this->alias]['body']) < 10) {
-                $error++;
-            }        
-
-            if (strlen($this->data[$this->alias]['tease']) < 10) {
-                $error++;
-            }  
-        }
-        
-        if($error == 0){
-            return true;
-        }else{
-            return false;
-        }
-        
-    }
-    
-    /**
      * Returns all content based on predefined conditions
      * @param array $with
      * @return array

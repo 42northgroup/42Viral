@@ -128,14 +128,6 @@ class Post extends Content
                 'message' =>"You need to have a blog attached",
                 'last' => true
             ),            
-        ),
-        
-        'status' => array(
-            'publishable' => array(
-                'rule' => 'publishable',
-                'message' =>"This post is not ready to be published",
-                'last' => true
-            )
         )
     );
     
