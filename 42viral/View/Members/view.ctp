@@ -26,7 +26,7 @@
         border-left: 1px solid #3B5998;
     }
     
-    .google_plus-post{
+    .googleplus-post{
         padding: 5px 5px 15px 5px;
         border-left: 1px solid #000;
     }

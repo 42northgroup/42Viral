@@ -20,7 +20,7 @@
         <?php
         echo $this->SocialMedia->link(
             'LinkedIn',
-            'Connect with LinkedIn',
+            'Connect with Linkedin',
             '/oauth/linkedin_connect',
             array(
                 'class' => 'connect',

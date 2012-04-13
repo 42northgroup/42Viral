@@ -129,7 +129,7 @@ App::uses('HttpSocket', 'Network/Http');
         
         //pr($response); die();
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
-        $this->redirect('http://api.twitter.com/oauth/authenticate?oauth_token=' . $response['oauth_token']);
+        $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
         
     }
 
