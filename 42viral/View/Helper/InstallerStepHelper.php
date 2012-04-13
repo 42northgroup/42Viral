@@ -216,20 +216,6 @@ class InstallerStepHelper extends AppHelper
                 'status' => 'setup_configure_root',
                 'dependency' => $this->__dependencyList['setup_configure_root'],
                 'completed' => false
-            ),
-
-            array(
-                'number' => '',
-                'key' => 'import_demo',
-                'label' => 'Import demo data (optional)',
-                'action' => '/setup/import_demo',
-                'status' => 'import_demo',
-                'dependency' => array(),
-                'completed' => false,
-                'confirm' =>
-                    'Are you sure?\n'
-                        . 'This will populate the database with demo data.\n'
-                        . 'This is not reccomended for a production site.'
             )
         );
 

@@ -138,33 +138,6 @@ class SetupController extends AppController
     }
 
     /**
-     * Import the demo
-     * 
-     * @access public
-     * @return void
-     */
-    public function import_demo()
-    {
-
-        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Demo';
-
-        foreach (scandir($path) as $file) {
-            $this->buildPMA($path, $file);
-        }
-
-        $customDemoFiles = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'DemoCustomPages';
-        $customFiles = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Blogs' . DS . 'Custom';
-        foreach (scandir($customDemoFiles) as $file) {
-            if (is_file($customDemoFiles . DS . $file)) {
-                copy($customDemoFiles . DS . $file, $customFiles . DS . $file);
-            }
-        }
-
-        $this->Session->setFlash(__('Demo installed'), 'success');
-        $this->redirect('/setup');
-    }
-
-    /**
      * A utility for populating DB tables from an XML file.
      *
      * @access public
