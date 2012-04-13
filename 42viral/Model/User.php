@@ -109,6 +109,16 @@ class User extends Person
                 'rule' => 'isUnique',
                 'message' =>"This username is already in use",
                 'last' => true
+            ),
+            
+            //Apply rules to the username's format
+            'login' => array(
+                //May only contain lowercase letters, integers, hyphens and dashes and must be atleast 1 character
+                //in length change the {1,} part of the string to adjust the length. Don't forget to include the new
+                //length in the error message
+                'rule'    => array('custom', '/^(?-i)[a-z0-9_-]{1,}$/i'),
+                'message' => 'Only lowercase letters, integers, hyphens and dashes',
+                'last' => true
             )
         ),
         'email' => array(
