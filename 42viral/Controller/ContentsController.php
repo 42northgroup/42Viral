@@ -63,7 +63,18 @@ App::uses('Member', 'Lib');
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('content', 'post_comment'));
+        $this->auth(array('mine'));
+    }
+    
+    /**
+     * Displays a list of pages
+     *
+     * @param array
+     */
+    public function mine() {
+        $contents = $this->Content->fetchContentsWith('mine', $this->Session->read('Auth.User.id'));
+        $this->set('contents', $contents);
+        $this->set('title_for_layout', 'My Content');
     }
     
     /**

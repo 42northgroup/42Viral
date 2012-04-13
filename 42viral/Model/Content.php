@@ -41,12 +41,16 @@ class Content extends AppModel
         'admin'=>array(
             'contain'=>array(
                 'Tag'=>array()
-            ),
-
-            'conditions' => array('Content.status'=>array('archieved', 'published'))
+            )
         ),
         
-        'admin_nothing'=>array('contain'=>array()),    
+        'admin_nothing'=>array('contain'=>array()),   
+        
+        'mine'=>array(
+            'contain'=>array(
+                'Tag'=>array()
+            )
+        ),
         
         'nothing'=>array(
             'contain'=>array(),
@@ -197,19 +201,33 @@ class Content extends AppModel
     
     /**
      * Returns all content based on predefined conditions
-     * @param array $with
-     * @return array
      * @access public
+     * @param array $with
+     * @param string $token
+     * @return array
      */
-    function fetchContentWith($with = 'public'){
-          
-        $finder = $this->dataSet[$with];        
-        $content = $this->find('first', $finder);
+    function fetchContentsWith($with = 'public', $token = null){
+        
+        //Used for variable injection
+        switch('mine'){
+            case 'mine':
+                $theToken = array('Content.created_person_id' => $token);
+                $finder = array_merge($this->dataSet[$with], $theToken);
+            break;    
+            
+            default:  
+                $finder = $this->dataSet[$with]; 
+            break;
+        }
+        
+               
+        $content = $this->find('all', $finder);
         return $content;
     }
     
     /**
      * Parses text as markdown and converts it to HTML
+     * @access public
      * @param string $text
      * @return string
      */

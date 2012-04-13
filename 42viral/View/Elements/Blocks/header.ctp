@@ -72,8 +72,11 @@
                                 <?php echo $this->Html->link('My Profile', 
                                     '/members/view/' . $this->Session->read('Auth.User.username')); ?>
                                 </div>
+                                
                                 <?php echo $this->Html->link('Edit', 
                                     '/profiles/edit/' . $this->Session->read('Auth.User.Profile.id')); ?>
+                                
+                                <?php echo $this->Html->link('My Content', '/contents/mine/'); ?>
                             </div>
                             
                             <strong>Misc</strong>
