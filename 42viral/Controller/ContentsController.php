@@ -63,7 +63,7 @@ App::uses('Member', 'Lib');
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('mine'));
+        $this->auth();
     }
     
     /**
