@@ -147,6 +147,7 @@ class Blog extends Content
      */
     public function beforeSave()
     {             
+        parent::beforeSave();
         $this->data['Blog']['object_type'] = 'blog';
         return true;
     }  
