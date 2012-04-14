@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
 - phpMyAdmin XML Dump
-- version 3.4.3.2
+- version 3.4.5deb1
 - http://www.phpmyadmin.net
 -
 - Host: localhost
-- Generation Time: Oct 03, 2011 at 02:34 PM
-- Server version: 5.1.54
-- PHP Version: 5.3.5-1ubuntu7.2
+- Generation Time: Apr 14, 2012 at 07:15 AM
+- Server version: 5.1.61
+- PHP Version: 5.3.6-13ubuntu3.6
 -->
 
 <pma_xml_export version="1.0">
     <!--
-    - Database: 'app_default'
+    - Database: '42viral_default'
     -->
-    <database name="app_default">
+    <database name="42viral_default">
         <!-- Table picklists -->
         <table name="picklists">
             <column name="id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
@@ -26,6 +26,8 @@
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2011-10-03 12:37:26</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="deleted">NULL</column>
+            <column name="deleted_person_id">NULL</column>
         </table>
         <table name="picklists">
             <column name="id">4e89f2c0-3628-4cc4-851f-0ddc4bb83359</column>
@@ -37,6 +39,8 @@
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2011-10-03 12:37:04</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="deleted">NULL</column>
+            <column name="deleted_person_id">NULL</column>
         </table>
         <table name="picklists">
             <column name="id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
@@ -48,6 +52,34 @@
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2011-10-03 14:29:15</column>
             <column name="modified_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
+            <column name="deleted">NULL</column>
+            <column name="deleted_person_id">NULL</column>
+        </table>
+        <table name="picklists">
+            <column name="id">4f88b5d5-abb4-44a4-a831-04127f000102</column>
+            <column name="alias">syntax</column>
+            <column name="name">Syntax</column>
+            <column name="description">The type of syntax you would like to use when creating a target document.</column>
+            <column name="active">1</column>
+            <column name="created">2012-04-13 18:25:09</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2012-04-13 18:25:09</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="deleted">NULL</column>
+            <column name="deleted_person_id">NULL</column>
+        </table>
+        <table name="picklists">
+            <column name="id">4f896972-d1cc-4d7c-b652-0cfd7f000102</column>
+            <column name="alias">postable</column>
+            <column name="name">Postable</column>
+            <column name="description">Determines who is allowed to post to a blog you have created.</column>
+            <column name="active">1</column>
+            <column name="created">2012-04-14 07:11:30</column>
+            <column name="created_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="modified">2012-04-14 07:11:30</column>
+            <column name="modified_person_id">4e27efec-ece0-4a36-baaf-38384bb83359</column>
+            <column name="deleted">NULL</column>
+            <column name="deleted_person_id">NULL</column>
         </table>
     </database>
 </pma_xml_export>
