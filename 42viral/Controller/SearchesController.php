@@ -90,7 +90,7 @@ App::uses('AppController', 'Controller');
             );           
             
             //Predefined object types and statuses
-            $this->request->params['named']['status'] = 'published';
+            $this->request->params['named']['status'] = 'published archieved';
             $this->request->params['named']['object_type'] = 'blog page post'; 
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
@@ -184,6 +184,7 @@ App::uses('AppController', 'Controller');
             $this->request->data['Content'] = 
                 array('status' => array
                 (
+                    0 => 'archieved',
                     1 => 'published'
                 ),
                 'object_type' => array
@@ -197,7 +198,7 @@ App::uses('AppController', 'Controller');
         
         $this->set('statuses', 
         $this->Picklist->fetchPicklistOptions(
-                'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+                'publication_status', array('emptyOption'=>false, 'otherOption'=>false, 'categoryFilter'=>'public')));
         
         $this->set('objectTypes', 
         $this->Picklist->fetchPicklistOptions(
