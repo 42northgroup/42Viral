@@ -40,13 +40,13 @@ Configure::write('Beta.invitations', 0);
 Configure::write('Shorty', 
         array(
             'page'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
-                . Configure::read('ShortURL.Pointer.page').'/',
+                . 'a/',
             
             'blog'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
-                . Configure::read('ShortURL.Pointer.blog').'/',
+                . 'b/',
             
             'post'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
-                . Configure::read('ShortURL.Pointer.post').'/'
+                . 'c/'
         ));
 /* ====================
  * == File Uploads ====
