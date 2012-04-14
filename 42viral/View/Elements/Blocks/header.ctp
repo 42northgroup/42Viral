@@ -41,6 +41,7 @@
             
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/searches/">Search</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/members/">Members</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>
