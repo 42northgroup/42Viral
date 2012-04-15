@@ -43,7 +43,28 @@
                         <?php echo $this->Html->link(                        
                                 'Privs', 
                                 "/admin/privileges/user_privileges/{$user['User']['username']}"); ?>
+                        |
+                        
+                        <?php
+                            if(empty($user['User']['employee'])){
 
+                                echo $this->Html->link(                        
+                                    'Add Employee Flag', 
+                                    "/admin/users/is_employee/{$user['User']['id']}",
+                                    null,
+                                    __('This will flag the user as an employee. This will INCREASE the users access ' .
+                                       'to the system. \n Are you sure?')); 
+                            }else{      
+
+                                echo $this->Html->link(                        
+                                    'Remove Employee Flag', 
+                                    "/admin/users/not_employee/{$user['User']['id']}",
+                                    null,
+                                    __('This user will NO LONGER be flagged as an employee. This will DECREASE the ' .
+                                       'users access to the system. \n Are you sure?'));      
+
+                            }       
+                        ?>
                         <!--
                         |
                         <a href="#">Delete</a>

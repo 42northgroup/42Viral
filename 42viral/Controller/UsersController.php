@@ -590,4 +590,44 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Allot Invitations to Users');
     }
     
+    /**
+     * Flags a user as an employee
+     * @access public
+     * @param string $id
+     * @return void
+     */
+    public function admin_is_employee($id)
+    {
+        $this->request->data['User']['id'] = $id;
+        $this->request->data['User']['employee'] = 1;
+        
+        if($this->User->save($this->data)){
+            $this->Session->setFlash(__('The user is now an employee'), 'success');
+        }else{
+            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error'); 
+        }
+        
+        $this->redirect($this->referer());
+    }
+    
+    /**
+     * Removes the employee flag from a target user
+     * @access public
+     * @param string $id
+     * @return void
+     */
+    public function admin_not_employee($id)
+    {
+        $this->request->data['User']['id'] = $id;
+        $this->request->data['User']['employee'] = 0;
+        
+        if($this->User->save($this->data)){
+            $this->Session->setFlash(__('The user is no longer an employee'), 'success');
+        }else{
+            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error'); 
+        }
+        
+        $this->redirect($this->referer());
+    }
+    
 }
