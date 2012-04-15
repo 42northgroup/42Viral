@@ -41,28 +41,44 @@
 
         <?php else: ?>
 
-            <?php if(empty($blogs)): ?> 
+            <?php if(empty($myBlogs) && empty($publicBlogs)): ?> 
                 <h2>
-                    <?php echo "You don't have any blogs to post to " 
-                        . $this->Html->link('Create One', '/blogs/create/') . " now."; ?>
+                    <?php echo __("You don't have any blogs to post to ")
+                        . $this->Html->link(__('Create One'), '/blogs/create/'); ?>
                 </h2>
             <?php else: ?>
         
                 <h2><?php echo __('Choose the blog to which you would like to post.'); ?></h2>
 
+                <h3><?php echo __("Post to a blog you've created"); ?></h3>
                 <table>
                     <tbody>
-                    <?php foreach($blogs as $blog):?>
+                    <?php foreach($myBlogs as $myBlog):?>
                         <tr>
                             <td>
                                 <?php echo $this->Html->link(
-                                        $blog['Blog']['title'], 
-                                        "/posts/create/{$blog['Blog']['id']}"); ?>
+                                        $myBlog['Blog']['title'], 
+                                        "/posts/create/{$myBlog['Blog']['id']}"); ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     </tbody>
-            </table>
+                </table>
+                
+                <h3><?php echo __("Post to a public blog"); ?></h3>
+                <table>
+                    <tbody>
+                    <?php foreach($publicBlogs as $publicBlog):?>
+                        <tr>
+                            <td>
+                                <?php echo $this->Html->link(
+                                        $publicBlog['Blog']['title'], 
+                                        "/posts/create/{$publicBlog['Blog']['id']}"); ?>
+                            </td>
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+                </table>                
             <?php endif; ?>
         <?php endif; ?>
     </div>

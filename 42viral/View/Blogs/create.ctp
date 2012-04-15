@@ -15,7 +15,6 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="rows">
-    <div class="sixteen columns">
     <?php
         echo $this->Form->create('Blog', 
                     array(
@@ -23,11 +22,21 @@
                         'class'=>'responsive'
                     )
                 );
-
+    ?>
+    
+    <div class="two-thirds column alpha">
+    <?php
         echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
-        echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
-        echo $this->Form->submit();
-        echo $this->Form->end();
+
+        
     ?>
     </div>
+    <div class="one-third column omega">
+    <?php
+        echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
+        echo $this->Form->input('post_access', array('options'=>array('access'=>'Private', 'public'=>'Public')));
+        echo $this->Form->submit();
+    ?>
+    </div>
+    <?php echo $this->Form->end(); ?>
 </div>

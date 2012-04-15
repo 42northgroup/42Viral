@@ -94,8 +94,20 @@ class PostsController extends AppController {
         
         if(is_null($blogId)){
 
-            $blogs = $this->Blog->find('all');
-            $this->set('blogs', $blogs);
+            //Fetch all the blogs created by the loggedin user
+            $myBlogs = $this->Blog->find('all', 
+                    array(
+                        'conditions'=>array('Blog.created_person_id'=>$this->Session->read('Auth.User.id')), 
+                        'contain'=>array()));
+            
+            //Fetch all blogs that have been marked as publicly postable
+            $publicBlogs = $this->Blog->find('all', 
+                    array(
+                        'conditions'=>array('Blog.post_access'=>'public'), 
+                        'contain'=>array()));
+            
+            $this->set('myBlogs', $myBlogs);
+            $this->set('publicBlogs', $publicBlogs);
             
         }else{
 

@@ -70,8 +70,8 @@
         </table>
         <table name="picklists">
             <column name="id">4f896972-d1cc-4d7c-b652-0cfd7f000102</column>
-            <column name="alias">postable</column>
-            <column name="name">Postable</column>
+            <column name="alias">post_access</column>
+            <column name="name">Post Access</column>
             <column name="description">Determines who is allowed to post to a blog you have created.</column>
             <column name="active">1</column>
             <column name="created">2012-04-14 07:11:30</column>

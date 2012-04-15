@@ -206,6 +206,7 @@ class AppSchema extends CakeSchema {
 		'keywords' => array('type' => 'text', 'null' => true, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'comment' => 'Meta keyword tag', 'charset' => 'latin1'),
 		'canonical' => array('type' => 'text', 'null' => true, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'comment' => 'Your preferred version of a URL for the disambiguation of like content ', 'charset' => 'latin1'),
 		'syntax' => array('type' => 'string', 'null' => false, 'default' => 'html', 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'post_access' => array('type' => 'string', 'null' => false, 'default' => 'private', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'status' => array('type' => 'string', 'null' => false, 'default' => 'draft', 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'custom_file' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'object_type' => array('type' => 'string', 'null' => false, 'default' => 'page', 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
