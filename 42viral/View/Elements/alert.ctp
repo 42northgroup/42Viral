@@ -32,7 +32,7 @@ noty(
         "animateOpen":{"height":"toggle"},
         "animateClose":{"height":"toggle"},
         "speed":"500",
-        "timeout":"5000",
+        "timeout":"3000",
         "closable":true,
         "closeOnSelfClick":true
     }
