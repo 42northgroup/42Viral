@@ -47,21 +47,23 @@
                         . $this->Html->link(__('Create One'), '/blogs/create/'); ?>
                 </h2>
             <?php else: ?>
-
-                <h2><?php echo __("Post to a blog you've created"); ?></h>
-                <table>
-                    <tbody>
-                    <?php foreach($myBlogs as $myBlog):?>
-                        <tr>
-                            <td>
-                                <?php echo $this->Html->link(
-                                        $myBlog['Blog']['title'], 
-                                        "/posts/create/{$myBlog['Blog']['id']}"); ?>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                </table>
+                
+                <?php if($canCreateBlogs): ?>
+                    <h2><?php echo __("Post to a blog you've created"); ?></h2>
+                    <table>
+                        <tbody>
+                        <?php foreach($myBlogs as $myBlog):?>
+                            <tr>
+                                <td>
+                                    <?php echo $this->Html->link(
+                                            $myBlog['Blog']['title'], 
+                                            "/posts/create/{$myBlog['Blog']['id']}"); ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                <?php endif; ?>
                 
                 <h2><?php echo __("Post to a public blog"); ?></h2>
                 <table>

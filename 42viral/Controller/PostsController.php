@@ -91,9 +91,14 @@ class PostsController extends AppController {
      */
     public function create($blogId = null)
     {
-        
+        $canCreateBlogs = false;
+
         if(is_null($blogId)){
 
+            if ($this->Acl->check($this->Session->read('Auth.User.username'), 'Blogs-create', '*')) {
+                $canCreateBlogs = true;
+            }
+            
             //Fetch all the blogs created by the loggedin user
             $myBlogs = $this->Blog->find('all', 
                     array(
@@ -125,6 +130,7 @@ class PostsController extends AppController {
         }
         
         $this->set('title_for_layout', 'Post to a Blog');
+        $this->set('canCreateBlogs', $canCreateBlogs);
     }
     
     /**
