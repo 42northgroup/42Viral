@@ -28,10 +28,9 @@ Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'system', 'ac
 
 //Extra pretty URLs for content actions
 Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'), array('pass' => array('slug')));
-
 Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));
-
 Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'), array('pass' => array('slug')));
+Router::connect('/docs/:slug', array('controller' => 'docs', 'action' => 'view'), array('pass' => array('slug')));
 
 //URL short cut resolutions
 Router::connect('/page/short_cut/:short_cut', 

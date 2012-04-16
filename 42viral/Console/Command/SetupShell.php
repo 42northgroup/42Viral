@@ -190,6 +190,7 @@ class SetupShell extends AppShell
 
             default: // Exit
             case 'x':
+                $this->__writePermissions();
                 break;
         }
     }

@@ -17,10 +17,10 @@ App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
 
 /**
- * Mangages the person object from the POV of a Lead
+ * Model class representing the documentation model
  * 
  * @package app
- * @subpackage app.core
+ * @subpackage app.model
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -29,8 +29,6 @@ class Documentation extends Content
 {
 
     /**
-     *
-     * 
      * @access public
      * @var string
      */
@@ -51,11 +49,25 @@ class Documentation extends Content
             'contain' => array(
                 'Tag' => array()
             )
+        ),
+
+        'doc_index' => array(
+            'contain' => array(),
+            'conditions' => array(
+                'Documentation.object_type' => 'docs'
+            ),
+
+            'fields' => array(
+                'Documentation.url',
+                'Documentation.short_cut',
+                'Documentation.base_slug',
+                'Documentation._before_seo',
+                'Documentation.slug'
+            )
         )
     );
 
     /**
-     *
      * @access public
      * @var array
      */
@@ -85,15 +97,13 @@ class Documentation extends Content
     }
 
     /**
-     * 
-     *
      * @access public
      * @return boolean
      */
     public function beforeSave()
     {
         parent::beforeSave();
-        $this->data['Documentation']['object_type'] = 'documentation';
+        $this->data['Documentation']['object_type'] = 'docs';
         return true;
     }
 
@@ -109,7 +119,7 @@ class Documentation extends Content
         parent::beforeFind($queryData);
 
         $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
-        $DocumentationFilter = array('Documentation.object_type' => 'Documentation');
+        $DocumentationFilter = array('Documentation.object_type' => 'docs');
         $queryData['conditions'] = array_merge($queryData['conditions'], $DocumentationFilter);
 
         return $queryData;
@@ -135,9 +145,9 @@ class Documentation extends Content
         );
 
         $finder = array_merge($this->dataSet[$with], $theToken);
-        $Documentation = $this->find('first', $finder);
+        $documentation = $this->find('first', $finder);
 
-        return $Documentation;
+        return $documentation;
     }
 
     /**
@@ -151,7 +161,56 @@ class Documentation extends Content
     {
         $finder = $this->dataSet[$with];
 
-        $Documentations = $this->find('all', $finder);
-        return $Documentations;
+        $documentations = $this->find('all', $finder);
+        return $documentations;
+    }
+
+    /**
+     * Given a parsed documentation file content and hierarchy data structure, populate the documentation table.
+     *
+     * @access public
+     * @param array $files
+     * @return boolean
+     *
+     * [TODO] Make this more of a transactional process, i.e. the entire clearing of the old documentation and
+     * generation of the new documentation.
+     */
+    public function saveDocFile($files)
+    {
+        $this->clearAllDocs();
+
+        foreach($files as $tempFile) {
+            $this->create();
+            $this->data = array();
+
+            $docHierarchy = '';
+            if(!empty($tempFile['relative_path_structure'])) {
+                foreach($tempFile['relative_path_structure'] as $tempDir) {
+                    $docHierarchy .= $tempDir . '::';
+                }
+            }
+
+            $this->data['Documentation']['title'] = $docHierarchy . str_replace('.md', '', $tempFile['file']);
+            $this->data['Documentation']['body'] = $tempFile['html'];
+            
+            $this->save($this->data);
+        }
+
+        return true;
+    }
+
+    /**
+     * Clear all current content of the type documentation (docs)
+     *
+     * @access public
+     * @return boolean
+     */
+    public function clearAllDocs()
+    {
+        $oppStatus = $this->deleteAll(array(
+            'Documentation.object_type' => 'docs'
+        ));
+
+        return ($oppStatus)? true: false;
     }
 }

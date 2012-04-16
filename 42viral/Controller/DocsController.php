@@ -17,17 +17,18 @@ App::uses('AppController', 'Controller');
 
 /**
  * @package app
- * @subpackage app.core
+ * @subpackage app.controller
+ *
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
-class DocsController extends AppController {
+class DocsController extends AppController
+{
 
     /**
-     * This controller does not use a model
-     *
      * @var array
      * @access public
      */
-    public $uses = array();
+    public $uses = array('Documentation');
 
     /**
      * @var array
@@ -40,53 +41,91 @@ class DocsController extends AppController {
     /**
      * @access public
      */
-    public function beforeFilter(){
+    public function beforeFilter()
+    {
         parent::beforeFilter();
-        //$this->auth(array('index', 'view'));
+        $this->auth(array('index', 'view'));
     }
 
     /**
-     *
-     * @return void
+     * Action method to view the documentation index page
+     * 
      * @access public
+     * @return void
      */
-    public function index() {}
+    public function index()
+    {
+        $this->__prepareDocumentationIndex();
+    }
+
+    /**
+     * Helper method to fetch the current documentation content and build a hierarchical table of contents data
+     * structure for the view to render
+     * 
+     * @access private
+     * @return void
+     */
+    private function __prepareDocumentationIndex()
+    {
+        $docItems = $this->Documentation->fetchDocumentationsWith('doc_index');
+
+        $docNavIndex = array(
+            '_root' => array()
+        );
+
+        foreach($docItems as $tempItem) {
+            $hierarchy = preg_split('~::~', $tempItem['Documentation']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
+
+            if(!empty($hierarchy)) {
+                if(count($hierarchy) == 1) {
+                    array_push($docNavIndex['_root'], array(
+                        'label' => $hierarchy[0],
+                        'url' => $tempItem['Documentation']['url']
+                    ));
+                } else {
+                    $arr = &$docNavIndex;
+
+                    do {
+                        $tempVal = array_shift($hierarchy);
+                        if(!array_key_exists($tempVal, $arr)) {
+                            $arr[$tempVal] = array();
+                        }
+                        $arr = &$arr[$tempVal];
+                    } while(count($hierarchy) > 1);
+
+                    array_push($arr, array(
+                        'label' => $hierarchy[0],
+                        'url' => $tempItem['Documentation']['url']
+                    ));
+                }
+            }
+        }
+
+        $this->set('doc_nav_index', $docNavIndex);
+    }
 
 
     /**
-     * Displays a blog
+     * Action method to display a single documentation page
      *
-     * @param array
+     * @access public
+     * @param string $slug
+     * @return void
      */
-    public function view($slug) {
-        /*
-        $mine = false;
+    public function view($slug)
+    {
+        $this->__prepareDocumentationIndex();
 
-        $blog = $this->Blog->fetchBlogWith($slug, 'standard');
+        $doc = $this->Documentation->getDocumentationWith($slug);
 
-        if(empty($blog)){
+        if(empty($doc)){
            $this->redirect('/', '404');
         }
 
-        $this->set('title_for_layout', $blog['Blog']['title']);
-        $this->set('canonical_for_layout', $blog['Blog']['canonical']);
+        //[TODO] Make the documentation title more human friendly as opposed to the hierarchical coded form
+        $this->set('title_for_layout', $doc['Documentation']['title']);
+        $this->set('canonical_for_layout', $doc['Documentation']['canonical']);
 
-        $this->set('blog', $blog);
-
-        if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
-            $mine = true;
-        }
-
-        $userProfile['Person'] = $blog['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
-
-        if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
-            $mine = true;
-        }
-
-        $this->set('mine', $mine);
-
-        $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
-        */
+        $this->set('doc', $doc);
     }
 }

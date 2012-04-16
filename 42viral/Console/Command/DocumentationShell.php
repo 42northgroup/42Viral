@@ -14,18 +14,57 @@
  */
 
 App::uses('Utility', 'Lib');
+App::uses('Documentation', 'Model');
 
 /**
+ * Cake shell to generate documentation (static and/or database) from documentation markdown
  *
+ * @package app
+ * @subpackage app.console.command
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class DocumentationShell extends AppShell
 {
+    /**
+     * The folder location where all system documentation lives
+     *
+     * @access private
+     * @var string
+     */
     private $__docPath = null;
+
+    /**
+     * The full path of the folder location where the build documentation lives
+     *
+     * @access private
+     * @var string
+     */
     private $__docBuildPath = null;
+
+    /**
+     * The parent path of the documentation build folder
+     *
+     * @access private
+     * @var string
+     */
     private $__docBuildBasePath = null;
+
+    /**
+     * The name to use for the documentation build folder
+     *
+     * @access private
+     * @var string
+     */
     private $__docBuildFolder = '_build';
+
+    /**
+     * Whether to build static documentation files or not
+     *
+     * @access private
+     * @var boolean
+     */
+    private $__buildStatic = false;
 
     /**
      * Main shell entry point
@@ -35,10 +74,12 @@ class DocumentationShell extends AppShell
      */
     public function main()
     {
+        //Set the proper values for the documentation paths
         $this->__docPath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
         $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
         $this->__docBuildPath = $this->__docBuildBasePath . $this->__docBuildFolder .DS;
         
+        //Get a hierarchical structure of the source documentation
         $files = $this->__traverseFilterDocDir();
 
         foreach($files as &$file) {
@@ -52,20 +93,12 @@ class DocumentationShell extends AppShell
             $file['relative_path_structure'] = preg_split('~' .DS. '~', $tempRelPath, -1, PREG_SPLIT_NO_EMPTY);
         }
 
-        $this->__buildStaticFiles($files);
-    }
+        $docModel = new Documentation();
+        $docModel->saveDocFile($files);
 
-    /**
-     * Given the parsed markdown file structure, build an HTML navigation to access the generated static HTML
-     * documentation files
-     *
-     * @access private
-     * @param array $files
-     * @return string
-     */
-    private function __buildNavHtml($files)
-    {
-
+        if($this->__buildStatic) {
+            $this->__buildStaticFiles($files);
+        }
     }
 
     /**
@@ -86,6 +119,7 @@ class DocumentationShell extends AppShell
         chdir($this->__docBuildBasePath);
         mkdir($this->__docBuildFolder);
 
+        //Duplicate the source documentation folder structure and create the html files within them
         foreach($files as $file) {
             chdir($buildPath);
 

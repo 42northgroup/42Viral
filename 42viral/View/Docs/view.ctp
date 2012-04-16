@@ -19,5 +19,7 @@
         <?php echo $this->element('Docs/doc_index'); ?>
     </div>
 
-    <div class="twelve columns omega"></div>
+    <div class="twelve columns omega">
+        <?php echo $doc['Documentation']['body']; ?>
+    </div>
 </div>
