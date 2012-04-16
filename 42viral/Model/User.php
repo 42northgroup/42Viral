@@ -21,7 +21,7 @@ App::uses('Sec', 'Lib');
 /**
  * Manages the person object with user contraints
  * @author Jason D Snider <jason.snider@42viral.org>
- * @author Zubin Khavarian <https://github.com/zubinkhavarian>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  * @package 42viral\Person\User
  */
