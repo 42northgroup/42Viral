@@ -15,6 +15,7 @@
 
 App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
+
 /**
  * Mangages the person object from the POV of a Lead
  * 
@@ -22,86 +23,93 @@ App::uses('Content', 'Model');
  * @subpackage app.core
  * 
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class Documentation extends Content
 {
+
     /**
+     *
      * 
-     * @var string
      * @access public
+     * @var string
      */
     public $name = 'Documentation';
 
     /**
      * Predefined data sets
+     *
+     * @access public
      * @var array
-     * @access public 
      */
     public $dataSet = array(
-        'nothing'=>array(
-            'contain'=>array(),
+        'nothing' => array(
+            'contain' => array(),
             'conditions' => array()
         ),
-        'public'=>array(
-            'contain'=>array(
-                'Tag'=>array()
+        'public' => array(
+            'contain' => array(
+                'Tag' => array()
             )
-        )        
+        )
     );
 
     /**
-     * 
-     * @var array
+     *
      * @access public
+     * @var array
      */
     public $validate = array(
         'title' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' =>"Please enter a title",
+                'message' => "Please enter a title",
                 'last' => true
             ),
         ),
         'slug' => array(
             'isUnique' => array(
                 'rule' => 'isUnique',
-                'message' =>"There is a problem with the slug",
-                'last' => true                
+                'message' => "There is a problem with the slug",
+                'last' => true
             )
         )
     );
-    
+
     /**
      * @access public
      */
-    public function __construct() 
+    public function __construct()
     {
         parent::__construct();
-       
     }
-    
-   /**
-     * @author Jason D Snider <jason.snider@42viral.org>
+
+    /**
+     * 
+     *
      * @access public
+     * @return boolean
      */
     public function beforeSave()
-    {        
+    {
         parent::beforeSave();
-        $this->data['Documentation']['object_type'] = 'Documentation';
+        $this->data['Documentation']['object_type'] = 'documentation';
         return true;
-    }    
-    
+    }
+
     /**
      * Inject all "finds" against the Documentation object with lead filtering criteria
-     * @param array $query
-     * @return type 
+     *
      * @access public
+     * @param array $queryData
+     * @return array
      */
-    public function beforeFind($queryData) {
+    public function beforeFind($queryData)
+    {
         parent::beforeFind($queryData);
-        
-        $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
-        $DocumentationFilter = array('Documentation.object_type' =>'Documentation');
+
+        $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
+        $DocumentationFilter = array('Documentation.object_type' => 'Documentation');
         $queryData['conditions'] = array_merge($queryData['conditions'], $DocumentationFilter);
 
         return $queryData;
@@ -109,36 +117,41 @@ class Documentation extends Content
 
     /**
      * Returns a given Documentation based on a given token and a with(query) array
-     * @param type $token
-     * @param type $with
-     * @param type $status
+     *
+     * @access public
+     * @param string $token
+     * @param string|array $with (default: 'public')
      * @return array 
-     */    
-    public function getDocumentationWith($token, $with = 'public'){
-            
+     */
+    public function getDocumentationWith($token, $with = 'public')
+    {
+
         $theToken = array(
-            'conditions'=>array('or' => array(
-                'Documentation.id' => $token,
-                'Documentation.slug' => $token, 
-                'Documentation.short_cut' => $token
+            'conditions' => array('or' => array(
+                    'Documentation.id' => $token,
+                    'Documentation.slug' => $token,
+                    'Documentation.short_cut' => $token
             ))
-        );      
-            
-        $finder = array_merge($this->dataSet[$with], $theToken);        
+        );
+
+        $finder = array_merge($this->dataSet[$with], $theToken);
         $Documentation = $this->find('first', $finder);
 
         return $Documentation;
-    } 
-    
+    }
+
     /**
      * Returns a given Documentation based predefinded conditions
-     * @param string $token
+     *
+     * @access public
+     * @param string|array $with (default: 'public')
      * @return array 
-     */    
-    public function fetchDocumentationsWith($with = 'public'){
-        $finder = $this->dataSet[$with];        
+     */
+    public function fetchDocumentationsWith($with = 'public')
+    {
+        $finder = $this->dataSet[$with];
 
         $Documentations = $this->find('all', $finder);
         return $Documentations;
-    }     
+    }
 }
