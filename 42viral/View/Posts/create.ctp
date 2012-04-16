@@ -47,10 +47,8 @@
                         . $this->Html->link(__('Create One'), '/blogs/create/'); ?>
                 </h2>
             <?php else: ?>
-        
-                <h2><?php echo __('Choose the blog to which you would like to post.'); ?></h2>
 
-                <h3><?php echo __("Post to a blog you've created"); ?></h3>
+                <h2><?php echo __("Post to a blog you've created"); ?></h>
                 <table>
                     <tbody>
                     <?php foreach($myBlogs as $myBlog):?>
@@ -65,7 +63,7 @@
                     </tbody>
                 </table>
                 
-                <h3><?php echo __("Post to a public blog"); ?></h3>
+                <h2><?php echo __("Post to a public blog"); ?></h2>
                 <table>
                     <tbody>
                     <?php foreach($publicBlogs as $publicBlog):?>
