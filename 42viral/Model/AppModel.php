@@ -11,19 +11,21 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral
  */
 
 App::uses('Model', 'Model');
 /**
- *
+ * The parent calss for all 42Viral model logic
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral
  */
 class AppModel extends Model {
     
     /**
      * Application-wide behaviors
-     * @var array
      * @access public
+     * @var array
      */
     public $actsAs = array(
         'Containable', 
@@ -31,8 +33,8 @@ class AppModel extends Model {
     );
     /**
      * Returns the User array of the current user
-     * @return type 
      * @access public
+     * @return string
      */
     public function currentUser() {
         if(isset($_SESSION['Auth']['User'])) {

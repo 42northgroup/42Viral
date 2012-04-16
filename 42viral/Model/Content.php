@@ -12,25 +12,33 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Content
  */
 
 App::uses('AppModel', 'Model');
 App::uses('Utility', 'Lib');
 /**
  * The parent class for content objects i.e. Page, Blog, Post etc.
- * @package content
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Content
  */
 class Content extends AppModel
 {
     
     /**
-     * 
-     * @var string
+     * The static name of the model
      * @access public
+     * @var string
      */
     public $name = 'Content';
 
+    /**
+     * Specifies the table to be used by the Content model and it children
+     * @access public
+     * @var string
+     */
+    public $useTable = 'contents';
+    
     /**
      * Predefined data sets
      * @var array
@@ -83,16 +91,10 @@ class Content extends AppModel
             )
         )
     );
-
-    /**
-     *
-     * @var string
-     * @access public
-     */
-    public $useTable = 'contents';
     
     /**
-     *
+     * Defines the default set of behaivors for all content.
+     * @access public
      * @var array
      */
     public $actsAs = array(
@@ -120,9 +122,9 @@ class Content extends AppModel
     );
     
     /**
-     * 
-     * @var array
+     * Defines the default has one data associations for all content
      * @access public
+     * @var array
      */
     public $hasOne = array(
         'Sitemap' => array(
@@ -137,8 +139,8 @@ class Content extends AppModel
     
     /**
      * Sets up the searchable behavior
-     * @var array
      * @access public
+     * @var array
      * @see https://github.com/CakeDC/search
      */
     public $filterArgs = array(
@@ -151,7 +153,12 @@ class Content extends AppModel
     );    
     
     /**
+     * The parent constructor method for all content
      * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     * @return void
      */
     public function __construct($id = false, $table = null, $ds = null) 
     { 
@@ -166,9 +173,9 @@ class Content extends AppModel
     
     /**
      * A subquery for finding associated tags
+     * @access public
      * @param array $data
      * @return array
-     * @access public
      * @see https://github.com/CakeDC/search
      */
     public function findByTags($data = array()) {
@@ -184,9 +191,9 @@ class Content extends AppModel
     
     /**
      * A query for or searches
+     * @access public
      * @param array $data
      * @return array
-     * @access public
      * @see https://github.com/CakeDC/search
      */
     public function orConditions($data = array()) {

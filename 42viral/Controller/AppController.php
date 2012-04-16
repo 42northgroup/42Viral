@@ -1,31 +1,34 @@
 <?php
 /**
- * PHP 5.3
+ * 42Viral's parent controller layer
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral
  */
 
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('ContentFilters.Scrubable', 'Lib');
 /**
+ * 42Viral's parent controller layer
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral
  */
 class AppController extends Controller
 {
 
     /**
      * Application wide components
-     * @var type
+     * @var array
      * @access public
      */
     public $components = array('Acl', 'Auth', 'RequestHandler', 'Security', 'Session');
@@ -41,6 +44,14 @@ class AppController extends Controller
     );
 
 
+    /**
+     * The parent constructor for all 42Viral controllers
+     * 
+     * @access public
+     * @param object $request
+     * @param object $response 
+     * @return void
+     */
     public function __construct($request = null, $response = null)
     {
         parent::__construct($request, $response);
@@ -50,6 +61,7 @@ class AppController extends Controller
      * Fires before AppController
      * This is a good place for loading data and running security checks
      * @access public
+     * @return void
      */
     public function beforeFilter()
     {
@@ -92,6 +104,7 @@ class AppController extends Controller
      * Fires after AppController but before the action
      * This is a good place for calling themes
      * @access public
+     * @return void
      */
     public function beforeRender()
     {
@@ -110,9 +123,9 @@ class AppController extends Controller
 
     /**
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
+     * @access public
      * @param array $allow 
      * @return void
-     * @access public
      */
     public function auth($allow = array())
     {
