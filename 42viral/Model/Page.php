@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Manages content data with page specific parameters
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,31 +11,29 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Content\Page
  */
 
 App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
 /**
- * Mangages the person object from the POV of a Lead
- * 
- * @package app
- * @subpackage app.core
- * 
+ * Manages content data with page specific parameters
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Content\Page
  */
 class Page extends Content
 {
     /**
-     * 
-     * @var string
+     * The static name of the class
      * @access public
+     * @var string
      */
     public $name = 'Page';
 
     /**
      * Predefined data sets
-     * @var array
-     * @access public 
+     * @access public
+     * @var array 
      */
     public $dataSet = array(
 
@@ -59,9 +57,9 @@ class Page extends Content
     );
 
     /**
-     * 
-     * @var array
+     * Defines a page's model validation
      * @access public
+     * @var array
      */
     public $validate = array(
         'title' => array(
@@ -79,20 +77,12 @@ class Page extends Content
             )
         )
     );
-    
-    /**
-     * @access public
-     */
-    public function __construct() 
-    {
-        parent::__construct();
-       
-    }
-    
+
    /**
-     * @author Jason D Snider <jason.snider@42viral.org>
-     * @access public
-     */
+    * Applies the proper object_type to the page data set prior to a save
+    * @access public
+    * @return boolean
+    */
     public function beforeSave()
     {        
         parent::beforeSave();
@@ -102,9 +92,9 @@ class Page extends Content
     
     /**
      * Inject all "finds" against the Page object with lead filtering criteria
-     * @param array $query
-     * @return type 
      * @access public
+     * @param array $queryData
+     * @return array
      */
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);
@@ -118,9 +108,9 @@ class Page extends Content
 
     /**
      * Returns a given page based on a given token and a with(query) array
-     * @param type $token
-     * @param type $with
-     * @param type $status
+     * @access public
+     * @param string $token
+     * @param string $with
      * @return array 
      */    
     public function getPageWith($token, $with = 'public'){
@@ -141,7 +131,8 @@ class Page extends Content
     
     /**
      * Returns a given page based predefinded conditions
-     * @param string $token
+     * @access public
+     * @param string $with
      * @return array 
      */    
     public function fetchPagesWith($with = 'public'){

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Mangages user settings
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,17 +11,14 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person\User
  */
 
 App::uses('AppModel', 'Model');
 /**
  * Mangages user settings
- *
- * @package app
- * @subpackage app.core
- *
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
- *
+ * @package 42Viral\Person\User
  */
 class UserSetting extends AppModel
 {

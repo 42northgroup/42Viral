@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * The parent model for all person related data
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,16 +11,14 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person
  */
 
 App::uses('AppModel', 'Model');
 /**
- * Mangages the person object
- * 
- * @package app
- * @subpackage app.core
- * 
+ * The parent model for all person related data
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Person
  */
 class Person extends AppModel
 {
@@ -174,7 +172,12 @@ class Person extends AppModel
     );
 
     /**
+     * Initialisation for the new pperson object
      * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     * @return void
      */
     public function __construct($id = false, $table = null, $ds = null)
     {

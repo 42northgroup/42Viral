@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Manages the person object with user contraints
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person\User
  */
 
 App::uses('AppModel', 'Model');
@@ -18,28 +19,25 @@ App::uses('Person', 'Model');
 App::uses('Security', 'Utility');
 App::uses('Sec', 'Lib');
 /**
- * Mangages the person object from the POV of a contact
- * 
- * @package app
- * @subpackage app.core
- * 
+ * Manages the person object with user contraints
  * @author Jason D Snider <jason.snider@42viral.org>
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @author Zubin Khavarian <https://github.com/zubinkhavarian>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @package 42viral\Person\User
  */
 class User extends Person
 {
     /**
-     *
-     * @var string
+     * The static name of the user model
      * @access public
+     * @var string
      */
     public $name = 'User';
 
     /**
      * Predefined data sets
-     * @var array
      * @access public 
+     * @var array
      */
     public $dataSet = array(
         
@@ -74,9 +72,9 @@ class User extends Person
     ); 
 
     /**
-     *
-     * @var array
+     * Defines has one relationships for users
      * @access public
+     * @var array
      */
     public $hasOne = array(
         'Profile' => array(
@@ -92,11 +90,9 @@ class User extends Person
     );
     
     /**
-     *
-     * @var array
+     * Defines a users model validation
      * @access public
-     * @todo Write custom validation rules for determinging if the hased password is the hash of an empty string.
-     * This must consider the use of system salt
+     * @var array
      */
     public $validate = array(
         'username' => array(
@@ -192,9 +188,9 @@ class User extends Person
     );
     
     /**
-     * pre validation callback
-     * @return boolean
+     * Applies PCI DSS settings to incomming user data prior to validation
      * @access public
+     * @return boolean
      */
     public function beforeValidate()
     {                                
@@ -227,9 +223,10 @@ class User extends Person
     }
 
     /**
-     * To be a user, you must have an email and username
-     * @return array
+     * Applies user specific conditions to all finds
+     * @param array $queryData the data that builds the final CakePHP query.
      * @access public
+     * @return array
      */
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);
@@ -248,9 +245,8 @@ class User extends Person
 
     /**
      * Returns true if the user has submitted the same password twice.
-     * @return boolean
-     * @author Jason D Snider <jsnider@microtain.net>
      * @access public
+     * @return boolean
      */
     public function verifyPassword()
     {
@@ -263,9 +259,8 @@ class User extends Person
     
     /**
      * Returns true if the user has has entered both numeric and alphabetical characters.
-     * @return boolean
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      * @access public
+     * @return boolean
      */
     public function forceAlphaNumeric()
     {   
@@ -281,7 +276,6 @@ class User extends Person
     /**
      * Returns true if the user has has entered special characters.
      * @return boolean
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      * @access public
      */
     public function forceSpecialChars()
@@ -296,9 +290,8 @@ class User extends Person
     
     /**
      * Check if passwords is at least 7 characters long
-     * @return boolean
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      * @access public
+     * @return boolean
      */
     public function minimalLength()
     {        
@@ -312,9 +305,8 @@ class User extends Person
     
     /**
      * Check if the password is different than the previous passwords
-     * @return boolean
-     * @author Lyubomir R Dimov <lrdimov@yahoo.com>
      * @access public
+     * @return boolean
      */
     public function checkPreviousPasswords()
     {
@@ -344,7 +336,6 @@ class User extends Person
 
     /**
      * Validation function for checking if the entered password is empty or not
-     *
      * @access public
      * @param array $check
      * @return boolean
@@ -362,10 +353,10 @@ class User extends Person
     }
 
     /**
-     *
+     * A genrealized method for creating a system user
+     * @access public
      * @param data array - A 1 deminisonal array focused in the user data
      * @return boolean
-     * @access public
      */
     public function createUser($data)
     {
@@ -403,10 +394,10 @@ class User extends Person
     }
     
     /**
-     *
+     * A generalized method for performing a password change
+     * @access public
      * @param data array - A 1 deminisonal array focused in the user data
      * @return array
-     * @access public
      */
     public function changePassword($data)
     {
@@ -445,9 +436,10 @@ class User extends Person
     
     /**
      * Finds a user by id, username or email and returns the requsted data set
-     * @param string $token
-     * @return array
      * @access public
+     * @param string $token
+     * @param string $with
+     * @return array
      */
     public function getUserWith($token, $with)
     {
@@ -469,10 +461,9 @@ class User extends Person
     
     /**
      * An alias for getUserWith
-     *
-     * @param string $userId
-     * @return array
      * @access public
+     * @param string $with
+     * @return array
      */
     public function fetchUsersWith($with)
     {
@@ -485,7 +476,6 @@ class User extends Person
 
     /**
      * Given a password reset request token find the user record
-     *
      * @access public
      * @param string $requestToken
      * @return array
@@ -504,11 +494,10 @@ class User extends Person
     }
 
     /**
-     * 
-     *
+     * Returns true if a given token exsits in a user record
      * @access public
-     * @param type $requestToken
-     * @return type
+     * @param string $requestToken
+     * @return boolean
      */
     public function checkPasswordResetTokenIsValid($requestToken)
     {
