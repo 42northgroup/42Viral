@@ -18,29 +18,113 @@ App::uses('Utility', 'Lib');
 /**
  *
  *
- * 
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
 class DocumentationShell extends AppShell
 {
-    private $__documentationPath = null;
+    private $__docPath = null;
+    private $__docBuildPath = null;
+    private $__docBuildBasePath = null;
+    private $__docBuildFolder = '_build';
 
- 
     /**
-     * 
+     * Main shell entry point
      * 
      * @access public
      * @return void
      */
     public function main()
     {
-        $this->__documentationPath = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Documentation/';
+        $this->__docPath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
+        $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
+        $this->__docBuildPath = $this->__docBuildBasePath . $this->__docBuildFolder .DS;
+        
         $files = $this->__traverseFilterDocDir();
 
-        foreach($files as $file) {
+        foreach($files as &$file) {
             $html = $this->__convertMarkdownToHtml($file['full']);
+            $file['html'] = $html;
 
-            //[TODO] Save html to _build folder, mirroring the folder hierarchy of the markdown version
+            $tempRelPath = $file['full'];
+            $tempRelPath = str_replace($this->__docPath, '', $tempRelPath);
+            $tempRelPath = str_replace($file['file'], '', $tempRelPath);
+
+            $file['relative_path_structure'] = preg_split('~' .DS. '~', $tempRelPath, -1, PREG_SPLIT_NO_EMPTY);
         }
+
+        $this->__buildStaticFiles($files);
+    }
+
+    /**
+     * Given the parsed markdown file structure, build an HTML navigation to access the generated static HTML
+     * documentation files
+     *
+     * @access private
+     * @param array $files
+     * @return string
+     */
+    private function __buildNavHtml($files)
+    {
+
+    }
+
+    /**
+     * Generate static HTML documentation files from provided markdown and file/folder structure
+     *
+     * @access private
+     * @param array $files
+     * @return void
+     */
+    private function __buildStaticFiles($files)
+    {
+        $buildPath = $this->__docBuildPath;
+
+        if(file_exists($buildPath)) {
+            $this->__clearBuildFolder($buildPath);
+        }
+
+        chdir($this->__docBuildBasePath);
+        mkdir($this->__docBuildFolder);
+
+        foreach($files as $file) {
+            chdir($buildPath);
+
+            foreach($file['relative_path_structure'] as $tempDir) {
+                if(!file_exists($tempDir)) {
+                    mkdir($tempDir);
+                }
+                
+                chdir(getcwd() .DS. $tempDir);
+            }
+
+            $fileToWrite = str_replace('.md', '.html', $file['file']);
+            $fileHandle = fopen($fileToWrite, 'w+');
+            fwrite($fileHandle, $file['html']);
+            fclose($fileHandle);
+        }
+    }
+
+    /**
+     * Clear all files/folder inside a given directory. This is used when re-generating documentation.
+     *
+     * @access private
+     * @param string $dir
+     * @return void
+     */
+    private function __clearBuildFolder($dir)
+    {
+        //Ensure $dir ends with a slash
+        $files = glob($dir . '*', GLOB_MARK);
+
+        foreach($files as $file) {
+            if(is_dir($file)) {
+                $this->__clearBuildFolder($file);
+            } else {
+                unlink($file);
+            }
+        }
+        
+        rmdir($dir);
     }
 
     /**
@@ -69,7 +153,7 @@ class DocumentationShell extends AppShell
      */
     private function __traverseFilterDocDir()
     {
-        $path = $this->__documentationPath;
+        $path = $this->__docPath;
         $files = array();
         $allowedExtension = array('md');
         
@@ -103,8 +187,7 @@ class DocumentationShell extends AppShell
                     );
                 }
             }
-        }
-        catch (UnexpectedValueException $e) {
+        } catch (UnexpectedValueException $e) {
             printf("Directory [%s] contained a directory we can not recurse into", $path);
         }
         
