@@ -137,7 +137,8 @@ class AppController extends Controller
                 if ($this->Session->check('Auth.User.id')) {
                     //Yes, the user is logged in.
                     //Does the user have access to this Controller-action?
-                    if (!$this->Acl->check($this->Session->read('Auth.User.username'), Inflector::camelize($this->request->params['controller'])
+                    if (!$this->Acl->check($this->Session->read('Auth.User.username'), 
+                                    Inflector::camelize($this->request->params['controller'])
                                     . '-'
                                     . $this->request->params['action'], '*'
                     )) {
