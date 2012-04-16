@@ -46,8 +46,8 @@ class UserSetting extends AppModel
      * @access public 
      */
     public $actsAs = array(
-        'Log',
-        'AuditLog.Auditable'
+        'AuditLog.Auditable',
+        'Log'
     );
     
     /**
