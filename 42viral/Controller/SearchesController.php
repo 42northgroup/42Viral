@@ -90,7 +90,7 @@ App::uses('AppController', 'Controller');
             );           
             
             //Predefined object types and statuses
-            $this->request->params['named']['status'] = 'published archieved';
+            $this->request->params['named']['status'] = 'published archived';
             $this->request->params['named']['object_type'] = 'blog page post'; 
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
@@ -185,7 +185,7 @@ App::uses('AppController', 'Controller');
             $this->request->data['Content'] = 
                 array('status' => array
                 (
-                    0 => 'archieved',
+                    0 => 'archived',
                     1 => 'published'
                 ),
                 'object_type' => array

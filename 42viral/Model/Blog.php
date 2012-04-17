@@ -44,23 +44,23 @@ class Blog extends Content
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+            'conditions' => array('Blog.status'=>array('archived', 'published'))
         ),
         'admin_nothing'=>array('contain'=>array()),        
         'nothing'=>array(
             'contain'=>array(),
-            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+            'conditions' => array('Blog.status'=>array('archived', 'published'))
         ),
         'public'=>array(
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Blog.status'=>array('archieved', 'published'))
+            'conditions' => array('Blog.status'=>array('archived', 'published'))
         ),
         'sitemap'=>array(
             'conditions' => array(
                 'Blog.status'=>array(
-                    'archieved', 
+                    'archived', 
                     'published'
                 )
             ),

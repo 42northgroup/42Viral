@@ -62,7 +62,7 @@ class Content extends AppModel
         
         'nothing'=>array(
             'contain'=>array(),
-            'conditions' => array('Content.status'=>array('archieved', 'published'))
+            'conditions' => array('Content.status'=>array('archived', 'published'))
 
         ),
         
@@ -70,13 +70,13 @@ class Content extends AppModel
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Content.status'=>array('archieved', 'published'))
+            'conditions' => array('Content.status'=>array('archived', 'published'))
         ),
         
         'sitemap'=>array(
             'conditions' => array(
                 'Content.status'=>array(
-                    'archieved', 
+                    'archived', 
                     'published'
                 )
             ),

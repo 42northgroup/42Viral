@@ -156,8 +156,8 @@
             <column name="pl_key">draft</column>
             <column name="pl_value">Draft</column>
             <column name="picklist_id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
-            <column name="category">NULL</column>
-            <column name="group">NULL</column>
+            <column name="category"></column>
+            <column name="group"></column>
             <column name="active">1</column>
             <column name="created">2011-10-03 14:29:29</column>
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
@@ -243,8 +243,8 @@
         </table>
         <table name="picklist_options">
             <column name="id">4f88a9f0-b114-4038-8e3e-04177f000102</column>
-            <column name="pl_key">archieved</column>
-            <column name="pl_value">Archieved</column>
+            <column name="pl_key">archived</column>
+            <column name="pl_value">Archived</column>
             <column name="picklist_id">4e8a0d0b-6950-4676-bcad-0ddd4bb83359</column>
             <column name="category">public</column>
             <column name="group"></column>

@@ -95,6 +95,7 @@ class Doc extends Content
     {
         parent::beforeSave();
         $this->data['Doc']['object_type'] = 'doc';
+        $this->data['Doc']['status'] = 'published';
         return true;
     }
 

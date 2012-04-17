@@ -52,7 +52,7 @@ class Page extends Content
             'contain'=>array(
                 'Tag'=>array()
             ),
-            'conditions' => array('Page.status'=>array('archieved', 'published'))
+            'conditions' => array('Page.status'=>array('archived', 'published'))
         )        
     );
 
