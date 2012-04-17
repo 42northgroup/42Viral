@@ -43,7 +43,7 @@
                 <div id="Navigation">
                     <div class="navigation"><a href="/searches/">Search</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
-                    <div class="navigation"><a href="/members/">Members</a></div>
+                    <div class="navigation"><a href="/profiles/">Profiles</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>
                     <div class="navigation">
                         <?php 
@@ -71,7 +71,7 @@
                             <div>
                                 <div>
                                 <?php echo $this->Html->link('My Profile', 
-                                    '/members/view/' . $this->Session->read('Auth.User.username')); ?>
+                                    '/profiles/view/' . $this->Session->read('Auth.User.username')); ?>
                                 </div>
                                 
                                 <?php echo $this->Html->link('Edit', 
@@ -156,7 +156,7 @@
             <?php else: ?>
                 <div id="Navigation">
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
-                    <div class="navigation"><a href="/members/">Members</a></div>
+                    <div class="navigation"><a href="/profiles">Profiles</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>
                     <div class="navigation"><?php echo $this->Html->link('New Account', '/users/create'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link('Login', '/users/login'); ?></div>
