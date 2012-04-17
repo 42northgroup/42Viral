@@ -20,9 +20,6 @@ App::uses('Content', 'Model');
 /**
  * Model class representing the doc (documentation) model
  * 
- * @package app
- * @subpackage app.model
- * 
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @package 42viral\Content\Documentation

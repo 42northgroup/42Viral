@@ -85,7 +85,9 @@ class SetupShell extends AppShell
         'run_schema_shell' => 3,
         'import_core_data' => 4,
         'run_configuration_shell' => 5,
-        'create_root_user' => 6
+        'create_root_user' => 6,
+        'setup_permissions' => 7,
+        'clear_cache' => 8
     );
 
     /**
@@ -98,10 +100,20 @@ class SetupShell extends AppShell
     {
         if(isset($this->args[0])) {
             $this->__pid = $this->args[0];
+        } else {
+            $this->out('Usage: $0 {APACHE_PROCESS} {USER_GROUP}');
+            $this->nl();
+            $this->out('Enter the name your web server runs under - probably www-data');
+            return;
         }
 
         if(isset($this->args[1])) {
             $this->__group = $this->args[1];
+        } else {
+            $this->out('Usage: $0 {APACHE_PROCESS} {USER_GROUP}');
+            $this->nl();
+            $this->out('"Enter the group that will have write acces to the server - probably your user name"');
+            return;
         }
 
         $this->__setupState = $this->__parseSetupLog();
@@ -139,11 +151,13 @@ class SetupShell extends AppShell
         $this->out('4. '. (($this->__getStepCompleteByIndex(4))? '[x]': '[ ]'). ' Import core system data');
         $this->out('5. '. (($this->__getStepCompleteByIndex(5))? '[x]': '[ ]'). ' Run configuration shell');
         $this->out('6. '. (($this->__getStepCompleteByIndex(6))? '[x]': '[ ]'). ' Create root user');
+        $this->out('7. Setup file/folder permissions');
+        $this->out('8. Clear CakePHP cache folders');
         $this->out('x. Exit setup');
 
         $userSelection = $this->in(
             'Select: ',
-            array('0', '1', '2', '3', '4', '5', '6', 'x'),
+            array('0', '1', '2', '3', '4', '5', '6', '7', '8', 'x'),
             '0'
         );
 
@@ -188,9 +202,19 @@ class SetupShell extends AppShell
                 $this->__interactiveSetup();
                 break;
 
+            case '7': // Setup file/folder permissions
+                $this->__writePermissions();
+                $this->__interactiveSetup();
+                break;
+
+            case '8': // Clear CakePHP cache folders
+                $this->__clearCache();
+                $this->__writePermissions();
+                $this->__interactiveSetup();
+                break;
+
             default: // Exit
             case 'x':
-                $this->__writePermissions();
                 break;
         }
     }
@@ -391,6 +415,16 @@ class SetupShell extends AppShell
                 "Plugin/ContentFilters/Vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer"
         );
 
+        $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
+        $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
+        foreach ($paths as $path) {
+            if(stripos($path, 'cake')) {
+                if (file_exists($path . DS . $dispatcher)) {
+                    array_push($paths777, $path);
+                }
+            }
+        }
+
         //Make all of the 777 directories and files writable
         foreach ($paths777 as $path) {
 
@@ -424,16 +458,6 @@ class SetupShell extends AppShell
             $fixedAppPath .'Config/application.default.php'
         );
 
-        $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
-        $dispatcher = 'Cake' . DS . 'Console' . DS . 'ShellDispatcher.php';
-        foreach ($paths as $path) {
-            if(stripos($path, 'cake')) {
-                if (file_exists($path . DS . $dispatcher)) {
-                    array_push($paths775, $path);
-                }
-            }
-        }
-
         //Make all of the 775 directories and files writable
         foreach ($paths775 as $path) {
             //Test for dir, file or doesn't exist. Process the permissions accordingly
@@ -448,6 +472,35 @@ class SetupShell extends AppShell
         }
 
         $this->__updateSetupState('permissions');
+    }
+
+    /**
+     * Clear the cache folders
+     *
+     * @access private
+     * @return void
+     */
+    private function __clearCache()
+    {
+        $fixedAppPath = ROOT . DS . APP_DIR . DS;
+        
+        $cacheFolders = array(
+            $fixedAppPath .'tmp/cache/persistent/',
+            $fixedAppPath .'tmp/cache/models/',
+            $fixedAppPath .'tmp/cache/views/',
+        );
+
+        foreach ($cacheFolders as $tempFolder) {
+            if(is_dir($tempFolder)) {
+                $files = glob($tempFolder . 'myapp_cake*', GLOB_MARK);
+
+                foreach($files as $tempFile) {
+                    if(is_file($tempFile)) {
+                        unlink($tempFile);
+                    }
+                }
+            }
+        }
     }
 
     /**
