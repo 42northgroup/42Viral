@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Manages ACL groups
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,40 +11,36 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person\User\Group
  */
 
 App::uses('Group', 'Model');
 /**
- * ACL Groups
- *
- * ACL Groups are used as a template for permission inheiretance
- * 
- * @package app
- * @subpackage app.core
- * 
+ * Manages ACL groups
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @package 42viral\Person\User\Group
  */
 class AclGroup extends Group
 {
     /**
-     * 
-     * @var string
+     * The static name of the acl group class
      * @access public
+     * @var string
      */
     public $name = 'AclGroup';
     
     /**
-     * 
-     * @var string
+     * Specifies the table the be used by the acl group model
      * @access public
+     * @var string
      */
     public $useTable = 'groups';
     
     /**
-     * 
-     * @var array
+     * Specifies validation rules fro the acl group standard
      * @access public
+     * @var array
      */
     public $validate = array(
         
@@ -78,9 +74,9 @@ class AclGroup extends Group
     
     /**
      * Inject all "finds" against the Contact object with acl group filtering criteria
-     * @param array $query
-     * @return type 
      * @access public
+     * @param array $queryData
+     * @return array 
      */
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Manages ACL groups
+ * Provides a generalized concpet for creating and managing 
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,14 +11,14 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package 42viral\Person\User\Permissions
+ * @package 42viral\Person\User\Group
  */
 
 App::uses('AppModel', 'Model');
 /**
- * Manages ACL groups
+ * Provides a generalized concpet for creating and managing 
  * @author Jason D Snider <jason.snider@42viral.org>
- * @package 42viral\Person\User\Permissions
+ * @package 42viral\Person\User\Group
  */
 class Group extends AppModel
 {
