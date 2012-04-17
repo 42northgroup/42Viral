@@ -11,12 +11,14 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
 App::uses('Member', 'Lib');
 /**
+ * Manages user content in the system
  * @author Jason D Snider <jason.snider@42viral.org>
  */
  class ContentsController extends AppController {
@@ -29,7 +31,7 @@ App::uses('Member', 'Lib');
     public $name = 'Contents';
     
     /**
-     * This controller does not use a model
+     * Models this controller uses
      * @var array
      * @access public
      */
@@ -45,18 +47,21 @@ App::uses('Member', 'Lib');
     );
     
     /**
+     * Components
      * @var array
      * @access public
      */
     public $components = array('File', 'Oauths');  
     
     /**
+     * Helpers
      * @var array
      * @access public
      */
     public $helpers = array('Member', 'Paginator');
     
     /**
+     * beforeFilter
      * @return void
      * @access public
      */
@@ -69,7 +74,8 @@ App::uses('Member', 'Lib');
     /**
      * Displays a list of pages
      *
-     * @param array
+     * @access public
+     * @return void
      */
     public function mine() {
         $contents = $this->Content->fetchContentsWith('mine', $this->Session->read('Auth.User.id'));
@@ -80,8 +86,10 @@ App::uses('Member', 'Lib');
     /**
      * An action for promoting new content
      *
-     * @return void
      * @access public
+     * @param string $id
+     * @param string $redirect_url 
+     * @return void
      */
     public function promote($id, $redirect_url='users/social_media')
     {

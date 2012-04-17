@@ -21,15 +21,28 @@ App::uses('AppController', 'Controller');
  class NotificationController extends AppController
 {
 
+     /**
+     * Models this controller uses
+     * @var array
+     * @access public
+     */
     public $uses = array('Person', 'Notification');
+    
+    /**
+     * Components 
+     *
+     * @access public
+     * @var array
+     */
     public $components = array('NotificationCmp');
 
 
-/**
- * Default action for the notification controller
- *
- * @access public
- */
+    /**
+     * Default action for the notification controller
+     *
+     * @access public
+     * @return void
+     */
     public function index()
     {
         $notifications = $this->Notification->fetchAllNotifications();
@@ -39,12 +52,13 @@ App::uses('AppController', 'Controller');
     }
 
 
-/**
- * 
- *
- * @access public
- * @param string $notificationId
- */
+    /**
+     * Retrieves a notification
+     *
+     * @access public
+     * @param string $notificationId
+     * @return void
+     */
     public function view($notificationId)
     {
         $notification = $this->Notification->fetchNotification($notificationId);
@@ -53,11 +67,12 @@ App::uses('AppController', 'Controller');
     }
 
 
-/**
- *
- *
- * @access public
- */
+    /**
+     * Creates a new notification
+     *
+     * @access public
+     * @return void
+     */
     public function create()
     {
         if(!empty($this->data)) {
@@ -76,11 +91,13 @@ App::uses('AppController', 'Controller');
     }
 
 
-/**
- *
- *
- * @access public
- */
+    /**
+     * Retrieves a notification to edit of save changes to a notification
+     *
+     * @access public
+     * @param $notificationId
+     * @return void
+     */
     public function edit($notificationId)
     {
         if(!empty($this->data)) {
@@ -102,12 +119,13 @@ App::uses('AppController', 'Controller');
     }
 
 
-/**
- * 
- *
- * @access public
- * @param type $notificationId
- */
+    /**
+     * Deletes a notification
+     *
+     * @access public
+     * @param string $notificationId
+     * @return void
+     */
     public function delete($notificationId)
     {
         $opStatus = $this->Notification->deleteNotification($notificationId);
@@ -122,12 +140,13 @@ App::uses('AppController', 'Controller');
     }
 
 
-/**
- * Action to test working of the notification component
- *
- * @return void
- * @access public
- */
+    /**
+     * Action to test working of the notification component
+     *
+     * @access public
+     * @param  $notificationHandle unique identifier
+     * @return void
+     */
     public function test($notificationHandle='')
     {
         $userId = $this->Session->read('Auth.User.id');

@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
@@ -27,30 +28,35 @@ class SetupController extends AppController
 {
 
     /**
+     * Controller name
      * @access public
      * @var string
      */
     public $name = 'Setup';
 
     /**
+     * Components
      * @access public
      * @var string
      */
     public $components = array('ControllerList');
 
     /**
+     * Models this controller uses
      * @access public
      * @var string
      */
     public $uses = array('Aco', 'AclGroup', 'Aro', 'Content', 'Group', 'Person', 'User', 'ArosAco');
 
     /**
+     * Helpers
      * @access public
      * @var type
      */
     public $helpers = array('InstallerStep');
 
     /**
+     * beforeFilter
      * @access public
      * @var string
      */
