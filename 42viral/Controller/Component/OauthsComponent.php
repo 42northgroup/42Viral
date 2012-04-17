@@ -32,22 +32,6 @@ class OauthsComponent  extends Component
      */
     var $components = array('Session'); 
 
-    /**
-     * Instanciates classes neccessary for the component to work
-     *
-     * @param array $collection
-     * @param array $settings 
-     */
-    public function __construct(ComponentCollection $collection, $settings = array())
-    {
-        parent::__construct($collection, $settings);
-
-        $this->Tweet = new Tweet();
-        $this->Linkedin = new Linkedin();
-        $this->Facebook = new Facebook();
-        //$this->GooglePlus = new GooglePlus();
-        $this->Controller = new Controller();
-    }
     
     /**
      * Checks if there is a token stored in the Session and calls the 
