@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral/Plugin.PluginConfiguration
  */
 
 App::uses('AppController', 'Controller');
@@ -29,13 +30,14 @@ App::uses('ConfigurationShell', 'Console/Command');
 class ConfigurationsController extends AppController{
     
     /**
-     *
+     * Models we are using in this controller
      * @var array
      * @access public
      */
     public $uses = array('Configuration');
     
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){

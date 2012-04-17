@@ -22,6 +22,7 @@ App::uses('AppController', 'Controller');
 {
 
     /**
+     * Models this controller uses
      * @var array
      * @access public
      */
@@ -40,6 +41,7 @@ App::uses('AppController', 'Controller');
     );
 
     /**
+     * Components
      * @var array
      * @access public
      */
@@ -49,12 +51,18 @@ App::uses('AppController', 'Controller');
         'Oauths', 
         'NotificationCmp'
     );
-
+    
+    /**
+     * Helpers
+     * @var array
+     * @access public
+     */
     public $helpers = array(
         
     );
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
@@ -115,9 +123,10 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     *
+     * Creates a password reset token and sends the user an email with password reset information
      *
      * @access public
+     * @return void
      */
     public function pass_reset_req()
     {
@@ -459,7 +468,12 @@ App::uses('AppController', 'Controller');
         
     }
     
-    //Connects to Twittet/Facebook/LinkedIn and posts the user's status     
+    /**
+     * Allows for a user to post to Facebook, Linkedin and Twitter from 42viral
+     * 
+     * @access public
+     * @return void
+     */
     public function socialize(){
         if(!empty ($this->data)){
             
@@ -496,7 +510,12 @@ App::uses('AppController', 'Controller');
         }
     }
     
-    //Takes the user to their account settings
+    /**
+     * Takes the user to their account settings
+     * 
+     * @param string $token unique identifier
+     * @return void
+     */    
     public function settings($token=null)
     {   
         
@@ -528,7 +547,11 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Your Account Settings');
     }
     
-    //Saves the user's new password
+    /**
+     * Functionality for changing a user's password
+     * @access public
+     * @return void
+     */
     public function change_password()
     {   
         if(!empty ($this->data)){
@@ -567,6 +590,12 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', __('Change Your Password'));
     }
     
+    /**
+     * Makes available a number of inivtes(decided by the admin) for each user in the system
+     * 
+     * @access public
+     * @return void
+     */
     public function admin_allot_invites()
     {
         if(!empty ($this->data)){

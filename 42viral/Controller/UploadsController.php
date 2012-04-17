@@ -105,7 +105,6 @@ App::uses('Member', 'Lib');
 
         $this->set('path', $path);
 
-        // Mine
         if ($this->Session->read('Auth.User.id') == $image['Image']['created_person_id']) {
             $this->set('mine', true);
         } else {
@@ -121,6 +120,12 @@ App::uses('Member', 'Lib');
         $this->set('title_for_layout', sprintf(__('Image Manager (%s)'), $imageName));
     }
 
+    /**
+     * Crops an image
+     * 
+     * @access public
+     * @return void
+     */
     public function crop_image()
     {
 
@@ -143,11 +148,11 @@ App::uses('Member', 'Lib');
         $this->redirect('/uploads/image/' . $imageId);
     }
 
-/**
- * Uploads an image to a users profile
- * @return void
- * @access public
- */
+    /**
+     * Uploads an image to a users profile
+     * @return void
+     * @access public
+     */
     public function image_upload()
     {
 
@@ -165,11 +170,14 @@ App::uses('Member', 'Lib');
         $this->set('title_for_layout', __('Upload an Image'));
     }
 
-/**
- * Sets a user's profile image
- * @return void
- * @access public
- */
+    /**
+     * Sets a user's profile image
+     * 
+     * @access public
+     * @param $personId the ID of the person whose avatar we are setting
+     * @param $imageId the ID of the image which we are using for the person's avatar
+     * @return void
+     */
     public function set_avatar($personId, $imageId)
     {
 
@@ -183,13 +191,13 @@ App::uses('Member', 'Lib');
     }
 
 
-/**
- * Switch to using Gravatar as the source for users avatar
- * 
- * @access public
- * @param string $personId
- * @return void
- */
+    /**
+     * Switch to using Gravatar as the source for users avatar
+     * 
+     * @access public
+     * @param string $personId
+     * @return void
+     */
     public function use_gravatar($personId)
     {
         $this->Image->clearPersonAvatar($personId);

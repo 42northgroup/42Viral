@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral/Console
  */
 
 App::uses('Folder', 'Utility');
@@ -794,6 +795,7 @@ class SetupShell extends AppShell
      *
      * @access private
      * @param array $dbConfig
+     * @param array $connectionName name of the database we are trying to connect to
      * @return array
      */
     private function __testDbConnection($dbConfig, $connectionName)
@@ -940,6 +942,7 @@ class SetupShell extends AppShell
      * Given a setup step index, determine whether the step has been completed or not
      *
      * @access private
+     * @param string $uiIndex the setup step index whose status we are checking
      * @return boolean
      */
     private function __getStepCompleteByIndex($uiIndex) {
@@ -956,6 +959,7 @@ class SetupShell extends AppShell
      * Given a setup step alias, determine whether the step has been completed or not
      *
      * @access private
+     * @param $stepAlias alias of the step which we are checking the status for
      * @return boolean
      */
     private function __getSetupStateStepCompleteByStepAlias($stepAlias) {
@@ -970,6 +974,7 @@ class SetupShell extends AppShell
      * Update a particular setup step's status and write to setup log file
      *
      * @access private
+     * @param $stepAlias alias of the step which we are updating
      * @return void
      */
     private function __updateSetupState($stepAlias)

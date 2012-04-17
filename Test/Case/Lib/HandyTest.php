@@ -15,6 +15,8 @@
 
 App::uses('Handy', 'Lib');
 /**
+ * Tests the functions inside of the Handy library
+ * 
  * @author Jason D Snider <root@jasonsnider.com>
  */
 class HandyTest extends CakeTestCase {

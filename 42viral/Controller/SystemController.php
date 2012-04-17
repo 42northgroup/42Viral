@@ -21,6 +21,7 @@ App::uses('AppController', 'Controller');
  class SystemController extends AppController {
 
    /**
+    * Name
     * @var string
     * @access public
     */

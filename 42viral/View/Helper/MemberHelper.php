@@ -31,7 +31,7 @@ class MemberHelper extends AppHelper
 {
 
     /**
-     *
+     * Helpers
      * @var array
      * @access public 
      */
@@ -41,6 +41,7 @@ class MemberHelper extends AppHelper
      * Determines the best avatar to use for a target user
      * If the user hasn't uploaded a profile this will fall back to gravatar
      * @param array $data
+     * @param $size size of the image we are using for avatar
      * @return string
      * @access public
      */

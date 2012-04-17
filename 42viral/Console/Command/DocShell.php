@@ -200,7 +200,6 @@ class DocShell extends AppShell
      * Takes the documentation path and traverses through the folder looking for markdown files and hierarchy
      *
      * @access private
-     * @param string $path
      * @return array
      */
     private function __traverseFilterDocDir()

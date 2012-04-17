@@ -24,17 +24,19 @@ App::uses('AppHelper', 'View/Helper');
 class UploadHelper extends AppHelper
 {
 
+    /**
+     * Helpers
+     * @var array
+     * @access public
+     */
     public $helpers = array('Html');
         
     /**
      * Uses ACLs and sessions to determine if we should show a link
-     * @param string $check
-     * @param string $title
-     * @param mixed $url
-     * @param array $options
-     * @param type $confirmMessage
-     * @return string
      * @access public
+     * @param $upload uploaded image array
+     * @param $size size of the uploaded image
+     * @return string
      */
     public function img($upload, $size='128px') {
         

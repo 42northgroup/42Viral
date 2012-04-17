@@ -53,7 +53,7 @@ Router::connect('/post/short_cut/:short_cut',
 
 //a convenience route for accesing a profile
 Router::connect('/p/:username',
-        array('controller' => 'members', 'action' => 'view'), array('pass' => array('username')));
+        array('controller' => 'profiles', 'action' => 'view'), array('pass' => array('username')));
 
 Router::parseExtensions(); 
 

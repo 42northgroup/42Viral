@@ -21,8 +21,22 @@ App::uses('AppHelper', 'View/Helper');
  */
 class InstallerStepHelper extends AppHelper
 {
+    /**
+     * @var array
+     * @access private
+     */
     private $__dependencyList = array();
+    
+    /**
+     * @var array
+     * @access private
+     */
     private $__installerStep = array();
+    
+    /**
+     * @var string
+     * @access private
+     */
     private $__logDirectory = '';
 
 
