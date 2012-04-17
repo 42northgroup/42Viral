@@ -23,23 +23,23 @@ App::uses('AppModel', 'Model');
 class Person extends AppModel
 {
     /**
-     *
-     * @var string
+     * The static name of the person model
      * @access public
+     * @var string
      */
     public $name = 'Person';
 
     /**
-     *
-     * @var string
+     * Specifies the table used by the person object
      * @access public
+     * @var string
      */
     public $useTable = 'people';
         
     /**
      * Predefined data sets
+     * @access public
      * @var array
-     * @access public 
      */
     public $dataSet = array(
         'blog'=>array(
@@ -71,9 +71,9 @@ class Person extends AppModel
     ); 
 
     /**
-     * Behaviors
-     * @var array
+     * Specifies the behaviors invoked by the conversation model
      * @access public
+     * @var array
      */
     public $actsAs = array(
         'AuditLog.Auditable',
@@ -87,9 +87,9 @@ class Person extends AppModel
 
 
     /**
-     *
-     * @var type
-     *
+     * Defines the person model's has one relationships
+     * @access
+     * @var array
      */
     public $hasOne = array(
         'OwnerPerson' => array(
@@ -106,9 +106,9 @@ class Person extends AppModel
     );
 
     /**
-     *
+     * Defines the person model's has many relationships
+     * @access
      * @var array
-     * @access public
      */
     public $hasMany = array(
 
@@ -203,13 +203,10 @@ class Person extends AppModel
       
    /**
     * Returns a person's profile data with the specified associated data. 
-    * NOTE: When using the by clause please understand, this MUST be a unique index in the profiles table
-    * 
-    * @param string $token - id or username for retreving records
-    * @param string|array $with What associated data do we want?
-    * @param string $by - Which token, id or username?
-    * @return array
     * @access public
+    * @param string $token The id, username or email address for retreving records
+    * @param string|array $with What associated data do we want?
+    * @return array
     */
     public function getPersonWith($token, $with = 'nothing')
     {

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Functionality for sending out invites
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,38 +11,48 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Invite
  */
 
 App::uses('AppModel', 'Model');
 /**
- * Functionality for sending out invites, this was inspired by a need for private beta,
+ * Functionality for sending out invites
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Invite
  */
 class Invite extends AppModel
 {
     /**
-     * 
-     * @var string
+     * The static name of the invite class 
      * @access public
+     * @var string
      */
     public $name = 'Invite';
     
     /**
-     * 
-     * @var string
+     * Specifies the table used by the invite object
      * @access public
+     * @var string
      */
     public $useTable = 'invites';
     
     /**
-     * Confirms an invite token
-     * @var string id
+     * Returns true if am invite token exists. 
+     * Used to confirms an invite token.
+     * @param string id The primary key column of the invites table
      * @return boolean
      * @access public
      */
     public function confirm($id){
         
-        $invite = $this->find('first', array('conditions'=>array('Invite.id'=>$id, 'Invite.accepted IS NULL')));
+        $invite = $this->find('first',
+                array(
+                        'conditions'=>array(
+                            'Invite.id'=>$id, 'Invite.accepted IS NULL'
+                        ),
+                        'contain'=>array()
+                    )
+                );
         
         if(empty($invite)){
             return false;
@@ -55,9 +65,9 @@ class Invite extends AppModel
     
     /**
      * Invalidates a used invite token
-     * @var string id
-     * @return boolean
      * @access public
+     * @param string id
+     * @return boolean
      */
     public function accept($id){
             $data['Invite']['id'] = $id;
@@ -71,9 +81,8 @@ class Invite extends AppModel
     
     /**
      * Adds an invite to the invites table. This invite will be creditied to the logged in user.
-     * @param integer $count 
-     * @return boolean
      * @access public 
+     * @return boolean
      */
     public function add(){
         $this->create();

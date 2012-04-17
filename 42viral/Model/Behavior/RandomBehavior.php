@@ -27,7 +27,8 @@ class RandomBehavior extends ModelBehavior
     /**
      * Initializes the behavior
      * @access public
-     * @param object $model
+     * @param object $model A reference to the current model
+     * @param array accepts configuration parameters for a particular instance of this behavior
      * @return void
      */
     public function setup(&$model, $settings = array())
@@ -83,7 +84,8 @@ class RandomBehavior extends ModelBehavior
      * Return true if $string already exists in the given Model.column
      * @access private
      * @param object $model A reference to the current model
-     * @param string $string the string to checked for duplicates
+     * @param string $string The string to checked for duplicates
+     * @param string $field The field to be randomized
      * @return boolean
      */
     private function __isDuplicate(&$model, $string, $field){
@@ -98,11 +100,10 @@ class RandomBehavior extends ModelBehavior
     }
     
     /**
-     * Return a random string
-     * Sets Model.coulmn to the returned random string
+     * Return a random string to be used for setting Model.coulmn to the returned random string.
      * @access private
      * @param object $model A reference to the current model
-     * @param string $field 
+     * @param string $field The field to be randomized
      * @return string
      */
     private function __generate(&$model, $field){
