@@ -1,7 +1,7 @@
 <?php
 
 /**
- * PHP 5.3
+ * Deals with uploads from an image point of view
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -12,18 +12,16 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Upload\Image
  */
 
 App::uses('AppModel', 'Model');
 App::uses('Upload', 'Model');
 App::uses('UploadInterface', 'Model');
 /**
- * Mangages file uploads
- *
- * @package app
- * @subpackage app.core
- *
+ * Deals with uploads from an image point of view
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Upload\Image
  */
 class Image extends Upload
 {
@@ -36,10 +34,10 @@ class Image extends Upload
     public $name = 'Image';
 
     /**
-     * Inject all "finds" against the Upload object with image filtering criteria
-     * @param array $query
-     * @return type 
+     * Inject all "finds" against the image object with image filtering criteria
      * @access public
+     * @param array $query Holds the conditions used to build the CakePHP query
+     * @return array 
      */
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);
@@ -52,10 +50,12 @@ class Image extends Upload
     }
 
     /**
-     * Sets a new profile image by writing any image under a users controll to profile.png
-     * @param type $path
-     * @return type 
+     * Sets a new profile image by writing any image under a users controll to profile.png.
+     * Returns true if the operation was successful.
      * @access public
+     * @param string $path The path to the desired file
+     * @param $personId The id of the user whos profile is being set
+     * @return boolean 
      */
     public function setProfileImage($path, $personId)
     {
@@ -69,8 +69,6 @@ class Image extends Upload
         //Path to the avatar directory
         $avatarDirectory = IMAGE_WRITE_PATH . DS . $personId . DS . 'avatar';
 
-        
-
         //Copy the desired file into the avatar directory
         if (copy($path, $avatarDirectory . DS . 'profile.' . strtolower($this->getExt($path)))) {
             return true;
@@ -79,6 +77,12 @@ class Image extends Upload
         }
     }
 
+    /**
+     * Removes the current avatar for a given user
+     * @access public
+     * @param string $path The id of the given user
+     * @return boolean 
+     */
     public function clearPersonAvatar($personId)
     {
         //Path to the avatar directory

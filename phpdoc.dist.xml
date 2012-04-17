@@ -10,13 +10,9 @@
         <directory>.</directory>
         <ignore>webroot/vendors/ckeditor/*</ignore>
         <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
-        <ignore>42viral/Vendor/Imagine/*</ignore>
+        <ignore>42viral/Vendor/*</ignore>
         <ignore>Config/*</ignore>
         <ignore>Plugin/*</ignore>
     </files>
-    <external-class-documentation>
-        <prefix>HTML_QuickForm2</prefix>
-        <uri>http://htmlpurifier.org/doxygen/html/</uri>
-    </external-class-documentation>  
 </phpdoc>
 
