@@ -11,11 +11,12 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppModel', 'Model');
 /** 
- * 
+ * Manages presons' details table
  * @package app
  * @subpackage app.core
  * 
@@ -24,6 +25,7 @@ App::uses('AppModel', 'Model');
 class PersonDetail extends AppModel
 {
     /**
+     * Model name
      * 
      * @var string
      * @access public
@@ -31,14 +33,14 @@ class PersonDetail extends AppModel
     public $name = 'PersonDetail';    
     
     /**
-     *
+     * Table name
      * @var string
      * @access public
      */
     public $useTable = 'person_details';
     
     /**
-     *
+     * Behaviors
      * @var array
      */
     public $actsAs = array(
@@ -46,7 +48,7 @@ class PersonDetail extends AppModel
     );
     
     /**
-     *
+     * Contact data types
      * @var array
      * @access public
      */
@@ -56,7 +58,7 @@ class PersonDetail extends AppModel
     );
     
     /**
-     *
+     * belongsTo
      * @var array
      * @access public
      */
@@ -69,7 +71,7 @@ class PersonDetail extends AppModel
     );
     
     /**
-     *
+     * Field to validate on save
      * @var array
      * @access public
      */

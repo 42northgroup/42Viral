@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 App::uses('Session', 'Component');
 /**
@@ -55,7 +56,7 @@ class Handy
      * - `MYSQL` 2000-02-25 21:25:56:21
      * 
      * @param int $time a unix time stamp
-     * @param string $date DateTime format
+     * @param string $format DateTime format
      * @param string $nullMessage the "Not Set" message 
      * @return string either a formatted DateTime string or a "Not Set" message
      */
@@ -100,7 +101,7 @@ class Handy
    
     /**
      * Prevents bad timestamps from defaulting to the epoch
-     * @param string $timestamp
+     * @param string $time
      * @return string 
      * 
      * @see http://stackoverflow.com/questions/2224097/prevent-php-date-from-defaulting-to-12-31-1969
@@ -122,6 +123,7 @@ class Handy
      * @param boolean $upper Add the A-Z character set
      * @param boolean $lower Add the a-z character set
      * @param boolean $numeric Add the numeric character set
+     * @param boolean $special Add the special character set
      * @return string 
      */
     public static function random($length = 5, $upper = false, $lower = true, $numeric = true, $special = false){
@@ -289,8 +291,7 @@ class Handy
     /**
      * Provides standard formatting for phone numbers
      * @param integer $phoneNumber
-     * @param boolean $international
-     * @param boolean $doNotCall
+     * @param array $options
      * @return string 
      * 
      * @todo How do we detect the system dialer?
@@ -354,7 +355,7 @@ class Handy
     
     /**
     * Provides standard formatting for email
-    * @param string $phoneNumber
+    * @param string $email
     * @return string 
     */
     function email($email){

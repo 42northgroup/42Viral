@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppModel', 'Model');
@@ -23,8 +24,19 @@ App::uses('AppModel', 'Model');
  */
 class Profile extends AppModel
 {
+    /**
+     * Model name
+     *
+     * @var string
+     * @access public
+     */
     public $name = 'Profile';
     
+    /**
+     * Table the model uses
+     * @var string
+     * @access public
+     */
     public $useTable = 'profiles';
     
     /**
@@ -46,7 +58,7 @@ class Profile extends AppModel
     ); 
     
     /**
-     *
+     * belongsTo
      * @var array
      * @access public
      */
@@ -59,8 +71,9 @@ class Profile extends AppModel
     );
 
     /**
-     *
+     * Behaviors
      * @var array
+     * @access public
      */
     public $actsAs = array(
         'ContentFilters.Scrubable' => array(
@@ -75,7 +88,7 @@ class Profile extends AppModel
     /**
      * Returns a person's profile data with the specified associated data. 
      * 
-     * @param string $id - The profile id
+     * @param string $token - The profile id
      * @param string $with
      * @return array
      * @access public

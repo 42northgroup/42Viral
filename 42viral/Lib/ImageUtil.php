@@ -12,14 +12,42 @@
  */
 
 /**
+ * Manipulates images
  * @package Lib
  */
 Class ImageUtil extends Object
 {
 
+    /**
+     * Image width
+     *
+     * @var int
+     * @access private
+     */
     private $__width;
+    
+    /**
+     * Image height
+     *
+     * @var int 
+     * @access private
+     */
     private $__height;
+    
+    /**
+     * Image Source
+     *
+     * @var source
+     * @access private
+     */
     private $__imageInput;
+    
+    /**
+     * New image source
+     *
+     * @var source
+     * @access private
+     */
     private $__imageOutput;
 
     public function __construct($fileName)
@@ -30,11 +58,11 @@ Class ImageUtil extends Object
     }
 
 
-/**
- *
- * @param type $file
- * @return type
- */
+    /**
+     *
+     * @param array $file
+     * @return array
+     */
     private function __openImage($file)
     {
         if (!is_file($file)) {
@@ -52,13 +80,13 @@ Class ImageUtil extends Object
     }
 
     
-/**
- *
- * @param type $width
- * @param type $height
- * @param type $option
- * @return type 
- */
+    /**
+     *
+     * @param int $width
+     * @param int $height
+     * @param int $option
+     * @return array 
+    */
     private function __getDimensions($width, $height, $option)
     {
         switch ($option) {
@@ -80,32 +108,32 @@ Class ImageUtil extends Object
         }
     }
 
-/**
- *
- * @param type $height
- * @return type
- */
+    /**
+     *
+     * @param int $height
+     * @return float
+     */
     private function __getSizeByFixedHeight($height)
     {
         return ($this->__width / $this->__height) * $height;
     }
 
-/**
- *
- * @param type $width
- * @return type
- */
+    /**
+     *
+     * @param int $width
+     * @return float
+     */
     private function __getSizeByFixedWidth($width)
     {
         return ($this->__height / $this->__width) * $width;
     }
 
-/**
- *
- * @param type $width
- * @param type $height
- * @return type
- */
+    /**
+     *
+     * @param int $width
+     * @param int $height
+     * @return array
+     */
     private function __getSizeByAuto($width, $height)
     {
         if ($this->__height < $this->__width) {
@@ -127,12 +155,12 @@ Class ImageUtil extends Object
         return array($width, $height);
     }
 
-/**
- *
- * @param type $width
- * @param type $height
- * @return type 
- */
+    /**
+     *
+     * @param int $width
+     * @param int $height
+     * @return array 
+     */
     private function __getOptimalCrop($width, $height)
     {
         $ratio = min($this->__height / $height, $this->__width / $width);
@@ -143,13 +171,14 @@ Class ImageUtil extends Object
     }
 
     
-/**
- *
- * @param type $optimalWidth
- * @param type $optimalHeight
- * @param type $width
- * @param type $height
- */
+    /**
+     * Crops an image
+     *
+     * @param int $optimalWidth
+     * @param int $optimalHeight
+     * @param int $width
+     * @param int $height
+     */
     private function __crop($optimalWidth, $optimalHeight, $width, $height)
     {
         $x = ( $optimalWidth / 2) - ( $width / 2 );

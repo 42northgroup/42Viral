@@ -12,6 +12,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppModel', 'Model');
@@ -26,22 +27,25 @@ App::uses('AppModel', 'Model');
 class PeopleNotification extends AppModel
 {
 
-/**
- * @access public
- * @var string
- */
+    /**
+     * Model name
+     * @access public
+     * @var string
+     */
     public $name = 'PeopleNotification';
 
-/**
- * @access public
- * @var string
- */
+    /**
+     * Table the model uses
+     * @access public
+     * @var string
+     */
     public $useTable = 'people_notifications';
 
-/**
- * @access public
- * @var array
- */
+    /**
+     * Behaviors
+     * @access public
+     * @var array
+     */
     public $actsAs = array(
         'Log'
     );

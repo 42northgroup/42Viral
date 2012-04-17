@@ -51,8 +51,8 @@ class Sec
      * Why $userHash? - this reduces the feasiblity of building a rainbow table against all users in the system to 0. 
      * @access public
      * @static 
-     * @param string $password, The string the user has submitted as their password.
-     * @param string $salt, The users unique salt value.
+     * @param string $password The string the user has submitted as their password.
+     * @param string $salt The users unique salt value.
      * @return string
      */
     public static function hashPassword($password, $salt)

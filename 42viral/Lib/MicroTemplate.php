@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('Mustache', 'Lib');
@@ -24,6 +25,9 @@ class MicroTemplate extends Object
     private static $__MI = null;
     private static $__standardTemplateObjects = array();
 
+    /**
+     * Initiates Mustache lib
+     */
     private static function __init()
     {
         self::$__MI = new Mustache();

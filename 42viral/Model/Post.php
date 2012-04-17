@@ -26,7 +26,7 @@ App::uses('Content', 'Model');
 class Post extends Content
 {
     /**
-     * 
+     * Model name
      * @var string
      * @access public
      */
@@ -77,7 +77,7 @@ class Post extends Content
     );
             
     /**
-     * 
+     * belongsTo
      * @var array
      * @access public
      */
@@ -90,7 +90,7 @@ class Post extends Content
     );    
     
     /**
-     * 
+     * hasMany
      * @var array
      * @access public
      */
@@ -103,7 +103,7 @@ class Post extends Content
     );
     
     /**
-     * 
+     * Fields to be validated on save
      * @var array
      * @access public
      */
@@ -131,7 +131,8 @@ class Post extends Content
         )
     );
     
-   /**
+    /**
+     * beofreSave
      * @access public
      */
     public function beforeSave()
@@ -143,8 +144,8 @@ class Post extends Content
     
     /**
      * Inject all "finds" against the Post object with lead filtering criteria
-     * @param array $query
-     * @return type 
+     * @param array $queryData
+     * @return array
      * @access public
      */
     public function beforeFind($queryData) {
@@ -158,10 +159,10 @@ class Post extends Content
     }
 
     /**
+     * Retrives a post with optional additional data
      *
      * @param string $token
      * @param string|array $with
-     * @param string|array $status
      * @return array 
      */    
     public function getPostWith($token, $with = null){
