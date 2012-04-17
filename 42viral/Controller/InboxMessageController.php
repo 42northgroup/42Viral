@@ -16,6 +16,7 @@
 App::uses('AppController', 'Controller');
 App::uses('Handy', 'Lib');
 /**
+ * Manages a user's internal messages
  * @package app
  * @subpackage app.core
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -23,7 +24,7 @@ App::uses('Handy', 'Lib');
 class InboxMessageController extends AppController
 {
     /**
-     *
+     * Models this controller uses
      * @access public
      * @var type
      */

@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral
  */
 
 App::uses('AppController', 'Controller');
@@ -25,20 +26,21 @@ App::uses('Member', 'Lib');
 {
 
     /**
-     *
+     * Models used by this controller
      * @var array
      * @access public
      */
     public $uses = array('Image', 'Person', 'Upload');
 
     /**
-     *
+     * Helpers
      * @var array
      * @access public
      */
     public $helpers = array('Member', 'Upload');
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter()
@@ -48,8 +50,11 @@ App::uses('Member', 'Lib');
     }
 
     /**
+     * Retrives all images uploaded by a user
      *
-     * @param array
+     * @access public
+     * @param string $token unique identifier which we use to retrieve a person's details
+     * @return void
      */
     public function images($token = null)
     {
@@ -90,8 +95,9 @@ App::uses('Member', 'Lib');
     }
 
     /**
+     * Retrieves an image upladed by a user
      *
-     * @param type $id 
+     * @param string $id ID of the image we are targetting
      * @access public
      */
     public function image($id)

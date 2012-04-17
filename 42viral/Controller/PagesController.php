@@ -31,7 +31,7 @@ App::uses('AppController', 'Controller');
     public $name = 'Pages'; 
     
     /**
-     * Default helper
+     * Helpers
      *
      * @var array
      * @access public
@@ -40,7 +40,7 @@ App::uses('AppController', 'Controller');
 
 
     /**
-     * 
+     * Components 
      *
      * @access public
      * @var array
@@ -51,7 +51,7 @@ App::uses('AppController', 'Controller');
     );
 
     /**
-     *
+     * Models this controller uses
      * @var array
      * @access public
      */
@@ -62,6 +62,7 @@ App::uses('AppController', 'Controller');
 
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
@@ -85,7 +86,8 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a list of pages
      *
-     * @param array
+     * @access public
+     * @return void
      */
     public function index() {
         
@@ -96,7 +98,8 @@ App::uses('AppController', 'Controller');
 
     /**
      * Resirect short links to their proper url
-     * @param type $shortCut 
+     * @access public
+     * @param string $shortCut 
      * @return void
      */
     public function short_cut($shortCut) {
@@ -110,7 +113,7 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a blog post
      *
-     * @param array
+     * @param string $slug the slug of the page we want to view
      * @return void
      * @access public
      */
@@ -131,7 +134,7 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a view
      *
-     * @param mixed What page to display
+     * @return void
      */
     public function display() {
         $path = func_get_args();
@@ -158,7 +161,7 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a list of blogs
      *
-     * @param array
+     * @return void
      */
     public function admin_index() {
         
@@ -243,8 +246,9 @@ App::uses('AppController', 'Controller');
     /**
      * Removes a web page
      * 
-     * @return void
      * @access public
+     * @param $id ID of the page we want to delete
+     * @return void
      */
     public function admin_delete($id){
 

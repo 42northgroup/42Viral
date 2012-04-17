@@ -25,7 +25,7 @@ App::uses('Member', 'Lib');
 class BlogsController extends AppController {
 
     /**
-     * This controller does not use a model
+     * Model this controller uses
      *
      * @var array
      * @access public
@@ -40,6 +40,7 @@ class BlogsController extends AppController {
     );
     
     /**
+     * Helpers
      * @var array
      * @access public
      */
@@ -49,6 +50,7 @@ class BlogsController extends AppController {
     );
 
     /**
+     * Components
      * @access public
      * @var array
      */
@@ -58,6 +60,7 @@ class BlogsController extends AppController {
     );
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
@@ -104,12 +107,12 @@ class BlogsController extends AppController {
 
     /**
      * Resirect short links to their proper url
-     * @param type $shortCut 
+     * @param string $shortCut 
      * @return void
      */
     public function short_cut($shortCut) {
 
-        $blog = $this->Blog->getPageWith($shortCut, 'nothing');
+        $blog = $this->Blog->fetchBlogWith($shortCut, 'nothing');
         
         //Avoid Google duplication penalties by using a 301 redirect
         $this->redirect($blog['Blog']['canonical'], 301);
@@ -155,8 +158,9 @@ class BlogsController extends AppController {
     /**
      * Removes a blog and all related posts
      * 
-     * @return void
      * @access public
+     * @param $id ID of the blog we want to delete
+     * @return void
      */
     public function delete($id){
         

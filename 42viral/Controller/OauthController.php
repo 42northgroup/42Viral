@@ -11,12 +11,15 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
 App::uses('HttpSocketOauth', 'Connect.Lib');
 App::uses('HttpSocket', 'Network/Http');
 /**
+ * Authenticates the user against various social media
+ * 
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -31,12 +34,11 @@ App::uses('HttpSocket', 'Network/Http');
 {
 
     /**
+     * Models this controller uses
      * @var array
      * @access public
      */
-
-
-    public $uses = array(
+     public $uses = array(
         'Aro',
         'Connect.Tweet', 
         'Connect.Linkedin', 
@@ -47,6 +49,7 @@ App::uses('HttpSocket', 'Network/Http');
     );
 
     /**
+     * Components
      * @var array
      * @access public
      */
@@ -55,6 +58,7 @@ App::uses('HttpSocket', 'Network/Http');
             );
     
     /**
+     * Helpers
      * @var array
      * @access public
      */
@@ -62,6 +66,12 @@ App::uses('HttpSocket', 'Network/Http');
                 'Connect.SocialMedia'
             );
 
+    /**
+     * Instanciates HttpSocketOauth and HttpSocket
+     *
+     * @param array $request
+     * @param array $response 
+     */
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
 
@@ -70,6 +80,7 @@ App::uses('HttpSocket', 'Network/Http');
     }
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
@@ -95,6 +106,7 @@ App::uses('HttpSocket', 'Network/Http');
     
     /**
      * The Twitter connect page. Authorizes "this" application against a users Twitter account
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -135,6 +147,7 @@ App::uses('HttpSocket', 'Network/Http');
 
     /**
      * The Twitter callback page. Takes the Twitter results and writes them to a session.
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -199,6 +212,7 @@ App::uses('HttpSocket', 'Network/Http');
 
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -248,6 +262,7 @@ App::uses('HttpSocket', 'Network/Http');
 
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -338,6 +353,7 @@ App::uses('HttpSocket', 'Network/Http');
     
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -353,6 +369,7 @@ App::uses('HttpSocket', 'Network/Http');
 
     /**
      * The Facebook callback page. Takes the Facebook results and writes them to a session.
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -442,6 +459,7 @@ App::uses('HttpSocket', 'Network/Http');
     
     /**
      * The Google callback page. Takes the Google results and writes them to a session.
+     * @param $get_token
      * @return void
      * @access public
      */
@@ -526,61 +544,12 @@ App::uses('HttpSocket', 'Network/Http');
         }
         
     }
-    
-    public function post_and_retrieve_statuses()
-    {
-                
-        /*
-        pr($this->Tweet->find('all', array(
-                'conditions' => array('username' => 'ldimov')
-            ))
-        ); die();
-         
         
-        $this->Tweet->save(array(
-            'status'=>'Fidgeting with the datasources',
-            'oauth_token' => $this->Session->read('Twitter.oauth_token'),
-            'oauth_token_secret' => $this->Session->read('Twitter.oauth_token_secret')
-        )); die();
-        
-         
-        
-        $this->Linkedin->save(array(
-            'status'=>'Fidgeting with the datasources',
-            'oauth_token' => $response['oauth_token'],
-            'oauth_token_secret' => $response['oauth_token_secret']
-        )); die();
-        
-        pr($this->Linkedin->find('all', array(
-            'conditions' => array(
-                'oauth_token' => $response['oauth_token'],
-                'oauth_token_secret' => $response['oauth_token_secret']
-            )
-        ))); die();
-         
-                
-        pr($this->Facebook->find('all', array(
-            'conditions' => array(
-                'oauth_token' => '158831284148987|e08c0f39f83ecca2a7db84e0.0-100002819003507|-LlmLwlWAxFb9pyFJTEdFkcLOKI'
-            )
-        )));
-        
-        $this->Facebook->save(array(
-            'status' => 'and then some',
-            'oauth_token' => '158831284148987|e08c0f39f83ecca2a7db84e0.0-100002819003507|-LlmLwlWAxFb9pyFJTEdFkcLOKI'
-        ));
-           */
-        
-        
-        
-    }
-
-
     /**
      * A wrapper for common authentication and session functionality
-     * @param type $userId
-     * @param type $response
-     * @param type $key
+     * @param string $userId ID of the user we are authenticating
+     * @param array $response 
+     * @param string $oauthKey
      * @todo Generalize this with User::login()
      * @todo make use of or remove $error
      */
@@ -621,6 +590,13 @@ App::uses('HttpSocket', 'Network/Http');
 
     }
 
+    /**
+     * Creates an aro entry(needed for ACLs) for a user if there isn't one
+     *
+     * @param string $alias alias of the user(username column from people table) for which we are creating the aro entry
+     * @param string $foreign_key ID of the user(from people table) for which we are creating the aro entry
+     * @return boolean
+     */
     private function __createAro($alias, $foreign_key)
     {
         $aro = $this->Aro->findByAlias($alias);
