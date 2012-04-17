@@ -90,7 +90,7 @@ class User extends Person
     );
     
     /**
-     * Defines a users model validation
+     * Defines a user's model validation
      * @access public
      * @var array
      */

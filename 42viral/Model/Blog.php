@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Manages the content object from the point of view of a blog
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,33 +11,30 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Content\Blog
  */
 
 App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
 /**
- * Manaages the Content object from the POV of a blog
- * 
- * @package app
- * @subpackage app.core
- * 
+ * Manages the content object from the point of view of a blog
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Content\Blog
  */
 class Blog extends Content
 {
-    
     /**
-     * 
-     * @var string
+     * The static name of the blog class
      * @access public
+     * @var string
      */
     public $name = 'Blog';
     
     /**
-        * Predefined data sets
-        * @var array
-        * @access public 
-        */
+     * Predefined data sets, this provides the commonality for $with arguments
+     * @access public
+     * @var array
+     */
     public $dataSet = array(
 
         'admin'=>array(
@@ -86,9 +83,9 @@ class Blog extends Content
     );
 
     /**
-     * 
-     * @var array
+     * Defines the has many relationships for the blog model
      * @access public
+     * @var array
      */
     public $hasMany = array(
         'Post' => array(
@@ -99,9 +96,9 @@ class Blog extends Content
     );
     
     /**
-     * 
-     * @var array
+     * Defines the belongs to relationships of the blog model
      * @access public
+     * @var array
      */
     public $belongsTo = array(
         'CreatedPerson' => array(
@@ -112,7 +109,7 @@ class Blog extends Content
     );
     
     /**
-     * 
+     * Defines a blog's model validation
      * @var array
      * @access public
      */
@@ -133,7 +130,15 @@ class Blog extends Content
             )
         )
     );
-    
+
+    /**
+     * Initialisation for all new instances of Blog
+     * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     * @return void
+     */
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
@@ -142,9 +147,10 @@ class Blog extends Content
     }    
     
    /**
-     * 
-     * @access public
-     */
+    * Applies the proper object_type to the blog data set prior to a save
+    * @access public
+    * @return boolean
+    */
     public function beforeSave()
     {             
         parent::beforeSave();
@@ -153,10 +159,10 @@ class Blog extends Content
     }  
     
     /**
-     * Inject all "finds" against the Blog object with lead filtering criteria
-     * @param array $query
-     * @return type 
+     * Inject all "finds" against the blog object with lead blog criteria
      * @access public
+     * @param array $query Holds the parameters for building a CakePHP query
+     * @return array
      */
     public function beforeFind($queryData) {
         parent::beforeFind($queryData);
@@ -169,12 +175,11 @@ class Blog extends Content
     } 
     
     /**
-     *
-     * @param string $token
-     * @param array $with
-     * @param string $status
-     * @return array
+     * Returns a specified blog with a predefined data set
      * @access public
+     * @param string $token The identifier of a target blog. This may be an id, short_cut or slug
+     * @param array $with The predefined dataset with which the blog will be retrived (default: public)
+     * @return array
      */
     function fetchBlogWith($token, $with = 'public'){
             
@@ -193,11 +198,10 @@ class Blog extends Content
     }
     
     /**
-     *
-     * @param array $with
-     * @param status $status
-     * @return array
+     * Returns a set of blogs using a predetermined data set
      * @access public
+     * @param array $with The predefined dataset with which the blog will be retrived (default: public)
+     * @return array
      */
     public function fetchBlogsWith($with = 'public'){
         $finder = $this->dataSet[$with];        
