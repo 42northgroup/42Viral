@@ -95,6 +95,7 @@ class Utility
      * Parses text as markdown and converts it to HTML
      *
      * @access public
+     * @static
      * @param string $text
      * @return string
      */

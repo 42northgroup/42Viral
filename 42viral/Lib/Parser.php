@@ -1,7 +1,6 @@
 <?php
 /**
- * PHP 5.3
- *
+ * Common functionality for parsing various data sets
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -11,22 +10,23 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Lib
  */
 
 /**
- * Common functionality for parsing stuff
- * @package Lib
+ * Common functionality for parsing various data sets
  * @author Jason D Snider <jason.snider@42viral.org> 
+ * @package 42viral\Lib
  */
 class Parser
 {
  
     /**
      * Converts a data array into an XML 
-     * @param type $data
-     * @param type $file 
      * @access public 
      * @static
+     * @param array $data
+     * @param array $file
      */
     public static function data2XML($data, $file){
         
@@ -52,10 +52,10 @@ class Parser
     
     /**
      * Parses XML files into config files
-     * @param string $path 
-     * @return void
      * @access public 
      * @static
+     * @param string $path 
+     * @return void
      */
     public static function xml2Config($path){
         
@@ -91,10 +91,10 @@ class Parser
     
     /**
      * Encodes array data with XML safe formatting
-     * @param type $data
-     * @return type 
      * @access public 
      * @static
+     * @param type $data
+     * @return type 
      */
     public static function arrayEncodeXML($data){
         $encodedData = array();
@@ -108,10 +108,10 @@ class Parser
     
     /**
      * Decodes XML safe formatting contained with in an array. 
-     * @param type $data
-     * @return type
      * @access public 
      * @static
+     * @param type $data
+     * @return type
      */
     public static function arrayDecodeXML($data){
         $decodedData = array();
@@ -125,10 +125,10 @@ class Parser
     
     /**
      * Noramlizes configuration data so it can easily be saved to the configurations table
-     * @param type $data
-     * @return type
      * @access public 
      * @static
+     * @param type $data
+     * @return type
      */
     public static function pluginConfigWrite($data){
         $config = array();
@@ -144,10 +144,10 @@ class Parser
         
     /**
      * Parses and restructures configuration data so that it is automatically read by configuration forms. 
-     * @param type $data
-     * @return type
      * @access public 
      * @static
+     * @param array $data
+     * @return array
      */
     public static function pluginConfigRead($data){
         $reconfig = array();

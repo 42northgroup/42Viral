@@ -191,7 +191,8 @@ App::uses('AppController', 'Controller');
                 (
                     0 => 'blog',
                     1 => 'page',
-                    2 => 'post'
+                    2 => 'post',
+                    3 => 'docs'
                 ) 
             );
         }

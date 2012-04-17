@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Additional securitiy methods
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -16,7 +16,7 @@ App::uses('Security','Utility');
 App::uses('String','Utility');
 /**
  * Additional securitiy methods
- * @package Lib
+ * @package 42viral\Lib
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Sec 
@@ -24,9 +24,10 @@ class Sec
 
     /**
      * Creates some pseudo random jibberish to be used as a salt value.
+     * @access public
+     * @static
      * @return string
      * @author Jason D Snider <jason.snider@42viral.org>
-     * @access public
      */
     public static function makeSalt()
     {
@@ -47,12 +48,12 @@ class Sec
     
     /**
      * Creates a hash that represents a users password.
-     * Why $userHash? - this reduces the feasiblity of building a rainbow table against all users in the system to 0.  
+     * Why $userHash? - this reduces the feasiblity of building a rainbow table against all users in the system to 0. 
+     * @access public
+     * @static 
      * @param string $password, The string the user has submitted as their password.
      * @param string $salt, The users unique salt value.
      * @return string
-     * @author Jason D Snider <jason.snider@42viral.org>
-     * @access public
      */
     public static function hashPassword($password, $salt)
     {

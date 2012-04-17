@@ -10,6 +10,7 @@
         <directory>.</directory>
         <ignore>webroot/vendors/ckeditor/*</ignore>
         <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
+        <ignore>42viral/Vendor/Imagine/*</ignore>
         <ignore>Config/*</ignore>
     </files>
     <external-class-documentation>
