@@ -151,9 +151,9 @@ class Content extends AppModel
         array('name' => 'tags', 'type' => 'subquery', 'method' => 'findByTags', 'field' => 'Content.id'),
         array('name' => 'filter', 'type' => 'query', 'method' => 'orConditions')
     );    
-    
+
     /**
-     * The parent constructor method for all content
+     * Initialisation for all new instances of Content
      * @access public
      * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
      * @param string $table Name of database table to use.

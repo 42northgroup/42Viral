@@ -1,7 +1,6 @@
 <?php
-
 /**
- * PHP 5.3
+ * Mangages file uploads
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -12,42 +11,38 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Upload
  */
 
 App::uses('AppModel', 'Model');
 App::uses('ImageUtil', 'Lib');
 /**
  * Mangages file uploads
- *
- * @package app
- * @subpackage app.core
- *
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- *
- * @todo Improve whitelist/blacklist data and functionality
+ * @package 42viral\Upload
  */
 class Upload extends AppModel
 {
 
     /**
-     * 
-     * @var string
+     * The upload model's static name
      * @access public
+     * @var string
      */
     public $name = 'Upload';
 
     /**
-     * 
-     * @var string
+     * Defines the table used by the upload model
      * @access public 
+     * @var string
      */
     public $useTable = 'uploads';
 
     /**
-     * 
-     * @var array
+     * Defines the default behaviors for the upload model
      * @access public 
+     * @var array
      */
     public $actsAs = array(
         'ContentFilters.Scrubable' => array(
@@ -59,27 +54,33 @@ class Upload extends AppModel
     );
 
     /**
-     * @var array
+     * Provides a whitelist of file extensions
      * @access protected
+     * @var array
      */
     protected $_whitelist = array();
 
     /**
-     * @var array
+     * Provides a blacklist of file extensions
      * @access protected
+     * @var array
      */
     protected $_blacklist = array();
 
     /**
-     *
-     * @var array
+     * Defines the validation parameters for the upload model
      * @access public
+     * @var array
      */
     public $validate = array();
 
     /**
-     * @author Jason D Snider <jason.snider@42viral.org>
+     * Initialisation for all new instances of Upload
      * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     * @return void
      */
     public function __construct($id = false, $table = null, $ds = null)
     {
@@ -101,9 +102,8 @@ class Upload extends AppModel
 
     /**
      * Creates a whitelist of allowable file extensions
-     * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
+     * @return void
      */
     protected function _setWhitelist()
     {
@@ -133,9 +133,8 @@ class Upload extends AppModel
 
     /**
      * Returns a whitelist of allowable file extensions
+     * @access protected
      * @return array
-     * @author Jason D Snider <jason.snider@42viral.org>
-     * @access public
      */
     public function getWhitelist()
     {
@@ -144,9 +143,8 @@ class Upload extends AppModel
 
     /**
      * Creates a blacklist of forbidden file extensions
-     * @return void
-     * @author Jason D Snider <jason.snider@42viral.org>
      * @access protected
+     * @return void
      */
     protected function _setBlacklist()
     {
@@ -158,8 +156,8 @@ class Upload extends AppModel
 
     /**
      * Returns a blacklist of forbidden file extensions
-     * @retrun array
-     * @access public
+     * @access public 
+     * @return array
      */
     public function getBlacklist()
     {
@@ -168,10 +166,9 @@ class Upload extends AppModel
 
     /**
      * Checks the uploaded file against the whitelist and blacklists. The blacklist always takes precedence.
-     * @param type $type
-     * @param type $name
-     * @return type 
      * @access public
+     * @param string $name
+     * @return boolean 
      */
     public function allowed($name)
     {
@@ -193,9 +190,9 @@ class Upload extends AppModel
 
     /**
      * Manages the process of uploading a file to the server and recording it's existance in the database
-     * @param type $data
-     * @return type 
-     * @access public 
+     * @access public
+     * @param array $data
+     * @return boolean
      */
     public function upload($data)
     {
@@ -280,9 +277,9 @@ class Upload extends AppModel
 
     /**
      * Checks for the existance of a target file
-     * @param type $path
-     * @return type 
      * @access protected
+     * @param string $path
+     * @return boolean 
      */
     protected function _checkWrite($path)
     {
@@ -295,10 +292,10 @@ class Upload extends AppModel
 
     /**
      * Writes a file to the server
+     * @access protected
      * @param string $tmpName
      * @param string $path
      * @return boolean
-     * @access protected
      */
     protected function _writeFile($tmpName, $path)
     {
@@ -311,9 +308,9 @@ class Upload extends AppModel
 
     /**
      * Makes sure the user has a place to save the file. If not, a new directory is created.
+     * @access protected
      * @param string $id 
      * @return void
-     * @access protected
      */
     protected function _writePath($id)
     {
@@ -345,9 +342,9 @@ class Upload extends AppModel
 
     /**
      * Returns a given files ext.
+     * @access public
      * @param string $path
      * @return string
-     * @access public
      */
     public function getExt($path)
     {
@@ -356,9 +353,9 @@ class Upload extends AppModel
 
     /**
      * Returns the name of an image, according to our naming conventions
+     * @access public
      * @param array $image
      * @return string 
-     * @access public
      */
     public function name($image)
     {
@@ -371,7 +368,6 @@ class Upload extends AppModel
 
     /**
      * Returns the thumbnail name of an image, according to our naming conventions
-     *
      * @access public
      * @param array $image
      * @param integer $version

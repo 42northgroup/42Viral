@@ -172,7 +172,7 @@ class Person extends AppModel
     );
 
     /**
-     * Initialisation for the new pperson object
+     * Initialisation for all new instances of Person
      * @access public
      * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
      * @param string $table Name of database table to use.
