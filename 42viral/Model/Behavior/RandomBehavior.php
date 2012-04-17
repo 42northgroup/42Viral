@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Generates a unique random string against a specified field
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral
  */
 
 App::uses('Handy', 'Lib');
@@ -18,13 +19,16 @@ App::uses('Handy', 'Lib');
 /**
  * Generates a unique random string against a specified field
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral
  */
 class RandomBehavior extends ModelBehavior
 {
 
     /**
-     * @param object $model
+     * Initializes the behavior
      * @access public
+     * @param object $model
+     * @return void
      */
     public function setup(&$model, $settings = array())
     {
@@ -37,8 +41,10 @@ class RandomBehavior extends ModelBehavior
     }
 
     /**
-     * @param object $model
+     * Inject a pseudo-random value into the specified field(s) prior to save.
      * @access public
+     * @param object $model A reference to the current model
+     * @return void
      */
     public function beforeSave(&$model)
     {  
@@ -53,6 +59,8 @@ class RandomBehavior extends ModelBehavior
     /**
      * Recursively genrates random strings and checks the generated string for uniqueness.
      * Once the string is deemed unique, that value is returned.
+     * @access private
+     * @param object $model A reference to the current model
      * @param string $field the field name or database column to be randomized
      * @param string $string a to be schecked for uniqness, this would rarely be used outside of testing
      * @return string
@@ -73,8 +81,10 @@ class RandomBehavior extends ModelBehavior
     
     /**
      * Return true if $string already exists in the given Model.column
-     * @return boolean
      * @access private
+     * @param object $model A reference to the current model
+     * @param string $string the string to checked for duplicates
+     * @return boolean
      */
     private function __isDuplicate(&$model, $string, $field){
 
@@ -90,22 +100,26 @@ class RandomBehavior extends ModelBehavior
     /**
      * Return a random string
      * Sets Model.coulmn to the returned random string
-     * @param type $field 
-     * @return string
      * @access private
+     * @param object $model A reference to the current model
+     * @param string $field 
+     * @return string
      */
     private function __generate(&$model, $field){
         $randomString = null;
         
-        if($field == 'case_number'){
-            $randomString = Handy::random();
-            $model->data[$model->name]['case_number'] = $randomString;
+        //Adjust randomization parameters for various fields.
+        switch($field){
+            case 'short_cut':
+                $randomString = Handy::random(4);
+            break;
+        
+            default:
+               $randomString = Handy::random(); 
+            break;    
         }
-
-        if($field == 'short_cut'){
-            $randomString = Handy::random(4);
-            $model->data[$model->name]['short_cut'] = $randomString;
-        }
+        
+        $model->data[$model->name][$field] = $randomString;
         
         return $randomString;
     }

@@ -18,7 +18,7 @@ App::uses('AppModel', 'Model');
 /**
  * Mangages user settings
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
- * @package 42Viral\Person\User
+ * @package 42viral\Person\User
  */
 class UserSetting extends AppModel
 {

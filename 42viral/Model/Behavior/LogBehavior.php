@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * This model behavior will log the user who created or modified a record
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,23 +11,31 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral
  */
 
 /**
  * This model behavior will log the user who created or modified a record
- *
- * @package app
- * @subpackage app.core
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral
  */
 class LogBehavior extends ModelBehavior
 {
 
-    function setup(&$model)
-    {
+    /**
+     * Initializes the behavior
+     * @access public
+     * @param object $model 
+     * @return void
+     */
+    function setup(&$model){}
 
-    }
-
+    /**
+     * Appends "log" data to the array to be saved
+     * @access public
+     * @param object $model
+     * @return boolean 
+     */
     public function beforeSave(&$model)
     {
         $this->__appendLogFields($model);
@@ -35,9 +43,9 @@ class LogBehavior extends ModelBehavior
     }
 
     /**
-     *
-     * @return string
+     * Retrives the id of the user about to commit a save/update
      * @access private
+     * @return string
      */
     private function __getUser()
     {
@@ -49,9 +57,10 @@ class LogBehavior extends ModelBehavior
     }
 
     /**
+     * Provides the logic for appending the "log" data to the array to be saved
+     * @access private
      * @param object $model
      * @return void
-     * @access private
      */
     private function __appendLogFields(&$model)
     {

@@ -1,5 +1,7 @@
 <?php
 /**
+ * Allows a conversation to be created against any instance of any content object
+ * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -9,7 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package 42Viral\Conversation
+ * @package 42viral\Conversation
  */
 
 App::uses('AppModel', 'Model');
@@ -17,7 +19,7 @@ App::uses('AppModel', 'Model');
  * Allows a conversation to be created against any instance of any content object
  * A conversation is any reply, comment or attempt to start a conversation against any piece of Content data
  * @author Jason D Snider <jason.snider@42viral.org>
- * @package 42Viral\Content\Conversation
+ * @package 42viral\Content\Conversation
  */
 class Conversation extends AppModel
 {
