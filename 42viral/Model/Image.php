@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Deals with uploads from an image point of view
  * 
