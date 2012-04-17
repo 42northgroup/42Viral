@@ -93,7 +93,7 @@ App::uses('HttpSocket', 'Network/Http');
         $this->Auth->deny('connect');
 
         $this->Auth->autoRedirect = true;
-        $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
+        $this->Auth->loginRedirect = array('controller' => 'profiles', 'action' => 'view');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
     }
 

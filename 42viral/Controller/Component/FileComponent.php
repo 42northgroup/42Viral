@@ -11,9 +11,11 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 /**
+ * Compiles a list of files with in a sinlge directory. 
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -26,7 +28,7 @@ class FileComponent  extends Component
      * 
      * @param string $path The path to be scaned
      * @param boolean $rekey If true, the resulting array will be returned with a match $key to $value pair
-     * @param mixed $ext Set to null if we want all file ext, otherwise all listed ext will be strpped.
+     * @param mixed $stripExt Set to null if we want all file ext, otherwise all listed ext will be strpped.
      * @return array 
      * @access public
      */

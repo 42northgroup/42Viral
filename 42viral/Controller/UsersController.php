@@ -74,7 +74,7 @@ App::uses('AppController', 'Controller');
         $this->Auth->fields = array('username' => array('username', 'email'));
 
         $this->Auth->autoRedirect = true;
-        $this->Auth->loginRedirect = array('controller' => 'members', 'action' => 'view');
+        $this->Auth->loginRedirect = array('controller' => 'profiles', 'action' => 'view');
         $this->Auth->logoutRedirect = array('controller' => 'users', 'action' => 'login');
     }
 

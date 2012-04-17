@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
@@ -32,7 +33,7 @@ App::uses('Member', 'Lib');
     public $name = 'Profiles';
 
     /**
-     *
+     * Models this controller uses
      * @var array
      * @access public 
      */
@@ -51,31 +52,14 @@ App::uses('Member', 'Lib');
     );
     
     /**
-     *
+     * Components
      * @var array
      * @access public 
      */
     public $components = array('Oauths');
-
-    public $test_profile = array(
-        'first_name' => 'Lyubomir',
-        'last_name' => 'Dimov',
-        'home_phone' => '7083344042',
-        'work_phone' => '7083345042',
-        'address1' => '16 Shiver Dr.',
-        'address2' => 'apt# 203',
-        'city' => 'Oak Park',
-        'state' => 'IL',
-        'zip' => '60520',
-        'country' => 'United States of America',
-        'email' => 'make@believe.com',
-        'username' => 'root',
-        'id' => '4e27efec-ece0-4a36-baaf-38384bb83359',
-        'image_read_path' => '/img/people/4e27efec-ece0-4a36-baaf-38384bb83359',
-        'modified' => '2012-03-12 14:00:14'
-    );
-
+    
     /**
+     * beforeFilter
      * @return void
      * @access public
      */
@@ -231,7 +215,7 @@ App::uses('Member', 'Lib');
      * Delete person's address
      * 
      * @access public
-     * @param  string $detailId
+     * @param  string $addressId
      * @return void
      */
     public function delete_person_address($addressId){
@@ -243,13 +227,6 @@ App::uses('Member', 'Lib');
         
         $this->redirect($this->referer());
     }
-
-    /**
-     *
-     * @access public
-     */
-    public function delete() {}
-
 
     /**
      * Retrives and displays a user's profile 
@@ -287,7 +264,7 @@ App::uses('Member', 'Lib');
             'fields' => array('Oauth.oauth_id', 'Oauth.service')
         ));
 
-        $this->set('statuses', $this->social_media('members/view'));
+        $this->set('statuses', $this->social_media('profiles/view'));
         
         $this->set('services', $services);
         $this->set('user', $user);
@@ -310,7 +287,7 @@ App::uses('Member', 'Lib');
      * once all the tokens are up to date, it the function the the user's statuses.
      *
      * @access public
-     * @param type $redirect_url if the function needs reathenticate the user with some social media this parameter 
+     * @param string $redirect_url if the function needs reathenticate the user with some social media this parameter 
      *        tell's it where to return after the user hass been reauthenticated
      * @return boolean 
      */

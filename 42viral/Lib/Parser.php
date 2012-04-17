@@ -10,7 +10,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package 42viral\Lib
+ * @package       42viral\Lib
  */
 
 /**
@@ -93,8 +93,8 @@ class Parser
      * Encodes array data with XML safe formatting
      * @access public 
      * @static
-     * @param type $data
-     * @return type 
+     * @param array $data
+     * @return array
      */
     public static function arrayEncodeXML($data){
         $encodedData = array();
@@ -110,8 +110,8 @@ class Parser
      * Decodes XML safe formatting contained with in an array. 
      * @access public 
      * @static
-     * @param type $data
-     * @return type
+     * @param array $data
+     * @return array
      */
     public static function arrayDecodeXML($data){
         $decodedData = array();
@@ -127,8 +127,8 @@ class Parser
      * Noramlizes configuration data so it can easily be saved to the configurations table
      * @access public 
      * @static
-     * @param type $data
-     * @return type
+     * @param array $data
+     * @return array
      */
     public static function pluginConfigWrite($data){
         $config = array();

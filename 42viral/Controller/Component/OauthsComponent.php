@@ -35,7 +35,7 @@ class OauthsComponent  extends Component
     /**
      * Instanciates classes neccessary for the component to work
      *
-     * @param object $collection
+     * @param array $collection
      * @param array $settings 
      */
     public function __construct(ComponentCollection $collection, $settings = array())
