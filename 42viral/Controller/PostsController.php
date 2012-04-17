@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
@@ -24,7 +25,7 @@ App::uses('Member', 'Lib');
 class PostsController extends AppController {
 
     /**
-     * This controller does not use a model
+     * Models this controller uses
      *
      * @var array
      * @access public
@@ -39,6 +40,7 @@ class PostsController extends AppController {
     );
     
     /**
+     * Helpers
      * @var array
      * @access public
      */
@@ -48,6 +50,7 @@ class PostsController extends AppController {
     );
 
     /**
+     * Components
      * @access public
      * @var array
      */
@@ -57,6 +60,7 @@ class PostsController extends AppController {
     );
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
@@ -69,6 +73,7 @@ class PostsController extends AppController {
      * Removes a post
      * 
      * @return void
+     * @param $id ID of the post which we want ot delete
      * @access public
      */
     public function delete($id){
@@ -86,8 +91,9 @@ class PostsController extends AppController {
     /**
      * Creates a post or blog entry
      * 
-     * @return void
      * @access public
+     * @param $blogId ID of the blog for which we are creating a post
+     * @return void
      */
     public function create($blogId = null)
     {
@@ -208,8 +214,10 @@ class PostsController extends AppController {
     }
 
     /**
-     * Resirect short links to their proper url
-     * @param type $shortCut 
+     * Redirect short links to their proper url
+     * 
+     * @access public
+     * @param string $shortCut 
      * @return void
      */
     public function short_cut($shortCut) {
@@ -223,8 +231,9 @@ class PostsController extends AppController {
     /**
      * Displays a blog post
      *
-     * @param array
+     * @param string $slug
      * @access public
+     * @return void
      */
     public function view($slug) {
         $mine = false;

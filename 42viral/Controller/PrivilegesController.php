@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
@@ -22,11 +23,25 @@ App::uses('AppController', 'Controller');
  */
  class PrivilegesController extends AppController {
     
+    /**
+     * Components
+     * @var array
+     * @access public
+     */
     public $components = array('ControllerList');
     
+    /**
+     * Model this controller uses
+     * @var array
+     * @access public
+     */
     public $uses = array('Person', 'Aro', 'Aco', 'AclGroup');
     
 
+    /**
+     * beforeFilter
+     * @access public
+     */
     public function beforeFilter()
     {
         $this->auth(array());
@@ -193,84 +208,6 @@ App::uses('AppController', 'Controller');
         }
         
         $this->set('title_for_layout', 'User Privileges');
-    }
-    
-    public function admin_aco_group($alias)
-    {
-        $controllers = $this->ControllerList->get_all();
-        $acos = $this->Aco->find('list', array(
-            'fields' => array('Aco.alias', 'Aco.parent_id')
-        ));
-        $this->set('acos', $acos);
-        
-        $group = $this->Aco->findByAlias($alias);
-        $this->set('group', $group);
-        
-        foreach($controllers as $key => $val){
-            foreach($controllers[$key] as $index => $action){
-                
-                if( !array_key_exists($key.'-'.$action, $acos) ){
-                    $this->Acl->Aco->create(array(
-                        'parent_id'=>1,
-                        'alias'=>$key.'-'.$action,0,0
-                    ));
-                    
-                    $this->Acl->Aco->save();
-                }
-            }
-        }
-        
-        foreach($acos as $key => $val){
-            $aco_alias = explode('-',$key);
-            
-            if(isset($aco_alias[1]) && $aco_alias[1] == 'group' && $aco_alias[0].'-'.$aco_alias[1] != $alias){
-                $controllers[$aco_alias[0]] = array();
-                array_push($controllers[$aco_alias[0]], $aco_alias[1]);
-            }
-        }
-        
-        $this->set('controllers', $controllers);
-    }
-    
-    
-    public function admin_add_to_group($new_parent_id){
-        
-        if(!empty ($this->data)){
-            
-            $acos = $this->Aco->find('all', array(
-                'contain' => array()
-            ));
-            
-            foreach ($acos as $aco){
-                $aco_alias = explode('-', $aco['Aco']['alias']);
-                
-                if($aco['Aco']['alias'] != 'root' && $aco['Aco']['id'] != $new_parent_id ){
-                    
-                    if($this->data[$aco_alias[0]][$aco_alias[1]] == 1){
-                        
-                        unset($aco['Aco']['lft']);
-                        unset($aco['Aco']['rght']);
-
-                        $aco['Aco']['parent_id'] = $new_parent_id;
-
-                        $this->Acl->Aco->save($aco);
-                    }else{
-                        
-                        unset($aco['Aco']['lft']);
-                        unset($aco['Aco']['rght']);
-                        $aco['Aco']['parent_id'] = 1; 
-
-                        $this->Acl->Aco->save($aco);
-                    }
-                }
-            }
-            
-                        
-            $this->redirect($this->referer());            
-            
-        }
-        
-        
     }
 
 

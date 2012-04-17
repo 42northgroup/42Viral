@@ -22,7 +22,11 @@
 class AccessComponent  extends Component 
 {
 
-    
+    /**
+     * Components
+     * @access public
+     * @var type
+     */
     public $components = array('Acl', 'Session');
     
     /**

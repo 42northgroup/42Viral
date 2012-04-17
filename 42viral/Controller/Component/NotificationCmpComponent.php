@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('Notification', 'Model');
@@ -20,6 +21,7 @@ App::uses('CakeEmail', 'Network/Email');
 App::uses('MicroTemplate', 'Lib');
 
 /**
+ * Creates and triggers notifications
  * @package app
  * @subpackage app.core
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -27,43 +29,53 @@ App::uses('MicroTemplate', 'Lib');
 class NotificationCmpComponent extends Component
 {
 
-/**
- * @access private
- * @var type
- */
+    /**
+     * Determines if the neccessary classes have been loaded
+     * @access private
+     * @var type
+     */
     private $__classesPrepared = false;
 
 
+    /**
+     * Components
+     * @access public
+     * @var type
+     */
     public $components = array('Email');
 
     
-/**
- * @access private
- * @var type
- */
+    /**
+     * Cache
+     * @access private
+     * @var type
+     */
     private $__notificationCache = array();
 
-/**
- * @access private
- * @var type
- */
+    /**
+     * What to appear in the from field of an email sent from 42viral
+     * @access private
+     * @var type
+     */
     private $__fromEmail = '';
 
-/**
- * @access private
- * @var string
- */
+    /**
+     * What to appear in the reply to field of an email sent from 42viral
+     * @access private
+     * @var string
+     */
     private $__replyToEmail = '';
 
-/**
- * @access private
- * @var string
- */
+    /**
+     * Email Template
+     * @access private
+     * @var string
+     */
     private $__emailTemplate = '';
 
     
 /**
- *
+ * Instanciates the neccessary varialables and classes for the component to work
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @access private
@@ -76,12 +88,12 @@ class NotificationCmpComponent extends Component
         $this->__prepareClasses();
     }
 
-/**
- * Make sure all required classes are present when being called from anywhere (cake shell, controller, etc.)
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access private
- */
+    /**
+     * Make sure all required classes are present when being called from anywhere (cake shell, controller, etc.)
+     *
+     * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+     * @access private
+     */
     private function __prepareClasses()
     {
         //If classes were prepared once in the same process, don't bother
@@ -105,14 +117,14 @@ class NotificationCmpComponent extends Component
     }
 
 
-/**
- * Generate and send an email using the information encapsulated within the $preparedNotification object
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access private
- * @param array $preparedNotification A prepared notification object which contains all information for
- * generating an actual email notification
- */
+    /**
+     * Generate and send an email using the information encapsulated within the $preparedNotification object
+     *
+     * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+     * @access private
+     * @param array $preparedNotification A prepared notification object which contains all information for
+     * generating an actual email notification
+     */
     private function __sendEmail($preparedNotification)
     {
         $email = new CakeEmail();
@@ -142,16 +154,16 @@ class NotificationCmpComponent extends Component
         */
     }
 
-/**
- * API method to fire a notification for a given person using any additional objects to be substituted in the
- * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access public
- * @param string $notificationHandle
- * @param Person $person
- * @param array $additionalObjects
- */
+    /**
+     * API method to fire a notification for a given person using any additional objects to be substituted in the
+     * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
+     *
+     * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+     * @access public
+     * @param string $notificationHandle
+     * @param Person $person
+     * @param array $additionalObjects
+     */
     public function triggerNotification($notificationHandle, $person, $additionalObjects=array())
     {
         
@@ -186,14 +198,15 @@ class NotificationCmpComponent extends Component
     }
     
     /**
- * API method to fire a notification to a number of email using any additional objects to be substituted in the 
- * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
- *
- * @author Lyubomir R Dimov <lrdimov@yahoo.com>
- * @access public
- * @param string $notificationHandle 
- * @param array $additionalObjects
- */
+     * API method to fire a notification to a number of email using any additional objects to be substituted in the 
+     * notification template. Firing a notification includes firing an email and generating an inbox message of the same.
+     *
+     * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+     * @access public
+     * @param string $notificationHandle 
+     * @param array $emails
+     * @param array $additionalObjects
+     */
     public function triggerSimpleNotification($notificationHandle, $emails = array(), $additionalObjects=array())
     {
         

@@ -11,33 +11,50 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
 App::uses('Scrub', 'ContentFilters.Lib');
 /**
+ * Manages users in the system
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
  class PeopleController extends AppController
 {
 
     /**
+     * Models used in this controller
      * @var array
      * @access public
      */
-
     public $uses = array('CaseModel', 'Person', 'Invite');
 
-    public $components = array('NotificationCmp');
     /**
+     * Components
+     *
+     * @var array
+     * @access public
+     */
+    public $components = array('NotificationCmp');
+    
+    /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter(){
         parent::beforeFilter();
     }
 
+    /**
+     * Retrives all users in the system
+     * 
+     * @access public
+     * @return void
+     */
     public function admin_index()
     {
         $people = $this->Person->find('all');
@@ -45,22 +62,35 @@ App::uses('Scrub', 'ContentFilters.Lib');
         $this->set('title_for_layout', 'People (CRM)');
     }    
     
-   public function admin_view($username){
+    /**
+     * Retrieves a person's details
+     *
+     * @access public
+     * @param string $username unique identifier
+     * @return void
+     */
+    public function admin_view($username){
        $person = $this->Person->getPersonWith($username, 'nothing');
        $this->set('person', $person);
        $this->set('userProfile', $person);
        $this->set('title_for_layout', 
                $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
-   }
+    }
    
-   public function invite()
-   {         
+    /**
+    * Sends an ivite to all emais passed through the form
+    * 
+    * @access public
+    * @return void
+    */
+    public function invite()
+    {         
        if(!empty ($this->data)){
            $emails = explode(',', $this->data['Invite']['emails']);
-           
+
            $validated_emails = array();
            $bad_emails = array();
-           
+
            for($i=0; $i<count($emails); $i++){
                $emails[$i] = trim($emails[$i]);
                if(Validation::email($emails[$i])){
@@ -68,16 +98,16 @@ App::uses('Scrub', 'ContentFilters.Lib');
                }else{
                    array_push($bad_emails, trim($emails[$i]));
                }
-               
+
            }
-                      
+
            foreach($validated_emails as $email){
-           
+
                if($this->Invite->add()){
 
                    $invitation_token = $this->Invite->id;
                    $invitee = $this->Session->read('Auth.User.name');
-                   
+
                    $additionalObjects = array(
                        'invitation_token' => $invitation_token,
                        'invitee' => $invitee,
@@ -88,7 +118,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
 
                }
            }
-           
+
            if(!empty ($bad_emails)){
                $flash_string = 'An invitaion could not be sent to the following email addresses:';
                $this->request->data['Invite']['emails'] = '';
@@ -106,7 +136,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
                $this->Session->setFlash(_('Invitations have been sent'), 'success');
            }
        }
-       
+
        $this->set('title_for_layout', "Invite Your Friends");
-   }
+    }
 }

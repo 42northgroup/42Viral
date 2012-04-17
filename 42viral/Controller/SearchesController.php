@@ -38,7 +38,7 @@ App::uses('AppController', 'Controller');
     public $helpers = array('Tags.TagCloud');
 
     /**
-     * This controller does not use a model
+     * Models used in this controller
      *
      * @var array
      * @access public
@@ -58,6 +58,7 @@ App::uses('AppController', 'Controller');
     );
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter()

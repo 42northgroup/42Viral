@@ -1,11 +1,34 @@
-<?php
+<?php 
 /**
- * @todo find out where Lubo got this script and give appropriate credit
+ * PHP 5.3
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
-
+/**
+ * Retrives a list of controllers and actions in the system
+ * @package app
+ * @subpackage app.core
+ * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ */
 class ControllerListComponent extends Component {
     
+    /**
+     * Returns a list of the main controllers and actions
+     *
+     * @access public
+     * @return array
+     * @link https://github.com/cakebaker/controller-list-component
+     */
     public function get() {
                 
         $controllerClasses = App::objects('controller', null, false);
@@ -33,6 +56,12 @@ class ControllerListComponent extends Component {
         return $controllers;
     }
     
+    /**
+     * Returns a list of controllers and actions belonging to plugins
+     *
+     * @access public
+     * @return array
+     */
     public function get_plugins()
     {
         $pluginDirs = App::objects('plugin', null, false);
@@ -67,6 +96,12 @@ class ControllerListComponent extends Component {
         return $plugins;
     }
     
+    /**
+     * Retrives a list of all controllers and action(including plugins)
+     *
+     * @access public
+     * @return array
+     */
     public function get_all()
     {
         return array_merge($this->get(), $this->get_plugins());

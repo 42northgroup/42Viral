@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 App::uses('Tweet', 'Connect.Model');
 App::uses('Linkedin', 'Connect.Model');
@@ -24,9 +25,19 @@ App::uses('Controller', 'Controller');
 
 class OauthsComponent  extends Component
 {
-    
+    /**
+     * Components
+     * @access public
+     * @var type
+     */
     var $components = array('Session'); 
 
+    /**
+     * Instanciates classes neccessary for the component to work
+     *
+     * @param object $collection
+     * @param array $settings 
+     */
     public function __construct(ComponentCollection $collection, $settings = array())
     {
         parent::__construct($collection, $settings);

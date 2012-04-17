@@ -11,10 +11,12 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
 /**
+ * Manages UI tests for controllers
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -32,6 +34,7 @@ App::uses('AppController', 'Controller');
 
 
     /**
+     * beforeFilter
      * @access public
      */
     public function beforeFilter()
@@ -41,6 +44,7 @@ App::uses('AppController', 'Controller');
     }
 
     /**
+     * beforeRender
      * @access public
      */
     public function beforeRender()
@@ -51,7 +55,7 @@ App::uses('AppController', 'Controller');
     
     /**
      *
-     * @param array
+     * To be developed
      */
     public function index() 
     {
@@ -60,8 +64,7 @@ App::uses('AppController', 'Controller');
     
     
     /**
-     *
-     * @param array
+     * To be developed
      */
     public function example() 
     {

@@ -11,10 +11,12 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       42viral\app
  */
 
 App::uses('AppController', 'Controller');
 /**
+ * Manages notifications
  * @package app
  * @subpackage app.core
  */
