@@ -161,7 +161,7 @@ class Blog extends Content
     /**
      * Inject all "finds" against the blog object with lead blog criteria
      * @access public
-     * @param array $query Holds the parameters for building a CakePHP query
+     * @param array $queryData Holds the parameters for building a CakePHP query
      * @return array
      */
     public function beforeFind($queryData) {

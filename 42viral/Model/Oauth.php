@@ -1,7 +1,7 @@
 <?php
-
 /**
- * PHP 5.3
+ * Provides a model for creating and maintaining connections between oauth based APIs and user accounts
+ * We define an Oauth as an authenticated thrid party service to a Person.
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -19,34 +19,32 @@ App::uses('User', 'Model');
 App::uses('Profile', 'Model');
 App::uses('Sec', 'Utility');
 /**
- * Works with Oauth records. An Oauth ties an authenticated thrid party service to a Person.
- *  
- * @package app
- * @subpackage app.core
- * 
+ * Provides a model for creating and maintaining connections between oauth based APIs and user accounts
+ * We define an Oauth as an authenticated thrid party service to a Person.
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @package 42viral\Person\User
  */
 class Oauth extends AppModel
 {
     /**
-     *
-     * @var string
+     * The static name of the oauth model 
      * @access public
+     * @var string     
      */
     public $name = 'Oauth';
     
     /**
-     *
-     * @var string
+     * Specifies the table used by the oauth model
      * @access public
+     * @var string
      */
     public $useTable = 'oauths';
     
-   /**
-     *
-     * @var array
+    /**
+     * Defines the belong to relationships for the oauth model
      * @access public
+     * @var array
      */
     public $belongsTo = array(
         'Person' => array(
@@ -56,19 +54,31 @@ class Oauth extends AppModel
         )
     );
 
+    /**
+     * Initialisation for all new instances of Oauth
+     * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     * @return void
+     */
     public function __construct($id = false, $table = null, $ds = null) {
         parent::__construct($id, $table, $ds);
 
         $this->User = new User();
     }
-
+    
     /**
-     * Wraps the checking and creation logic
-     * @param string $service
-     * @param string $oauthId
-     * @return string
+     * If an oauth record exists the the person_id is returned. The an oauthed record does not exist it is created;
+     * the person id is returned after the oauth is created
+     * @access public
+     * @param string $service The service we are checking for: Twitter, Facebook, etc
+     * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
+     * @param string $token The authentication token returned by the service (default: null)
+     * @param string $userId The id of the for whom we are locating an oauth (default: null)
+     * @return string 
      */
-    public function oauthed($service, $oauthId, $token=null, $user_id=null){
+    public function oauthed($service, $oauthId, $token=null, $userId=null){
         $theOauthed = $this->getOauthed($service, $oauthId);
         if($theOauthed){
 
@@ -76,12 +86,13 @@ class Oauth extends AppModel
 
         }else{
 
-            return $this->createOauthed($service, $oauthId, $token, $user_id);
+            return $this->createOauthed($service, $oauthId, $token, $userId);
         }
     }
 
     /**
      * Gets an Oauth record
+     * @access public
      * @param string $service
      * @param string $oauthId
      * @return string
@@ -106,6 +117,7 @@ class Oauth extends AppModel
 
     /**
      * Creates a new OAuth entry and person
+     * @access public
      * @param string $service
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
      * @return string
@@ -171,7 +183,7 @@ class Oauth extends AppModel
      * 
      * If this is the first time the user is authenticating with this service it will
      * return false 
-     *
+     * @access public
      * @param stirng $service
      * @param stirng $service_id
      * @param string $user_id

@@ -24,23 +24,23 @@ class UserSetting extends AppModel
 {
 
     /**
-     * 
-     * @var string
+     * The static name of the user setting class 
      * @access public
+     * @var string
      */
     public $name = 'UserSetting';
 
     /**
-     * 
-     * @var string
-     * @access public 
+     * Specifies the table used by the user setting model
+     * @access public
+     * @var string 
      */
     public $useTable = 'user_settings';
 
     /**
-     * 
-     * @var array
-     * @access public 
+     * Specifies the behaviors invoked by the user setting object
+     * @access public
+     * @var array 
      */
     public $actsAs = array(
         'AuditLog.Auditable',
@@ -48,9 +48,9 @@ class UserSetting extends AppModel
     );
     
     /**
-     * 
-     * @var array
+     * Defines the user setting's belongs to relationships
      * @access public 
+     * @var array
      */
     public $belongsTo = array(
         'User' => array(
@@ -59,16 +59,5 @@ class UserSetting extends AppModel
             'dependent' => true
         )
     );
-
-
-    public function fectchUserSettings($personId)
-    {
-        $userSettings = $this->UserSetting->find('first', array(
-            'conditions' => array('UserSetting.person_id' => $personId),
-            'contain' => array()
-        ));
-        
-        return $userSettings;
-    }
 }
 ?>
