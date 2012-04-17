@@ -120,17 +120,18 @@ App::uses('AppController', 'Controller');
     
     /**
      * Advanced search, converts post data to named params then performs a self redirect to load the named params 
-     * creating a bookmarkable search results page. 
-     * @return void
+     * creating a bookmarkable search results page.
+     *
      * @access public
+     * @return void
      */
-    public function advanced() {
-        
+    public function advanced()
+    {
         $display = 'none';
         
-        if(!empty($this->data)){
+        if(!empty($this->data)) {
             $q =''; //holds the final query string in the form of a Pretty URL
-            foreach($this->data['Content'] as $key => $value){
+            foreach($this->data['Content'] as $key => $value) {
                 
                 //Converts MUTLI option arrays to a string
                 $a = '';
@@ -164,14 +165,14 @@ App::uses('AppController', 'Controller');
             //IN array conditions
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
-            
+
             $this->paginate = array(
                 'conditions' => $this->Content->parseCriteria($conditions),
                 'limit' => 10
             );
 
             $data = $this->paginate('Content');
-            
+
             $this->set(compact('data'));   
             
             $this->request->data['Content'] = $conditions;

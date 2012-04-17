@@ -114,30 +114,6 @@ class SetupController extends AppController
     }
 
     /**
-     * Import the default data set from PMA XML
-     * 
-     * @access public
-     * @return void
-     */
-    public function import()
-    {
-
-        $this->acl();
-
-        $path = ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Data' . DS . 'Required';
-
-        foreach (scandir($path) as $file) {
-            $this->buildPMA($path, $file);
-        }
-
-        $this->_setupLog('setup_import');
-        $this->_setupLog('setup_build_database');
-
-        $this->Session->setFlash('Core data imported', 'success');
-        $this->redirect('/setup');
-    }
-
-    /**
      * A utility for populating DB tables from an XML file.
      *
      * @access public

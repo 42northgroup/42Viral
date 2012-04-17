@@ -28,7 +28,7 @@ class DocsController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Documentation');
+    public $uses = array('Doc');
 
     /**
      * @var array
@@ -48,39 +48,39 @@ class DocsController extends AppController
     }
 
     /**
-     * Action method to view the documentation index page
+     * Action method to view the doc index page
      * 
      * @access public
      * @return void
      */
     public function index()
     {
-        $this->__prepareDocumentationIndex();
+        $this->__prepareDocIndex();
     }
 
     /**
-     * Helper method to fetch the current documentation content and build a hierarchical table of contents data
+     * Helper method to fetch the current doc content and build a hierarchical table of contents data
      * structure for the view to render
      * 
      * @access private
      * @return void
      */
-    private function __prepareDocumentationIndex()
+    private function __prepareDocIndex()
     {
-        $docItems = $this->Documentation->fetchDocumentationsWith('doc_index');
+        $docItems = $this->Doc->fetchDocsWith('doc_index');
 
         $docNavIndex = array(
             '_root' => array()
         );
 
         foreach($docItems as $tempItem) {
-            $hierarchy = preg_split('~::~', $tempItem['Documentation']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
+            $hierarchy = preg_split('~::~', $tempItem['Doc']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
 
             if(!empty($hierarchy)) {
                 if(count($hierarchy) == 1) {
                     array_push($docNavIndex['_root'], array(
                         'label' => $hierarchy[0],
-                        'url' => $tempItem['Documentation']['url']
+                        'url' => $tempItem['Doc']['url']
                     ));
                 } else {
                     $arr = &$docNavIndex;
@@ -95,7 +95,7 @@ class DocsController extends AppController
 
                     array_push($arr, array(
                         'label' => $hierarchy[0],
-                        'url' => $tempItem['Documentation']['url']
+                        'url' => $tempItem['Doc']['url']
                     ));
                 }
             }
@@ -106,7 +106,7 @@ class DocsController extends AppController
 
 
     /**
-     * Action method to display a single documentation page
+     * Action method to display a single doc page
      *
      * @access public
      * @param string $slug
@@ -114,17 +114,17 @@ class DocsController extends AppController
      */
     public function view($slug)
     {
-        $this->__prepareDocumentationIndex();
+        $this->__prepareDocIndex();
 
-        $doc = $this->Documentation->getDocumentationWith($slug);
+        $doc = $this->Doc->getDocWith($slug);
 
         if(empty($doc)){
            $this->redirect('/', '404');
         }
 
         //[TODO] Make the documentation title more human friendly as opposed to the hierarchical coded form
-        $this->set('title_for_layout', $doc['Documentation']['title']);
-        $this->set('canonical_for_layout', $doc['Documentation']['canonical']);
+        $this->set('title_for_layout', $doc['Doc']['title']);
+        $this->set('canonical_for_layout', $doc['Doc']['canonical']);
 
         $this->set('doc', $doc);
     }

@@ -17,7 +17,7 @@
 
 <?php //debug($doc_nav_index); ?>
 
-<a href="/docs/">Table of Contents</a>
+<a href="/doc/">Table of Contents</a>
 
 <?php foreach($doc_nav_index as $key1 => $value1): ?>
     <?php if($key1 == '_root'): ?>

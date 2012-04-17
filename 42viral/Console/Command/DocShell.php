@@ -14,17 +14,17 @@
  */
 
 App::uses('Utility', 'Lib');
-App::uses('Documentation', 'Model');
+App::uses('Doc', 'Model');
 
 /**
- * Cake shell to generate documentation (static and/or database) from documentation markdown
+ * Cake shell to generate doc (static and/or database) from documentation markdown
  *
  * @package app
  * @subpackage app.console.command
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
-class DocumentationShell extends AppShell
+class DocShell extends AppShell
 {
     /**
      * The folder location where all system documentation lives
@@ -75,8 +75,8 @@ class DocumentationShell extends AppShell
     public function main()
     {
         //Set the proper values for the documentation paths
-        $this->__docPath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
-        $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Documentation' .DS;
+        $this->__docPath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Doc' .DS;
+        $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Doc' .DS;
         $this->__docBuildPath = $this->__docBuildBasePath . $this->__docBuildFolder .DS;
         
         //Get a hierarchical structure of the source documentation
@@ -93,7 +93,7 @@ class DocumentationShell extends AppShell
             $file['relative_path_structure'] = preg_split('~' .DS. '~', $tempRelPath, -1, PREG_SPLIT_NO_EMPTY);
         }
 
-        $docModel = new Documentation();
+        $docModel = new Doc();
         $docModel->saveDocFile($files);
 
         if($this->__buildStatic) {

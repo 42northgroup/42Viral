@@ -18,19 +18,23 @@ App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
 
 /**
- * Model class representing the documentation model
+ * Model class representing the doc (documentation) model
+ * 
+ * @package app
+ * @subpackage app.model
+ * 
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @package 42viral\Content\Documentation
  */
-class Documentation extends Content
+class Doc extends Content
 {
 
     /**
      * @access public
      * @var string
      */
-    public $name = 'Documentation';
+    public $name = 'Doc';
 
     /**
      * Predefined data sets
@@ -52,15 +56,15 @@ class Documentation extends Content
         'doc_index' => array(
             'contain' => array(),
             'conditions' => array(
-                'Documentation.object_type' => 'docs'
+                'Doc.object_type' => 'doc'
             ),
 
             'fields' => array(
-                'Documentation.url',
-                'Documentation.short_cut',
-                'Documentation.base_slug',
-                'Documentation._before_seo',
-                'Documentation.slug'
+                'Doc.url',
+                'Doc.short_cut',
+                'Doc.base_slug',
+                'Doc._before_seo',
+                'Doc.slug'
             )
         )
     );
@@ -93,12 +97,12 @@ class Documentation extends Content
     public function beforeSave()
     {
         parent::beforeSave();
-        $this->data['Documentation']['object_type'] = 'docs';
+        $this->data['Doc']['object_type'] = 'doc';
         return true;
     }
 
     /**
-     * Inject all "finds" against the Documentation object with lead filtering criteria
+     * Inject all "finds" against the doc object with lead filtering criteria
      *
      * @access public
      * @param array $queryData
@@ -109,61 +113,61 @@ class Documentation extends Content
         parent::beforeFind($queryData);
 
         $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
-        $DocumentationFilter = array('Documentation.object_type' => 'docs');
-        $queryData['conditions'] = array_merge($queryData['conditions'], $DocumentationFilter);
+        $docFilter = array('Doc.object_type' => 'doc');
+        $queryData['conditions'] = array_merge($queryData['conditions'], $docFilter);
 
         return $queryData;
     }
 
     /**
-     * Returns a given Documentation based on a given token and a with(query) array
+     * Returns a given doc based on a given token and a with(query) array
      *
      * @access public
      * @param string $token
      * @param string|array $with (default: 'public')
      * @return array 
      */
-    public function getDocumentationWith($token, $with = 'public')
+    public function getDocWith($token, $with = 'public')
     {
 
         $theToken = array(
             'conditions' => array('or' => array(
-                    'Documentation.id' => $token,
-                    'Documentation.slug' => $token,
-                    'Documentation.short_cut' => $token
+                'Doc.id' => $token,
+                'Doc.slug' => $token,
+                'Doc.short_cut' => $token
             ))
         );
 
         $finder = array_merge($this->dataSet[$with], $theToken);
-        $documentation = $this->find('first', $finder);
+        $doc = $this->find('first', $finder);
 
-        return $documentation;
+        return $doc;
     }
 
     /**
-     * Returns a given Documentation based predefinded conditions
+     * Returns a given Doc based predefinded conditions
      *
      * @access public
      * @param string|array $with (default: 'public')
      * @return array 
      */
-    public function fetchDocumentationsWith($with = 'public')
+    public function fetchDocsWith($with = 'public')
     {
         $finder = $this->dataSet[$with];
 
-        $documentations = $this->find('all', $finder);
-        return $documentations;
+        $docs = $this->find('all', $finder);
+        return $docs;
     }
 
     /**
-     * Given a parsed documentation file content and hierarchy data structure, populate the documentation table.
+     * Given a parsed doc file content and hierarchy data structure, populate the content table.
      *
      * @access public
      * @param array $files
      * @return boolean
      *
-     * [TODO] Make this more of a transactional process, i.e. the entire clearing of the old documentation and
-     * generation of the new documentation.
+     * [TODO] Make this more of a transactional process, i.e. the entire clearing of the old doc and
+     * generation of the new doc.
      */
     public function saveDocFile($files)
     {
@@ -180,8 +184,8 @@ class Documentation extends Content
                 }
             }
 
-            $this->data['Documentation']['title'] = $docHierarchy . str_replace('.md', '', $tempFile['file']);
-            $this->data['Documentation']['body'] = $tempFile['html'];
+            $this->data['Doc']['title'] = $docHierarchy . str_replace('.md', '', $tempFile['file']);
+            $this->data['Doc']['body'] = $tempFile['html'];
             
             $this->save($this->data);
         }
@@ -190,7 +194,7 @@ class Documentation extends Content
     }
 
     /**
-     * Clear all current content of the type documentation (docs)
+     * Clear all current content of the type doc (docs)
      *
      * @access public
      * @return boolean
@@ -198,7 +202,7 @@ class Documentation extends Content
     public function clearAllDocs()
     {
         $oppStatus = $this->deleteAll(array(
-            'Documentation.object_type' => 'docs'
+            'Doc.object_type' => 'doc'
         ));
 
         return ($oppStatus)? true: false;

@@ -20,6 +20,6 @@
     </div>
 
     <div class="twelve columns omega">
-        <?php echo $doc['Documentation']['body']; ?>
+        <?php echo $doc['Doc']['body']; ?>
     </div>
 </div>
