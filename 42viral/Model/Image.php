@@ -80,7 +80,7 @@ class Image extends Upload
     /**
      * Removes the current avatar for a given user
      * @access public
-     * @param string $path The id of the given user
+     * @param string $personId The id of the given user
      * @return boolean 
      */
     public function clearPersonAvatar($personId)
