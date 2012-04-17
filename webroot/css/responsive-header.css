@@ -24,18 +24,22 @@
 
 /* #Base 960 Header
 ================================================== */
-#LogoContainer{
+#LogoContainer {
     float: left;
     color: #fff;
 }
 
-#NavigationContainer{
+#LogoContainer a {
+    color: #fff;
+}
+
+#NavigationContainer {
     float:right;
     display: inline;
 }
 
 #NavigationContainer a:link,
-#NavigationContainer a:visited{
+#NavigationContainer a:visited {
     color: #fff;
 }
 
@@ -128,8 +132,12 @@
     /* Note: Design for a width of 768px */
 
     @media only screen and (min-width: 768px) and (max-width: 959px) {
-    #LogoContainer{
+    #LogoContainer {
         float: left;
+        color: #fff;
+    }
+
+    #LogoContainer a {
         color: #fff;
     }
 
@@ -207,26 +215,30 @@
 /* Note: Design for a width of 320px */
 @media only screen and (max-width: 767px) {
 
-    #MobileHeader{
-        position:relative;
+    #MobileHeader {
+        position: relative;
         display: block;
     }     
 
-    #LogoContainer{
-        display:none;
+    #LogoContainer {
+        display: none;
     }
 
-    .logo-container{
-        float:left;
+    .logo-container {
+        float: left;
+    }
+
+    .logo-container a {
+        color: #fff;
     }
 
     #MobileNavigationTrigger{
-        float:right;
+        float: right;
     }
 
     #NavigationContainer{
         float: none;
-        display:block;
+        display: block;
     }
 
     #NavigationHeader{

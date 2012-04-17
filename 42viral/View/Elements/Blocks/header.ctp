@@ -16,11 +16,15 @@
 
 <div id="Header">
     <div class="clearfix squeeze">
-        <div id="LogoContainer">The 42Viral Project</div>
+        <div id="LogoContainer">
+            <a href="/">The 42Viral Project</a>
+        </div>
         
         <div id="MobileHeader" class="clearfix">
             
-            <div class="logo-container">The 42Viral Project</div>
+            <div class="logo-container">
+                <a href="/">The 42Viral Project</a>
+            </div>
             
             <a id="MobileNavigationTrigger" class="btn btn-navbar">
                 <span class="icon-bar"></span>
@@ -41,6 +45,7 @@
             
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/doc/">Documentation</a></div>
                     <div class="navigation"><a href="/searches/">Search</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/profiles/">Profiles</a></div>

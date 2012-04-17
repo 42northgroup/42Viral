@@ -96,8 +96,26 @@ class DocShell extends AppShell
         $docModel = new Doc();
         $docModel->saveDocFile($files);
 
+        $this->__clearDocIndexCache();
+
         if($this->__buildStatic) {
             $this->__buildStaticFiles($files);
+        }
+    }
+
+    /**
+     * Clear the doc index cache file upon running the documentation shell so that a fresh doc index is created on
+     * the first access to the docs controller.
+     *
+     * @access private
+     * @return void
+     */
+    private function __clearDocIndexCache()
+    {
+        $file = ROOT .DS. APP_DIR .DS. 'tmp' .DS. 'cache' .DS. 'persistent' .DS. 'doc_index';
+
+        if(is_file($file)) {
+            unlink($file);
         }
     }
 

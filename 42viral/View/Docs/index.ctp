@@ -19,5 +19,12 @@
         <?php echo $this->element('Docs/doc_index'); ?>
     </div>
 
-    <div class="twelve columns omega"></div>
+    <div class="twelve columns omega">
+        <h1>42Viral Documentation</h1>
+
+        <p>
+            This is the official documentation for the 42Viral project. The documentation is separated into two high
+            level categories for <b>developers</b> and <b>users</b> based on how you intend to use this project.
+        </p>
+    </div>
 </div>

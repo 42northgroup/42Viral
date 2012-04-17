@@ -67,43 +67,91 @@ class DocsController extends AppController
      */
     private function __prepareDocIndex()
     {
-        $docItems = $this->Doc->fetchDocsWith('doc_index');
+        if(! $fromCache = $this->__tryDocIndexCache()) {
+            $docItems = $this->Doc->fetchDocsWith('doc_index');
+            $docNavIndex = array(
+                '_root' => array()
+            );
 
-        $docNavIndex = array(
-            '_root' => array()
-        );
+            foreach($docItems as $tempItem) {
+                $hierarchy = preg_split('~::~', $tempItem['Doc']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
 
-        foreach($docItems as $tempItem) {
-            $hierarchy = preg_split('~::~', $tempItem['Doc']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
+                if(!empty($hierarchy)) {
+                    if(count($hierarchy) == 1) {
+                        array_push($docNavIndex['_root'], array(
+                            'label' => $hierarchy[0],
+                            'url' => $tempItem['Doc']['url']
+                        ));
+                    } else {
+                        $arr = &$docNavIndex;
 
-            if(!empty($hierarchy)) {
-                if(count($hierarchy) == 1) {
-                    array_push($docNavIndex['_root'], array(
-                        'label' => $hierarchy[0],
-                        'url' => $tempItem['Doc']['url']
-                    ));
-                } else {
-                    $arr = &$docNavIndex;
+                        do {
+                            $tempVal = array_shift($hierarchy);
+                            if(!array_key_exists($tempVal, $arr)) {
+                                $arr[$tempVal] = array();
+                            }
+                            $arr = &$arr[$tempVal];
+                        } while(count($hierarchy) > 1);
 
-                    do {
-                        $tempVal = array_shift($hierarchy);
-                        if(!array_key_exists($tempVal, $arr)) {
-                            $arr[$tempVal] = array();
-                        }
-                        $arr = &$arr[$tempVal];
-                    } while(count($hierarchy) > 1);
-
-                    array_push($arr, array(
-                        'label' => $hierarchy[0],
-                        'url' => $tempItem['Doc']['url']
-                    ));
+                        array_push($arr, array(
+                            'label' => $hierarchy[0],
+                            'url' => $tempItem['Doc']['url']
+                        ));
+                    }
                 }
             }
+
+            $this->__writeDocIndexCache($docNavIndex);
+
+        } else {
+            $docNavIndex = $fromCache;
         }
 
         $this->set('doc_nav_index', $docNavIndex);
     }
 
+    /**
+     * Write the documentation nav index to cache file for subsequent requests.
+     *
+     * @access private
+     * @param array $docNavIndex
+     * @return void
+     */
+    private function __writeDocIndexCache($docNavIndex)
+    {
+        $file = ROOT .DS. APP_DIR .DS. 'tmp' .DS. 'cache' .DS. 'persistent' .DS. 'doc_index';
+
+        $fileHandle = fopen($file, 'w+');
+        fwrite($fileHandle, serialize($docNavIndex));
+        fclose($fileHandle);
+    }
+
+    /**
+     * Try fetching the doc index from cache file if it exists and is not empty
+     *
+     * @access private
+     * @return boolean|array
+     */
+    private function __tryDocIndexCache()
+    {
+        $file = ROOT .DS. APP_DIR .DS. 'tmp' .DS. 'cache' .DS. 'persistent' .DS. 'doc_index';
+
+        if(file_exists($file)) {
+            $fileHandle = fopen($file, 'r');
+            $fileContents = fread($fileHandle, filesize($file));
+            fclose($fileHandle);
+
+            $navStructure = unserialize($fileContents);
+
+            if(!empty($navStructure)) {
+                return $navStructure;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Action method to display a single doc page
