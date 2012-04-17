@@ -1,7 +1,6 @@
 <?php
-
 /**
- * PHP 5.3
+ * Manage notification template objects
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -12,39 +11,39 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Notification
  */
 
 App::uses('AppModel', 'Model');
 App::uses('Handy', 'Lib');
 /**
  * Manage notification template objects
- *
- * @package app
- * @subpackage app.core
- *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral\Notification
  */
 class Notification extends AppModel
 {
 
-/**
- * @var string
- * @access public
- */
+    /**
+     * The static name of the notification object
+     * @var string
+     * @access public
+     */
     public $name = 'Notification';
 
 
-/**
- * @var string
- * @access public
- */
+    /**
+     * Specifies the table to be used by the notification object
+     * @var string
+     * @access public
+     */
     public $useTable = 'notifications';
 
-
-/**
- * @var array
- * @access public
- */
+    /**
+     * Specifies the behaviors to be invoked by the notification model
+     * @var array
+     * @access public
+     */
     public $actsAs = array(
         'Log',
         
@@ -58,10 +57,11 @@ class Notification extends AppModel
     );
 
 
-/**
- * @var array
- * @access public
- */
+    /** 
+     * Specifies the validation parameters for the notification model
+     * @var array
+     * @access public
+     */
     public $validate = array(
         'alias' => array(
             'notEmpty' => array(
@@ -97,13 +97,11 @@ class Notification extends AppModel
         )
     );
 
-
-/**
- * Used for generating a dummy test notification for testing purposes
- *
- * @access public
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- */
+    /**
+     * Used for generating a dummy test notification for testing purposes
+     * @access public
+     * @return void
+     */
     public function generateDummyTestNotification()
     {
         $tempNotification = array();
@@ -118,14 +116,12 @@ class Notification extends AppModel
     }
 
 
-/**
- * Fetch a notification using a notification handle (id or alias)
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access public
- * @param string $notificationHandle
- * @return Notification
- */
+    /**
+     * Fetch a notification using a notification handle (id or alias)
+     * @access public
+     * @param string $notificationHandle
+     * @return Notification
+     */
     public function fetchNotification($notificationHandle)
     {
         if(Handy::isUUID($notificationHandle)) {
@@ -137,15 +133,12 @@ class Notification extends AppModel
         return $notification;
     }
 
-
-/**
- * Fetch a notification record using its given id
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access public
- * @param string $notificationId
- * @return Notification
- */
+    /**
+     * Fetch a notification record using its given id
+     * @access public
+     * @param string $notificationId
+     * @return Notification
+     */
     public function fetchNotificationById($notificationId)
     {
         $notification = $this->find('first', array(
@@ -159,15 +152,12 @@ class Notification extends AppModel
         return $notification;
     }
 
-
-/**
- * Fetch a notification record using its given alias
- *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @access public
- * @param string $alias
- * @return Notification
- */
+    /**
+     * Fetch a notification record using its given alias
+     * @access public
+     * @param string $alias
+     * @return Notification
+     */
     public function fetchNotificationByAlias($alias)
     {
         $notification = $this->find('first', array(
@@ -181,14 +171,11 @@ class Notification extends AppModel
         return $notification;
     }
 
-
-/**
- * Fetch all notifications sorted by their name in ascending order
- *
- * @access public
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @return array
- */
+    /**
+     * Fetch all notifications sorted by their name in ascending order
+     * @access public
+     * @return array
+     */
     public function fetchAllNotifications()
     {
         $notifications = $this->find('all', array(
@@ -202,14 +189,12 @@ class Notification extends AppModel
         return $notifications;
     }
 
-/**
- * Deletes a single given notification using its ID
- *
- * @access public
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @param $notificationId
- * @return boolean
- */
+    /**
+     * Deletes a single given notification using its ID
+     * @access public
+     * @param $notificationId
+     * @return boolean
+     */
     public function deleteNotification($notificationId)
     {
         $opStatus = $this->delete($notificationId);

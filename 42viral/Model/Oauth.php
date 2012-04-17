@@ -12,6 +12,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person\User
  */
 
 App::uses('AppModel', 'Model');
@@ -95,7 +96,7 @@ class Oauth extends AppModel
      * @access public
      * @param string $service
      * @param string $oauthId
-     * @return string
+     * @return string|boolean
      */
     public function getOauthed($service, $oauthId){
         $oauthed =
@@ -117,10 +118,12 @@ class Oauth extends AppModel
 
     /**
      * Creates a new OAuth entry and person
-     * @access public
-     * @param string $service
+     * @access public The service we are checking for: Twitter, Facebook, etc
+     * @param string $service The service we are checking for: Twitter, Facebook, etc
      * @param string $oauthId The id from the Oauth service, ex. Twitter.member_id
-     * @return string
+     * @param string $token The authentication token returned by the service (default: null)
+     * @param string $userId The id of the for whom we are locating an oauth (default: null)
+     * @return string|boolean
      */
     public function createOauthed($service, $oauthId, $token=null, $userId=null){
 
@@ -184,24 +187,24 @@ class Oauth extends AppModel
      * If this is the first time the user is authenticating with this service it will
      * return false 
      * @access public
-     * @param stirng $service
-     * @param stirng $service_id
-     * @param string $user_id
-     * @return bollean
+     * @param stirng $service The service we are checking for: Twitter, Facebook, etc
+     * @param stirng $serviceId The id of the oauth service for which we are locating an oauth
+     * @param string $userId The id of the for whom we are locating an oauth
+     * @return boolean
      */
 
-    public function doesOauthExist($service, $service_id, $user_id)
+    public function doesOauthExist($service, $serviceId, $userId)
     {
         $oauth = $this->find('first', array(
             'conditions' => array(
                     'Oauth.service' => $service,
-                    'Oauth.oauth_id' => $service_id
+                    'Oauth.oauth_id' => $serviceId
                 )
         ));
 
         if(!empty ($oauth)){
             
-            if($oauth['Oauth']['person_id'] != $user_id){
+            if($oauth['Oauth']['person_id'] != $userId){
                 
                 $oauth_person_id = $oauth['Oauth']['person_id'];
                 
@@ -254,7 +257,7 @@ class Oauth extends AppModel
 
                             if(!(strpos($field, 'person_id') === false)){
                                 
-                                $query = "UPDATE {$table} SET $table.$field = '{$user_id}'
+                                $query = "UPDATE {$table} SET $table.$field = '{$userId}'
                                             WHERE $table.$field LIKE '$oauth_person_id'";
                                 
                                 $this->query($query);
@@ -263,7 +266,7 @@ class Oauth extends AppModel
 
                                 /*
                                 $loaded_table->updateAll(
-                                        array($class_name. '.' .$field => "'$user_id'"),
+                                        array($class_name. '.' .$field => "'$userId'"),
                                         array($class_name. '.' .$field." LIKE '$oauth_person_id'")
                                     );
                                  * 

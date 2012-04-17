@@ -1,7 +1,6 @@
 <?php
-
 /**
- * PHP 5.3
+ * Manage person's notification inbox
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -12,36 +11,37 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Notification
  */
 
 App::uses('AppModel', 'Model');
 /**
- * Manage person notification inbox
- *
- * @package app
- * @subpackage app.core
- *
+ * Manage person's notification inbox
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral\Notification
  */
 class InboxNotification extends AppModel
 {
 
-/**
- * @access public
- * @var string
- */
+    /**
+     * The static name of the inbox notification object
+     * @access public
+     * @var string
+     */
     public $name = 'InboxNotification';
 
-/**
- * @access public
- * @var string
- */
+    /**
+     * Sppecifies the table used by the inbox notification  model
+     * @access public
+     * @var string
+     */
     public $useTable = 'inbox_notifications';
 
-/**
- * @access public
- * @var array
- */
+    /**
+     * Sppecifies the behaviors invoked by the inbox notification  model
+     * @access public
+     * @var string
+     */
     public $actsAs = array(
         'Log'
     );
