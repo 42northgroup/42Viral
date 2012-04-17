@@ -4,8 +4,6 @@
 
 A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
-__Be warned we are still in alpha development, things can and will change without notice or remorse__
-
 ## Third Party Support
 
 * Gravatar (Currently only avatars)
@@ -124,7 +122,7 @@ We strive to give credit where credit is due, if we missed something, please let
 
 ### The 42viral Projects's core development team
 
-* Jason Snider - Lead, Core Development
+* Jason Snider - Core Development
 * Zubin Khavarian - Core Development
 * Lyubomir Dimov - Core Development
 * Matt Blake - Graphics

@@ -12,6 +12,7 @@
         <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
         <ignore>42viral/Vendor/Imagine/*</ignore>
         <ignore>Config/*</ignore>
+        <ignore>Plugin/*</ignore>
     </files>
     <external-class-documentation>
         <prefix>HTML_QuickForm2</prefix>

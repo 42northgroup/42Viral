@@ -110,10 +110,6 @@ App::build(array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
         ),
     
-        'Plugin' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Plugin' . DS
-        ),
-    
         'vendors' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Vendor' . DS
         ),
@@ -128,10 +124,6 @@ App::build(array(
             //We want the native cake structure to ovverride 42Viral's helpers
             ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
-        ),   
-    
-        'locales' => array(
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Locale' . DS
         )
     
     ));
