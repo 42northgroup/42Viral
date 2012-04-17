@@ -493,6 +493,7 @@ class SetupShell extends AppShell
         foreach ($cacheFolders as $tempFolder) {
             if(is_dir($tempFolder)) {
                 $files = glob($tempFolder . 'myapp_cake*', GLOB_MARK);
+                array_push($files, $fixedAppPath .'tmp/cache/persistent/doc_index');
 
                 foreach($files as $tempFile) {
                     if(is_file($tempFile)) {
