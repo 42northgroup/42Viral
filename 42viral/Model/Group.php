@@ -23,21 +23,22 @@ App::uses('AppModel', 'Model');
 class Group extends AppModel
 {
     /**
-     * 
+     * The static name for the group object
      * @var string
      * @access public
      */
     public $name = 'Group';
     
     /**
-     *
-     * @var string
+     * Specifies the table used by the conversation model
      * @access public
+     * @var string
      */
     public $useTable = 'groups';
     
     /**
-     *
+     * Specifies the behaviors invoked by the conversation model
+     * @access public
      * @var array
      */
     public $actsAs = array(
