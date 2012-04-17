@@ -27,7 +27,7 @@ class Image extends Upload
 {
 
     /**
-     * 
+     * The static name of the image object
      * @var string
      * @access public
      */
@@ -36,7 +36,7 @@ class Image extends Upload
     /**
      * Inject all "finds" against the image object with image filtering criteria
      * @access public
-     * @param array $query Holds the conditions used to build the CakePHP query
+     * @param array $queryData Holds the conditions used to build the CakePHP query
      * @return array 
      */
     public function beforeFind($queryData) {
@@ -54,7 +54,7 @@ class Image extends Upload
      * Returns true if the operation was successful.
      * @access public
      * @param string $path The path to the desired file
-     * @param $personId The id of the user whos profile is being set
+     * @param string $personId The id of the user whos profile is being set
      * @return boolean 
      */
     public function setProfileImage($path, $personId)
