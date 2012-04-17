@@ -1,29 +1,31 @@
 <?php
 /**
- * Copyright 2012, Jason D Snider (https://jasonsnider.com)
+ * Provides a model for dealing with plugin and application configurations
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright Copyright 2012, Jason D Snider (https://jasonsnider.com)
- * @link https://jasonsnider.com
- * @license MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
 
 App::uses('AppModel', 'Model');
 /**
  * Provides a model for dealing with plugin and application configurations
- * 
- * @package Plugin.ContentFilter
- * @subpackage Plugin.ContentFilter.Model
- * @author Jason D Snider 
+ * @author Jason D Snider <jason.snider@42viral.org>
+ * @package ContentFilter
  */
 class Configuration extends AppModel
 {
     /**
      * Provides aa static name for the model
-     * @var string
      * @access public
+     * @var string
      */
     public $name = 'Configuration';
   

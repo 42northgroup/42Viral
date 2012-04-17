@@ -13,6 +13,7 @@
         <ignore>42viral/Vendor/*</ignore>
         <ignore>Config/*</ignore>
         <ignore>Plugin/*</ignore>
+        <ignore>42viral/Lib/Mustache.php</ignore>    
     </files>
 </phpdoc>
 

@@ -5,7 +5,7 @@
  * This file is application-wide helper file. You can put all
  * application-wide helper-related methods here.
  *
- * PHP 5
+ * PHP 5.3
  *
  * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
  * Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
@@ -15,19 +15,14 @@
  *
  * @copyright     Copyright 2005-2011, Cake Software Foundation, Inc. (http://cakefoundation.org)
  * @link          http://cakephp.org CakePHP(tm) Project
- * @package       Cake.View.Helper
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral
  */
 
 App::uses('Helper', 'View');
 /**
- * This is a placeholder class.
- * Create the same file in app/View/Helper/AppHelper.php
- *
- * Add your application-wide methods in the class below, your helpers
- * will inherit them.
- *
- * @package       Cake.View.Helper
+ * Application level View Helper
+ * @package 42viral
  */
 class AppHelper extends Helper {}
