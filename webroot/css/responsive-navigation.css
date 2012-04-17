@@ -96,6 +96,35 @@ div.details-block div a:hover{
     background: #eee;
 }
 
+div.doc-index ul {
+    margin: 0px;
+    padding: 3px 0px 3px 20px;
+}
+
+div.doc-index > ul {
+    padding-left: 0px;
+}
+
+div.doc-index ul li {
+    list-style-type: none;
+}
+
+div.doc-index li.doc-index-header {
+    font-weight: bold;
+}
+
+div.doc-index li.doc-index-item a {
+    font-weight: normal;
+}
+
+div.doc-index a.doc-toc {
+    display: block;
+    font-weight: bold;
+    padding: 8px;
+    margin-bottom: 5px;
+    background-color: #eee;
+}
+
 
 /* #Page Styles
 ================================================== */

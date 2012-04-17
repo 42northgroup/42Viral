@@ -107,7 +107,65 @@ class DocsController extends AppController
             $docNavIndex = $fromCache;
         }
 
-        $this->set('doc_nav_index', $docNavIndex);
+        $docNavIndexHtml = $this->__generateDocIndexHtml($docNavIndex);
+        $this->set('doc_nav_index_html', $docNavIndexHtml);
+    }
+
+    /**
+     * Generate doc index html for document navigation
+     *
+     * @access private
+     * @param array $docNavIndex
+     * @return string
+     */
+    private function __generateDocIndexHtml($docNavIndex)
+    {
+        $html = '';
+        $html .= '<div class="doc-index">';
+        $html .= '<a href="/doc/" class="doc-toc">Table of Contents</a>';
+        $html .= $this->__buildNavPart($docNavIndex);
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    /**
+     * Recursively build navigation, sub-navigation html structure
+     *
+     * @access private
+     * @param array $navPart
+     * @return string
+     */
+    private function __buildNavPart($navPart)
+    {
+        $html = '';
+
+        if(array_key_exists('label', $navPart)) {
+            $html .=
+                '<li class="doc-index-item">'.
+                    '<a href="' . $navPart['url'] . '">' . Inflector::humanize($navPart['label']) . '</a>' .
+                '</li>';
+        } else {
+            foreach($navPart as $key => $tempNavPart) {
+                if($key !== '_root') {
+                    $html .= '<ul>';
+                }
+
+                if(is_string($key) && $key !== '_root') {
+
+                    $html .= '<li class="doc-index-header">' . Inflector::humanize($key) . '</li>';
+                }
+                
+                $html .= $this->__buildNavPart($tempNavPart);
+
+
+                if($key !== '_root') {
+                    $html .= '</ul>';
+                }
+            }
+        }
+
+        return $html;
     }
 
     /**

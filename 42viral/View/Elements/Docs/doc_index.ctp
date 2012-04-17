@@ -14,33 +14,4 @@
  */
 ?>
 
-
-<?php //debug($doc_nav_index); ?>
-
-<a href="/doc/">Table of Contents</a>
-
-<?php foreach($doc_nav_index as $key1 => $value1): ?>
-    <?php if($key1 == '_root'): ?>
-        <?php foreach($value1 as $key2 => $value2): ?>
-            <ul>
-                <li>
-                    <a href="<?php echo $value2['url']; ?>">
-                        <?php echo Inflector::humanize($value2['label']); ?>
-                    </a>
-                </li>
-            </ul>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <h3><?php echo Inflector::humanize($key1); ?></h3>
-
-        <?php foreach($value1 as $key2 => $value2): ?>
-            <ul>
-                <li>
-                    <a href="<?php echo $value2['url']; ?>">
-                        <?php echo Inflector::humanize($value2['label']); ?>
-                    </a>
-                </li>
-            </ul>
-        <?php endforeach; ?>
-    <?php endif; ?>
-<?php endforeach; ?>
+<?php echo $doc_nav_index_html; ?>
