@@ -1,15 +1,25 @@
 <?php
-
 /**
  * FileUpload Component
  *
- * Manages uploaded files to be saved to the file system.
+ * PHP versions 4 and 5
+ *
+ * CakePHP(tm) Tests <http://book.cakephp.org/view/1196/Testing>
+ * Copyright 2005-2010, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ *
+ *  Licensed under The Open Group Test Suite License
+ *  Redistributions of files must retain the above copyright notice.
  *
  * @copyright    Copyright 2009, Webtechnick
  * @link         http://www.webtechnick.com
  * @author       Nick Baker
  * @version      1.4
  * @license      MIT
+ * @package      Plugin/FileUpload
+ */
+
+/**
+ * Manages uploaded files to be saved to the file system.
  */
 class FileUploadComponent extends Component
 {
@@ -99,8 +109,9 @@ class FileUploadComponent extends Component
     var $data = array();
 
     /**
+     * data and params are the controller data and params
      *
-     * @var type
+     * @var array
      */
     var $params = array();
 
@@ -345,7 +356,6 @@ class FileUploadComponent extends Component
     /**
      * Returns an array of the uploaded file or false if there is not a file
      *
-     * @param string $text String of error message to save
      * @return array|boolean Array of uploaded file, or false if no file uploaded
      * @access protected
      */
