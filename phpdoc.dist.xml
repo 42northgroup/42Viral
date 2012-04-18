@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdoc>
     <parser>
-        <target>webroot/api</target>
+        <target>webroot/api/output</target>
     </parser>
     <transformer>
-        <target>webroot/api</target>
+        <target>webroot/api/html</target>
     </transformer>
     <files>
         <directory>.</directory>
