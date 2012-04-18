@@ -11,16 +11,16 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\app
+ * @package 42viral\Content\Post
  */
 
 App::uses('AppController', 'Controller');
-App::uses('Member', 'Lib');
 /**
  * Provides controll logic for managing blog post actions
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral\Content\Post
  */
 class PostsController extends AppController {
 
@@ -45,7 +45,7 @@ class PostsController extends AppController {
      * @access public
      */
     public $helpers = array(
-        'Member', 
+        'Profile', 
         'Tags.TagCloud'
     );
 

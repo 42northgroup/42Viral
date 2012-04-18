@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Manages people in the system
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -11,17 +11,18 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\app
+ * @package       42viral\Person
  */
 
 App::uses('AppController', 'Controller');
 App::uses('Scrub', 'ContentFilters.Lib');
 /**
- * Manages users in the system
+ * Manages people in the system
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
+ * @package 42viral\Person
  */
  class PeopleController extends AppController
 {

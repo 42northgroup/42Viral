@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Provides controll logic for managing upload actions
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -11,16 +11,17 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral
+ * @package       42viral\Upload
  */
 
 App::uses('AppController', 'Controller');
 App::uses('ImageUtil', 'Lib');
-App::uses('Member', 'Lib');
+App::uses('ProfileUtil', 'Lib');
 /**
  * Provides controll logic for managing upload actions
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral\Upload
  */
  class UploadsController extends AppController
 {
@@ -37,7 +38,7 @@ App::uses('Member', 'Lib');
      * @var array
      * @access public
      */
-    public $helpers = array('Member', 'Upload');
+    public $helpers = array('Profile', 'Upload');
 
     /**
      * beforeFilter
@@ -87,7 +88,7 @@ App::uses('Member', 'Lib');
 
         $this->set('user', $person);
         $this->set('userProfile', $person);
-        $this->set('title_for_layout', sprintf(__("%s's Photo Stream"), Member::name($person['Person'])));
+        $this->set('title_for_layout', sprintf(__("%s's Photo Stream"), ProfileUtil::name($person['Person'])));
         
         
         

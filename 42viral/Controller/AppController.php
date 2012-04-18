@@ -40,7 +40,7 @@ class AppController extends Controller
      * @var array
      */
     public $helpers = array(
-        'AssetManager.Asset', 'Form', 'Html', 'Member', 'Session', 'Text', 'Connect.SocialMedia'
+        'AssetManager.Asset', 'Form', 'Html', 'Profile', 'Session', 'Text', 'Connect.SocialMedia'
     );
 
 

@@ -27,10 +27,10 @@ $limited = isset($limited)?true:false;
     <div class="column-block clearfix">
         <div class="vcard">
             <div class="image-frame" style="float:left; margin: 0 10px 6px 0;">
-                <?php echo $this->Member->avatar($userProfile['Person']); ?>
+                <?php echo $this->Profile->avatar($userProfile['Person']); ?>
                 <div class="image-title">
                     <<?php echo $tag; ?> class="fn">
-                        <?php echo $this->Member->name($userProfile['Person']); ?>
+                        <?php echo $this->Profile->name($userProfile['Person']); ?>
                     </<?php echo $tag; ?>>
                 </div>
             </div>

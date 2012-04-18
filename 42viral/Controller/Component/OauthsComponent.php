@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Component class to use for fetching Oauth access tokens
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,7 +11,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\app
+ * @package       42viral\Person\User
  */
 App::uses('Tweet', 'Connect.Model');
 App::uses('Linkedin', 'Connect.Model');
@@ -19,8 +19,8 @@ App::uses('Facebook', 'Connect.Model');
 App::uses('Controller', 'Controller');
 /**
  * Component class to use for fetching Oauth access tokens
- *
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @package 42viral\Person\User
  */
 
 class OauthsComponent  extends Component

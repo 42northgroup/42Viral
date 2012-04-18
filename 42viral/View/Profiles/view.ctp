@@ -86,7 +86,7 @@
     
     <div class="two-thirds column alpha">
         <div id="ResultsPage">
-            <h2><?php echo $this->Member->name($userProfile['Person']); ?>'s Content</h2>
+            <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
             
             <?php foreach($userProfile['Content'] as $content):?>
             <div class="result">

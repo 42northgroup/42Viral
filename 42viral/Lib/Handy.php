@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Container for handy functions
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -11,15 +11,14 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\app
+ * @package       42viral\Lib
  */
 App::uses('Session', 'Component');
 /**
  * Container for handy functions
- * @package Lib
- * @subpackage Lib.Handy
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org> 
+ * @package 42viral\Lib
  */
 class Handy
 {

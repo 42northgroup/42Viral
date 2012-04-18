@@ -15,7 +15,7 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('Member', 'Lib');
+App::uses('ProfileUtil', 'Lib');
 /**
  * Provides the controll logic for creating, viewing and managing blogs
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -94,7 +94,7 @@ class BlogsController extends AppController {
             
             $blogs = $profile;
             $showAll = false;
-            $pageTitle = Member::name($profile['Person']) . "'s Blogs";
+            $pageTitle = ProfileUtil::name($profile['Person']) . "'s Blogs";
             $this->set('userProfile', $profile);
             
         }

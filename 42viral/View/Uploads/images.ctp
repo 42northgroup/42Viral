@@ -51,7 +51,7 @@
         <div class="block">
             <h2>Upload a new image</h2>
 
-            <?php echo $this->Form->create('Member', 
+            <?php echo $this->Form->create('Profile', 
                     array(
                         'class'=>'responsive',
                         'url' => '/uploads/image_upload', 

@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * A class for dealing with user profile data at the UI level
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -11,27 +11,21 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Person\User\Profile
  */
 
 App::uses('AppHelper', 'View/Helper');
 App::uses('HtmlHelper', 'Helper');
 /**
- * A class for dealing with profile/memeber data display
- *
- * Copyright (c) 2011,  MicroTrain Technologies (http://www.microtrain.net)
- * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
- *
- * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
- * @package app
- * @subpackage app.core
+ * A class for dealing with user profile data at the UI level
  * @author Jason D Snider <jsnider77@gmail.com>
- * @license http://www.opensource.org/licenses/mit-license.php The MIT License
+ * @package 42viral\Person\User\Profile
  */
-class MemberHelper extends AppHelper
+class ProfileHelper extends AppHelper
 {
 
     /**
-     * Helpers
+     * Import some helpers
      * @var array
      * @access public 
      */

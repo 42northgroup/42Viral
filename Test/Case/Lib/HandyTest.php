@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Tests the functions inside of the Handy library
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -11,13 +11,14 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package       Test\42viral\Lib
  */
 
 App::uses('Handy', 'Lib');
 /**
  * Tests the functions inside of the Handy library
- * 
  * @author Jason D Snider <root@jasonsnider.com>
+ * @package       Test\42viral\Lib
  */
 class HandyTest extends CakeTestCase {
   /**

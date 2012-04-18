@@ -20,11 +20,11 @@
             <?php foreach($users as $user):?>
                 <div class="row result">
                     <div class="two columns alpha">
-                        <div class="image-frame"><?php echo $this->Member->avatar($user['User'], 64); ?></div>
+                        <div class="image-frame"><?php echo $this->Profile->avatar($user['User'], 64); ?></div>
                     </div>
 
                     <div class="fourteen columns omega">
-                        <h2><?php echo $this->Member->displayName($user['User']); ?></h2>
+                        <h2><?php echo $this->Profile->displayName($user['User']); ?></h2>
                         <?php echo $this->Text->truncate($user['Profile']['tease'], 
                                 170, array('ending' => '...', 'exact' => true, 'html' => true)); ?>
                     </div>

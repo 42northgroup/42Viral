@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Mangages a users profile data
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -9,18 +9,19 @@
  * Redistributions of files must retain the above copyright notice.
  *
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
+ * @link          http://42viral.org 42Visssral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\app
+ * @package       42viral\Person\User\Profile
  */
 
 App::uses('AppModel', 'Model');
 /**
- * Mangages the person profile objects
+ * Mangages a users profile data
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
+ * @package       42viral\Person\User\Profile
  */
 class Profile extends AppModel
 {

@@ -69,7 +69,7 @@
             <div class="result">
                 <?php if(empty($conversation['email'])): ?>
                     <div class="meta">
-                        <?php echo $this->Member->displayName($conversation['CreatedPerson']); ?>
+                        <?php echo $this->Profile->displayName($conversation['CreatedPerson']); ?>
                         <span class="meta-head">Posted:</span>
                         <?php echo Handy::date($conversation['created']); ?>
                     </div>

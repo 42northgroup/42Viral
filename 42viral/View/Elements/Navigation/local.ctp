@@ -61,12 +61,12 @@ switch($section){
         );
     break;
 
-    case 'members':
+    case 'profiles':
         $menu = array(
             'Items'=>array(
                 array(
-                    'text'=>'Members',
-                    'url'=>'/members',
+                    'text'=>'Profiles',
+                    'url'=>'/profiles',
                     'options' => array(),
                     'confirm'=>null
                 )          

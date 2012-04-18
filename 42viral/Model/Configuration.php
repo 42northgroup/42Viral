@@ -11,14 +11,14 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Configuration
  */
-
 
 App::uses('AppModel', 'Model');
 /**
  * Provides a model for dealing with plugin and application configurations
  * @author Jason D Snider <jason.snider@42viral.org>
- * @package ContentFilter
+ * @package 42viral\Configuration
  */
 class Configuration extends AppModel
 {

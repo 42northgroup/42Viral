@@ -1,6 +1,6 @@
 <?php
 /**
- * PHP 5.3
+ * Provides a generic interface for system admin actions
  * 
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -11,12 +11,14 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Content\Page
  */
 
 App::uses('AppController', 'Controller');
 /**
  * Provides a generic interface for system admin actions
  * @author Jason D Snider <jason.snider@42viral.org>
+ * @package 42viral\Content\Page
  */
  class SystemController extends AppController {
 
