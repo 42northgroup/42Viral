@@ -33,28 +33,28 @@ Models, Components, Helpers and Behaviors, should be responsible for everything.
 work-flows we should be able to drop all of the controllers (except those that provide web services) and views without 
 losing the ability to manage the data.
 
-## Installation
+# Installation
 
 _As we are still in alpha development, these install instructions are written for core development_
 
-Currently, installation is written for Apache2 on Ubuntu Linux.  
+Currently, installation is written for Apache2 on Ubuntu Linux.
 
-### Git based install
+## Git based install
 
-#### Add the CakePHP library
+### Add the CakePHP library
 
-I recommend the advanced install options from the CakePHP Cookbook
+We recommend the advanced install options from the CakePHP Cookbook.
 
-add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
+Add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
 
     include_path = '.:/usr/share/php:/usr/share/cakephp-2.1/lib'
 
 Install CakePHP in the usr/share directory
 
     cd /usr/share
-    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.1 
-    
-Replace 
+    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.1
+
+Replace
 
 * example.com with the name of your site
 * /var/www/vhosts/ with your server path
@@ -64,22 +64,31 @@ __app is highly recommended, by default CakePHP will always look for the app dir
 
     cd /[path/to/your-site.com/httpdocs]/app
 
-#### Clone the project
+### Clone the project
 
-Assuming your installing the 42viral application into a directory called app
+Assuming you are installing the 42viral application into a directory called app:
 
-    git clone git@github.com:microtrain/42Viral.git app
+    git clone git@github.com:42northgroup/42Viral.git app
+
+The git repository for 42Viral consists of several git submodules which are mostly Plugins and are separate projects
+hosted on GitHub. You need to make sure you obtain all the submodules using the following command:
+
     cd app
     git submodule update --recursive --init
 
-From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to 
-access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will 
+From a command line, navigate to your app directory and gain root access. (Required for setup as the script needs to
+access chown). You'll provide 2 arguments the user name that apache runs as (probably www-data) and the group that will
 have write access to the app directory (this is probably your username).
 
-    sudo ./setup.sh [www-data] [production] 
+    sudo ./Console/cake setup [www-data] [production]
 
-You'll know the setup is complete when you see the following message 42Viral setup ended - _xx/xx/xxxx xx:xx:xx_. Open 
-a browser and navigate to example.com and your site will be up and running.
+The setup shell is an interactive tool which enables you to quickly setup your application's essential configuration.
+
+You can use the option "0" when you are setting your application for the first time. This will automatically run all
+the setup steps in sequence.
+
+You can also use the setup shell after the first setup to perform individual operations such as re-configuring the
+database parameters, clearing model cache, etc.
 
 ### Development Environment 
 
@@ -122,38 +131,39 @@ We strive to give credit where credit is due, if we missed something, please let
 
 ### The 42viral Projects's core development team
 
-* Jason Snider - Core Development
-* Zubin Khavarian - Core Development
-* Lyubomir Dimov - Core Development
-* Matt Blake - Graphics
+* [Jason Snider](https://github.com/jasonsnider) - Core Development
+* [Zubin Khavarian](https://github.com/zubinkhavarian) - Core Development
+* [Lyubomir Dimov](https://github.com/ldimov) - Core Development
+* [Matt Blake](https://github.com/Mblake79) - Graphics
 
-### Plugins
+### Plug-ins
 
-Though we typically fork plugins to our repository prior to modification and use, we rather give credit to the original
+Though we typically fork plug-ins to our repository prior to modification and use, we rather give credit to the original
 authors
 
-* CakeDC Search Plugin, CakeDC <https://github.com/cakedc/search> 
-* CakeDC Tags Plugin, CakeDC  <https://github.com/cakedc/tags> 
-* CakeDC Migrations Plugin, CakeDC  <https://github.com/cakedc/migrations> 
-* MicroTrain Technologies Connect Plugin <https://github.com/microtrain/CakePHP-Connect-Plugin>
-* JasonSnider Seo Plugin <https://github.com/jasonsnider/CakePHP-Seo-Plugin>
-* JasonSnider ContentFilters Plugin <https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin>
-* RobWilkerson AuditLog Plugin <https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin>
-* LyubomirDimov CalendarRecursion Plugin <https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin>
+* CakeDC [Search Plug-in, CakeDC](https://github.com/cakedc/search)
+* CakeDC [Tags Plug-in, CakeDC](https://github.com/cakedc/tags)
+* CakeDC [Migrations Plug-in, CakeDC](https://github.com/cakedc/migrations)
+* MicroTrain Technologies [Connect Plug-in](https://github.com/42northgroup/CakePHP-Connect-Plugin)
+* Jason Snider [Seo Plug-in](https://github.com/jasonsnider/CakePHP-Seo-Plugin)
+* Jason Snider [ContentFilters Plug-in](https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin)
+* Zubin Khavarian [PicklistManager Plug-in](https://github.com/zubinkhavarian/CakePHP-PicklistManager-Plugin)
+* Lyubomir Dimov [CalendarRecursion Plug-in](https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin)
+* Rob Wilkerson [AuditLog Plug-in](https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin)
 
 ### Libraries and Concepts
 
-* [CakePHP](http://cakephp.org)
+* [CakePHP](http://cakephp.org/)
 * [HTMLPurifier](http://htmlpurifier.org/)
-* [Imagine](https://github.com/avalanche123/Imagine)
+* [Imagine](https://github.com/avalanche123/Imagine/)
 * [jQuery](http://jquery.com/)
 * [jQuery UI](http://jqueryui.com/)
-* [HTML5BOILERPLATE](http://html5boilerplate.com/)
+* [HTML5 Boilerplate](http://html5boilerplate.com/)
 * [Modernizr](http://www.modernizr.com/)
 * [YUI CSS](http://yuilibrary.com/yui/css/)
 * [YUT Compressor](http://developer.yahoo.com/yui/compressor/)
 * [Skeleton](http://www.getskeleton.com/)
-* [Google Webfonts](http://www.google.com/webfonts)
+* [Google Webfonts](http://www.google.com/webfonts/)
 * [Google Closure](https://developers.google.com/closure/)
 
 ## License

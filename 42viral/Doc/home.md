@@ -53,36 +53,37 @@ We strive to give credit where credit is due, if we missed something, please let
 
 ### The 42viral Projects's core development team
 
-* Jason Snider - Core Development
-* Zubin Khavarian - Core Development
-* Lyubomir Dimov - Core Development
-* Matt Blake - Graphics
+* [Jason Snider](https://github.com/jasonsnider) - Core Development
+* [Zubin Khavarian](https://github.com/zubinkhavarian) - Core Development
+* [Lyubomir Dimov](https://github.com/ldimov) - Core Development
+* [Matt Blake](https://github.com/Mblake79) - Graphics
 
-### Plugins
+### Plug-ins
 
-Though we typically fork plugins to our repository prior to modification and use, we rather give credit to the original
+Though we typically fork plug-ins to our repository prior to modification and use, we rather give credit to the original
 authors
 
-* CakeDC Search Plugin, CakeDC <https://github.com/cakedc/search>
-* CakeDC Tags Plugin, CakeDC  <https://github.com/cakedc/tags>
-* CakeDC Migrations Plugin, CakeDC  <https://github.com/cakedc/migrations>
-* MicroTrain Technologies Connect Plugin <https://github.com/microtrain/CakePHP-Connect-Plugin>
-* JasonSnider Seo Plugin <https://github.com/jasonsnider/CakePHP-Seo-Plugin>
-* JasonSnider ContentFilters Plugin <https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin>
-* RobWilkerson AuditLog Plugin <https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin>
-* LyubomirDimov CalendarRecursion Plugin <https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin>
+* CakeDC [Search Plug-in, CakeDC](https://github.com/cakedc/search)
+* CakeDC [Tags Plug-in, CakeDC](https://github.com/cakedc/tags)
+* CakeDC [Migrations Plug-in, CakeDC](https://github.com/cakedc/migrations)
+* MicroTrain Technologies [Connect Plug-in](https://github.com/42northgroup/CakePHP-Connect-Plugin)
+* Jason Snider [Seo Plug-in](https://github.com/jasonsnider/CakePHP-Seo-Plugin)
+* Jason Snider [ContentFilters Plug-in](https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin)
+* Zubin Khavarian [PicklistManager Plug-in](https://github.com/zubinkhavarian/CakePHP-PicklistManager-Plugin)
+* Lyubomir Dimov [CalendarRecursion Plug-in](https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin)
+* Rob Wilkerson [AuditLog Plug-in](https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin)
 
 ### Libraries and Concepts
 
-* [CakePHP](http://cakephp.org)
+* [CakePHP](http://cakephp.org/)
 * [HTMLPurifier](http://htmlpurifier.org/)
-* [Imagine](https://github.com/avalanche123/Imagine)
+* [Imagine](https://github.com/avalanche123/Imagine/)
 * [jQuery](http://jquery.com/)
 * [jQuery UI](http://jqueryui.com/)
-* [HTML5BOILERPLATE](http://html5boilerplate.com/)
+* [HTML5 Boilerplate](http://html5boilerplate.com/)
 * [Modernizr](http://www.modernizr.com/)
 * [YUI CSS](http://yuilibrary.com/yui/css/)
 * [YUT Compressor](http://developer.yahoo.com/yui/compressor/)
 * [Skeleton](http://www.getskeleton.com/)
-* [Google Webfonts](http://www.google.com/webfonts)
+* [Google Webfonts](http://www.google.com/webfonts/)
 * [Google Closure](https://developers.google.com/closure/)
