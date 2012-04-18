@@ -55,7 +55,7 @@ class DocsController extends AppController
      */
     public function index()
     {
-        $this->__prepareDocIndex();
+        $this->redirect('/doc/home');
     }
 
     /**
@@ -97,6 +97,8 @@ class DocsController extends AppController
                             'label' => $hierarchy[0],
                             'url' => $tempItem['Doc']['url']
                         ));
+
+                        $arr = Set::sort($arr, '{n}.label', 'asc');
                     }
                 }
             }
@@ -122,7 +124,6 @@ class DocsController extends AppController
     {
         $html = '';
         $html .= '<div class="doc-index">';
-        $html .= '<a href="/doc/" class="doc-toc">Table of Contents</a>';
         $html .= $this->__buildNavPart($docNavIndex);
         $html .= '</div>';
 

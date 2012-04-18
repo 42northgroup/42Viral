@@ -96,70 +96,70 @@
                             <div><?php echo $this->Html->link('Logout', '/users/logout'); ?></div>  
                         </div>
                     </div>
-                    <?php if($this->Session->check('Auth.User.id')): ?>
-                        <?php if($this->Session->read('Auth.User.employee') == 1): ?>
-                            <div class="navigation">
-                                <a href="#">Admin</a>
-                                <div class="subnavigation">
-                                    
-                                    <strong>CMS</strong>
-                                    <div>
-                                        <?php echo $this->Html->link('Create a web page', '/admin/pages/create/'); ?>
-                                    </div>
-                                    <div>
-                                        <?php echo $this->Html->link('Pages', '/admin/pages/'); ?>
-                                    </div>
-                                    
-                                    <strong>CRM</strong>
-                                    <div><?php echo $this->Html->link('People', '/admin/people/'); ?></div>
-                                    
-                                    <strong>Messaging</strong>
-                                    <div>
-                                        <?php echo $this->Html->link('Notification list', '/notification/index/'); ?>
-                                    </div>
+                    
+                    <?php if($this->Session->read('Auth.User.employee') == 1): ?>
+                        <div class="navigation">
+                            <a href="#">Admin</a>
+                            <div class="subnavigation">
 
-                                    <div>
-                                        <?php
-                                        echo $this->Html->link(
-                                            'Create new notification',
-                                            '/notification/create/'
-                                        );
-                                        ?>
-                                    </div>
-
-                                    <div>
-                                        <?php
-                                        echo $this->Html->link(
-                                            'Populate message inbox (test)',
-                                            '/inbox_message/populate_inbox/'
-                                        );
-                                        ?>
-                                    </div>
-
-                                    <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
-                                    
-                                    <strong>System</strong>
-                                    
-                                    <?php if(Configure::read('Beta.private') == 1): ?>
-                                    <div>
-                                        <?php echo $this->Html->link('Allot Invites', '/admin/users/allot_invites'); ?>
-                                    </div>
-                                    <?php endif; ?>
-                                    
-                                    <div><?php echo $this->Html->link('Users', '/admin/users/'); ?></div>
-                                    <div><?php echo $this->Html->link('Groups', 
-                                            '/admin/users/acl_groups/'); ?></div>
-                                    <div><?php echo $this->Html->link('Picklists', 
-                                            '/admin/picklist_manager/picklists/'); ?></div>
-                                    <div><?php echo $this->Html->link('Configuration', 
-                                            '/admin/configurations/'); ?></div>
+                                <strong>CMS</strong>
+                                <div>
+                                    <?php echo $this->Html->link('Create a web page', '/admin/pages/create/'); ?>
                                 </div>
+                                <div>
+                                    <?php echo $this->Html->link('Pages', '/admin/pages/'); ?>
+                                </div>
+
+                                <strong>CRM</strong>
+                                <div><?php echo $this->Html->link('People', '/admin/people/'); ?></div>
+
+                                <strong>Messaging</strong>
+                                <div>
+                                    <?php echo $this->Html->link('Notification list', '/notification/index/'); ?>
+                                </div>
+
+                                <div>
+                                    <?php
+                                    echo $this->Html->link(
+                                        'Create new notification',
+                                        '/notification/create/'
+                                    );
+                                    ?>
+                                </div>
+
+                                <div>
+                                    <?php
+                                    echo $this->Html->link(
+                                        'Populate message inbox (test)',
+                                        '/inbox_message/populate_inbox/'
+                                    );
+                                    ?>
+                                </div>
+
+                                <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
+
+                                <strong>System</strong>
+
+                                <?php if(Configure::read('Beta.private') == 1): ?>
+                                <div>
+                                    <?php echo $this->Html->link('Allot Invites', '/admin/users/allot_invites'); ?>
+                                </div>
+                                <?php endif; ?>
+
+                                <div><?php echo $this->Html->link('Users', '/admin/users/'); ?></div>
+                                <div><?php echo $this->Html->link('Groups', 
+                                        '/admin/users/acl_groups/'); ?></div>
+                                <div><?php echo $this->Html->link('Picklists', 
+                                        '/admin/picklist_manager/picklists/'); ?></div>
+                                <div><?php echo $this->Html->link('Configuration', 
+                                        '/admin/configurations/'); ?></div>
                             </div>
-                        <?php endif; ?>
+                        </div>
                     <?php endif; ?>
                 </div>
             <?php else: ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/doc/">Documentation</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/profiles">Profiles</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>

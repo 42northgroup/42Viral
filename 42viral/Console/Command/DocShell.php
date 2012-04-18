@@ -64,7 +64,7 @@ class DocShell extends AppShell
      * @access private
      * @var boolean
      */
-    private $__buildStatic = false;
+    private $__buildStatic = true;
 
     /**
      * Main shell entry point
@@ -189,8 +189,15 @@ class DocShell extends AppShell
     private function __convertMarkdownToHtml($file)
     {
         $fileHandle = fopen($file, 'r');
-        $fileContent = fread($fileHandle, filesize($file));
-        $fileHtmlContent = Utility::markdown($fileContent);
+        $size = filesize($file);
+
+        if($size > 0) {
+            $fileContent = fread($fileHandle, $size);
+            $fileHtmlContent = Utility::markdown($fileContent);
+        } else {
+            $fileHtmlContent = '';
+        }
+        
         fclose($fileHandle);
 
         return $fileHtmlContent;

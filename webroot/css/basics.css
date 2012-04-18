@@ -40,7 +40,8 @@
 
 pre,
 code{
-    overflow: scroll;
+    /*overflow: scroll;*/
+    overflow: auto;
 }
 
 #ResultsPage h2{
