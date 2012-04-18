@@ -12,7 +12,6 @@
         <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
         <ignore>42viral/Vendor/*</ignore>
         <ignore>Config/*</ignore>
-        <ignore>Plugin/*</ignore>
         <ignore>42viral/Lib/Mustache.php</ignore> 
         <ignore>Console/get_php_inc_path.php</ignore>
         <ignore>42viral/Lib/ImageUtil.php</ignore>

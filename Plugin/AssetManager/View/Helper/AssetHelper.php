@@ -21,8 +21,7 @@ App::uses('AppHelper', 'View/Helper');
  * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
  *
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
- * @package app
- * @subpackage app.core
+ * @package Plugin\AssetManager
  * @author Jason D Snider <jsnider77@gmail.com>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -39,13 +38,15 @@ class AssetHelper extends AppHelper
     private $__assetType;
 
     /**
-     * 
+     * CSS asset container
      * 
      * @access private
      * @var array
      */
     private $__assetContainer_Css = array();
+    
     /**
+     * JS asset container
      * 
      * @access private
      * @var array()
@@ -73,6 +74,8 @@ class AssetHelper extends AppHelper
      * 
      * @access public
      * @param array $assets 
+     * @param string $group
+     * @return void 
      */
     public function addAssets($assets, $group='default')
     { 
@@ -119,7 +122,7 @@ class AssetHelper extends AppHelper
      * Given the asset path decide what asset type it is
      * 
      * @access private
-     * @param type $assetPath 
+     * @param string $assetPath 
      * @return string asset type
      */
     private function __findAssetType($assetPath)
@@ -287,8 +290,8 @@ class AssetHelper extends AppHelper
      * Uses jsmin.php to minify css content
      * 
      * @access private
-     * @param type $contents
-     * @return type 
+     * @param string $contents
+     * @return string 
      */
     private function __jsMin($contents)
     {
@@ -307,8 +310,8 @@ class AssetHelper extends AppHelper
      * Uses cssmin.php to minify css content
      * 
      * @access private
-     * @param type $contents
-     * @return type 
+     * @param string $contents
+     * @return string 
      */
     private function __cssMin($contents)
     {
@@ -326,8 +329,8 @@ class AssetHelper extends AppHelper
      * Allows the remote usage of Google Clouser
      * 
      * @access private
-     * @param type $contents
-     * @return type 
+     * @param string $contents
+     * @return string 
      */
     private function __closureRemote($contents)
     {
@@ -359,9 +362,9 @@ class AssetHelper extends AppHelper
      * 
      * @access private
      * @see http://yuilibrary.com/downloads/#yuicompressor
-     * @param type $contents
-     * @param type $type
-     * @return type 
+     * @param string $contents
+     * @param string $type
+     * @return string 
      */
     private function __yuiLocal($contents, $type='js')
     {
@@ -383,8 +386,8 @@ class AssetHelper extends AppHelper
      * 
      * @access private
      * @see http://code.google.com/closure/compiler/docs/gettingstarted_app.html 
-     * @param type $contents
-     * @return type 
+     * @param string $contents
+     * @return string 
      */
     private function __closureLocal($contents)
     {
@@ -410,8 +413,8 @@ class AssetHelper extends AppHelper
      * Some minifiers, such as YUI require a file as opposed to string input, this creates a tmp file for that purpose
      * 
      * @access private
-     * @param type $contents
-     * @param type $type
+     * @param string $contents
+     * @param string $type
      * @return string 
      */
     private function __addTmpFile($contents, $type)
@@ -428,7 +431,8 @@ class AssetHelper extends AppHelper
      * Cleans up the tmp file after use
      * 
      * @access private
-     * @param type $tmpFile 
+     * @param string $tmpFile path to file we want to delete
+     * @return void
      */
     private function __removeTmpFile($tmpFile)
     {
@@ -439,7 +443,9 @@ class AssetHelper extends AppHelper
      * Flush one of the two (js, css) asset queues, this will be used when calling buildAssets not to 
      * 
      * @access private
-     * @param type $assetType 
+     * @param string $assetType 
+     * @param string $group
+     * @return void
      */
     private function __flushAssests($assetType, $group)
     {
@@ -454,7 +460,7 @@ class AssetHelper extends AppHelper
      * Tests the minified data and returns true if iti feels the minification process was successfull 
      * 
      * @access private
-     * @param string $contents
+     * @param string $minifiedContent
      * @return boolean 
      * @todo Create a better tests
      */
@@ -472,6 +478,8 @@ class AssetHelper extends AppHelper
      * 
      * @access public
      * @param string $assetType
+     * @param string $group
+     * @param boolean $overRide
      * @return string 
      */
     public function buildAssets($assetType, $group='default', $overRide=false)
@@ -521,7 +529,7 @@ class AssetHelper extends AppHelper
      * Fetch a predefined asset package from config and automatically build and output css and js components
      * 
      * @access public
-     * @param type $packageName 
+     * @param string $packageName 
      * @return string
      */
     public function buildAssetPackage($packageName)
