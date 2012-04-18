@@ -45,7 +45,7 @@ class BlogsController extends AppController {
      * @access public
      */
     public $helpers = array(
-        'Member', 
+        'Profile', 
         'Tags.TagCloud'
     );
 
