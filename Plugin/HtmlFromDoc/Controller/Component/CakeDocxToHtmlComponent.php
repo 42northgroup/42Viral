@@ -1,8 +1,20 @@
 <?php
 /**
+ * Converts a doc file to html
  * 
+ * PHP 5.3
  *
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package     Plugin\HtmlFromDoc
+ *
  */
 
 /*
@@ -19,29 +31,34 @@ App::uses('PostOffice', 'HtmlFromDoc.Vendor/PostOffice');
 App::uses('DOCXtoHTML', 'HtmlFromDoc.Vendor/PostOffice');
 
 /**
- *
+ * Converts a doc file to html
+ * 
+ * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package     Plugin\HtmlFromDoc
  */
 class CakeDocxToHtmlComponent extends Component
 {
     /**
-     *
+     * Startup
      *
      * @access public
-     * @param type $controller
+     * @param object $controller
      */
     public function startup(&$controller){}
 
 
     /**
-     *
+     * Initialize
      *
      * @access public
-     * @param type $controller
+     * @param object $controller
      */
     public function initialize(&$controller){}
 
 
     /**
+     * Holds the PostOffice object
+     * 
      * @access public
      * @var object
      */
