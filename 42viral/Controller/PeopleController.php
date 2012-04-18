@@ -18,7 +18,6 @@ App::uses('AppController', 'Controller');
 App::uses('Scrub', 'ContentFilters.Lib');
 /**
  * Manages people in the system
- * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>

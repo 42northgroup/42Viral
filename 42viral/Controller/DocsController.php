@@ -1,5 +1,7 @@
 <?php
 /**
+ * Short description for file
+ * 
  * PHP 5.3
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
@@ -11,26 +13,31 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Content\Doc
  */
 
 App::uses('AppController', 'Controller');
 
 /**
- * @package app
- * @subpackage app.controller
- *
+ * Short description for class
+ * 
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @package 42viral\Content\Doc
  */
 class DocsController extends AppController
 {
 
     /**
+     * Models this controller uses
+     * 
      * @var array
      * @access public
      */
     public $uses = array('Doc');
 
     /**
+     * Helpers
+     * 
      * @var array
      * @access public
      */
@@ -39,6 +46,8 @@ class DocsController extends AppController
     );
 
     /**
+     * beforeFilter
+     * 
      * @access public
      */
     public function beforeFilter()

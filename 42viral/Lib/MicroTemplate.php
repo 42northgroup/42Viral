@@ -1,5 +1,6 @@
 <?php
 /**
+ * Short description for file
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
@@ -15,18 +16,26 @@
 
 App::uses('Mustache', 'Lib');
 /**
+ * Short description for class
+ * 
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @package 42viral\Lib
  */
 class MicroTemplate extends Object
 {
     /**
+     * __MI
+     * 
      * @access private
+     * @var object
      */
     private static $__MI = null;
     
     /**
+     * __standardTemplateObjects
+     * 
      * @access private
+     * @var array
      */
     private static $__standardTemplateObjects = array();
 

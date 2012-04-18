@@ -28,6 +28,8 @@ class Doc extends Content
 {
 
     /**
+     * Model name
+     * 
      * @access public
      * @var string
      */
@@ -67,6 +69,8 @@ class Doc extends Content
     );
 
     /**
+     * Fields to validate before saving
+     * 
      * @access public
      * @var array
      */
@@ -88,6 +92,8 @@ class Doc extends Content
     );
 
     /**
+     * beforeSave
+     * 
      * @access public
      * @return boolean
      */
