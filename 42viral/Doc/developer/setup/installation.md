@@ -35,8 +35,8 @@ Assuming you are installing the 42viral application into a directory called app:
 
     git clone git@github.com:42northgroup/42Viral.git app
 
-Please note that the git repository for 42Viral consists of several git submodules which are mostly Plugins and are
-separate projects hosted on GitHub. You need to make sure you obtain all the submodules:
+The git repository for 42Viral consists of several git submodules which are mostly Plugins and are separate projects
+hosted on GitHub. You need to make sure you obtain all the submodules using the following command:
 
     cd app
     git submodule update --recursive --init
@@ -51,3 +51,6 @@ The setup shell is an interactive tool which enables you to quickly setup your a
 
 You can use the option "0" when you are setting your application for the first time. This will automatically run all
 the setup steps in sequence.
+
+You can also use the setup shell after the first setup to perform individual operations such as re-configuring the
+database parameters, clearing model cache, etc.

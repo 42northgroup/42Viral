@@ -2,7 +2,9 @@
 
 This section will provide additional details for setting up a full development environment
 
-## Installing PHPUnit
+## Ubuntu Linux
+
+### Installing PHPUnit
 
     sudo apt-get install php-pear
     sudo pear channel-discover pear.phpunit.de
@@ -11,13 +13,12 @@ This section will provide additional details for setting up a full development e
     sudo pear install phpunit/PHPUnit
     sudo apt-get install phpunit
 
-There seems to be a version bug in in Ubuntu 11.04, running this will force a new
-version pear and fix the issue.
+There seems to be a version bug in Ubuntu 11.04, running this will force a new version of pear and fix the issue.
 
     sudo pear upgrade pear
     sudo pear install -a phpunit/PHPUnit
 
-## Installing x-debug
+### Installing x-debug
 
     sudo apt-get install php5-xdebug
 
