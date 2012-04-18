@@ -10,6 +10,12 @@
         <directory>.</directory>
         <ignore>webroot/vendors/ckeditor/*</ignore>
         <ignore>Plugin/ContentFilters/Vendor/htmlpurifier/*</ignore>
+        <ignore>Plugin/AssetManager/Vendor/*</ignore>
+        <ignore>Plugin/Tags/*</ignore>
+        <ignore>Plugin/Migrations/*</ignore>
+        <ignore>Plugin/Connect/Lib/*</ignore>
+        <ignore>Plugin/ContentFilters/*</ignore>
+        <ignore>Plugin/HtmlFromDoc/Vendor/*</ignore>
         <ignore>42viral/Vendor/*</ignore>
         <ignore>Config/*</ignore>
         <ignore>42viral/Lib/Mustache.php</ignore> 
