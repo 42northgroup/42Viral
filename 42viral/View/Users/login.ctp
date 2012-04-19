@@ -13,6 +13,13 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
+
+<script type="text/javascript">
+$(function() {
+    $('#UserUsername').focus();
+});
+</script>
+
 <h1><?php echo $title_for_layout; ?></h1>
 
 <div class="row">

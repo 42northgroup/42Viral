@@ -13,23 +13,39 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
+
+<script type="text/javascript">
+$(function() {
+    $('#PageTitle').focus();
+});
+</script>
+
 <h1><?php echo $title_for_layout; ?></h1>
+
 <div class="row">
     <div class="two-thirds column alpha">
         <?php
-            echo $this->Form->create('Page', 
-                        array(
-                            'url'=>$this->here, 
-                            'class'=>'responsive'
-                        )
-                    );
+        echo $this->Form->create('Page', array(
+            'url' => $this->here, 
+            'class' => 'responsive'
+        ));
 
-            echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
-            echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
-            
-            echo $this->Form->submit();
+        echo $this->Form->input('title', array(
+            'rows' => 1,
+            'cols' => 96
+        ));
+
+        echo $this->Form->input('syntax', array(
+            'options' => array(
+                'html' => 'HTML',
+                'markdown' => 'Markdown'
+            )
+        ));
+
+        echo $this->Form->submit();
         echo $this->Form->end();
         ?>
     </div>
+
     <div class="one-third column omega"></div>
 </div>

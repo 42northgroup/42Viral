@@ -13,17 +13,16 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
+
+<script type="text/javascript">
+$(function() {
+    $('#NotificationAlias').focus();
+});
+</script>
+
 <h1><?php echo $title_for_layout; ?></h1>
 
-<?php
-    $this->Asset->addAssets(array(
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-        'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-        'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
-    ), 'ck_editor');
-
-    echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
+<?php echo $this->Asset->buildAssetPackage('ck_editor'); ?>
 
 <?php 
 

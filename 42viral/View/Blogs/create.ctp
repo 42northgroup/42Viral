@@ -13,7 +13,15 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
+
+<script type="text/javascript">
+$(function() {
+    $('#BlogTitle').focus();
+});
+</script>
+
 <h1><?php echo $title_for_layout; ?></h1>
+
 <div class="rows">
     <?php
         echo $this->Form->create('Blog', 

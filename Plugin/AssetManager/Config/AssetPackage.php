@@ -25,6 +25,17 @@ class AssetPackage
     public static $presets = array(
         'jquery' => array(
             'vendors/jquery/js/jquery-1.7.2.js'
+        ),
+
+        'ck_editor' => array(
+            'vendors/ckeditor/adapters/42viral.js',
+            'vendors/ckeditor/ckeditor.js',
+            'vendors/ckeditor/adapters/jquery.js'
+        ),
+
+        'selectit' => array(
+            'vendors/selectit-0.1/js/jquery.selectit.js',
+            'vendors/selectit-0.1/css/jquery.selectit.css'
         )
     );
 }

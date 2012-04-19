@@ -12,28 +12,15 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-
-$this->Asset->addAssets(array(
-    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-    'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
-), 'ck_editor');
-
-echo $this->Asset->buildAssets('js', 'ck_editor', false);
 ?>
 
-<?php
-$this->Asset->addAssets(array(
-    'vendors' .DS. 'selectit-0.1' .DS. 'js' .DS. 'jquery.selectit.js',
-    'vendors' .DS. 'selectit-0.1' .DS. 'css' .DS. 'jquery.selectit.css'
-), 'selectit');
-
-echo $this->Asset->buildAssets('js', 'selectit', false);
-echo $this->Asset->buildAssets('css', 'selectit', false);
-?>
+<?php echo $this->Asset->buildAssetPackage('ck_editor'); ?>
+<?php echo $this->Asset->buildAssetPackage('selectit'); ?>
 
 <script type="text/javascript">
 $(function () {
+    $('#BlogTitle').focus();
+
     $('#TagsContainer').selectit({
         targetFieldId: 'BlogTags',
         proxyFieldId: 'BlogTagsProxy',
