@@ -73,9 +73,10 @@ class DocsController extends AppController
      * structure for the view to render
      * 
      * @access private
+     * @param string $slug
      * @return void
      */
-    private function __prepareDocIndex()
+    private function __prepareDocIndex($slug)
     {
         if(! $fromCache = $this->__tryDocIndexCache()) {
             $docItems = $this->Doc->fetchDocsWith('doc_index');
@@ -119,7 +120,7 @@ class DocsController extends AppController
             $docNavIndex = $fromCache;
         }
 
-        $docNavIndexHtml = $this->__generateDocIndexHtml($docNavIndex);
+        $docNavIndexHtml = $this->__generateDocIndexHtml($docNavIndex, $slug);
         $this->set('doc_nav_index_html', $docNavIndexHtml);
     }
 
@@ -128,13 +129,14 @@ class DocsController extends AppController
      *
      * @access private
      * @param array $docNavIndex
+     * @param string $slug
      * @return string
      */
-    private function __generateDocIndexHtml($docNavIndex)
+    private function __generateDocIndexHtml($docNavIndex, $slug)
     {
         $html = '';
         $html .= '<div class="doc-index">';
-        $html .= $this->__buildNavPart($docNavIndex);
+        $html .= $this->__buildNavPart($docNavIndex, $slug);
         $html .= '</div>';
 
         return $html;
@@ -145,15 +147,21 @@ class DocsController extends AppController
      *
      * @access private
      * @param array $navPart
+     * @param string $slug
      * @return string
      */
-    private function __buildNavPart($navPart)
+    private function __buildNavPart($navPart, $slug)
     {
         $html = '';
+        $page = false;
 
         if(array_key_exists('label', $navPart)) {
+            if(str_replace('/docs/', '', $navPart['url']) == $slug) {
+                $page = true;
+            }
+
             $html .=
-                '<li class="doc-index-item">'.
+                '<li class="doc-index-item ' . ($page? 'doc-index-current': '') . '">'.
                     '<a href="' . $navPart['url'] . '">' . 
                         Inflector::humanize(preg_replace('/^[0-9]*#/', '', $navPart['label'])) .
                     '</a>' .
@@ -176,7 +184,7 @@ class DocsController extends AppController
                         '</li>';
                 }
                 
-                $html .= $this->__buildNavPart($tempNavPart);
+                $html .= $this->__buildNavPart($tempNavPart, $slug);
 
 
                 if($key !== '00#_root') {
@@ -240,7 +248,7 @@ class DocsController extends AppController
      */
     public function view($slug)
     {
-        $this->__prepareDocIndex();
+        $this->__prepareDocIndex($slug);
 
         $doc = $this->Doc->getDocWith($slug);
 
@@ -248,7 +256,6 @@ class DocsController extends AppController
            $this->redirect('/', '404');
         }
 
-        //[TODO] Make the documentation title more human friendly as opposed to the hierarchical coded form
         $this->set('title_for_layout', $doc['Doc']['title']);
         $this->set('canonical_for_layout', $doc['Doc']['canonical']);
 

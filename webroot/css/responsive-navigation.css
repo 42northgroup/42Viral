@@ -98,7 +98,7 @@ div.details-block div a:hover{
 
 div.doc-index ul {
     margin: 0px;
-    padding: 3px 0px 3px 20px;
+    padding: 3px 0px 3px 10px;
 }
 
 div.doc-index > ul {
@@ -106,6 +106,7 @@ div.doc-index > ul {
 }
 
 div.doc-index ul li {
+    cursor: default;
     list-style-type: none;
 }
 
@@ -113,8 +114,17 @@ div.doc-index li.doc-index-header {
     font-weight: bold;
 }
 
+div.doc-index li.doc-index-item {
+    padding: 3px;
+}
+
 div.doc-index li.doc-index-item a {
+    display: block;
     font-weight: normal;
+}
+
+div.doc-index li.doc-index-item:hover {
+    background-color: #ddd;
 }
 
 div.doc-index a.doc-toc {
@@ -122,6 +132,11 @@ div.doc-index a.doc-toc {
     font-weight: bold;
     padding: 8px;
     margin-bottom: 5px;
+    background-color: #eee;
+}
+
+div.doc-index li.doc-index-item.doc-index-current {
+    border-right: 3px solid #ddd;
     background-color: #eee;
 }
 
