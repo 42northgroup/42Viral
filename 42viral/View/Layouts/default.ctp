@@ -22,10 +22,10 @@
         <?php
             echo $this->Html->meta('icon');
 
+            echo $this->Asset->buildAssetPackage('jquery');
+
             $this->Asset->addAssets(array(
                 'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
-                'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery.js',
-
                 'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
 
                 'js' . DS . 'startup.js',

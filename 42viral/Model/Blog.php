@@ -16,8 +16,10 @@
 
 App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
+
 /**
  * Manages the content object from the point of view of a blog
+ * 
  * @author Jason D Snider <jason.snider@42viral.org>
  * @package 42viral\Content\Blog
  */

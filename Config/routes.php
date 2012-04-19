@@ -37,8 +37,8 @@ Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'
 Router::connect('/post', array('controller' => 'posts', 'action' => 'index'));
 Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'), array('pass' => array('slug')));
 
-Router::connect('/doc', array('controller' => 'docs', 'action' => 'index'));
-Router::connect('/doc/:slug', array('controller' => 'docs', 'action' => 'view'), array('pass' => array('slug')));
+Router::connect('/docs', array('controller' => 'docs', 'action' => 'index'));
+Router::connect('/docs/:slug', array('controller' => 'docs', 'action' => 'view'), array('pass' => array('slug')));
 
 
 //URL short cut resolutions

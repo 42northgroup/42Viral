@@ -11,6 +11,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package 42viral\Console
  */
 
 App::uses('Utility', 'Lib');
@@ -19,12 +20,12 @@ App::uses('Doc', 'Model');
 /**
  * Cake shell to generate doc (static and/or database) from documentation markdown
  *
- * @package app
- * @subpackage app.console.command
+ * @package 42viral\Console
+ * @subpackage 42viral\Console\Command
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  */
-class DocShell extends AppShell
+class DocsShell extends AppShell
 {
     /**
      * The folder location where all system documentation lives

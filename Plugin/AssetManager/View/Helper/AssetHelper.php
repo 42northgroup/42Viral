@@ -1,8 +1,25 @@
 <?php
+/**
+ * Asset Helper class to streamline the concatenation and minification of JS and CSS resources
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ * @package Plugin\AssetHelper
+ */
+
 App::uses('AppHelper', 'View/Helper');
+App::uses('AssetPackage', 'AssetManager.Config');
 
 /**
  * Helper class for merging client side assets
+ * 
  * 1. Make sure ASSET_CACHE . DS . cache is writable by the server
  * 2. If runing local Java based minifiers, make sure the jar files are accessable by the web server
  * 
@@ -64,10 +81,23 @@ class AssetHelper extends AppHelper
     
     /**
      * Store to hold asset package definitions from configuration file
+     * 
      * @access private
      * @var array
      */
-    private $__packageDef = null;
+    private $__packageDef = array();
+
+    /**
+     * 
+     */
+    public function __construct()
+    {
+        if(class_exists('AssetPackage')) {
+            if(isset(AssetPackage::$presets)) {
+                $this->__packageDef = AssetPackage::$presets;
+            }
+        }
+    }
 
     /**
      * Builds the asset queues

@@ -55,7 +55,7 @@ class Doc extends Content
         'doc_index' => array(
             'contain' => array(),
             'conditions' => array(
-                'Doc.object_type' => 'doc'
+                'Doc.object_type' => 'docs'
             ),
 
             'fields' => array(
@@ -100,7 +100,7 @@ class Doc extends Content
     public function beforeSave()
     {
         parent::beforeSave();
-        $this->data['Doc']['object_type'] = 'doc';
+        $this->data['Doc']['object_type'] = 'docs';
         $this->data['Doc']['status'] = 'published';
         return true;
     }
@@ -117,7 +117,7 @@ class Doc extends Content
         parent::beforeFind($queryData);
 
         $queryData['conditions'] = !empty($queryData['conditions']) ? $queryData['conditions'] : array();
-        $docFilter = array('Doc.object_type' => 'doc');
+        $docFilter = array('Doc.object_type' => 'docs');
         $queryData['conditions'] = array_merge($queryData['conditions'], $docFilter);
 
         return $queryData;
@@ -206,7 +206,7 @@ class Doc extends Content
     public function clearAllDocs()
     {
         $oppStatus = $this->deleteAll(array(
-            'Doc.object_type' => 'doc'
+            'Doc.object_type' => 'docs'
         ));
 
         return ($oppStatus)? true: false;
