@@ -258,8 +258,8 @@
         </table>
         <table name="picklist_options">
             <column name="id">4f88b585-1fcc-47aa-834a-2af07f000102</column>
-            <column name="pl_key">doc</column>
-            <column name="pl_value">Doc</column>
+            <column name="pl_key">docs</column>
+            <column name="pl_value">Documentation</column>
             <column name="picklist_id">4e89ece1-707c-43a3-923f-0a6c4bb83359</column>
             <column name="category">Content</column>
             <column name="group"></column>
