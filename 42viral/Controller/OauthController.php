@@ -153,6 +153,12 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_callback($get_token = null)
     {
+        
+        if(!isset ($this->params['url']['oauth_token']) && $this->params['url']['oauth_verifier']){
+            $this->Session->setFlash("A connection with Twitter could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
 
         // Issue request for access token
         $request = array(
@@ -268,6 +274,12 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function linkedin_callback($get_token = null)
     {
+        
+        if(!isset ($this->params['url']['oauth_token']) && $this->params['url']['oauth_verifier']){
+            $this->Session->setFlash("A connection with Linkedin could not be established at the moment.".
+                                                                                " We apologize for the inconvenience.");
+            $this->redirect($this->referer());
+        }
 
         // Issue request for access token
         $request = array(
