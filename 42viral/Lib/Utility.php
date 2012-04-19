@@ -103,4 +103,24 @@ class Utility
         return Markdown($text);
     }
 
+    /**
+     * Determine whether the passed array is a purely associative array (all keys are strings) or not
+    *
+     * @access public
+     * @static
+     * @param array $array
+     * @return boolean
+     */
+    public static function isPureAssoc($array)
+    {
+        $flag = true;
+
+        foreach($array as $key => $value) {
+            if(is_int($key)) {
+                $flag = false;
+            }
+        }
+
+        return $flag;
+    }
 }

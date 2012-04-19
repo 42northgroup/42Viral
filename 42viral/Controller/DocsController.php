@@ -17,6 +17,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('Utility', 'Lib');
 
 /**
  * Short description for class
@@ -79,15 +80,15 @@ class DocsController extends AppController
         if(! $fromCache = $this->__tryDocIndexCache()) {
             $docItems = $this->Doc->fetchDocsWith('doc_index');
             $docNavIndex = array(
-                '_root' => array()
+                '00#_root' => array()
             );
 
             foreach($docItems as $tempItem) {
-                $hierarchy = preg_split('~::~', $tempItem['Doc']['_before_seo'], -1, PREG_SPLIT_NO_EMPTY);
+                $hierarchy = preg_split('~::~', $tempItem['Doc']['hierarchy'], -1, PREG_SPLIT_NO_EMPTY);
 
                 if(!empty($hierarchy)) {
                     if(count($hierarchy) == 1) {
-                        array_push($docNavIndex['_root'], array(
+                        array_push($docNavIndex['00#_root'], array(
                             'label' => $hierarchy[0],
                             'url' => $tempItem['Doc']['url']
                         ));
@@ -153,23 +154,32 @@ class DocsController extends AppController
         if(array_key_exists('label', $navPart)) {
             $html .=
                 '<li class="doc-index-item">'.
-                    '<a href="' . $navPart['url'] . '">' . Inflector::humanize($navPart['label']) . '</a>' .
+                    '<a href="' . $navPart['url'] . '">' . 
+                        Inflector::humanize(preg_replace('/^[0-9]*#/', '', $navPart['label'])) .
+                    '</a>' .
                 '</li>';
         } else {
+            if(Utility::isPureAssoc($navPart)) {
+                ksort($navPart);
+            }
+
             foreach($navPart as $key => $tempNavPart) {
-                if($key !== '_root') {
+                if($key !== '00#_root') {
                     $html .= '<ul>';
                 }
 
-                if(is_string($key) && $key !== '_root') {
+                if(is_string($key) && $key !== '00#_root') {
 
-                    $html .= '<li class="doc-index-header">' . Inflector::humanize($key) . '</li>';
+                    $html .=
+                        '<li class="doc-index-header">' .
+                            Inflector::humanize(preg_replace('/^[0-9]*#/', '', $key)) .
+                        '</li>';
                 }
                 
                 $html .= $this->__buildNavPart($tempNavPart);
 
 
-                if($key !== '_root') {
+                if($key !== '00#_root') {
                     $html .= '</ul>';
                 }
             }

@@ -62,7 +62,7 @@ class Doc extends Content
                 'Doc.url',
                 'Doc.short_cut',
                 'Doc.base_slug',
-                'Doc._before_seo',
+                'Doc.hierarchy',
                 'Doc.slug'
             )
         )
@@ -181,14 +181,20 @@ class Doc extends Content
             $this->create();
             $this->data = array();
 
+            $docTitle = '';
             $docHierarchy = '';
+            
             if(!empty($tempFile['relative_path_structure'])) {
                 foreach($tempFile['relative_path_structure'] as $tempDir) {
+                    $docTitle .= Inflector::humanize($tempDir) . ' : ';
                     $docHierarchy .= $tempDir . '::';
                 }
             }
 
-            $this->data['Doc']['title'] = $docHierarchy . str_replace('.md', '', $tempFile['file']);
+            $this->data['Doc']['title'] =
+                ucwords(preg_replace('/[0-9]*#/', '', $docTitle . str_replace('.md', '', $tempFile['file'])));
+
+            $this->data['Doc']['hierarchy'] = $docHierarchy . str_replace('.md', '', $tempFile['file']);
             $this->data['Doc']['body'] = $tempFile['html'];
             
             $this->save($this->data);
