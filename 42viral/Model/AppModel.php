@@ -31,6 +31,15 @@ class AppModel extends Model {
         'Containable', 
         'Log'
     );
+    
+    /**
+     * Works with ReturnInsertedIds Behaivior to return an array of the ids of inserted rows after a saveAll
+     * 
+     * @access public
+     * @var array
+     */
+    public $insertedIds = array();
+    
     /**
      * Returns the User array of the current user
      * @access public
