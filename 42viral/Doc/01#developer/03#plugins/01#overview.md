@@ -7,6 +7,7 @@ both 3rd party plug-ins as well as open source plug-ins developed by the 42Viral
 Streamlines the task of combining and compressing JS and CSS resources.
 
 ## [AuditLog](/docs/developer-plugins-audit_log)
+[Summary]
 
 ## [CalendarRecurssion](/docs/developer-plugins-calendar_recurssion)
 This plug-in can be used to quickly generate date/time instances for a given range of dates with parameters such as
@@ -14,8 +15,10 @@ which days of the week you want the dates to be generated for. This becomes very
 for generating and blocking out dates on a calendar.
 
 ## [Connect](/docs/developer-plugins-connect)
+[Summary]
 
 ## [ContentFilters](/docs/developer-plugins-content_filters)
+[Summary]
 
 ## [FileUpload](/docs/developer-plugins-file_upload)
 Used to upload files through HTML forms with different settings which determine where the files will be saved, allowable
@@ -24,12 +27,18 @@ file types, file upload model, etc.
 ## [HtmlFromDoc](/docs/developer-plugins-html_from_doc)
 Used to convert `.docx` files to their HTML equivalent, primarily used for content management.
 
-## Migrations
+## [Migrations](/docs/developer-plugins-migrations)
+[Summary]
 
-## PicklistManager
+## [PicklistManager](/docs/developer-plugins-picklist_manager)
+An easy way to generate and manage picklists and picklist options for use with HTML select form element.
 
-## Search
+## [Search](/docs/developer-plugins-search)
+[Summary]
 
-## SEO
+## [SEO](/docs/developer-plugins-seo)
+The goal of the SEO plug-in is to support search engine optimization (SEO) best practices without the content producer
+needing to think about it.
 
-## Tags
+## [Tags](/docs/developer-plugins-tags)
+[Summary]
