@@ -40,17 +40,6 @@ Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'
 Router::connect('/docs', array('controller' => 'docs', 'action' => 'index'));
 Router::connect('/docs/:slug', array('controller' => 'docs', 'action' => 'view'), array('pass' => array('slug')));
 
-
-//URL short cut resolutions
-Router::connect('/page/short_cut/:short_cut', 
-        array('controller' => 'pages', 'action' => 'short_cut'), array('pass' => array('short_cut')));
-
-Router::connect('/blog/short_cut/:short_cut', 
-        array('controller' => 'blog', 'action' => 'short_cut'), array('pass' => array('short_cut')));
-
-Router::connect('/post/short_cut/:short_cut', 
-        array('controller' => 'posts', 'action' => 'short_cut'), array('pass' => array('short_cut')));
-
 //a convenience route for accesing a profile
 Router::connect('/p/:username',
         array('controller' => 'profiles', 'action' => 'view'), array('pass' => array('username')));
