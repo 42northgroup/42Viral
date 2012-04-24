@@ -10,7 +10,7 @@ Currently, installation is written for Apache2 on Ubuntu Linux.
 
 We recommend the advanced install options from the CakePHP Cookbook.
 
-Add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
+Add the following to you php.ini file **Be sure to update this for both your server and CLI .ini files**
 
     include_path = '.:/usr/share/php:/usr/share/cakephp-2.1/lib'
 
@@ -25,7 +25,7 @@ Replace
 * /var/www/vhosts/ with your server path
 * httpdocs with whatever you want to call it
 
-__app is highly recommended, by default CakePHP will always look for the app directory__
+**app is highly recommended, by default CakePHP will always look for the app directory**
 
     cd /[path/to/your-site.com/httpdocs]/app
 

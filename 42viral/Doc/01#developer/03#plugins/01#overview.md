@@ -1,27 +1,28 @@
-# Plugins Overview
+# Plug-ins Overview
 
 The 42Viral project makes extensive use of the CakePHP plug-in architecture to provide higher flexibility. These include
 both 3rd party plug-ins as well as open source plug-ins developed by the 42Viral core team hosted on GitHub.
 
 ## [AssetManager](/docs/developer-plugins-asset_manager)
-The __Asset Manager__ is a plug-in which streamlines the task of combining and compressing JS and CSS resources.
+Streamlines the task of combining and compressing JS and CSS resources.
 
 ## [AuditLog](/docs/developer-plugins-audit_log)
-Place summary for Audit Log here
-
 
 ## [CalendarRecurssion](/docs/developer-plugins-calendar_recurssion)
-Place summary for calendar recurssion plug-in here
+This plug-in can be used to quickly generate date/time instances for a given range of dates with parameters such as
+which days of the week you want the dates to be generated for. This becomes very useful in calendaring applications
+for generating and blocking out dates on a calendar.
 
 ## [Connect](/docs/developer-plugins-connect)
-Place summary for connect plug-in here
 
 ## [ContentFilters](/docs/developer-plugins-content_filters)
-Place summary for content filters plug-in here
 
-## FileUpload
+## [FileUpload](/docs/developer-plugins-file_upload)
+Used to upload files through HTML forms with different settings which determine where the files will be saved, allowable
+file types, file upload model, etc.
 
-## HtmlFromDoc
+## [HtmlFromDoc](/docs/developer-plugins-html_from_doc)
+Used to convert `.docx` files to their HTML equivalent, primarily used for content management.
 
 ## Migrations
 

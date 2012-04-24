@@ -1,8 +1,8 @@
-## AssetManager
+# AssetManager Plug-in
 
 ### Defining asset collections
 
-The __Asset Manager__ is a plug-in which streamlines the task of combining and compressing JS and CSS resources. Using
+The **Asset Manager** is a plug-in which streamlines the task of combining and compressing JS and CSS resources. Using
 the asset manager API you would define asset collections as such:
 
     $this->Asset->addAssets(array(
@@ -29,12 +29,12 @@ calculated from a combination of the file names and their last modification time
 issues. That means if you edit a file from the asset collection you'd essentially have a new hash for the final asset
 file.
 
-Also the minification can be turned off by setting the __MINIFY_ASSETS__ constant to false for debugging purposes. You
-can set this in the [Your Application Path]/Plugin/AssetManager/Config/bootstrap.php file.
+Also the minification can be turned off by setting the `MINIFY_ASSETS` constant to false for debugging purposes. You
+can set this in the `[Your Application Path]/Plugin/AssetManager/Config/bootstrap.php` file.
 
 ### Asset Packages
 
-There's an even easier way to define and re-use asset collection we call __Asset Packages__.
+There's an even easier way to define and re-use asset collection we call **Asset Packages**.
 
     $assetPackages = array(
         'jquery' => array(
@@ -54,5 +54,5 @@ asset package. This makes site wide library upgrades a breeze.
     echo $this->Asset->buildAssetPackage('jquery');
     echo $this->Asset->buildAssetPackage('fancybox');
 
-If you'd like to extend the list of preset asset packages you can do so in the AssetManager/Config/AssetPackage.php
-file by adding your own collections to the $presets class static variable.
+If you'd like to extend the list of preset asset packages you can do so in the `AssetManager/Config/AssetPackage.php`
+file by adding your own collections to the `$presets` class static variable.

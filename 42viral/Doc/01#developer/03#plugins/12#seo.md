@@ -1,4 +1,4 @@
-# SEO Plugin
+# SEO Plug-in
 
 When it comes to SEO, clean original content is 60% of the battle. Their are many other best practices that will make 
 your SEO incrementally better. The goal of the SEO plugin is to support these best practicies with out the content 
