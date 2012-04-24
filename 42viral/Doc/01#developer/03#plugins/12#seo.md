@@ -1,9 +1,9 @@
 # SEO Plugin
 
-Clean original content is 60% of the battle. Their are many other best practices that will make your SEO incrementally   
-better. The goal of the SEO plugin is to support these best practicies with out the content producer needing to think 
-about it. Simply write clean original content and we will take care of the rest. In addition to SEO, the SEO plugin 
-we are adding support for other common traffic driving techniques.
+When it comes to SEO, clean original content is 60% of the battle. Their are many other best practices that will make 
+your SEO incrementally better. The goal of the SEO plugin is to support these best practicies with out the content 
+producer needing to think about it. Simply write clean original content and we will take care of the rest. In addition 
+to SEO, the SEO plugin we are adding support for other common traffic driving techniques.
 
 * Automatic slug creation and disambiguation
 * Automatic canonical link creation and disambiguation
