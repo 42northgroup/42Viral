@@ -1,4 +1,6 @@
-# ACL(Access Control Lists)
+# Assigning Privileges
+
+Privileges in The 42Viral Project are assigned at the controller/action level using Access Control Lists and Groups.
 
 ACLs are what allows administrators to restrict or grant users access to certain parts of the system.
 
