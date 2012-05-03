@@ -168,10 +168,12 @@ class Post extends Content
     public function getPostWith($token, $with = null){
 
         $theToken = array(
-            'or' => array(
-                'Post.id' => $token, 
-                'Post.slug' => $token, 
-                'Post.short_cut' => $token
+            'conditions'=>array(
+                'or' => array(
+                    'Post.id' => $token, 
+                    'Post.slug' => $token, 
+                    'Post.short_cut' => $token
+                )
             )
         );
         
