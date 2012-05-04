@@ -132,7 +132,7 @@ $this->Form->unlockField('Post.tags');
                         'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
                         'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
             */
-            echo $this->Form->inputs(array('legend'=>'Alt. Content Creation', 'custom_file'=>array('empty'=>true)));
+            
             echo $this->Form->inputs(array('legend'=>'Publish', 'status'));
             echo $this->Form->submit();
         ?>

@@ -18,32 +18,6 @@
 <div class="row">
     
     <div class="two-thirds column alpha">
-        <?php
-
-            //Find some custom theme paths
-            $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
-                    . Configure::write('Theme.set', 'Default') . DS;
-
-            $unthemedPath = ROOT . DS . APP_DIR . DS . 'View' . DS;
-
-            $relativeCustomPath = 'Blogs' . DS . 'Custom' . DS;
-
-            $file = 'accessing-phpmyadmin-after-apt-get-install.ctp';
-
-
-            $file = $post['Post']['custom_file'] . '.ctp';
-
-            //Is there a custom content file to be appended here?
-            if(is_file( $themePath .$relativeCustomPath . $file)){
-
-                require($themePath .$relativeCustomPath . $file);
-
-            }elseif(is_file( $unthemedPath .$relativeCustomPath . $file)){
-
-                require($unthemedPath .$relativeCustomPath . $file);         
-
-            }    
-        ?>
         <?php 
             switch($post['Post']['syntax']):
                 case 'markdown':
