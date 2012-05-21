@@ -55,7 +55,21 @@ class Page extends Content
             'conditions' => array('Page.status'=>array('archived', 'published'))
         )        
     );
-
+    /**
+     * Defines the default has one data associations for all content
+     * @access public
+     * @var array
+     */
+    public $hasOne = array(
+        'Sitemap' => array(
+            'className' => 'Sitemap',
+            'foreignKey' => 'model_id',
+            'conditions' => array(
+                'Sitemap.model LIKE "page"'
+            ),
+            'dependent' => true
+        )
+    );
     /**
      * Defines a page's model validation
      * @access public

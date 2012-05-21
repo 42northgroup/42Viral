@@ -111,6 +111,21 @@ class Blog extends Content
     );
     
     /**
+     * Defines the default has one data associations for all content
+     * @access public
+     * @var array
+     */
+    public $hasOne = array(
+        'Sitemap' => array(
+            'className' => 'Sitemap',
+            'foreignKey' => 'model_id',
+            'conditions' => array(
+                'Sitemap.model LIKE "blog"'
+            ),
+            'dependent' => true
+        )
+    );
+    /**
      * Defines a blog's model validation
      * @var array
      * @access public

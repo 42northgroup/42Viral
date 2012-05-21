@@ -122,22 +122,6 @@ class Content extends AppModel
     );
     
     /**
-     * Defines the default has one data associations for all content
-     * @access public
-     * @var array
-     */
-    public $hasOne = array(
-        'Sitemap' => array(
-            'className' => 'Seo.Sitemap',
-            'foreignKey' => 'model_id',
-            'conditions' => array(
-                'Sitemap.model LIKE "Content"'
-            ),
-            'dependent' => true
-        )
-    );
-    
-    /**
      * Sets up the searchable behavior
      * @access public
      * @var array

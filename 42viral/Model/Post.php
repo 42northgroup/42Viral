@@ -103,6 +103,22 @@ class Post extends Content
     );
     
     /**
+     * Defines the default has one data associations for all content
+     * @access public
+     * @var array
+     */
+    public $hasOne = array(
+        'Sitemap' => array(
+            'className' => 'Sitemap',
+            'foreignKey' => 'model_id',
+            'conditions' => array(
+                'Sitemap.model LIKE "post"'
+            ),
+            'dependent' => true
+        )
+    );
+    
+    /**
      * Fields to be validated on save
      * @var array
      * @access public

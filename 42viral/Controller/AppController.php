@@ -31,8 +31,14 @@ class AppController extends Controller
      * @var array
      * @access public
      */
-    public $components = array('Acl', 'Auth', 'RequestHandler', 'Security', 'Session');
-
+    public $components = array(
+        'Acl', 
+        'Auth', 
+        'RequestHandler', 
+        'Security' => array(
+            'csrfExpires' => '+1 day'
+        ), 
+        'Session');
     /**
      * Application-wide helpers
      *
