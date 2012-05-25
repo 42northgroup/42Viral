@@ -46,7 +46,7 @@ class ConfigurationsController extends AppController{
     
     /**
      * Pulls a list of all plugins to allow for configuration 
-     * @return void
+     *
      * @access public
      */
     public function admin_index(){
@@ -95,7 +95,7 @@ class ConfigurationsController extends AppController{
     
     /**
      * Provides an action for configuring content filters
-     * @return void
+     *
      * @access public
      */
     public function admin_configuration(){
@@ -105,7 +105,7 @@ class ConfigurationsController extends AppController{
     
     /**
      * Provides an action for configuring content filters
-     * @return void
+     *
      * @access public
      */
     public function admin_content_filters(){
@@ -117,7 +117,7 @@ class ConfigurationsController extends AppController{
      * Common edit functionality for dealing with configuration forms
      *
      * @access public
-     * @return void
+     *
      */
     private function __adminEdit()
     {

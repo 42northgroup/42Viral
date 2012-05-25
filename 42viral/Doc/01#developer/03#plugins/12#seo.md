@@ -51,7 +51,7 @@ will do an SEO safe redirect against blog content.
     /**
      * Redirect short links to their proper url
      * @param string $shortCut 
-     * @return void
+     *
      */
     public function short_cut($shortCut) {
 

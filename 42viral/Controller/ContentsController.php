@@ -62,7 +62,7 @@ App::uses('Handy', 'Lib');
     
     /**
      * beforeFilter
-     * @return void
+     *
      * @access public
      */
     public function beforeFilter()
@@ -75,7 +75,7 @@ App::uses('Handy', 'Lib');
      * Displays a list of pages
      *
      * @access public
-     * @return void
+     *
      */
     public function mine() {
         $contents = $this->Content->fetchContentsWith('mine', $this->Session->read('Auth.User.id'));
@@ -89,7 +89,7 @@ App::uses('Handy', 'Lib');
      * @access public
      * @param string $id
      * @param string $redirect_url 
-     * @return void
+     *
      */
     public function promote($id, $redirect_url='users/social_media')
     {

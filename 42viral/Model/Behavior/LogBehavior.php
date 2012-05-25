@@ -26,7 +26,7 @@ class LogBehavior extends ModelBehavior
      * Initializes the behavior
      * @access public
      * @param object $model 
-     * @return void
+     *
      */
     function setup(&$model){}
 
@@ -60,7 +60,7 @@ class LogBehavior extends ModelBehavior
      * Provides the logic for appending the "log" data to the array to be saved
      * @access private
      * @param object $model
-     * @return void
+     *
      */
     private function __appendLogFields(&$model)
     {

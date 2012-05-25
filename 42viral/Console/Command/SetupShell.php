@@ -109,7 +109,7 @@ class SetupShell extends AppShell
      * Main entry point to the setup shell. This ties together all the different steps of the setup
      *
      * @access public
-     * @return void
+     *
      */
     public function main()
     {
@@ -152,7 +152,7 @@ class SetupShell extends AppShell
      * Control the interactive setup UI
      *
      * @access private
-     * @return void
+     *
      */
     private function __interactiveSetup()
     {
@@ -239,7 +239,7 @@ class SetupShell extends AppShell
      * Wrapper to run standard steps run after each individual step run
      *
      * @access private
-     * @return void
+     *
      */
     private function __runStandardSteps()
     {
@@ -251,7 +251,7 @@ class SetupShell extends AppShell
      * Wrapper to run all steps in sequence
      *
      * @access private
-     * @return void
+     *
      */
     private function __runAll()
     {
@@ -272,7 +272,7 @@ class SetupShell extends AppShell
      * Create the initial configuration files by copying the default provided with the framework
      *
      * @access private
-     * @return void
+     *
      */
     private function __initConfig()
     {
@@ -299,7 +299,7 @@ class SetupShell extends AppShell
      * Creates the systems salt and hash values
      *
      * @access private
-     * @return void
+     *
      */
     private function __securityCodes()
     {
@@ -385,7 +385,7 @@ class SetupShell extends AppShell
      * Generate database configuration file from user entered data for default and test databases
      *
      * @access private
-     * @return void
+     *
      */
     private function __databaseConfig()
     {
@@ -413,7 +413,7 @@ class SetupShell extends AppShell
      * Set the proper file/folder permissions
      *
      * @access private
-     * @return void
+     *
      */
     private function __writePermissions()
     {
@@ -496,7 +496,7 @@ class SetupShell extends AppShell
      * Clear the cache folders, both CakePHP generated and the asset helper generated
      *
      * @access private
-     * @return void
+     *
      */
     private function __clearCache()
     {
@@ -547,7 +547,7 @@ class SetupShell extends AppShell
      * Trigger the execution of the standard CakePHP schema shell
      *
      * @access private
-     * @return void
+     *
      */
     private function __runSchemaShell()
     {
@@ -569,7 +569,7 @@ class SetupShell extends AppShell
      * Import the core system data and populate the database tables after the schema has been created
      *
      * @access private
-     * @return void
+     *
      */
     private function __importCoreData()
     {
@@ -603,7 +603,7 @@ class SetupShell extends AppShell
      * Trigger execution of the plugin configuration shell
      *
      * @access private
-     * @return void
+     *
      */
     private function __runConfigurationShell()
     {
@@ -620,7 +620,7 @@ class SetupShell extends AppShell
      * Gather the root user login credentials and create the root user
      *
      * @access private
-     * @return void
+     *
      */
     private function __createRootUser()
     {
@@ -691,7 +691,7 @@ class SetupShell extends AppShell
      *
      * @access private
      * @param string $configString
-     * @return void
+     *
      */
     private function __writeDBConfigFile($configString)
     {
@@ -891,7 +891,7 @@ class SetupShell extends AppShell
      * Run through each setup step and if all steps are completed, mark the _all_steps as completed
      *
      * @access private
-     * @return void
+     *
      */
     private function __finalizeSetupState()
     {
@@ -913,7 +913,7 @@ class SetupShell extends AppShell
      * If no setup state file was found, use this initializer structure to generate the content for the log file
      *
      * @access private
-     * @return void
+     *
      */
     private function __initializeSetupState()
     {
@@ -1013,7 +1013,7 @@ class SetupShell extends AppShell
      *
      * @access private
      * @param $stepAlias alias of the step which we are updating
-     * @return void
+     *
      */
     private function __updateSetupState($stepAlias)
     {
@@ -1026,7 +1026,7 @@ class SetupShell extends AppShell
      * Write in memory setup state structure to setup log file
      *
      * @access private
-     * @return void
+     *
      */
     private function __writeSetupState()
     {

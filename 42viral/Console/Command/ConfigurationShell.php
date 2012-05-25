@@ -33,7 +33,7 @@ class ConfigurationShell extends AppShell
     /**
      * Retrieves the configuration values from the configuration table and writes them to the appllication.php file
      * 
-     * @return void
+     *
      * @access public
      */
     public function main()

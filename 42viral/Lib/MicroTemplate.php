@@ -42,7 +42,7 @@ class MicroTemplate extends Object
     /**
      * Initiates Mustache lib
      * @access public
-     * @return void
+     *
      */
     private static function __init()
     {

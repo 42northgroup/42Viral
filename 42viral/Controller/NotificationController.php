@@ -43,7 +43,7 @@ App::uses('AppController', 'Controller');
      * Default action for the notification controller
      *
      * @access public
-     * @return void
+     *
      */
     public function index()
     {
@@ -59,7 +59,7 @@ App::uses('AppController', 'Controller');
      *
      * @access public
      * @param string $notificationId
-     * @return void
+     *
      */
     public function view($notificationId)
     {
@@ -73,7 +73,7 @@ App::uses('AppController', 'Controller');
      * Creates a new notification
      *
      * @access public
-     * @return void
+     *
      */
     public function create()
     {
@@ -98,7 +98,7 @@ App::uses('AppController', 'Controller');
      *
      * @access public
      * @param $notificationId
-     * @return void
+     *
      */
     public function edit($notificationId)
     {
@@ -126,7 +126,7 @@ App::uses('AppController', 'Controller');
      *
      * @access public
      * @param string $notificationId
-     * @return void
+     *
      */
     public function delete($notificationId)
     {
@@ -147,7 +147,7 @@ App::uses('AppController', 'Controller');
      *
      * @access public
      * @param  $notificationHandle unique identifier
-     * @return void
+     *
      */
     public function test($notificationHandle='')
     {

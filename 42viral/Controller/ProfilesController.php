@@ -61,7 +61,7 @@ App::uses('ProfileUtil', 'Lib');
     
     /**
      * beforeFilter
-     * @return void
+     *
      * @access public
      */
     public function beforeFilter()
@@ -73,7 +73,7 @@ App::uses('ProfileUtil', 'Lib');
     /**
      * Provides an index of all system profiles
      *
-     * @return void
+     *
      * @access public
      * @todo TestCase
      */
@@ -89,7 +89,7 @@ App::uses('ProfileUtil', 'Lib');
      *     
      * @access public
      * @param string $profileId provides a unique ID base on which we can find the user's profile
-     * @return void
+     *
      */
     public function edit($profileId) {
         
@@ -127,7 +127,7 @@ App::uses('ProfileUtil', 'Lib');
     /**
      * Action to save profile data submitted through the edit form
      * 
-     * @return void
+     *
      * @access public
      */
     public function save()
@@ -151,7 +151,7 @@ App::uses('ProfileUtil', 'Lib');
      * Saves person's additional details
      * 
      * @access public
-     * @return void
+     *
      */
     public function save_person_details(){
         if(!empty ($this->data)){
@@ -175,7 +175,7 @@ App::uses('ProfileUtil', 'Lib');
      * Saves person's address
      * 
      * @access public
-     * @return void
+     *
      */
     public function save_person_address(){
         if(!empty ($this->data)){
@@ -200,7 +200,7 @@ App::uses('ProfileUtil', 'Lib');
      * 
      * @access public
      * @param  string $detailId
-     * @return void
+     *
      */
     public function delete_person_detail($detailId){
         if($this->PersonDetail->delete($detailId)){
@@ -217,7 +217,7 @@ App::uses('ProfileUtil', 'Lib');
      * 
      * @access public
      * @param  string $addressId
-     * @return void
+     *
      */
     public function delete_person_address($addressId){
         if($this->Address->delete($addressId)){
@@ -234,7 +234,7 @@ App::uses('ProfileUtil', 'Lib');
      *
      * @access public
      * @param string $token the unique identifier which we use to retrieve a user profile
-     * @return void
+     *
      * @todo TestCase
      */
     public function view($token = null)

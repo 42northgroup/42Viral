@@ -55,7 +55,7 @@ class Parser
      * @access public 
      * @static
      * @param string $path 
-     * @return void
+     *
      */
     public static function xml2Config($path){
         

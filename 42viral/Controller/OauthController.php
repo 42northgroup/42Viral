@@ -107,7 +107,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The Twitter connect page. Authorizes "this" application against a users Twitter account
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function twitter_connect($get_token = null)
@@ -148,7 +148,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The Twitter callback page. Takes the Twitter results and writes them to a session.
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function twitter_callback($get_token = null)
@@ -219,7 +219,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function linkedin_connect($get_token = null)
@@ -269,7 +269,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The LinkedIn callback page. Takes the LinkedIn results and writes them to a session.
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function linkedin_callback($get_token = null)
@@ -366,7 +366,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function facebook_connect($get_token = null)
@@ -382,7 +382,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The Facebook callback page. Takes the Facebook results and writes them to a session.
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function facebook_callback($get_token = null)
@@ -456,7 +456,7 @@ App::uses('HttpSocket', 'Network/Http');
     
     /**
      * The Google connect page. Authorizes "this" application against a users Google account
-     * @return void
+     *
      * @access public
      */
     public function google_connect()
@@ -472,7 +472,7 @@ App::uses('HttpSocket', 'Network/Http');
     /**
      * The Google callback page. Takes the Google results and writes them to a session.
      * @param $get_token
-     * @return void
+     *
      * @access public
      */
     public function google_callback($get_token = null)

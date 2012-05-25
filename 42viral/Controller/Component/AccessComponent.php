@@ -32,7 +32,7 @@ class AccessComponent  extends Component
     /**
      * Builds a list of privledges based on AROs ACOs
      * @param string $user
-     * @return void
+     *
      * @see http://bakery.cakephp.org/articles/aalexgabi/2011/07/26/override_htmlhelper_for_acl_component_hide_links_where_users_don_t_have_privileges
      */
     public function permissions($user){

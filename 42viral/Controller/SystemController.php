@@ -31,7 +31,7 @@ App::uses('AppController', 'Controller');
 
     /**
      * The default admin landing page
-     * @return void
+     *
      * @access public
      */
     public function admin_index()

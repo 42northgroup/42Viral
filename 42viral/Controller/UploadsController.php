@@ -55,7 +55,7 @@ App::uses('ProfileUtil', 'Lib');
      *
      * @access public
      * @param string $token unique identifier which we use to retrieve a person's details
-     * @return void
+     *
      */
     public function images($token = null)
     {
@@ -131,7 +131,7 @@ App::uses('ProfileUtil', 'Lib');
      * Crops an image
      * 
      * @access public
-     * @return void
+     *
      */
     public function crop_image()
     {
@@ -157,7 +157,7 @@ App::uses('ProfileUtil', 'Lib');
 
     /**
      * Uploads an image to a users profile
-     * @return void
+     *
      * @access public
      */
     public function image_upload()
@@ -183,7 +183,7 @@ App::uses('ProfileUtil', 'Lib');
      * @access public
      * @param $personId the ID of the person whose avatar we are setting
      * @param $imageId the ID of the image which we are using for the person's avatar
-     * @return void
+     *
      */
     public function set_avatar($personId, $imageId)
     {
@@ -203,7 +203,7 @@ App::uses('ProfileUtil', 'Lib');
      * 
      * @access public
      * @param string $personId
-     * @return void
+     *
      */
     public function use_gravatar($personId)
     {

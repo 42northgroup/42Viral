@@ -73,7 +73,7 @@ App::uses('AppController', 'Controller');
     /**
      * Simple search, converts post data to named params then performs a self redirect to load the named params 
      * creating a bookmarkable search results page. 
-     * @return void
+     *
      * @access public
      */
     public function index() {
@@ -125,7 +125,7 @@ App::uses('AppController', 'Controller');
      * creating a bookmarkable search results page.
      *
      * @access public
-     * @return void
+     *
      */
     public function advanced()
     {

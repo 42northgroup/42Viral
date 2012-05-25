@@ -76,7 +76,7 @@ App::uses('AppController', 'Controller');
     
     /**
      * provides a generic call for determing the "home page"
-     * @return void
+     *
      * @access public
      */
     public function home(){
@@ -89,7 +89,7 @@ App::uses('AppController', 'Controller');
      * Displays a list of pages
      *
      * @access public
-     * @return void
+     *
      */
     public function index() {
         
@@ -102,7 +102,7 @@ App::uses('AppController', 'Controller');
      * Resirect short links to their proper url
      * @access public
      * @param string $shortCut 
-     * @return void
+     *
      */
     public function short_cut($shortCut) {
 
@@ -116,7 +116,7 @@ App::uses('AppController', 'Controller');
      * Displays a blog post
      *
      * @param string $slug the slug of the page we want to view
-     * @return void
+     *
      * @access public
      */
     public function view($slug) {
@@ -136,7 +136,7 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a view
      *
-     * @return void
+     *
      */
     public function display() {
         $path = func_get_args();
@@ -163,7 +163,7 @@ App::uses('AppController', 'Controller');
     /**
      * Displays a list of blogs
      *
-     * @return void
+     *
      */
     public function admin_index() {
         
@@ -176,7 +176,7 @@ App::uses('AppController', 'Controller');
     /**
      * Creates a traditional web page
      * 
-     * @return void
+     *
      * @access public
      */
     public function admin_create()
@@ -201,7 +201,7 @@ App::uses('AppController', 'Controller');
      * Updates a web page
      * 
      * @param string $id
-     * @return void
+     *
      * @access public
      */
     public function admin_edit($id)
@@ -250,7 +250,7 @@ App::uses('AppController', 'Controller');
      * 
      * @access public
      * @param $id ID of the page we want to delete
-     * @return void
+     *
      */
     public function admin_delete($id){
 

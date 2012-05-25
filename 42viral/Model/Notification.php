@@ -100,7 +100,7 @@ class Notification extends AppModel
     /**
      * Used for generating a dummy test notification for testing purposes
      * @access public
-     * @return void
+     *
      */
     public function generateDummyTestNotification()
     {

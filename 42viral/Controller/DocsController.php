@@ -61,7 +61,7 @@ class DocsController extends AppController
      * Action method to view the doc index page
      * 
      * @access public
-     * @return void
+     *
      */
     public function index()
     {
@@ -74,7 +74,7 @@ class DocsController extends AppController
      * 
      * @access private
      * @param string $slug
-     * @return void
+     *
      */
     private function __prepareDocIndex($slug)
     {
@@ -201,7 +201,7 @@ class DocsController extends AppController
      *
      * @access private
      * @param array $docNavIndex
-     * @return void
+     *
      */
     private function __writeDocIndexCache($docNavIndex)
     {
@@ -244,7 +244,7 @@ class DocsController extends AppController
      *
      * @access public
      * @param string $slug
-     * @return void
+     *
      */
     public function view($slug)
     {

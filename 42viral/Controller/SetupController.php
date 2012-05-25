@@ -74,7 +74,7 @@ class SetupController extends AppController
      * group "basic_user" id created as an ARO
      *
      * @access public
-     * @return void
+     *
      */
     public function acl()
     {
@@ -127,7 +127,7 @@ class SetupController extends AppController
      * @access public
      * @param string $path
      * @param string $file
-     * @return void
+     *
      */
     public function buildPMA($path, $file)
     {

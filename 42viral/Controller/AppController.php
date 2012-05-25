@@ -56,7 +56,6 @@ class AppController extends Controller
      * @access public
      * @param object $request
      * @param object $response 
-     * @return void
      */
     public function __construct($request = null, $response = null)
     {
@@ -67,7 +66,6 @@ class AppController extends Controller
      * Fires before AppController
      * This is a good place for loading data and running security checks
      * @access public
-     * @return void
      */
     public function beforeFilter()
     {
@@ -110,7 +108,6 @@ class AppController extends Controller
      * Fires after AppController but before the action
      * This is a good place for calling themes
      * @access public
-     * @return void
      */
     public function beforeRender()
     {
@@ -131,7 +128,6 @@ class AppController extends Controller
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
      * @access public
      * @param array $allow 
-     * @return void
      */
     public function auth($allow = array())
     {
@@ -185,7 +181,6 @@ class AppController extends Controller
      *
      * @access public
      * @param string $modelName (Default = null)
-     * @return void
      */
     public function prepareDocUpload($modelName=null)
     {

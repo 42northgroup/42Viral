@@ -29,7 +29,7 @@ class RandomBehavior extends ModelBehavior
      * @access public
      * @param object $model A reference to the current model
      * @param array accepts configuration parameters for a particular instance of this behavior
-     * @return void
+     *
      */
     public function setup(&$model, $settings = array())
     {
@@ -45,7 +45,7 @@ class RandomBehavior extends ModelBehavior
      * Inject a pseudo-random value into the specified field(s) prior to save.
      * @access public
      * @param object $model A reference to the current model
-     * @return void
+     *
      */
     public function beforeSave(&$model)
     {  

@@ -74,7 +74,7 @@ class BlogsController extends AppController {
      * user.
      *
      * @param string $username the username for any system user
-     * @return void
+     *
      * @access public
      */
     public function index($username = null) {
@@ -108,7 +108,6 @@ class BlogsController extends AppController {
     /**
      * Resirect short links to their proper url
      * @param string $shortCut 
-     * @return void
      */
     public function short_cut($shortCut) {
 
@@ -160,7 +159,7 @@ class BlogsController extends AppController {
      * 
      * @access public
      * @param $id ID of the blog we want to delete
-     * @return void
+     *
      */
     public function delete($id){
         
@@ -177,7 +176,7 @@ class BlogsController extends AppController {
     /**
      * Creates a blog - a blog contains a collection of posts
      * 
-     * @return void
+     *
      * @access public
      */
     public function create()
@@ -202,7 +201,7 @@ class BlogsController extends AppController {
      * Creates a blog - a blog contains a collection of posts
      * 
      * @param string $id
-     * @return void
+     *
      * @access public
      */
     public function edit($id)

@@ -128,7 +128,7 @@ App::uses('AppController', 'Controller');
      * Creates a password reset token and sends the user an email with password reset information
      *
      * @access public
-     * @return void
+     *
      */
     public function pass_reset_req()
     {
@@ -291,7 +291,7 @@ App::uses('AppController', 'Controller');
      * Creates a user account using user submitted input
      * Logs the newly created user into the system
      *
-     * @return void
+     *
      * @access public
      */
     public function create()
@@ -420,7 +420,7 @@ App::uses('AppController', 'Controller');
     /**
      * Provides an admin view of users
      * 
-     * @return void
+     *
      * @access public 
      */
     public function admin_index()
@@ -474,7 +474,7 @@ App::uses('AppController', 'Controller');
      * Allows for a user to post to Facebook, Linkedin and Twitter from 42viral
      * 
      * @access public
-     * @return void
+     *
      */
     public function socialize(){
         if(!empty ($this->data)){
@@ -516,7 +516,7 @@ App::uses('AppController', 'Controller');
      * Takes the user to their account settings
      * 
      * @param string $token unique identifier
-     * @return void
+     *
      */    
     public function settings($token=null)
     {   
@@ -552,7 +552,7 @@ App::uses('AppController', 'Controller');
     /**
      * Functionality for changing a user's password
      * @access public
-     * @return void
+     *
      */
     public function change_password()
     {   
@@ -596,7 +596,7 @@ App::uses('AppController', 'Controller');
      * Makes available a number of inivtes(decided by the admin) for each user in the system
      * 
      * @access public
-     * @return void
+     *
      */
     public function admin_allot_invites()
     {
@@ -625,7 +625,7 @@ App::uses('AppController', 'Controller');
      * Flags a user as an employee
      * @access public
      * @param string $id
-     * @return void
+     *
      */
     public function admin_is_employee($id)
     {
@@ -645,7 +645,7 @@ App::uses('AppController', 'Controller');
      * Removes the employee flag from a target user
      * @access public
      * @param string $id
-     * @return void
+     *
      */
     public function admin_not_employee($id)
     {

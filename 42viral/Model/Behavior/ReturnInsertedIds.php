@@ -37,7 +37,7 @@ class ReturnInsertedIdsBehavior extends ModelBehavior
      * @access public
      * @param array $model
      * @param boolean $created 
-     * @return void
+     *
      */
     public function afterSave(&$model, $created) {
         array_push($model->insertedIds, $model->id);

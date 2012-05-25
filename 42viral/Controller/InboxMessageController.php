@@ -34,7 +34,7 @@ class InboxMessageController extends AppController
     /**
      * Default action for message inbox (to view a list of all messages for the currently logged in user)
      *
-     * @return void
+     *
      * @access public
      */
     public function index()
@@ -56,7 +56,7 @@ class InboxMessageController extends AppController
      *
      * @access public
      * @param string $messageId
-     * @return void
+     *
      */
     public function view($messageId)
     {

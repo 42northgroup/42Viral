@@ -53,7 +53,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
      * Retrives all users in the system
      * 
      * @access public
-     * @return void
+     *
      */
     public function admin_index()
     {
@@ -67,7 +67,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
      *
      * @access public
      * @param string $username unique identifier
-     * @return void
+     *
      */
     public function admin_view($username){
        $person = $this->Person->getPersonWith($username, 'nothing');

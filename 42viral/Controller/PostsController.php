@@ -72,7 +72,7 @@ class PostsController extends AppController {
     /**
      * Removes a post
      * 
-     * @return void
+     *
      * @param $id ID of the post which we want ot delete
      * @access public
      */
@@ -93,7 +93,7 @@ class PostsController extends AppController {
      * 
      * @access public
      * @param $blogId ID of the blog for which we are creating a post
-     * @return void
+     *
      */
     public function create($blogId = null)
     {
@@ -143,7 +143,7 @@ class PostsController extends AppController {
      * Creates a post or blog entry
      * 
      * @param string $id
-     * @return void
+     *
      * @access public
      */
     public function edit($id)
@@ -218,7 +218,7 @@ class PostsController extends AppController {
      * 
      * @access public
      * @param string $shortCut 
-     * @return void
+     *
      */
     public function short_cut($shortCut) {
 
@@ -233,7 +233,7 @@ class PostsController extends AppController {
      *
      * @param string $slug
      * @access public
-     * @return void
+     *
      */
     public function view($slug) {
         $mine = false;

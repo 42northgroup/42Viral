@@ -71,7 +71,7 @@ class DocsShell extends AppShell
      * Main shell entry point
      * 
      * @access public
-     * @return void
+     *
      */
     public function main()
     {
@@ -109,7 +109,7 @@ class DocsShell extends AppShell
      * the first access to the docs controller.
      *
      * @access private
-     * @return void
+     *
      */
     private function __clearDocIndexCache()
     {
@@ -125,7 +125,7 @@ class DocsShell extends AppShell
      *
      * @access private
      * @param array $files
-     * @return void
+     *
      */
     private function __buildStaticFiles($files)
     {
@@ -162,7 +162,7 @@ class DocsShell extends AppShell
      *
      * @access private
      * @param string $dir
-     * @return void
+     *
      */
     private function __clearBuildFolder($dir)
     {
