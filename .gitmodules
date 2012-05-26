@@ -32,3 +32,6 @@
 [submodule "Plugin/Doc"]
 	path = Plugin/Doc
 	url = git@github.com:42northgroup/42Viral-Documentation-Plugin.git
+[submodule "Plugin/Docs"]
+	path = Plugin/Docs
+	url = git@github.com:42northgroup/42Viral-Documentation-Plugin.git
