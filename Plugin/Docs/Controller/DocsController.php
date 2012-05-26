@@ -13,7 +13,7 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package 42viral\Controller\DocsController
+ * @package 42viral\Docs
  */
 
 App::uses('AppController', 'Controller');
@@ -23,9 +23,9 @@ App::uses('Utility', 'Lib');
  * Short description for class
  * 
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @package 42viral\Controller\DocsController
+ * @package 42viral\Docs
  */
-class DocsController extends AppController
+class DocsController extends DocsAppController
 {
 
     /**
@@ -34,7 +34,7 @@ class DocsController extends AppController
      * @var array
      * @access public
      */
-    public $uses = array('Doc');
+    public $uses = array('Docs.Doc');
 
     /**
      * Helpers
@@ -54,7 +54,7 @@ class DocsController extends AppController
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('index', 'view'));
+        $this->auth(array('*'));
     }
 
     /**

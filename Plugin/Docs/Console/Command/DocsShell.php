@@ -15,7 +15,7 @@
  */
 
 App::uses('Utility', 'Lib');
-App::uses('Doc', 'Model');
+App::uses('Doc', 'Docs.Model');
 
 /**
  * Cake shell to generate doc (static and/or database) from documentation markdown
@@ -71,13 +71,12 @@ class DocsShell extends AppShell
      * Main shell entry point
      * 
      * @access public
-     *
      */
     public function main()
     {
         //Set the proper values for the documentation paths
-        $this->__docPath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Doc' .DS;
-        $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. '42viral' .DS. 'Doc' .DS;
+        $this->__docPath = ROOT .DS. APP_DIR .DS. 'Plugin' .DS. 'Docs' .DS. 'Doc' .DS;
+        $this->__docBuildBasePath = ROOT .DS. APP_DIR .DS. 'Plugin' .DS. 'Docs' .DS. 'Doc' .DS;
         $this->__docBuildPath = $this->__docBuildBasePath . $this->__docBuildFolder .DS;
         
         //Get a hierarchical structure of the source documentation
@@ -109,7 +108,6 @@ class DocsShell extends AppShell
      * the first access to the docs controller.
      *
      * @access private
-     *
      */
     private function __clearDocIndexCache()
     {
@@ -125,7 +123,6 @@ class DocsShell extends AppShell
      *
      * @access private
      * @param array $files
-     *
      */
     private function __buildStaticFiles($files)
     {
@@ -162,7 +159,6 @@ class DocsShell extends AppShell
      *
      * @access private
      * @param string $dir
-     *
      */
     private function __clearBuildFolder($dir)
     {

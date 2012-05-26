@@ -33,12 +33,8 @@ Router::connect('/page/:slug', array('controller' => 'pages', 'action' => 'view'
 Router::connect('/blog', array('controller' => 'blogs', 'action' => 'index'));
 Router::connect('/blog/:slug', array('controller' => 'blogs', 'action' => 'view'), array('pass' => array('slug')));
 
-
 Router::connect('/post', array('controller' => 'posts', 'action' => 'index'));
 Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'), array('pass' => array('slug')));
-
-Router::connect('/docs', array('controller' => 'docs', 'action' => 'index'));
-Router::connect('/docs/:slug', array('controller' => 'docs', 'action' => 'view'), array('pass' => array('slug')));
 
 //a convenience route for accesing a profile
 Router::connect('/p/:username',
