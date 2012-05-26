@@ -45,6 +45,7 @@
             
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/docs/">Documentation</a></div>
                     <div class="navigation"><a href="/searches/">Search</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/profiles/">Profiles</a></div>
@@ -158,6 +159,7 @@
                 </div>
             <?php else: ?>
                 <div id="Navigation">
+                    <div class="navigation"><a href="/docs/">Documentation</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/profiles">Profiles</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>
