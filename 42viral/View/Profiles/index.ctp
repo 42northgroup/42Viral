@@ -32,7 +32,5 @@
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="one-third column omega">
-        this is a test
-    </div>
+    <div class="one-third column omega"></div>
 </div>
