@@ -168,15 +168,15 @@ class PostsController extends AppController {
                             )
                         );
             }
-            
-            if($this->Post->save($this->data)){
+           
+            if($this->Post->saveAll($this->data)){
                 $this->Session->setFlash(__('You have successfully posted to your blog'), 'success');
             }else{
                 $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
             }
         }  
         
-        $this->data = $this->Post->getPostWith($id, 'for_edit');
+        $this->data = $this->Post->getPostWith($id, 'edit');
         
         $this->set('statuses', 
                 $this->Picklist->fetchPicklistOptions(

@@ -109,6 +109,7 @@ $(function () {
     ?>
 
     <?php
+    
     echo $this->Form->inputs(array(
             'legend'=>'SEO',
             'canonical'=>array('rows'=>1),
@@ -120,6 +121,13 @@ $(function () {
     </div>
     <div class="one-third column omega">
         <?php 
+            echo $this->Form->inputs(
+                    array('legend'=>'Sitemap',
+                        'Sitemap.id',
+                        'Sitemap.model'=>array('value'=>'Blog', 'type'=>'hidden'),
+                        'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
+                        'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));        
+        
             echo $this->Form->inputs(array('legend'=>'Publish', 'status')); 
             echo $this->Form->submit();
         ?>

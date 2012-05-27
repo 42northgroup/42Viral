@@ -135,6 +135,7 @@ $(function () {
             echo $this->Form->inputs(
                     array('legend'=>'Sitemap',
                         'Sitemap.id',
+                        'Sitemap.model'=>array('value'=>'Page', 'type'=>'hidden'),
                         'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
                         'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
 
