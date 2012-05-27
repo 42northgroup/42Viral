@@ -265,7 +265,8 @@ App::uses('ProfileUtil', 'Lib');
             'fields' => array('Oauth.oauth_id', 'Oauth.service')
         ));
 
-        $this->set('statuses', $this->social_media('profiles/view'));
+        $statuses = $this->social_media('profiles/view');
+        $this->set('statuses', $statuses);
         
         $this->set('services', $services);
         $this->set('user', $user);
@@ -280,6 +281,7 @@ App::uses('ProfileUtil', 'Lib');
         $this->set('userProfile', $userProfile);
         $this->set('profileId', $userProfile['Profile']['id']);
         $this->set('title_for_layout', ProfileUtil::name($userProfile['Person']) . "'s Profile");
+
     }
     
     /**

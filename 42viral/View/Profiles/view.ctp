@@ -23,22 +23,18 @@
     
     .facebook-post{
         padding: 5px 5px 15px 5px;
-        border-left: 1px solid #3B5998;
     }
     
     .googleplus-post{
         padding: 5px 5px 15px 5px;
-        border-left: 1px solid #000;
     }
     
     .twitter-post{
         padding: 5px 5px 15px 5px;
-        border-left: 1px solid #4099FF;
     }
     
     .linkedin-post{
         padding: 5px 5px 15px 5px;
-        border-left: 1px solid #006699;
     }
     
     .google_plus-triangle{
@@ -88,15 +84,20 @@
         <div id="ResultsPage">
             <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
             
-            <?php foreach($userProfile['Content'] as $content):?>
-            <div class="result">
-                <div class="clearfix">
-                    <h2 style="float:left;"><?php echo $this->Html->link($content['title'], $content['url']); ?> </h2>
-                    <div style="float:right; font-style: italic;">
-                        <?php echo Inflector::humanize($content['object_type']); ?></div>
-                </div>
-                <div class="tease"><?php echo $this->Text->truncate($content['title'], 180); ?></div>
-            </div>
+            <?php foreach($userProfile['Content'] as $content):?>            
+                <div class="clearfix status" style="width: 100%;">
+                    <div style="float:left; width: 56px;">
+                        <?php echo Inflector::humanize($content['object_type']); ?>
+                    </div>
+                    <div style="margin-left: 60px;">
+                        <strong><?php echo $this->Html->link($content['title'], $content['url']); ?> </strong>
+                        <div class="status-details">
+                            <div class="tease">
+                                <?php echo Scrub::html($this->Text->truncate($content['body'], 180)); ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>            
             <?php endforeach; ?>
             
             <h2>Social Media Stream</h2>
@@ -112,14 +113,14 @@
             <?php foreach ($statuses['posts'] as $status): ?>
 
                 <?php if($status['post'] != ''): ?>
-                <div class="clearfix status">
-                    <div style="float:left; width: 40px;">
+                <div class="clearfix status" style="width: 100%;">
+                    <div style="float:left; width: 56px;">
                     <?php 
                         echo $this->Html->image(
                                 "/img/graphics/social_media/production/{$status['source']}32.png"); 
                     ?>
                     </div>
-                    <div style="float:left; width: 510px;" class="<?php echo $status['source'].'-post'; ?>">
+                    <div style=" style="margin-left: 60px;" class="<?php echo $status['source'].'-post'; ?>">
                         <?php echo $this->Html->div(null, $status['post']); ?>
                         <div class="status-details">
                             <?php echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; ?>
