@@ -121,13 +121,16 @@ $(function () {
     </div>
     <div class="one-third column omega">
         <?php 
-            echo $this->Form->inputs(
-                    array('legend'=>'Sitemap',
-                        'Sitemap.id',
-                        'Sitemap.model'=>array('value'=>'Blog', 'type'=>'hidden'),
-                        'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
-                        'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));        
-        
+            //We only want authorized users to be able to set site map settings
+            if($this->Session->read('Auth.User.employee') == 1):
+                echo $this->Form->inputs(
+                        array('legend'=>'Sitemap',
+                            'Sitemap.id',
+                            'Sitemap.model'=>array('value'=>'Blog', 'type'=>'hidden'),
+                            'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
+                            'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));        
+            endif;
+            
             echo $this->Form->inputs(array('legend'=>'Publish', 'status')); 
             echo $this->Form->submit();
         ?>
