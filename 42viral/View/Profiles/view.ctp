@@ -98,39 +98,7 @@
                         </div>
                     </div>
                 </div>            
-            <?php endforeach; ?>
-            
-            <h2>Social Media Stream</h2>
-
-            <?php 
-            if( isset($statuses['connection']) ):
-                foreach($statuses['connection'] as $key => $val):
-                    echo $key . __(' does not seem to be responding, please try again later.') . '<br/>';
-                endforeach;
-            endif; 
-            ?>
-
-            <?php foreach ($statuses['posts'] as $status): ?>
-
-                <?php if($status['post'] != ''): ?>
-                <div class="clearfix status" style="width: 100%;">
-                    <div style="float:left; width: 56px;">
-                    <?php 
-                        echo $this->Html->image(
-                                "/img/graphics/social_media/production/{$status['source']}32.png"); 
-                    ?>
-                    </div>
-                    <div style=" style="margin-left: 60px;" class="<?php echo $status['source'].'-post'; ?>">
-                        <?php echo $this->Html->div(null, $status['post']); ?>
-                        <div class="status-details">
-                            <?php echo isset($status['time'])? date('F jS \a\t h:ia', $status['time']):''; ?>
-                        </div>
-                    </div>
-                </div>
-                <?php endif; ?>
-
-            <?php endforeach;?>            
-
+            <?php endforeach; ?>          
         </div>        
     </div>
     
