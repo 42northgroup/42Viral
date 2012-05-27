@@ -70,7 +70,20 @@ class Profile extends AppModel
             'dependent' => true
         )  
     );
-
+    
+    /**
+     * Defines the person model's has many relationships
+     * @access
+     * @var array
+     */
+    public $hasMany = array(
+        'SocialNetwork' => array(
+            'className' => 'SocialNetwork',
+            'foreignKey' => 'profile_id',
+            'dependent' => true
+        )
+    );
+    
     /**
      * Behaviors
      * @var array

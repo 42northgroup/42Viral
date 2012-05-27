@@ -81,6 +81,11 @@
 <div class="row">
     
     <div class="two-thirds column alpha">
+        <div style="margin:0 0 12px;">
+            <?php foreach($user['Profile']['SocialNetwork'] as $socialNetwork): ?>
+                <?php echo $this->SocialMedia->landingPage($socialNetwork); ?>
+            <?php endforeach; ?>
+        </div>
         <div id="ResultsPage">
             <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
             

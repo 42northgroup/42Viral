@@ -271,6 +271,7 @@ App::uses('ProfileUtil', 'Lib');
         
         $this->set('services', $services);
          */
+        
         $this->set('user', $user);
         
         $person = array();

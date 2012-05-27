@@ -46,7 +46,7 @@ class User extends Person
                 'Address'=>array(),
                 'Content'=>array(),
                 'PersonDetail'=>array(),
-                'Profile'=>array(),
+                'Profile'=>array('SocialNetwork'),
                 'Upload'=>array(),
                 'UserSetting'=>array()
             ),
