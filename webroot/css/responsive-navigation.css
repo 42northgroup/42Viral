@@ -1,25 +1,17 @@
 /**
  * Responsive CSS for the sitewide header
- * Media Queries and formatting based on skelton.css by Dave Gamache (http://www.getskeleton.com)
+ * Media Queries and formatting based on skeleton.css by Dave Gamache (http://www.getskeleton.com)
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
+ * @copyright     Copyright 2012, 42 North Group Inc. (http://42northgroup.com)
+ * @link          https://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-/*
-* Skeleton V1.1
-* Copyright 2011, Dave Gamache
-* www.getskeleton.com
-* Free to use under the MIT license.
-* http://www.opensource.org/licenses/mit-license.php
-* 8/17/2011
-*/
 
 /* Table of Content
 ==================================================
@@ -140,6 +132,42 @@ div.doc-index li.doc-index-item.doc-index-current {
     background-color: #eee;
 }
 
+/* #Pagination
+================================================== */
+.paginator{
+    text-align:center;
+}
+
+.pagination-link, .pagination-link:link, .pagination-link:visited {
+    padding: 4px 6px;
+    margin:0 2px;
+    border: solid 1px #9AAFE5;
+    color: #2E6AB1;
+    font-weight: bold;
+}
+
+.pagination-link:hover
+{
+    background:  #F5E4B8; 
+}
+
+.disabled-page-link
+{
+    display: inline;
+    border: solid 1px #DEDEDE;
+    color: #888;
+    font-weight: bold;
+    margin-right: 2px;
+    padding: 4px 6px;
+}
+
+.current{
+    background: #2E6AB1;
+    color: white;
+    font-weight: bold;
+    padding: 4px 6px;
+    border: solid 1px #2E6AB1;
+}
 
 /* #Page Styles
 ================================================== */
@@ -155,6 +183,32 @@ div.doc-index li.doc-index-item.doc-index-current {
     div.column-block:first-child{
         margin: 12px 0;
     }  
+    
+    .pagination-link, .pagination-link:link, .pagination-link:visited {
+        padding: 12px 14px;
+        margin:0 2px;
+        border: solid 1px #9AAFE5;
+        color: #2E6AB1;
+        font-weight: bold;
+    }
+
+    .disabled-page-link
+    {
+        display: inline;
+        border: solid 1px #DEDEDE;
+        color: #888;
+        font-weight: bold;
+        margin-right: 2px;
+        padding: 12px 14px;
+    }
+
+    .current{
+        background: #2E6AB1;
+        color: white;
+        font-weight: bold;
+        padding: 12px 14px;
+        border: solid 1px #2E6AB1;
+    }      
 }
 
 /* All Mobile Sizes (devices and browser) */
@@ -166,6 +220,32 @@ div.doc-index li.doc-index-item.doc-index-current {
     div.navigation-block a {
         display: block;
     }
+    
+    .pagination-link, .pagination-link:link, .pagination-link:visited {
+        padding: 12px 14px;
+        margin:0 2px;
+        border: solid 1px #9AAFE5;
+        color: #2E6AB1;
+        font-weight: bold;
+    }
+
+    .disabled-page-link
+    {
+        display: inline;
+        border: solid 1px #DEDEDE;
+        color: #888;
+        font-weight: bold;
+        margin-right: 2px;
+        padding: 12px 14px;
+    }
+
+    .current{
+        background: #2E6AB1;
+        color: white;
+        font-weight: bold;
+        padding: 12px 14px;
+        border: solid 1px #2E6AB1;
+    }      
 }
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
@@ -177,6 +257,32 @@ div.doc-index li.doc-index-item.doc-index-current {
     div.navigation-block a {
         display: block;
     }
+    
+    .pagination-link, .pagination-link:link, .pagination-link:visited {
+        padding: 12px 14px;
+        margin:0 2px;
+        border: solid 1px #9AAFE5;
+        color: #2E6AB1;
+        font-weight: bold;
+    }
+
+    .disabled-page-link
+    {
+        display: inline;
+        border: solid 1px #DEDEDE;
+        color: #888;
+        font-weight: bold;
+        margin-right: 2px;
+        padding: 12px 14px;
+    }
+
+    .current{
+        background: #2E6AB1;
+        color: white;
+        font-weight: bold;
+        padding: 12px 14px;
+        border: solid 1px #2E6AB1;
+    }      
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
@@ -188,4 +294,30 @@ div.doc-index li.doc-index-item.doc-index-current {
     div.navigation-block a {
         display: block;
     }
+    
+    .pagination-link, .pagination-link:link, .pagination-link:visited {
+        padding: 12px 14px;
+        margin:0 2px;
+        border: solid 1px #9AAFE5;
+        color: #2E6AB1;
+        font-weight: bold;
+    }
+
+    .disabled-page-link
+    {
+        display: inline;
+        border: solid 1px #DEDEDE;
+        color: #888;
+        font-weight: bold;
+        margin-right: 2px;
+        padding: 12px 14px;
+    }
+
+    .current{
+        background: #2E6AB1;
+        color: white;
+        font-weight: bold;
+        padding: 12px 14px;
+        border: solid 1px #2E6AB1;
+    }    
 }

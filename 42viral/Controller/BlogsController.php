@@ -126,32 +126,43 @@ class BlogsController extends AppController {
        
         $mine = false;
         
-        $blog = $this->Blog->fetchBlogWith($slug, 'standard');
+        //Find the target blog
+        $blog = $this->Blog->getBlogWith($slug, 'view');
 
+        //Does the target blog exist
         if(empty($blog)){
            $this->redirect('/', '404');
         }
         
-        $this->set('title_for_layout', $blog['Blog']['title']);
-        $this->set('canonical_for_layout', $blog['Blog']['canonical']);
-        
-        $this->set('blog', $blog);
+        //If we found the target blog, retrive an paginate its' posts
+        $this->paginate = array(
+            'conditions' => array(
+                'Post.parent_content_id'=>$blog['Blog']['id'],
+                'Post.status'=>array('archived', 'published')
+            ),
+            'limit' => 10,
+            'order'=>'Post.created DESC'
+        );
+
+        $posts = $this->paginate('Post');
+
         
         if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
             $mine = true;
         }
 
         $userProfile['Person'] = $blog['CreatedPerson'];
-        $this->set('userProfile', $userProfile);
-        
-        if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
+                if($this->Session->read('Auth.User.id') == $blog['Blog']['created_person_id']){
             $mine = true;
         }
         
+        $this->set('title_for_layout', $blog['Blog']['title']);
+        $this->set('canonical_for_layout', $blog['Blog']['canonical']);
+        $this->set('blog', $blog);
+        $this->set('posts', $posts);                           
+        $this->set('userProfile', $userProfile);
         $this->set('mine', $mine);
-        
         $this->set('tags', $this->Blog->Tagged->find('cloud', array('limit' => 10)));
-
     } 
 
     /**

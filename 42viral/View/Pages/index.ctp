@@ -21,10 +21,10 @@
             <div class="result">
                 <h2><?php echo $this->Html->link($page['Page']['title'], $page['Page']['url']); ?></h2>
                 <div class="tease"><?php echo $page['Page']['tease']; ?></div>
-                <!-- <div class="controls"></div> -->
             </div>
             <?php endforeach; ?>
         </div>
+        <?php echo $this->element('paginate'); ?>
     </div>
     <div class="one-third column omega"></div>
 </div>

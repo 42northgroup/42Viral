@@ -74,6 +74,4 @@ if($this->Paginator->counter(array('format'=>"%pages%")) > 1){
         ),
         array('style'=>'margin-top:12px;')
     );
-}else{
-    return null;
 }

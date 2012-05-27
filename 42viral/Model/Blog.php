@@ -81,7 +81,19 @@ class Blog extends Content
                 'conditions'=>array('Blog.status'=>'published'), 
                 'order'=>array('Blog.created DESC')
             )
-        )
+        ),
+        'view'=>array(
+            'fields'=>array(
+                'Blog.body',
+                'Blog.canonical',
+                'Blog.created', 
+                'Blog.created_person_id',
+                'Blog.id', 
+                'Blog.title', 
+                'Blog.syntax'
+            ),
+            'contain'=>array('CreatedPerson')
+        )        
     );
 
     /**
@@ -190,7 +202,7 @@ class Blog extends Content
         
         return $queryData;
     } 
-    
+
     /**
      * Returns a specified blog with a predefined data set
      * @access public
@@ -198,7 +210,7 @@ class Blog extends Content
      * @param array $with The predefined dataset with which the blog will be retrived (default: public)
      * @return array
      */
-    function fetchBlogWith($token, $with = 'public'){
+    function getBlogWith($token, $with = 'public'){
             
         $theToken = array(
             'conditions'=>array('or' => array(
@@ -208,7 +220,7 @@ class Blog extends Content
             ))
         );      
             
-        $finder = array_merge($this->dataSet[$with], $theToken);        
+        $finder = array_merge($this->dataSet[$with], $theToken);    
         $blog = $this->find('first', $finder);
 
         return $blog;
