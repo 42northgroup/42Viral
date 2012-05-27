@@ -75,10 +75,15 @@ class ProfileHelper extends AppHelper
             );
         } else {
             //No, fallback to gravatar
+            
+            //Adjust for auto-sizing
+            $resize = ($size == '100%')?'512px':$size;
+            
             return $this->Html->image(
-                'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($email))) . "?r=pg&amp;s={$size}",
+                'https://secure.gravatar.com/avatar/' . md5(strtolower(trim($email))) . "?r=pg&amp;s={$resize}",
                         array(
-                            'alt'=>$displayName, 
+                            'style'=>($size == '100%'?"width:100%;":''),
+                            'alt'=>$displayName,
                             'title'=>$displayName, 
                             'class'=>'photo')
             );

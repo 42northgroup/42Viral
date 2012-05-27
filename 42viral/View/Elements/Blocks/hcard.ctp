@@ -26,8 +26,8 @@ $limited = isset($limited)?true:false;
 <?php if(isset($userProfile)):?>
     <div class="column-block clearfix">
         <div class="vcard">
-            <div class="image-frame" style="float:left; margin: 0 10px 6px 0;">
-                <?php echo $this->Profile->avatar($userProfile['Person']); ?>
+            <div class="image-frame" style="width: 100%; margin: 0 10px 6px 0;">
+                <?php echo $this->Profile->avatar($userProfile['Person'], '100%'); ?>
                 <div class="image-title">
                     <<?php echo $tag; ?> class="fn">
                         <?php echo $this->Profile->name($userProfile['Person']); ?>
@@ -38,8 +38,6 @@ $limited = isset($limited)?true:false;
             <div>
                 <?php echo $userProfile['Profile']['bio']; ?>
             </div>
-            
-            <br class="clear" />
             
             <?php if(!$limited): ?>
                 <div id="VcardDetails" style="display:<?php echo $allOpen ?>;">
@@ -81,21 +79,39 @@ $limited = isset($limited)?true:false;
                                 <div class="type" style=" font-weight: bold">
                                     <?php echo $address['type'] ?>
                                 </div>
-                                <div class="street-address" >
-                                    <?php echo $address['line1'].', '.$address['line2']; ?>
-                                </div>
-                                <span class="locality">
-                                    <?php echo $address['city'] ?>
-                                </span>, 
-                                <span class="region" >
-                                    <?php echo $address['state'] ?>
-                                </span>, 
-                                <span class="postal-code" >
-                                    <?php echo $address['zip'] ?>
-                                </span>
-                                <div class="country-name" >
-                                    <?php echo $address['country']; ?>
-                                </div>
+                                
+                                <?php if(!empty($address['line1'])): ?>
+                                    <div class="street-address" >
+                                        <?php echo $address['line1']; ?>
+                                        <?php !empty($address['line2'])?", {$address['line2']}":""; ?>
+                                    </div>
+                                <?php endif; ?>
+                                
+                                <?php if(!empty($address['city'])): ?>
+                                    <span class="locality">
+                                        <?php echo $address['city'] ?>
+                                    </span>
+                                    <?php !empty($address['city']) && !empty($address['state'])?", ":""; ?>
+                                <?php endif; ?>
+                                
+                                <?php if(!empty($address['state'])): ?>
+                                    <span class="region" >
+                                        <?php echo $address['state'] ?>
+                                    </span>
+                                <?php endif; ?>
+                                
+                                <?php if(!empty($address['zip'])): ?>
+                                    <span class="postal-code" >
+                                        <?php echo $address['zip'] ?>
+                                    </span>
+                                <?php endif; ?>
+                                
+                                <?php if(!empty($address['country'])): ?>
+                                    <div class="country-name" >
+                                        <?php echo $address['country']; ?>
+                                    </div>
+                                <?php endif; ?>
+                                
                             </div>
                             <?php endforeach; ?>
                         </div>
