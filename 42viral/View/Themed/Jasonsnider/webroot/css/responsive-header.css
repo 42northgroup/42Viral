@@ -1,0 +1,391 @@
+/**
+ * Responsive CSS for the sitewide header
+ * Media Queries and formatting based on skelton.css by Dave Gamache (http://www.getskeleton.com)
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+/* Table of Contents
+==================================================
+    #Base 960 Header
+    #Tablet (Portrait)
+    #Mobile (Portrait)
+    #Mobile (Landscape) */
+
+
+
+/* #Base 960 Header
+================================================== */
+#LogoContainer {
+    float: left;
+    color: #fff;
+    font: 230% "Reenie Beanie";
+}
+
+#LogoContainer a {
+    color: #fff;
+}
+
+#NavigationContainer {
+    float:right;
+    display: inline;
+}
+
+#NavigationContainer a:link,
+#NavigationContainer a:visited {
+    color: #fff;
+}
+
+#MobileHeader{
+    display: none;
+} 
+
+#NavigationHeader{
+    display: none;
+} 
+
+#Navigation{
+    width: auto;
+    display: block;
+}
+
+.navigation{
+    display:inline;
+    position: relative;
+}
+
+.navigation.active{
+    background: transparent;
+    padding: 12px 0;
+}
+
+.navigation a:link,
+.navigation a:visited{
+    font-family: 'Just Another Hand';
+    font-size: 160%;
+    color: white;
+    display: inline;
+    float: none;
+    height: 19px;
+    line-height: 19px;
+    margin: 0px;
+    padding:10px 10px 11px 10px;
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+}
+
+.subnavigation{
+    width: 200px;
+    float: left;
+    position: absolute;
+    background: #000;
+    display: none;
+    z-index: 10000;
+    right: 0;
+    top: 38px;
+}
+
+.subnavigation strong {
+    display: block;
+    padding: 8px 10px;
+}
+
+.subnavigation a:link,
+.subnavigation a:visited{
+    background-image: -webkit-linear-gradient(top, #333, #222);
+    display: block;
+    float: none;
+    height: 16px;
+    line-height: 16px;
+    margin: 0px;
+    padding:10px 10px 11px 10px;
+    text-decoration: none;
+    text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+} 
+
+/* Twitter Bootstrap */
+.btn-navbar .icon-bar + .icon-bar {
+    margin: 3px 4px 0 0;
+}
+
+.btn-navbar .icon-bar {
+    display: block;
+    width: 18px;
+    height: 2px;
+    background-color: whiteSmoke;
+    -webkit-border-radius: 1px;
+    -moz-border-radius: 1px;
+    border-radius: 1px;
+    -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* #Tablet (Portrait)
+================================================== */
+
+    /* Note: Design for a width of 768px */
+
+    @media only screen and (min-width: 768px) and (max-width: 959px) {
+    #LogoContainer {
+        float: left;
+        color: #fff;
+        font: 230% "Reenie Beanie";
+    }
+
+    #LogoContainer a {
+        color: #fff;
+    }
+
+    #NavigationContainer{
+        float:right;
+        display:inline;
+    }
+
+    #NavigationContainer a:link,
+    #NavigationContainer a:visited{
+        color: #fff;
+    }
+
+    #MobileHeader{
+        display: none;
+    } 
+
+    #NavigationHeader{
+        display: block;
+    } 
+
+    #Navigation{
+        width: 200px;
+        background: #000;
+        display: none;
+        float:left;
+        position: absolute;
+        border-bottom-left-radius: 6px;
+        right: 0;   
+    }
+
+    .navigation{
+        display:block;
+        position: relative;
+    }
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
+    .navigation a:link,
+    .navigation a:visited{
+        background-image: -webkit-linear-gradient(top, #333, #222);
+        display: block;
+        float: none;
+        height: 19px;
+        line-height: 19px;
+        margin: 0px;
+        padding:10px 10px 11px 10px;
+        text-decoration: none;
+        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+    }
+    .subnavigation{
+        width:100%;
+        background: #555;
+        float: none;
+        position: relative;
+        margin: 0 0 0 8px;
+        z-index: 10000;
+    }
+
+    .subnavigation a:link,
+    .subnavigation a:visited{
+        background: #555;
+        color: #fff;
+        font-size: 1.0em; 
+        padding: .3em 1.0em; 
+        display:block;
+    }   
+}
+/*  #Mobile (Portrait)
+================================================== */
+
+/* Note: Design for a width of 320px */
+@media only screen and (max-width: 767px) {
+
+    #MobileHeader {
+        position: relative;
+        display: block;
+        font: 140% "Reenie Beanie";
+    }     
+
+    #LogoContainer {
+        display: none;
+    }
+
+    .logo-container {
+        float: left;
+    }
+
+    .logo-container a {
+        color: #fff;
+    }
+
+    #MobileNavigationTrigger{
+        float: right;
+    }
+
+    #NavigationContainer{
+        float: none;
+        display: block;
+    }
+
+    #NavigationHeader{
+        display: none;
+    } 
+
+    #Navigation{
+        width: 100%;
+        background: #000;
+        display: none;
+        float:none;
+        position: relative;
+        border-radius: 0; 
+        margin:0 -4px;
+    }
+
+    .navigation{
+        background: #555;
+        display:block;
+        position: relative;
+    }
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
+    .navigation a:link,
+    .navigation a:visited{
+        background-image: -webkit-linear-gradient(top, #333, #222);
+        display: block;
+        float: none;
+        height: 19px;
+        line-height: 19px;
+        margin: 0px;
+        padding:10px 10px 11px 10px;
+        text-decoration: none;
+        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+    }
+
+    .subnavigation{
+        width: 100%;
+        background: #555;
+        float: none;
+        position: relative;
+        margin: 0 0 0 8px;
+        z-index: 10000;
+    }
+
+    .subnavigation a:link,
+    .subnavigation a:visited{
+        background: #555;
+        color: #fff;
+        font-size: 1.0em; 
+        padding: .3em 1.0em; 
+        display:block;
+    } 
+    }
+    
+/* #Mobile (Landscape)
+================================================== */
+
+/* Note: Design for a width of 480px */
+@media only screen and (min-width: 480px) and (max-width: 767px) {
+    /*@media screen and (max-width: 480px) {*/
+
+    #MobileHeader{
+        position:relative;
+        display: block;
+        font: 140% "Reenie Beanie";
+    }     
+
+    #LogoContainer{
+        display:none;
+    }
+
+    .logo-container{
+        float:left;
+    }
+
+    #MobileNavigationTrigger{
+        float:right;
+    }
+
+    #NavigationContainer{
+        float: none;
+        display:block;
+    }
+
+    #NavigationHeader{
+        display: none;
+    } 
+
+    #Navigation{
+        width: 100%;
+        background: #000;
+        display: none;
+        float:none;
+        position: relative;
+        border-radius: 0; 
+        margin:0 -4px;
+    }
+
+    .navigation{
+        background: #555;
+        display:block;
+        position: relative;
+    }
+    
+    .navigation.active{
+        background: transparent;
+        padding:0;
+    }
+    
+    .navigation a:link,
+    .navigation a:visited{
+        background-image: -webkit-linear-gradient(top, #333, #222);
+        display: block;
+        float: none;
+        height: 19px;
+        line-height: 19px;
+        margin: 0px;
+        padding:10px 10px 11px 10px;
+        text-decoration: none;
+        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
+    }
+
+    .subnavigation{
+        width: 100%;
+        background: #555;
+        float: none;
+        position: relative;
+        margin: 0 0 0 8px;
+        z-index: 10000;
+    }
+
+    .subnavigation a:link,
+    .subnavigation a:visited{
+        background: #555;
+        color: #fff;
+        font-size: 1.0em; 
+        padding: .3em 1.0em; 
+        display:block;
+    } 
+}

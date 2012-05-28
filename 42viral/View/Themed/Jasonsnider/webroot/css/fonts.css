@@ -1,0 +1,147 @@
+/**
+ * CSS
+ *
+ * 42Viral(tm) : The 42Viral Project (http://42viral.org)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ *
+ * Licensed under The MIT License
+ * Redistributions of files must retain the above copyright notice.
+ *
+ * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @link          http://42viral.org 42Viral(tm)
+ * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
+ */
+
+@font-face {
+    font-family: 'Droid Sans';
+    src: url('/fonts/Droid_Sans/DroidSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+ 
+@font-face {
+    font-family: 'Droid Sans Mono';
+    src: url('/fonts/Droid_Sans_Mono/DroidSansMono.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Droid Serif';
+    src: url('/fonts/Droid_Serif/DroidSerif.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('/fonts/Inconsolata/Inconsolata.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+
+@font-face {
+    font-family: 'Nothing You Could Do';
+    src: url('/fonts/Nothing_You_Could_Do/NothingYouCouldDo.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Shadows Into Light';
+    src: url('/fonts/Shadows_Into_Light/ShadowsIntoLight.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Just Another Hand';
+    src: url('/theme/Jasonsnider/fonts/Just_Another_Hand/JustAnotherHand.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+@font-face {
+    font-family: 'Reenie Beanie';
+    src: url('/theme/Jasonsnider/fonts/Reenie_Beanie/ReenieBeanie.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal; 
+} 
+
+body {
+    font: 13px/1.231 "Droid Sans";
+    color: #444;
+    -webkit-font-smoothing: antialiased; /* Fix for webkit rendering */
+    -webkit-text-size-adjust: 100%;
+    line-height: 1.6em;
+}
+
+h1, 
+h2, 
+h3{ 
+    font-family: "Droid Serif";
+    margin: 0 0 0.3em 0; 
+}
+
+h4, 
+h5,
+h6{ 
+    font-family: "Droid Sans";
+    margin: 0 0 0.3em 0;
+    padding: 0;
+    font-weight: bold;;
+}
+
+p{
+    font: 13px "Droid Sans";
+    margin: 0 0 1em 0; 
+    line-height: 1.6em;
+}
+
+input,
+textarea,
+select{ 
+    font: 106% "Droid Serif";
+    color: #444;
+    line-height: 1.6em;
+}
+
+label{
+    font: 100% "Droid Sans";
+    font-weight: bold;
+}
+
+legend{
+    font: 108% "Droid Serif";
+    margin: 0 0 1em 0; 
+    font-weight: bold;
+    font-style: normal;
+    line-height: 1.6em;
+    padding: 6px 0 0;
+}
+
+pre,
+code,
+kbd,
+samp,
+tt {
+    font: 100% "Droid Sans Mono";
+    line-height: 1.6em;
+}
+
+.image-title{
+    font: 138.5% 'Nothing You Could Do';
+}
+
+.image-title h1{
+    padding:0;
+    margin: 0;
+    font: 100% 'Nothing You Could Do';
+}
+
+/*
+div.navigation-block a{
+    font: 138% 'Nothing You Could Do';
+}
+*/
