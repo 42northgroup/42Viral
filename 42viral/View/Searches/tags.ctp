@@ -26,8 +26,9 @@
         echo $this->Form->input('q', 
                 array('type'=>'text', 'label'=>false));
 
-        echo $this->Form->submit(__('Search'), 
-                array('div'=>array('style'=>'text-align:left;'), 'style'=>'padding: 5px 8px'));
+        echo $this->Form->submit('Search', 
+                array(
+                    'div'=>array('style'=>'text-align:left;'), 'style'=>'padding: 5px 8px;'));
         ?>
         
         <div class="block top"></div>
