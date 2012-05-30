@@ -113,11 +113,53 @@ App::uses('AppController', 'Controller');
             $this->request->data['Content']['q'] = $this->params['named']['q'];
             $display = 'results';
         }
-        
-            
+                    
         $this->set('display', $display);
-        $this->set('title_for_layout', 'Search');
+        $this->set('title_for_layout', __('Search'));
+    }
+    
+    /**
+     * Simple search, converts post data to named params then performs a self redirect to load the named params 
+     * creating a bookmarkable search results page. 
+     *
+     * @access public
+     */
+    public function tags() {
         
+        $q = '';
+        $display = 'none';
+
+        if(!empty($this->data)){
+            $q = $this->data['Content']['q'];
+            $this->redirect("/searches/tags/q:{$q}");
+        }elseif(!empty($this->params['named'])){
+            
+            $conditions = array(
+                'tags'=>$this->request->params['named']['q'],
+            );           
+            
+            //Predefined object types and statuses
+            $this->request->params['named']['status'] = 'published archived';
+            $this->request->params['named']['object_type'] = 'blog page post'; 
+            $conditions['status'] = explode(' ', $this->request->params['named']['status']);
+            $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
+            
+            $this->paginate = array(
+                'conditions' => $this->Content->parseCriteria($conditions),
+                'limit' => 10
+            );
+
+            $data = $this->paginate('Content');
+            
+            $this->set(compact('data'));   
+            
+            $this->request->data['Content']['q'] = $this->params['named']['q'];
+            $display = 'results';
+        }
+        
+        $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
+        $this->set('display', $display);
+        $this->set('title_for_layout', __('Search by Tag'));
     }
     
     /**
@@ -210,7 +252,7 @@ App::uses('AppController', 'Controller');
             
         $this->set('display', $display);
         
-        $this->set('title_for_layout', 'Advanced Search');
+        $this->set('title_for_layout', __('Advanced Search'));
         
     }
 }

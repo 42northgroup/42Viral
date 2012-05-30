@@ -22,9 +22,9 @@
                 'after' => '</span>',
                 'url'=>array(
                     'controller' => 'searches',
-                    'action' => '/advanced/title:/body:/object_type:blog%20page%20post/status:published/',
+                    'action' => '/tags/',
                     ),
-                'named'=>'tags'
+                'named'=>'q'
                 )
             );
         ?>
