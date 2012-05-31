@@ -141,10 +141,8 @@ class PostsController extends AppController {
     
     /**
      * Creates a post or blog entry
-     * 
-     * @param string $id
-     *
      * @access public
+     * @param string $id
      */
     public function edit($id)
     {
