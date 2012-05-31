@@ -162,8 +162,9 @@ class PostsController extends AppController {
                         'ContentFilters.Scrubable', 
                         array('Filters'=>array(
                                     'trim'=>'*',
+                                    'safe' => array('body'),
                                     'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 
-                                        'syntax', 'short_cut', 'body'),
+                                        'syntax', 'short_cut'),
                                 )
                             )
                         );
