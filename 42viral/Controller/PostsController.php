@@ -175,12 +175,17 @@ class PostsController extends AppController {
             }
         }  
         
+        //Now that we have saved the data, grab the latest copy and repopulate the page
         $this->data = $this->Post->getPostWith($id, 'edit');
         
         $this->set('statuses', 
                 $this->Picklist->fetchPicklistOptions(
                         'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
 
+        //Check the custom directory for a custom page. A custom page will still use any body content for completing 
+        //searches and building results page. However, when the page is rendered, it will pull the custom content 
+        //instead of the content in the database. This is handy when needing to build a page that is mor complecated 
+        //than Markdown, HTMLPurifier, the WYSIWYG editor will allow. Examples include needing PHP and/or JavaScript
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS 
                 . Configure::write('Theme.set', 'Default') . DS;
 
