@@ -42,25 +42,22 @@
             if(!empty($data)): ?>
                 <div id="ResultsPage">
                     <?php foreach($data as $content): ?>
+                        <div class="result">
+                            <div class="result-left">
+                                <?php echo Inflector::humanize($content['Content']['object_type']); ?>
+                            </div>
+                            <div class="result-right">
 
-                    <div class="result">
+                                <strong><?php echo $this->Html->link($content['Content']['title'], 
+                                        $content['Content']['url']); ?> </strong>
 
-
-                        <div class="clearfix">
-
-                            <h2 style="float:left;">
-                                <?php echo $this->Html->link(
-                                        $content['Content']['title'], $content['Content']['url']); ?> 
-                            </h2>
-
-                            <div style="float:right; font-style: italic;">
-                                <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
-
-                        </div>
-
-                        <div class="tease"><?php echo $content['Content']['tease']; ?></div>
-
-                    </div>
+                                <div class="tease">
+                                    <?php echo Scrub::noHtml(
+                                            $this->Text->truncate(
+                                                    $content['Content']['body'], 180, array('html' => true))); ?>
+                                </div>
+                            </div>
+                        </div>  
                     <?php endforeach; ?>
 
                 </div>

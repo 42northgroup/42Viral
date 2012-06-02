@@ -93,8 +93,7 @@ class Profile extends AppModel
         'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
-                'htmlStrict' => array('bio'),
-                'noHtml'=>array('tease')
+                'htmlStrict' => array('bio', 'body')
             )
         )
     );

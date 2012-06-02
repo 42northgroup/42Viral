@@ -255,7 +255,6 @@ App::uses('ProfileUtil', 'Lib');
                 'Content.body', 
                 'Content.object_type', 
                 'Content.slug', 
-                'Content.tease', 
                 'Content.title', 
                 'Content.url'
             ),

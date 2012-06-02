@@ -44,40 +44,37 @@ code{
     overflow: auto;
 }
 
-#ResultsPage h2{
-    margin-bottom:2px;
-}
 
 .tease{
     margin-bottom: 4px;
-}
-
-.status{
-    border-bottom: 1px solid #efefef;
-    padding:0 0 4px;
-    margin:0 0 6px;
 }
 
 .empty{
     color: #ccc;
 }
 
+.profile-icon-bar{
+    margin:0 0 12px;
+}
+
+#ResultsPage h2{
+    margin-bottom:2px;
+}
+
 .result {
-    padding:3px 0;
+    border-bottom: 1px solid #efefef;
+    padding:0 0 4px;
     margin:0 0 6px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
-    border-bottom: 1px solid #E2E2E2;
-    border: 1px solid #fff;
 }
 
-.status-details{
-    font-style: italic;
-    margin:2px 0 0;
+.result-left{
+    float:left; 
+    width: 56px;
 }
 
-.status-details img{
-    margin: 0 4px 0 0;
-}
+.result-right{
+    margin-left: 60px;
+} 
 
 /* Meta data for blog posts and the like */
 .meta{

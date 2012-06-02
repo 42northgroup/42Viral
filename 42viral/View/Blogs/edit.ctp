@@ -68,7 +68,6 @@ $(function () {
     <?php
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
-    echo $this->Form->input('tease', array('rows'=>2));
     echo $this->Form->input('syntax', array('type' => 'hidden'));
     ?>
         

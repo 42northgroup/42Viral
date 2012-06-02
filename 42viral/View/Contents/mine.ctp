@@ -30,7 +30,7 @@
                     <div style="float:right; font-style: italic;">
                         <?php echo Inflector::humanize($content['Content']['object_type']); ?></div>
                 </div>
-                <div class="tease"><?php echo $this->Text->truncate($content['Content']['title'], 180); ?></div>
+                <div class="tease"><?php echo $this->Text->truncate($content['Content']['body'], 180); ?></div>
             </div>
             <?php endforeach; ?>
     </div>

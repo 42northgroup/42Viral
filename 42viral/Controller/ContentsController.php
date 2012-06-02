@@ -128,9 +128,9 @@ App::uses('Handy', 'Lib');
         $shorty = " " . Configure::read("Shorty.{$objectType}") . $content['Content']['short_cut'];
 
         
-        $twitter = Handy::truncate($content['Content']['tease'] , (140 - strlen($shorty))) . $shorty;
+        $twitter = Handy::truncate($content['Content']['body'] , (140 - strlen($shorty))) . $shorty;
 
-        $other = $content['Content']['tease'] . " " . Configure::read('Domain.url') . $content['Content']['url'];
+        $other = $content['Content']['body'] . " " . Configure::read('Domain.url') . $content['Content']['url'];
         
         $promo = array(
             'twitter'=>$twitter,

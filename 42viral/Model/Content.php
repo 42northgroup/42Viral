@@ -108,7 +108,7 @@ class Content extends AppModel
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlMedia'=>array('body'),
-                'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
+                'noHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
             )
         ),
         
