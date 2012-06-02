@@ -81,10 +81,10 @@ $limited = isset($limited)?true:false;
                                 </div>
                                 
                                 <?php if(!empty($address['line1'])): ?>
-                                    <div class="street-address" >
+                                    <span class="street-address" >
                                         <?php echo $address['line1']; ?>
                                         <?php !empty($address['line2'])?", {$address['line2']}":""; ?>
-                                    </div>
+                                    </span>
                                 <?php endif; ?>
                                 
                                 <?php if(!empty($address['city'])): ?>
@@ -107,9 +107,9 @@ $limited = isset($limited)?true:false;
                                 <?php endif; ?>
                                 
                                 <?php if(!empty($address['country'])): ?>
-                                    <div class="country-name" >
-                                        <?php echo $address['country']; ?>
-                                    </div>
+                                    <span class="country-name" >
+                                        <?php echo ", {$address['country']}"; ?>
+                                    </span>
                                 <?php endif; ?>
                                 
                             </div>

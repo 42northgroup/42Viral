@@ -12,7 +12,7 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package 42viral\Content
+ * @package 42viral\Contentpar
  */
 
 App::uses('AppModel', 'Model');
@@ -166,7 +166,12 @@ class Content extends AppModel
         $this->Tagged->Behaviors->attach('Containable', array('autoFields' => false));
         $this->Tagged->Behaviors->attach('Search.Searchable');
         $query = $this->Tagged->getQuery('all', array(
-            'conditions' => array('Tag.name'  => $data['tags']),
+            'conditions' => array(
+                    'or'=>array(
+                        'Tag.keyname' => $data['tags'],
+                        'Tag.name' => $data['tags']
+                    )
+                ),
             'fields' => array('foreign_key'),
             'contain' => array('Tag')
         ));

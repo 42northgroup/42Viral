@@ -1,7 +1,5 @@
 # The 42Viral Project
 
-[![project status](http://stillmaintained.com/microtrain/42Viral.png)](http://stillmaintained.com/microtrain/42Viral)
-
 A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
 
 ## Third Party Support
