@@ -15,7 +15,7 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
-    <div class="sixteen columns alpha omega">
+    <div class="two-thirds column alpha">
 
         <div id="ResultsPage" class="container">
 
@@ -88,4 +88,5 @@
         </div>
 
     </div>
+    <div class="one-third column omega"></div>
 </div>
