@@ -162,7 +162,7 @@
                     <div class="navigation"><a href="/p/jasonsnider">Profile</a></div>
                     <div class="navigation"><a href="/blogs/">Blogs</a></div>
                     <div class="navigation"><a href="/pages/">Pages</a></div>
-                    
+                    <div class="navigation"><a href="/searches/">Search</a></div>
                 </div>
             <?php endif; ?>
         </div>
