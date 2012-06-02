@@ -39,15 +39,16 @@ App::uses('ProfileUtil', 'Lib');
      * @access public 
      */
     public $uses = array(
-        'Profile', 
-        'Person', 
-        'PersonDetail', 
         'Address',
-        'Conect.Facebook', 
-        'Conect.Linkedin', 
+        'Connect.Facebook', 
+        'Connect.Linkedin', 
         'Connect.Tweet',
         'Connect.GooglePlus',
-        'Image', 
+        'Content',
+        'Image',         
+        'Profile', 
+        'Person', 
+        'PersonDetail',         
         'Oauth',
         'User'
     );
@@ -234,8 +235,6 @@ App::uses('ProfileUtil', 'Lib');
      *
      * @access public
      * @param string $token the unique identifier which we use to retrieve a user profile
-     *
-     * @todo TestCase
      */
     public function view($token = null)
     {        
@@ -246,7 +245,26 @@ App::uses('ProfileUtil', 'Lib');
 
         //Get the user data
         $user = $this->User->getUserWith($token, 'full_profile');
+        
+        //If we found the target blog, retrive an paginate its' posts
+        $this->paginate = array(
+            'conditions' => array(
+                'Content.status'=>array('archived', 'published')
+            ),
+            'fields'=>array(
+                'Content.body', 
+                'Content.object_type', 
+                'Content.slug', 
+                'Content.tease', 
+                'Content.title', 
+                'Content.url'
+            ),
+            'limit' => 10,
+            'order'=>'Content.title ASC'
+        );
 
+        $contents = $this->paginate('Content');
+        
         //Does the user really exist?
         if(empty($user)) {
             $this->Session->setFlash(__('An invalid profile was requested') ,'error');
@@ -281,6 +299,7 @@ App::uses('ProfileUtil', 'Lib');
         $userProfile = array_replace($user, $person);
         unset($userProfile['User']);
         
+        $this->set('contents', $contents);
         $this->set('userProfile', $userProfile);
         $this->set('profileId', $userProfile['Profile']['id']);
         $this->set('title_for_layout', ProfileUtil::name($userProfile['Person']) . "'s Profile");

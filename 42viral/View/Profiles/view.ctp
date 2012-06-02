@@ -89,21 +89,23 @@
         <div id="ResultsPage">
             <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
             
-            <?php foreach($userProfile['Content'] as $content):?>            
+            <?php foreach($contents as $content):?>            
                 <div class="clearfix status" style="width: 100%;">
                     <div style="float:left; width: 56px;">
-                        <?php echo Inflector::humanize($content['object_type']); ?>
+                        <?php echo Inflector::humanize($content['Content']['object_type']); ?>
                     </div>
                     <div style="margin-left: 60px;">
-                        <strong><?php echo $this->Html->link($content['title'], $content['url']); ?> </strong>
+                        <strong><?php echo $this->Html->link($content['Content']['title'], 
+                                $content['Content']['url']); ?> </strong>
                         <div class="status-details">
                             <div class="tease">
-                                <?php echo Scrub::html($this->Text->truncate($content['body'], 180)); ?>
+                                <?php echo Scrub::html($this->Text->truncate($content['Content']['body'], 180)); ?>
                             </div>
                         </div>
                     </div>
                 </div>            
-            <?php endforeach; ?>          
+            <?php endforeach; ?> 
+            <?php echo $this->element('paginate'); ?>
         </div>        
     </div>
     
