@@ -96,11 +96,7 @@ App::uses('AppController', 'Controller');
             $this->request->params['named']['object_type'] = 'blog page post'; 
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
-            
-            $criteria = $this->Content->parseCriteria($conditions);
-            
-            
-            
+
             $this->paginate = array(
                 'conditions' => $this->Content->parseCriteria($conditions),
                 'limit' => 10
@@ -113,7 +109,8 @@ App::uses('AppController', 'Controller');
             $this->request->data['Content']['q'] = $this->params['named']['q'];
             $display = 'results';
         }
-                    
+        
+        $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
         $this->set('display', $display);
         $this->set('title_for_layout', __('Search'));
     }
@@ -232,26 +229,20 @@ App::uses('AppController', 'Controller');
                     0 => 'archived',
                     1 => 'published'
                 ),
-                'object_type' => array
-                (
-                    0 => 'blog',
-                    1 => 'page',
-                    2 => 'post',
-                    3 => 'docs'
-                ) 
+                'object_type' => $this->Content->listObjectTypes(false)
             );
         }
-        
+
         $this->set('statuses', 
         $this->Picklist->fetchPicklistOptions(
                 'publication_status', array('emptyOption'=>false, 'otherOption'=>false, 'categoryFilter'=>'public')));
         
-        $this->set('objectTypes', 
-        $this->Picklist->fetchPicklistOptions(
-                'object_type', array('categoryFilter' => 'Content',  'emptyOption'=>false, 'otherOption'=>false)));
+        $objectTypes = $this->Content->listObjectTypes();
+
+        $this->set('objectTypes', $objectTypes);
             
+        $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));        
         $this->set('display', $display);
-        
         $this->set('title_for_layout', __('Advanced Search'));
         
     }

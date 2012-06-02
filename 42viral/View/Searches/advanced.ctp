@@ -90,6 +90,8 @@
         </div>
     </div>
     
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
+    </div>
     
 </div>
