@@ -27,6 +27,6 @@ echo $this->Form->inputs(array(
 
 echo $this->Form->inputs(array(
         'legend'=>'Google Apps',
-        'GoogleAppsdomain.id'=>array('value'=>'Google.Apps.domainGoogle.SiteVerification', 'type'=>'hidden'),
-        'GoogleAppsdomain.value'=>array('label'=>'Domain'),
+        'GoogleAppsdomainGoogleSiteVerification.id'=>array('value'=>'Google.Apps.domainGoogle.SiteVerification', 'type'=>'hidden'),
+        'GoogleAppsdomainGoogleSiteVerification.value'=>array('label'=>'Domain'),
     ));

@@ -16,8 +16,8 @@
     echo $this->Form->inputs(array(
             'legend'=>'Brute Force Protection',
 
-            'LoginAttempts.id'=>array('value'=>'Login.attempts', 'type'=>'hidden'),
-            'LoginAttempts.value'=>array(
+            'Loginattempts.id'=>array('value'=>'Login.attempts', 'type'=>'hidden'),
+            'Loginattempts.value'=>array(
                 'label'=>array(
                     'text'=>'Login Attempts Allowed',
                     'class'=>'help',
@@ -26,8 +26,8 @@
                 )
             ),
 
-            'LoginLockout.id'=>array('value'=>'Login.lockout', 'type'=>'hidden'),
-            'LoginLockout.value'=>array(
+            'Loginlockout.id'=>array('value'=>'Login.lockout', 'type'=>'hidden'),
+            'Loginlockout.value'=>array(
                 'label'=>array(
                     'text'=>'Login Lockout Duration',
                     'class'=>'help',
@@ -38,8 +38,8 @@
     
     echo $this->Form->inputs(array(
         'legend'=>'Password Hardening',
-            'PasswordExpiration.id'=>array('value'=>'Password.expiration', 'type'=>'hidden'),
-            'PasswordExpiration.value'=>array(
+            'Passwordexpiration.id'=>array('value'=>'Password.expiration', 'type'=>'hidden'),
+            'Passwordexpiration.value'=>array(
                 'label'=>array(
                     'text'=>'Password Expiration(days)',
                     'class'=>'help',
@@ -47,8 +47,8 @@
                 )
             ),
 
-            'PasswordMinLength.id'=>array('value'=>'Password.minLength', 'type'=>'hidden'),
-            'PasswordMinLength.value'=>array(
+            'PasswordminLength.id'=>array('value'=>'Password.minLength', 'type'=>'hidden'),
+            'PasswordminLength.value'=>array(
                 'label'=>array(
                     'text'=>'Password Minimum Length',
                     'class'=>'help',
@@ -56,8 +56,8 @@
                 )
             ),
 
-            'PasswordAlphanumeric.id'=>array('value'=>'Password.alphanumeric', 'type'=>'hidden'),
-            'PasswordAlphanumeric.value'=>array(
+            'Passwordalphanumeric.id'=>array('value'=>'Password.alphanumeric', 'type'=>'hidden'),
+            'Passwordalphanumeric.value'=>array(
                 'label'=>array(
                     'text'=>'Force Alphanumeric Password',
                     'class'=>'help',
@@ -66,8 +66,8 @@
                 'type'=>'checkbox',
             ),
 
-            'PasswordSpecialChars.id'=>array('value'=>'Password.specialChars', 'type'=>'hidden'),
-            'PasswordSpecialChars.value'=>array(
+            'PasswordspecialChars.id'=>array('value'=>'Password.specialChars', 'type'=>'hidden'),
+            'PasswordspecialChars.value'=>array(
                 'label'=>array(                        
                     'text'=>'Force Special Chraracters Password',
                     'class'=>'help',
@@ -76,8 +76,8 @@
                 'type'=>'checkbox'
             ),
 
-            'PasswordDifference.id'=>array('value'=>'Password.difference', 'type'=>'hidden'),
-            'PasswordDifference.value'=>array(
+            'Passworddifference.id'=>array('value'=>'Password.difference', 'type'=>'hidden'),
+            'Passworddifference.value'=>array(
                 'label'=>array(
                     'text'=>'New Password Difference',
                     'class'=>'help',
