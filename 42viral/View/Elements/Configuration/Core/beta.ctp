@@ -16,19 +16,18 @@
     echo $this->Form->inputs(array(
             'legend'=>'Beta Mode',
 
-            'BetaPrivate.id'=>array('value'=>'Beta.private', 'type'=>'hidden'),
-            'BetaPrivate.value'=>array(
+            'Betaprivate.id'=>array('value'=>'Beta.private', 'type'=>'hidden'),
+            'Betaprivate.value'=>array(
                 'label'=>array(
                     'text'=>'New Members Can Only Join if Invited',
                     'class'=>'help',
-                    'title'=>'If a person wants to register with 42Viral they need to get and invite from an '.
-                                                                                                'existing user.'
+                    'title'=>'If checked new accounts may only be created by invite only.'
                 ),
                 'type'=>'checkbox'
             ),
 
-            'BetaInvitations.id'=>array('value'=>'Beta.invitations', 'type'=>'hidden'),
-            'BetaInvitations.value'=>array(
+            'Betainvitations.id'=>array('value'=>'Beta.invitations', 'type'=>'hidden'),
+            'Betainvitations.value'=>array(
                 'label'=>array(
                     'text'=>'Number of Ivitations Per User (0 for inifinite)',
                     'class'=>'help',
