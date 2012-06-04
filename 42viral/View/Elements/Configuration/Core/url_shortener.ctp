@@ -16,7 +16,7 @@
 echo $this->Form->inputs(array(
     'legend'=>'URL Shortener',
 
-    'ShortURLscheme.id'=>array('value'=>'ShortUR.scheme', 'type'=>'hidden'),
+    'ShortURLscheme.id'=>array('value'=>'ShortURL.scheme', 'type'=>'hidden'),
     'ShortURLscheme.value'=>array('label'=>'Short URL Scheme'),
 
     'ShortURLhost.id'=>array('value'=>'ShortURL.host', 'type'=>'hidden'),
