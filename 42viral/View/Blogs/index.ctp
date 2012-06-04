@@ -15,7 +15,7 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
-    <div class="sixteen columns alpha omega">
+    <div class="two-thirds column alpha">
 
         <div id="ResultsPage" class="container">
 
@@ -28,18 +28,21 @@
                         foreach($blogs as $blog): ?>
 
                         <div class="result">
-                            <h2><?php echo $this->Html->link($blog['Blog']['title'], $blog['Blog']['url']); ?></h2>
-                            <div class="tease">
-                            <?php echo $this->Text->truncate(
-                                    $blog['Blog']['body'], 
-                                    750, 
-                                    array(
-                                        'ending' => ' ' . $this->Html->link('(More...)', $blog['Blog']['url']),
-                                        'exact' => false,
-                                        'html' => true)); 
-                            ?>
+                            <div class="result-left">
+                                <?php echo Inflector::humanize($blog['Blog']['object_type']); ?>
                             </div>
-                        </div>
+                            <div class="result-right">
+
+                                <strong><?php echo $this->Html->link($blog['Blog']['title'], 
+                                        $blog['Blog']['url']); ?> </strong>
+
+                                <div class="tease">
+                                    <?php echo Scrub::noHtml(
+                                            $this->Text->truncate(
+                                                    $blog['Blog']['body'], 180, array('html' => true))); ?>
+                                </div>
+                            </div>
+                        </div>  
                         <?php 
                         endforeach;
 
@@ -56,16 +59,21 @@
                         foreach($blogs['Blog'] as $blog): 
                         ?>
                         <div class="result">
-                            <h2><?php echo $this->Html->link($blog['title'], $blog['url']); ?></h2>
-                            <?php echo $this->Text->truncate(
-                                    $blog['body'], 
-                                    750, 
-                                    array(
-                                        'ending' => ' ' . $this->Html->link('(More...)', $blog['url']),
-                                        'exact' => false,
-                                        'html' => true)); 
-                            ?>
-                        </div>
+                            <div class="result-left">
+                                <?php echo Inflector::humanize($blog['Blog']['object_type']); ?>
+                            </div>
+                            <div class="result-right">
+
+                                <strong><?php echo $this->Html->link($blog['Blog']['title'], 
+                                        $blog['Blog']['url']); ?> </strong>
+
+                                <div class="tease">
+                                    <?php echo Scrub::noHtml(
+                                            $this->Text->truncate(
+                                                    $blog['Blog']['body'], 180, array('html' => true))); ?>
+                                </div>
+                            </div>
+                        </div>  
                         <?php 
                         endforeach;
 
@@ -80,4 +88,5 @@
         </div>
 
     </div>
+    <div class="one-third column omega"></div>
 </div>

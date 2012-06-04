@@ -18,10 +18,36 @@
     <div class="two-thirds column alpha">
         <div id="ResultsPage">    
             <?php foreach($pages as $page): ?>
-            <div class="result">
-                <h2><?php echo $this->Html->link($page['Page']['title'], $page['Page']['url']); ?></h2>
-                <div class="tease"><?php echo $page['Page']['tease']; ?></div>
-            </div>
+                <div class="result">
+                    <div class="result-left">
+                        <?php echo Inflector::humanize($page['Page']['object_type']); ?>
+                    </div>
+                    <div class="result-right">
+
+                        <strong><?php echo $this->Html->link($page['Page']['title'], 
+                                $page['Page']['url']); ?> </strong>
+
+                        <div class="tease">
+                            <?php 
+                            switch($page['Page']['syntax']):
+                                case 'markdown':
+                                    //echo Scrub::htmlMedia(
+                                    echo Scrub::noHtml(
+                                            Utility::markdown(
+                                                $this->Text->truncate(
+                                                        $page['Page']['body'], 180, array('html' => true))));                                      
+                                break;
+
+                                default:
+                                    echo Scrub::noHtml(
+                                        $this->Text->truncate(
+                                                $page['Page']['body'], 180, array('html' => true)));  
+                                break;        
+                            endswitch;
+                            ?> 
+                        </div>
+                    </div>
+                </div> 
             <?php endforeach; ?>
         </div>
         <?php echo $this->element('paginate'); ?>

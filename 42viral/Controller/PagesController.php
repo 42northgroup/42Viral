@@ -98,7 +98,13 @@ App::uses('AppController', 'Controller');
             'conditions' => array(
                 'Page.status'=>array('archived', 'published')
             ),
-            'fields'=>array('Page.slug', 'Page.tease', 'Page.title', 'Page.url'),
+            'fields'=>array(
+                    'Page.body',
+                    'Page.object_type',
+                    'Page.slug', 
+                    'Page.syntax', 
+                    'Page.title', 
+                    'Page.url'),
             'limit' => 10,
             'order'=>'Page.title ASC'
         );
@@ -219,7 +225,7 @@ App::uses('AppController', 'Controller');
                             'trim' => '*',
                             'safe' => array('body'),
                             'noHTML' => array(
-                                'id', 'tease', 'title', 'description', 'keywords', 'canonical','syntax', 'short_cut'
+                                'id', 'body', 'title', 'description', 'keywords', 'canonical','syntax', 'short_cut'
                             ),
                         )
                 ));

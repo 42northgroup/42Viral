@@ -161,7 +161,7 @@ class PostsController extends AppController {
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),
-                                    'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 
+                                    'noHTML'=>array('id', 'body', 'title', 'description', 'keywords', 'canonical', 
                                         'syntax', 'short_cut'),
                                 )
                             )

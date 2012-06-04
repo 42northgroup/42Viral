@@ -35,44 +35,36 @@
 
         <div id="ResultsPage">
             <?php foreach($posts as $post): ?>
-            <div class="result">
-                <h2><?php echo $this->Html->link($post['Post']['title'], $post['Post']['url']); ?></h2>
-                <div class="tease">
-                    <div class="meta meta-right"><?php echo Handy::date($post['Post']['created']); ?></div>
-                    <?php 
+                <div class="result">
+                    <div class="result-left">
+                        <?php echo Inflector::humanize($post['Post']['object_type']); ?>
+                    </div>
+                    <div class="result-right">
 
-                    ?>
-                    <?php 
-                    switch($post['Post']['syntax']):
-                        case 'markdown':
-                            //Parse the markdown to HTML
-                            //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
-                            echo Scrub::htmlMedia(Utility::markdown(
-                                    $this->Text->truncate(
-                                        $post['Post']['body'], 
-                                        750, 
-                                        array(
-                                            'ending' => ' ' . $this->Html->link('(More...)', $post['Post']['url']),
-                                            'exact' => false,
-                                            'html' => true
-                                            )
-                                        )
-                                    )); 
-                        break;
+                        <strong><?php echo $this->Html->link($post['Post']['title'], 
+                                $post['Post']['url']); ?> </strong>
 
-                        default:
-                            echo $this->Text->truncate(
-                                $post['Post']['body'], 
-                                750, 
-                                array(
-                                    'ending' => ' ' . $this->Html->link('(More...)', $post['Post']['url']),
-                                    'exact' => false,
-                                    'html' => true));  
-                        break;        
-                    endswitch;
-                    ?>                    
-                </div>
-            </div>
+                        <div class="tease">
+                            <?php 
+                            switch($post['Post']['syntax']):
+                                case 'markdown':
+                                    //echo Scrub::htmlMedia(
+                                    echo Scrub::noHtml(
+                                            Utility::markdown(
+                                                $this->Text->truncate(
+                                                        $post['Post']['body'], 180, array('html' => true))));                                      
+                                break;
+
+                                default:
+                                    echo Scrub::noHtml(
+                                        $this->Text->truncate(
+                                                $post['Post']['body'], 180, array('html' => true)));  
+                                break;        
+                            endswitch;
+                            ?> 
+                        </div>
+                    </div>
+                </div>  
             <?php endforeach; ?>
         </div>
         <?php echo $this->element('paginate'); ?>

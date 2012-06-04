@@ -63,7 +63,6 @@ class Content extends AppModel
         'nothing'=>array(
             'contain'=>array(),
             'conditions' => array('Content.status'=>array('archived', 'published'))
-
         ),
         
         'public'=>array(
@@ -109,7 +108,7 @@ class Content extends AppModel
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlMedia'=>array('body'),
-                'noHTML'=>array('id', 'tease', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
+                'noHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 'syntax', 'short_cut'),
             )
         ),
         
@@ -187,12 +186,43 @@ class Content extends AppModel
      */
     public function orConditions($data = array()) {
         $filter = $data['filter'];
-        $cond = array(
+        $conditions = array(
             'OR' => array(
                 $this->alias . '.title LIKE' => '%' . $filter . '%',
                 $this->alias . '.body LIKE' => '%' . $filter . '%',
             ));
-        return $cond;
+        return $conditions;
+    }
+    
+    /**
+     * Returns a list of all object types currently in use.
+     * @access public
+     * @param boolean $keyByReference - Do we want numeric or referential key value pairs?
+     * @return array
+     */
+    public function listObjectTypes($keyByReference = true){
+        
+        $objectTypes = array();
+        
+        $contents = $this->find('all', 
+                array(
+                    'conditions' => array('Content.status'=>array('archived', 'published')),
+                    'fields'=>array('DISTINCT Content.object_type'),
+                    'contain'=>array()
+                ));
+        
+        if($keyByReference){
+            foreach($contents as $content){
+                $objectTypes[$content['Content']['object_type']] = 
+                    Inflector::humanize($content['Content']['object_type']);
+            }
+        }else{
+            foreach($contents as $content){
+                $objectTypes[] = $content['Content']['object_type'];
+            }
+        }
+        
+        return $objectTypes;
     }
     
     /**
@@ -202,7 +232,7 @@ class Content extends AppModel
      * @param string $token
      * @return array
      */
-    function fetchContentsWith($with = 'public', $token = null){
+    public function fetchContentsWith($with = 'public', $token = null){
         
         //Used for variable injection
         switch('mine'){
