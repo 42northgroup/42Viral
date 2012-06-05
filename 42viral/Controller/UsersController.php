@@ -290,23 +290,34 @@ App::uses('AppController', 'Controller');
     /**
      * Creates a user account using user submitted input
      * Logs the newly created user into the system
-     *
-     *
+     * 
      * @access public
+     * @todo refactor private beta logic. This should probably be a component.
      */
     public function create()
     {
-
+        if(Configure::read('Beta.private') == 1){
+            $inviteCode = isset($this->params['named']['invite'])?$this->params['named']['invite']:null;
+            
+            if(is_null($inviteCode)){
+                $this->Session->setFlash(__('New accounts can be created by invite only.'),'success');
+            }   
+            
+            $this->set('inviteCode', $inviteCode);
+        }
+        
         if(!empty($this->data)){
             
             //Private beta, if we are in private beta mode, look for an invite code
             if(Configure::read('Beta.private') == 1){  
+                
                 if($this->Invite->confirm($this->data['User']['invite'])){
                     $allowed = true;
                 }else{
                     $this->Session->setFlash(__('Their is a problem with the invite code'),'error');
                     $allowed = false;
                 }
+                
             }else{
                 //Private beta mode is turned off
                 $allowed = true;
