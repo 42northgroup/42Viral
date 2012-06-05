@@ -232,8 +232,15 @@ class BlogsController extends AppController {
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),
-                                    'noHTML'=>array('id', 'title', 'description', 'keywords', 'canonical', 
-                                        'syntax', 'short_cut'),
+                                    'noHTML'=>array(
+                                        'canonical',
+                                        'title', 
+                                        'description',
+                                        'id',  
+                                        'keywords', 
+                                        'short_cut', 
+                                        'syntax'
+                                    ),
                                 )
                             )
                         );

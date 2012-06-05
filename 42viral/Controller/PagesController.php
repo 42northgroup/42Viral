@@ -220,15 +220,22 @@ App::uses('AppController', 'Controller');
             //If we are saving as Markdown just check the body for malice
             if ($this->data['Page']['syntax'] == 'markdown') {
                 $this->Page->Behaviors->attach(
-                    'ContentFilters.Scrubable', array(
-                        'Filters' => array(
-                            'trim' => '*',
-                            'safe' => array('body'),
-                            'noHTML' => array(
-                                'id', 'body', 'title', 'description', 'keywords', 'canonical','syntax', 'short_cut'
-                            ),
-                        )
-                ));
+                        'ContentFilters.Scrubable', 
+                        array('Filters'=>array(
+                                    'trim'=>'*',
+                                    'safe' => array('body'),
+                                    'noHTML'=>array(
+                                        'canonical',
+                                        'title', 
+                                        'description',
+                                        'id',  
+                                        'keywords', 
+                                        'short_cut', 
+                                        'syntax'
+                                    ),
+                                )
+                            )
+                        );
             }
             
             if($this->Page->saveAll($this->data)){
