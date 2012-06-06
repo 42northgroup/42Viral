@@ -22,7 +22,7 @@ App::uses('ProfileUtil', 'Lib');
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
- * @package       42viral\Person\User\Profile
+ * @package 42viral\Person\User\Profile
  */
  class ProfilesController extends AppController {
 
