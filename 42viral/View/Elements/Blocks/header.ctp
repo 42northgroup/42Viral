@@ -12,6 +12,10 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+$profileId = $this->Session->read('Auth.User.Profile.id');
+$username = $this->Session->read('Auth.User.username');
+$userId = $this->Session->read('Auth.User.id');
 ?>
 
 <div id="Header">
@@ -52,19 +56,14 @@
                     <div class="navigation">
                         <?php 
                         $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
-                        
-                        echo $this->Html->link(
-                            "Inbox{$messageBadge}",
-                            '/inbox_message'
-                        );
-                        ?>
+                        echo $this->Html->link("Inbox{$messageBadge}", '/inbox_message/'); ?>
                     </div>
                     <div class="navigation">
                         <a href="#">Share</a>
                         <div class="subnavigation">
-                            <div><?php echo $this->Html->link('Socialize', '/users/social_media/'); ?></div>
-                            <div><?php echo $this->Html->link('Create a blog', '/blogs/create/'); ?></div>
-                            <div><?php echo $this->Html->link('Create a post', '/posts/create/'); ?></div>
+                            <div><?php echo $this->Html->link(__('Socialize'), '/users/social_media/'); ?></div>
+                            <div><?php echo $this->Html->link(__('Create a blog'), '/blogs/create/'); ?></div>
+                            <div><?php echo $this->Html->link(__('Create a post'), '/posts/create/'); ?></div>
                         </div>
                     </div>
                     <div class="navigation">
@@ -74,25 +73,27 @@
                             <strong>Profile</strong>
                             <div>
                                 <div>
-                                <?php echo $this->Html->link('My Profile', 
-                                    '/profiles/view/' . $this->Session->read('Auth.User.username')); ?>
+                                <?php echo $this->Html->link(__('My Profile'), "/profiles/view/{$username}/"); ?>
                                 </div>
                                 
-                                <?php echo $this->Html->link('Edit', 
-                                    '/profiles/edit/' . $this->Session->read('Auth.User.Profile.id')); ?>
+                                <?php echo $this->Html->link(__('Edit My Profile'), "/profiles/edit/{$profileId}/"); ?>
                                 
-                                <?php echo $this->Html->link('My Content', '/contents/mine/'); ?>
+                                <?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?>
+                                
+                                <?php echo $this->Html->link(__('Social Networks'), 
+                                        "/social_networks/index/{$userId}/"); ?>
+                                
                             </div>
                             
                             <strong>Misc</strong>
-                            <div><?php echo $this->Html->link('Photos', 
+                            <div><?php echo $this->Html->link(__('Photos'), 
                                     '/uploads/images/' . $this->Session->read('Auth.User.username')); ?></div> 
 
-                            <div><?php echo $this->Html->link('Connect', '/oauth/connect/' ); ?></div>  
+                            <div><?php echo $this->Html->link(__('Connect'), '/oauth/connect/' ); ?></div>  
 
-                            <div><?php echo $this->Html->link('Settings', '/users/settings/' ); ?></div> 
+                            <div><?php echo $this->Html->link(__('Settings'), '/users/settings/' ); ?></div> 
 
-                            <div><?php echo $this->Html->link('Logout', '/users/logout'); ?></div>  
+                            <div><?php echo $this->Html->link(__('Logout'), '/users/logout/'); ?></div>  
                         </div>
                     </div>
                     
@@ -103,54 +104,51 @@
 
                                 <strong>CMS</strong>
                                 <div>
-                                    <?php echo $this->Html->link('Create a web page', '/admin/pages/create/'); ?>
+                                    <?php echo $this->Html->link(__('Create a web page'), '/admin/pages/create/'); ?>
                                 </div>
                                 <div>
-                                    <?php echo $this->Html->link('Pages', '/admin/pages/'); ?>
+                                    <?php echo $this->Html->link(__('Pages'), '/admin/pages/'); ?>
                                 </div>
 
                                 <strong>CRM</strong>
-                                <div><?php echo $this->Html->link('People', '/admin/people/'); ?></div>
+                                <div><?php echo $this->Html->link(__('People'), '/admin/people/'); ?></div>
 
                                 <strong>Messaging</strong>
                                 <div>
-                                    <?php echo $this->Html->link('Notification list', '/notification/index/'); ?>
+                                    <?php echo $this->Html->link(__('Notification list'), '/notification/index/'); ?>
                                 </div>
 
                                 <div>
                                     <?php
-                                    echo $this->Html->link(
-                                        'Create new notification',
-                                        '/notification/create/'
-                                    );
+                                    echo $this->Html->link(__('Create new notification'),
+                                        '/notification/create/');
                                     ?>
                                 </div>
 
                                 <div>
                                     <?php
-                                    echo $this->Html->link(
-                                        'Populate message inbox (test)',
-                                        '/inbox_message/populate_inbox/'
-                                    );
+                                    echo $this->Html->link(__('Populate message inbox (test)'),
+                                        '/inbox_message/populate_inbox/');
                                     ?>
                                 </div>
 
-                                <div><?php echo $this->Html->link('Invite a Friend', '/people/invite/'); ?></div>
+                                <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
 
                                 <strong>System</strong>
 
                                 <?php if(Configure::read('Beta.private') == 1): ?>
                                 <div>
-                                    <?php echo $this->Html->link('Allot Invites', '/admin/users/allot_invites'); ?>
+                                    <?php echo $this->Html->link(__('Allot invites'), '/admin/users/allot_invites/'); ?>
                                 </div>
                                 <?php endif; ?>
 
-                                <div><?php echo $this->Html->link('Users', '/admin/users/'); ?></div>
-                                <div><?php echo $this->Html->link('Groups', 
-                                        '/admin/users/acl_groups/'); ?></div>
-                                <div><?php echo $this->Html->link('Picklists', 
+                                <div><?php echo $this->Html->link(__('Users'), '/admin/users/'); ?></div>
+                                <div><?php echo $this->Html->link(__('Groups'), '/admin/users/acl_groups/'); ?></div>
+                                
+                                <div><?php echo $this->Html->link(__('Picklists'), 
                                         '/admin/picklist_manager/picklists/'); ?></div>
-                                <div><?php echo $this->Html->link('Configuration', 
+                                
+                                <div><?php echo $this->Html->link(__('Configuration'), 
                                         '/admin/configurations/'); ?></div>
                             </div>
                         </div>
@@ -158,11 +156,12 @@
                 </div>
             <?php else: ?>
                 <div id="Navigation">
-                    <div class="navigation"><a href="/blogs/">Blogs</a></div>
-                    <div class="navigation"><a href="/profiles">Profiles</a></div>
-                    <div class="navigation"><a href="/pages/">Pages</a></div>
-                    <div class="navigation"><?php echo $this->Html->link('New Account', '/users/create'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link('Login', '/users/login'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('New Account'), '/users/create/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Login'), '/users/login/'); ?></div>
                 </div>
             <?php endif; ?>
         </div>

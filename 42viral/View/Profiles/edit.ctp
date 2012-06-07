@@ -145,7 +145,8 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
 
         echo $this->Form->input('id');
 
-        echo $this->Form->input('owner_person_id', array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
+        echo $this->Form->input('owner_person_id', 
+                array('type'=>'hidden', 'value'=>$this->Session->read('Auth.User.id')));
 
         echo $this->Form->input('Person.id', array('value'=>$this->Session->read('Auth.User.id')));
         
@@ -161,8 +162,11 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
     </div>
     
     <div class="one-third column omega">
+        
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'your_profile')); ?>
+        
         <div id="additionalDetailsHolder" class="column-block">
-            <h4>Additional Details</h4>
+            <h4>Additional Details</h4>ss
             <?php foreach($types as $key => $value): ?>
                 <div id="type_<?php echo $key ?>" class="additionalDetailFrame">
                     <h5 class=" clearfix">

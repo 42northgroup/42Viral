@@ -97,10 +97,10 @@ App::uses('AppController', 'Controller');
     
     /**
      *
+     * @access public
      * @param string $profileId 
      */
     public function index($profileId){
-        
         
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
@@ -122,5 +122,23 @@ App::uses('AppController', 'Controller');
         
         $this->set('socialNetworks', $socialNetworks);
         $this->set('title_for_layout', __('Your Social Networks'));
+    } 
+    
+    /**
+     * Removes a social network
+     * 
+     * @access public
+     * @param $id ID of the social_network which we want ot delete
+     */
+    public function delete($id){
+
+        if($this->SocialNetwork->delete($id)){
+            $this->Session->setFlash(__('Your social network has been removed'), 'success');
+            $this->redirect($this->referer());
+        }else{
+           $this->Session->setFlash(__('There was a problem removing the social network'), 'error'); 
+           $this->redirect($this->referer());
+        }
+
     }    
 }

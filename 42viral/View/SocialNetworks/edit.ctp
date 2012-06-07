@@ -37,17 +37,6 @@
         ?>
     </div>
     <div class="one-third column omega">
-        <div class="column-block">
-            <h4>Manage Social Networks</h4>
-            <div class="navigation-block block-links">
-                
-                <?php echo $this->Html->link(__('Your Social Networks'), 
-                        '/social_networks/index/' . $this->Session->read('Auth.User.Profile.id')); ?>
-                
-                <?php echo $this->Html->link(__('Add a Social Network'), 
-                        '/social_networks/create/' . $this->Session->read('Auth.User.Profile.id')); ?>
-                
-            </div>
-        </div>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'social_network')); ?>            
     </div>
 </div>

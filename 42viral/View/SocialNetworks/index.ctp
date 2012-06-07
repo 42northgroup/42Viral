@@ -41,12 +41,6 @@
         <?php echo $this->element('paginate'); ?>   
     </div>
     <div class="one-third column omega">
-        <div class="column-block">
-            <h4>Manage Social Networks</h4>
-            <div class="navigation-block block-links">
-                <?php echo $this->Html->link(__('Add a Social Network'), 
-                        '/social_networks/create/' . $this->Session->read('Auth.User.id')); ?>
-            </div>
-        </div>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'social_network')); ?>            
     </div>
 </div>

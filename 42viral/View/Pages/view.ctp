@@ -53,7 +53,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
                     )                
                 );
                         
-                echo $this->element('Navigation' . DS . 'manage', 
+                echo $this->element('Navigation' . DS . 'menus', 
                             array('section'=>'page', 
                                 'additional'=>$additional
                             )

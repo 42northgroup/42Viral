@@ -72,7 +72,6 @@ class PostsController extends AppController {
     /**
      * Removes a post
      * 
-     *
      * @param $id ID of the post which we want ot delete
      * @access public
      */

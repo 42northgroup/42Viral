@@ -65,7 +65,7 @@
     <div class="one-third column omega">
         <?php echo $this->element('Blocks' . DS . 'hcard', array('userProfile'=>$userProfile, 'allOpen'=>false)); ?>
         
-        <?php echo $this->element('Navigation' . DS . 'profile', array('mine'=>$mine)); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'profile')); ?>
         
         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
         
@@ -89,7 +89,7 @@
                     )                
                 );
                         
-                echo $this->element('Navigation' . DS . 'manage', 
+                echo $this->element('Navigation' . DS . 'menus', 
                             array('section'=>'post', 
                                 'additional'=>$additional
                             )

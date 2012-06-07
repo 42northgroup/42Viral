@@ -75,7 +75,7 @@
                     )               
                 );
                         
-                echo $this->element('Navigation' . DS . 'manage', 
+                echo $this->element('Navigation' . DS . 'menus', 
                             array('section'=>'profile', 
                                 'additional'=>$additional
                             )
