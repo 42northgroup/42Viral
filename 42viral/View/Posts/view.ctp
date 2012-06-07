@@ -89,11 +89,8 @@
                     )                
                 );
                         
-                echo $this->element('Navigation' . DS . 'menus', 
-                            array('section'=>'post', 
-                                'additional'=>$additional
-                            )
-                        );
+                echo $this->element('Navigation' . DS . 'menus', array('section'=>'post', 'additional'=>$additional));
+                
             endif; 
         ?>
     </div>
