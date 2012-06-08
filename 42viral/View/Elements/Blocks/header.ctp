@@ -76,13 +76,10 @@ $userId = $this->Session->read('Auth.User.id');
                                 <?php echo $this->Html->link(__('My Profile'), "/profiles/view/{$username}/"); ?>
                                 </div>
                                 
-                                <?php echo $this->Html->link(__('Edit My Profile'), "/profiles/edit/{$profileId}/"); ?>
+                                <div><?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?></div>
                                 
-                                <?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?>
-                                
-                                <?php echo $this->Html->link(__('Social Networks'), 
-                                        "/social_networks/index/{$userId}/"); ?>
-                                
+                                <div><?php echo $this->Html->link(__('Social Networks'), 
+                                        "/social_networks/index/{$userId}/"); ?></div>
                             </div>
                             
                             <strong>Misc</strong>
