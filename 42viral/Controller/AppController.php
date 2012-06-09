@@ -47,7 +47,7 @@ class AppController extends Controller
      */
     public $helpers = array(
         'AssetManager.Asset',
-        'Connect.SocialMedia',
+        'SocialMedia',
         'Form', 
         'Html', 
         'Paginator',

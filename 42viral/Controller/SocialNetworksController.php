@@ -69,6 +69,7 @@ App::uses('AppController', 'Controller');
             }
         }
         
+        $this->set('networks', $this->SocialNetwork->listSocialNetworks());
         $this->set('title_for_layout', __('Add a Social Network to Your Profile'));
     }
     
@@ -92,6 +93,8 @@ App::uses('AppController', 'Controller');
                     'contain'=>array()
                     )
                 );
+        
+        $this->set('networks', $this->SocialNetwork->listSocialNetworks());
         $this->set('title_for_layout', __('Update a Social Network'));
     }    
     

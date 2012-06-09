@@ -29,7 +29,7 @@
             echo $this->Form->input('profile_id', 
                     array('value'=>$this->Session->read('Auth.User.Profile.id'), 'type'=>'hidden'));
             
-            echo $this->Form->input('network');
+            echo $this->Form->input('network', array('empty'=>true));
             echo $this->Form->input('profile');
 
             echo $this->Form->submit();

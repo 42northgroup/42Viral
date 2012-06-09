@@ -49,14 +49,14 @@ $userId = $this->Session->read('Auth.User.id');
             
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
-                    <div class="navigation"><a href="/searches/">Search</a></div>
-                    <div class="navigation"><a href="/blogs/">Blogs</a></div>
-                    <div class="navigation"><a href="/profiles/">Profiles</a></div>
-                    <div class="navigation"><a href="/pages/">Pages</a></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>                  
                     <div class="navigation">
                         <?php 
                         $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
-                        echo $this->Html->link("Inbox{$messageBadge}", '/inbox_message/'); ?>
+                        echo $this->Html->link(__('Inbox') . $messageBadge, '/inbox_message/'); ?>
                     </div>
                     <div class="navigation">
                         <a href="#">Share</a>
@@ -79,7 +79,7 @@ $userId = $this->Session->read('Auth.User.id');
                                 <div><?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?></div>
                                 
                                 <div><?php echo $this->Html->link(__('Social Networks'), 
-                                        "/social_networks/index/{$userId}/"); ?></div>
+                                        "/social_networks/index/{$profileId}/"); ?></div>
                             </div>
                             
                             <strong>Misc</strong>

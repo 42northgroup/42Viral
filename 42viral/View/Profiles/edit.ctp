@@ -163,7 +163,7 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
     
     <div class="one-third column omega">
         
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'your_profile')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'manage_profile')); ?>
         
         <div id="additionalDetailsHolder" class="column-block">
             <h4>Additional Details</h4>ss

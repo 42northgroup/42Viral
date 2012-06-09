@@ -27,7 +27,7 @@
                     );
 
             echo $this->Form->input('id');
-            echo $this->Form->input('network');
+            echo $this->Form->input('network', array('empty'=>true));
             echo $this->Form->input('profile');
 
             echo $this->Form->submit();

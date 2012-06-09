@@ -29,10 +29,11 @@ switch($section){
                     'text' =>__('Profile'),
                     'url' => $userProfile['Person']['url'],
                     'options'=>array(),
-                    'confirm'=>null
+                    'confirm'=>null,
+                    'actions_exclude'=>array('view')
                 ),                 
                 array(
-                    'text' => __('Photos'),
+                    'text' => __('Images'),
                     'url' => "/uploads/images/{$userProfile['Person']['username']}/",
                     'options'=>array(),
                     'confirm'=>null
@@ -67,13 +68,7 @@ switch($section){
                     'url' => "/addresses/index/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
-                ),   
-                array(
-                    'text' => __('Your Addresses'),
-                    'url' => "/addresses/index/{$personId}/",
-                    'options'=>array(),
-                    'confirm'=>null
-                )                
+                )            
             )
         );
         

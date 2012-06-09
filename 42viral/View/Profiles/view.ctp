@@ -18,9 +18,7 @@
     
     <div class="two-thirds column alpha">
         <div class="icon-bar">
-            <?php foreach($user['Profile']['SocialNetwork'] as $socialNetwork): ?>
-                <?php echo $this->SocialMedia->landingPage($socialNetwork); ?>
-            <?php endforeach; ?>
+            <?php echo $this->SocialMedia->landingPage($user['Profile'], $networks); ?>
         </div>
         <div class="h1shim"></div>
         <div id="ResultsPage">
@@ -75,11 +73,9 @@
                     )               
                 );
                         
-                echo $this->element('Navigation' . DS . 'menus', 
-                            array('section'=>'profile', 
-                                'additional'=>$additional
-                            )
-                        );
+                echo $this->element('Navigation' . DS . 'menus', array(
+                    'section'=>'profile', 
+                    'additional'=>$additional));
             endif; 
         ?>
 

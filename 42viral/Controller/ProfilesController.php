@@ -50,6 +50,7 @@ App::uses('ProfileUtil', 'Lib');
         'Person', 
         'PersonDetail',         
         'Oauth',
+        'SocialNetwork',
         'User'
     );
     
@@ -277,18 +278,6 @@ App::uses('ProfileUtil', 'Lib');
             $this->set('mine', false);
         }
         
-        /*
-        $services = $this->Oauth->find('list', array(
-            'conditions' => array('Oauth.person_id' => $user['User']['id']),
-            'fields' => array('Oauth.oauth_id', 'Oauth.service')
-        ));
-        
-        $statuses = $this->social_media('profiles/view');
-        $this->set('statuses', $statuses);
-        
-        $this->set('services', $services);
-         */
-        
         $this->set('user', $user);
         
         $person = array();
@@ -298,6 +287,7 @@ App::uses('ProfileUtil', 'Lib');
         $userProfile = array_replace($user, $person);
         unset($userProfile['User']);
         
+        $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);
         $this->set('userProfile', $userProfile);
         $this->set('profileId', $userProfile['Profile']['id']);

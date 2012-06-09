@@ -75,4 +75,64 @@ class SocialNetwork extends AppModel
         )
     );
 
+    /**
+     * Defines the list of supported social networks
+     * @access private
+     * @var array 
+     */
+    private $__socialNetworks = array(
+        'facebook'=> array(
+            'label' => 'Facebook',
+            'feed'=>'',
+            'profile'=>'https://facebook.com/',
+            'icon'=>'/img/graphics/social_media/production/facebook32.png'
+        ),
+        'github'=>array(
+            'label' => 'GitHub',
+            'feed'=>'',
+            'profile'=>'https://github.com/',
+            'icon'=>null
+        ),
+        'google_plus'=>array(
+            'label' => 'Google+',
+            'feed'=>'',
+            'profile'=>'https://plus.google.com/',
+            'icon'=>'/img/graphics/social_media/production/googleplus32.png'
+        ),
+        'linkedin'=>array(
+            'label' => 'LinkedIn',
+            'feed'=>'',
+            'profile'=>'https://www.linkedin.com/in/',
+            'icon'=>'/img/graphics/social_media/production/linkedin32.png'
+        ),
+        'twitter'=>array(
+            'label' => 'Twitter',
+            'feed'=>'',
+            'profile'=>'https://twitter.com/#!/',
+            'icon'=>'/img/graphics/social_media/production/twitter32.png'
+        )
+    );
+    
+    /**
+     * Returns the fully defined social network array
+     * @access public
+     * @return array
+     */
+    public function getSocialNetworks(){
+        return $this->__socialNetworks;
+    }
+    
+    /**
+     * Returns a simple list of social netorks. This list contains the social networks key and it's label
+     * @access public
+     * @return array
+     */
+    public function listSocialNetworks(){
+        $socialNetworks = array();
+        foreach($this->__socialNetworks as $key=>$value){
+            $socialNetworks[$key] = $value['label'];
+        }
+        return $socialNetworks;
+    }
+
 }
