@@ -44,12 +44,12 @@ App::uses('ProfileUtil', 'Lib');
         'Connect.Linkedin', 
         'Connect.Tweet',
         'Connect.GooglePlus',
+        'Connect.Oauth',
         'Content',
         'Image',         
         'Profile', 
         'Person', 
         'PersonDetail',         
-        'Oauth',
         'SocialNetwork',
         'User'
     );
@@ -59,7 +59,7 @@ App::uses('ProfileUtil', 'Lib');
      * @var array
      * @access public 
      */
-    public $components = array('Oauths');
+    public $components = array('Connect.Oauths');
     
     /**
      * beforeFilter

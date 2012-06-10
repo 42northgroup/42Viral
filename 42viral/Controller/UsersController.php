@@ -31,11 +31,11 @@ App::uses('AppController', 'Controller');
 
     public $uses = array(
         'AclGroup',
-        'Conect.Facebook', 
-        'Conect.Linkedin', 
+        'Connect.Facebook', 
+        'Connect.Linkedin', 
         'Connect.Tweet', 
         'Invite', 
-        'Oauth', 
+        'Connect.Oauth', 
         'Person', 
         'User',
         'OldPassword',
@@ -50,7 +50,7 @@ App::uses('AppController', 'Controller');
     public $components = array(
         'Access', 
         'ControllerList', 
-        'Oauths', 
+        'Connect.Oauths', 
         'NotificationCmp'
     );
     

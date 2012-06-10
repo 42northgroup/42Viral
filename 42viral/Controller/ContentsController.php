@@ -39,7 +39,7 @@ App::uses('Handy', 'Lib');
         'Blog', 
         'Content', 
         'Conversation', 
-        'Oauth', 
+        'Connect.Oauth', 
         'Page', 
         'Person', 
         'PicklistManager.Picklist',
@@ -51,7 +51,7 @@ App::uses('Handy', 'Lib');
      * @var array
      * @access public
      */
-    public $components = array('File', 'Oauths');  
+    public $components = array('File', 'Connect.Oauths');  
     
     /**
      * Helpers
