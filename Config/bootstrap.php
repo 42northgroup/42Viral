@@ -85,7 +85,7 @@ App::build(array(
         'Console' => array(
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS,
         	//DebugKit has no Config, so we will add the console path here	
-        	ROOT . DS . APP_DIR . DS . 'Plugin' . DS . 'DebugKit' . DS . 'Console' . DS . 'Command' . DS
+        	ROOT . DS . APP_DIR . DS . 'Plugin' . DS . 'DebugKit' . DS . 'Console' . DS
         ),
     
         'Console/Command' => array(
