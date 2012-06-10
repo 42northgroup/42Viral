@@ -35,3 +35,6 @@
 [submodule "Plugin/Docs"]
 	path = Plugin/Docs
 	url = git@github.com:42northgroup/42Viral-Documentation-Plugin.git
+[submodule "Plugin/DebugKit"]
+	path = Plugin/DebugKit
+	url = https://github.com/42northgroup/debug_kit.git
