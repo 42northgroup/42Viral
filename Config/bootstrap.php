@@ -2,7 +2,7 @@
 /**
  * This file is loaded automatically by the app/webroot/index.php file after core.php
  *
- * This file should load/create any application wide configuration settings, such as 
+ * This file should load/create any application wide configuration settings, such as
  * Caching, Logging, loading additional configuration files.
  *
  * You should also use this file to include any files that provide global functions/constants
@@ -72,63 +72,76 @@ CakePlugin::loadAll(array(
     'Seo' => array('bootstrap' => true)
 ));
 
+/**
+ * When searching multiple paths, CakePHP will stop on the first hit. Be sure to place an override path before a
+ * primary path.
+ */
 App::build(array(
-    
+
         'Controller' => array(
+        	ROOT . DS . APP_DIR . DS . 'Controller' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS
         ),
-    
+
         'Controller/Component' => array(
+        	ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Component' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS,
         ),
-    
+
         'Console' => array(
+        	ROOT . DS . APP_DIR . DS . 'Console' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS,
-        	//DebugKit has no Config, so we will add the console path here	
+        	//DebugKit has no Config, so we will add the console path here
         	ROOT . DS . APP_DIR . DS . 'Plugin' . DS . 'DebugKit' . DS . 'Console' . DS
         ),
-    
+
         'Console/Command' => array(
+        	ROOT . DS . APP_DIR . DS . 'Console' . DS . 'Command' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS
         ),
-    
+
         'Lib' => array(
             ROOT . DS . APP_DIR . DS . 'Lib' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
-        ),   
-    
+        ),
+
         'Model' => array(
+        	ROOT . DS . APP_DIR . DS . 'Model'  . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model'  . DS
         ),
-    
+
         'Model/Behavior' => array(
+        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Behavior' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS,
         ),
-    
+
         'Model/Datasource' => array(
+        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Datasource' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS
         ),
-    
+
         'Model/Datasource/Database' => array(
+        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
         ),
-    
+
         'vendors' => array(
+        	ROOT . DS . APP_DIR . DS . 'Vendor' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Vendor' . DS
         ),
-    
+
         'View' => array(
             //We want the native cake structure to ovverride 42Viral's views
             ROOT . DS . APP_DIR . DS . 'View' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS,
-        ),    
-    
+        ),
+
         'View/Helper' => array(
             //We want the native cake structure to ovverride 42Viral's helpers
             ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
         )
-    
+
     ));
 
 /**
@@ -182,9 +195,9 @@ Configure::write('Plugin.42viral.Configuration', true);
  * Provides a list of supported commenting engines
  * @var array
  */
-Configure::write('Picklist.Cms.comment_engines', 
+Configure::write('Picklist.Cms.comment_engines',
         array(
-            'native'=>'Native', 
+            'native'=>'Native',
             'disqus'=>'Disqus')
         );
 
@@ -192,8 +205,8 @@ Configure::write('Picklist.Cms.comment_engines',
  * Provides a list of supported Antispam Services
  * @var array
  */
-Configure::write('Picklist.ContentFilter.AntispamServices', 
+Configure::write('Picklist.ContentFilter.AntispamServices',
         array(
-            ''=>'None', 
+            ''=>'None',
             'akismet'=>'Akismet')
         );
