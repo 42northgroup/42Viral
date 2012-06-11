@@ -61,9 +61,8 @@ Cache::config('default', array('engine' => 'File'));
  *
  * CakePlugin::loadAll(); // Loads all plugins at once
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
- *
+ * @var array
  */
-
 CakePlugin::loadAll(array(
     'AssetManager' => array('bootstrap' => true),
     'ContentFilters' => array('bootstrap' => true),
@@ -74,7 +73,9 @@ CakePlugin::loadAll(array(
 
 /**
  * When searching multiple paths, CakePHP will stop on the first hit. Be sure to place an override path before a
- * primary path.
+ * primary path. In this configuration *42viral* is the primary path, we want anything placed in the primary cake
+ * path to override the 42viral path. To do this the native Cake paths must be placed first.
+ * @var array
  */
 App::build(array(
 
@@ -131,13 +132,11 @@ App::build(array(
         ),
 
         'View' => array(
-            //We want the native cake structure to ovverride 42Viral's views
             ROOT . DS . APP_DIR . DS . 'View' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS,
         ),
 
         'View/Helper' => array(
-            //We want the native cake structure to ovverride 42Viral's helpers
             ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
         )
@@ -163,12 +162,11 @@ if (!defined('SETUP_STATE_ENCODING_METHOD')) {
 Configure::write('Domain.scheme', (env('HTTPS')?'https':'http'));
 
 /**
- * Your applications host domain exaomple.com, www.example.com, example.example.com, etc
+ * Your applications host domain example.com, www.example.com, example.example.com, etc
  * You may want to hard code this depending on your server's configuration
  * @var string
  */
 Configure::write('Domain.host', env('SERVER_NAME'));
-
 
 // We only want to require these if the setup shell has been ran, we check this by testing for database.php
 if(is_file(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php')) {
@@ -187,9 +185,9 @@ if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
 /**
  * Allows the Plugin to identify itself
  * @var string
+ * @todo was this deprecated when the configuration plugin was removed?
  */
 Configure::write('Plugin.42viral.Configuration', true);
-
 
 /**
  * Provides a list of supported commenting engines
