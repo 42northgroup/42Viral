@@ -1,4 +1,3 @@
-
 <?php
 /**
  * PHP 5.3
@@ -23,22 +22,21 @@
         <?php
             echo $this->Html->meta('icon');
 
-            echo $this->Asset->buildAssetPackage('jquery');
-
             $this->Asset->addAssets(array(
-                'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
+            	CURRENT_JQUERY,
+                CURRENT_MODERNIZR,
                 'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
 
                 'js' . DS . 'startup.js',
 
-                
+
                 'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
                 'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
                 'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
 
                 'css' . DS . 'cake.stripped.css',
                 'css' . DS . 'basics.css',
-                
+
                 'css' . DS . 'responsive-layout.css',
                 'css' . DS . 'responsive-elements.css',
 
@@ -53,28 +51,28 @@
 
                 'css' . DS . 'controls.css',
                 'css' . DS . 'controls.social.css',
-                
+
                 'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css',
                 'css' . DS . 'fonts.css'
             ));
 
             echo $this->Asset->buildAssets('js');
-            echo $this->Asset->buildAssets('css'); 
+            echo $this->Asset->buildAssets('css');
         ?>
     </head>
     <body>
         <div id="Container">
             <?php echo $this->Session->flash(); ?>
-            
+
             <?php echo $this->element('Blocks' . DS . 'header'); ?>
-            
+
             <div id="Main" class="clearfix container">
                 <?php echo $content_for_layout; ?>
             </div>
 
             <?php echo $this->element('Blocks' . DS . 'footer'); ?>
-            
-        </div> 
+
+        </div>
         <?php echo $this->element('sql_dump'); ?>
     </body>
 </html>

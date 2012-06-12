@@ -16,12 +16,17 @@
 
 /**
  * Stores preset asset package collections
- * 
+ *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @package Plugin\AssetManager\Config\AssetPackage
  */
 class AssetPackage
 {
+	/**
+	 * @static
+	 * @access public
+	 * @var array
+	 */
     public static $presets = array(
         'jquery' => array(
             'vendors/jquery/js/jquery-1.7.2.js'

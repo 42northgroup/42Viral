@@ -19,21 +19,21 @@ App::uses('AssetPackage', 'AssetManager.Config');
 
 /**
  * Helper class for merging client side assets
- * 
+ *
  * 1. Make sure ASSET_CACHE . DS . cache is writable by the server
  * 2. If runing local Java based minifiers, make sure the jar files are accessable by the web server
- * 
- * CONSTANTS - To these may be set in core.php or any $config extension. If these are not set their values will be 
- * set in the constructor. 
- * 
+ *
+ * CONSTANTS - To these may be set in core.php or any $config extension. If these are not set their values will be
+ * set in the constructor.
+ *
  * define('JS_METHOD', 'closureLocal');
- * define('CSS_METHOD', 'yuiLocal');     
+ * define('CSS_METHOD', 'yuiLocal');
  * define('ASSET_CACHE', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'cache');
  * define('ASSET_FILES', ROOT . DS . APP_DIR . DS . WEBROOT_DIR);
  * define('JAVA' , DS . 'usr' . DS . 'bin' . DS . 'java');
- * define('CLOSURE', DS . 'path_to' . DS . 'compiler.jar');    
+ * define('CLOSURE', DS . 'path_to' . DS . 'compiler.jar');
  * define('YUI', DS . 'path_to' . DS . 'yuicompressor-x.x.x.jar');
- * 
+ *
  * Copyright (c) 2010,  MicroTrain Technologies (http://www.microtrain.net)
  * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
  *
@@ -48,47 +48,47 @@ class AssetHelper extends AppHelper
 
     /**
      * Are we processing JS or CSS?
-     * 
+     *
      * @access private
-     * @var string 
+     * @var string
      */
     private $__assetType;
 
     /**
      * CSS asset container
-     * 
+     *
      * @access private
      * @var array
      */
     private $__assetContainer_Css = array();
-    
+
     /**
      * JS asset container
-     * 
+     *
      * @access private
      * @var array()
      */
     private $__assetContainer_Js = array();
-    
+
     /**
      * Allows us to shut off doMinify in very rare situations
-     * 
+     *
      * @access private
      * @var boolean
      */
     private $__overRide;
-    
-    
+
+
     /**
      * Store to hold asset package definitions from configuration file
-     * 
+     *
      * @access private
      * @var array
      */
     private $__packageDef = array();
 
     /**
-     * 
+     *
      */
     public function __construct()
     {
@@ -101,14 +101,14 @@ class AssetHelper extends AppHelper
 
     /**
      * Builds the asset queues
-     * 
+     *
      * @access public
-     * @param array $assets 
+     * @param array $assets
      * @param string $group
-     * @return void 
+     * @return void
      */
     public function addAssets($assets, $group='default')
-    { 
+    {
 
         for ($i = 0; $i < count($assets); $i++) {
             $assetType = $this->__findAssetType($assets[$i]);
@@ -133,11 +133,11 @@ class AssetHelper extends AppHelper
     }
 
     /**
-     * Allows an over ride flag to be set against the minify parameter. This can only 
+     * Allows an over ride flag to be set against the minify parameter. This can only
      * prevent minification, this will never flip a false doMinify condition to true
-     * 
+     *
      * @access private
-     * @param boolean $overRide 
+     * @param boolean $overRide
      * @todo is the depricated?
      */
     private function __overRide($overRide){
@@ -147,12 +147,12 @@ class AssetHelper extends AppHelper
             $this->__overRide == false;
         }
     }
-    
+
     /**
      * Given the asset path decide what asset type it is
-     * 
+     *
      * @access private
-     * @param string $assetPath 
+     * @param string $assetPath
      * @return string asset type
      */
     private function __findAssetType($assetPath)
@@ -167,12 +167,12 @@ class AssetHelper extends AppHelper
     }
 
     /**
-     * Recursivly concatantes all /path/file.ext + ctime for each asset in the array. 
+     * Recursivly concatantes all /path/file.ext + ctime for each asset in the array.
      * The resulting string is hashed.
-     * 
+     *
      * @access private
      * @param array $assets
-     * @return string 
+     * @return string
      * @todo Add compatibility with native CakePHP themes
      */
     private function __hashAssets($assets)
@@ -182,27 +182,27 @@ class AssetHelper extends AppHelper
         $stringToHash = '';
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
         $themePath42 = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
-        
+
         for ($i = 0; $i < count($assets); $i++) {
-            
+
             if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
-                
+
                 $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
                 $ctime = filectime($themePath . WEBROOT_DIR . DS . $assets[$i]);
-                
+
             }elseif(is_file( $themePath42 . WEBROOT_DIR . DS . $assets[$i])){
-                
+
                 $file = $themePath42 . WEBROOT_DIR . DS . $assets[$i];
                 $ctime = filectime($themePath42 . WEBROOT_DIR . DS . $assets[$i]);
-                
+
             }else{
-                
+
                 $file = ASSET_FILES . $this->__assetType . DS . $assets[$i];
                 $ctime = filectime(ASSET_FILES . $assets[$i]);
-                
+
             }
-            
-            
+
+
             $stringToHash .= "{$file}{$ctime}";
         }
 
@@ -222,22 +222,22 @@ class AssetHelper extends AppHelper
 
     /**
      * Writes all assets to a single file
-     * 
+     *
      * @access private
      * @param array $assets
-     * @param string $file 
+     * @param string $file
      * @return void
      */
     private function __write($assets, $file)
     {
-                
+
         $themePath = ROOT . DS . APP_DIR . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
         $themePath42 = ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Themed' . DS . $this->theme . DS;
-        
+
         $contents = '';
         $fh = fopen($file, 'w') or $this->log("Can't create a cache file", 'AssetHelper');
         for ($i = 0; $i < count($assets); $i++) {
-            
+
            if(is_file( $themePath . WEBROOT_DIR . DS . $assets[$i])){
                 $file = $themePath . WEBROOT_DIR . DS . $assets[$i];
             }if(is_file( $themePath42 . WEBROOT_DIR . DS . $assets[$i])){
@@ -245,19 +245,19 @@ class AssetHelper extends AppHelper
             }else{
                 $file = ASSET_FILES . $assets[$i];
             }
-            
+
             $contents .= ' ' . file_get_contents($file) or $this->log("Can't read a cached file", 'AssetHelper');
         }
-                
+
         $contents = $this->__minify($contents);
-        
+
         fwrite($fh, $contents);
         fclose($fh);
     }
 
     /**
      * Minifies the contents of a given string based on configuration parameters
-     * 
+     *
      * @access private
      * @param string $contents
      * @return string
@@ -265,7 +265,7 @@ class AssetHelper extends AppHelper
     private function __minify($contents)
     {
         //So long as we all agree we are minifing and we do not need to over ride the configuration, go ahead
-        if (MINIFY_ASSETS && !$this->__overRide) { 
+        if (MINIFY_ASSETS && !$this->__overRide) {
             if ($this->__assetType == 'js') {
 
                 switch (JS_METHOD) {
@@ -307,9 +307,9 @@ class AssetHelper extends AppHelper
                         break;
                 }
             }
-            
+
             return $minifiedContent;
-            
+
         } else {
 
             return $contents;
@@ -318,16 +318,16 @@ class AssetHelper extends AppHelper
 
     /**
      * Uses jsmin.php to minify css content
-     * 
+     *
      * @access private
      * @param string $contents
-     * @return string 
+     * @return string
      */
     private function __jsMin($contents)
     {
         App::import('Vendor', 'jsMin', array('file' => 'minify' . DS . 'jsmin.php'));
         $minifiedContent = JsMin::minify($contents);
-        
+
         if($this->__verify($minifiedContent)){
             return $minifiedContent;
         }else{
@@ -338,10 +338,10 @@ class AssetHelper extends AppHelper
 
     /**
      * Uses cssmin.php to minify css content
-     * 
+     *
      * @access private
      * @param string $contents
-     * @return string 
+     * @return string
      */
     private function __cssMin($contents)
     {
@@ -357,10 +357,10 @@ class AssetHelper extends AppHelper
 
     /**
      * Allows the remote usage of Google Clouser
-     * 
+     *
      * @access private
      * @param string $contents
-     * @return string 
+     * @return string
      */
     private function __closureRemote($contents)
     {
@@ -368,7 +368,7 @@ class AssetHelper extends AppHelper
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, 
+        curl_setopt($ch, CURLOPT_POSTFIELDS,
                 "output_info=compiled_code"
                 . "&output_format=text"
                 . "&compilation_level=SIMPLE_OPTIMIZATIONS"
@@ -376,7 +376,7 @@ class AssetHelper extends AppHelper
                 . urlencode($contents));
         $minifiedContent = curl_exec($ch);
         curl_close($ch);
-        
+
         if($this->__verify($minifiedContent)){
             return $minifiedContent;
         }else{
@@ -388,20 +388,20 @@ class AssetHelper extends AppHelper
 
     /**
      * Allows you to use a local YUI jar file to minify your assets
-     * Requires YUI compressor 
-     * 
+     * Requires YUI compressor
+     *
      * @access private
      * @see http://yuilibrary.com/downloads/#yuicompressor
      * @param string $contents
      * @param string $type
-     * @return string 
+     * @return string
      */
     private function __yuiLocal($contents, $type='js')
     {
         $tmpFile = $this->__addTmpFile($contents, $type);
         $minifiedContent = shell_exec(JAVA . " -jar " . YUI . " {$tmpFile} --type={$type}");
         $this->__removeTmpFile($tmpFile);
-        
+
         if($this->__verify($minifiedContent)){
             return $minifiedContent;
         }else{
@@ -413,24 +413,24 @@ class AssetHelper extends AppHelper
     /**
      * Allows you to use a local Closure jar file to minify your assets
      * Requires Google closure
-     * 
+     *
      * @access private
-     * @see http://code.google.com/closure/compiler/docs/gettingstarted_app.html 
+     * @see http://code.google.com/closure/compiler/docs/gettingstarted_app.html
      * @param string $contents
-     * @return string 
+     * @return string
      */
     private function __closureLocal($contents)
     {
         $fallback = $contents;
         $tmpFile = $this->__addTmpFile($contents, 'js');
         $minifiedContent = shell_exec(
-                JAVA . " -jar " . CLOSURE 
+                JAVA . " -jar " . CLOSURE
                 . " --js {$tmpFile}"
                 . " --compilation_level SIMPLE_OPTIMIZATIONS"
                 );
 
         $this->__removeTmpFile($tmpFile);
-        
+
         if($this->__verify($minifiedContent)){
             return $minifiedContent;
         }else{
@@ -441,11 +441,11 @@ class AssetHelper extends AppHelper
 
     /**
      * Some minifiers, such as YUI require a file as opposed to string input, this creates a tmp file for that purpose
-     * 
+     *
      * @access private
      * @param string $contents
      * @param string $type
-     * @return string 
+     * @return string
      */
     private function __addTmpFile($contents, $type)
     {
@@ -459,7 +459,7 @@ class AssetHelper extends AppHelper
 
     /**
      * Cleans up the tmp file after use
-     * 
+     *
      * @access private
      * @param string $tmpFile path to file we want to delete
      * @return void
@@ -470,10 +470,10 @@ class AssetHelper extends AppHelper
     }
 
     /**
-     * Flush one of the two (js, css) asset queues, this will be used when calling buildAssets not to 
-     * 
+     * Flush one of the two (js, css) asset queues, this will be used when calling buildAssets not to
+     *
      * @access private
-     * @param string $assetType 
+     * @param string $assetType
      * @param string $group
      * @return void
      */
@@ -485,13 +485,13 @@ class AssetHelper extends AppHelper
             $this->__assetContainer_Css[$group] = array();
         }
     }
-    
+
     /**
-     * Tests the minified data and returns true if iti feels the minification process was successfull 
-     * 
+     * Tests the minified data and returns true if iti feels the minification process was successfull
+     *
      * @access private
      * @param string $minifiedContent
-     * @return boolean 
+     * @return boolean
      * @todo Create a better tests
      */
     private function __verify($minifiedContent){
@@ -503,14 +503,14 @@ class AssetHelper extends AppHelper
     }
 
     /**
-     * Checkes for the existance of a file based on the hased sum of the assets array. If this exists then the 
-     * asset reference is created. If this does does not exist then the file and its reference is created. 
-     * 
+     * Checkes for the existance of a file based on the hased sum of the assets array. If this exists then the
+     * asset reference is created. If this does does not exist then the file and its reference is created.
+     *
      * @access public
      * @param string $assetType
      * @param string $group
      * @param boolean $overRide
-     * @return string 
+     * @return string
      */
     public function buildAssets($assetType, $group='default', $overRide=false)
     {
@@ -530,10 +530,10 @@ class AssetHelper extends AppHelper
         $file = ASSET_CACHE . DS . $this->__assetType . DS . $fileName;
 
         $write = true;
-        
+
         //Do we need to overRide? If not we still need this to keep the instance sane.
         $this->__overRide($overRide);
-        
+
 
         if (is_file($file) && filesize($file) != 0) {
             $write = false;
@@ -553,13 +553,13 @@ class AssetHelper extends AppHelper
             return "<link rel=\"stylesheet\" type=\"text/css\" href=\"/cache/{$this->__assetType}/{$fileName}\" />";
         }
     }
-    
-    
+
+
     /**
      * Fetch a predefined asset package from config and automatically build and output css and js components
-     * 
+     *
      * @access public
-     * @param string $packageName 
+     * @param string $packageName
      * @return string
      */
     public function buildAssetPackage($packageName)
@@ -572,7 +572,7 @@ class AssetHelper extends AppHelper
         } else {
             return '';
         }
-        
+
     }
 
 }
