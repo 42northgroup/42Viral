@@ -91,7 +91,7 @@
                     )                
                 );
                         
-                echo $this->element('Navigation' . DS . 'manage', 
+                echo $this->element('Navigation' . DS . 'menus', 
                             array('section'=>'post', 
                                 'additional'=>$additional
                             )

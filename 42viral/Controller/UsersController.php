@@ -31,11 +31,11 @@ App::uses('AppController', 'Controller');
 
     public $uses = array(
         'AclGroup',
-        'Conect.Facebook', 
-        'Conect.Linkedin', 
+        'Connect.Facebook', 
+        'Connect.Linkedin', 
         'Connect.Tweet', 
         'Invite', 
-        'Oauth', 
+        'Connect.Oauth', 
         'Person', 
         'User',
         'OldPassword',
@@ -50,7 +50,7 @@ App::uses('AppController', 'Controller');
     public $components = array(
         'Access', 
         'ControllerList', 
-        'Oauths', 
+        'Connect.Oauths', 
         'NotificationCmp'
     );
     
@@ -151,8 +151,8 @@ App::uses('AppController', 'Controller');
                 //store password reset authorization link with person record along with expiration timestamp
                 $tokenData = array();
                 $tokenData['Person']['id'] = $userId;
-                $tokenData['Person']['pw_reset_token'] = $requestAuthorizationToken;
-                $tokenData['Person']['pw_reset_token_expiry'] = $tokenExpiry; 
+                $tokenData['Person']['password_reset_token'] = $requestAuthorizationToken;
+                $tokenData['Person']['password_reset_token_expiry'] = $tokenExpiry; 
                 $this->Person->save($tokenData);
 
                 //email the person with the password reset authorization link

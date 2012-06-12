@@ -22,7 +22,7 @@ App::uses('ProfileUtil', 'Lib');
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <lubo.dimov@42viral.org>
- * @package       42viral\Person\User\Profile
+ * @package 42viral\Person\User\Profile
  */
  class ProfilesController extends AppController {
 
@@ -44,12 +44,13 @@ App::uses('ProfileUtil', 'Lib');
         'Connect.Linkedin', 
         'Connect.Tweet',
         'Connect.GooglePlus',
+        'Connect.Oauth',
         'Content',
         'Image',         
         'Profile', 
         'Person', 
         'PersonDetail',         
-        'Oauth',
+        'SocialNetwork',
         'User'
     );
     
@@ -58,7 +59,7 @@ App::uses('ProfileUtil', 'Lib');
      * @var array
      * @access public 
      */
-    public $components = array('Oauths');
+    public $components = array('Connect.Oauths');
     
     /**
      * beforeFilter
@@ -277,18 +278,6 @@ App::uses('ProfileUtil', 'Lib');
             $this->set('mine', false);
         }
         
-        /*
-        $services = $this->Oauth->find('list', array(
-            'conditions' => array('Oauth.person_id' => $user['User']['id']),
-            'fields' => array('Oauth.oauth_id', 'Oauth.service')
-        ));
-        
-        $statuses = $this->social_media('profiles/view');
-        $this->set('statuses', $statuses);
-        
-        $this->set('services', $services);
-         */
-        
         $this->set('user', $user);
         
         $person = array();
@@ -298,6 +287,7 @@ App::uses('ProfileUtil', 'Lib');
         $userProfile = array_replace($user, $person);
         unset($userProfile['User']);
         
+        $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);
         $this->set('userProfile', $userProfile);
         $this->set('profileId', $userProfile['Profile']['id']);

@@ -43,7 +43,7 @@ App::uses('HttpSocket', 'Network/Http');
         'Connect.Tweet', 
         'Connect.Linkedin', 
         'Connect.Facebook',
-        'Oauth', 
+        'Connect.Oauth', 
         'People', 
         'User'
     );

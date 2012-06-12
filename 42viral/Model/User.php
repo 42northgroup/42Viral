@@ -419,8 +419,8 @@ class User extends Person
         $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
 
         //Clear out any password reset request tokens along with a successfull password reset
-        $data['pw_reset_token'] = null;
-        $data['pw_reset_token_expiry'] = null;
+        $data['password_reset_token'] = null;
+        $data['password_reset_token_expiry'] = null;
                 
         //Try to save the new user record
         if($this->save($data)){
@@ -485,7 +485,7 @@ class User extends Person
             'contain' => array(),
 
             'conditions' => array(
-                'pw_reset_token' => $requestToken
+                'password_reset_token' => $requestToken
             )
         ));
 
@@ -504,11 +504,11 @@ class User extends Person
             'contain' => array(),
 
             'conditions' => array(
-                'pw_reset_token' => $requestToken
+                'password_reset_token' => $requestToken
             ),
 
             'fields' => array(
-                'pw_reset_token', 'pw_reset_token_expiry'
+                'password_reset_token', 'password_reset_token_expiry'
             )
         ));
 
@@ -519,7 +519,7 @@ class User extends Person
             return false;
         }
 
-        $tokenExpiry = strtotime($user['User']['pw_reset_token_expiry']);
+        $tokenExpiry = strtotime($user['User']['password_reset_token_expiry']);
         $rightNow = mktime();
 
         $this->log($tokenExpiry);
