@@ -1,7 +1,7 @@
 <?php
 /**
  * 42Viral's parent controller layer
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -32,12 +32,12 @@ class AppController extends Controller
      * @access public
      */
     public $components = array(
-        'Acl', 
-        'Auth', 
-        'RequestHandler', 
+        'Acl',
+        'Auth',
+        'RequestHandler',
         'Security' => array(
             'csrfExpires' => '+1 day'
-        ), 
+        ),
         'Session');
     /**
      * Application-wide helpers
@@ -48,21 +48,21 @@ class AppController extends Controller
     public $helpers = array(
         'AssetManager.Asset',
         'Connect.SocialMedia',
-        'Form', 
-        'Html', 
+        'Form',
+        'Html',
         'Paginator',
-        'Profile', 
-        'Session', 
+        'Profile',
+        'Session',
         'Text'
     );
 
 
     /**
      * The parent constructor for all 42Viral controllers
-     * 
+     *
      * @access public
      * @param object $request
-     * @param object $response 
+     * @param object $response
      */
     public function __construct($request = null, $response = null)
     {
@@ -128,13 +128,13 @@ class AppController extends Controller
             $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
             $this->set('unread_message_count', $unreadMessageCount);
         }
-        
+
     }
 
     /**
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
      * @access public
-     * @param array $allow 
+     * @param array $allow
      */
     public function auth($allow = array())
     {
@@ -154,12 +154,12 @@ class AppController extends Controller
             //No, this is not a public controller.
             //Is this a public action?
             if (!in_array($this->request->params['action'], $allow)) {
-                //No, this in not a public action. 
+                //No, this in not a public action.
                 //Is the user logged in?
                 if ($this->Session->check('Auth.User.id')) {
                     //Yes, the user is logged in.
                     //Does the user have access to this Controller-action?
-                    if (!$this->Acl->check($this->Session->read('Auth.User.username'), 
+                    if (!$this->Acl->check($this->Session->read('Auth.User.username'),
                                     Inflector::camelize($this->request->params['controller'])
                                     . '-'
                                     . $this->request->params['action'], '*'
@@ -182,7 +182,68 @@ class AppController extends Controller
         }
     }
 
-    
+    /**
+     * Throws a 403 Error if a association record does not exist.
+     * A common use case is assuring a parent record exists to prevent creation of orphaned records.
+     * 	EX. Creating an address against a Person would require matchin Person.id record prior to creation
+     * @param string $model
+     * @param string $modelId
+     * @throws forbiddenException
+     * @return string
+     */
+    protected function _validAssociation($model, $modelId){
+
+    	$classifiedModel = Inflector::classify($model);
+
+    	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
+    	$this->loadModel($classifiedModel);
+    	$association = $this->$classifiedModel->find('first',
+	    		array(
+		    		'conditions'=>array(
+		    			"{$classifiedModel}.id"=>$modelId
+	    			),
+	    			'contain'=>array()
+    			)
+    		);
+
+		if(empty($association)){
+    		throw new notFoundException(__('The requested association does not exist!'));
+    	}
+
+    	return $classifiedModel;
+    }
+
+	/**
+	 * Throws a 404 Error if a requested record does not exist
+	 * A good use case making sure a record exists prior to editing or creating a view.
+	 * @param string $model
+	 * @param string $modelId
+	 * @param string column
+	 * @throws notFoundException
+	 * @return string
+	 */
+	protected function _validRecord($model, $modelId, $column = 'id'){
+
+    	$classifiedModel = Inflector::classify($model);
+
+    	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
+    	$this->loadModel($classifiedModel);
+    	$association = $this->$classifiedModel->find('first',
+	    		array(
+		    		'conditions'=>array(
+		    			"{$classifiedModel}.{$column}"=>$modelId
+	    			),
+	    			'contain'=>array()
+    			)
+    		);
+
+		if(empty($association)){
+    		throw new notFoundException(__('The requested record does not exist!'));
+    	}
+
+    	return $classifiedModel;
+    }
+
     /**
      * Initialize doc upload settings upon request for given model
      *
@@ -211,7 +272,7 @@ class AppController extends Controller
             'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
             'application/vnd.openxmlformats-officedocument.word',
             'application/vnd.ms-word.document.12',
-            
+
             //PDF
             'application/acrobat',
             'application/nappdf',
