@@ -150,36 +150,6 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     *
-     * @access public
-     * @param string $modelId
-     */
-    public function view($modelId){
-
-    	//If we found the target blog, retrive an paginate its' posts
-    	$addresses = $this->Address->find('first',
-    		array(
-    			'conditions' => array(
-    				'Address.model_id'=>$modelId
-    			),
-    			'fields'=>array(
-    				'Address.id',
-    				'Address.line1',
-    				'Address.line2',
-    				'Address.city',
-    				'Address.state',
-   					'Address.zip',
-   					'Address.created',
-   					'Address.modified'
-    			)
-    		)
-    	);
-
-    	$this->set('addresses', $addresses);
-    	$this->set('title_for_layout', __('Your Addresses'));
-    }
-
-    /**
      * Removes a address
      *
      * @access public
