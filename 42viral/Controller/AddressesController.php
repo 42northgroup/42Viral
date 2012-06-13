@@ -60,7 +60,6 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public function create($model, $modelId){
-
     	$classifiedModel = Inflector::classify($model);
 
     	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
@@ -90,6 +89,7 @@ App::uses('AppController', 'Controller');
         $this->set('model', $classifiedModel);
         $this->set('modelId', $modelId);
         $this->set('states', $this->Address->listStates('US'));
+        $this->set('addressTypes', $this->Address->listAddressTypes());
         $this->set('title_for_layout', __('Add a Social Network to Your Profile'));
     }
 

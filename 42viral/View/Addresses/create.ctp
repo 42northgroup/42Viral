@@ -29,6 +29,8 @@
             echo $this->Form->input('model_id',
                     array('value'=>$this->Session->read('Auth.User.id'), 'type'=>'hidden'));
 
+            echo $this->Form->input('label');
+            echo $this->Form->input('addressTypes', array('empty'=>true));
             echo $this->Form->input('line1');
             echo $this->Form->input('line2');
             echo $this->Form->input('city');

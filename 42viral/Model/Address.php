@@ -17,6 +17,7 @@
 App::uses('AppModel', 'Model');
 /**
  * Mangages the address objects
+ * @author Jason Snider <jason.snider@42northgroup.com>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @package 42viral\Address
  */
@@ -61,7 +62,8 @@ class Address extends AppModel
     );
 
     /**
-     *
+     * Provides a list of countries and their state level units.
+     * This can be further expanded to include county level units.
      * @var unknown_type
      */
     private $__countries = array(
@@ -237,6 +239,25 @@ class Address extends AppModel
     );
 
     /**
+     * Defines various address types
+     * @access private
+     * @var array
+     */
+    private $__addressTypes = array(
+    	'home'=>array(
+    		'label'=>'Home',
+    		'category' => '',
+    		'tags' => array(),
+    		//'_inactive'=>true
+    	),
+    	'buisness'=>array(
+    		'label'=>'Buisness',
+    		'category' => '',
+    		'tags' => array(),
+    	),
+    );
+
+    /**
      * Returns a key to value list of countries
      * @access public
      * @return array
@@ -265,6 +286,41 @@ class Address extends AppModel
     	}
 
     	return $states;
+    }
+
+    /**
+     * Returns a key to value list of all county level units falling with in a given country and state_level unit
+     * @access public
+     * @return array
+     */
+    public function listCounties($country, $state){
+
+    	$counties = array();
+
+    	foreach($this->__countries[$country]['state_level'][$state]['county_level']['counties'] as $key => $values){
+    		$counties[$key] = $values['label'];
+    	}
+
+    	return $states;
+    }
+
+    /**
+     * Returns a key to value list of all county level units falling with in a given country and state_level unit
+     * @access public
+     * @param string $country The country to which you are looking for a county lelvel unit
+     * @param string $state The level unit of the country to which you are looking for country level units
+     * @return array
+     */
+    public function listAddressTypes($tags = null, $catgory = null, $categories = false){
+    	$addressTypes = array();
+
+    	foreach($this->__addressTypes as $key => $values){
+    		if(empty($values['_inactive'])){
+    			$addressTypes[$key] = $values['label'];
+    		}
+    	}
+
+    	return $addressTypes;
     }
 
     /**
