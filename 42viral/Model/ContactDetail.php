@@ -22,7 +22,7 @@ App::uses('AppModel', 'Model');
  *
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
-class PersonDetail extends AppModel
+class  extends AppModel
 {
     /**
      * Model name
@@ -30,14 +30,14 @@ class PersonDetail extends AppModel
      * @var string
      * @access public
      */
-    public $name = 'PersonDetail';
+    public $name = 'ContactDetail';
 
     /**
      * Table name
      * @var string
      * @access public
      */
-    public $useTable = 'person_details';
+    public $useTable = 'contact_details';
 
     /**
      * Behaviors
@@ -145,31 +145,36 @@ class PersonDetail extends AppModel
 
     /**
      * Fetches a person's phones and emails and combines them in 1 array which is then returned
-     *
-     * @param string $personId
+     * @access public
+     * @param string $model
+     * @param string $modelId
      * @return array
      */
-    public function allDetails($personId)
+    public function allDetails($model, $modelId)
     {
-        $person_emails = $this->find('all', array(
+    	$details = array();
+
+        $emails = $this->find('all', array(
             'conditions' => array(
-                'PersonDetail.person_id' => $personId,
-                'PersonDetail.type' => 'email'
+            	'ContactDetail.model' => $model,
+                'ContactDetail.model_id' => $modelId,
+                'ContactDetail.type' => 'email'
             ),
             'contain' => array()
         ));
 
-        $person_phones = $this->find('all', array(
+        $phones = $this->find('all', array(
             'conditions' => array(
-                'PersonDetail.person_id' => $personId,
-                'PersonDetail.type' => 'phone'
+            	'ContactDetail.model' => $model,
+                'ContactDetail.model_id' => $modelId,
+                'ContactDetail.type' => 'phone'
             ),
             'contain' => array()
         ));
 
-        $person_details['emails'] = $person_emails;
-        $person_details['phones'] = $person_phones;
+        $details['emails'] = $person_emails;
+        $details['phones'] = $person_phones;
 
-        return $person_details;
+        return $details;
     }
 }
