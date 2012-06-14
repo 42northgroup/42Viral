@@ -119,7 +119,7 @@ App::uses('AppController', 'Controller');
      */
     public function index($model, $modelId){
 
-    	$classifiedModel = Inflector::classify($model);
+    	$classifiedModel = $this->_validAssociation($model, $modelId);
 
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(

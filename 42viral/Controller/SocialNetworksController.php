@@ -58,8 +58,13 @@ App::uses('AppController', 'Controller');
     /**
      * Associates a social network profile to a 42Viral profile
      * @access public
+     * @param string $model
+     * @param string $modelId
      */
-    public function create(){
+    public function create($model, $modelId){
+
+        $classifiedModel = $this->_validAssociation($model, $modelId);
+
         if(!empty($this->data)){
 
             if($this->SocialNetwork->save($this->data)){
@@ -69,6 +74,8 @@ App::uses('AppController', 'Controller');
             }
         }
 
+        $this->set('model', $classifiedModel);
+        $this->set('modelId', $modelId);
         $this->set('networks', $this->SocialNetwork->listSocialNetworks());
         $this->set('title_for_layout', __('Add a Social Network to Your Profile'));
     }
@@ -78,6 +85,9 @@ App::uses('AppController', 'Controller');
      * @param string $socialNetworkId
      */
     public function edit($socialNetworkId){
+
+        $this->_validRecord('SocialNetwork', $addressId);
+
         if(!empty($this->data)){
 
             if($this->SocialNetwork->save($this->data)){
@@ -101,14 +111,18 @@ App::uses('AppController', 'Controller');
     /**
      *
      * @access public
-     * @param string $profileId
+     * @param string $model
+     * @param string $modelId
      */
-    public function index($profileId){
+    public function index($model, $modelId){
+
+        $classifiedModel = $this->_validAssociation($model, $modelId);
 
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
             'conditions' => array(
-                'SocialNetwork.profile_id'=>$profileId
+                'SocialNetwork.model'=>$modelId,
+                'SocialNetwork.model_id'=>$modelId
             ),
             'fields'=>array(
                 'SocialNetwork.id',
