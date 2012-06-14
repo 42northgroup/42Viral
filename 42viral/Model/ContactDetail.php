@@ -22,7 +22,7 @@ App::uses('AppModel', 'Model');
  *
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
-class  extends AppModel
+class  ContactDetail extends AppModel
 {
     /**
      * Model name
@@ -105,12 +105,12 @@ class  extends AppModel
     public $validate = array(
         'type' => array(
             'rule'    => array('notEmpty'),
-            'message' => 'Type field can not be empty'
+            'message' => 'You must choose a type'
         ),
         'value' => array(
             'validateEntry' => array(
                 'rule'    => array('validateEntry'),
-                'message' => 'Information entered in the Enrty filed does not correspond to the Type'
+                'message' => 'Invalid format'
             ),
 
             'notEmpty' => array(
@@ -118,9 +118,9 @@ class  extends AppModel
                 'message' => 'Entry field can not be empty'
             )
         ),
-        'category' => array(
+        'label' => array(
             'rule'    => array('notEmpty'),
-            'message' => 'Category field can not be empty'
+            'message' => 'You must label the detail'
         )
     );
 

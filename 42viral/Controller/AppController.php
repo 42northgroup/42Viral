@@ -183,7 +183,34 @@ class AppController extends Controller
     }
 
     /**
-     * Throws a 403 Error if a association record does not exist.
+     * Throws an 403 error if you try to modify data that does not belong to you.
+     * Belonging to you is defined as an asset with a direct association to your Person or Profile record
+     *
+     * @param string $againstId
+     * @param string $model
+     * @param string $modelId
+     * @throws ForbiddenException
+     * @return string
+     */
+    protected function _grantAccess($againstId, $model, $modelId){
+    	$classifiedModel = Inflector::classify($model);
+		$deny = true;
+
+		if(in_array($classifiedModel, array('Person', 'Profile'))){
+			if($againstId == $modelId){
+				$deny = false;
+			}
+		}
+
+		if($deny){
+			throw new ForbiddenException(__('The data you are trying to modify does not belong to you!'));
+		}
+
+		return $classifiedModel;
+    }
+
+    /**
+     * Throws a 400 Error if a association record does not exist.
      * A common use case is assuring a parent record exists to prevent creation of orphaned records.
      * 	Example - Creating an address against a Person would require matching Person.id record prior to creation
      * @param string $model
@@ -208,7 +235,7 @@ class AppController extends Controller
     		);
 
 		if(empty($association)){
-    		throw new notFoundException(__('The requested association does not exist!'));
+    		throw new BadRequestException(__('The requested association does not exist!'));
     	}
 
     	return $classifiedModel;
@@ -240,7 +267,7 @@ class AppController extends Controller
     		);
 
 		if(empty($association)){
-    		throw new notFoundException(__('The requested record does not exist!'));
+    		throw new NotFoundException(__('The requested record does not exist!'));
     	}
 
     	return $classifiedModel;
