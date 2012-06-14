@@ -185,7 +185,7 @@ class AppController extends Controller
     /**
      * Throws a 403 Error if a association record does not exist.
      * A common use case is assuring a parent record exists to prevent creation of orphaned records.
-     * 	EX. Creating an address against a Person would require matchin Person.id record prior to creation
+     * 	Example - Creating an address against a Person would require matching Person.id record prior to creation
      * @param string $model
      * @param string $modelId
      * @throws forbiddenException
@@ -202,7 +202,8 @@ class AppController extends Controller
 		    		'conditions'=>array(
 		    			"{$classifiedModel}.id"=>$modelId
 	    			),
-	    			'contain'=>array()
+	    			'contain'=>array(),
+	    			'fields'=>array("{$classifiedModel}.id")
     			)
     		);
 
@@ -233,7 +234,8 @@ class AppController extends Controller
 		    		'conditions'=>array(
 		    			"{$classifiedModel}.{$column}"=>$modelId
 	    			),
-	    			'contain'=>array()
+	    			'contain'=>array(),
+	    			'fields'=>array("{$classifiedModel}.{$column}")
     			)
     		);
 

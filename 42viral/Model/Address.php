@@ -53,12 +53,19 @@ class Address extends AppModel
      * @var array
      */
     public $validate = array(
-        /*
-        'zip' => array(
+    	'label' => array(
+    		'rule'    => 'notEmpty',
+    		'message' => 'You must label the address'
+    	),
+    	'type' => array(
+    		'rule'    => 'notEmpty',
+    		'message' => 'You choose an address type'
+    	),
+    	'zip' => array(
             'rule'    => array('postal', null, 'us'),
-            'message' => 'Invalid Zip Code'
-        )
-        */
+            'message' => 'Invalid Zip Code',
+    		'allowEmpty'=>true
+    	)
     );
 
     /**

@@ -19,16 +19,21 @@
     <div class="two-thirds column alpha">
         <?php
 
-            echo $this->Form->create('SocialNetwork', 
+            echo $this->Form->create('Address',
                         array(
-                            'url'=>$this->here, 
+                            'url'=>$this->here,
                             'class'=>'responsive'
                         )
                     );
 
             echo $this->Form->input('id');
-            echo $this->Form->input('network', array('empty'=>true));
-            echo $this->Form->input('profile');
+            echo $this->Form->input('label');
+            echo $this->Form->input('type', array('options'=>$addressTypes, 'empty'=>true));
+            echo $this->Form->input('line1');
+            echo $this->Form->input('line2');
+            echo $this->Form->input('city');
+            echo $this->Form->input('state', array('empty'=>true));
+            echo $this->Form->input('zip');
 
             echo $this->Form->submit();
 
@@ -37,6 +42,6 @@
         ?>
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'social_network')); ?>            
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'address')); ?>
     </div>
 </div>

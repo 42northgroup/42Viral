@@ -76,7 +76,7 @@ switch($section){
 
     case 'address':
 
-    	$socialNetworkId = isset($this->data['SAddress']['id'])?$this->data['Address']['id']:null;
+    	$addressId = isset($this->data['Address']['id'])?$this->data['Address']['id']:null;
     	$userId = $this->Session->read('Auth.User.id');
 
     	$label = 'Address';
@@ -84,21 +84,21 @@ switch($section){
     		'Items'=>array(
     			array(
     				'text' => __('Your Addresses'),
-    				'url' => "/addresses/index/person/{$userId}",
+    				'url' => "/addresses/index/person/{$addressId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions_exclude'=>array('index')
     			),
     			array(
     				'text' => __('Create an Address'),
-    				'url' => "/addresses/create/person/{$userId}",
+    				'url' => "/addresses/create/person/{$userId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions_exclude'=>array('create')
     				),
     			array(
-    				'text' => __('Delete'),
-    				'url' => "/aaddresses/delete/{$userId}",
+    				'text' => __('Delete this Address'),
+    				'url' => "/addresses/delete/{$addressId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions'=>array('view', 'edit')
@@ -117,14 +117,14 @@ switch($section){
             'Items'=>array(
                 array(
                     'text' => __('Your Social Networks'),
-                    'url' => "/social_networks/index/{$userId}",
+                    'url' => "/social_networks/index/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('index')
                 ),
                 array(
                     'text' => __('Add a Social Network'),
-                    'url' => "/social_networks/create/{$userId}",
+                    'url' => "/social_networks/create/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('add')
@@ -132,7 +132,7 @@ switch($section){
                 ),
                 array(
                     'text' => __('Edit this Social Network'),
-                    'url' => "/social_networks/edit/{$socialNetworkId}",
+                    'url' => "/social_networks/edit/{$socialNetworkId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions'=>array()
@@ -140,7 +140,7 @@ switch($section){
                 ),
                 array(
                     'text' => __('Delete this Social Network'),
-                    'url' => "/social_networks/delete/{$socialNetworkId}",
+                    'url' => "/social_networks/delete/{$socialNetworkId}/",
                     'options'=>array(),
                     'confirm'=>Configure::read('System.purge_warning'),
                     'actions'=>array('edit')

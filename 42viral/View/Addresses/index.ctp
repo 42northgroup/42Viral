@@ -21,8 +21,6 @@
                     <th><?php echo $this->Paginator->sort('city');?></th>
                     <th><?php echo $this->Paginator->sort('zip');?></th>
                     <th><?php echo $this->Paginator->sort('state');?></th>
-                    <th><?php echo $this->Paginator->sort('created');?></th>
-                    <th><?php echo $this->Paginator->sort('modified');?></th>
                     <th class="actions"><?php echo __d('tags', 'Actions');?></th>
                 </tr>
             </thead>
@@ -34,11 +32,9 @@
                     <td><?php echo $address['Address']['city']; ?></td>
                     <td><?php echo $address['Address']['state']; ?></td>
                     <td><?php echo $address['Address']['zip']; ?></td>
-                    <td><?php echo $address['Address']['created']; ?></td>
-                    <td><?php echo $address['Address']['modified']; ?></td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Edit'),
-                                "/social_networks/edit/{$address['Address']['id']}"); ?>
+                                "/addresses/edit/{$address['Address']['id']}"); ?>
                     </td>
                 </tr>
             <?php endforeach; ?>

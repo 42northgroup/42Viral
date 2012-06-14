@@ -58,29 +58,18 @@ App::uses('AppController', 'Controller');
     /**
      * Associates a address profile to a 42Viral profile
      * @access public
+     * @param string $model
+     * @param string $modelId
      */
     public function create($model, $modelId){
-    	$classifiedModel = Inflector::classify($model);
 
-    	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
-    	$this->loadModel($classifiedModel);
-    	$association = $this->$classifiedModel->find('first',
-    		array(
-    			'conditions'=>array(
-    				"{$classifiedModel}.id"=>$modelId
-    			),
-    			'contain'=>array()
-    			)
-    		);
-
-    	if(empty($association)){
-			throw new forbiddenException('The requested association does not exist!');
-    	}
+    	$classifiedModel = $this->_validAssociation($model, $modelId);
 
         if(!empty($this->data)){
-
+        	$this->Address->create();
             if($this->Address->save($this->data)){
                 $this->Session->setFlash(__('A new address has been added to your profile'), 'success');
+                $this->redirect("/addresses/edit/{$this->Address->id}/");
             }else{
                 $this->Session->setFlash(__('The address could not be added'), 'error');
             }
@@ -94,10 +83,13 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     *
+     * @access public
      * @param string $addressId
      */
     public function edit($addressId){
+
+    	$this->_validRecord('Address', $addressId);
+
         if(!empty($this->data)){
 
             if($this->Address->save($this->data)){
@@ -114,30 +106,36 @@ App::uses('AppController', 'Controller');
                     )
                 );
 
+        $this->set('states', $this->Address->listStates('US'));
+        $this->set('addressTypes', $this->Address->listAddressTypes());
         $this->set('title_for_layout', __('Update an Address'));
     }
 
     /**
      *
      * @access public
-     * @param string $personId
+     * @param string $model
+     * @param string $modelId
      */
-    public function index($modelId){
+    public function index($model, $modelId){
+
+    	$classifiedModel = Inflector::classify($model);
 
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
             'conditions' => array(
+            	'Address.model'=>$model,
                 'Address.model_id'=>$modelId
             ),
             'fields'=>array(
                 'Address.id',
+            	'Address.label',
+            	'Address.type',
                 'Address.line1',
                 'Address.line2',
                 'Address.city',
                 'Address.state',
-                'Address.zip',
-                'Address.created',
-                'Address.modified'
+                'Address.zip'
             ),
             'limit' => 10,
             'order'=>'Address.id ASC'
