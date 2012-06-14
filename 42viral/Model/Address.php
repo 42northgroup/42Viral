@@ -312,7 +312,7 @@ class Address extends AppModel
     }
 
     /**
-     * Returns a key to value list of all county level units falling with in a given country and state_level unit
+     * Returns a key to value list of address types. This list can be flat, categorized or a partial list based on tags.
      * @access public
      * @param string $country The country to which you are looking for a county lelvel unit
      * @param string $state The level unit of the country to which you are looking for country level units
