@@ -1,44 +1,44 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @package       42viral\app
  */
 
 App::uses('AppModel', 'Model');
-/** 
+/**
  * Manages presons' details table
  * @package app
  * @subpackage app.core
- * 
+ *
  * @author Lyubomir R Dimov <lrdimov@yahoo.com>
  */
 class PersonDetail extends AppModel
 {
     /**
      * Model name
-     * 
+     *
      * @var string
      * @access public
      */
-    public $name = 'PersonDetail';    
-    
+    public $name = 'PersonDetail';
+
     /**
      * Table name
      * @var string
      * @access public
      */
     public $useTable = 'person_details';
-    
+
     /**
      * Behaviors
      * @var array
@@ -46,17 +46,44 @@ class PersonDetail extends AppModel
     public $actsAs = array(
         'Log'
     );
-    
+
     /**
      * Contact data types
      * @var array
      * @access public
      */
-    public $types = array(
-        'email' => 'Email',
-        'phone' => 'Phone'
+    private $__types = array(
+        'email' => array(
+        	'label'=>'Email',
+        	'category'=>'',
+        	'tags'=>array(),
+        ),
+        'phone' => array(
+        	'label'=>'Phone',
+        	'category'=>'',
+        	'tags'=>array(),
+        ),
     );
-    
+
+    /**
+     * Returns a key to value list of types. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param string $country The country to which you are looking for a county lelvel unit
+     * @param string $state The level unit of the country to which you are looking for country level units
+     * @return array
+     */
+    public function listTypes($tags = null, $catgory = null, $categories = false){
+    	$types = array();
+
+    	foreach($this->__types as $key => $values){
+    		if(empty($values['_inactive'])){
+    			$types[$key] = $values['label'];
+    		}
+    	}
+
+    	return $types;
+    }
+
     /**
      * belongsTo
      * @var array
@@ -69,7 +96,7 @@ class PersonDetail extends AppModel
             'dependent' => false
         )
     );
-    
+
     /**
      * Field to validate on save
      * @var array
@@ -85,7 +112,7 @@ class PersonDetail extends AppModel
                 'rule'    => array('validateEntry'),
                 'message' => 'Information entered in the Enrty filed does not correspond to the Type'
             ),
-            
+
             'notEmpty' => array(
                 'rule' => 'notEmpty',
                 'message' => 'Entry field can not be empty'
@@ -96,7 +123,7 @@ class PersonDetail extends AppModel
             'message' => 'Category field can not be empty'
         )
     );
-    
+
     /**
      * Returns true if the user has submitted the same password twice.
      * @return boolean
@@ -106,16 +133,16 @@ class PersonDetail extends AppModel
     public function validateEntry()
     {
         $valid = false;
-        
+
         if($this->data[$this->alias]['type'] == 'email') {
-            
+
             return Validation::email($this->data[$this->alias]['value']);
         }elseif($this->data[$this->alias]['type'] == 'phone'){
-            
+
             return Validation::phone($this->data[$this->alias]['value']);
         }
     }
-    
+
     /**
      * Fetches a person's phones and emails and combines them in 1 array which is then returned
      *
@@ -131,7 +158,7 @@ class PersonDetail extends AppModel
             ),
             'contain' => array()
         ));
-        
+
         $person_phones = $this->find('all', array(
             'conditions' => array(
                 'PersonDetail.person_id' => $personId,
@@ -139,10 +166,10 @@ class PersonDetail extends AppModel
             ),
             'contain' => array()
         ));
-        
+
         $person_details['emails'] = $person_emails;
         $person_details['phones'] = $person_phones;
-        
+
         return $person_details;
     }
 }
