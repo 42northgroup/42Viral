@@ -79,7 +79,7 @@ App::uses('AppController', 'Controller');
         $this->set('modelId', $modelId);
         $this->set('states', $this->Address->listStates('US'));
         $this->set('addressTypes', $this->Address->listAddressTypes());
-        $this->set('title_for_layout', __('Add a Social Network to Your Profile'));
+        $this->set('title_for_layout', __('Add an Address to Your Profile'));
     }
 
     /**
