@@ -129,7 +129,7 @@ App::uses('AppController', 'Controller');
                 'SocialNetwork.created',
                 'SocialNetwork.modified',
                 'SocialNetwork.network',
-                'SocialNetwork.profile'
+                'SocialNetwork.identifier'
             ),
             'limit' => 10,
             'order'=>'SocialNetwork.network ASC'

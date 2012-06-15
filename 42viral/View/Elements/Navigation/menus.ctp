@@ -122,14 +122,14 @@ switch($section){
             'Items'=>array(
                 array(
                     'text' => __('Your Social Networks'),
-                    'url' => "/social_networks/index/{$userId}/",
+                    'url' => "/social_networks/index/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('index')
                 ),
                 array(
                     'text' => __('Add a Social Network'),
-                    'url' => "/social_networks/create/{$userId}/",
+                    'url' => "/social_networks/create/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('add')
