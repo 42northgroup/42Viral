@@ -1,7 +1,7 @@
 <?php
 /**
  * Manages the person object with user contraints
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -36,15 +36,15 @@ class User extends Person
 
     /**
      * Predefined data sets
-     * @access public 
+     * @access public
      * @var array
      */
     public $dataSet = array(
-        
+
         'full_profile' => array(
             'contain' =>    array(
                 'Address'=>array(),
-                'PersonDetail'=>array(),
+                'ContactDetail'=>array(),
                 'Profile'=>array('SocialNetwork'),
                 'Upload'=>array(),
                 'UserSetting'=>array()
@@ -59,8 +59,8 @@ class User extends Person
                 'Profile'=>array()
             ),
             'conditions' => array()
-        ), 
-        
+        ),
+
         'session_data' => array(
             'contain' =>    array(
                 'Profile'=>array(),
@@ -68,7 +68,7 @@ class User extends Person
             ),
             'conditions' => array()
         )
-    ); 
+    );
 
     /**
      * Defines has one relationships for users
@@ -87,7 +87,7 @@ class User extends Person
             'dependent' => true
         )
     );
-    
+
     /**
      * Defines a user's model validation
      * @access public
@@ -105,7 +105,7 @@ class User extends Person
                 'message' =>"This username is already in use",
                 'last' => true
             ),
-            
+
             //Apply rules to the username's format
             'login' => array(
                 //May only contain lowercase letters, integers, hyphens and dashes and must be atleast 1 character
@@ -185,39 +185,39 @@ class User extends Person
             )
         ),
     );
-    
+
     /**
      * Applies PCI DSS settings to incomming user data prior to validation
      * @access public
      * @return boolean
      */
     public function beforeValidate()
-    {                                
+    {
         if(Configure::read('Password.alphanumeric') == 0){
             unset($this->validate['password']['forceAlphaNumeric']);
         }
-        
+
         if(Configure::read('Password.specialChars') == 0){
             unset($this->validate['password']['forceSpecialChars']);
         }
-        
+
         if(Configure::read('Password.difference') == 0){
             unset($this->validate['password']['checkPreviousPasswords']);
         }else{
-        
-            $this->validate['password']['checkPreviousPasswords']['message'] = 
+
+            $this->validate['password']['checkPreviousPasswords']['message'] =
                     "Your password needs to be different from the last "
                     .Configure::read('Password.difference')." passwords you used";
         }
-        
+
         if(Configure::read('Password.minLength') == 0){
             unset($this->validate['password']['minimalLength']);
         }else{
-            $this->validate['password']['minimalLength']['message'] = 
+            $this->validate['password']['minimalLength']['message'] =
                     "Password must be at least  "
                     .Configure::read('Password.minLength')." characters long";
         }
-        
+
         return true;
     }
 
@@ -255,53 +255,53 @@ class User extends Person
         }
         return $valid;
     }
-    
+
     /**
      * Returns true if the user has has entered both numeric and alphabetical characters.
      * @access public
      * @return boolean
      */
     public function forceAlphaNumeric()
-    {   
+    {
         $valid = false;
-        if (!ctype_alpha($this->data[$this->alias]['temp_password']) 
+        if (!ctype_alpha($this->data[$this->alias]['temp_password'])
                 && !ctype_digit($this->data[$this->alias]['temp_password'])){
             $valid = true;
         }
-        
+
         return $valid;
     }
-    
+
     /**
      * Returns true if the user has has entered special characters.
      * @return boolean
      * @access public
      */
     public function forceSpecialChars()
-    {   
+    {
         $valid = false;
         if (preg_match('/[\'^£$%&*()}{@#~?><>,|=_+¬-]/',$this->data[$this->alias]['temp_password'])){
             $valid = true;
         }
-        
+
         return $valid;
     }
-    
+
     /**
      * Check if passwords is at least 7 characters long
      * @access public
      * @return boolean
      */
     public function minimalLength()
-    {        
+    {
         $valid = false;
         if (strlen($this->data[$this->alias]['temp_password']) > Configure::read('Password.minLength')){
             $valid = true;
         }
-        
+
         return $valid;
     }
-    
+
     /**
      * Check if the password is different than the previous passwords
      * @access public
@@ -311,25 +311,25 @@ class User extends Person
     {
         $valid = false;
         $match = 0;
-        
+
         if(!isset ($this->data[$this->alias]['OldPassword'])){
             $valid = true;
         }else{
             foreach ($this->data[$this->alias]['OldPassword'] as $oldPassword){
-                
-                $password = Sec::hashPassword($this->data[$this->alias]['temp_password'], 
+
+                $password = Sec::hashPassword($this->data[$this->alias]['temp_password'],
                                                                                 $oldPassword['OldPassword']['salt']);
-                
+
                 if($password == $oldPassword['OldPassword']['password']){
                     $match = 1;
                 }
             }
-            
+
             if($match == 0){
                 $valid = true;
             }
         }
-        
+
         return $valid;
     }
 
@@ -368,17 +368,17 @@ class User extends Person
         $data['salt'] = $salt;
 
         $data['temp_password'] = $data['password'];
-        
-        //Hash the password and its verifcation then load it into the data array        
+
+        //Hash the password and its verifcation then load it into the data array
         $data['password'] = Sec::hashPassword($data['password'], $salt);
         $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
-                
+
         //set expiration date for the password
         $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
-        
+
         //set number of invitations alotted per user
         $data['invitations_available'] = Configure::read('Beta.invitations');
-        
+
         //Try to save the new user record
         if($this->save($data)){
             $userProfile = array();
@@ -391,7 +391,7 @@ class User extends Person
         }
 
     }
-    
+
     /**
      * A generalized method for performing a password change
      * @access public
@@ -407,32 +407,32 @@ class User extends Person
 
         //Load salt into the data array
         $data['salt'] = $salt;
-        
-        
+
+
         $data['temp_password'] = $data['password'];
-                
+
         //Hash the password and its verifcation then load it into the data array
         $data['password'] = Sec::hashPassword($data['password'], $salt);
-        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);        
-        
+        $data['verify_password'] = Sec::hashPassword($data['verify_password'], $salt);
+
         //set expiration date for the password
         $data['password_expires'] = date("Y-m-d H:i:s", strtotime("+".Configure::read('Password.expiration')." Days"));
 
         //Clear out any password reset request tokens along with a successfull password reset
         $data['password_reset_token'] = null;
         $data['password_reset_token_expiry'] = null;
-                
+
         //Try to save the new user record
         if($this->save($data)){
             $_SESSION['Auth']['User']['password_expires'] = $data['password_expires'];
-            
+
             return array('password' => $data['password'], 'salt' => $data['salt']);
         }else{
             return array();
         }
     }
 
-    
+
     /**
      * Finds a user by id, username or email and returns the requsted data set
      * @access public
@@ -452,12 +452,12 @@ class User extends Person
         );
 
         $finder = array_merge($this->dataSet[$with], $theToken);
-        
+
         $user = $this->find('first', $finder);
 
         return $user;
     }
-    
+
     /**
      * An alias for getUserWith
      * @access public
@@ -467,9 +467,9 @@ class User extends Person
     public function fetchUsersWith($with)
     {
         $finder = $this->dataSet[$with];
-        
+
         $users = $this->find('all', $finder);
-        
+
         return $users;
     }
 

@@ -55,6 +55,30 @@ App::uses('AppController', 'Controller');
         $this->auth('*');
     }
 
+    public function index($model, $modelId){
+        $classifiedModel = $this->_validAssociation($model, $modelId);
+        //If we found the target blog, retrive an paginate its' posts
+        $this->paginate = array(
+            'conditions' => array(
+                'ContactDetail.model'=>$model,
+                'ContactDetail.model_id'=>$modelId
+            ),
+            'fields'=>array(
+                'ContactDetail.id',
+                'ContactDetail.label',
+                'ContactDetail.type',
+                'ContactDetail.value'
+            ),
+            'limit' => 10,
+            'order'=>array('ContactDetail.type', 'ContactDetail.label', 'ContactDetail.value')
+        );
+
+        $contactDetails = $this->paginate('ContactDetail');
+
+        $this->set('contactDetails', $contactDetails);
+        $this->set('title_for_layout', __('Your Contact Details'));
+    }
+
     /**
      * Associates a address profile to a 42Viral profile
      * @access public
@@ -81,4 +105,58 @@ App::uses('AppController', 'Controller');
     	$this->set('title_for_layout', __('Add Contact Details to Your Profile'));
     }
 
+    /**
+     * @access public
+     * @param string $contactDetail
+     */
+    public function edit($contactDetailId){
+
+        $this->_validRecord('ContactDetail', $contactDetailId);
+
+        if(!empty($this->data)){
+
+            if($this->ContactDetail->save($this->data)){
+                $this->Session->setFlash(__('A new contact detail has been updated to your profile'), 'success');
+            }else{
+                $this->Session->setFlash(__('The contact detail could not be updated'), 'error');
+            }
+        }
+
+        $this->data = $this->ContactDetail->find('first',
+            array(
+                'conditions'=>array('ContactDetail.id'=>$contactDetailId),
+                'contain'=>array(),
+                'fields'=>array(
+                    'ContactDetail.id',
+                    'ContactDetail.label',
+                    'ContactDetail.value'
+                )
+            )
+        );
+
+        $this->set('types', $this->ContactDetail->listTypes());
+        $this->set('title_for_layout', __('Update a Contact Detail'));
+    }
+
+    /**
+     * Removes a contact detail
+     *
+     * @access public
+     * @param $id ID of the contact detail which we want ot delete
+     * @param string $model Probably Person - used for an ownership integrity check
+     * @param string $modelId - Probably a Person.id  - used for an ownership integrity check
+     */
+    public function delete($id, $model, $modelId){
+
+        $this->_validAssociation($model, $modelId);
+
+        if($this->ContactDetail->delete($id)){
+            $this->Session->setFlash(__('Your contact detail has been removed'), 'success');
+            $this->redirect("/contact_details/index/person/{$modelId}/");
+        }else{
+            $this->Session->setFlash(__('There was a problem removing the contact detail'), 'error');
+            $this->redirect($this->referer());
+        }
+
+    }
 }

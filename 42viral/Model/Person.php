@@ -1,7 +1,7 @@
 <?php
 /**
  * The parent model for all person related data
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -35,7 +35,7 @@ class Person extends AppModel
      * @var string
      */
     public $useTable = 'people';
-        
+
     /**
      * Predefined data sets
      * @access public
@@ -44,7 +44,7 @@ class Person extends AppModel
     public $dataSet = array(
         'blog'=>array(
             'contain'=>array(
-                'Profile'=>array(), 
+                'Profile'=>array(),
                 'Blog'=>array(
                     'conditions'=>array(
                         'Blog.object_type'=>'blog',
@@ -67,8 +67,8 @@ class Person extends AppModel
                 'Upload'=>array()
             ),
             'conditions' => array()
-        )        
-    ); 
+        )
+    );
 
     /**
      * Specifies the behaviors invoked by the conversation model
@@ -118,17 +118,17 @@ class Person extends AppModel
             'conditions' => array('Address.model' => 'Person'),
             'dependent' => true
         ),
-        
+
         'Blog' => array(
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),     
+        ),
         'Content' => array(
             'className' => 'Content',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),   
+        ),
         'Conversation' => array(
             'className' => 'Conversation',
             'foreignKey' => 'created_person_id',
@@ -140,30 +140,31 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
+
         'Image' => array(
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),       
+        ),
         'Page' => array(
             'className' => 'Page',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
-        'PersonDetail' => array(
-            'className' => 'PersonDetail',
-            'foreignKey' => 'person_id',
+
+        'ContactDetail' => array(
+            'className' => 'ContactDetail',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
             'dependent' => true
         ),
-        
+
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
+
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',
@@ -200,9 +201,9 @@ class Person extends AppModel
         );
 
     }
-      
+
    /**
-    * Returns a person's profile data with the specified associated data. 
+    * Returns a person's profile data with the specified associated data.
     * @access public
     * @param string $token The id, username or email address for retreving records
     * @param string|array $with What associated data do we want?
@@ -220,9 +221,9 @@ class Person extends AppModel
         );
 
         $finder = array_merge($this->dataSet[$with], $theToken);
-        
+
         $person = $this->find('first', $finder);
 
-        return $person;        
+        return $person;
     }
 }

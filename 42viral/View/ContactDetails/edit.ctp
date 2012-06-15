@@ -25,9 +25,7 @@
                             'class'=>'responsive'
                         )
                     );
-            echo $this->Form->input('model', array('value'=>$model, 'type'=>'hidden'));
-            echo $this->Form->input('model_id', array('value'=>$modelId, 'type'=>'hidden'));
-            echo $this->Form->input('type', array('empty'=>true));
+            echo $this->Form->input('id');
             echo $this->Form->input('label');
             echo $this->Form->input('value');
 

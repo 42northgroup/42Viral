@@ -81,7 +81,7 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     *
+     * @access public
      * @param string $socialNetworkId
      */
     public function edit($socialNetworkId){

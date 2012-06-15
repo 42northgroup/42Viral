@@ -45,7 +45,6 @@ switch($section){
     case 'manage_profile':
 
         $username = $this->Session->read('Auth.User.username');
-        $profileId = $this->Session->read('Auth.User.Profile.id');
         $personId = $this->Session->read('Auth.User.id');
 
         $label = 'Manage Your Profile';
@@ -59,13 +58,19 @@ switch($section){
                 ),
                 array(
                     'text' => __('Your Social Networks'),
-                    'url' => "/social_networks/index/{$profileId}/",
+                    'url' => "/social_networks/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
                 array(
                     'text' => __('Your Addresses'),
-                    'url' => "/addresses/index/{$personId}/",
+                    'url' => "/addresses/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Your Contact Details'),
+                    'url' => "/contact_details/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
@@ -149,7 +154,47 @@ switch($section){
         );
 
     break;
+    case 'contact_detail':
 
+        $contactDetailId = isset($this->data['ContactDetail']['id'])?$this->data['ContactDetail']['id']:null;
+        $userId = $this->Session->read('Auth.User.id');
+
+        $label = 'Contact Details';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Your Contact Details'),
+                    'url' => "/contact_details/index/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                ),
+                array(
+                    'text' => __('Add a Contact Detail'),
+                    'url' => "/contact_details/create/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('add')
+                ),
+                array(
+                    'text' => __('Edit this Contact Detail'),
+                    'url' => "/contact_details/edit/person/{$contactDetailId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions'=>array()
+
+                ),
+                array(
+                    'text' => __('Delete this Contact Detail'),
+                    'url' => "/contact_details/delete/{$contactDetailId}/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>Configure::read('System.purge_warning'),
+                    'actions'=>array('edit')
+                )
+            )
+        );
+
+        break;
     default:
         $label = Inflector::humanize($section);
         $menu = array(

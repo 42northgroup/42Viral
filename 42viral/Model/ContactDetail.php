@@ -92,7 +92,8 @@ class  ContactDetail extends AppModel
     public $belongsTo = array(
         'Person' => array(
             'className' => 'Person',
-            'foreignKey' => 'person_id',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
             'dependent' => false
         )
     );

@@ -14,13 +14,13 @@
  */
 ?>
 <style type="text/css">
-    #personDetailsForm{
+    #ContactDetailsForm{
         display: none;
     }
 </style>
-<div id="personDetailsForm" class="popUpForm <?php echo $type ?>" >
+<div id="ContactDetailsForm" class="popUpForm <?php echo $type ?>" >
     <?php
-    echo $this->Form->create('PersonDetail', array(
+    echo $this->Form->create('ContactDetail', array(
         'url' => '/profiles/save_person_details',
         'action' => 'save',
         'class' => 'responsive',

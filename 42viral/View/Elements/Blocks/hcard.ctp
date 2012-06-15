@@ -38,17 +38,17 @@ $limited = isset($limited)?true:false;
             <div>
                 <?php echo $userProfile['Profile']['bio']; ?>
             </div>
-            
+
             <?php if(!$limited): ?>
                 <div id="VcardDetails" style="display:<?php echo $allOpen ?>;">
 
-                    <?php if(count(Set::extract('/PersonDetail[type=phone]', $userProfile)) > 0): ?>
+                    <?php if(count(Set::extract('/ContactDetail[type=phone]', $userProfile)) > 0): ?>
                         <div class="column-block details-block">
                         <h4>Phone Numbers</h4>
-                            <?php foreach ($userProfile['PersonDetail'] as $phone): ?>
+                            <?php foreach ($userProfile['ContactDetail'] as $phone): ?>
                                 <?php if($phone['type'] == 'phone'): ?>
                                 <div class="tel">
-                                    <span class="type"><?php echo $phone['category'] ?>: </span>
+                                    <span class="type"><?php echo $phone['label'] ?>: </span>
                                     <span class="value"><?php echo Handy::phoneNumber($phone['value']) ?></span>
                                 </div>
                                 <?php endif; ?>
@@ -56,14 +56,14 @@ $limited = isset($limited)?true:false;
                         </div>
                     <?php endif; ?>
 
-                        
-                    <?php if(count(Set::extract('/PersonDetail[type=email]', $userProfile)) > 0): ?>
+
+                    <?php if(count(Set::extract('/ContactDetail[type=email]', $userProfile)) > 0): ?>
                         <div class="column-block details-block">
                             <h4>Emails</h4>
-                            <?php foreach ($userProfile['PersonDetail'] as $email): ?>
+                            <?php foreach ($userProfile['ContactDetail'] as $email): ?>
                                 <?php if($email['type'] == 'email'): ?>
                                 <div class="email">
-                                    <span class="type"><?php echo $email['category'] ?>: </span>
+                                    <span class="type"><?php echo $email['label'] ?>: </span>
                                     <span class="value"><?php echo Handy::email($email['value']) ?></span>
                                 </div>
                                 <?php endif; ?>
@@ -79,39 +79,39 @@ $limited = isset($limited)?true:false;
                                 <div class="type" style=" font-weight: bold">
                                     <?php echo $address['type'] ?>
                                 </div>
-                                
+
                                 <?php if(!empty($address['line1'])): ?>
                                     <span class="street-address" >
                                         <?php echo $address['line1']; ?>
                                         <?php !empty($address['line2'])?", {$address['line2']}":""; ?>
                                     </span>
                                 <?php endif; ?>
-                                
+
                                 <?php if(!empty($address['city'])): ?>
                                     <span class="locality">
                                         <?php echo $address['city'] ?>
                                     </span>
                                     <?php !empty($address['city']) && !empty($address['state'])?", ":""; ?>
                                 <?php endif; ?>
-                                
+
                                 <?php if(!empty($address['state'])): ?>
                                     <span class="region" >
                                         <?php echo $address['state'] ?>
                                     </span>
                                 <?php endif; ?>
-                                
+
                                 <?php if(!empty($address['zip'])): ?>
                                     <span class="postal-code" >
                                         <?php echo $address['zip'] ?>
                                     </span>
                                 <?php endif; ?>
-                                
+
                                 <?php if(!empty($address['country'])): ?>
                                     <span class="country-name" >
                                         <?php echo ", {$address['country']}"; ?>
                                     </span>
                                 <?php endif; ?>
-                                
+
                             </div>
                             <?php endforeach; ?>
                         </div>
