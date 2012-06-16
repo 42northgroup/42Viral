@@ -121,7 +121,7 @@ App::uses('AppController', 'Controller');
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
             'conditions' => array(
-                'SocialNetwork.model'=>$modelId,
+                'SocialNetwork.model'=>$classifiedModel,
                 'SocialNetwork.model_id'=>$modelId
             ),
             'fields'=>array(

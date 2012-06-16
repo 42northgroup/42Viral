@@ -20,32 +20,35 @@ App::uses('Model', 'Model');
  * @author Jason D Snider <jason.snider@42viral.org>
  * @package 42viral
  */
-class AppModel extends Model {
-    
+class AppModel extends Model
+{
+
     /**
      * Application-wide behaviors
      * @access public
      * @var array
      */
     public $actsAs = array(
-        'Containable', 
+        'Containable',
         'Log'
     );
-    
+
     /**
      * Works with ReturnInsertedIds Behaivior to return an array of the ids of inserted rows after a saveAll
-     * 
+     *
      * @access public
      * @var array
      */
     public $insertedIds = array();
-    
+
     /**
      * Returns the User array of the current user
      * @access public
      * @return string
      */
-    public function currentUser() {
+    public function currentUser()
+    {
+
         if(isset($_SESSION['Auth']['User'])) {
             return $_SESSION['Auth']['User'];
         } else {

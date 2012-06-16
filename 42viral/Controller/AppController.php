@@ -187,7 +187,7 @@ class AppController extends Controller
      * Belonging to you is defined as an asset with a direct association to your Person or Profile record
      *
      * @param string $againstId
-     * @param string $model
+     * @param string $model - pass as ModelName or model_name
      * @param string $modelId
      * @throws ForbiddenException
      * @return string
@@ -213,7 +213,7 @@ class AppController extends Controller
      * Throws a 400 Error if a association record does not exist.
      * A common use case is assuring a parent record exists to prevent creation of orphaned records.
      * 	Example - Creating an address against a Person would require matching Person.id record prior to creation
-     * @param string $model
+     * @param string $model - pass as ModelName or model_name
      * @param string $modelId
      * @throws forbiddenException
      * @return string
@@ -244,7 +244,7 @@ class AppController extends Controller
 	/**
 	 * Throws a 404 Error if a requested record does not exist
 	 * A good use case making sure a record exists prior to editing or creating a view.
-	 * @param string $model
+	 * @param string $model - pass as ModelName or model_name
 	 * @param string $modelId
 	 * @param string column
 	 * @throws notFoundException

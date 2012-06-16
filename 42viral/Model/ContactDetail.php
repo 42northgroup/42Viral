@@ -66,25 +66,6 @@ class  ContactDetail extends AppModel
     );
 
     /**
-     * Returns a key to value list of types. This list can be flat, categorized or a partial list based on tags.
-     * @access public
-     * @param string $country The country to which you are looking for a county lelvel unit
-     * @param string $state The level unit of the country to which you are looking for country level units
-     * @return array
-     */
-    public function listTypes($tags = null, $catgory = null, $categories = false){
-    	$types = array();
-
-    	foreach($this->__types as $key => $values){
-    		if(empty($values['_inactive'])){
-    			$types[$key] = $values['label'];
-    		}
-    	}
-
-    	return $types;
-    }
-
-    /**
      * belongsTo
      * @var array
      * @access public
@@ -142,6 +123,25 @@ class  ContactDetail extends AppModel
 
             return Validation::phone($this->data[$this->alias]['value']);
         }
+    }
+
+    /**
+     * Returns a key to value list of types. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param string $country The country to which you are looking for a county lelvel unit
+     * @param string $state The level unit of the country to which you are looking for country level units
+     * @return array
+     */
+    public function listTypes($tags = null, $catgory = null, $categories = false){
+        $types = array();
+
+        foreach($this->__types as $key => $values){
+            if(empty($values['_inactive'])){
+                $types[$key] = $values['label'];
+            }
+        }
+
+        return $types;
     }
 
     /**
