@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -17,10 +17,10 @@ App::uses('AppModel', 'Model');
 App::uses('Content', 'Model');
 /**
  * Mangages the person object from the POV of a Lead
- * 
+ *
  * @package app
  * @subpackage app.core
- * 
+ *
  * @author Jason D Snider <jason.snider@42viral.org>
  */
 class Post extends Content
@@ -31,11 +31,11 @@ class Post extends Content
      * @access public
      */
     public $name = 'Post';
-        
+
     /**
     * Predefined data sets
     * @var array
-    * @access public 
+    * @access public
     */
     public $dataSet = array(
 
@@ -47,7 +47,7 @@ class Post extends Content
             ),
             'conditions' => array()
         ),
-        
+
         'edit' => array(
             'contain' => array(
                 'CreatedPerson' => array(
@@ -58,7 +58,7 @@ class Post extends Content
             ),
             'conditions' => array()
         ),
-        
+
         'nothing'=>array(
             'contain'=>array()
         ),
@@ -77,7 +77,7 @@ class Post extends Content
             'conditions' => array()
         )
     );
-            
+
     /**
      * belongsTo
      * @var array
@@ -89,8 +89,8 @@ class Post extends Content
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-    );    
-    
+    );
+
     /**
      * hasMany
      * @var array
@@ -103,7 +103,7 @@ class Post extends Content
             'dependent' => true
         ),
     );
-    
+
     /**
      * Defines the default has one data associations for all content
      * @access public
@@ -119,7 +119,7 @@ class Post extends Content
             'dependent' => true
         )
     );
-    
+
     /**
      * Fields to be validated on save
      * @var array
@@ -137,7 +137,7 @@ class Post extends Content
             'isUnique' => array(
                 'rule' => 'isUnique',
                 'message' =>"There is a problem with the slug",
-                'last' => true                
+                'last' => true
             )
         ),
         'parent_content_id' => array(
@@ -145,21 +145,21 @@ class Post extends Content
                 'rule' => 'notEmpty',
                 'message' =>"You need to have a blog attached",
                 'last' => true
-            ),            
+            ),
         )
     );
-    
+
     /**
      * beofreSave
      * @access public
      */
     public function beforeSave()
-    {        
+    {
         parent::beforeSave();
         $this->data['Post']['object_type'] = 'post';
         return true;
-    }  
-    
+    }
+
     /**
      * Inject all "finds" against the Post object with lead filtering criteria
      * @param array $queryData
@@ -172,7 +172,7 @@ class Post extends Content
         $queryData['conditions'] =!empty($queryData['conditions'])?$queryData['conditions']:array();
         $postFilter = array('Post.object_type' =>'post');
         $queryData['conditions'] = array_merge($queryData['conditions'], $postFilter);
-        
+
         return $queryData;
     }
 
@@ -181,24 +181,24 @@ class Post extends Content
      *
      * @param string $token
      * @param string|array $with
-     * @return array 
-     */    
+     * @return array
+     */
     public function getPostWith($token, $with = null){
 
         $theToken = array(
             'conditions'=>array(
                 'or' => array(
-                    'Post.id' => $token, 
-                    'Post.slug' => $token, 
+                    'Post.id' => $token,
+                    'Post.slug' => $token,
                     'Post.short_cut' => $token
                 )
             )
         );
-        
+
         $finder = array_merge($this->dataSet[$with], $theToken);
-        
+
         $post = $this->find('first', $finder);
 
         return $post;
-    }    
+    }
 }

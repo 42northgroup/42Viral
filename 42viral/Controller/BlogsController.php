@@ -35,7 +35,6 @@ class BlogsController extends AppController {
         'Conversation',
         'Post',
         'Person',
-        'PicklistManager.Picklist',
         'Profile'
     );
 
@@ -202,6 +201,8 @@ class BlogsController extends AppController {
             }
         }
 
+        $this->set('syntaxes', $this->Blog->listSyntaxTypes());
+        $this->set('postAccesses', $this->Blog->listPostAccess());
         $this->set('title_for_layout', 'Create a Blog');
 
 
@@ -255,9 +256,7 @@ class BlogsController extends AppController {
             $this->data = $this->Blog->findById($id);
         }
 
-        $this->set('statuses',
-                $this->Picklist->fetchPicklistOptions(
-                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
+        $this->set('statuses', $this->Blog->listPublicationStatus());
 
         $this->set('title_for_layout', "Update {$this->data['Blog']['title']}");
 

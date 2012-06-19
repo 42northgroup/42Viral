@@ -1,7 +1,7 @@
 <?php
 /**
  * Controll logic for viewing and managing web pages
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -30,8 +30,8 @@ App::uses('AppController', 'Controller');
      * @var string
      * @access public
      */
-    public $name = 'Pages'; 
-    
+    public $name = 'Pages';
+
     /**
      * Helpers
      *
@@ -42,7 +42,7 @@ App::uses('AppController', 'Controller');
 
 
     /**
-     * Components 
+     * Components
      *
      * @access public
      * @var array
@@ -58,8 +58,7 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public $uses = array(
-        'Page',
-        'PicklistManager.Picklist'
+        'Page'
     );
 
 
@@ -69,22 +68,22 @@ App::uses('AppController', 'Controller');
      */
     public function beforeFilter(){
         parent::beforeFilter();
-        
+
         $this->auth(array('home', 'index', 'short_cut', 'view', 'display'));
         $this->prepareDocUpload('Page');
     }
-    
+
     /**
      * provides a generic call for determing the "home page"
      * @return void
      * @access public
      */
     public function home(){
-        
+
         //$this->layout = 'home';
         $this->set('title_for_layout', Configure::read('Theme.HomePage.title'));
-    }    
-    
+    }
+
     /**
      * Displays a list of pages
      *
@@ -92,7 +91,7 @@ App::uses('AppController', 'Controller');
      * @return void
      */
     public function index() {
-        
+
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
             'conditions' => array(
@@ -101,23 +100,23 @@ App::uses('AppController', 'Controller');
             'fields'=>array(
                     'Page.body',
                     'Page.object_type',
-                    'Page.slug', 
-                    'Page.syntax', 
-                    'Page.title', 
+                    'Page.slug',
+                    'Page.syntax',
+                    'Page.title',
                     'Page.url'),
             'limit' => 10,
             'order'=>'Page.title ASC'
         );
 
         $pages = $this->paginate('Page');
-        $this->set('pages', $pages); 
+        $this->set('pages', $pages);
         $this->set('title_for_layout', 'Pages');
-    } 
+    }
 
     /**
      * Resirect short links to their proper url
      * @access public
-     * @param string $shortCut 
+     * @param string $shortCut
      * @return void
      */
     public function short_cut($shortCut) {
@@ -126,8 +125,8 @@ App::uses('AppController', 'Controller');
 
         //Avoid Google duplication penalties by using a 301 redirect
         $this->redirect($page['Page']['canonical'], 301);
-    }  
-    
+    }
+
     /**
      * Displays a blog post
      *
@@ -137,18 +136,18 @@ App::uses('AppController', 'Controller');
      */
     public function view($slug) {
         $page = $this->Page->getPageWith($slug);
-        
+
         if(empty($page)){
            $this->redirect('/', '404');
         }
-        
-        $this->set('title_for_layout', $page['Page']['title']);        
+
+        $this->set('title_for_layout', $page['Page']['title']);
         $this->set('canonical_for_layout', $page['Page']['canonical']);
-        $this->set('page', $page); 
-        
-        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));      
-    }  
-    
+        $this->set('page', $page);
+
+        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));
+    }
+
     /**
      * Displays a view
      *
@@ -175,10 +174,10 @@ App::uses('AppController', 'Controller');
         $this->set(compact('page', 'subpage', 'title_for_layout'));
         $this->render(implode('/', $path));
     }
-    
+
     /**
      * Creates a traditional web page
-     * 
+     *
      * @return void
      * @access public
      */
@@ -194,15 +193,15 @@ App::uses('AppController', 'Controller');
                 $this->Session->setFlash(__('There was a problem creating your page'), 'error');
             }
         }
-        
+
         $this->set('title_for_layout', __('Create a Page'));
-        
+
     }
- 
-    
+
+
     /**
      * Updates a web page
-     * 
+     *
      * @param string $id
      * @return void
      * @access public
@@ -220,44 +219,40 @@ App::uses('AppController', 'Controller');
             //If we are saving as Markdown just check the body for malice
             if ($this->data['Page']['syntax'] == 'markdown') {
                 $this->Page->Behaviors->attach(
-                        'ContentFilters.Scrubable', 
+                        'ContentFilters.Scrubable',
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),
                                     'noHTML'=>array(
                                         'canonical',
-                                        'title', 
+                                        'title',
                                         'description',
-                                        'id',  
-                                        'keywords', 
-                                        'short_cut', 
+                                        'id',
+                                        'keywords',
+                                        'short_cut',
                                         'syntax'
                                     ),
                                 )
                             )
                         );
             }
-            
+
             if($this->Page->saveAll($this->data)){
                 $this->Session->setFlash(__('Your page has been updated'), 'success');
             }else{
                 $this->Session->setFlash(__('There was a problem updating your page'), 'error');
             }
         }
-        
+
         $this->data = $this->Page->getPageWith($id, 'edit');
-        
-        
-        $this->set('statuses', 
-                $this->Picklist->fetchPicklistOptions(
-                        'publication_status', array('emptyOption'=>false, 'otherOption'=>false)));
-     
-        $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");        
-    } 
-    
+
+        $this->set('statuses', $this->Blog->listPublicationStatus());
+        $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");
+    }
+
     /**
      * Removes a web page
-     * 
+     *
      * @access public
      * @param $id ID of the page we want to delete
      * @return void
@@ -268,9 +263,9 @@ App::uses('AppController', 'Controller');
             $this->Session->setFlash(__('Your page has been removed'), 'success');
             $this->redirect($this->referer());
         }else{
-           $this->Session->setFlash(__('There was a problem removing your page'), 'error'); 
+           $this->Session->setFlash(__('There was a problem removing your page'), 'error');
            $this->redirect($this->referer());
         }
 
-    }     
+    }
 }

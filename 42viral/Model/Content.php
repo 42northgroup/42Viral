@@ -125,27 +125,91 @@ class Content extends AppModel
      * @access private
      * @var array
      */
-    private $__contentTypes = array(
+    private $__listContentTypes = array(
         'page'=>array(
             'label'=>'Page',
             '_ref'=>'page',
             '_inactive'=>false,
-            'category'=>'test1',
-            'tags'=>array('test1'),
+            'category'=>'',
+            'tags'=>array()
         ),
         'blog'=>array(
             'label'=>'Blog',
             '_ref'=>'blog',
             '_inactive'=>false,
-            'category'=>'test',
-            'tags'=>array('test2'),
+            'category'=>'',
+            'tags'=>array()
         ),
         'post'=>array(
             'label'=>'Post',
             '_ref'=>'post',
             '_inactive'=>false,
-            'category'=>'test',
-            'tags'=>array('test1', 'test2'),
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'docs'=>array(
+            'label'=>'Docs',
+            '_ref'=>'docs',
+            '_inactive'=>true,
+            'category'=>'',
+            'tags'=>array()
+        )
+    );
+
+    /**
+     * Defines various types of content
+     *
+     * - tags
+     *     public - This is used to restrict publication status options such as draft from appearing on public pages
+     * such as search results.
+     *
+     * @access private
+     * @var array
+     */
+    private $__listPublicationStatuses = array(
+        'draft'=>array(
+            'label'=>'Draft',
+            '_ref'=>'draft',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'published'=>array(
+            'label'=>'Published',
+            '_ref'=>'published',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array('public')
+        ),
+        'archived'=>array(
+            'label'=>'Archived',
+            '_ref'=>'Archived',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array('public')
+        )
+    );
+
+    /**
+     * Defines various types of content
+     *
+     * @access private
+     * @var array
+     */
+    private $__listSyntaxTypes = array(
+        'markdownt'=>array(
+            'label'=>'Markdown',
+            '_ref'=>'markdown',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'html'=>array(
+            'label'=>'HTML',
+            '_ref'=>'html',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array('public')
         )
     );
 
@@ -255,6 +319,19 @@ class Content extends AppModel
     }
 
     /**
+     * Returns a key to value publication statuses. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listSyntaxTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listSyntaxTypes, $tags, $category, $categories);
+    }
+
+    /**
      * Returns a key to value list of types. This list can be flat, categorized or a partial list based on tags.
      * @access public
      * @param array $list
@@ -264,7 +341,20 @@ class Content extends AppModel
      * @return array
      */
     public function listContentTypes($tags = null, $category = null, $categories = false){
-        return $this->_listParser($this->__contentTypes, $tags, $category, $categories);
+        return $this->_listParser($this->__listContentTypes, $tags, $category, $categories);
+    }
+
+    /**
+     * Returns a key to value publication statuses. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listPublicationStatus($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listPublicationStatuses, $tags, $category, $categories);
     }
 
     /**
