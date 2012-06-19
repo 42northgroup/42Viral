@@ -173,6 +173,43 @@ class Person extends AppModel
     );
 
     /**
+     * Controls who is allowed to post to a target blog
+     * @access private
+     * @var array
+     */
+    private $__listDisplayNames = array(
+        'public'=>array(
+            'label'=>'Public',
+            '_ref'=>'public',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'private'=>array(
+            'label'=>'Private',
+            '_ref'=>'private',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        )
+    );
+
+    /**
+     * Returns a key to value list of display name types.
+     * This list can be flat, categorized or a partial list based on tags.
+     *
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listDisplayNameTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listDisplayNameTypes, $tags, $category, $categories);
+    }
+
+    /**
      * Initialisation for all new instances of Person
      * @access public
      * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.

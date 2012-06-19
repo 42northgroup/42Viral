@@ -293,7 +293,7 @@ class Content extends AppModel
      * @param boolean $keyByReference - Do we want numeric or referential key value pairs?
      * @return array
      */
-    public function listObjectTypes($keyByReference = true){
+    public function listInUseContentTypes($keyByReference = true){
 
         $objectTypes = array();
 

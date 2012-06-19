@@ -175,7 +175,7 @@ class Blog extends Content
         ),
         'private'=>array(
             'label'=>'Private',
-            '_ref'=>'pprivate',
+            '_ref'=>'private',
             '_inactive'=>false,
             'category'=>'',
             'tags'=>array()
@@ -226,7 +226,7 @@ class Blog extends Content
     }
 
     /**
-     * Returns a key to value publication statuses. This list can be flat, categorized or a partial list based on tags.
+     * Returns a key to value post accessors. This list can be flat, categorized or a partial list based on tags.
      * @access public
      * @param array $list
      * @param array $tags

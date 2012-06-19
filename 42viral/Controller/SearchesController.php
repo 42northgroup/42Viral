@@ -239,9 +239,9 @@ App::uses('AppController', 'Controller');
 
         $this->set('statuses', $this->Content->listPublicationStatus(array('public')));
 
-        $objectTypes = $this->Content->listObjectTypes();
-
-        $this->set('objectTypes', $objectTypes);
+        //We only care about searching the types of contnet that is actually being used
+        $inUseContentTypes = $this->Content->listInUseContentTypes();
+        $this->set('objectTypes', $inUseContentTypes);
 
         $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
         $this->set('display', $display);
