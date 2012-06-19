@@ -121,7 +121,7 @@ class Content extends AppModel
     );
 
     /**
-     * Defines various types of content
+     * Defines various types of content. These are the object_type's for the Content model.
      * @access private
      * @var array
      */
