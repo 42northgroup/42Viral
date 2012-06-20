@@ -89,13 +89,7 @@ App::uses('CakeEmail', 'Network/Email');
      */
     public function pass_reset($resetToken)
     {
-        $email = new CakeEmail();
-        $email->from(array('jsnider77@gmail.com' => 'Jason Snider'))
-            ->transport('Mail')
-            ->replyTo('jsnider77@gmail.com')
-            ->to('root@jasonsnider.com')
-            ->subject('About')
-            ->send('My Message');
+
         if($this->User->checkPasswordResetTokenIsValid($resetToken)) {
             $user = $this->User->getUserFromResetToken($resetToken);
             $userId = $user['User']['id'];
@@ -140,13 +134,6 @@ App::uses('CakeEmail', 'Network/Email');
     public function pass_reset_req()
     {
         $error = true;
-        CakeEmail::deliver('you@example.com', 'Subject', 'Message', array('transport'=>'Debug', 'from' => 'me@example.com'));
-        $this->Notification->notify('password_reset', array(
-                'message'=>array(
-                        'link'=>'http://www.jasonsnider.com/',
-                        'token'=>'oicu812'
-                    )
-            ));
 
         if(!empty($this->data)) {
             $user = $this->User->getUserWith($this->data['User']['username'], 'nothing');
@@ -169,22 +156,19 @@ App::uses('CakeEmail', 'Network/Email');
                 $tokenData['Person']['password_reset_token_expiry'] = $tokenExpiry;
                 $this->Person->save($tokenData);
 
-                //email the person with the password reset authorization link
-                $person = $this->Person->getPersonWith($userId, 'nothing');
-
-                $additionalObjects = array(
-                    'reset_authorization_token' => $requestAuthorizationToken
-                );
-
-                $notificationHandle = 'password_reset_request';
+                //Create a Notification
                 $this->Notification->notify('password_reset', array(
+                        'additional'=>array(
+                            'person_id' => $user['User']['id']
+                        ),
+                        'email'=>array(
+                            'to' => $user['User']['email']
+                        ),
                         'message'=>array(
-                                'link'=>'http://www.jasonsnider.com',
-                                'token'=>'oicu812'
+                                'token'=>$requestAuthorizationToken,
+                                'ip'=>env('REMOTE_ADDR')
                             )
                     ));
-                //$this->NotificationCmp->triggerNotification($notificationHandle, $person, $additionalObjects);
-
 
                 $this->Session->setFlash(
                     __('Check your email for a password reset authentication link'),
@@ -205,7 +189,6 @@ App::uses('CakeEmail', 'Network/Email');
         }
 
         $this->set('title_for_layout', __('Reset Your Password'));
-
     }
 
     /**

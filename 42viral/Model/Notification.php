@@ -17,6 +17,7 @@
 App::uses('AppModel', 'Model');
 App::uses('Handy', 'Lib');
 App::uses('CakeEmail', 'Network/Email');
+App::uses('Scrub', 'Lib/Scrub');
 /**
  * Manage notification template objects
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -58,6 +59,32 @@ class Notification extends AppModel
 
     private $__notificiations = array(
         'en'=>array(
+/*
+                'sample_notification_template' => array(
+
+                    '_ref'=>'sample_notification_template',
+
+                    'notification'=>array(
+                            'active'=>true,
+                            'subject'=>'Sample',
+                            'body'=>
+'<p>Sample Notification text content, may contain sprintf variables %s, %d, etc</p>'
+                    ),
+
+                    'email'=>array(
+                            'active'=>true,
+                            'subject'=>'Password Reset',
+
+                            'html_body'=>
+'<p>HTML content, may contain sprintf variables %s, %d, etc</p>',
+
+                            'text_body'=>
+//For the sake of formatting we need to start at the left most margin and violae the 120 margin rule
+'Plain text content, may contain sprintf variables %s, %d, etc'
+                    )
+                )
+            ),
+*/
             'password_reset' => array(
 
                 '_ref'=>'password_reset',
@@ -65,13 +92,83 @@ class Notification extends AppModel
                 'notification'=>array(
                     'active'=>true,
                     'subject'=>'Password Reset',
-                    'body'=>'<p>Just letting you know, a password reset has been requested against your account.</p>'
+                    'body'=>
+
+'<p>Just letting you know, a password reset has been requested against your account.</p>
+<p>The IP address of the person requesting this password reset is: %s</p>'
                 ),
 
                 'email'=>array(
                     'active'=>true,
-                    'subject'=>'Password Reset'
+                    'subject'=>'Password Reset',
+
+                    'html_body'=>
+
+'<p>Please do not reply to this email. This email has been sent by a machine, replies will not be read.</p>
+
+Hello,<br>
+
+<p>Someone (hopefully you) has requested to reset your password for %2$s. If you did not request this reset, please ignore this message.</p>
+
+<p>To reset your password, please visit the following page:</p>
+<p>%1$spass_reset/%3$s</p>
+
+<p>If asked, your password reset key is : %3$s</p>
+
+<p>When you visit the above page (which you must do within 24 hours), you will be prompted to enter a new password. After you have submitted the form, you can log in normally using the new password you set.</p>
+
+<p>The IP address of the person requesting this password reset is: %4$s</p>',
+
+
+
+                    'text_body'=>
+
+'Please do not reply to this email. This email has been sent by a machine, replies will not be read.
+
+Hello,
+
+Someone (hopefully you) has requested to reset your password for %2$s. If you did not request this reset, please ignore this message.
+
+To reset your password, please visit the following page:
+%1$spass_reset/%3$s
+
+If asked, your password reset key is : %3$s
+
+When you visit the above page (which you must do within 24 hours), you will be prompted to enter a new password. After you have submitted the form, you can log in normally using the new password you set.
+
+The IP address of the person requesting this password reset is: %3$s'
                 )
+            ),
+            'invitation_to_join' => array(
+
+                    '_ref'=>'invitation_to_join',
+
+                    'notification'=>array(
+                            'active'=>false,
+                            'subject'=>null,
+                            'body'=>null
+                    ),
+
+                    'email'=>array(
+                            'active'=>true,
+                            'subject'=>'Invitation to Join',
+
+                            'html_body'=>
+
+'<p>%1$s has invited you to join %2$s</p>
+<p>Click the link below to join 42Viral:</p>
+<p>/%3$susers/create/invite:/%4$s</p>
+<p>If asked, your invitation code is : %4$s</p>',
+
+                            'text_body'=>
+'%1$s has invited you to join %2$s
+
+Click the link below to join 42Viral:
+
+/%3$susers/create/invite:/%4$s
+
+If asked, your invitation code is : %4$s',
+                    )
             )
         )
 
@@ -118,29 +215,147 @@ class Notification extends AppModel
     );
 
     /**
+     * Sends notifications and emails, seemlessly, in the background
      * options array
      *     'email' - email settings
      *     'message' - message variables
+     *     'type' - email, notification or all (all by default)
      * @param string $notification
      * @param array $options
+     *
+     * @todo Complete configuration modeling
      */
-    public function notify($notification, $options){
+    public function notify($notification, $options = array()){
         $language = 'en';
         $message = $this->__notificiations[$language][$notification];
 
-        if($message['notification']['active']){
+        $sendEmail = false;
+        $sendNotification = false;
 
-            $data['Notification']['body'] = $message['notification']['body'];
+        switch($options['type']){
+            case 'email':
+                $sendEmail = true;
+                $sendNotification = false;
+                break;
 
-            if($this->save($data)){
-                //debug('Data Saved!');
-            }
-            //debug('Here I will save the notificaiton to the users notification inbox!');
+            case 'notification':
+                $sendEmail = false;
+                $sendNotification = false;
+                break;
+
+            case 'all':
+            default:
+                $sendEmail = true;
+                $sendNotification = true;
+                break;
         }
 
-        if($message['email']['active']){
-            //debug('Here I will return an email array to be passed into the email component');
+        if($sendNotification && $message['notification']['active']){
+
+            $data['Notification']['person_id'] = $options['additional']['person_id'];
+            $data['Notification']['subject'] = $message['email']['subject'];
+            $data['Notification']['body'] = $this->__prepNotification($notification, $options['message']);
+
+            if($this->save($data)){
+
+            }
+        }
+
+        if($sendEmail && $message['email']['active']){
+            $email = new CakeEmail();
+            $email->template('notification', null)
+                ->transport('Mail')
+                ->emailFormat('both')
+
+                ->to($options['email']['to'])
+                ->from(array('jsnider77@gmail.com' => 'Jason D Snider'))
+                ->replyTo('jsnider77@gmail.com')
+
+                ->subject($message['email']['subject'])
+                ->viewVars($this->__prepEmail($notification, $options['message']))
+                ->send();
         }
 
     }
+
+    /**
+     * Prepares the final text of a notification
+     * @access private
+     * @param string $notification
+     * @param array $options
+     */
+    private function __prepNotification($notification, $options = null){
+        $body = '';
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
+
+        switch($notification){
+            case 'invitation_to_join':
+                return false;
+                break;
+
+            case 'password_reset':
+                    $body = sprintf($message['notification']['body'], $options['ip']);
+                break;
+        }
+
+        return $body;
+
+    }
+
+    /**
+     * Prepares the final text of an email
+     * @access private
+     * @param string $notification
+     * @param array $options
+     */
+    private function __prepEmail($notification, $options = null){
+        $html = '';
+        $text = '';
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
+
+        switch($notification){
+            case 'invitation_to_join':
+                $html = sprintf(
+                $message['email']['html_body'],
+                $options['invitee'],
+                Configure::read('Domain.host'), //Product or Domain
+                Configure::read('Domain.url'), //FQDN
+                $options['token']
+                );
+                break;
+
+            case 'password_reset':
+                $html = sprintf(
+                    $message['email']['html_body'],
+                    Configure::read('Domain.url'), //FQDN
+                    Configure::read('Domain.host'), //Product or Domain
+                    $options['token'],
+                    $options['ip']
+                );
+
+                $text = sprintf(
+                    $message['email']['text_body'],
+                    Configure::read('Domain.url'),  //FQDN
+                    Configure::read('Domain.host'), //Product or Domain
+                    $options['token'],
+                    $options['ip']
+                );
+                break;
+        }
+
+        return array('html'=>Scrub::htmlStrict($html), 'text'=>Scrub::noHTML($text));
+
+    }
 }
+
+
+
+
+
+
+
+
+
+

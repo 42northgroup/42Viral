@@ -16,7 +16,6 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-test test
 <?php
 $content = explode("\n", $content);
 
