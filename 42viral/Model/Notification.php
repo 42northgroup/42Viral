@@ -16,6 +16,7 @@
 
 App::uses('AppModel', 'Model');
 App::uses('Handy', 'Lib');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Manage notification template objects
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
@@ -31,7 +32,6 @@ class Notification extends AppModel
      */
     public $name = 'Notification';
 
-
     /**
      * Specifies the table to be used by the notification object
      * @var string
@@ -46,18 +46,38 @@ class Notification extends AppModel
      */
     public $actsAs = array(
         'Log',
-        
+
         'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
-                //'htmlStrict' => array('body_template'),
-                'noHTML' => array('id', 'name', 'alias', 'subject_template'),
+                'htmlStrict' => array('body'),
+                'noHTML' => array('id', 'subject'),
             )
         )
     );
 
+    private $__notificiations = array(
+        'en'=>array(
+            'password_reset' => array(
 
-    /** 
+                '_ref'=>'password_reset',
+
+                'notification'=>array(
+                    'active'=>true,
+                    'subject'=>'Password Reset',
+                    'body'=>'<p>Just letting you know, a password reset has been requested against your account.</p>'
+                ),
+
+                'email'=>array(
+                    'active'=>true,
+                    'subject'=>'Password Reset'
+                )
+            )
+        )
+
+    );
+
+    /**
      * Specifies the validation parameters for the notification model
      * @var array
      * @access public
@@ -98,107 +118,29 @@ class Notification extends AppModel
     );
 
     /**
-     * Used for generating a dummy test notification for testing purposes
-     * @access public
-     *
+     * options array
+     *     'email' - email settings
+     *     'message' - message variables
+     * @param string $notification
+     * @param array $options
      */
-    public function generateDummyTestNotification()
-    {
-        $tempNotification = array();
-        $tempNotification['alias'] = 'test_notification';
-        $tempNotification['name'] = 'Test Notification';
-        $tempNotification['active'] = true;
-        $tempNotification['subject_template'] = 'TEST Notification Subject #{Person.first_name}';
-        $tempNotification['body_template'] = 'TEST Notification Body #{Person.first_name} #{Person.last_name}';
-        $tempNotification['email_template'] = 'notification';
+    public function notify($notification, $options){
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
 
-        $this->save($tempNotification);
-    }
+        if($message['notification']['active']){
 
+            $data['Notification']['body'] = $message['notification']['body'];
 
-    /**
-     * Fetch a notification using a notification handle (id or alias)
-     * @access public
-     * @param string $notificationHandle
-     * @return Notification
-     */
-    public function fetchNotification($notificationHandle)
-    {
-        if(Handy::isUUID($notificationHandle)) {
-            $notification = $this->fetchNotificationById($notificationHandle);
-        } else {
-            $notification = $this->fetchNotificationByAlias($notificationHandle);
+            if($this->save($data)){
+                //debug('Data Saved!');
+            }
+            //debug('Here I will save the notificaiton to the users notification inbox!');
         }
 
-        return $notification;
-    }
+        if($message['email']['active']){
+            //debug('Here I will return an email array to be passed into the email component');
+        }
 
-    /**
-     * Fetch a notification record using its given id
-     * @access public
-     * @param string $notificationId
-     * @return Notification
-     */
-    public function fetchNotificationById($notificationId)
-    {
-        $notification = $this->find('first', array(
-            'contain' => array(),
-
-            'conditions' => array(
-                'Notification.id' => $notificationId
-            )
-        ));
-
-        return $notification;
-    }
-
-    /**
-     * Fetch a notification record using its given alias
-     * @access public
-     * @param string $alias
-     * @return Notification
-     */
-    public function fetchNotificationByAlias($alias)
-    {
-        $notification = $this->find('first', array(
-            'contain' => array(),
-
-            'conditions' => array(
-                'Notification.alias' => $alias
-            )
-        ));
-
-        return $notification;
-    }
-
-    /**
-     * Fetch all notifications sorted by their name in ascending order
-     * @access public
-     * @return array
-     */
-    public function fetchAllNotifications()
-    {
-        $notifications = $this->find('all', array(
-            'contain' => array(),
-            
-            'order' => array(
-                'Notification.name ASC'
-            )
-        ));
-
-        return $notifications;
-    }
-
-    /**
-     * Deletes a single given notification using its ID
-     * @access public
-     * @param $notificationId
-     * @return boolean
-     */
-    public function deleteNotification($notificationId)
-    {
-        $opStatus = $this->delete($notificationId);
-
-        return $opStatus;
     }
 }
