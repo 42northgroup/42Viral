@@ -214,7 +214,7 @@ If asked, your invitation code is : %4$s',
 
             $data['Notification']['person_id'] = $options['additional']['person_id'];
             $data['Notification']['subject'] = $message['email']['subject'];
-            $data['Notification']['body'] = $this->__prepNotification($notification, $options['message']);
+            $data['Notification']['body'] = $this->__prepareNotification($notification, $options['message']);
 
             if($this->save($data)){
 
@@ -228,11 +228,11 @@ If asked, your invitation code is : %4$s',
                 ->emailFormat('both')
 
                 ->to($options['email']['to'])
-                ->from(array('jsnider77@gmail.com' => 'Jason D Snider'))
-                ->replyTo('jsnider77@gmail.com')
+                ->from(array(Configure::read('Email.from') => Configure::read('Domain.host')))
+                ->replyTo(Configure::read('Email.replyTo'))
 
                 ->subject($message['email']['subject'])
-                ->viewVars($this->__prepEmail($notification, $options['message']))
+                ->viewVars($this->__prepareEmail($notification, $options['message']))
                 ->send();
         }
 
@@ -244,7 +244,7 @@ If asked, your invitation code is : %4$s',
      * @param string $notification
      * @param array $options
      */
-    private function __prepNotification($notification, $options = null){
+    private function __prepareNotification($notification, $options = null){
         $body = '';
         $language = 'en';
         $message = $this->__notificiations[$language][$notification];
@@ -269,7 +269,7 @@ If asked, your invitation code is : %4$s',
      * @param string $notification
      * @param array $options
      */
-    private function __prepEmail($notification, $options = null){
+    private function __prepareEmail($notification, $options = null){
         $html = '';
         $text = '';
         $language = 'en';
