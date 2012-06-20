@@ -123,10 +123,20 @@ class AppController extends Controller
 
         //Fetch the unread message count for current user's message inbox
         if (!is_null($this->Session->read('Auth.User'))) {
-            $this->loadModel('InboxMessage');
+            $this->loadModel('Notification');
             $userId = $this->Session->read('Auth.User.id');
-            $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
-            $this->set('unread_message_count', $unreadMessageCount);
+
+            $unreadMessageCount = $this->Notification->find(
+                'count',
+                array(
+                    'conditions'=>array(
+                        'Notification.person_id'=>$userId,
+                        'Notification.marked'=>'unread'
+                    ),
+                    'contain'=>array()
+                )
+            );
+            $this->set('unreadMessageCount', $unreadMessageCount);
         }
 
     }

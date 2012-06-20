@@ -3,12 +3,12 @@
  * Manage notification template objects
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @package 42viral\Notification
@@ -20,7 +20,7 @@ App::uses('CakeEmail', 'Network/Email');
 App::uses('Scrub', 'Lib/Scrub');
 /**
  * Manage notification template objects
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @author Jason D Snider <jason.snider@northgroup.com>
  * @package 42viral\Notification
  */
 class Notification extends AppModel
@@ -172,46 +172,6 @@ If asked, your invitation code is : %4$s',
             )
         )
 
-    );
-
-    /**
-     * Specifies the validation parameters for the notification model
-     * @var array
-     * @access public
-     */
-    public $validate = array(
-        'alias' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an alias"
-            ),
-
-            'isUnique' => array(
-                'rule' => 'isUnique',
-                'message' => "Given alias needs to be unique"
-            )
-        ),
-
-        'name' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an name"
-            )
-        ),
-
-        'subject_template' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an Subject Template"
-            )
-        ),
-
-        'body_template' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an Body Template"
-            )
-        )
     );
 
     /**

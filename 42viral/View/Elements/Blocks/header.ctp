@@ -55,8 +55,8 @@ $userId = $this->Session->read('Auth.User.id');
                     <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>
                     <div class="navigation">
                         <?php
-                        $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
-                        echo $this->Html->link(__('Inbox') . $messageBadge, '/inbox_message/'); ?>
+                        $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";
+                        echo $this->Html->link(__('Inbox') . $messageBadge, '/notifications/'); ?>
                     </div>
                     <div class="navigation">
                         <a href="#">Share</a>
@@ -109,25 +109,6 @@ $userId = $this->Session->read('Auth.User.id');
 
                                 <strong>CRM</strong>
                                 <div><?php echo $this->Html->link(__('People'), '/admin/people/'); ?></div>
-
-                                <strong>Messaging</strong>
-                                <div>
-                                    <?php echo $this->Html->link(__('Notification list'), '/notification/index/'); ?>
-                                </div>
-
-                                <div>
-                                    <?php
-                                    echo $this->Html->link(__('Create new notification'),
-                                        '/notification/create/');
-                                    ?>
-                                </div>
-
-                                <div>
-                                    <?php
-                                    echo $this->Html->link(__('Populate message inbox (test)'),
-                                        '/inbox_message/populate_inbox/');
-                                    ?>
-                                </div>
 
                                 <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
 
