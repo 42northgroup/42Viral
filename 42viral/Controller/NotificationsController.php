@@ -60,14 +60,17 @@ App::uses('AppController', 'Controller');
                 'fields'=>array(
                     'Notification.id',
                     'Notification.subject',
-                    'Notification.body'
+                    'Notification.body',
+                    'Notification.marked'
                 )
             )
         );
 
-        $listActionTypes = $this->Notification->listActionTypes();
+        $listActionTypes = $this->Notification->listActionTypes(array("show_on_{$location}"));
+        $boxes = $this->Notification->listActionTypes(null, 'Box');
 
         $this->set('listActionTypes', $listActionTypes);
+        $this->set('boxes', $boxes);
         $this->set('notifications', $notifications);
         $this->set('title_for_layout', 'Notification - ' . Inflector::humanize($location));
     }
