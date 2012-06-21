@@ -15,11 +15,35 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
+<?php echo $this->Form->create('Notification',array('url'=>$this->here)); ?>
+<?php
+    echo $this->Form->input(
+        'Control.action',
+        array(
+            'legend'=>false,
+            'type'=>'radio',
+            'options'=>$listActionTypes,
+            'after'=>$this->Form->submit('Take Action', array('div'=>false))
+        )
+    );
+?>
 <table>
     <tbody>
     <?php foreach($notifications as $notification): ?>
         <tr>
-            <td style="width: 300px; white-space: no-wrap; overflow: hidden;">
+            <td>
+            <?php
+                echo $this->Form->input(
+                    $notification['Notification']['id'],
+                    array(
+                        'div'=>false,
+                        'label'=>false,
+                        'type'=>'checkbox'
+                    )
+                );
+            ?>
+            </td>
+            <td>
                 <?php echo $this->Html->link(
                     $notification['Notification']['subject'],
                     "/notifications/view/{$notification['Notification']['id']}/"
@@ -31,3 +55,4 @@
     <?php endforeach; ?>
     </tbody>
 </table>
+<?php echo $this->Form->end(); ?>

@@ -35,6 +35,9 @@ App::uses('AppController', 'Controller');
      */
     public function index($location = 'inbox', $marked = null)
     {
+        if(!empty($this->data)){
+            $this->Notification->actions($this->data);
+        }
 
         if(is_null($marked)){
             $conditions = array(
@@ -62,6 +65,9 @@ App::uses('AppController', 'Controller');
             )
         );
 
+        $listActionTypes = $this->Notification->listActionTypes();
+
+        $this->set('listActionTypes', $listActionTypes);
         $this->set('notifications', $notifications);
         $this->set('title_for_layout', 'Notification - ' . Inflector::humanize($location));
     }

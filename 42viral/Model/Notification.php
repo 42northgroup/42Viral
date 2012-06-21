@@ -175,6 +175,67 @@ If asked, your invitation code is : %4$s',
     );
 
     /**
+     * Defines various types of content
+     *
+     * - tags
+     *     public - This is used to restrict publication status options such as draft from appearing on public pages
+     * such as search results.
+     *
+     * @access private
+     * @var array
+     */
+    private $__listActionTypes = array(
+        'read'=>array(
+            'label'=>'Read',
+            '_ref'=>'read',
+            '_inactive'=>false,
+            'category'=>'Mark',
+            'tags'=>array()
+        ),
+        'unread'=>array(
+            'label'=>'Unread',
+            '_ref'=>'unread',
+            '_inactive'=>false,
+            'category'=>'Mark',
+            'tags'=>array()
+        ),
+        'archive'=>array(
+            'label'=>'Archive',
+            '_ref'=>'archive',
+            '_inactive'=>false,
+            'category'=>'Location',
+            'tags'=>array()
+        ),
+        'trash'=>array(
+            'label'=>'Trash',
+            '_ref'=>'trash',
+            '_inactive'=>false,
+            'category'=>'Location',
+            'tags'=>array()
+        ),
+        'inbox'=>array(
+            'label'=>'Inbox',
+            '_ref'=>'inbox',
+            '_inactive'=>false,
+            'category'=>'Location',
+            'tags'=>array()
+        )
+    );
+
+    /**
+     * Returns a key to value action types. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listActionTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listActionTypes, $tags, $category, $categories);
+    }
+
+    /**
      * Sends notifications and emails, seemlessly, in the background
      * options array
      *     'email' - email settings
@@ -306,7 +367,42 @@ If asked, your invitation code is : %4$s',
         }
 
         return array('html'=>Scrub::htmlStrict($html), 'text'=>Scrub::noHTML($text));
+    }
 
+    /**
+     * Performs the actions of read/unread marking the moving of notifications from and to inbox, archive and trash
+     * @param public
+     * @param array $data
+     * @return boolean
+     */
+    public function actions($data){
+        if(!empty($data)){
+            foreach($data[$this->alias] as $key => $value){
+                if($value == 1){
+                    //Are marking or changing locations?
+                    switch($data['Control']['action']){
+                        //Marking
+                        case 'read':
+                        case 'unread':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['marked'] = $data['Control']['action'];
+                            break;
+
+                            //Locations
+                        case 'trash':
+                        case 'archive':
+                        case 'inbox':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['location'] = $data['Control']['action'];
+                            break;
+
+                        default:
+                            break;
+                    }
+                    return $this->save($data);
+                }
+            }
+        }
     }
 }
 
