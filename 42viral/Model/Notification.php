@@ -190,35 +190,59 @@ If asked, your invitation code is : %4$s',
             '_ref'=>'read',
             '_inactive'=>false,
             'category'=>'Mark',
-            'tags'=>array()
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
+            )
         ),
         'unread'=>array(
             'label'=>'Unread',
             '_ref'=>'unread',
             '_inactive'=>false,
             'category'=>'Mark',
-            'tags'=>array()
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
+            )
         ),
         'archive'=>array(
             'label'=>'Archive',
             '_ref'=>'archive',
             '_inactive'=>false,
-            'category'=>'Location',
-            'tags'=>array()
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_trash'
+            )
         ),
         'trash'=>array(
             'label'=>'Trash',
             '_ref'=>'trash',
             '_inactive'=>false,
-            'category'=>'Location',
-            'tags'=>array()
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
+            )
         ),
         'inbox'=>array(
             'label'=>'Inbox',
             '_ref'=>'inbox',
             '_inactive'=>false,
-            'category'=>'Location',
-            'tags'=>array()
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_trash',
+                'show_on_archive'
+            )
+        ),
+        'delete'=>array(
+            'label'=>'Delete',
+            '_ref'=>'delete',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array(
+                'show_on_trash'
+            )
         )
     );
 
@@ -388,11 +412,16 @@ If asked, your invitation code is : %4$s',
                             $data[$this->alias]['marked'] = $data['Control']['action'];
                             break;
 
-                            //Locations
+                        //Locations
                         case 'trash':
-                        case 'archive':
                         case 'inbox':
                             $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['location'] = $data['Control']['action'];
+                            break;
+
+                        case 'archive':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['marked'] = 'read';
                             $data[$this->alias]['location'] = $data['Control']['action'];
                             break;
 
