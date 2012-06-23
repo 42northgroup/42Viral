@@ -20,29 +20,33 @@
         <table>
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('type');?></th>
                     <th><?php echo $this->Paginator->sort('label');?></th>
-                    <th><?php echo $this->Paginator->sort('value');?></th>
+                    <th><?php echo $this->Paginator->sort('email_address');?></th>
                     <th class="actions"><?php echo __d('tags', 'Actions');?></th>
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($contactDetails as $contactDetail): ?>
+            <?php if(!empty($emailAddresses)): ?>
+                <?php foreach ($emailAddresses as $emailAddress): ?>
                 <tr>
-                    <td><?php echo $contactDetail['ContactDetail']['type']; ?></td>
-                    <td><?php echo $contactDetail['ContactDetail']['label']; ?></td>
-                    <td><?php echo $contactDetail['ContactDetail']['value']; ?></td>
+                    <td><?php echo $emailAddress['EmailAddress']['label']; ?></td>
+                    <td><?php echo $emailAddress['EmailAddress']['email_address']; ?></td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Edit'),
-                                "/contact_details/edit/{$contactDetail['ContactDetail']['id']}"); ?>
+                                "/email_addresses/edit/{$emailAddress['EmailAddress']['id']}"); ?>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="3"><?php echo __('There are no email addresses associated with this record'); ?></td>
+                </tr>
+            <?php endif; ?>
             </tbody>
         </table>
         <?php echo $this->element('paginate'); ?>
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'contact_detail')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'email_address')); ?>
     </div>
 </div>

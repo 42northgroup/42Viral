@@ -69,8 +69,14 @@ switch($section){
                     'confirm'=>null
                 ),
                 array(
-                    'text' => __('Your Contact Details'),
-                    'url' => "/contact_details/index/person/{$personId}/",
+                    'text' => __('Your Email Addresses'),
+                    'url' => "/email_addresses/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Your Phone Numbers'),
+                    'url' => "/phone_numbers/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
@@ -154,39 +160,31 @@ switch($section){
         );
 
     break;
-    case 'contact_detail':
+    case 'phone_number':
 
-        $contactDetailId = isset($this->data['ContactDetail']['id'])?$this->data['ContactDetail']['id']:null;
+        $phoneNumberId = isset($this->data['PhoneNumber']['id'])?$this->data['PhoneNumber']['id']:null;
         $userId = $this->Session->read('Auth.User.id');
 
-        $label = 'Contact Details';
+        $label = 'Phone Numbers';
         $menu = array(
             'Items'=>array(
                 array(
-                    'text' => __('Your Contact Details'),
-                    'url' => "/contact_details/index/person/{$userId}/",
+                    'text' => __('Your Phone Numbers'),
+                    'url' => "/phone_numbers/index/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('index')
                 ),
                 array(
-                    'text' => __('Add a Contact Detail'),
-                    'url' => "/contact_details/create/person/{$userId}/",
+                    'text' => __('Add a Phone Number'),
+                    'url' => "/phone_numbers/create/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('add')
                 ),
                 array(
-                    'text' => __('Edit this Contact Detail'),
-                    'url' => "/contact_details/edit/person/{$contactDetailId}/",
-                    'options'=>array(),
-                    'confirm'=>null,
-                    'actions'=>array()
-
-                ),
-                array(
-                    'text' => __('Delete this Contact Detail'),
-                    'url' => "/contact_details/delete/{$contactDetailId}/person/{$userId}/",
+                    'text' => __('Delete this Phone Number'),
+                    'url' => "/phone_numbers/delete/{$phoneNumberId}/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>Configure::read('System.purge_warning'),
                     'actions'=>array('edit')
@@ -194,7 +192,40 @@ switch($section){
             )
         );
 
-        break;
+    break;
+    case 'email_address':
+
+        $emailAddressId = isset($this->data['EmailAddress']['id'])?$this->data['EmailAddress']['id']:null;
+        $userId = $this->Session->read('Auth.User.id');
+
+        $label = 'Email Addresses';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Your Email Addresses'),
+                    'url' => "/email_addresses/index/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                    ),
+                array(
+                    'text' => __('Add an email mail Address'),
+                    'url' => "/email_addresses/create/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('add')
+                ),
+                array(
+                    'text' => __('Delete this mail Address'),
+                    'url' => "/email_addresses/delete/{$emailAddressId}/person/{$userId}/",
+                    'options'=>array(),
+                    'confirm'=>Configure::read('System.purge_warning'),
+                    'actions'=>array('edit')
+                )
+            )
+        );
+
+    break;
     default:
         $label = Inflector::humanize($section);
         $menu = array(

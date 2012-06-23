@@ -44,7 +44,8 @@ class User extends Person
         'full_profile' => array(
             'contain' =>    array(
                 'Address'=>array(),
-                'ContactDetail'=>array(),
+                'EmailAddress'=>array(),
+                'PhoneNumber'=>array(),
                 'Profile'=>array('SocialNetwork'),
                 'Upload'=>array(),
                 'UserSetting'=>array()

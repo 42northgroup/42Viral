@@ -19,17 +19,24 @@
     <div class="two-thirds column alpha">
         <?php
 
-            echo $this->Form->create('ContactDetail',
-                        array(
-                            'url'=>$this->here,
-                            'class'=>'responsive'
-                        )
-                    );
+            echo $this->Form->create(
+                'EmailAddress',
+                array(
+                    'url'=>$this->here,
+                    'class'=>'responsive'
+                )
+            );
             echo $this->Form->input('model', array('value'=>$model, 'type'=>'hidden'));
             echo $this->Form->input('model_id', array('value'=>$modelId, 'type'=>'hidden'));
-            echo $this->Form->input('type', array('empty'=>true));
+            echo $this->Form->input(
+                'type',
+                array(
+                    'options'=>$listEmailAdressTypes,
+                    'type'=>'radio'
+                )
+            );
             echo $this->Form->input('label');
-            echo $this->Form->input('value');
+            echo $this->Form->input('email_address');
 
             echo $this->Form->submit();
 
@@ -38,6 +45,6 @@
         ?>
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'contact_detail')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'email_address')); ?>
     </div>
 </div>

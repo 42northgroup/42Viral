@@ -26,10 +26,6 @@
         margin-right: 8px;
     }
 
-    #ActionControlPanel label{
-        margin-right: 8px;
-    }
-
     tr.read{
         color: #aaa;
         background: #eee;
@@ -50,7 +46,6 @@
     echo $this->Form->input(
         'Control.action',
         array(
-            'div'=>array('id'=>'ActionControlPanel'),
             'legend'=>false,
             'type'=>'radio',
             'options'=>$listActionTypes,

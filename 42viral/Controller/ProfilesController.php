@@ -46,10 +46,11 @@ App::uses('ProfileUtil', 'Lib');
         'Connect.GooglePlus',
         'Connect.Oauth',
         'Content',
+        'EmailAddress',
         'Image',
         'Profile',
         'Person',
-        'ContactDetail',
+        'PhoneNumber',
         'SocialNetwork',
         'User'
     );
@@ -103,16 +104,24 @@ App::uses('ProfileUtil', 'Lib');
         $userProfile['Person']['Profile'] = $this->data['Profile'];
 
         $this->set('userProfile', $userProfile);
-        $this->set('types', $this->ContactDetail->listTypes());
 
-        $person_details = $this->ContactDetail->find('all', array(
+        $email_addresses = $this->EmailAddress->find('all', array(
             'conditions' => array(
-                'ContactDetail.model' => 'Person',
-            	'ContactDetail.model_id' => $userProfile['Person']['id']
+                'EmailAddress.model' => 'Person',
+            	'EmailAddress.model_id' => $userProfile['Person']['id']
         	),
             'contain' => array()
         ));
-        $this->set('person_details', $person_details);
+        $this->set('email_addresses', $email_addresses);
+
+        $phone_numbers = $this->PhoneNumber->find('all', array(
+            'conditions' => array(
+                'PhoneNumber.model' => 'Person',
+                'PhoneNumber.model_id' => $userProfile['Person']['id']
+            ),
+            'contain' => array()
+        ));
+        $this->set('phone_numbers', $phone_numbers);
 
         $addresses = $this->Address->find('all', array(
             'conditions' => array(

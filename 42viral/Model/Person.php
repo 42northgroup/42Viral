@@ -134,7 +134,12 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-
+        'EmailAddress' => array(
+            'className' => 'EmailAddress',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
+            'dependent' => true
+        ),
         'FileUpload' => array(
             'className' => 'FileUpload',
             'foreignKey' => 'created_person_id',
@@ -152,8 +157,8 @@ class Person extends AppModel
             'dependent' => true
         ),
 
-        'ContactDetail' => array(
-            'className' => 'ContactDetail',
+        'PhoneNumber' => array(
+            'className' => 'PhoneNumber',
             'foreignKey' => 'model_id',
             'conditions'=>array('model'=>'Person'),
             'dependent' => true
