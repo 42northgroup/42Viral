@@ -85,13 +85,13 @@ class Person extends AppModel
         )
     );
 
-
     /**
      * Defines the person model's has one relationships
      * @access
      * @var array
      */
     public $hasOne = array(
+        //@todo What is this?
         'OwnerPerson' => array(
             'className' => 'Profile',
             'foreignKey' => 'owner_person_id',

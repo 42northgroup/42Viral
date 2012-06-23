@@ -39,7 +39,13 @@ class  EmailAddress extends AppModel
      * @var array
      */
     public $actsAs = array(
-        'Log'
+        'Log',
+        'ContentFilters.Scrubable'=>array(
+            'Filters'=>array(
+                'trim'=>'*',
+                'noHTML'=>array('*')
+            )
+        ),
     );
 
     /**
