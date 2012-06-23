@@ -124,8 +124,81 @@ var HeaderNavigation = {
         this.setupUI();
     }
 };
+
 /**
- * Loads the desired editor, personally I hate editors, I will just make self sizeing text areas.
+ * Loads the desired editor
+ * @todo finalize or remove
+ */
+var SetEditor = {
+    /**
+     * 
+     *
+     * @property {boolean}
+     * @access private
+     */
+    _initialized: false,
+
+    /**
+     * @property {string}
+     * @access private
+     */
+    _syntax: 'markdown',
+
+    /**
+    * @property {string}
+    * @access private
+    */
+    _element: 'ContentBody',
+
+    /**
+     * Prepares functionality for use in the UI
+     * @access private
+     */
+    _setupUi: function() {
+        if(this._syntax == 'markdown') {
+            $("#" + this._element).removeClass('edit-content');
+        } else {
+            $("#" + this._element).addClass('edit-content');
+            // Browser compatibility test. If CKEditor like the browser, load a class based configuration. Other wise 
+            // we'll fallback to a "plain jane" textarea
+            if ( CKEDITOR.env.isCompatible ) {
+                $('textarea.edit-content').ckeditor(configContent);
+            }   
+        }
+    },
+
+    /**
+     * Builds the UI interactions
+     *
+     * @access public
+     * @return void
+     */
+    init: function(config) {
+
+        //If config params are being passed, replace default configurations
+        if(typeof config != 'undefined') {
+
+            //parse the configuration object
+            //var obj = jQuery.parseJSON(config);
+            var obj = config;
+
+            if(typeof obj.syntax != 'undefined') {
+                this._syntax = obj.syntax;
+            }
+
+            if(typeof obj.element != 'undefined') {
+                this._element = obj.element;
+            }
+
+        }
+        
+        this._setupUi();
+        this._initialized = true;
+    }
+};
+   
+/**
+ * Loads common start up functionality
  */
 var Startup = {
     
@@ -147,7 +220,8 @@ var Startup = {
         this._setupUi();
     }
 };
-    
+
+
 // "Instansiates prototypical objects"
 $(function(){
 	Startup.init();
