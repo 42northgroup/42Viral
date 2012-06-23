@@ -83,8 +83,8 @@ class  PhoneNumber extends AppModel
         ),
         'phone_number' => array(
             'phone_number' => array(
-                'rule'    => array('phone', null, 'us'),
-                'message' => 'Please enter a valid "U.S." phone number'
+                'rule'    => array('phone', null, 'all'),
+                'message' => 'Please enter a valid phone number'
             ),
 
             'notEmpty' => array(

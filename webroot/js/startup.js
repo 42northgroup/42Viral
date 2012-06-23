@@ -29,6 +29,60 @@ $.ajaxSetup ({
 });
 
 /**
+ * Auto-growing textareas; technique ripped from Facebook
+ * @see http://goo.gl/rKtfL
+ */
+(function($) {
+	$.fn.autogrow = function(options) {
+	
+	    this.filter('textarea').each(function() {
+	
+	        var $this       = $(this),
+	            minHeight   = $this.height(),
+	            lineHeight  = $this.css('lineHeight');
+	
+	        var shadow = $('<div></div>').css({
+	            position:   'absolute',
+	            top:        -10000,
+	            left:       -10000,
+	            width:      $(this).width() - parseInt($this.css('paddingLeft')) - parseInt($this.css('paddingRight')),
+	            fontSize:   $this.css('fontSize'),
+	            fontFamily: $this.css('fontFamily'),
+	            lineHeight: $this.css('lineHeight'),
+	            resize:     'none'
+	        }).appendTo(document.body);
+	
+	        var update = function() {
+	
+	            var times = function(string, number) {
+	                for (var i = 0, r = ''; i < number; i ++) r += string;
+	                return r;
+	            };
+	
+            var val = this.value.replace(/</g, '&lt;')
+                                .replace(/>/g, '&gt;')
+                                .replace(/&/g, '&amp;')
+                                .replace(/\n$/, '<br/>&nbsp;')
+                                .replace(/\n/g, '<br/>')
+                                .replace(/ {2,}/g, function(space) { return times('&nbsp;', space.length -1) + ' ' });
+	
+	            shadow.html(val);
+	            $(this).css('height', Math.max(shadow.height() + 20, minHeight));
+	
+	        }
+	
+	        $(this).change(update).keyup(update).keydown(update);
+	
+	        update.apply(this);
+	
+	    });
+	
+	    return this;
+	
+	} 
+})(jQuery);
+
+/**
  * Provides functionality for header navigation.
  */
 var HeaderNavigation = {
@@ -70,46 +124,17 @@ var HeaderNavigation = {
         this.setupUI();
     }
 };
-
 /**
- * Loads the desired editor
+ * Loads the desired editor, personally I hate editors, I will just make self sizeing text areas.
  */
-var SetEditor = {
-    /**
-     * 
-     *
-     * @property {boolean}
-     * @access private
-     */
-    _initialized: false,
-
-    /**
-     * @property {string}
-     * @access private
-     */
-    _syntax: 'markdown',
-
-    /**
-    * @property {string}
-    * @access private
-    */
-    _element: 'ContentBody',
-
+var Startup = {
+    
     /**
      * Prepares functionality for use in the UI
      * @access private
      */
     _setupUi: function() {
-        if(this._syntax == 'markdown') {
-            $("#" + this._element).removeClass('edit-content');
-        } else {
-            $("#" + this._element).addClass('edit-content');
-            // Browser compatibility test. If CKEditor like the browser, load a class based configuration. Other wise 
-            // we'll fallback to a "plain jane" textarea
-            if ( CKEDITOR.env.isCompatible ) {
-                $('textarea.edit-content').ckeditor(configContent);
-            }   
-        }
+        $('textarea').autogrow();
     },
 
     /**
@@ -118,31 +143,13 @@ var SetEditor = {
      * @access public
      * @return void
      */
-    init: function(config) {
-
-        //If config params are being passed, replace default configurations
-        if(typeof config != 'undefined') {
-
-            //parse the configuration object
-            //var obj = jQuery.parseJSON(config);
-            var obj = config;
-
-            if(typeof obj.syntax != 'undefined') {
-                this._syntax = obj.syntax;
-            }
-
-            if(typeof obj.element != 'undefined') {
-                this._element = obj.element;
-            }
-
-        }
-        
+    init: function() {        
         this._setupUi();
-        this._initialized = true;
     }
 };
-
+    
 // "Instansiates prototypical objects"
 $(function(){
+	Startup.init();
     HeaderNavigation.init();
 });
