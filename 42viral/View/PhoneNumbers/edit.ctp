@@ -36,7 +36,13 @@
             );
             echo $this->Form->input('label');
             echo $this->Form->input('phone_number');
-
+            echo $this->Form->input(
+                'access',
+                array(
+                    'options'=>$listAccessTypes,
+                    'type'=>'radio'
+                )
+            );
             echo $this->Form->submit();
 
             echo $this->Form->end();

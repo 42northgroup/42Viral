@@ -99,6 +99,7 @@ App::uses('AppController', 'Controller');
     		}
     	}
 
+    	$this->set('listAccessTypes', $this->EmailAddress->listAccessTypes());
     	$this->set('listEmailAdressTypes', $this->EmailAddress->listEmailAddressTypes());
 
     	$this->set('model', $classifiedModel);
@@ -133,6 +134,7 @@ App::uses('AppController', 'Controller');
                     'conditions'=>array('EmailAddress.id'=>$emailAddressId),
                     'contain'=>array(),
                     'fields'=>array(
+                        'EmailAddress.access',
                         'EmailAddress.id',
                         'EmailAddress.email_address',
                         'EmailAddress.label',
@@ -142,7 +144,9 @@ App::uses('AppController', 'Controller');
             );
         }
 
+        $this->set('listAccessTypes', $this->EmailAddress->listAccessTypes());
         $this->set('listEmailAdressTypes', $this->EmailAddress->listEmailAddressTypes());
+
         $this->set('title_for_layout', __('Update an Email Address'));
     }
 

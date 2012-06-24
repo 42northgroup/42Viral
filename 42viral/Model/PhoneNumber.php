@@ -69,6 +69,12 @@ class  PhoneNumber extends AppModel
      * @access public
      */
     public $validate = array(
+        'access' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => 'Please choose who can view the phone number'
+            )
+        ),
         'type' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',

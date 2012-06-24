@@ -113,4 +113,51 @@ class AppModel extends Model
 
         return $options;
     }
+
+
+    /**
+     * Defines various types of email addresses
+     *
+     * @access private
+     * @var array
+     */
+    private $__listAccessTypes = array(
+        //Accessable only by the user and internal staff
+        'private'=>array(
+            'label'=>'Private',
+            '_ref'=>'private',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        //Accessable to friends (Not yet implemented)
+        'protected'=>array(
+            'label'=>'Protected',
+            '_ref'=>'protected',
+            '_inactive'=>true,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        //Accessable to all
+        'public'=>array(
+            'label'=>'Public',
+            '_ref'=>'public',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        )
+    );
+
+    /**
+     * Returns a key to value action types. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listAccessTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listAccessTypes, $tags, $category, $categories);
+    }
 }

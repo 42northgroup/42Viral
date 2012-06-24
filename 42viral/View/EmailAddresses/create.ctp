@@ -37,6 +37,13 @@
             );
             echo $this->Form->input('label');
             echo $this->Form->input('email_address');
+            echo $this->Form->input(
+                'access',
+                array(
+                    'options'=>$listAccessTypes,
+                    'type'=>'radio'
+                )
+            );
 
             echo $this->Form->submit();
 

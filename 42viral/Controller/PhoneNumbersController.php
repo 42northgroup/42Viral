@@ -64,9 +64,11 @@ App::uses('AppController', 'Controller');
                 'PhoneNumber.model_id'=>$modelId
             ),
             'fields'=>array(
+                'PhoneNumber.access',
                 'PhoneNumber.id',
                 'PhoneNumber.label',
-                'PhoneNumber.phone_number'
+                'PhoneNumber.phone_number',
+                'PhoneNumber.type'
             ),
             'limit' => 10,
             'order'=>array('PhoneNumber.label', 'PhoneNumber.phone_number')
@@ -99,7 +101,7 @@ App::uses('AppController', 'Controller');
     	}
 
     	$this->set('listPhoneNumberTypes', $this->PhoneNumber->listPhoneNumberTypes());
-
+    	$this->set('listAccessTypes', $this->PhoneNumber->listAccessTypes());
     	$this->set('model', $classifiedModel);
     	$this->set('modelId', $modelId);
 
@@ -131,6 +133,7 @@ App::uses('AppController', 'Controller');
                     'conditions'=>array('PhoneNumber.id'=>$phoneNumberId),
                     'contain'=>array(),
                     'fields'=>array(
+                        'PhoneNumber.access',
                         'PhoneNumber.id',
                         'PhoneNumber.label',
                         'PhoneNumber.phone_number',
@@ -141,7 +144,7 @@ App::uses('AppController', 'Controller');
         }
 
         $this->set('listPhoneNumberTypes', $this->PhoneNumber->listPhoneNumberTypes());
-
+        $this->set('listAccessTypes', $this->PhoneNumber->listAccessTypes());
         $this->set('title_for_layout', __('Update a Phone Number'));
     }
 
