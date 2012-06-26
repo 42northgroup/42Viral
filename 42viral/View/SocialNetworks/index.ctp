@@ -24,18 +24,24 @@
                 </tr>
             </thead>
             <tbody>
-            <?php foreach ($socialNetworks as $socialNetwork): ?>
+            <?php if(!empty($socialNetworks)): ?>
+                <?php foreach ($socialNetworks as $socialNetwork): ?>
+                    <tr>
+                        <td><?php echo $socialNetwork['SocialNetwork']['identifier']; ?></td>
+                        <td><?php echo $socialNetwork['SocialNetwork']['network']; ?></td>
+                        <td><?php echo $socialNetwork['SocialNetwork']['created']; ?></td>
+                        <td><?php echo $socialNetwork['SocialNetwork']['modified']; ?></td>
+                        <td class="actions">
+                            <?php echo $this->Html->link(__('Edit'),
+                                    "/social_networks/edit/{$socialNetwork['SocialNetwork']['id']}"); ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
                 <tr>
-                    <td><?php echo $socialNetwork['SocialNetwork']['identifier']; ?></td>
-                    <td><?php echo $socialNetwork['SocialNetwork']['network']; ?></td>
-                    <td><?php echo $socialNetwork['SocialNetwork']['created']; ?></td>
-                    <td><?php echo $socialNetwork['SocialNetwork']['modified']; ?></td>
-                    <td class="actions">
-                        <?php echo $this->Html->link(__('Edit'),
-                                "/social_networks/edit/{$socialNetwork['SocialNetwork']['id']}"); ?>
-                    </td>
+                    <td colspan="3"><?php echo __('There are no social networks associated with this record'); ?></td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endif; ?>
             </tbody>
         </table>
         <?php echo $this->element('paginate'); ?>
