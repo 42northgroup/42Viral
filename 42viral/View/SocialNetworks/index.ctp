@@ -39,7 +39,7 @@
                 <?php endforeach; ?>
             <?php else: ?>
                 <tr>
-                    <td colspan="3"><?php echo __('There are no social networks associated with this record'); ?></td>
+                    <td colspan="5"><?php echo __('There are no social networks associated with this record'); ?></td>
                 </tr>
             <?php endif; ?>
             </tbody>

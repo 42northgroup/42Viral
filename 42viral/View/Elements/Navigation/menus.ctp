@@ -27,14 +27,14 @@ switch($section){
             'Items'=>array(
                 array(
                     'text' =>__('Profile'),
-                    'url' => $userProfile['Person']['url'],
+                    'url' => $menuPerson['Person']['url'],
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array('view')
                 ),
                 array(
                     'text' => __('Images'),
-                    'url' => "/uploads/images/{$userProfile['Person']['username']}/",
+                    'url' => "/uploads/images/{$menuPerson['Person']['username']}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
@@ -88,28 +88,28 @@ switch($section){
     case 'address':
 
     	$addressId = isset($this->data['Address']['id'])?$this->data['Address']['id']:null;
-    	$userId = $this->Session->read('Auth.User.id');
+    	$personId = $this->Session->read('Auth.User.id');
 
     	$label = 'Address';
     	$menu = array(
     		'Items'=>array(
     			array(
     				'text' => __('Your Addresses'),
-    				'url' => "/addresses/index/person/{$addressId}/",
+    				'url' => "/addresses/index/person/{$personId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions_exclude'=>array('index')
     			),
     			array(
     				'text' => __('Create an Address'),
-    				'url' => "/addresses/create/person/{$userId}/",
+    				'url' => "/addresses/create/person/{$personId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions_exclude'=>array('create')
     				),
     			array(
     				'text' => __('Delete this Address'),
-    				'url' => "/addresses/delete/{$addressId}/",
+    				'url' => "/addresses/delete/{$addressId}/person/{$personId}/",
     				'options'=>array(),
     				'confirm'=>null,
     				'actions'=>array('view', 'edit')

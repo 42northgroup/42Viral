@@ -96,6 +96,8 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function edit($profileId) {
 
+        $this->_validRecord('Profile', $profileId);
+
         $this->data = $this->Profile->getProfileWith($profileId, 'person');
 
         /* Restructure the Profile data to fit the the userProfile hook */
@@ -104,36 +106,6 @@ App::uses('ProfileUtil', 'Lib');
         $userProfile['Person']['Profile'] = $this->data['Profile'];
 
         $this->set('userProfile', $userProfile);
-
-        $email_addresses = $this->EmailAddress->find('all', array(
-            'conditions' => array(
-                'EmailAddress.model' => 'Person',
-            	'EmailAddress.model_id' => $userProfile['Person']['id']
-        	),
-            'contain' => array()
-        ));
-        $this->set('email_addresses', $email_addresses);
-
-        $phone_numbers = $this->PhoneNumber->find('all', array(
-            'conditions' => array(
-                'PhoneNumber.model' => 'Person',
-                'PhoneNumber.model_id' => $userProfile['Person']['id']
-            ),
-            'contain' => array()
-        ));
-        $this->set('phone_numbers', $phone_numbers);
-
-        $addresses = $this->Address->find('all', array(
-            'conditions' => array(
-                'Address.model' => 'Person',
-                'Address.model_id' => $userProfile['Person']['id'],
-            ),
-            'contain' => array()
-        ));
-        $this->set('addresses', $addresses);
-
-        $this->set('mine', true);
-
         $this->set('title_for_layout', 'Edit Profile');
     }
 
@@ -145,6 +117,8 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function view($token = null)
     {
+        $this->_validRecord('Person', $token, 'username');
+
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
@@ -171,12 +145,6 @@ App::uses('ProfileUtil', 'Lib');
 
         $contents = $this->paginate('Content');
 
-        //Does the user really exist?
-        if(empty($user)) {
-            $this->Session->setFlash(__('An invalid profile was requested') ,'error');
-            throw new NotFoundException('An invalid profile was requested');
-        }
-
         // Mine
         if($this->Session->read('Auth.User.username') == $token){
             $this->set('mine', true);
@@ -184,20 +152,75 @@ App::uses('ProfileUtil', 'Lib');
             $this->set('mine', false);
         }
 
-        $this->set('user', $user);
+        $person = $this->Person->find(
+            'first',
+             array(
+                 'conditions'=>array(
+                     'Person.username'=>$token
+                 ),
+                 'fields'=>array(
+                     'Person.id',
+                     'Person.name',
+                     'Person.username',
+                     'Person.url',
+                     'Person.email'
+                 ),
+                'contain'=>array(
+                    'Address'=>array(
+                        'fields'=>array(
+                            'Address.label',
+                            'Address.line1',
+                            'Address.line2',
+                            'Address.city',
+                            'Address.state',
+                            'Address.zip',
+                            'Address.country'
+                        ),
+                            /*
+                        'conditions'=>array(
+                            'Address.access'=>'public'
+                        )
+                        */
+                    ),
+                    'EmailAddress'=>array(
+                        'fields'=>array(
+                            'EmailAddress.label',
+                            'EmailAddress.email_address'
+                         ),
+                        'conditions'=>array(
+                            'EmailAddress.access'=>'public'
+                        )
+                    ),
+                    'Profile'=>array(
+                        'fields'=>array(
+                            'Profile.id',
+                            'Profile.bio'
+                        )
+                    ),
+                    'PhoneNumber'=>array(
+                        'fields'=>array(
+                            'PhoneNumber.label',
+                            'PhoneNumber.phone_number'
+                        ),
+                        'conditions'=>array(
+                            'PhoneNumber.access'=>'public'
+                        )
+                    ),
+                    'SocialNetwork'=>array(
+                         'fields'=>array(
+                            'SocialNetwork.network',
+                            'SocialNetwork.identifier'
+                        )
+                    )
+                )
+             )
+        );
 
-        $person = array();
-        $person['Person'] = $user['User'];
-
-        $userProfile = array();
-        $userProfile = array_replace($user, $person);
-        unset($userProfile['User']);
-
+        $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);
-        $this->set('userProfile', $userProfile);
-        $this->set('profileId', $userProfile['Profile']['id']);
-        $this->set('title_for_layout', ProfileUtil::name($userProfile['Person']) . "'s Profile");
+        $this->set('profileId', $person['Profile']['id']);
+        $this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Profile");
 
     }
 

@@ -18,11 +18,11 @@
 
     <div class="two-thirds column alpha">
         <div class="icon-bar">
-            <?php echo $this->SocialMedia->landingPage($person['Profile'], $networks); ?>
+            <?php echo $this->SocialMedia->landingPage($person, $networks); ?>
         </div>
         <div class="h1shim"></div>
         <div id="ResultsPage">
-            <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
+            <h2><?php echo ProfileUtil::name($person['Person']); ?>'s Content</h2>
 
             <?php foreach($contents as $content):?>
                 <div class="clearfix result" style="width: 100%;">
@@ -52,13 +52,14 @@
             echo $this->element(
                     'Blocks' . DS . 'hcard',
                     array(
-                            'userProfile'=>$userProfile,
-                            'allOpen'=>true,
+                            'hcardPerson'=>$person,
+                            'hcardProfile'=>$person['Profile'],
+                            'hcardPhoneNumbers'=>$person['PhoneNumber'],
+                            'hcardEmailAddresses'=>$person['EmailAddress'],
+                            'hcardAddresses'=>$person['Address'],
                             'h1'=>true
                         )
                     );
-
-
 
             //Privides navigation for manageing an asset
             if($mine):
@@ -73,9 +74,14 @@
                     )
                 );
 
-                echo $this->element('Navigation' . DS . 'menus', array(
-                    'section'=>'profile',
-                    'additional'=>$additional));
+                echo $this->element(
+                    'Navigation' . DS . 'menus',
+                    array(
+                        'section'=>'profile',
+                        'additional'=>$additional,
+                        'menuPerson'=>$person
+                    )
+                );
             endif;
         ?>
 

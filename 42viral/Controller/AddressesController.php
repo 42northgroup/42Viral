@@ -78,6 +78,7 @@ App::uses('AppController', 'Controller');
         $this->set('model', $classifiedModel);
         $this->set('modelId', $modelId);
         $this->set('states', $this->Address->listStates('US'));
+        $this->set('contries', $this->Address->listCountries('US'));
         $this->set('addressTypes', $this->Address->listAddressTypes());
         $this->set('title_for_layout', __('Add an Address to Your Profile'));
     }
@@ -87,6 +88,8 @@ App::uses('AppController', 'Controller');
      * @param string $addressId
      */
     public function edit($addressId){
+
+        $buildDataArray = true;
 
     	$this->_validRecord('Address', $addressId);
 
@@ -99,13 +102,20 @@ App::uses('AppController', 'Controller');
             }
         }
 
-        $this->data = $this->Address->find('first',
+        if($buildDataArray){
+            $this->data = $this->Address->find(
+                'first',
                 array(
-                    'conditions'=>array('Address.id'=>$addressId),
+                    'conditions'=>array(
+                            'Address.id'=>$addressId
+                    ),
+                    //'fields'=>array(),
                     'contain'=>array()
-                    )
-                );
+                )
+            );
+        }
 
+        $this->set('contries', $this->Address->listCountries('US'));
         $this->set('states', $this->Address->listStates('US'));
         $this->set('addressTypes', $this->Address->listAddressTypes());
         $this->set('title_for_layout', __('Update an Address'));
@@ -153,7 +163,9 @@ App::uses('AppController', 'Controller');
      * @access public
      * @param $id ID of the social_network which we want ot delete
      */
-    public function delete($id){
+    public function delete($id, $model, $modelId){
+
+        $this->_validAssociation($model, $modelId);
 
         if($this->Address->delete($id)){
             $this->Session->setFlash(__('Your address has been removed'), 'success');

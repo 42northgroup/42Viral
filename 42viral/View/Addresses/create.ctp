@@ -28,14 +28,21 @@
             echo $this->Form->input('model', array('value'=>$model, 'type'=>'hidden'));
             echo $this->Form->input('model_id', array('value'=>$modelId, 'type'=>'hidden'));
 
+            echo $this->Form->input('type', array('options'=>$addressTypes, 'type'=>'radio'));
             echo $this->Form->input('label');
-            echo $this->Form->input('type', array('options'=>$addressTypes, 'empty'=>true));
             echo $this->Form->input('line1');
             echo $this->Form->input('line2');
             echo $this->Form->input('city');
             echo $this->Form->input('state', array('empty'=>true));
             echo $this->Form->input('zip');
-
+            echo $this->Form->input(
+                'country',
+                array(
+                    'options'=>$contries
+                )
+            );
+            //echo $this->Form->input('latitude');
+            //echo $this->Form->input('longitude');
             echo $this->Form->submit();
 
             echo $this->Form->end();

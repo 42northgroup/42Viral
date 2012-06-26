@@ -16,19 +16,24 @@
         <table>
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('line1');?></th>
-                    <th><?php echo $this->Paginator->sort('line2');?></th>
+                    <th><?php echo $this->Paginator->sort('label');?></th>
+                    <th><?php echo $this->Paginator->sort('line1', 'Street');?></th>
                     <th><?php echo $this->Paginator->sort('city');?></th>
-                    <th><?php echo $this->Paginator->sort('zip');?></th>
                     <th><?php echo $this->Paginator->sort('state');?></th>
+                    <th><?php echo $this->Paginator->sort('zip');?></th>
                     <th class="actions"><?php echo __d('tags', 'Actions');?></th>
                 </tr>
             </thead>
             <tbody>
             <?php foreach ($addresses as $address): ?>
                 <tr>
-                    <td><?php echo $address['Address']['line1']; ?></td>
-                    <td><?php echo $address['Address']['line2']; ?></td>
+                    <td><?php echo $address['Address']['label']; ?></td>
+                    <td>
+                    <?php
+                        echo $address['Address']['line1'];
+                        echo !empty($address['Address']['line2'])?", {$address['Address']['line2']}":"";
+                    ?>
+                    </td>
                     <td><?php echo $address['Address']['city']; ?></td>
                     <td><?php echo $address['Address']['state']; ?></td>
                     <td><?php echo $address['Address']['zip']; ?></td>
