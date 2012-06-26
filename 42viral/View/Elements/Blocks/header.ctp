@@ -52,7 +52,7 @@ $userId = $this->Session->read('Auth.User.id');
                     <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
                     <div class="navigation">
                         <?php
                         $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";
@@ -134,7 +134,7 @@ $userId = $this->Session->read('Auth.User.id');
                     <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('New Account'), '/users/create/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Login'), '/users/login/'); ?></div>
                 </div>
