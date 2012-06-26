@@ -15,51 +15,51 @@
 ?>
 
 <div class="row">
-    
+
     <div class="two-thirds column alpha">
         <div class="icon-bar">
-            <?php echo $this->SocialMedia->landingPage($user['Profile'], $networks); ?>
+            <?php echo $this->SocialMedia->landingPage($person['Profile'], $networks); ?>
         </div>
         <div class="h1shim"></div>
         <div id="ResultsPage">
             <h2><?php echo $this->Profile->name($userProfile['Person']); ?>'s Content</h2>
-            
-            <?php foreach($contents as $content):?>            
+
+            <?php foreach($contents as $content):?>
                 <div class="clearfix result" style="width: 100%;">
                     <div class="result-left">
                         <?php echo Inflector::humanize($content['Content']['object_type']); ?>
                     </div>
                     <div class="result-right">
-                        
-                        <strong><?php echo $this->Html->link($content['Content']['title'], 
+
+                        <strong><?php echo $this->Html->link($content['Content']['title'],
                                 $content['Content']['url']); ?> </strong>
-                        
+
                         <div class="tease">
                             <?php echo Scrub::noHtml(
                                     $this->Text->truncate(
                                             $content['Content']['body'], 180, array('html' => true))); ?>
                         </div>
                     </div>
-                </div>            
-            <?php endforeach; ?> 
+                </div>
+            <?php endforeach; ?>
             <?php echo $this->element('paginate'); ?>
-        </div>        
+        </div>
     </div>
-    
+
     <div class="one-third column omega">
-        
-        <?php 
+
+        <?php
             echo $this->element(
-                    'Blocks' . DS . 'hcard', 
+                    'Blocks' . DS . 'hcard',
                     array(
-                            'userProfile'=>$userProfile, 
+                            'userProfile'=>$userProfile,
                             'allOpen'=>true,
                             'h1'=>true
                         )
-                    ); 
-            
+                    );
 
-        
+
+
             //Privides navigation for manageing an asset
             if($mine):
 
@@ -70,15 +70,15 @@
                         'url'=>"/profiles/edit/{$profileId}",
                         'options' => array(),
                         'confirm'=>null
-                    )               
+                    )
                 );
-                        
+
                 echo $this->element('Navigation' . DS . 'menus', array(
-                    'section'=>'profile', 
+                    'section'=>'profile',
                     'additional'=>$additional));
-            endif; 
+            endif;
         ?>
 
     </div>
-    
+
 </div>

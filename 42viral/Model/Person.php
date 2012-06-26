@@ -156,20 +156,23 @@ class Person extends AppModel
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-
         'PhoneNumber' => array(
             'className' => 'PhoneNumber',
             'foreignKey' => 'model_id',
             'conditions'=>array('model'=>'Person'),
             'dependent' => true
         ),
-
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-
+        'SocialNetwork' => array(
+            'className' => 'SocialNetwork',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
+            'dependent' => true
+        ),
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',
