@@ -138,7 +138,7 @@ switch($section){
                     'url' => "/social_networks/create/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('add')
+                    'actions_exclude'=>array('create')
 
                 ),
                 array(
@@ -209,11 +209,11 @@ switch($section){
                     'actions_exclude'=>array('index')
                     ),
                 array(
-                    'text' => __('Add an email mail Address'),
+                    'text' => __('Add an Email Address'),
                     'url' => "/email_addresses/create/person/{$userId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('add')
+                    'actions_exclude'=>array('create')
                 ),
                 array(
                     'text' => __('Delete this mail Address'),
