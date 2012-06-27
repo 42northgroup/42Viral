@@ -12,6 +12,7 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @package 42viral\Upload
+ * @todo What kind of security concerns should be addresses here?
  */
 
 App::uses('AppModel', 'Model');
@@ -88,40 +89,115 @@ class Upload extends AppModel
     }
 
     /**
+     * Processes an uploaded file, creates and entry in the database and save the appropriate files to the uploaded
+     * directory
      *
      * @param unknown_type $data
      */
     public function process($data){
 
-        debug($data);
+        //Do we want to process the upload as an image?
+        $isImage = false;
 
-        //Make sure we have the tmp_file to work with
+        //Make sure we have a tmp_file to work with
         if(!$this->__hasTmpFile($data[$this->alias]['file']['tmp_name'])){
             return false;
         }
 
+        //Adde the original file name directly to the data array
+        $data[$this->alias]['_originalFileName'] = $data[$this->alias]['file']['name'];
+
         //Try to determine if the uploaded file s an image
         if($this->__isImage($data[$this->alias]['file']['tmp_name'])){
-            $this->__processImage($data);
+
+            // This is the file type as it will be saved to the database
+
+            //// We can force all images to be saved as jpg files
+            //@@ This file ext. should probably be more configurable
+            $data[$this->alias]['saved_file_ext'] = 'jpg';
+            $data[$this->alias]['type'] = 'image/jpeg';
+            $data[$this->alias]['name']
+                = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_FILENAME)
+                . ".{$data[$this->alias]['saved_file_ext']}";
+
+            //// OR ////
+
+            //// We can maintain the original file type
+            ## $data['saved_file_ext'] = pathinfo($data['_originalFileName'], PATHINFO_EXTENSION);
+            ## $data['name'] = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_FILENAME);
+            ## $data[$this->alias]['type'] = $data[$this->alias]['file']['type'];
+
+            $isImage = true;
+
         }else{
-            $this->__processFile($data);
+
+            // This is the file type as it will be saved to the database
+            // For non-image files we will maintain the original file type
+            $data['saved_file_ext'] = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_EXTENSION);
+            $data[$this->alias]['name'] = $data[$this->alias]['file']['name'];
+            $data[$this->alias]['type'] = $data[$this->alias]['file']['type'];
+
+        }
+
+        $data[$this->alias]['size'] = $data[$this->alias]['file']['size'];
+
+        if($this->save($data)){
+            $data[$this->alias]['id'] = $this->id;
+        }else{
+            return false;
+        }
+
+        //Process and save the files accordingly
+        if($isImage){
+            return $this->__processImage($data);
+        }else{
+            return $this->__processFile($data);
         }
 
         return true;
     }
 
-    private function __processFile(){
+    /**
+     * File processing for basic file uploads
+     * @access private
+     * @param array $data
+     */
+    private function __processFile($data){
 
+        $name = $data[$this->alias]['id'];
+        $tmpFilePath = $data[$this->alias]['file']['tmp_name'];
+
+        $file = new File ($tmpFilePath);
+        $filename = APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data['saved_file_ext']}";
+        $image = $file->read();
+        $file->close();
+        $file = new File ($filename, true, 777);
+        $file->write($image);
+        $file->close();
+        //Verfiy the file was created, if it wasn't, rollback the database entry
+        if(file_exists(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data['saved_file_ext']}")){
+            return true;
+        }else{
+            if(!$this->delete($data[$this->alias]['id'])){
+                $this->log("{$data[$this->alias]['id']} may not have any associated files", 'UploadRollback');
+            }
+            return false;
+        }
     }
 
     /**
-     * Handels image processing for file uploads
+     * Image processing for file uploads
      * @access private
+     * @param array $data
+     *
      * @todo Configurable image driver settings
      * @todo Investigate the value of adding salt as they do in the CakePHP plugin
      * @todo Apply a proper autoloader
      */
     private function __processImage($data){
+
+        $name = $data[$this->alias]['id'];
+        $_originalFileName = $data[$this->alias]['file']['name'];
 
         // $driver = 'Gd';
         // $driver = 'Imagick';
@@ -130,6 +206,7 @@ class Upload extends AppModel
         //Path to the Imagine vendor directory
         $path = APP . DS . '42viral' . DS . 'Vendor' . DS . 'Imagine' . DS . 'lib';
 
+        //@@ I really don't like this, but it is functional for the moment
         require_once($path . DS . 'Imagine/Exception/Exception.php');
         require_once($path . DS . 'Imagine/Exception/InvalidArgumentException.php');
         require_once($path . DS . 'Imagine/Exception/RuntimeException.php');
@@ -144,22 +221,48 @@ class Upload extends AppModel
         require_once($path . DS . 'Imagine/Image/Box.php');
 
         $imagine = new Imagine\Gd\Imagine();
+        //@@ Thumbnail sizing should probably be configurable
         $size = new Imagine\Image\Box(125, 125);
         $mode = Imagine\Image\ImageInterface::THUMBNAIL_OUTBOUND;
 
-        $name = String::uuid();
         //Configure::write('Imagine.salt', 'your-salt-string-here');
 
-        //Save the original image
+        //Save the original image as the desired format - Set in the processing method
         $imagine
             ->open($data[$this->alias]['file']['tmp_name'])
-            ->save(APP . 'webroot' . DS . 'uploaded' . DS . $name . '.png');
+            ->save(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data[$this->alias]['saved_file_ext']}");
 
-        //Save the thumbnail
+        //Create a thumbnail and save it in the desired format - Set in the processing method
         $imagine
-            ->open(APP . 'webroot' . DS . 'uploaded' . DS . $name . '.png')
+            ->open(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data[$this->alias]['saved_file_ext']}")
             ->thumbnail($size, $mode)
-            ->save(APP . 'webroot' . DS . 'uploaded' . DS . 'thumbnail_' . $name . '.png');
+            ->save(
+                APP . 'webroot' . DS . 'uploaded' . DS . "thumbnail_{$name}.{$data[$this->alias]['saved_file_ext']}");
+
+        //Verfiy the files were created, if they were not, rollback the database entry
+        if(
+            file_exists(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data[$this->alias]['saved_file_ext']}")
+            && file_exists(
+                APP . 'webroot' . DS . 'uploaded' . DS . "thumbnail_{$name}.{$data[$this->alias]['saved_file_ext']}")
+        ){
+            return true;
+        }else{
+            if(!$this->delete($data['id'])){
+                $this->log("{$data[$this->alias]['id']} may not have any associated files", 'UploadRollback');
+            }
+            return false;
+        }
     }
 
+    /**
+     * Deletes the upload record from the database and removes any associated files.
+     * @access public
+     * @param string $id
+     * @retrun boolean
+     */
+    public function purge($id){
+//@@ find the file in the database
+//@@ unlink the appropriate files
+//@@ remove the record from the database
+    }
 }

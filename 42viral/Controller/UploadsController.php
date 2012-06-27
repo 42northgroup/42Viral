@@ -49,19 +49,23 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     * Provides an index of all system profiles
-     *
-     *
+     * Provides an action for uploading files
      * @access public
-     * @todo TestCase
      */
-    public function index()
+    public function create($model, $modelId = '4e27efec-ece0-4a36-baaf-38384bb83359')
     {
-        if($this->Upload->process($this->data)){
+        $classifiedModel = $this->_validAssociation($model, $modelId);
 
-        }else{
-            $this->Session->setFlash(__('The file could not be uploaded'), 'error');
+        if(!empty($this->data)){
+            if($this->Upload->process($this->data)){
+
+            }else{
+                $this->Session->setFlash(__('The file could not be uploaded'), 'error');
+            }
         }
-        $this->set('title_for_layout', 'Uploads');
+
+        $this->set('model', $classifiedModel);
+        $this->set('modelId', $modelId);
+        $this->set('title_for_layout', __('Upload a File'));
     }
 }
