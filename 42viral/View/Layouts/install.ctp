@@ -16,17 +16,16 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
+
     <?php echo $this->element('Blocks' . DS . 'html_head'); ?>
 
     <?php
         echo $this->Html->meta('icon');
 
         echo $this->Asset->buildAssetPackage('jquery');
-        
+
         $this->Asset->addAssets(array(
             'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
-            'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
             'js' . DS . 'startup.js',
 
             'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
@@ -51,8 +50,7 @@
             'css' . DS . 'messages.css',
 
             'css' . DS . 'controls.css',
-            'css' . DS . 'controls.social.css',
-            'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css'
+            'css' . DS . 'controls.social.css'
         ));
 
         echo $this->Asset->buildAssets('js');
@@ -67,7 +65,7 @@
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
             box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
         }
-        
+
         pre,
         code {
             overflow: auto;
@@ -78,22 +76,22 @@
     <body>
         <div id="Container">
             <?php echo $this->Session->flash(); ?>
-            
+
             <?php echo $this->element('Blocks' . DS . 'header_blank'); ?>
-            
+
             <div id="Main">
                 <div class="clearfix squeeze">
 
                     <div id="MainContent">
                         <?php echo $content_for_layout; ?>
                     </div>
-                    
+
                 </div>
             </div>
-            
+
             <div id="Footer"><?php echo $this->element('Blocks' . DS . 'footer'); ?></div>
-            
-        </div> 
+
+        </div>
         <?php echo $this->element('sql_dump'); ?>
     </body>
 </html>

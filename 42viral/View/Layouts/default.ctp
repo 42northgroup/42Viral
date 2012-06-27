@@ -25,7 +25,6 @@
             $this->Asset->addAssets(array(
             	CURRENT_JQUERY,
                 CURRENT_MODERNIZR,
-                'vendors' . DS . 'misc' . DS . 'js' . DS . 'jquery.Jcrop.js',
 
                 'js' . DS . 'startup.js',
 
@@ -52,7 +51,6 @@
                 'css' . DS . 'controls.css',
                 'css' . DS . 'controls.social.css',
 
-                'vendors' . DS . 'misc' . DS . 'css' . DS . 'jquery.Jcrop.css',
                 'css' . DS . 'fonts.css'
             ));
 
