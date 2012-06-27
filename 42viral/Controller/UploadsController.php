@@ -45,9 +45,15 @@ App::uses('AppController', 'Controller');
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('*'));
+        $this->auth(array());
     }
 
+    /**
+     * Provides an index action for displaying all uploads tied to an entity
+     * @access public
+     * @param string $model
+     * @param string $modelId
+     */
     public function index($model, $modelId)
     {
         $classifiedModel = $this->_validAssociation($model, $modelId);
@@ -75,6 +81,8 @@ App::uses('AppController', 'Controller');
     /**
      * Provides an action for uploading files
      * @access public
+     * @param string $model
+     * @param string $modelId
      */
     public function create($model, $modelId)
     {
