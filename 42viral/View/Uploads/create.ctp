@@ -53,9 +53,11 @@
                 'rows'=>1
             )
         );
-        echo $this->Form->submit('Upload');
+        echo $this->Form->submit('Submit');
         echo $this->Form->end();
     ?>
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'upload')); ?>
+    </div>
 </div>

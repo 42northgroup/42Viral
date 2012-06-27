@@ -33,8 +33,8 @@ switch($section){
                     'actions_exclude'=>array('view')
                 ),
                 array(
-                    'text' => __('Images'),
-                    'url' => "/uploads/images/{$menuPerson['Person']['username']}/",
+                    'text' => __('Uploads'),
+                    'url' => "/uploads/index/person/{$menuPerson['Person']['id']}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
@@ -51,8 +51,8 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
-                    'text' => __('Your Images'),
-                    'url' => "/uploads/images/{$username}/",
+                    'text' => __('Your Uploads'),
+                    'url' => "/uploads/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
@@ -222,6 +222,31 @@ switch($section){
                     'confirm'=>Configure::read('System.purge_warning'),
                     'actions'=>array('edit')
                 )
+            )
+        );
+
+    break;
+    case 'upload':
+
+        $personId = $this->Session->read('Auth.User.id');
+
+        $label = 'Uploads';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Your Uploads'),
+                    'url' => "/uploads/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                ),
+                array(
+                    'text' => __('Upload a File'),
+                    'url' => "/uploads/create/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('create')
+                ),
             )
         );
 

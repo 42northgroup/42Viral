@@ -48,17 +48,42 @@ App::uses('AppController', 'Controller');
         $this->auth(array('*'));
     }
 
+    public function index($model, $modelId)
+    {
+        $classifiedModel = $this->_validAssociation($model, $modelId);
+
+        $uploads = $this->Upload->find(
+            'all',
+            array(
+                'conditions'=>array(
+                    'Upload.model'=>$model,
+                    'Upload.model_id'=>$modelId,
+                ),
+                'fields'=>array(
+                    'Upload.uri',
+                    'Upload.thumbnail_image_uri',
+                    'Upload.object_type'
+                ),
+                'contain'=>array()
+            )
+        );
+
+        $this->set('uploads', $uploads);
+        $this->set('title_for_layout', __('Uploads'));
+    }
+
     /**
      * Provides an action for uploading files
      * @access public
      */
-    public function create($model, $modelId = '4e27efec-ece0-4a36-baaf-38384bb83359')
+    public function create($model, $modelId)
     {
         $classifiedModel = $this->_validAssociation($model, $modelId);
 
         if(!empty($this->data)){
             if($this->Upload->process($this->data)){
-
+                $this->Session->setFlash(__('The file has been uploaded'), 'success');
+                $this->redirect("/uploads/index/{$model}/{$modelId}");
             }else{
                 $this->Session->setFlash(__('The file could not be uploaded'), 'error');
             }

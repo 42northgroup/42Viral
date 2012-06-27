@@ -58,6 +58,36 @@ class Upload extends AppModel
      * @var array
      */
     public $validate = array();
+    /**
+     * Upload constructor
+     * @access public
+     * @param mixed $id Set this ID for this model on startup, can also be an array of options, see above.
+     * @param string $table Name of database table to use.
+     * @param string $ds DataSource connection name.
+     *
+     */
+    public function __construct($id = false, $table = null, $ds = null)
+    {
+        parent::__construct($id, $table, $ds);
+
+        $fileWritePath = FILE_WRITE_PATH;
+        $imageWritePath = IMAGE_WRITE_PATH;
+        $fileReadPath = FILE_READ_PATH;
+        $imageReadPath = IMAGE_READ_PATH;
+        $ds = DS;
+
+        $this->virtualFields = array(
+            'uri' => "CONCAT('/uploaded/', `{$this->alias}`.`id`, '.', `{$this->alias}`.`saved_file_ext`)",
+
+            'thumbnail_image_uri' =>
+                "CONCAT('/uploaded/thumbnail_', `{$this->alias}`.`id`, '.', `{$this->alias}`.`saved_file_ext`)",
+            /*
+            'thumbnail_file_uri' =>
+                "CONCAT('/uploaded/thumbnail_', `{$this->alias}`.`id`, '.', `{$this->alias}`.`saved_file_ext`)"
+            */
+        );
+
+    }
 
     /**
      * Retruns true if a target file is determined to be an image
@@ -127,16 +157,18 @@ class Upload extends AppModel
             ## $data['name'] = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_FILENAME);
             ## $data[$this->alias]['type'] = $data[$this->alias]['file']['type'];
 
+            $data[$this->alias]['object_type'] = 'image';
             $isImage = true;
 
         }else{
 
             // This is the file type as it will be saved to the database
             // For non-image files we will maintain the original file type
-            $data['saved_file_ext'] = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_EXTENSION);
+            $data[$this->alias]['saved_file_ext']
+                = pathinfo($data[$this->alias]['_originalFileName'], PATHINFO_EXTENSION);
             $data[$this->alias]['name'] = $data[$this->alias]['file']['name'];
             $data[$this->alias]['type'] = $data[$this->alias]['file']['type'];
-
+            $data[$this->alias]['object_type'] = 'file';
         }
 
         $data[$this->alias]['size'] = $data[$this->alias]['file']['size'];
@@ -168,14 +200,15 @@ class Upload extends AppModel
         $tmpFilePath = $data[$this->alias]['file']['tmp_name'];
 
         $file = new File ($tmpFilePath);
-        $filename = APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data['saved_file_ext']}";
+        $filename = APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data[$this->alias]['saved_file_ext']}";
         $image = $file->read();
         $file->close();
         $file = new File ($filename, true, 777);
         $file->write($image);
         $file->close();
+
         //Verfiy the file was created, if it wasn't, rollback the database entry
-        if(file_exists(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data['saved_file_ext']}")){
+        if(file_exists(APP . 'webroot' . DS . 'uploaded' . DS . "{$name}.{$data[$this->alias]['saved_file_ext']}")){
             return true;
         }else{
             if(!$this->delete($data[$this->alias]['id'])){

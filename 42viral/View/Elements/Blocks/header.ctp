@@ -68,7 +68,7 @@ $userId = $this->Session->read('Auth.User.id');
                     </div>
                     <div class="navigation">
 
-                        <a href="#">My Account</a>
+                        <a href="<?php echo "/profiles/view/{$username}/"; ?>">My Account</a>
                         <div class="subnavigation">
                             <strong>Profile</strong>
                             <div>
@@ -83,8 +83,6 @@ $userId = $this->Session->read('Auth.User.id');
                             </div>
 
                             <strong>Misc</strong>
-                            <div><?php echo $this->Html->link(__('Photos'),
-                                    '/uploads/images/' . $this->Session->read('Auth.User.username')); ?></div>
 
                             <div><?php echo $this->Html->link(__('Connect'), '/oauth/connect/' ); ?></div>
 
