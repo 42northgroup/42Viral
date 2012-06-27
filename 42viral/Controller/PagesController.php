@@ -47,10 +47,7 @@ App::uses('AppController', 'Controller');
      * @access public
      * @var array
      */
-    public $components = array(
-        'HtmlFromDoc.CakeDocxToHtml',
-        'FileUpload.FileUpload'
-    );
+    public $components = array();
 
     /**
      * Models this controller uses
@@ -70,7 +67,6 @@ App::uses('AppController', 'Controller');
         parent::beforeFilter();
 
         $this->auth(array('home', 'index', 'short_cut', 'view', 'display'));
-        $this->prepareDocUpload('Page');
     }
 
     /**
@@ -209,12 +205,6 @@ App::uses('AppController', 'Controller');
     public function admin_edit($id)
     {
         if(!empty($this->data)){
-            if($this->FileUpload->uploadDetected) {
-                $this->request->data['Page']['body'] =
-                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile, true);
-
-                $this->FileUpload->removeFile($this->FileUpload->finalFile);
-            }
 
             //If we are saving as Markdown just check the body for malice
             if ($this->data['Page']['syntax'] == 'markdown') {
@@ -246,7 +236,7 @@ App::uses('AppController', 'Controller');
 
         $this->data = $this->Page->getPageWith($id, 'edit');
 
-        $this->set('statuses', $this->Blog->listPublicationStatus());
+        $this->set('statuses', $this->Page->listPublicationStatus());
         $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");
     }
 

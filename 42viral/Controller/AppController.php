@@ -38,7 +38,9 @@ class AppController extends Controller
         'Security' => array(
             'csrfExpires' => '+1 day'
         ),
-        'Session');
+        'Session'
+    );
+
     /**
      * Application-wide helpers
      *
@@ -282,44 +284,4 @@ class AppController extends Controller
 
     	return $classifiedModel;
     }
-
-    /**
-     * Initialize doc upload settings upon request for given model
-     *
-     * @access public
-     * @param string $modelName (Default = null)
-     */
-    public function prepareDocUpload($modelName=null)
-    {
-        $this->FileUpload->fileModel = $modelName;
-        $this->FileUpload->skipModel = true;
-        $this->FileUpload->fileVar = 'body_content_file';
-        $this->FileUpload->uploadDir = 'files/temp';
-        $this->FileUpload->allowedTypes = array(
-            //Doc
-            'application/doc',
-            'application/msword',
-            'application/msword-doc',
-            'application/vnd.msword',
-            'application/winword',
-            'application/word',
-            'application/x-msw6',
-            'application/x-msword',
-            'application/x-msword-doc',
-
-            //DocX
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.openxmlformats-officedocument.word',
-            'application/vnd.ms-word.document.12',
-
-            //PDF
-            'application/acrobat',
-            'application/nappdf',
-            'application/x-pdf',
-            'application/vnd.pdf',
-            'text/pdf',
-            'text/x-pdf'
-        );
-    }
-
 }

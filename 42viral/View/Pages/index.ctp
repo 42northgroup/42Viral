@@ -12,11 +12,13 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+App::uses('Scrub', 'ContentFilters.Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
     <div class="two-thirds column alpha">
-        <div id="ResultsPage">    
+        <div id="ResultsPage">
             <?php foreach($pages as $page): ?>
                 <div class="result">
                     <div class="result-left">
@@ -24,30 +26,29 @@
                     </div>
                     <div class="result-right">
 
-                        <strong><?php echo $this->Html->link($page['Page']['title'], 
-                                $page['Page']['url']); ?> </strong>
+                        <strong><?php echo $this->Html->link($page['Page']['title'], $page['Page']['url']); ?> </strong>
 
                         <div class="tease">
-                            <?php 
+                            <?php
                             switch($page['Page']['syntax']):
                                 case 'markdown':
                                     //echo Scrub::htmlMedia(
                                     echo Scrub::noHtml(
                                             Utility::markdown(
                                                 $this->Text->truncate(
-                                                        $page['Page']['body'], 180, array('html' => true))));                                      
+                                                        $page['Page']['body'], 180, array('html' => true))));
                                 break;
 
                                 default:
                                     echo Scrub::noHtml(
                                         $this->Text->truncate(
-                                                $page['Page']['body'], 180, array('html' => true)));  
-                                break;        
+                                                $page['Page']['body'], 180, array('html' => true)));
+                                break;
                             endswitch;
-                            ?> 
+                            ?>
                         </div>
                     </div>
-                </div> 
+                </div>
             <?php endforeach; ?>
         </div>
         <?php echo $this->element('paginate'); ?>

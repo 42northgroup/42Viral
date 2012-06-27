@@ -53,10 +53,7 @@ class BlogsController extends AppController {
      * @access public
      * @var array
      */
-    public $components = array(
-        'HtmlFromDoc.CakeDocxToHtml',
-        'FileUpload.FileUpload'
-    );
+    public $components = array();
 
     /**
      * beforeFilter
@@ -65,7 +62,6 @@ class BlogsController extends AppController {
     public function beforeFilter(){
         parent::beforeFilter();
         $this->auth(array('index', 'short_cut', 'view'));
-        $this->prepareDocUpload('Blog');
     }
 
     /**
@@ -218,12 +214,6 @@ class BlogsController extends AppController {
     public function edit($id)
     {
         if(!empty($this->data)) {
-            if($this->FileUpload->uploadDetected) {
-                $this->request->data['Blog']['body'] =
-                    $this->CakeDocxToHtml->convertDocumentToHtml($this->FileUpload->finalFile, true);
-
-                $this->FileUpload->removeFile($this->FileUpload->finalFile);
-            }
 
             //If we are saving as Markdown, don't allow any HTML
             if($this->data['Blog']['syntax']=='markdown'){
