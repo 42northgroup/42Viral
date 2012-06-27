@@ -15,24 +15,18 @@
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
-
-
 <div class="row">
     <div class="sixteen columns alpha omega">
-        <?php
-            echo $this->Upload->img($upload);
 
-            echo $this->Html->tag(
-                'span',
-                $this->Text->truncate($upload['name'], 20),
-                array(
-                    'title' => $upload['name'],
-                    'class' => 'image-title'
-                )
-            );
-        ?>
-        <?php echo $this->Form->input('Image.file', array('type'=>'file')); ?>
-        <?php echo $this->Form->submit(); ?>
-        <?php echo $this->Form->end(); ?>
+            <?php echo $this->Form->create('Upload',
+                    array(
+                        'class'=>'responsive',
+                        'url' => $this->here,
+                        "enctype" => "multipart/form-data")); ?>
+            <?php echo $this->Form->input('file', array('type' => 'file')); ?>
+            <?php echo $this->Form->input('label'); ?>
+            <?php echo $this->Form->submit('Upload'); ?>
+            <?php echo $this->Form->end(); ?>
+
     </div>
 </div>
