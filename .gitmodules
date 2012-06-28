@@ -16,3 +16,6 @@
 [submodule "42viral/Vendor/HtmlPurifier"]
 	path = 42viral/Vendor/HtmlPurifier
 	url = https://github.com/42northgroup/htmlpurifier.git
+[submodule "Plugin/AuditLog"]
+	path = Plugin/AuditLog
+	url = https://github.com/42northgroup/CakePHP-Audit-Log-Plugin
