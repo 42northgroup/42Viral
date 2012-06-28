@@ -67,7 +67,6 @@ CakePlugin::loadAll(array(
     'AssetManager' => array('bootstrap' => true),
     'ContentFilters' => array('bootstrap' => true),
     'Docs' => array('bootstrap' => true, 'routes'=>true),
-    'PicklistManager' => array('bootstrap' => true),
     'Seo' => array('bootstrap' => true)
 ));
 
