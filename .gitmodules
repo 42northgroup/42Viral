@@ -1,6 +1,3 @@
-[submodule "Plugin/AuditLog"]
-	path = Plugin/AuditLog
-	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
 	url = git@github.com:42northgroup/tags.git
