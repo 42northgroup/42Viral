@@ -38,7 +38,11 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $helpers = array('Html', 'Session', 'Tags.TagCloud');
+    public $helpers = array(
+        'Html',
+        'Session',
+        'Tags.TagCloud'
+    );
 
 
     /**
