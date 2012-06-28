@@ -130,8 +130,9 @@ We strive to give credit where credit is due, if we missed something, please let
 ### The 42viral Projects's core development team
 
 * [Jason Snider](https://github.com/jasonsnider) - Core Development
-* [Zubin Khavarian](https://github.com/zubinkhavarian) - Core Development
 * [Lyubomir Dimov](https://github.com/ldimov) - Core Development
+* [James Rohacik](https://github.com/) - Core Development
+* [Zubin Khavarian](https://github.com/zubinkhavarian) - Core Development
 * [Matt Blake](https://github.com/Mblake79) - Graphics
 
 ### Plug-ins
@@ -145,8 +146,6 @@ authors
 * MicroTrain Technologies [Connect Plug-in](https://github.com/42northgroup/CakePHP-Connect-Plugin)
 * Jason Snider [Seo Plug-in](https://github.com/jasonsnider/CakePHP-Seo-Plugin)
 * Jason Snider [ContentFilters Plug-in](https://github.com/jasonsnider/CakePHP-ContentFilters-Plugin)
-* Zubin Khavarian [PicklistManager Plug-in](https://github.com/zubinkhavarian/CakePHP-PicklistManager-Plugin)
-* Lyubomir Dimov [CalendarRecursion Plug-in](https://github.com/ldimov/CakePHP-CalendarRecursion-Plugin)
 * Rob Wilkerson [AuditLog Plug-in](https://github.com/robwilkerson/CakePHP-Audit-Log-Plugin)
 
 ### Libraries and Concepts

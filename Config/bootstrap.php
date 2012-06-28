@@ -76,7 +76,8 @@ CakePlugin::loadAll(array(
  * path to override the 42viral path. To do this the native Cake paths must be placed first.
  * @var array
  */
-App::build(array(
+App::build(
+    array(
 
         'Controller' => array(
         	ROOT . DS . APP_DIR . DS . 'Controller' . DS,
@@ -187,23 +188,3 @@ if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
  * @todo was this deprecated when the configuration plugin was removed?
  */
 Configure::write('Plugin.42viral.Configuration', true);
-
-/**
- * Provides a list of supported commenting engines
- * @var array
- */
-Configure::write('Picklist.Cms.comment_engines',
-        array(
-            'native'=>'Native',
-            'disqus'=>'Disqus')
-        );
-
-/**
- * Provides a list of supported Antispam Services
- * @var array
- */
-Configure::write('Picklist.ContentFilter.AntispamServices',
-        array(
-            ''=>'None',
-            'akismet'=>'Akismet')
-        );
