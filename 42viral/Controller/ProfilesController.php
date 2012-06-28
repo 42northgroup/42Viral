@@ -82,7 +82,15 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function index()
     {
-        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array('Profile')));
+        $users = $this->User->find(
+            'all',
+            array(
+                'conditions'=>array(
+                    'User.access' => array('public')
+                ),
+                'contain'=>array('Profile')
+            )
+        );
         $this->set('users', $users);
         $this->set('title_for_layout', 'Profiles');
     }
@@ -121,7 +129,7 @@ App::uses('ProfileUtil', 'Lib');
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
         }
-        
+
         $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
