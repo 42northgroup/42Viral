@@ -23,12 +23,6 @@
 [submodule "42viral/Vendor/Imagine"]
 	path = 42viral/Vendor/Imagine
 	url = git@github.com:42northgroup/Imagine.git
-[submodule "Plugin/Doc"]
-	path = Plugin/Doc
-	url = git@github.com:42northgroup/42Viral-Documentation-Plugin.git
-[submodule "Plugin/Docs"]
-	path = Plugin/Docs
-	url = git@github.com:42northgroup/42Viral-Documentation-Plugin.git
 [submodule "Plugin/DebugKit"]
 	path = Plugin/DebugKit
 	url = git@github.com:42northgroup/debug_kit.git
