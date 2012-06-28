@@ -40,11 +40,11 @@ App::uses('ProfileUtil', 'Lib');
      */
     public $uses = array(
         'Address',
-        'Connect.Facebook',
-        'Connect.Linkedin',
-        'Connect.Tweet',
-        'Connect.GooglePlus',
-        'Connect.Oauth',
+        'Facebook',
+        'Linkedin',
+        'Tweet',
+        'GooglePlus',
+        'Oauth',
         'Content',
         'EmailAddress',
         'Image',
@@ -60,7 +60,7 @@ App::uses('ProfileUtil', 'Lib');
      * @var array
      * @access public
      */
-    public $components = array('Connect.Oauths');
+    public $components = array('Oauths');
 
     /**
      * beforeFilter

@@ -29,7 +29,7 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public $uses = array(
-        'Connect.SocialNetwork'
+        'SocialNetwork'
     );
 
     /**

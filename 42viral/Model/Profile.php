@@ -78,7 +78,7 @@ class Profile extends AppModel
      */
     public $hasMany = array(
         'SocialNetwork' => array(
-            'className' => 'Connect.SocialNetwork',
+            'className' => 'SocialNetwork',
             'foreignKey' => 'model_id',
             'conditions'=>array('SocialNetwork.model'=>'Person'),
             'dependent' => true

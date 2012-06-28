@@ -155,35 +155,35 @@ class DATABASE_CONFIG {
         );
         
         $this->twitter = array(
-            'datasource' => 'Connect.TwitterSource',
+            'datasource' => 'TwitterSource',
             'consumer_key' => Configure::read('Twitter.consumer_key'),
             'consumer_secret' =>Configure::read('Twitter.consumer_secret'),
             'callback' => Configure::read('Twitter.callback')
         );
         
         $this->linkedin = array(
-            'datasource' => 'Connect.LinkedinSource',
+            'datasource' => 'LinkedinSource',
             'consumer_key' => Configure::read('LinkedIn.consumer_key'),
             'consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
             'callback' => Configure::read('LinkedIn.callback')
         );
         
         $this->facebook = array(
-            'datasource' => 'Connect.FacebookSource',
+            'datasource' => 'FacebookSource',
             'consumer_key' => Configure::read('Facebook.consumer_key'),
             'consumer_secret' => Configure::read('Facebook.consumer_secret'),
             'callback' => Configure::read('Facebook.callback')
         );
         
         $this->google_plus = array(
-            'datasource' => 'Connect.GooglePlusSource',
+            'datasource' => 'GooglePlusSource',
             'consumer_key' => Configure::read('GooglePlus.consumer_key'),
             'consumer_secret' => Configure::read('GooglePlus.consumer_secret'),
             'callback' => Configure::read('GooglePlus.callback')
         );
         
         $this->yelp = array(
-            'datasource' => 'Connect.YelpApiSource',
+            'datasource' => 'YelpApiSource',
             'consumer_key' => Configure::read('Yelp.consumer_key'),
             'consumer_secret' => Configure::read('Yelp.consumer_secret'),
             'token' => Configure::read('Yelp.token'),
@@ -191,7 +191,7 @@ class DATABASE_CONFIG {
         );
         
         $this->yahoo = array(
-            'datasource' => 'Connect.YahooApiSource',
+            'datasource' => 'YahooApiSource',
             'app_id' => Configure::read('Yahoo.LocalSearch.app_id')
         );
 

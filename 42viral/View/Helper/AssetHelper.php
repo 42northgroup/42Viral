@@ -15,7 +15,7 @@
  */
 
 App::uses('AppHelper', 'View/Helper');
-App::uses('AssetPackage', 'AssetManager.Config');
+App::uses('AssetPackage', 'Config');
 
 /**
  * Helper class for merging client side assets
@@ -38,7 +38,7 @@ App::uses('AssetPackage', 'AssetManager.Config');
  * licensed under MIT (http://www.opensource.org/licenses/mit-license.php)
  *
  * @copyright Copyright 2010, MicroTrain Technologies (http://www.microtrain.net)
- * @package Plugin\AssetManager
+ * @package AssetManager
  * @author Jason D Snider <jsnider77@gmail.com>
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @license http://www.opensource.org/licenses/mit-license.php The MIT License

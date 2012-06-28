@@ -63,9 +63,7 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  * @var array
  */
-CakePlugin::loadAll(array(
-    'AssetManager' => array('bootstrap' => true)
-));
+CakePlugin::loadAll();
 
 /**
  * When searching multiple paths, CakePHP will stop on the first hit. Be sure to place an override path before a
@@ -178,10 +176,3 @@ if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
 }else{
     require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.default.php');
 }
-
-/**
- * Allows the Plugin to identify itself
- * @var string
- * @todo was this deprecated when the configuration plugin was removed?
- */
-Configure::write('Plugin.42viral.Configuration', true);

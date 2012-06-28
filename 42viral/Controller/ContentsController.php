@@ -39,7 +39,7 @@ App::uses('Handy', 'Lib');
         'Blog',
         'Content',
         'Conversation',
-        'Connect.Oauth',
+        'Oauth',
         'Page',
         'Person',
         'Post'
@@ -50,7 +50,7 @@ App::uses('Handy', 'Lib');
      * @var array
      * @access public
      */
-    public $components = array('File', 'Connect.Oauths');
+    public $components = array('File', 'Oauths');
 
     /**
      * Helpers

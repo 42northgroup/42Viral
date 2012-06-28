@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -15,16 +15,16 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('HttpSocketOauth', 'Connect.Lib');
+App::uses('HttpSocketOauth', 'Lib');
 App::uses('HttpSocket', 'Network/Http');
 /**
  * Authenticates the user against various social media
- * 
+ *
  * @package app
  * @subpackage app.core
  * @author Jason D Snider <jason.snider@42viral.org>
  * @author Lyubomir R Dimov <ldimov@microtrain.net>
- * 
+ *
  * //Additional Credits
  * @author Neil Crookes <http://www.neilcrookes.com/>
  * @link http://www.neilcrookes.com/2010/04/12/cakephp-oauth-extension-to-httpsocket/
@@ -40,11 +40,11 @@ App::uses('HttpSocket', 'Network/Http');
      */
      public $uses = array(
         'Aro',
-        'Connect.Tweet', 
-        'Connect.Linkedin', 
-        'Connect.Facebook',
-        'Connect.Oauth', 
-        'People', 
+        'Tweet',
+        'Linkedin',
+        'Facebook',
+        'Oauth',
+        'People',
         'User'
     );
 
@@ -54,23 +54,23 @@ App::uses('HttpSocket', 'Network/Http');
      * @access public
      */
     public $components = array(
-                'Access'
-            );
-    
+        'Access'
+    );
+
     /**
      * Helpers
      * @var array
      * @access public
      */
     public $helpers = array(
-                'Connect.SocialMedia'
-            );
+        'SocialMedia'
+    );
 
     /**
      * Instanciates HttpSocketOauth and HttpSocket
      *
      * @param array $request
-     * @param array $response 
+     * @param array $response
      */
     public function __construct($request = null, $response = null) {
         parent::__construct($request, $response);
@@ -84,9 +84,9 @@ App::uses('HttpSocket', 'Network/Http');
      * @access public
      */
     public function beforeFilter(){
-        
+
         parent::beforeFilter();
-        
+
         $this->auth(array('*'));
 
         //Since this is the only action we want to deny we can get a little lazy
@@ -101,9 +101,9 @@ App::uses('HttpSocket', 'Network/Http');
      * Placeholder
      */
     public function connect(){
-        
+
     }
-    
+
     /**
      * The Twitter connect page. Authorizes "this" application against a users Twitter account
      * @param $get_token
@@ -138,11 +138,11 @@ App::uses('HttpSocket', 'Network/Http');
 
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
-        
+
         //pr($response); die();
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
-        
+
     }
 
     /**
@@ -153,7 +153,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function twitter_callback($get_token = null)
     {
-        
+
         if(!isset ($this->params['url']['oauth_token']) && $this->params['url']['oauth_verifier']){
             $this->Session->setFlash("A connection with Twitter could not be established at the moment.".
                                                                                 " We apologize for the inconvenience.");
@@ -180,15 +180,15 @@ App::uses('HttpSocket', 'Network/Http');
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-                
+
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
-        $this->Session->write('Twitter.oauth_token', $response['oauth_token']);            
-  
+        $this->Session->write('Twitter.oauth_token', $response['oauth_token']);
+
         /*
         if($get_token != null){
             $this->redirect('/'.  urldecode($get_token));
         }
-         * 
+         *
          */
 
         if($this->Session->check('Auth.User.id')){
@@ -213,8 +213,8 @@ App::uses('HttpSocket', 'Network/Http');
             $this->__auth($oauthUserId, $response, 'Twitter');
         }
 
-    }     
-    
+    }
+
 
     /**
      * The LinkedIn connect page. Authorizes "this" application against a users LinkedIn account
@@ -224,7 +224,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function linkedin_connect($get_token = null)
     {
-        
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -253,8 +253,8 @@ App::uses('HttpSocket', 'Network/Http');
         }
         // Redirect user to LinkedIn to authorize  my application
         parse_str($response, $response);
-        
-        
+
+
         //since the oauth_token_secret is not pass back with the callback url we need to store it in the Session
         //so that we can use it when we are signing the oauth_access_token request
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
@@ -262,7 +262,7 @@ App::uses('HttpSocket', 'Network/Http');
         $this->Session->write('LinkedIn.oauth_created', strtotime('now'));
 
         $this->redirect('https://www.linkedin.com/uas/oauth/authenticate?oauth_token=' . $response['oauth_token']);
-        
+
     }
 
 
@@ -274,7 +274,7 @@ App::uses('HttpSocket', 'Network/Http');
      */
     public function linkedin_callback($get_token = null)
     {
-        
+
         if(!isset ($this->params['url']['oauth_token']) && $this->params['url']['oauth_verifier']){
             $this->Session->setFlash("A connection with Linkedin could not be established at the moment.".
                                                                                 " We apologize for the inconvenience.");
@@ -305,10 +305,10 @@ App::uses('HttpSocket', 'Network/Http');
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
 
-        
+
         $this->Session->write('LinkedIn.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('LinkedIn.oauth_token', $response['oauth_token']);
-       
+
         $request1 = array(
             'uri' => array(
                 'scheme' => 'http',
@@ -334,21 +334,21 @@ App::uses('HttpSocket', 'Network/Http');
         parse_str($response1, $response1);
 
         $response1['user_id'] = $response1['amp;key'];
-        
-        
+
+
 
         if($this->Session->check('Auth.User.id')){
 
             if($this->Oauth->doesOauthExist('linked_in', $response1['user_id'], $this->Session->read('Auth.User.id'))){
-                
+
                 $this->Aro->deleteAll(array('Aro.alias' => 'linked_in_'.$response1['user_id']));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
-                
-                $oauthUserId = $this->Oauth->oauthed('linked_in', 
-                                                    $response1['user_id'], 
-                                                    null, 
+
+                $oauthUserId = $this->Oauth->oauthed('linked_in',
+                                                    $response1['user_id'],
+                                                    null,
                                                     $this->Session->read('Auth.User.id')
                                                 );
 
@@ -360,9 +360,9 @@ App::uses('HttpSocket', 'Network/Http');
             $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
             $this->__auth($oauthUserId, $response, 'LinkedIn');
         }
-        
-    } 
-    
+
+    }
+
     /**
      * The Facebook connect page. Authorizes "this" application against a users Facebook account
      * @param $get_token
@@ -386,13 +386,13 @@ App::uses('HttpSocket', 'Network/Http');
      * @access public
      */
     public function facebook_callback($get_token = null)
-    { 
+    {
         if(!isset ($this->params['url']['code'])){
             $this->Session->setFlash("A connection with Facebook could not be established at the moment.".
                                                                                 " We apologize for the inconvenience.");
             $this->redirect($this->referer());
         }
-      
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -407,7 +407,7 @@ App::uses('HttpSocket', 'Network/Http');
             ),
             'method' => 'GET'
         );
-        
+
         $response = $this->HttpSocketOauth->request($request);
         $params = null;
         parse_str($response, $params);
@@ -453,7 +453,7 @@ App::uses('HttpSocket', 'Network/Http');
         }
 
     }
-    
+
     /**
      * The Google connect page. Authorizes "this" application against a users Google account
      *
@@ -466,9 +466,9 @@ App::uses('HttpSocket', 'Network/Http');
                             "state=%2Fprofile&".
                             "redirect_uri=".  urlencode(Configure::read('GooglePlus.callback'))."&".
                "response_type=code&client_id=".Configure::read('GooglePlus.consumer_key'));
-        
+
     }
-    
+
     /**
      * The Google callback page. Takes the Google results and writes them to a session.
      * @param $get_token
@@ -482,7 +482,7 @@ App::uses('HttpSocket', 'Network/Http');
                                                                                 " We apologize for the inconvenience.");
             $this->redirect($this->referer());
         }
-        
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -502,12 +502,12 @@ App::uses('HttpSocket', 'Network/Http');
                 'Content-Length'
             )
         );
-        
+
         $response = $this->HttpSocketOauth->request($request);
-        
+
         $params = null;
         $params = json_decode($response);
-        
+
         $this->Session->write('GooglePlus.oauth_token', $params->access_token);
         $this->Session->write('GooglePlus.oauth_expires', $params->expires_in);
         $this->Session->write('GooglePlus.oauth_created', strtotime('now'));
@@ -522,7 +522,7 @@ App::uses('HttpSocket', 'Network/Http');
             'query' => array(
                 'key' => Configure::read('GooglePlus.consumer_key'),
                 'alt' => 'json',
-            ), 
+            ),
             'header' => array(
                 'Authorization' => 'OAuth '.$params->access_token
             )
@@ -554,13 +554,13 @@ App::uses('HttpSocket', 'Network/Http');
             $oauthUserId = $this->Oauth->oauthed('google_plus', $user->id, $params->access_token);
             $this->__auth($oauthUserId, $response1, 'GooglePlus');
         }
-        
+
     }
-        
+
     /**
      * A wrapper for common authentication and session functionality
      * @param string $userId ID of the user we are authenticating
-     * @param array $response 
+     * @param array $response
      * @param string $oauthKey
      * @todo Generalize this with User::login()
      * @todo make use of or remove $error
@@ -580,7 +580,7 @@ App::uses('HttpSocket', 'Network/Http');
                 $this->Session->write('Auth.User', $user['User']);
                 $this->Session->write('Auth.User.Profile', $user['Profile']);
                 $this->Session->write('Auth.User.Settings', $user['UserSetting']);
-                
+
                 $session = $this->Session->read('Auth');
                 $oauthData = array($oauthKey => $response);
 
