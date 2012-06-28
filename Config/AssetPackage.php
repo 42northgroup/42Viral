@@ -11,14 +11,14 @@
  * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package Plugin\AssetManager\Config\AssetPackages
+ * @package 42viral\AssetManager
  */
 
 /**
  * Stores preset asset package collections
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @package Plugin\AssetManager\Config\AssetPackage
+ * @package 42viral\AssetManager
  */
 class AssetPackage
 {

@@ -48,7 +48,7 @@ class Notification extends AppModel
     public $actsAs = array(
         'Log',
 
-        'ContentFilters.Scrubable' => array(
+        'Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'htmlStrict' => array('body'),

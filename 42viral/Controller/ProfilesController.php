@@ -40,11 +40,11 @@ App::uses('ProfileUtil', 'Lib');
      */
     public $uses = array(
         'Address',
-        'Connect.Facebook',
-        'Connect.Linkedin',
-        'Connect.Tweet',
-        'Connect.GooglePlus',
-        'Connect.Oauth',
+        'Facebook',
+        'Linkedin',
+        'Tweet',
+        'GooglePlus',
+        'Oauth',
         'Content',
         'EmailAddress',
         'Image',
@@ -60,7 +60,7 @@ App::uses('ProfileUtil', 'Lib');
      * @var array
      * @access public
      */
-    public $components = array('Connect.Oauths');
+    public $components = array('Oauths');
 
     /**
      * beforeFilter
@@ -117,12 +117,12 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function view($token = null)
     {
-        $this->_validRecord('Person', $token, 'username');
-
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
         }
+        
+        $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
         $user = $this->User->getUserWith($token, 'full_profile');

@@ -78,7 +78,7 @@ class Profile extends AppModel
      */
     public $hasMany = array(
         'SocialNetwork' => array(
-            'className' => 'Connect.SocialNetwork',
+            'className' => 'SocialNetwork',
             'foreignKey' => 'model_id',
             'conditions'=>array('SocialNetwork.model'=>'Person'),
             'dependent' => true
@@ -91,7 +91,7 @@ class Profile extends AppModel
      * @access public
      */
     public $actsAs = array(
-        'ContentFilters.Scrubable' => array(
+        'Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'htmlStrict' => array('bio', 'body')

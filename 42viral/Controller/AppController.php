@@ -16,7 +16,7 @@
 
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
-App::uses('ContentFilters.Scrubable', 'Lib');
+App::uses('Scrubable', 'Lib');
 /**
  * 42Viral's parent controller layer
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -36,6 +36,8 @@ class AppController extends Controller
         'Auth',
         'RequestHandler',
         'Security' => array(
+            // I thought the default of x minutes was making the system a bit unusable. Do we think this setting is to
+            // permissive?
             'csrfExpires' => '+1 day'
         ),
         'Session'
@@ -48,13 +50,13 @@ class AppController extends Controller
      * @var array
      */
     public $helpers = array(
-        'AssetManager.Asset',
-        'Connect.SocialMedia',
+        'Asset',
         'Form',
         'Html',
         'Paginator',
         'Profile',
         'Session',
+        'SocialMedia',
         'Text'
     );
 
@@ -222,9 +224,10 @@ class AppController extends Controller
     }
 
     /**
-     * Throws a 400 Error if a association record does not exist.
+     * Throws a 400 Error if an association record does not exist.
      * A common use case is assuring a parent record exists to prevent creation of orphaned records.
      * 	Example - Creating an address against a Person would require matching Person.id record prior to creation
+     *
      * @param string $model - pass as ModelName or model_name
      * @param string $modelId
      * @throws forbiddenException

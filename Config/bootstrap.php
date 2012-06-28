@@ -63,13 +63,7 @@ Cache::config('default', array('engine' => 'File'));
  * CakePlugin::load('DebugKit'); //Loads a single plugin named DebugKit
  * @var array
  */
-CakePlugin::loadAll(array(
-    'AssetManager' => array('bootstrap' => true),
-    'ContentFilters' => array('bootstrap' => true),
-    'Docs' => array('bootstrap' => true, 'routes'=>true),
-    'PicklistManager' => array('bootstrap' => true),
-    'Seo' => array('bootstrap' => true)
-));
+CakePlugin::loadAll();
 
 /**
  * When searching multiple paths, CakePHP will stop on the first hit. Be sure to place an override path before a
@@ -77,7 +71,8 @@ CakePlugin::loadAll(array(
  * path to override the 42viral path. To do this the native Cake paths must be placed first.
  * @var array
  */
-App::build(array(
+App::build(
+    array(
 
         'Controller' => array(
         	ROOT . DS . APP_DIR . DS . 'Controller' . DS,
@@ -181,30 +176,3 @@ if(is_file(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.php')) {
 }else{
     require(ROOT . DS . APP_DIR . DS .'Config' . DS . 'application.default.php');
 }
-
-/**
- * Allows the Plugin to identify itself
- * @var string
- * @todo was this deprecated when the configuration plugin was removed?
- */
-Configure::write('Plugin.42viral.Configuration', true);
-
-/**
- * Provides a list of supported commenting engines
- * @var array
- */
-Configure::write('Picklist.Cms.comment_engines',
-        array(
-            'native'=>'Native',
-            'disqus'=>'Disqus')
-        );
-
-/**
- * Provides a list of supported Antispam Services
- * @var array
- */
-Configure::write('Picklist.ContentFilter.AntispamServices',
-        array(
-            ''=>'None',
-            'akismet'=>'Akismet')
-        );

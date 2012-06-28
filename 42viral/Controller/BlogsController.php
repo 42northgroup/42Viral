@@ -218,7 +218,7 @@ class BlogsController extends AppController {
             //If we are saving as Markdown, don't allow any HTML
             if($this->data['Blog']['syntax']=='markdown'){
                 $this->Blog->Behaviors->attach(
-                        'ContentFilters.Scrubable',
+                        'Scrubable',
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),

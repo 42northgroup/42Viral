@@ -32,11 +32,11 @@ App::uses('CakeEmail', 'Network/Email');
 
     public $uses = array(
         'AclGroup',
-        'Connect.Facebook',
-        'Connect.Linkedin',
-        'Connect.Tweet',
+        'Facebook',
+        'Linkedin',
+        'Tweet',
         'Invite',
-        'Connect.Oauth',
+        'Oauth',
         'Notification',
         'Person',
         'User',
@@ -52,7 +52,7 @@ App::uses('CakeEmail', 'Network/Email');
     public $components = array(
         'Access',
         'ControllerList',
-        'Connect.Oauths'
+        'Oauths'
     );
 
     /**

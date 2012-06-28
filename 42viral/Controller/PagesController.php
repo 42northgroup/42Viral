@@ -38,7 +38,11 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $helpers = array('Html', 'Session', 'Tags.TagCloud');
+    public $helpers = array(
+        'Html',
+        'Session',
+        'Tags.TagCloud'
+    );
 
 
     /**
@@ -209,7 +213,7 @@ App::uses('AppController', 'Controller');
             //If we are saving as Markdown just check the body for malice
             if ($this->data['Page']['syntax'] == 'markdown') {
                 $this->Page->Behaviors->attach(
-                        'ContentFilters.Scrubable',
+                        'Scrubable',
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),

@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Scrub', 'ContentFilters.Lib');
+App::uses('Scrub', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">

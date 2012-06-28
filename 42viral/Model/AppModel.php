@@ -114,7 +114,7 @@ class AppModel extends Model
         return $options;
     }
 
-
+//// Picklists ////
     /**
      * Defines various types of email addresses
      *
@@ -149,6 +149,44 @@ class AppModel extends Model
     );
 
     /**
+     * Defines various types of commenting engines
+     * @access private
+     * @var array
+     */
+    private $__commentEngines = array(
+        'native'=>array(
+            '_ref'=>'native',
+            'label'=>'Native',
+            'category' => '',
+            'tags' => array(),
+            '_inactive'=>false
+        ),
+        'disqus'=>array(
+            '_ref'=>'native',
+            'label'=>'Disqus',
+            'category' => '',
+            'tags' => array(),
+            '_inactive'=>false
+        ),
+    );
+
+    /**
+     * Defines various types of commenting engines
+     * @access private
+     * @var array
+     */
+    private $__antiSpamServices = array(
+        'akismet'=>array(
+            '_ref'=>'akismet',
+            'label'=>'Akismet',
+            'category' => '',
+            'tags' => array(),
+            '_inactive'=>false
+        )
+    );
+
+//// Picklist setters ////
+    /**
      * Returns a key to value action types. This list can be flat, categorized or a partial list based on tags.
      * @access public
      * @param array $list
@@ -159,5 +197,33 @@ class AppModel extends Model
      */
     public function listAccessTypes($tags = null, $category = null, $categories = false){
         return $this->_listParser($this->__listAccessTypes, $tags, $category, $categories);
+    }
+
+    /**
+     * Returns a key to value list of comment engines. This list can be flat, categorized or a partial list based on
+     * tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listCommentEngines($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listCommentEngines, $tags, $category, $categories);
+    }
+
+    /**
+     * Returns a key to value list of comment engines. This list can be flat, categorized or a partial list based on
+     * tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listAntispamServices($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listAntispamServices, $tags, $category, $categories);
     }
 }
