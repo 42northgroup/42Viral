@@ -42,7 +42,7 @@ class Group extends AppModel
      * @var array
      */
     public $actsAs = array(
-        'ContentFilters.Scrubable' => array(
+        'Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'safe' => '*'

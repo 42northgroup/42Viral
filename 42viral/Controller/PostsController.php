@@ -145,7 +145,7 @@ class PostsController extends AppController {
             //If we are saving as Markdown, don't allow any HTML
             if($this->data['Post']['syntax']=='markdown'){
                 $this->Post->Behaviors->attach(
-                        'ContentFilters.Scrubable',
+                        'Scrubable',
                         array('Filters'=>array(
                                     'trim'=>'*',
                                     'safe' => array('body'),

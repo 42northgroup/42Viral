@@ -104,7 +104,7 @@ class Content extends AppModel
             'Fields'=>array('short_cut')
         ),
 
-        'ContentFilters.Scrubable'=>array(
+        'Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'htmlMedia'=>array('body'),

@@ -16,7 +16,7 @@
 
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
-App::uses('ContentFilters.Scrubable', 'Lib');
+App::uses('Scrubable', 'Lib');
 /**
  * 42Viral's parent controller layer
  * @author Jason D Snider <jason.snider@42viral.org>

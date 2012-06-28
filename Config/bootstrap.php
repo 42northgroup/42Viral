@@ -64,8 +64,7 @@ Cache::config('default', array('engine' => 'File'));
  * @var array
  */
 CakePlugin::loadAll(array(
-    'AssetManager' => array('bootstrap' => true),
-    'ContentFilters' => array('bootstrap' => true),
+    'AssetManager' => array('bootstrap' => true)
 ));
 
 /**

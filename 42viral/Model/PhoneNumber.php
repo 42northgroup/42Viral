@@ -40,7 +40,7 @@ class  PhoneNumber extends AppModel
      */
     public $actsAs = array(
         'Log',
-        'ContentFilters.Scrubable'=>array(
+        'Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'noHTML'=>array('*'),

@@ -91,7 +91,7 @@ class Profile extends AppModel
      * @access public
      */
     public $actsAs = array(
-        'ContentFilters.Scrubable' => array(
+        'Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
                 'htmlStrict' => array('bio', 'body')

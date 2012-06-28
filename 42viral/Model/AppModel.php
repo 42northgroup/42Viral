@@ -149,7 +149,7 @@ class AppModel extends Model
     );
 
     /**
-     * Defines various types of commenting engines (ContentFilters Plugin)
+     * Defines various types of commenting engines
      * @access private
      * @var array
      */
@@ -171,7 +171,7 @@ class AppModel extends Model
     );
 
     /**
-     * Defines various types of commenting engines (ContentFilters Plugin)
+     * Defines various types of commenting engines
      * @access private
      * @var array
      */

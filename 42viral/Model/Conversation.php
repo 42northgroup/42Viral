@@ -44,7 +44,7 @@ class Conversation extends AppModel
      * @var array
      */
     public $actsAs = array(
-        'ContentFilters.AntiSpamable'=>array(
+        'AntiSpamable'=>array(
             'map'=>array(
                 'name'=>'comment_author_name',
                 'email'=>'comment_author_email',
@@ -53,7 +53,7 @@ class Conversation extends AppModel
                 'front_page'=>'blog'
             )
         ),
-        'ContentFilters.Scrubable'=>array(
+        'Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
                 'html'=>array('body')
