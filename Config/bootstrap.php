@@ -66,8 +66,6 @@ Cache::config('default', array('engine' => 'File'));
 CakePlugin::loadAll(array(
     'AssetManager' => array('bootstrap' => true),
     'ContentFilters' => array('bootstrap' => true),
-    'Docs' => array('bootstrap' => true, 'routes'=>true),
-    'Seo' => array('bootstrap' => true)
 ));
 
 /**

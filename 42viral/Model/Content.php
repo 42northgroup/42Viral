@@ -114,12 +114,25 @@ class Content extends AppModel
 
         'Search.Searchable',
 
-        'Seo.Seo',
+        'Seo',
 
         'Tags.Taggable'
 
     );
-
+    /**
+     * belongsTo ralationship
+     *
+     * @var array
+     * @access public
+     */
+    public $hasOne = array(
+        'Sitemap' => array(
+            'className' => 'Sitemap',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('Sitemap.model_id LIKE "Content"'),
+            'dependent' => true
+        )
+    );
     /**
      * Defines various types of content. These are the object_type's for the Content model.
      * @access private
