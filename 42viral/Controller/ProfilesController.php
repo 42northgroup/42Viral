@@ -117,12 +117,12 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function view($token = null)
     {
-        $this->_validRecord('Person', $token, 'username');
-
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
         }
+        
+        $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
         $user = $this->User->getUserWith($token, 'full_profile');
