@@ -32,18 +32,18 @@ class Profile extends AppModel
      * @access public
      */
     public $name = 'Profile';
-    
+
     /**
      * Table the model uses
      * @var string
      * @access public
      */
     public $useTable = 'profiles';
-    
+
     /**
      * Predefined data sets
      * @var array
-     * @access public 
+     * @access public
      */
     public $dataSet = array(
 
@@ -56,8 +56,8 @@ class Profile extends AppModel
             ),
             'conditions' => array()
         )
-    ); 
-    
+    );
+
     /**
      * belongsTo
      * @var array
@@ -68,9 +68,9 @@ class Profile extends AppModel
             'className' => 'Person',
             'foreignKey' => 'owner_person_id',
             'dependent' => true
-        )  
+        )
     );
-    
+
     /**
      * Defines the person model's has many relationships
      * @access
@@ -79,11 +79,12 @@ class Profile extends AppModel
     public $hasMany = array(
         'SocialNetwork' => array(
             'className' => 'Connect.SocialNetwork',
-            'foreignKey' => 'profile_id',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('SocialNetwork.model'=>'Person'),
             'dependent' => true
         )
     );
-    
+
     /**
      * Behaviors
      * @var array
@@ -99,8 +100,8 @@ class Profile extends AppModel
     );
 
     /**
-     * Returns a person's profile data with the specified associated data. 
-     * 
+     * Returns a person's profile data with the specified associated data.
+     *
      * @param string $token - The profile id
      * @param string $with
      * @return array
@@ -109,30 +110,30 @@ class Profile extends AppModel
     public function getProfileWith($token, $with = 'nothing')
     {
         $theToken = array('conditions'=>array('Profile.id' => $token));
-        
+
         $finder = array_merge($this->dataSet[$with], $theToken);
-        
+
         $userProfile = $this->find('first', $finder);
-        
+
         return $userProfile;
     }
-   
+
    /**
     * Uses the information from the user profile to build an xCard
-    * 
+    *
     * @access public
     * @param array $profile
-    * @return string 
+    * @return string
     */
    public function getXcard($profile)
-    {              
+    {
         $label = (isset($profile['address1'])?$profile['address1'].' ':'').
                (isset($profile['address2'])?$profile['address2'].' ':' ').
                (isset($profile['city'])?$profile['city'].', ':', ').
                (isset($profile['state'])?$profile['state'].' ':' ').
                (isset($profile['zip'])?$profile['zip'].' ':' ').
                (isset($profile['country'])?$profile['country'].'':'');
-        
+
         $xcard =    '<?xml version="1.0" encoding="UTF-8"?>'.
                     '<vcards xmlns="urn:ietf:params:xml:ns:vcard-4.0">'.
                       '<vcard>'.
@@ -210,17 +211,17 @@ class Profile extends AppModel
                         '</rev>'.
                       '</vcard>'.
                     '</vcards>';
-        
+
         return $xcard;
     }
-    
+
     /**
      * Uses the information from the user profile to build a vCard
-     * 
+     *
      * @access public
      * @param array $profile
      * @param int $version
-     * @return string 
+     * @return string
      */
     public function getVcard($profile, $version)
     {
@@ -230,21 +231,21 @@ class Profile extends AppModel
                (isset($profile['state'])?$profile['state'].';':';').
                (isset($profile['zip'])?$profile['zip'].';':';').
                (isset($profile['country'])?$profile['country'].';':';');
-       
+
         $label = (isset($profile['address1'])?$profile['address1'].' ':'').
                (isset($profile['address2'])?$profile['address2'].'\n':'\n').
                (isset($profile['city'])?$profile['city'].', ':', ').
                (isset($profile['state'])?$profile['state'].' ':' ').
                (isset($profile['zip'])?$profile['zip'].'\n':'\n').
                (isset($profile['country'])?$profile['country'].'':'');
-        
+
         $label_v2 = (isset($profile['address1'])?$profile['address1'].' ':'').
                (isset($profile['address2'])?$profile['address2'].'=0D=0A':'=0D=0A').
                (isset($profile['city'])?$profile['city'].', ':', ').
                (isset($profile['state'])?$profile['state'].' ':' ').
                (isset($profile['zip'])?$profile['zip'].'=0D=0A':'=0D=0A').
                (isset($profile['country'])?$profile['country'].'':'');
-        
+
        $map = array(
            4 => array(
                'VERSION' => '4.0',
@@ -275,7 +276,7 @@ class Profile extends AppModel
                'UID' => isset($profile['id'])?$profile['id']:'',
                'KEY' => ''
            ),
-           
+
            3 => array(
                'VERSION' => '3.0',
                'N' => (isset($profile['last_name'])?$profile['last_name']:'').';'
@@ -306,7 +307,7 @@ class Profile extends AppModel
                'UID' => isset($profile['id'])?$profile['id']:'',
                'KEY' => ''
            ),
-           
+
            2 => array(
                'VERSION' => '2.1',
                'N' => (isset($profile['last_name'])?$profile['last_name']:'').';'
@@ -338,7 +339,7 @@ class Profile extends AppModel
                'KEY' => ''
            )
        );
-       
+
        $vcard = "BEGIN:VCARD\n";
        foreach ($map[$version] as $key => $val){
            if($version == 4){
@@ -363,9 +364,9 @@ class Profile extends AppModel
                }
            }
        }
-       
+
        $vcard .= "END:VCARD";
-              
+
        return $vcard;
     }
 }

@@ -53,6 +53,11 @@ form.responsive label{
     display: block;
 }
 
+form.responsive div.input.radio label{
+	margin-right: 8px;
+    display: inline;
+}
+
 form.responsive .required label:after {
     color: #900;
     content: ' *';

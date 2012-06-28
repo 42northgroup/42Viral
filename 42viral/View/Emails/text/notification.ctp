@@ -1,16 +1,19 @@
 <?php
 /**
- * PHP 5.3
  *
- * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
+ * PHP 5
+ *
+ * CakePHP(tm) : Rapid Development Framework (http://cakephp.org)
+ * Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
- * @link          http://42viral.org 42Viral(tm)
+ * @copyright     Copyright 2005-2012, Cake Software Foundation, Inc. (http://cakefoundation.org)
+ * @link          http://cakephp.org CakePHP(tm) Project
+ * @package       Cake.View.Emails.html
+ * @since         CakePHP(tm) v 0.10.0.1076
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<?php echo $content; ?>
+<?php echo $text; ?>

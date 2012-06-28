@@ -45,7 +45,7 @@ $(function () {
             return cleanTags;
         })()
     });
-    
+
     // "Instansiates prototypical objects"
     $(function(){
         SetEditor.init({
@@ -58,9 +58,8 @@ $(function () {
 
 <?php
 echo $this->Form->create('Post', array(
-    'url' => $this->here, 
-    'class' => 'responsive',
-    'type' => 'file'
+    'url' => $this->here,
+    'class' => 'responsive'
 ));
 
 $this->Form->unlockField('Post.tags');
@@ -73,30 +72,8 @@ $this->Form->unlockField('Post.tags');
     echo $this->Form->input('id');
     echo $this->Form->input('title', array('rows'=>1));
     echo $this->Form->input('syntax', array('type' => 'hidden'));
+    echo $this->Form->input('body', array('class'=>'content-edit'));
     ?>
-        
-    <div class="or-group">
-        <h3>Load body content by uploading a file or typing in the editor:</h3>
-        <div class="or-choice">
-            <?php
-            echo $this->Form->input('body_content_file', array(
-                'type' => 'file',
-                'label' => 'Upload from file'
-            ));
-            ?>
-        </div>
-
-        <h3>OR</h3>
-
-        <div class="or-choice">
-            <?php
-            echo $this->Form->input('body', array(
-                'label' => 'Type'
-            ));
-            ?>
-        </div>
-    </div>
-
 
     <div class="input text">
         <label for="PostTagsProxy">Tags</label>
@@ -120,7 +97,7 @@ $this->Form->unlockField('Post.tags');
         );
     ?>
     </div>
-    
+
     <div class="one-third column omega">
         <?php
             //We only want authorized users to be able to set site map settings
@@ -132,7 +109,7 @@ $this->Form->unlockField('Post.tags');
                             'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
                             'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
             endif;
-            
+
             echo $this->Form->inputs(array('legend'=>'Publish', 'status'));
             echo $this->Form->submit();
         ?>

@@ -18,7 +18,7 @@
  * ============= */
 
 /**
- * The platform identifies itsef as 42Viral 
+ * The platform identifies itsef as 42Viral
  */
 Configure::write('42viral.platform', true);
 
@@ -37,15 +37,15 @@ Configure::write('Beta.private', 0);
  */
 Configure::write('Beta.invitations', 0);
 
-Configure::write('Shorty', 
+Configure::write('Shorty',
         array(
-            'page'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+            'page'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/'
                 . 'a/',
-            
-            'blog'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+
+            'blog'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/'
                 . 'b/',
-            
-            'post'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/' 
+
+            'post'=>Configure::read('ShortURL.scheme') . '://' . Configure::read('ShortURL.host') . '/'
                 . 'c/'
         ));
 /* ====================
@@ -56,26 +56,6 @@ Configure::write('Shorty',
  * The common part of image write paths
  */
 define('IMAGE_WRITE_PATH', ROOT . DS . APP_DIR . DS . WEBROOT_DIR . DS . 'img' . DS . 'people' . DS);
-
-/**
- * The maximum allowable width for image uploads to use for proportional image shrinks
- */
-define('IMAGE_AUTO_SHRINK', true);
-
-/**
- * Thumbnail dimension for uploaded images - Dimension 1
- */
-define('IMAGE_THUMB_DIM_1', 75);
-
-/**
- * Thumbnail dimension for uploaded images - Dimension 2
- */
-define('IMAGE_THUMB_DIM_2', 120);
-
-/**
- * The maximum allowable width for image uploads to use for proportional image shrinks
- */
-define('IMAGE_SHRINK_WIDTH', 400);
 
 /**
  * The common part of file write paths
@@ -117,4 +97,4 @@ Configure::write('GooglePlus.callback', Configure::read('Domain.url') . 'oauth/g
  * Privide a standard warning for all purges/hard deletions
  */
 Configure::write('System.purge_warning',
-                    __('Are you sure you want to delete this? \n This action CANNOT be reversed!')); 
+                    __('Are you sure you want to delete this? \n This action CANNOT be reversed!'));

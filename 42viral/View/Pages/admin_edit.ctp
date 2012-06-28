@@ -26,7 +26,7 @@ $(function() {
 <?php echo $this->Asset->buildAssetPackage('selectit'); ?>
 
 <?php
-echo $this->Form->create('Page', 
+echo $this->Form->create('Page',
     array(
         'url' => $this->here,
         'class' => 'responsive',
@@ -41,7 +41,7 @@ $this->Form->unlockField('Page.tags');
 <script type="text/javascript">
 $(function () {
     $('#TagsContainer')
-    
+
         .selectit({
             targetFieldId: 'PageTags',
             proxyFieldId: 'PageTagsProxy',
@@ -59,8 +59,8 @@ $(function () {
 
                 return cleanTags;
             })()
-        });  
-    
+        });
+
     // "Instansiates prototypical objects"
     $(function(){
         SetEditor.init({
@@ -75,53 +75,29 @@ $(function () {
     <div class="two-thirds column alpha">
 
         <?php
-            
         echo $this->Form->input('id');
         echo $this->Form->input('title', array('rows'=>1));
         echo $this->Form->input('syntax', array('type' => 'hidden'));
+        echo $this->Form->input('body', array('class'=>'content-edit'));
         ?>
 
-        <div class="or-group">
-            <h3>Load body content by uploading a file or typing in the editor:</h3>
-            <div class="or-choice">
-                <?php
-                echo $this->Form->input('body_content_file', array(
-                    'type' => 'file',
-                    'label' => 'Upload from file'
-                ));
-                ?>
-            </div>
-
-            <h3>OR</h3>
-
-            <div class="or-choice">
-                <?php
-                echo $this->Form->input('body', array(
-                    'label' => 'Type'
-                ));
-                ?>
-            </div>
-        </div>
-
-
-        
         <div class="input text">
             <label for="PageTagsProxy">Tags</label>
             <span>(Separate with comma)</span>
             <div id="TagsContainer"></div>
         </div>
 
-        <?php 
-        echo $this->Form->text('tags_proxy', array(
-            'maxlength' => '30'
-        ));
-        echo $this->Form->hidden('tags');
-        ?>
-
-        
-
         <?php
-        echo $this->Form->inputs(array(
+        echo $this->Form->text(
+            'tags_proxy',
+            array(
+                'maxlength' => '30'
+            )
+        );
+        echo $this->Form->hidden('tags');
+
+        echo $this->Form->inputs(
+            array(
                 'legend'=>'SEO',
                 'canonical'=>array('rows'=>1),
                 'slug'=>array('rows'=>1)
@@ -131,16 +107,16 @@ $(function () {
     </div>
     <div class="one-third column omega">
         <?php
-            echo $this->Form->inputs(
-                    array('legend'=>'Sitemap',
-                        'Sitemap.id',
-                        'Sitemap.model'=>array('value'=>'Page', 'type'=>'hidden'),
-                        'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
-                        'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
+        echo $this->Form->inputs(
+            array('legend'=>'Sitemap',
+                'Sitemap.id',
+                'Sitemap.model'=>array('value'=>'Page', 'type'=>'hidden'),
+                'Sitemap.priority'=>array('options'=>Configure::read('Picklist.Sitemap.priority')),
+                'Sitemap.changefreq'=>array('options'=>Configure::read('Picklist.Sitemap.changefreq'))));
 
-            echo $this->Form->inputs(array('legend'=>'Publish' ,'status'));
+        echo $this->Form->inputs(array('legend'=>'Publish' ,'status'));
 
-            echo $this->Form->submit();
+        echo $this->Form->submit();
         ?>
     </div>
 </div>

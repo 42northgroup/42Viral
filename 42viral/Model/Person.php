@@ -1,7 +1,7 @@
 <?php
 /**
  * The parent model for all person related data
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -35,7 +35,7 @@ class Person extends AppModel
      * @var string
      */
     public $useTable = 'people';
-        
+
     /**
      * Predefined data sets
      * @access public
@@ -44,7 +44,7 @@ class Person extends AppModel
     public $dataSet = array(
         'blog'=>array(
             'contain'=>array(
-                'Profile'=>array(), 
+                'Profile'=>array(),
                 'Blog'=>array(
                     'conditions'=>array(
                         'Blog.object_type'=>'blog',
@@ -67,8 +67,8 @@ class Person extends AppModel
                 'Upload'=>array()
             ),
             'conditions' => array()
-        )        
-    ); 
+        )
+    );
 
     /**
      * Specifies the behaviors invoked by the conversation model
@@ -85,13 +85,13 @@ class Person extends AppModel
         )
     );
 
-
     /**
      * Defines the person model's has one relationships
      * @access
      * @var array
      */
     public $hasOne = array(
+        //@todo What is this?
         'OwnerPerson' => array(
             'className' => 'Profile',
             'foreignKey' => 'owner_person_id',
@@ -118,58 +118,104 @@ class Person extends AppModel
             'conditions' => array('Address.model' => 'Person'),
             'dependent' => true
         ),
-        
+
         'Blog' => array(
             'className' => 'Blog',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),     
+        ),
         'Content' => array(
             'className' => 'Content',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),   
+        ),
         'Conversation' => array(
             'className' => 'Conversation',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-
+        'EmailAddress' => array(
+            'className' => 'EmailAddress',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
+            'dependent' => true
+        ),
         'FileUpload' => array(
             'className' => 'FileUpload',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
+
         'Image' => array(
             'className' => 'Image',
             'foreignKey' => 'created_person_id',
             'dependent' => true
-        ),       
+        ),
         'Page' => array(
             'className' => 'Page',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
-        'PersonDetail' => array(
-            'className' => 'PersonDetail',
-            'foreignKey' => 'person_id',
+        'PhoneNumber' => array(
+            'className' => 'PhoneNumber',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
             'dependent' => true
         ),
-        
         'Post' => array(
             'className' => 'Post',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
-        
+        'SocialNetwork' => array(
+            'className' => 'SocialNetwork',
+            'foreignKey' => 'model_id',
+            'conditions'=>array('model'=>'Person'),
+            'dependent' => true
+        ),
         'Upload' => array(
             'className' => 'Upload',
             'foreignKey' => 'created_person_id',
             'dependent' => true
         )
     );
+
+    /**
+     * Controls who is allowed to post to a target blog
+     * @access private
+     * @var array
+     */
+    private $__listDisplayNames = array(
+        'public'=>array(
+            'label'=>'Public',
+            '_ref'=>'public',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'private'=>array(
+            'label'=>'Private',
+            '_ref'=>'private',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        )
+    );
+
+    /**
+     * Returns a key to value list of display name types.
+     * This list can be flat, categorized or a partial list based on tags.
+     *
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listDisplayNameTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listDisplayNameTypes, $tags, $category, $categories);
+    }
 
     /**
      * Initialisation for all new instances of Person
@@ -200,9 +246,9 @@ class Person extends AppModel
         );
 
     }
-      
+
    /**
-    * Returns a person's profile data with the specified associated data. 
+    * Returns a person's profile data with the specified associated data.
     * @access public
     * @param string $token The id, username or email address for retreving records
     * @param string|array $with What associated data do we want?
@@ -220,9 +266,9 @@ class Person extends AppModel
         );
 
         $finder = array_merge($this->dataSet[$with], $theToken);
-        
+
         $person = $this->find('first', $finder);
 
-        return $person;        
+        return $person;
     }
 }

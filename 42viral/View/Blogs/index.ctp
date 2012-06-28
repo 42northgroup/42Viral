@@ -12,6 +12,8 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+App::uses('Scrub', 'ContentFilters.Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
@@ -19,7 +21,7 @@
 
         <div id="ResultsPage" class="container">
 
-                <?php  
+                <?php
                 if($showAll):
 
                     $nothing = empty($blogs)?true:false;
@@ -33,7 +35,7 @@
                             </div>
                             <div class="result-right">
 
-                                <strong><?php echo $this->Html->link($blog['Blog']['title'], 
+                                <strong><?php echo $this->Html->link($blog['Blog']['title'],
                                         $blog['Blog']['url']); ?> </strong>
 
                                 <div class="tease">
@@ -42,11 +44,11 @@
                                                     $blog['Blog']['body'], 180, array('html' => true))); ?>
                                 </div>
                             </div>
-                        </div>  
-                        <?php 
+                        </div>
+                        <?php
                         endforeach;
 
-                    else:    
+                    else:
                         echo __('Their are no blogs to display');
                     endif;
 
@@ -56,7 +58,7 @@
 
                     if(!$nothing):
 
-                        foreach($blogs['Blog'] as $blog): 
+                        foreach($blogs['Blog'] as $blog):
                         ?>
                         <div class="result">
                             <div class="result-left">
@@ -64,7 +66,7 @@
                             </div>
                             <div class="result-right">
 
-                                <strong><?php echo $this->Html->link($blog['Blog']['title'], 
+                                <strong><?php echo $this->Html->link($blog['Blog']['title'],
                                         $blog['Blog']['url']); ?> </strong>
 
                                 <div class="tease">
@@ -73,17 +75,17 @@
                                                     $blog['Blog']['body'], 180, array('html' => true))); ?>
                                 </div>
                             </div>
-                        </div>  
-                        <?php 
+                        </div>
+                        <?php
                         endforeach;
 
-                    else:    
+                    else:
                         echo __("This user hasn't created any blogs");
                     endif;
 
-                endif; 
+                endif;
 
-                ?>  
+                ?>
 
         </div>
 

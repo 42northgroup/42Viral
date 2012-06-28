@@ -33,6 +33,8 @@ var configContent = {
 
     toolbar : 'Content',
     extraPlugins : 'autogrow',
+	// Remove the Resize plugin as it does not make sense to use it in conjunction with the AutoGrow plugin.
+	removePlugins : 'resize',    
     scayt_autoStartup : true,
     /*toolbarStartupExpanded : false,*/
     basePath : '/ckeditior/',

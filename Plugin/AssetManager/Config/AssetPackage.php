@@ -22,14 +22,9 @@
  */
 class AssetPackage
 {
-	/**
-	 * @static
-	 * @access public
-	 * @var array
-	 */
     public static $presets = array(
         'jquery' => array(
-            'vendors/jquery/js/jquery-1.7.2.js'
+            CURRENT_JQUERY
         ),
 
         'ck_editor' => array(

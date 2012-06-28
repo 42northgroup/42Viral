@@ -3,12 +3,12 @@
  * Manage notification template objects
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
- * Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
  * Licensed under The MIT License
  * Redistributions of files must retain the above copyright notice.
  *
- * @copyright     Copyright 2009-2011, 42 North Group Inc. (http://42northgroup.com)
+ * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  * @package 42viral\Notification
@@ -16,9 +16,11 @@
 
 App::uses('AppModel', 'Model');
 App::uses('Handy', 'Lib');
+App::uses('CakeEmail', 'Network/Email');
+App::uses('Scrub', 'Lib/Scrub');
 /**
  * Manage notification template objects
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
+ * @author Jason D Snider <jason.snider@northgroup.com>
  * @package 42viral\Notification
  */
 class Notification extends AppModel
@@ -30,7 +32,6 @@ class Notification extends AppModel
      * @access public
      */
     public $name = 'Notification';
-
 
     /**
      * Specifies the table to be used by the notification object
@@ -46,159 +47,400 @@ class Notification extends AppModel
      */
     public $actsAs = array(
         'Log',
-        
+
         'ContentFilters.Scrubable' => array(
             'Filters' => array(
                 'trim' => '*',
-                //'htmlStrict' => array('body_template'),
-                'noHTML' => array('id', 'name', 'alias', 'subject_template'),
+                'htmlStrict' => array('body'),
+                'noHTML' => array('id', 'subject'),
             )
         )
     );
 
+    private $__notificiations = array(
+        'en'=>array(
+/*
+                'sample_notification_template' => array(
 
-    /** 
-     * Specifies the validation parameters for the notification model
-     * @var array
-     * @access public
-     */
-    public $validate = array(
-        'alias' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an alias"
+                    '_ref'=>'sample_notification_template',
+
+                    'notification'=>array(
+                            'active'=>true,
+                            'subject'=>'Sample',
+                            'body'=>
+'<p>Sample Notification text content, may contain sprintf variables %s, %d, etc</p>'
+                    ),
+
+                    'email'=>array(
+                            'active'=>true,
+                            'subject'=>'Password Reset',
+
+                            'html_body'=>
+'<p>HTML content, may contain sprintf variables %s, %d, etc</p>',
+
+                            'text_body'=>
+//For the sake of formatting we need to start at the left most margin and violae the 120 margin rule
+'Plain text content, may contain sprintf variables %s, %d, etc'
+                    )
+                )
             ),
+*/
+            'password_reset' => array(
 
-            'isUnique' => array(
-                'rule' => 'isUnique',
-                'message' => "Given alias needs to be unique"
+                '_ref'=>'password_reset',
+
+                'notification'=>array(
+                    'active'=>true,
+                    'subject'=>'Password Reset',
+                    'body'=>
+
+'<p>Just letting you know, a password reset has been requested against your account.</p>
+<p>The IP address of the person requesting this password reset is: %s</p>'
+                ),
+
+                'email'=>array(
+                    'active'=>true,
+                    'subject'=>'Password Reset',
+
+                    'html_body'=>
+
+'<p>Please do not reply to this email. This email has been sent by a machine, replies will not be read.</p>
+
+Hello,<br>
+
+<p>Someone (hopefully you) has requested to reset your password for %2$s. If you did not request this reset, please ignore this message.</p>
+
+<p>To reset your password, please visit the following page:</p>
+<p>%1$spass_reset/%3$s</p>
+
+<p>If asked, your password reset key is : %3$s</p>
+
+<p>When you visit the above page (which you must do within 24 hours), you will be prompted to enter a new password. After you have submitted the form, you can log in normally using the new password you set.</p>
+
+<p>The IP address of the person requesting this password reset is: %4$s</p>',
+
+
+
+                    'text_body'=>
+
+'Please do not reply to this email. This email has been sent by a machine, replies will not be read.
+
+Hello,
+
+Someone (hopefully you) has requested to reset your password for %2$s. If you did not request this reset, please ignore this message.
+
+To reset your password, please visit the following page:
+%1$spass_reset/%3$s
+
+If asked, your password reset key is : %3$s
+
+When you visit the above page (which you must do within 24 hours), you will be prompted to enter a new password. After you have submitted the form, you can log in normally using the new password you set.
+
+The IP address of the person requesting this password reset is: %3$s'
+                )
+            ),
+            'invitation_to_join' => array(
+
+                    '_ref'=>'invitation_to_join',
+
+                    'notification'=>array(
+                            'active'=>false,
+                            'subject'=>null,
+                            'body'=>null
+                    ),
+
+                    'email'=>array(
+                            'active'=>true,
+                            'subject'=>'Invitation to Join',
+
+                            'html_body'=>
+
+'<p>%1$s has invited you to join %2$s</p>
+<p>Click the link below to join 42Viral:</p>
+<p>/%3$susers/create/invite:/%4$s</p>
+<p>If asked, your invitation code is : %4$s</p>',
+
+                            'text_body'=>
+'%1$s has invited you to join %2$s
+
+Click the link below to join 42Viral:
+
+/%3$susers/create/invite:/%4$s
+
+If asked, your invitation code is : %4$s',
+                    )
+            )
+        )
+
+    );
+
+    /**
+     * Defines various types of content
+     *
+     * - tags
+     *     public - This is used to restrict publication status options such as draft from appearing on public pages
+     * such as search results.
+     *
+     * @access private
+     * @var array
+     */
+    private $__listActionTypes = array(
+        'read'=>array(
+            'label'=>'Read',
+            '_ref'=>'read',
+            '_inactive'=>false,
+            'category'=>'Mark',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
             )
         ),
-
-        'name' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an name"
+        'unread'=>array(
+            'label'=>'Unread',
+            '_ref'=>'unread',
+            '_inactive'=>false,
+            'category'=>'Mark',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
             )
         ),
-
-        'subject_template' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an Subject Template"
+        'archive'=>array(
+            'label'=>'Archive',
+            '_ref'=>'archive',
+            '_inactive'=>false,
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_trash'
             )
         ),
-
-        'body_template' => array(
-            'notEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => "Please enter an Body Template"
+        'trash'=>array(
+            'label'=>'Trash',
+            '_ref'=>'trash',
+            '_inactive'=>false,
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_inbox',
+                'show_on_archive'
+            )
+        ),
+        'inbox'=>array(
+            'label'=>'Inbox',
+            '_ref'=>'inbox',
+            '_inactive'=>false,
+            'category'=>'Box',
+            'tags'=>array(
+                'show_on_trash',
+                'show_on_archive'
+            )
+        ),
+        'delete'=>array(
+            'label'=>'Delete',
+            '_ref'=>'delete',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array(
+                'show_on_trash'
             )
         )
     );
 
     /**
-     * Used for generating a dummy test notification for testing purposes
+     * Returns a key to value action types. This list can be flat, categorized or a partial list based on tags.
      * @access public
-     *
-     */
-    public function generateDummyTestNotification()
-    {
-        $tempNotification = array();
-        $tempNotification['alias'] = 'test_notification';
-        $tempNotification['name'] = 'Test Notification';
-        $tempNotification['active'] = true;
-        $tempNotification['subject_template'] = 'TEST Notification Subject #{Person.first_name}';
-        $tempNotification['body_template'] = 'TEST Notification Body #{Person.first_name} #{Person.last_name}';
-        $tempNotification['email_template'] = 'notification';
-
-        $this->save($tempNotification);
-    }
-
-
-    /**
-     * Fetch a notification using a notification handle (id or alias)
-     * @access public
-     * @param string $notificationHandle
-     * @return Notification
-     */
-    public function fetchNotification($notificationHandle)
-    {
-        if(Handy::isUUID($notificationHandle)) {
-            $notification = $this->fetchNotificationById($notificationHandle);
-        } else {
-            $notification = $this->fetchNotificationByAlias($notificationHandle);
-        }
-
-        return $notification;
-    }
-
-    /**
-     * Fetch a notification record using its given id
-     * @access public
-     * @param string $notificationId
-     * @return Notification
-     */
-    public function fetchNotificationById($notificationId)
-    {
-        $notification = $this->find('first', array(
-            'contain' => array(),
-
-            'conditions' => array(
-                'Notification.id' => $notificationId
-            )
-        ));
-
-        return $notification;
-    }
-
-    /**
-     * Fetch a notification record using its given alias
-     * @access public
-     * @param string $alias
-     * @return Notification
-     */
-    public function fetchNotificationByAlias($alias)
-    {
-        $notification = $this->find('first', array(
-            'contain' => array(),
-
-            'conditions' => array(
-                'Notification.alias' => $alias
-            )
-        ));
-
-        return $notification;
-    }
-
-    /**
-     * Fetch all notifications sorted by their name in ascending order
-     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
      * @return array
      */
-    public function fetchAllNotifications()
-    {
-        $notifications = $this->find('all', array(
-            'contain' => array(),
-            
-            'order' => array(
-                'Notification.name ASC'
-            )
-        ));
-
-        return $notifications;
+    public function listActionTypes($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listActionTypes, $tags, $category, $categories);
     }
 
     /**
-     * Deletes a single given notification using its ID
-     * @access public
-     * @param $notificationId
+     * Sends notifications and emails, seemlessly, in the background
+     * options array
+     *     'email' - email settings
+     *     'message' - message variables
+     *     'type' - email, notification or all (all by default)
+     * @param string $notification
+     * @param array $options
+     *
+     * @todo Complete configuration modeling
+     */
+    public function notify($notification, $options = array()){
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
+
+        $sendEmail = false;
+        $sendNotification = false;
+
+        switch($options['type']){
+            case 'email':
+                $sendEmail = true;
+                $sendNotification = false;
+                break;
+
+            case 'notification':
+                $sendEmail = false;
+                $sendNotification = false;
+                break;
+
+            case 'all':
+            default:
+                $sendEmail = true;
+                $sendNotification = true;
+                break;
+        }
+
+        if($sendNotification && $message['notification']['active']){
+
+            $data['Notification']['person_id'] = $options['additional']['person_id'];
+            $data['Notification']['subject'] = $message['email']['subject'];
+            $data['Notification']['body'] = $this->__prepareNotification($notification, $options['message']);
+
+            if($this->save($data)){
+
+            }
+        }
+
+        if($sendEmail && $message['email']['active']){
+            $email = new CakeEmail();
+            $email->template('notification', null)
+                ->transport('Mail')
+                ->emailFormat('both')
+
+                ->to($options['email']['to'])
+                ->from(array(Configure::read('Email.from') => Configure::read('Domain.host')))
+                ->replyTo(Configure::read('Email.replyTo'))
+
+                ->subject($message['email']['subject'])
+                ->viewVars($this->__prepareEmail($notification, $options['message']))
+                ->send();
+        }
+
+    }
+
+    /**
+     * Prepares the final text of a notification
+     * @access private
+     * @param string $notification
+     * @param array $options
+     */
+    private function __prepareNotification($notification, $options = null){
+        $body = '';
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
+
+        switch($notification){
+            case 'invitation_to_join':
+                return false;
+                break;
+
+            case 'password_reset':
+                    $body = sprintf($message['notification']['body'], $options['ip']);
+                break;
+        }
+
+        return $body;
+
+    }
+
+    /**
+     * Prepares the final text of an email
+     * @access private
+     * @param string $notification
+     * @param array $options
+     */
+    private function __prepareEmail($notification, $options = null){
+        $html = '';
+        $text = '';
+        $language = 'en';
+        $message = $this->__notificiations[$language][$notification];
+
+        switch($notification){
+            case 'invitation_to_join':
+                $html = sprintf(
+                $message['email']['html_body'],
+                $options['invitee'],
+                Configure::read('Domain.host'), //Product or Domain
+                Configure::read('Domain.url'), //FQDN
+                $options['token']
+                );
+                break;
+
+            case 'password_reset':
+                $html = sprintf(
+                    $message['email']['html_body'],
+                    Configure::read('Domain.url'), //FQDN
+                    Configure::read('Domain.host'), //Product or Domain
+                    $options['token'],
+                    $options['ip']
+                );
+
+                $text = sprintf(
+                    $message['email']['text_body'],
+                    Configure::read('Domain.url'),  //FQDN
+                    Configure::read('Domain.host'), //Product or Domain
+                    $options['token'],
+                    $options['ip']
+                );
+                break;
+        }
+
+        return array('html'=>Scrub::htmlStrict($html), 'text'=>Scrub::noHTML($text));
+    }
+
+    /**
+     * Performs the actions of read/unread marking the moving of notifications from and to inbox, archive and trash
+     * @param public
+     * @param array $data
      * @return boolean
      */
-    public function deleteNotification($notificationId)
-    {
-        $opStatus = $this->delete($notificationId);
+    public function actions($data){
+        if(!empty($data)){
+            foreach($data[$this->alias] as $key => $value){
+                if($value == 1){
+                    //Are marking or changing locations?
+                    switch($data['Control']['action']){
+                        //Marking
+                        case 'read':
+                        case 'unread':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['marked'] = $data['Control']['action'];
+                            break;
 
-        return $opStatus;
+                        //Locations
+                        case 'trash':
+                        case 'inbox':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['location'] = $data['Control']['action'];
+                            break;
+
+                        case 'archive':
+                            $data[$this->alias]['id'] = $key;
+                            $data[$this->alias]['marked'] = 'read';
+                            $data[$this->alias]['location'] = $data['Control']['action'];
+                            break;
+
+                        default:
+                            break;
+                    }
+                    return $this->save($data);
+                }
+            }
+        }
     }
 }
+
+
+
+
+
+
+
+
+
+

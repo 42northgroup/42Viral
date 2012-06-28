@@ -1,7 +1,7 @@
 <?php
 /**
  * Manages people in the system
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -31,16 +31,9 @@ App::uses('Scrub', 'ContentFilters.Lib');
      * @var array
      * @access public
      */
-    public $uses = array('CaseModel', 'Person', 'Invite');
+    public $uses = array('CaseModel', 'Invite', 'Notification', 'Person');
 
-    /**
-     * Components
-     *
-     * @var array
-     * @access public
-     */
-    public $components = array('NotificationCmp');
-    
+
     /**
      * beforeFilter
      * @access public
@@ -51,7 +44,7 @@ App::uses('Scrub', 'ContentFilters.Lib');
 
     /**
      * Retrives all users in the system
-     * 
+     *
      * @access public
      *
      */
@@ -60,8 +53,8 @@ App::uses('Scrub', 'ContentFilters.Lib');
         $people = $this->Person->find('all');
         $this->set('people', $people);
         $this->set('title_for_layout', 'People (CRM)');
-    }    
-    
+    }
+
     /**
      * Retrieves a person's details
      *
@@ -73,18 +66,18 @@ App::uses('Scrub', 'ContentFilters.Lib');
        $person = $this->Person->getPersonWith($username, 'nothing');
        $this->set('person', $person);
        $this->set('userProfile', $person);
-       $this->set('title_for_layout', 
+       $this->set('title_for_layout',
                $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
     }
-   
+
     /**
     * Sends an ivite to all emais passed through the form
-    * 
+    *
     * @access public
     * @return void
     */
     public function invite()
-    {         
+    {
        if(!empty ($this->data)){
            $emails = explode(',', $this->data['Invite']['emails']);
 
@@ -108,13 +101,27 @@ App::uses('Scrub', 'ContentFilters.Lib');
                    $invitation_token = $this->Invite->id;
                    $invitee = $this->Session->read('Auth.User.name');
 
+                   /*
                    $additionalObjects = array(
                        'invitation_token' => $invitation_token,
                        'invitee' => $invitee,
                        'invite_body' => Scrub::htmlStrict($this->data['Invite']['message'])
                    );
-
-                   $this->NotificationCmp->triggerSimpleNotification("friend_invite", array($email),$additionalObjects);
+                   */
+                   $this->Notification->notify('invitation_to_join',
+                       array(
+                           'type'=>'email',
+                           'email'=>array(
+                                'to'=>$email
+                           ),
+                           'message'=>array(
+                               'invitee'=>$invitee,
+                               'token' => $invitation_token,
+                               //'msg'=>Scrub::htmlStrict($this->data['Invite']['message'])
+                           ),
+                           'additional'=>array()
+                       )
+                   );
 
                }
            }

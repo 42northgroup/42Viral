@@ -1,7 +1,7 @@
 <?php
 /**
  * 42Viral's parent controller layer
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -32,13 +32,15 @@ class AppController extends Controller
      * @access public
      */
     public $components = array(
-        'Acl', 
-        'Auth', 
-        'RequestHandler', 
+        'Acl',
+        'Auth',
+        'RequestHandler',
         'Security' => array(
             'csrfExpires' => '+1 day'
-        ), 
-        'Session');
+        ),
+        'Session'
+    );
+
     /**
      * Application-wide helpers
      *
@@ -48,21 +50,21 @@ class AppController extends Controller
     public $helpers = array(
         'AssetManager.Asset',
         'Connect.SocialMedia',
-        'Form', 
-        'Html', 
+        'Form',
+        'Html',
         'Paginator',
-        'Profile', 
-        'Session', 
+        'Profile',
+        'Session',
         'Text'
     );
 
 
     /**
      * The parent constructor for all 42Viral controllers
-     * 
+     *
      * @access public
      * @param object $request
-     * @param object $response 
+     * @param object $response
      */
     public function __construct($request = null, $response = null)
     {
@@ -123,18 +125,28 @@ class AppController extends Controller
 
         //Fetch the unread message count for current user's message inbox
         if (!is_null($this->Session->read('Auth.User'))) {
-            $this->loadModel('InboxMessage');
+            $this->loadModel('Notification');
             $userId = $this->Session->read('Auth.User.id');
-            $unreadMessageCount = $this->InboxMessage->findPersonUnreadMessageCount($userId);
-            $this->set('unread_message_count', $unreadMessageCount);
+
+            $unreadMessageCount = $this->Notification->find(
+                'count',
+                array(
+                    'conditions'=>array(
+                        'Notification.person_id'=>$userId,
+                        'Notification.marked'=>'unread'
+                    ),
+                    'contain'=>array()
+                )
+            );
+            $this->set('unreadMessageCount', $unreadMessageCount);
         }
-        
+
     }
 
     /**
      * Allows or denies access based on ACLs, Active Sessions and the explicit setting of public controllers and actions
      * @access public
-     * @param array $allow 
+     * @param array $allow
      */
     public function auth($allow = array())
     {
@@ -154,12 +166,12 @@ class AppController extends Controller
             //No, this is not a public controller.
             //Is this a public action?
             if (!in_array($this->request->params['action'], $allow)) {
-                //No, this in not a public action. 
+                //No, this in not a public action.
                 //Is the user logged in?
                 if ($this->Session->check('Auth.User.id')) {
                     //Yes, the user is logged in.
                     //Does the user have access to this Controller-action?
-                    if (!$this->Acl->check($this->Session->read('Auth.User.username'), 
+                    if (!$this->Acl->check($this->Session->read('Auth.User.username'),
                                     Inflector::camelize($this->request->params['controller'])
                                     . '-'
                                     . $this->request->params['action'], '*'
@@ -182,44 +194,94 @@ class AppController extends Controller
         }
     }
 
-    
     /**
-     * Initialize doc upload settings upon request for given model
+     * Throws an 403 error if you try to modify data that does not belong to you.
+     * Belonging to you is defined as an asset with a direct association to your Person or Profile record
      *
-     * @access public
-     * @param string $modelName (Default = null)
+     * @param string $againstId
+     * @param string $model - pass as ModelName or model_name
+     * @param string $modelId
+     * @throws ForbiddenException
+     * @return string
      */
-    public function prepareDocUpload($modelName=null)
-    {
-        $this->FileUpload->fileModel = $modelName;
-        $this->FileUpload->skipModel = true;
-        $this->FileUpload->fileVar = 'body_content_file';
-        $this->FileUpload->uploadDir = 'files/temp';
-        $this->FileUpload->allowedTypes = array(
-            //Doc
-            'application/doc',
-            'application/msword',
-            'application/msword-doc',
-            'application/vnd.msword',
-            'application/winword',
-            'application/word',
-            'application/x-msw6',
-            'application/x-msword',
-            'application/x-msword-doc',
+    protected function _grantAccess($againstId, $model, $modelId){
+    	$classifiedModel = Inflector::classify($model);
+		$deny = true;
 
-            //DocX
-            'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-            'application/vnd.openxmlformats-officedocument.word',
-            'application/vnd.ms-word.document.12',
-            
-            //PDF
-            'application/acrobat',
-            'application/nappdf',
-            'application/x-pdf',
-            'application/vnd.pdf',
-            'text/pdf',
-            'text/x-pdf'
-        );
+		if(in_array($classifiedModel, array('Person', 'Profile'))){
+			if($againstId == $modelId){
+				$deny = false;
+			}
+		}
+
+		if($deny){
+			throw new ForbiddenException(__('The data you are trying to modify does not belong to you!'));
+		}
+
+		return $classifiedModel;
     }
 
+    /**
+     * Throws a 400 Error if a association record does not exist.
+     * A common use case is assuring a parent record exists to prevent creation of orphaned records.
+     * 	Example - Creating an address against a Person would require matching Person.id record prior to creation
+     * @param string $model - pass as ModelName or model_name
+     * @param string $modelId
+     * @throws forbiddenException
+     * @return string
+     */
+    protected function _validAssociation($model, $modelId){
+
+    	$classifiedModel = Inflector::classify($model);
+
+    	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
+    	$this->loadModel($classifiedModel);
+    	$association = $this->$classifiedModel->find('first',
+	    		array(
+		    		'conditions'=>array(
+		    			"{$classifiedModel}.id"=>$modelId
+	    			),
+	    			'contain'=>array(),
+	    			'fields'=>array("{$classifiedModel}.id")
+    			)
+    		);
+
+		if(empty($association)){
+    		throw new BadRequestException(__('The requested association does not exist!'));
+    	}
+
+    	return $classifiedModel;
+    }
+
+	/**
+	 * Throws a 404 Error if a requested record does not exist
+	 * A good use case making sure a record exists prior to editing or creating a view.
+	 * @param string $model - pass as ModelName or model_name
+	 * @param string $modelId
+	 * @param string column
+	 * @throws notFoundException
+	 * @return string
+	 */
+	protected function _validRecord($model, $modelId, $column = 'id'){
+
+    	$classifiedModel = Inflector::classify($model);
+
+    	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
+    	$this->loadModel($classifiedModel);
+    	$association = $this->$classifiedModel->find('first',
+	    		array(
+		    		'conditions'=>array(
+		    			"{$classifiedModel}.{$column}"=>$modelId
+	    			),
+	    			'contain'=>array(),
+	    			'fields'=>array("{$classifiedModel}.{$column}")
+    			)
+    		);
+
+		if(empty($association)){
+    		throw new NotFoundException(__('The requested record does not exist!'));
+    	}
+
+    	return $classifiedModel;
+    }
 }

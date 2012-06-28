@@ -5,9 +5,6 @@
 [submodule "Plugin/Seo"]
 	path = Plugin/Seo
 	url = git@github.com:42northgroup/CakePHP-Seo-Plugin.git
-[submodule "Plugin/CalendarRecursion"]
-	path = Plugin/CalendarRecursion
-	url = git@github.com:42northgroup/CakePHP-CalendarRecursion-Plugin.git
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
 	url = git@github.com:42northgroup/tags.git
@@ -20,9 +17,6 @@
 [submodule "Plugin/Search"]
 	path = Plugin/Search
 	url = git@github.com:42northgroup/search.git
-[submodule "Plugin/PicklistManager"]
-	path = Plugin/PicklistManager
-	url = https://github.com/42northgroup/CakePHP-PicklistManager-Plugin.git
 [submodule "Plugin/Connect"]
 	path = Plugin/Connect
 	url = git@github.com:42northgroup/CakePHP-Connect-Plugin.git

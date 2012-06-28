@@ -1,7 +1,7 @@
 <?php
 /**
- * Provides controll logic for managing upload actions
- * 
+ * Provides controll logic for managing user profile actions
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -11,243 +11,94 @@
  * @copyright     Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
- * @package       42viral\Upload
+ * @package       42viral\Person\User\Profile
  */
 
 App::uses('AppController', 'Controller');
-App::uses('ImageUtil', 'Lib');
-App::uses('ProfileUtil', 'Lib');
 /**
- * Provides controll logic for managing upload actions
  * @author Jason D Snider <jason.snider@42viral.org>
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @package 42viral\Upload
+ * @package 42viral\Uploads
  */
- class UploadsController extends AppController
-{
+ class UploadsController extends AppController {
 
     /**
-     * Models used by this controller
+     * Controller name
+     * @var string
+     * @access public
+     */
+    public $name = 'Uploads';
+
+    /**
+     * Models this controller uses
      * @var array
      * @access public
      */
-    public $uses = array('Image', 'Person', 'Upload');
-
-    /**
-     * Helpers
-     * @var array
-     * @access public
-     */
-    public $helpers = array('Profile', 'Upload');
+    public $uses = array(
+        'Upload'
+    );
 
     /**
      * beforeFilter
+     *
      * @access public
      */
     public function beforeFilter()
     {
         parent::beforeFilter();
-        $this->auth(array('image', 'images'));
+        $this->auth(array());
     }
 
     /**
-     * Retrives all images uploaded by a user
-     *
+     * Provides an index action for displaying all uploads tied to an entity
      * @access public
-     * @param string $token unique identifier which we use to retrieve a person's details
-     *
+     * @param string $model
+     * @param string $modelId
      */
-    public function images($token = null)
+    public function index($model, $modelId)
     {
-        // If we have no token, we will use the logged in user.
-        if (is_null($token)):
-            $token = $this->Session->read('Auth.User.username');
-        endif;
+        $classifiedModel = $this->_validAssociation($model, $modelId);
 
-        //If the token is still null, just stop
-        if (is_null($token)) {
-            $this->Session->setFlash(__('An invalid profile was requested'), 'error');
-            throw new NotFoundException('An invalid profile was requested');
-        }
-
-        //Get the data
-        $person = $this->Person->getPersonWith($token, 'upload');
-
-        //Does the user really exist?
-        if (empty($person)):
-            $this->Session->setFlash(__('An invalid profile was requested'), 'error');
-            throw new NotFoundException('An invalid profile was requested');
-        endif;
-
-        // Mine
-        if ($this->Session->read('Auth.User.username') == $token) {
-            $this->set('mine', true);
-        } else {
-            $this->set('mine', false);
-        }
-
-        $this->set('user', $person);
-        $this->set('userProfile', $person);
-        $this->set('title_for_layout', sprintf(__("%s's Photo Stream"), ProfileUtil::name($person['Person'])));
-        
-        
-        
-        
-    }
-
-    /**
-     * Retrieves an image upladed by a user
-     *
-     * @param string $id ID of the image we are targetting
-     * @access public
-     */
-    public function image($id)
-    {
-
-        $image = $this->Image->find('first', array('conditions' => array('Image.id' => $id)));
-
-        $path = $image['Image']['path'] . $this->Upload->name($image['Image']);
-
-        $this->set('image', $image);
-
-        $this->set('path', $path);
-
-        if ($this->Session->read('Auth.User.id') == $image['Image']['created_person_id']) {
-            $this->set('mine', true);
-        } else {
-            $this->set('mine', false);
-        }
-
-        $userProfile = $this->Person->find('first', 
-                array('conditions' => array('Person.id' => $image['Image']['created_person_id'])));
-        
-        $this->set('userProfile', $userProfile);
-        
-        $imageName = Inflector::humanize($image['Image']['name']);
-        $this->set('title_for_layout', sprintf(__('Image Manager (%s)'), $imageName));
-    }
-
-    /**
-     * Crops an image
-     * 
-     * @access public
-     *
-     */
-    public function crop_image()
-    {
-
-        $imageProps = $this->data['Upload'];
-        $imageId = $imageProps['image_uuid'];
-
-        $image = $this->Image->find('first', array(
-            'conditions' => array(
-                'Image.id' => $imageId
+        $uploads = $this->Upload->find(
+            'all',
+            array(
+                'conditions'=>array(
+                    'Upload.model'=>$model,
+                    'Upload.model_id'=>$modelId,
+                ),
+                'fields'=>array(
+                    'Upload.uri',
+                    'Upload.thumbnail_image_uri',
+                    'Upload.object_type'
+                ),
+                'contain'=>array()
             )
-                ));
+        );
 
-        $path = $image['Image']['path'] . $this->Upload->name($image['Image']);
-        $fullImagePath = ROOT . DS . APP_DIR . DS . WEBROOT_DIR . $path;
-
-        $cropper = new ImageUtil($fullImagePath);
-        $cropper->freeCrop($imageProps);
-        $cropper->saveImage($fullImagePath, 90 /* image quality */);
-
-        $this->redirect('/uploads/image/' . $imageId);
+        $this->set('uploads', $uploads);
+        $this->set('title_for_layout', __('Uploads'));
     }
 
     /**
-     * Uploads an image to a users profile
-     *
+     * Provides an action for uploading files
      * @access public
+     * @param string $model
+     * @param string $modelId
      */
-    public function image_upload()
+    public function create($model, $modelId)
     {
+        $classifiedModel = $this->_validAssociation($model, $modelId);
 
-        if (!empty($this->data)) {
-
-            if ($this->Image->upload($this->data)) {
-                $this->Session->setFlash('Saved!', 'success');
-            } else {
-                $this->Session->setFlash('Failed!', 'error');
+        if(!empty($this->data)){
+            if($this->Upload->process($this->data)){
+                $this->Session->setFlash(__('The file has been uploaded'), 'success');
+                $this->redirect("/uploads/index/{$model}/{$modelId}");
+            }else{
+                $this->Session->setFlash(__('The file could not be uploaded'), 'error');
             }
-
-            $this->redirect($this->referer());
-        }
-        
-        $this->set('title_for_layout', __('Upload an Image'));
-    }
-
-    /**
-     * Sets a user's profile image
-     * 
-     * @access public
-     * @param $personId the ID of the person whose avatar we are setting
-     * @param $imageId the ID of the image which we are using for the person's avatar
-     *
-     */
-    public function set_avatar($personId, $imageId)
-    {
-
-        $image = $this->Image->find('first', array('conditions' => array('Image.id' => $imageId)));
-
-        $path = IMAGE_WRITE_PATH . $personId . DS . $this->Upload->name($image['Image']);
-
-        $this->Image->setProfileImage($path, $personId);
-
-        $this->redirect($this->referer());
-    }
-
-
-    /**
-     * Switch to using Gravatar as the source for users avatar
-     * 
-     * @access public
-     * @param string $personId
-     *
-     */
-    public function use_gravatar($personId)
-    {
-        $this->Image->clearPersonAvatar($personId);
-
-        $this->redirect($this->referer());
-    }
-    
-/**
- * Delete a given image and clear user upload record for the image
- * 
- * @access public
- * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @param string $personId
- * @param string $imageId
- * @return void
- */
-    public function delete($personId, $imageId)
-    {
-
-        $image = $this->Image->find('first', array('conditions' => array('Image.id' => $imageId)));
-        $path = IMAGE_WRITE_PATH . $personId . DS . $this->Upload->name($image['Image']);
-
-        $thumbnailPath_1 = 
-            IMAGE_WRITE_PATH . $personId .DS. 'thumbnails' .DS. $this->Upload->thumbnailName($image['Image'], 1);
-
-        $thumbnailPath_2 = 
-            IMAGE_WRITE_PATH . $personId .DS. 'thumbnails' .DS. $this->Upload->thumbnailName($image['Image'], 2);
-
-        $this->Upload->delete($imageId);
-        
-        if(file_exists($path)) {
-            unlink($path);
         }
 
-        if(file_exists($thumbnailPath_1)) {
-            unlink($thumbnailPath_1);
-        }
-
-        if(file_exists($thumbnailPath_2)) {
-            unlink($thumbnailPath_2);
-        }
-        
-        $this->redirect('/uploads/images');
+        $this->set('model', $classifiedModel);
+        $this->set('modelId', $modelId);
+        $this->set('title_for_layout', __('Upload a File'));
     }
-
 }

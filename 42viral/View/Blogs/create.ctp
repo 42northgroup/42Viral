@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -24,25 +24,25 @@ $(function() {
 
 <div class="rows">
     <?php
-        echo $this->Form->create('Blog', 
+        echo $this->Form->create('Blog',
                     array(
-                        'url'=>$this->here, 
+                        'url'=>$this->here,
                         'class'=>'responsive'
                     )
                 );
     ?>
-    
+
     <div class="two-thirds column alpha">
     <?php
         echo $this->Form->input('title', array('rows'=>1, 'cols'=>96));
 
-        
+
     ?>
     </div>
     <div class="one-third column omega">
     <?php
-        echo $this->Form->input('syntax', array('options'=>array('html'=>'HTML', 'markdown'=>'Markdown')));
-        echo $this->Form->input('post_access', array('options'=>array('access'=>'Private', 'public'=>'Public')));
+        echo $this->Form->input('syntax');
+        echo $this->Form->input('post_access');
         echo $this->Form->submit();
     ?>
     </div>

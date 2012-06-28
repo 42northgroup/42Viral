@@ -23,21 +23,21 @@ $userId = $this->Session->read('Auth.User.id');
         <div id="LogoContainer">
             <a href="/">The 42Viral Project</a>
         </div>
-        
+
         <div id="MobileHeader" class="clearfix">
-            
+
             <div class="logo-container">
                 <a href="/">The 42Viral Project</a>
             </div>
-            
+
             <a id="MobileNavigationTrigger" class="btn btn-navbar">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </a>
-            
+
         </div>
-        
+
         <div id="NavigationContainer">
             <div id="NavigationHeader">
                 <a id="NavigationTrigger" class="btn btn-navbar">
@@ -46,17 +46,17 @@ $userId = $this->Session->read('Auth.User.id');
                     <span class="icon-bar"></span>
                 </a>
             </div>
-            
+
             <?php if($this->Session->check('Auth.User.id')): ?>
                 <div id="Navigation">
                     <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>                  
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
                     <div class="navigation">
-                        <?php 
-                        $messageBadge = empty($unread_message_count)?'':" ({$unread_message_count})";
-                        echo $this->Html->link(__('Inbox') . $messageBadge, '/inbox_message/'); ?>
+                        <?php
+                        $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";
+                        echo $this->Html->link(__('Inbox') . $messageBadge, '/notifications/'); ?>
                     </div>
                     <div class="navigation">
                         <a href="#">Share</a>
@@ -67,33 +67,31 @@ $userId = $this->Session->read('Auth.User.id');
                         </div>
                     </div>
                     <div class="navigation">
-                        
-                        <a href="#">My Account</a>
+
+                        <a href="<?php echo "/profiles/view/{$username}/"; ?>">My Account</a>
                         <div class="subnavigation">
                             <strong>Profile</strong>
                             <div>
                                 <div>
                                 <?php echo $this->Html->link(__('My Profile'), "/profiles/view/{$username}/"); ?>
                                 </div>
-                                
+
                                 <div><?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?></div>
-                                
-                                <div><?php echo $this->Html->link(__('Social Networks'), 
+
+                                <div><?php echo $this->Html->link(__('Social Networks'),
                                         "/social_networks/index/{$profileId}/"); ?></div>
                             </div>
-                            
+
                             <strong>Misc</strong>
-                            <div><?php echo $this->Html->link(__('Photos'), 
-                                    '/uploads/images/' . $this->Session->read('Auth.User.username')); ?></div> 
 
-                            <div><?php echo $this->Html->link(__('Connect'), '/oauth/connect/' ); ?></div>  
+                            <div><?php echo $this->Html->link(__('Connect'), '/oauth/connect/' ); ?></div>
 
-                            <div><?php echo $this->Html->link(__('Settings'), '/users/settings/' ); ?></div> 
+                            <div><?php echo $this->Html->link(__('Settings'), '/users/settings/' ); ?></div>
 
-                            <div><?php echo $this->Html->link(__('Logout'), '/users/logout/'); ?></div>  
+                            <div><?php echo $this->Html->link(__('Logout'), '/users/logout/'); ?></div>
                         </div>
                     </div>
-                    
+
                     <?php if($this->Session->read('Auth.User.employee') == 1): ?>
                         <div class="navigation">
                             <a href="#">Admin</a>
@@ -110,25 +108,6 @@ $userId = $this->Session->read('Auth.User.id');
                                 <strong>CRM</strong>
                                 <div><?php echo $this->Html->link(__('People'), '/admin/people/'); ?></div>
 
-                                <strong>Messaging</strong>
-                                <div>
-                                    <?php echo $this->Html->link(__('Notification list'), '/notification/index/'); ?>
-                                </div>
-
-                                <div>
-                                    <?php
-                                    echo $this->Html->link(__('Create new notification'),
-                                        '/notification/create/');
-                                    ?>
-                                </div>
-
-                                <div>
-                                    <?php
-                                    echo $this->Html->link(__('Populate message inbox (test)'),
-                                        '/inbox_message/populate_inbox/');
-                                    ?>
-                                </div>
-
                                 <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
 
                                 <strong>System</strong>
@@ -141,11 +120,8 @@ $userId = $this->Session->read('Auth.User.id');
 
                                 <div><?php echo $this->Html->link(__('Users'), '/admin/users/'); ?></div>
                                 <div><?php echo $this->Html->link(__('Groups'), '/admin/users/acl_groups/'); ?></div>
-                                
-                                <div><?php echo $this->Html->link(__('Picklists'), 
-                                        '/admin/picklist_manager/picklists/'); ?></div>
-                                
-                                <div><?php echo $this->Html->link(__('Configuration'), 
+
+                                <div><?php echo $this->Html->link(__('Configuration'),
                                         '/admin/configurations/'); ?></div>
                             </div>
                         </div>
@@ -156,12 +132,12 @@ $userId = $this->Session->read('Auth.User.id');
                     <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/upages/'); ?></div>
+                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('New Account'), '/users/create/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Login'), '/users/login/'); ?></div>
                 </div>
             <?php endif; ?>
         </div>
-        
+
     </div>
 </div>

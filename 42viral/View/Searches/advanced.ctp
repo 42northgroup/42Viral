@@ -30,13 +30,13 @@
 
         echo $this->Form->input('tags', array('type'=>'text'));
 
-        echo $this->Form->input('object_type', 
+        echo $this->Form->input('object_type',
                 array(
                     'multiple' => 'checkbox',
 
                     ));
 
-        echo $this->Form->input('status', 
+        echo $this->Form->input('status',
                 array(
                     'multiple' => 'checkbox'
                     ));
@@ -49,7 +49,7 @@
             <?php echo $this->Html->link('Simple Search', '/searches'); ?>
 
         </div>
-        
+
         <div class="block">
         <?php
         if($display == 'results'):
@@ -62,7 +62,7 @@
                             </div>
                             <div class="result-right">
 
-                                <strong><?php echo $this->Html->link($content['Content']['title'], 
+                                <strong><?php echo $this->Html->link($content['Content']['title'],
                                         $content['Content']['url']); ?> </strong>
 
                                 <div class="tease">
@@ -71,7 +71,7 @@
                                                     $content['Content']['body'], 180, array('html' => true))); ?>
                                 </div>
                             </div>
-                        </div>  
+                        </div>
                     <?php endforeach; ?>
 
                 </div>
@@ -86,9 +86,9 @@
         ?>
         </div>
     </div>
-    
+
     <div class="one-third column omega">
         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
     </div>
-    
+
 </div>

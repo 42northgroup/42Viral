@@ -19,18 +19,17 @@
     <div class="two-thirds column alpha">
         <?php
 
-            echo $this->Form->create('SocialNetwork', 
+            echo $this->Form->create('SocialNetwork',
                         array(
-                            'url'=>$this->here, 
+                            'url'=>$this->here,
                             'class'=>'responsive'
                         )
                     );
+            echo $this->Form->input('model', array('value'=>$model, 'type'=>'hidden'));
+            echo $this->Form->input('model_id', array('value'=>$modelId, 'type'=>'hidden'));
 
-            echo $this->Form->input('profile_id', 
-                    array('value'=>$this->Session->read('Auth.User.Profile.id'), 'type'=>'hidden'));
-            
             echo $this->Form->input('network', array('empty'=>true));
-            echo $this->Form->input('profile');
+            echo $this->Form->input('identifier');
 
             echo $this->Form->submit();
 

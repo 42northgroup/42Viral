@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -186,7 +186,7 @@ class SetupShell extends AppShell
                 $this->__runStandardSteps();
                 $this->__interactiveSetup();
                 break;
-            
+
             case '2': // Database connection parameter settings
                 $this->__databaseConfig();
                 $this->__runStandardSteps();
@@ -390,9 +390,9 @@ class SetupShell extends AppShell
     private function __databaseConfig()
     {
         $this->out('...... Running database config');
-        
+
         $dbSettings = array();
-        
+
         do {
             $dbSettings['default'] = $this->__inputDatabaseConfig('default');
         } while(!$this->__testDbConnection($dbSettings['default'], 'default'));
@@ -405,7 +405,7 @@ class SetupShell extends AppShell
         $this->__writeDBConfigFile($configString);
 
         require_once(ROOT . DS . APP_DIR . DS . 'Config' . DS . 'Includes' . DS . 'database.php');
-        
+
         $this->__updateSetupState('database_config');
     }
 
@@ -451,7 +451,7 @@ class SetupShell extends AppShell
                 shell_exec("chown {$this->__pid}:{$this->__group} {$path}");
                 shell_exec("chmod 777 -R {$path}");
             } else {
-                
+
             }
         }
 
@@ -462,13 +462,9 @@ class SetupShell extends AppShell
             //$fixedAppPath .'tmp/cache/persistent',
             //$fixedAppPath .'tmp/cache/models',
             //$fixedAppPath .'tmp/cache/views',
-            
-            $fixedAppPath .'Plugin/HtmlFromDoc/Vendor/PostOffice',
+
             $fixedAppPath .'webroot/cache',
-            $fixedAppPath .'webroot/img/people',
-            $fixedAppPath .'webroot/files/people',
-            $fixedAppPath .'webroot/files/temp',
-            $fixedAppPath .'webroot/files/doc_images',
+            $fixedAppPath .'webroot/uploaded',
             $fixedAppPath .'Config/Xml',
             $fixedAppPath .'Config/Includes',
             $fixedAppPath .'Config/Log',
@@ -501,7 +497,7 @@ class SetupShell extends AppShell
     private function __clearCache()
     {
         $fixedAppPath = ROOT . DS . APP_DIR . DS;
-        
+
         $cakeCacheFolders = array(
             $fixedAppPath .'tmp' .DS. 'cache' .DS. 'persistent' .DS,
             $fixedAppPath .'tmp' .DS. 'cache' .DS. 'models' .DS,
@@ -526,7 +522,7 @@ class SetupShell extends AppShell
             $fixedAppPath .'webroot' .DS. 'cache' .DS. 'css' .DS,
             $fixedAppPath .'webroot' .DS. 'cache' .DS. 'js' .DS,
         );
-        
+
         foreach ($resourceCacheFolders as $tempFolder) {
             if(is_dir($tempFolder)) {
                 $filesJs = glob($tempFolder . '*.js', GLOB_MARK);
@@ -630,7 +626,7 @@ class SetupShell extends AppShell
             $this->out('*** ERROR *** You first need to run the security cipher and salt generation step');
             return;
         }
-        
+
         if(!$this->__getStepCompleteByIndex($this->__stepIndexList['database_config'])) {
             $this->out('*** ERROR *** You first need to run the database configuration step');
             return;
@@ -653,7 +649,7 @@ class SetupShell extends AppShell
                 $invalidData = $userModel->invalidFields();
                 $this->out('** ERROR ** ' . $invalidData['email'][0]);
             }
-            
+
             $user['User']['email'] = $this->in('Email: ');
             $userModel->set($user);
             $emailValidates = $userModel->validates(array('fieldList' => array('email')));
@@ -669,13 +665,13 @@ class SetupShell extends AppShell
 
             $user['User']['password'] = $this->in('Password: ');
             $user['User']['verify_password'] = $this->in('Verify Password: ');
-            
+
             $userModel->set($user);
             $passwordValidates = $userModel->validates(array('fieldList' => array('password')));
 
         } while(!$passwordValidates);
 
-        
+
         if($userModel->createUser($user['User'])) {
             $this->out('+++ Successfully created "root"');
         } else {
@@ -1038,7 +1034,7 @@ class SetupShell extends AppShell
 
     /**
      * Encode the setup state array structure into string for persistent file storage
-     * 
+     *
      * @access private
      * @return string
      */

@@ -1,7 +1,7 @@
 <?php
 /**
  * Provides controll logic for managing users
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -15,6 +15,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('CakeEmail', 'Network/Email');
 /**
  * Provides controll logic for managing users
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -31,12 +32,13 @@ App::uses('AppController', 'Controller');
 
     public $uses = array(
         'AclGroup',
-        'Connect.Facebook', 
-        'Connect.Linkedin', 
-        'Connect.Tweet', 
-        'Invite', 
-        'Connect.Oauth', 
-        'Person', 
+        'Connect.Facebook',
+        'Connect.Linkedin',
+        'Connect.Tweet',
+        'Invite',
+        'Connect.Oauth',
+        'Notification',
+        'Person',
         'User',
         'OldPassword',
         'UserSetting'
@@ -48,19 +50,18 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public $components = array(
-        'Access', 
-        'ControllerList', 
-        'Connect.Oauths', 
-        'NotificationCmp'
+        'Access',
+        'ControllerList',
+        'Connect.Oauths'
     );
-    
+
     /**
      * Helpers
      * @var array
      * @access public
      */
     public $helpers = array(
-        
+
     );
 
     /**
@@ -88,14 +89,14 @@ App::uses('AppController', 'Controller');
      */
     public function pass_reset($resetToken)
     {
-        
+
         if($this->User->checkPasswordResetTokenIsValid($resetToken)) {
             $user = $this->User->getUserFromResetToken($resetToken);
             $userId = $user['User']['id'];
 
             if(!empty($this->data)) {
-                
-                
+
+
                 $opStatus = $this->User->changePassword($this->data['Person']);
 
                 if($opStatus) {
@@ -152,19 +153,22 @@ App::uses('AppController', 'Controller');
                 $tokenData = array();
                 $tokenData['Person']['id'] = $userId;
                 $tokenData['Person']['password_reset_token'] = $requestAuthorizationToken;
-                $tokenData['Person']['password_reset_token_expiry'] = $tokenExpiry; 
+                $tokenData['Person']['password_reset_token_expiry'] = $tokenExpiry;
                 $this->Person->save($tokenData);
 
-                //email the person with the password reset authorization link
-                $person = $this->Person->getPersonWith($userId, 'nothing');
-
-                $additionalObjects = array(
-                    'reset_authorization_token' => $requestAuthorizationToken
-                );
-
-                $notificationHandle = 'password_reset_request';
-                $this->NotificationCmp->triggerNotification($notificationHandle, $person, $additionalObjects);
-
+                //Create a Notification
+                $this->Notification->notify('password_reset', array(
+                        'additional'=>array(
+                            'person_id' => $user['User']['id']
+                        ),
+                        'email'=>array(
+                            'to' => $user['User']['email']
+                        ),
+                        'message'=>array(
+                                'token'=>$requestAuthorizationToken,
+                                'ip'=>env('REMOTE_ADDR')
+                            )
+                    ));
 
                 $this->Session->setFlash(
                     __('Check your email for a password reset authentication link'),
@@ -185,7 +189,6 @@ App::uses('AppController', 'Controller');
         }
 
         $this->set('title_for_layout', __('Reset Your Password'));
-        
     }
 
     /**
@@ -194,7 +197,7 @@ App::uses('AppController', 'Controller');
      * @todo TestCase
      */
     public function login()
-    {             
+    {
         $error = true;
         if(!empty($this->data)){
 
@@ -204,18 +207,18 @@ App::uses('AppController', 'Controller');
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
                 $error = true;
             }else{
-                
+
                 if(Configure::read('Login.attempts') > 0){
-                
+
                     if($user['User']['last_login_attempt'] != null){
-                        if(($user['User']['last_login_attempt'] + (Configure::read('Login.lockout')*60)) 
+                        if(($user['User']['last_login_attempt'] + (Configure::read('Login.lockout')*60))
                                                                                                     > strtotime('now')){
-                            
+
                             if($user['User']['login_attempts'] == Configure::read('Login.attempts')){
                                 $this->set('lockout', 1);
                                 $this->request->data['User']['password'] = null;
                             }
-                            
+
                         }else{
                             $person['Person']['login_attempts'] = 0;
                             $person['Person']['last_login_attempt'] = null;
@@ -224,7 +227,7 @@ App::uses('AppController', 'Controller');
                         }
                     }
                 }
-                
+
                 $hash = Sec::hashPassword($this->data['User']['password'], $user['User']['salt']);
                 if($hash == $user['User']['password']){
 
@@ -234,9 +237,9 @@ App::uses('AppController', 'Controller');
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Session->write('Auth.User.Profile', $user['Profile']);
                         $this->Session->write('Auth.User.Settings', $user['UserSetting']);
-                                                
+
                         $this->Access->permissions($user['User']);
-                        
+
                         $person['Person']['login_attempts'] = 0;
                         $person['Person']['last_login_attempt'] = null;
                         $person['Person']['id'] = $user['User']['id'];
@@ -250,29 +253,29 @@ App::uses('AppController', 'Controller');
                     }
 
                 }else{
-                    
+
                     if(Configure::read('Login.attempts') > 0){
-                                        
-                        if($user['User']['login_attempts'] < Configure::read('Login.attempts')){                        
-                            $person['Person']['last_login_attempt'] = strtotime('now');                        
+
+                        if($user['User']['login_attempts'] < Configure::read('Login.attempts')){
+                            $person['Person']['last_login_attempt'] = strtotime('now');
                             $person['Person']['login_attempts'] = ($user['User']['login_attempts']+1);
                             $person['Person']['id'] = $user['User']['id'];
 
                             $this->Person->save($person);
-                        }                    
-                    
+                        }
+
                     }
-                    
+
                     $this->log("Password mismatch {$this->data['User']['username']}", 'weekly_user_login');
                     $error = true;
                 }
             }
 
-            if($error) {                
+            if($error) {
                 $this->Session->setFlash(__('You could not be authenticated'), 'error');
             }
         }
-        
+
         $this->set('title_for_layout', __('Login to Your Account'));
     }
 
@@ -290,7 +293,7 @@ App::uses('AppController', 'Controller');
     /**
      * Creates a user account using user submitted input
      * Logs the newly created user into the system
-     * 
+     *
      * @access public
      * @todo refactor private beta logic. This should probably be a component.
      */
@@ -298,48 +301,48 @@ App::uses('AppController', 'Controller');
     {
         if(Configure::read('Beta.private') == 1){
             $inviteCode = isset($this->params['named']['invite'])?$this->params['named']['invite']:null;
-            
+
             if(is_null($inviteCode)){
                 $this->Session->setFlash(__('New accounts can be created by invite only.'),'success');
-            }   
-            
+            }
+
             $this->set('inviteCode', $inviteCode);
         }
-        
+
         if(!empty($this->data)){
-            
+
             //Private beta, if we are in private beta mode, look for an invite code
-            if(Configure::read('Beta.private') == 1){  
-                
+            if(Configure::read('Beta.private') == 1){
+
                 if($this->Invite->confirm($this->data['User']['invite'])){
                     $allowed = true;
                 }else{
                     $this->Session->setFlash(__('Their is a problem with the invite code'),'error');
                     $allowed = false;
                 }
-                
+
             }else{
                 //Private beta mode is turned off
                 $allowed = true;
             }
-            
+
             //If we have a valid code or we are not in private beta, proceed
             if($allowed){
-                
+
                 //Is the user data valid?
                 if($this->User->createUser($this->data['User'])){
 
                     //Invalidate the private beta invite token
-                    if(Configure::read('Beta.private') == 1){  
+                    if(Configure::read('Beta.private') == 1){
                         $this->Invite->accept($this->data['User']['invite']);
                     }
-                    
-                    
+
+
                     //Create the new users ARO entry
                     $this->Acl->Aro->create(array(
                         'model'=>'User',
                         'foreign_key'=>$this->User->id,
-                        'parent_id'=>2, 
+                        'parent_id'=>2,
                         'alias'=>$this->data['User']['username'], 0, 0));
 
                     $this->Acl->Aro->save();
@@ -361,31 +364,31 @@ App::uses('AppController', 'Controller');
                     $oldPassword['OldPassword']['password'] = $user['User']['password'];
                     $oldPassword['OldPassword']['salt'] = $user['User']['salt'];
                     $this->OldPassword->save($oldPassword);
-                    
+
                     if($this->Auth->login($user)){
 
                         $this->Session->write('Auth.User', $user['User']);
                         $this->Access->permissions($user['User']);
 
                         $this->Session->setFlash(__('Your account has been created and you have been logged in'),
-                                                                                                            'success');                        
+                                                                                                            'success');
                         $this->redirect($this->Auth->redirect());
-                        
+
                     }else{
-                        
+
                         $this->Session->setFlash(__('Your account has been created, you may now log in'),'error');
                         $this->redirect($this->Auth->redirect());
-                        
+
                     }
 
                 }else{
-                    
+
                     $this->Session->setFlash(__('Your account could not be created'),'error');
-                    
+
                 }
             }
         }
-        
+
         $this->set('title_for_layout', 'Create a New Account');
     }
 
@@ -397,8 +400,8 @@ App::uses('AppController', 'Controller');
         $aclGroups = $this->AclGroup->find('all');
         $this->set('aclGroups', $aclGroups);
         $this->set('title_for_layout', __('ACL ARO Groups'));
-    }   
-    
+    }
+
     /**
      * Creates and user group without any permissions
      */
@@ -417,39 +420,39 @@ App::uses('AppController', 'Controller');
                     'alias'=>$acl_group['AclGroup']['alias'], 0, 0));
 
                 $this->Acl->Aro->save();
-                                
+
                 $this->redirect('/admin/privileges/user_privileges/'.$acl_group['AclGroup']['alias']);
             }else{
                 $this->Session->setFlash(__('Group could not be created'),'error');
             }
 
         }
-        
+
         $this->set('title_for_layout', 'Create an ACL ARO Group');
     }
 
     /**
      * Provides an admin view of users
-     * 
      *
-     * @access public 
+     *
+     * @access public
      */
     public function admin_index()
     {
         $users = $this->User->fetchUsersWith('profile');
         $this->set('users', $users);
         $this->set('title_for_layout', __('All users in the system'));
-    }    
-    
+    }
+
     /**
      * Allows the user to post to Twitter, Facebook and LinkedIn
-     * @param string $redirect_url 
+     * @param string $redirect_url
      */
     public function social_media($redirect_url='users/social_media')
     {
         //Do we have a list of the social media the users has connected to through 42Viral
         if( !$this->Session->check('Auth.User.sm_list') ){
-        
+
             //Get a list of the social media the user has connected to through 42Viral
             $sm_list = $this->Oauth->find('list', array(
                 'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
@@ -459,15 +462,15 @@ App::uses('AppController', 'Controller');
             //Save the list in the session
             $this->Session->write('Auth.User.sm_list', $sm_list);
         }
-        
+
         //Check if we have an anccess token for every social media
         foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
             switch ($val){
-                
+
                 case 'facebook':
                     $this->Oauths->check_session_for_token('facebook', $redirect_url);
                     break;
-                
+
                 case 'linked_in':
                     $this->Oauths->check_session_for_token('linked_in', $redirect_url);
                     break;
@@ -476,23 +479,23 @@ App::uses('AppController', 'Controller');
                     break;
             }
         }
-        
+
         $this->set('title_for_layout', __('Socialize and share your thoughts'));
-        
+
     }
-    
+
     /**
      * Allows for a user to post to Facebook, Linkedin and Twitter from 42viral
-     * 
+     *
      * @access public
      *
      */
     public function socialize(){
         if(!empty ($this->data)){
-            
+
             //Check if the user checked that he want to post to this social media
             if( $this->data['SocialMedia']['twitter_post'] == 1 ){
-                
+
                 //If yes then send the post
                 $this->Tweet->save(array(
                     'status' => $this->data['SocialMedia']['twitter'],
@@ -500,42 +503,42 @@ App::uses('AppController', 'Controller');
                     'oauth_token_secret' => $this->Session->read('Twitter.oauth_token_secret')
                 ));
             }
-            
+
             if( $this->data['SocialMedia']['linkedin_post'] == 1 ){
-                
+
                 $this->Linkedin->save(array(
                     'status' => $this->data['SocialMedia']['others'],
                     'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
                     'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
                 ));
             }
-            
+
             if( $this->data['SocialMedia']['facebook_post'] == 1 ){
-                
+
                 $this->Facebook->save(array(
                     'status' => $this->data['SocialMedia']['others'],
                     'oauth_token' => $this->Session->read('Facebook.oauth_token')
                 ));
             }
-            
+
             $this->Session->setFlash(__('Your social media has been updated'), 'success');
             $this->redirect('/users/social_media');
         }
     }
-    
+
     /**
      * Takes the user to their account settings
-     * 
+     *
      * @param string $token unique identifier
      *
-     */    
+     */
     public function settings($token=null)
-    {   
-        
+    {
+
         if(!empty ($this->data)){
             $this->UserSetting->save($this->data);
         }
-        
+
         // If we have no token, we will use the logged in user.
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
@@ -548,27 +551,27 @@ App::uses('AppController', 'Controller');
         if(empty($user)) {
             $this->Session->setFlash(__('An invalid user was requested') ,'error');
             throw new NotFoundException('An invalid user was requested');
-        }             
-        
+        }
+
         $this->set('user', $user);
-        
+
         $userProfile['Person'] = $user['User'];
-        
+
         $this->request->data['UserSetting'] = $user['UserSetting'];
-        
+
         $this->set('userProfile', $userProfile);
         $this->set('title_for_layout', 'Your Account Settings');
     }
-    
+
     /**
      * Functionality for changing a user's password
      * @access public
      *
      */
     public function change_password()
-    {   
+    {
         if(!empty ($this->data)){
-            
+
             $oldPassword = $this->OldPassword->find('all', array(
                 'conditions' => array(
                     'OldPassword.person_id' => $this->data['Person']['id']
@@ -576,11 +579,11 @@ App::uses('AppController', 'Controller');
                 'order' => "OldPassword.created DESC",
                 'limit' => Configure::read('Password.difference')
             ));
-            
+
             $this->request->data['Person']['OldPassword'] = $oldPassword;
-            
+
             $changePassowrd = $this->User->changePassword($this->data['Person']);
-            
+
             if(!empty ($changePassowrd)){
                 $oldPassword = array(
                     'OldPassword' => array(
@@ -589,23 +592,23 @@ App::uses('AppController', 'Controller');
                         'salt' => $changePassowrd['salt']
                     )
                 );
-                
+
                 $this->OldPassword->save($oldPassword);
-                
+
                 $this->Session->setFlash(__('Password was changed successfully'), 'success');
                 $this->redirect('/users/settings');
-            }else{                
+            }else{
                 $this->Session->setFlash(__('An error occured, password could not be changed'), 'error');
                 $this->redirect('/users/settings');
             }
         }
-        
+
         $this->set('title_for_layout', __('Change Your Password'));
     }
-    
+
     /**
      * Makes available a number of inivtes(decided by the admin) for each user in the system
-     * 
+     *
      * @access public
      *
      */
@@ -617,21 +620,21 @@ App::uses('AppController', 'Controller');
                     'Person.username NOT' => array('root', 'system')
                 )
             ));
-            
+
             foreach ($people as &$person){
                 $person['Person']['invitations_available'] = $this->data['Inivitations']['number_of_invitations'];
             }
-            
+
             if($this->Person->saveAll($people)){
                 $this->Session->setFlash('Invitations have been allotted to users', 'success');
             }else{
                 $this->Session->setFlash('An error occurred. Invitations could not be dsitributed', 'err');
             }
         }
-        
+
         $this->set('title_for_layout', 'Allot Invitations to Users');
     }
-    
+
     /**
      * Flags a user as an employee
      * @access public
@@ -642,16 +645,16 @@ App::uses('AppController', 'Controller');
     {
         $this->request->data['User']['id'] = $id;
         $this->request->data['User']['employee'] = 1;
-        
+
         if($this->User->save($this->data)){
             $this->Session->setFlash(__('The user is now an employee'), 'success');
         }else{
-            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error'); 
+            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error');
         }
-        
+
         $this->redirect($this->referer());
     }
-    
+
     /**
      * Removes the employee flag from a target user
      * @access public
@@ -662,14 +665,14 @@ App::uses('AppController', 'Controller');
     {
         $this->request->data['User']['id'] = $id;
         $this->request->data['User']['employee'] = 0;
-        
+
         if($this->User->save($this->data)){
             $this->Session->setFlash(__('The user is no longer an employee'), 'success');
         }else{
-            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error'); 
+            $this->Session->setFlash(__('The was a problem updating the employee flag'), 'error');
         }
-        
+
         $this->redirect($this->referer());
     }
-    
+
 }

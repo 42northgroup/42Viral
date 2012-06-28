@@ -1,7 +1,7 @@
 <?php
 /**
  * Provides controll logic for managing search actions
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -44,8 +44,12 @@ App::uses('AppController', 'Controller');
      * @var array
      * @access public
      */
-    public $uses = array('Content', 'Page', 'PicklistManager.Picklist', 'Tags.Tagged');
-    
+    public $uses = array(
+        'Content',
+        'Page',
+        'Tags.Tagged'
+    );
+
     /**
      * Works with the searchable behavior
      * @var array
@@ -65,19 +69,19 @@ App::uses('AppController', 'Controller');
     public function beforeFilter()
     {
         parent::beforeFilter();
-        
+
         $this->auth(array('*'));
     }
 
-    
+
     /**
-     * Simple search, converts post data to named params then performs a self redirect to load the named params 
-     * creating a bookmarkable search results page. 
+     * Simple search, converts post data to named params then performs a self redirect to load the named params
+     * creating a bookmarkable search results page.
      *
      * @access public
      */
     public function index() {
-        
+
         $q = '';
         $display = 'none';
 
@@ -85,15 +89,15 @@ App::uses('AppController', 'Controller');
             $q = $this->data['Content']['q'];
             $this->redirect("/searches/index/q:{$q}");
         }elseif(!empty($this->params['named'])){
-            
+
             $conditions = array(
-                'title'=>$this->request->params['named']['q'], 
+                'title'=>$this->request->params['named']['q'],
                 'body'=>$this->request->params['named']['q'],
-            );           
-            
+            );
+
             //Predefined object types and statuses
             $this->request->params['named']['status'] = 'published archived';
-            $this->request->params['named']['object_type'] = 'blog page post'; 
+            $this->request->params['named']['object_type'] = 'blog page post';
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
 
@@ -103,26 +107,26 @@ App::uses('AppController', 'Controller');
             );
 
             $data = $this->paginate('Content');
-            
-            $this->set(compact('data'));   
-            
+
+            $this->set(compact('data'));
+
             $this->request->data['Content']['q'] = $this->params['named']['q'];
             $display = 'results';
         }
-        
+
         $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
         $this->set('display', $display);
         $this->set('title_for_layout', __('Search'));
     }
-    
+
     /**
-     * Simple search, converts post data to named params then performs a self redirect to load the named params 
-     * creating a bookmarkable search results page. 
+     * Simple search, converts post data to named params then performs a self redirect to load the named params
+     * creating a bookmarkable search results page.
      *
      * @access public
      */
     public function tags() {
-        
+
         $q = '';
         $display = 'none';
 
@@ -130,37 +134,37 @@ App::uses('AppController', 'Controller');
             $q = $this->data['Content']['q'];
             $this->redirect("/searches/tags/q:{$q}");
         }elseif(!empty($this->params['named'])){
-            
+
             $conditions = array(
                 'tags'=>$this->request->params['named']['q'],
-            );           
-            
+            );
+
             //Predefined object types and statuses
             $this->request->params['named']['status'] = 'published archived';
-            $this->request->params['named']['object_type'] = 'blog page post'; 
+            $this->request->params['named']['object_type'] = 'blog page post';
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
-            
+
             $this->paginate = array(
                 'conditions' => $this->Content->parseCriteria($conditions),
                 'limit' => 10
             );
 
             $data = $this->paginate('Content');
-            
-            $this->set(compact('data'));   
-            
+
+            $this->set(compact('data'));
+
             $this->request->data['Content']['q'] = $this->params['named']['q'];
             $display = 'results';
         }
-        
+
         $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
         $this->set('display', $display);
         $this->set('title_for_layout', __('Search by Tag'));
     }
-    
+
     /**
-     * Advanced search, converts post data to named params then performs a self redirect to load the named params 
+     * Advanced search, converts post data to named params then performs a self redirect to load the named params
      * creating a bookmarkable search results page.
      *
      * @access public
@@ -169,16 +173,16 @@ App::uses('AppController', 'Controller');
     public function advanced()
     {
         $display = 'none';
-        
+
         if(!empty($this->data)) {
             $q =''; //holds the final query string in the form of a Pretty URL
             foreach($this->data['Content'] as $key => $value) {
-                
+
                 //Converts MUTLI option arrays to a string
                 $a = '';
-                
+
                 //Parse the MUTLI option arrays
-                if(is_array($value)){ 
+                if(is_array($value)){
                     $i=0;
                     foreach($value as $k => $v){
                         $a .= ($i == 0)?"$v":" $v";
@@ -190,19 +194,19 @@ App::uses('AppController', 'Controller');
                     $q .= "{$key}:{$value}/";
                 }
             }
-            
+
             //Redirect to the results page
             $this->redirect("/searches/advanced/{$q}");
-            
+
         }elseif(!empty($this->params['named'])){
 
             //Match conditions
             $conditions = array(
-                'title'=>$this->request->params['named']['title'], 
+                'title'=>$this->request->params['named']['title'],
                 'body'=>$this->request->params['named']['body'],
                 'tags'=>$this->request->params['named']['tags']
-            ); 
-            
+            );
+
             //IN array conditions
             $conditions['status'] = explode(' ', $this->request->params['named']['status']);
             $conditions['object_type'] = explode(' ', $this->request->params['named']['object_type']);
@@ -214,16 +218,16 @@ App::uses('AppController', 'Controller');
 
             $data = $this->paginate('Content');
 
-            $this->set(compact('data'));   
-            
+            $this->set(compact('data'));
+
             $this->request->data['Content'] = $conditions;
-            
+
             $display = 'results';
-            
+
         }else{
-            
+
             //Precheck the most likely boxes, the user can adjust from there
-            $this->request->data['Content'] = 
+            $this->request->data['Content'] =
                 array('status' => array
                 (
                     0 => 'archived',
@@ -233,17 +237,15 @@ App::uses('AppController', 'Controller');
             );
         }
 
-        $this->set('statuses', 
-        $this->Picklist->fetchPicklistOptions(
-                'publication_status', array('emptyOption'=>false, 'otherOption'=>false, 'categoryFilter'=>'public')));
-        
-        $objectTypes = $this->Content->listObjectTypes();
+        $this->set('statuses', $this->Content->listPublicationStatus(array('public')));
 
-        $this->set('objectTypes', $objectTypes);
-            
-        $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));        
+        //We only care about searching the types of contnet that is actually being used
+        $inUseContentTypes = $this->Content->listInUseContentTypes();
+        $this->set('objectTypes', $inUseContentTypes);
+
+        $this->set('tags', $this->Content->Tagged->find('cloud', array('limit' => 100)));
         $this->set('display', $display);
         $this->set('title_for_layout', __('Advanced Search'));
-        
+
     }
 }
