@@ -170,6 +170,7 @@ class SetupShell extends AppShell
         $this->out('8. Clear CakePHP cache folders');
         $this->out('x. Exit setup');
 
+
         $userSelection = $this->in(
             'Select: ',
             array('0', '1', '2', '3', '4', '5', '6', '7', '8', 'x'),
@@ -663,8 +664,10 @@ class SetupShell extends AppShell
                 $this->out('** ERROR ** ' . $invalidData['password'][0]);
             }
 
+            system('stty -echo');
             $user['User']['password'] = $this->in('Password: ');
             $user['User']['verify_password'] = $this->in('Verify Password: ');
+            system('stty echo');
 
             $userModel->set($user);
             $passwordValidates = $userModel->validates(array('fieldList' => array('password')));
@@ -808,7 +811,11 @@ class SetupShell extends AppShell
 
         $host = $this->in('DB host (name or ip): ', null, 'localhost');
         $login = $this->in('DB user: ', null, 'root');
+
+        system('stty -echo');
         $password = $this->in('DB password: ', null, 'password');
+        system('stty echo');
+        
         $database = $this->in('DB name: ', null, $defaultDBName);
         $prefix = $this->in('DB table prefix: ', null, '');
 
