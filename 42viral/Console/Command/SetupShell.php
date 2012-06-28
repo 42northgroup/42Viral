@@ -463,11 +463,8 @@ class SetupShell extends AppShell
             //$fixedAppPath .'tmp/cache/models',
             //$fixedAppPath .'tmp/cache/views',
 
-            $fixedAppPath .'Plugin/HtmlFromDoc/Vendor/PostOffice',
             $fixedAppPath .'webroot/cache',
             $fixedAppPath .'webroot/uploaded',
-            $fixedAppPath .'webroot/files/temp',
-            $fixedAppPath .'webroot/files/doc_images',
             $fixedAppPath .'Config/Xml',
             $fixedAppPath .'Config/Includes',
             $fixedAppPath .'Config/Log',
