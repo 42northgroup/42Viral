@@ -301,6 +301,43 @@ switch($section){
 
     break;
 
+    case 'page':
+        $pageId = isset($page['Page']['id'])?$page['Page']['id']:null;
+        $label = 'Page';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Pages'),
+                    'url' => "/pages/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                ),
+                array(
+                    'text' => __('Create a new page'),
+                    'url' => "/admin/pages/create/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('admin_edit')
+                ),
+                array(
+                    'text' => __('Edit this page'),
+                    'url' => "/admin/pages/edit/{$pageId}/",
+                    'options'=>array(),
+                    'actions_exclude'=>array('index', 'admin_create', 'admin_edit'),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Delete this page'),
+                    'url' => "/admin/pages/delete/{$pageId}/",
+                    'options'=>array(),
+                    'confirm'=>Configure::read('System.purge_warning'),
+                    'actions'=>array('view', 'admin_edit')
+                )
+            )
+        );
+    break;
+
     case 'admin':
         if($this->Session->read('Auth.User.employee') == 1):
             $personId = $this->Session->read('Auth.User.id');
@@ -317,7 +354,7 @@ switch($section){
                     ),
                     array(
                         'text' =>__('Pages'),
-                        'url' => "/admin/pages/",
+                        'url' => "/pages/",
                         'options'=>array(),
                         'confirm'=>null,
                         'actions_exclude'=>array()

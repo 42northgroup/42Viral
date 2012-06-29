@@ -26,7 +26,7 @@ $(function() {
     <div class="two-thirds column alpha">
         <?php
         echo $this->Form->create('Page', array(
-            'url' => $this->here, 
+            'url' => $this->here,
             'class' => 'responsive'
         ));
 
@@ -47,5 +47,7 @@ $(function() {
         ?>
     </div>
 
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'page')); ?>
+    </div>
 </div>

@@ -13,16 +13,29 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 ?>
-<div class="container">
-    <div class="rows">
-        <div class="sixteen columns alpha omega">
-        <?php if($this->Session->read('Auth.User.employee') == 1): ?>
-            <a href="/admin">Admin</a>
-        <?php endif; ?>
+<?php if($this->Session->read('Auth.User.employee') == 1): ?>
+    <!-- Employee footer -->
+    <div class="container">
+        <div class="rows">
+            <div class="four columns alpha">
+                <div class="navigation-block block-links">
+                    <a href="/admin">Admin</a>
+                </div>
+            </div>
+            <div class="four columns">
+                <div class="navigation-block block-links">&nbsp;</div>
+            </div>
+            <div class="four columns">
+                <div class="navigation-block block-links">&nbsp;</div>
+            </div>
+            <div class="four columns omega">
+                <div class="navigation-block block-links">&nbsp;</div>
+            </div>
         </div>
     </div>
-</div>
+<?php endif; ?>
 
+<!-- Standard footer -->
 <div id="Footer">
     <div class="container">
         <div class="rows">

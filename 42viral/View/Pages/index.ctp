@@ -19,6 +19,9 @@ App::uses('Scrub', 'Lib');
 <div class="row">
     <div class="two-thirds column alpha">
         <div id="ResultsPage">
+            <?php if(empty($pages)): ?>
+                <div class="result"><?php echo __("Sorry, we could not find any pages to display"); ?></div>
+            <?php endif; ?>
             <?php foreach($pages as $page): ?>
                 <div class="result">
                     <div class="result-left">
@@ -53,5 +56,7 @@ App::uses('Scrub', 'Lib');
         </div>
         <?php echo $this->element('paginate'); ?>
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'page')); ?>
+    </div>
 </div>

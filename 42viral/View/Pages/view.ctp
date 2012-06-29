@@ -23,42 +23,16 @@ App::uses('Scrub', 'Lib');
                 case 'markdown':
                     //Parse the markdown to HTML
                     //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
-                    echo Scrub::htmlMedia(Utility::markdown($page['Page']['body'])); 
+                    echo Scrub::htmlMedia(Utility::markdown($page['Page']['body']));
                 break;
 
                 default:
-                    echo $page['Page']['body']; 
-                break;        
+                    echo $page['Page']['body'];
+                break;
             endswitch;
         ?>
     </div>
     <div class="one-third column omega">
-    <?php 
-            //Privides navigation for manageing an asset
-            if($this->Session->read('Auth.User.employee')):
-
-                //If it's your post you'll be provided CMS links
-                $additional = array(
-                    array(
-                        'text' => 'Edit',
-                        'url' => "/admin/pages/edit/{$page['Page']['id']}",
-                        'options'=>array(),
-                        'confirm'=>null
-                    ),
-                    array(
-                        'text' => 'Delete',
-                        'url' => "/admin/pages/delete/{$page['Page']['id']}",
-                        'options'=>array(),
-                        'confirm'=>Configure::read('System.purge_warning')
-                    )                
-                );
-                        
-                echo $this->element('Navigation' . DS . 'menus', 
-                            array('section'=>'page', 
-                                'additional'=>$additional
-                            )
-                        );
-            endif; 
-        ?>        
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'page')); ?>
     </div>
 </div>

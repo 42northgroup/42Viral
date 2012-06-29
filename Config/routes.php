@@ -24,7 +24,7 @@
 Router::connect('/', array('controller' => 'pages', 'action' => 'display', 'home'));
 
 //A convenience route for accessing admin sections
-Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'system', 'action' => 'index'));
+Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'admin', 'action' => 'index'));
 
 //Extra pretty URLs for content actions
 Router::connect('/page', array('controller' => 'pages', 'action' => 'index'));
@@ -40,10 +40,10 @@ Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'
 Router::connect('/p/:username',
         array('controller' => 'profiles', 'action' => 'view'), array('pass' => array('username')));
 
-Router::parseExtensions(); 
+Router::parseExtensions();
 
 /**
- * Load all plugin routes.  See the CakePlugin documentation on 
+ * Load all plugin routes.  See the CakePlugin documentation on
  * how to customize the loading of plugin routes.
  */
 CakePlugin::routes();
