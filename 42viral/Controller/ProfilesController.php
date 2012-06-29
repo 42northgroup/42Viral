@@ -218,13 +218,13 @@ App::uses('ProfileUtil', 'Lib');
                     'SocialNetwork'=>array(
                          'fields'=>array(
                             'SocialNetwork.network',
-                            'SocialNetwork.identifier'
+                            'SocialNetwork.profile_url'
                         )
                     )
                 )
              )
         );
-        
+
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);

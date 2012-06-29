@@ -83,7 +83,7 @@ class SocialMediaHelper extends AppHelper
                             'height'=>'32px',
                             'width'=>'32px',
                             'alt'=>$network['label'],
-                            'url'=>$network['profile'] . $socialNetwork[0]['SocialNetwork']['identifier']
+                            'url'=>$socialNetwork[0]['SocialNetwork']['profile_url']
                         )
                     );
             }

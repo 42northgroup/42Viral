@@ -91,7 +91,7 @@ class SocialNetwork extends AppModel
 
         $model = $this->data[$this->alias]['model'];
         $modelId = $this->data[$this->alias]['model_id'];
-        $identifier = $this->data[$this->alias]['identifier'];
+        $profile_url = $this->data[$this->alias]['profile_url'];
         $network = $this->data[$this->alias]['network'];
 
         $match = $this->find('first',
@@ -99,7 +99,7 @@ class SocialNetwork extends AppModel
                 'conditions'=>array(
                     'SocialNetwork.model' => $model,
                     'SocialNetwork.model_id' => $modelId,
-                    'SocialNetwork.identifier' => $identifier,
+                    'SocialNetwork.profile_url' => $profile_url,
                     'SocialNetwork.network' => $network
                 ),
                 'contain'=>array(),
