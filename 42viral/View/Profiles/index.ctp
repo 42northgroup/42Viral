@@ -24,7 +24,7 @@
                     </div>
 
                     <div class="fourteen columns omega">
-                        <h2><?php echo $this->Profile->displayName($user['User']); ?></h2>
+                        <strong><?php echo $this->Profile->displayName($user['User']); ?></strong>
                         <?php echo $this->Text->truncate($user['Profile']['bio'],
                                 170, array('ending' => '...', 'exact' => true, 'html' => true)); ?>
                     </div>
