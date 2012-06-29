@@ -224,6 +224,27 @@ class AppController extends Controller
     }
 
     /**
+     * Returns true
+     * @param string $assetId
+     * @throws ForbiddenException
+     * @return boolean
+     */
+    protected function _mine($assetId){
+
+        $deny = true;
+
+        if($this->Session->read('Auth.User.id') == $assetId){
+            $deny = false;
+        }
+
+        if($deny){
+            throw new ForbiddenException(__('The record you are trying to access does not belong to you!'));
+        }
+
+        return true;
+    }
+
+    /**
      * Throws a 400 Error if an association record does not exist.
      * A common use case is assuring a parent record exists to prevent creation of orphaned records.
      * 	Example - Creating an address against a Person would require matching Person.id record prior to creation

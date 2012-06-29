@@ -47,36 +47,42 @@ switch($section){
         $username = $this->Session->read('Auth.User.username');
         $personId = $this->Session->read('Auth.User.id');
 
-        $label = 'Manage Your Profile';
+        $label = 'My Account';
         $menu = array(
             'Items'=>array(
                 array(
-                    'text' => __('Your Uploads'),
+                    'text' => __('Uploads'),
                     'url' => "/uploads/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
                 array(
-                    'text' => __('Your Social Networks'),
+                    'text' => __('Social Networks'),
                     'url' => "/social_networks/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
                 array(
-                    'text' => __('Your Addresses'),
+                    'text' => __('Addresses'),
                     'url' => "/addresses/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
                 array(
-                    'text' => __('Your Email Addresses'),
+                    'text' => __('Email Addresses'),
                     'url' => "/email_addresses/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 ),
                 array(
-                    'text' => __('Your Phone Numbers'),
+                    'text' => __('Phone Numbers'),
                     'url' => "/phone_numbers/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Settings'),
+                    'url' => "/user_settings/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
@@ -222,6 +228,37 @@ switch($section){
                     'confirm'=>Configure::read('System.purge_warning'),
                     'actions'=>array('edit')
                 )
+            )
+        );
+    case 'user_setting':
+
+        $personId = $this->Session->read('Auth.User.id');
+        $profileId = $this->Session->read('Auth.User.Profile.id');
+
+        $label = 'Settings';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Settings'),
+                    'url' => "/user_settings/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                ),
+                array(
+                    'text' => __('Change Password'),
+                    'url' => "/users/change_password/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('change_password')
+                ),
+                array(
+                    'text' => __('Edit Profile'),
+                    'url' => "/profiles/edit/{$profileId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array()
+                ),
             )
         );
 

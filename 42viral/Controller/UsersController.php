@@ -568,8 +568,11 @@ App::uses('CakeEmail', 'Network/Email');
      * @access public
      *
      */
-    public function change_password()
+    public function change_password($model, $modelId)
     {
+        $this->_validRecord($model, $modelId);
+        $this->_mine($modelId);
+
         if(!empty ($this->data)){
 
             $oldPassword = $this->OldPassword->find('all', array(
