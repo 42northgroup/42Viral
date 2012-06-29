@@ -14,3 +14,9 @@
  */
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
+<div class="row">
+    <div class="two-thirds column alpha">&nbsp;</div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'admin')); ?>
+    </div>
+</div>

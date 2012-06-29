@@ -70,62 +70,11 @@ $userId = $this->Session->read('Auth.User.id');
 
                         <a href="<?php echo "/profiles/view/{$username}/"; ?>">My Account</a>
                         <div class="subnavigation">
-                            <strong>Profile</strong>
-                            <div>
-                                <div>
-                                <?php echo $this->Html->link(__('My Profile'), "/profiles/view/{$username}/"); ?>
-                                </div>
-
-                                <div><?php echo $this->Html->link(__('My Content'), '/contents/mine/'); ?></div>
-
-                                <div><?php echo $this->Html->link(__('Social Networks'),
-                                        "/social_networks/index/{$profileId}/"); ?></div>
-                            </div>
-
-                            <strong>Misc</strong>
-
-                            <div><?php echo $this->Html->link(__('Connect'), '/oauth/connect/' ); ?></div>
-
-                            <div><?php echo $this->Html->link(__('Settings'), '/users/settings/' ); ?></div>
-
+                            <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
                             <div><?php echo $this->Html->link(__('Logout'), '/users/logout/'); ?></div>
                         </div>
                     </div>
 
-                    <?php if($this->Session->read('Auth.User.employee') == 1): ?>
-                        <div class="navigation">
-                            <a href="#">Admin</a>
-                            <div class="subnavigation">
-
-                                <strong>CMS</strong>
-                                <div>
-                                    <?php echo $this->Html->link(__('Create a web page'), '/admin/pages/create/'); ?>
-                                </div>
-                                <div>
-                                    <?php echo $this->Html->link(__('Pages'), '/admin/pages/'); ?>
-                                </div>
-
-                                <strong>CRM</strong>
-                                <div><?php echo $this->Html->link(__('People'), '/admin/people/'); ?></div>
-
-                                <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
-
-                                <strong>System</strong>
-
-                                <?php if(Configure::read('Beta.private') == 1): ?>
-                                <div>
-                                    <?php echo $this->Html->link(__('Allot invites'), '/admin/users/allot_invites/'); ?>
-                                </div>
-                                <?php endif; ?>
-
-                                <div><?php echo $this->Html->link(__('Users'), '/admin/users/'); ?></div>
-                                <div><?php echo $this->Html->link(__('Groups'), '/admin/users/acl_groups/'); ?></div>
-
-                                <div><?php echo $this->Html->link(__('Configuration'),
-                                        '/admin/configurations/'); ?></div>
-                            </div>
-                        </div>
-                    <?php endif; ?>
                 </div>
             <?php else: ?>
                 <div id="Navigation">

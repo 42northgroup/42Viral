@@ -51,6 +51,12 @@ switch($section){
         $menu = array(
             'Items'=>array(
                 array(
+                    'text' => __('Content'),
+                    'url' => "/contents/mine/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
                     'text' => __('Uploads'),
                     'url' => "/uploads/index/person/{$personId}/",
                     'options'=>array(),
@@ -80,6 +86,12 @@ switch($section){
                     'options'=>array(),
                     'confirm'=>null
                 ),
+                array(
+                    'text' => __('Connect'),
+                    'url' => "/oauth/connect/",
+                    'options'=>array(),
+                    'confirm'=>null
+                    ),
                 array(
                     'text' => __('Settings'),
                     'url' => "/user_settings/index/person/{$personId}/",
@@ -288,6 +300,71 @@ switch($section){
         );
 
     break;
+
+    case 'admin':
+        if($this->Session->read('Auth.User.employee') == 1):
+            $personId = $this->Session->read('Auth.User.id');
+
+            $label = 'Admin';
+            $menu = array(
+                'Items'=>array(
+                    array(
+                        'text' =>__('Create a web page'),
+                        'url' => "/admin/pages/create/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('Pages'),
+                        'url' => "/admin/pages/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('People'),
+                        'url' => "/admin/people/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('Users'),
+                        'url' => "/admin/users/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('Groups'),
+                        'url' => "/admin/users/acl_groups/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('Configuration'),
+                        'url' => "/admin/configurations/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array()
+                    ),
+                    array(
+                        'text' =>__('Allot Invites'),
+                        'url' => "/admin/users/allot_invites/",
+                        'options'=>array(),
+                        'confirm'=>null,
+                        'actions_exclude'=>array(),
+                        //'Configure.key:value'
+                        'configure_check'=>'Beta.private:1'
+                    ),
+                )
+            );
+        endif;
+
+    break;
+
     default:
         $label = Inflector::humanize($section);
         $menu = array(
@@ -318,8 +395,25 @@ if(isset($additional)){
                     endif;
                 endif;
 
+                //Remove any items that are listed an "Not Showable" against a target actions
                 if(isset($item['actions_exclude'])):
                     if(in_array($this->params['action'], $item['actions_exclude'])):
+                        unset($item);
+                    endif;
+                endif;
+
+                //Check Configure values, if the session check key does not match the desired value, unset the menu item
+                if(isset($item['configure_check'])):
+                    $chunks = explode(':', $item['configure_check']);
+                    if(Configure::read($chunks[0]) != $chunks[1]):
+                        unset($item);
+                    endif;
+                endif;
+
+                //Check Session values, if the session check key does not match the desired value, unset the menu item
+                if(isset($item['session_check'])):
+                    $chunks = explode(':', $item['session_check']);
+                    if($this->Session->read($chunks[0]) != $chunks[1]):
                         unset($item);
                     endif;
                 endif;
