@@ -98,12 +98,13 @@ App::uses('AppController', 'Controller');
                 'Page.status'=>array('archived', 'published')
             ),
             'fields'=>array(
-                    'Page.body',
-                    'Page.object_type',
-                    'Page.slug',
-                    'Page.syntax',
-                    'Page.title',
-                    'Page.url'),
+                'Page.body',
+                'Page.object_type',
+                'Page.slug',
+                'Page.syntax',
+                'Page.title',
+                'Page.url'
+            ),
             'limit' => 10,
             'order'=>'Page.title ASC'
         );

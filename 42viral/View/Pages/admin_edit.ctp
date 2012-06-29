@@ -118,6 +118,7 @@ $(function () {
 
         echo $this->Form->submit();
         ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'page')); ?>
     </div>
 </div>
 

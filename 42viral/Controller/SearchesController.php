@@ -233,7 +233,7 @@ App::uses('AppController', 'Controller');
                     0 => 'archived',
                     1 => 'published'
                 ),
-                'object_type' => $this->Content->listObjectTypes(false)
+                'object_type' => $this->Content->listInUseContentTypes(false)
             );
         }
 

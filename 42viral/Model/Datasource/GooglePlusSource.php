@@ -29,7 +29,7 @@ class GooglePlusSource extends DataSource {
 
     /**
      * Defines the GooglePlus API schema
-     * @var array 
+     * @var array
      * @access protected
      */
     protected $_schema = array(
@@ -60,11 +60,11 @@ class GooglePlusSource extends DataSource {
             )
         )
     );
-    
+
     /**
      * Initiates the HttpSocketOauth and HttpSocket libraries
      * @param array $request
-     * @param array $response 
+     * @param array $response
      * @access public
      */
     public function __construct($request = null, $response = null) {
@@ -73,7 +73,7 @@ class GooglePlusSource extends DataSource {
         $this->HttpSocketOauth = new HttpSocketOauth();
         $this->HttpSocket = new HttpSocket();
     }
-    
+
     /**
      * Return a list of sources to be used
      * @return array
@@ -84,7 +84,7 @@ class GooglePlusSource extends DataSource {
     }
 
     /**
-     * Used to retrieve a user's news feed. The aouth token must be passed 
+     * Used to retrieve a user's news feed. The aouth token must be passed
      * through the conditions array when making the 'find' model call
      *
      * @param string $model
@@ -92,7 +92,7 @@ class GooglePlusSource extends DataSource {
      * @return array
      */
     public function read($model, $queryData = array()) {
-        
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -104,24 +104,24 @@ class GooglePlusSource extends DataSource {
                 'key' => Configure::read('GooglePlus.consumer_key'),
                 'alt' => 'json',
                 'maxResults' => $queryData['limit']
-            ), 
+            ),
             'header' => array(
                 'Authorization' => 'OAuth '.$queryData['conditions']['oauth_token']
             )
         );
-        
+
         $response = json_decode($this->HttpSocketOauth->request($request));
-        
+
         $results = array();
         foreach ($response->items as $status) {
             $status_update['from'] = $status->actor->displayName;
             $status_update['post'] = $status->title;
             $status_update['time'] = strtotime($status->updated);
             $status_update['source'] = 'googleplus';
-            
+
             $results[] = $status_update;
         }
-                
+
         if(!empty ($results)){
             return $results;
         }else{
@@ -133,7 +133,7 @@ class GooglePlusSource extends DataSource {
      * Returns the schema to be used
      *
      * @param array $model
-     * @return array 
+     * @return array
      */
     public function describe($model) {
         return $this->_schema['google_plus'];

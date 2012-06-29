@@ -82,7 +82,15 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function index()
     {
-        $users = $this->User->find('all', array('conditions'=>array(), 'contain'=>array('Profile')));
+        $users = $this->User->find(
+            'all',
+            array(
+                'conditions'=>array(
+                    'User.access' => array('public')
+                ),
+                'contain'=>array('Profile')
+            )
+        );
         $this->set('users', $users);
         $this->set('title_for_layout', 'Profiles');
     }
@@ -97,6 +105,7 @@ App::uses('ProfileUtil', 'Lib');
     public function edit($profileId) {
 
         $this->_validRecord('Profile', $profileId);
+        $this->_mine($profileId, 'Auth.User.Profile.id');
 
         $this->data = $this->Profile->getProfileWith($profileId, 'person');
 
@@ -121,7 +130,7 @@ App::uses('ProfileUtil', 'Lib');
         if(is_null($token)) {
             $token = $this->Session->read('Auth.User.username');
         }
-        
+
         $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
@@ -215,7 +224,7 @@ App::uses('ProfileUtil', 'Lib');
                 )
              )
         );
-
+        
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);

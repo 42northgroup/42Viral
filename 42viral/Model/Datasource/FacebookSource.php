@@ -29,7 +29,7 @@ class FacebookSource extends DataSource {
 
     /**
      * Defines the FaceBook API schema
-     * @var array 
+     * @var array
      * @access protected
      */
     protected $_schema = array(
@@ -60,11 +60,11 @@ class FacebookSource extends DataSource {
             )
         )
     );
-    
+
     /**
      * Initiates the HttpSocketOauth and HttpSocket libraries
      * @param array $request
-     * @param array $response 
+     * @param array $response
      * @access public
      */
     public function __construct($request = null, $response = null) {
@@ -73,7 +73,7 @@ class FacebookSource extends DataSource {
         $this->HttpSocketOauth = new HttpSocketOauth();
         $this->HttpSocket = new HttpSocket();
     }
-    
+
     /**
      * Return a list of sources to be used
      * @return array
@@ -84,7 +84,7 @@ class FacebookSource extends DataSource {
     }
 
     /**
-     * Used to retrieve a user's news feed. The aouth token must be passed 
+     * Used to retrieve a user's news feed. The aouth token must be passed
      * through the conditions array when making the 'find' model call
      *
      * @param string $model
@@ -92,7 +92,7 @@ class FacebookSource extends DataSource {
      * @return array
      */
     public function read($model, $queryData = array()) {
-        
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -114,10 +114,10 @@ class FacebookSource extends DataSource {
             $status_update['post'] = $status->message;
             $status_update['time'] = strtotime($status->updated_time);
             $status_update['source'] = 'facebook';
-            
+
             $results[] = $status_update;
         }
-        
+
         if(!empty ($results)){
             return $results;
         }else{
@@ -127,17 +127,17 @@ class FacebookSource extends DataSource {
 
     /**
      * Used to update the user's status. The status message and aouth token
-     * must be passed into the 'save' model call 
-     * 
+     * must be passed into the 'save' model call
+     *
      * @param string $model
      * @param array $fields
      * @param array $values
      * @return boolean
      */
     public function create($model, $fields = array(), $values = array()) {
-        
-        $data = array_combine($fields, $values);        
-                
+
+        $data = array_combine($fields, $values);
+
         $request = array(
             'uri' => array(
                 'scheme' => 'https',
@@ -150,10 +150,10 @@ class FacebookSource extends DataSource {
                 'access_token' => $data['oauth_token']
             )
         );
-        
+
         $response = $this->HttpSocketOauth->request($request);
         $response = json_decode($response, true);
-                
+
         if (isset($response['id'])) {
             $model->setInsertId($response['id']);
             return true;
@@ -165,7 +165,7 @@ class FacebookSource extends DataSource {
      * Returns the schema to be used
      *
      * @param array $model
-     * @return array 
+     * @return array
      */
     public function describe($model) {
         return $this->_schema['facebook'];
