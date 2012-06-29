@@ -16,7 +16,6 @@
         <table>
             <thead>
                 <tr>
-                    <th><?php echo $this->Paginator->sort('profile');?></th>
                     <th><?php echo $this->Paginator->sort('network');?></th>
                     <th><?php echo $this->Paginator->sort('created');?></th>
                     <th><?php echo $this->Paginator->sort('modified');?></th>
@@ -27,7 +26,6 @@
             <?php if(!empty($socialNetworks)): ?>
                 <?php foreach ($socialNetworks as $socialNetwork): ?>
                     <tr>
-                        <td><?php echo $socialNetwork['SocialNetwork']['identifier']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['network']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['created']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['modified']; ?></td>

@@ -86,7 +86,7 @@ App::uses('AppController', 'Controller');
      */
     public function edit($socialNetworkId){
 
-        $this->_validRecord('SocialNetwork', $addressId);
+        $this->_validRecord('SocialNetwork', $socialNetworkId);
 
         if(!empty($this->data)){
 
@@ -129,7 +129,7 @@ App::uses('AppController', 'Controller');
                 'SocialNetwork.created',
                 'SocialNetwork.modified',
                 'SocialNetwork.network',
-                'SocialNetwork.identifier'
+                'SocialNetwork.profile_url'
             ),
             'limit' => 10,
             'order'=>'SocialNetwork.network ASC'

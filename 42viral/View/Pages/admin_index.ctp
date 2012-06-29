@@ -29,11 +29,18 @@ App::uses('Scrub', 'Lib');
             <?php foreach($pages as $page): ?>
                 <div class="result">
                     <div class="result-left">
-                        <?php echo Inflector::humanize($page['Page']['object_type']); ?>
+                        <?php echo Inflector::humanize($page['Page']['status']); ?>
                     </div>
                     <div class="result-right">
 
-                        <strong><?php echo $this->Html->link($page['Page']['title'], $page['Page']['url']); ?> </strong>
+                        <strong>
+                        <?php
+                        echo $this->Html->link(
+                            $page['Page']['title'],
+                            "/admin/pages/view/{$page['Page']['slug']}/"
+                        );
+                        ?>
+                        </strong>
 
                         <div class="tease">
                             <?php

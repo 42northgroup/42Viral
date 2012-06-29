@@ -293,7 +293,7 @@ class AppController extends Controller
 
     	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
     	$this->loadModel($classifiedModel);
-    	$association = $this->$classifiedModel->find('first',
+    	$record = $this->$classifiedModel->find('first',
 	    		array(
 		    		'conditions'=>array(
 		    			"{$classifiedModel}.{$column}"=>$modelId
@@ -303,10 +303,27 @@ class AppController extends Controller
     			)
     		);
 
-		if(empty($association)){
+		if(empty($record)){
     		throw new NotFoundException(__('The requested record does not exist!'));
     	}
 
     	return $classifiedModel;
     }
+
+    /**
+     * Throws a 404 Error if a result set returns false. This serves the same purpose as _validRecord, but will save
+     * a query when dealing with read only (non-destructive) actions
+     * @param string $model - pass as ModelName or model_name
+     * @param string $modelId
+     * @param string column
+     * @throws notFoundException
+     * @return string
+     */
+    protected function _isResultSet($data){
+        if(empty($data)){
+            throw new NotFoundException(__('The requested record does not exist!'));
+        }
+        return true;
+    }
+
 }

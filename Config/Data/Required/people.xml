@@ -27,6 +27,9 @@
             <column name="employee">0</column>
             <column name="object_type">system</column>
             <column name="access">private</column>
+            <column name="password_expires">000-00-00 00:00:00</column>
+            <column name="login_attempts">0</column>
+            <column name="invitations_available">0</column>
             <column name="created">2011-07-21 01:46:22</column>
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2011-07-21 01:46:22</column>
@@ -43,6 +46,9 @@
             <column name="employee">1</column>
             <column name="object_type">system</column>
             <column name="access">private</column>
+            <column name="password_expires">000-00-00 00:00:00</column>
+            <column name="login_attempts">0</column>
+            <column name="invitations_available">0</column>
             <column name="created">2011-07-21 01:46:22</column>
             <column name="created_person_id">4e24236d-6bd8-48bf-ac52-7cce4bb83359</column>
             <column name="modified">2011-07-21 01:46:22</column>

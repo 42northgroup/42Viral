@@ -28,8 +28,8 @@
 
             echo $this->Form->input('id');
             echo $this->Form->input('network', array('empty'=>true));
-            echo $this->Form->input('identifier');
-
+            echo $this->Form->input('profile_url', array('rows'=>1));
+            echo $this->Form->input('feed_url', array('rows'=>1));
             echo $this->Form->submit();
 
             echo $this->Form->end();
