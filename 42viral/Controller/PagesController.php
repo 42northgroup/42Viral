@@ -85,7 +85,7 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     * Displays a list of pages
+     * Displays a list of public pages
      *
      * @access public
      * @return void
@@ -98,6 +98,7 @@ App::uses('AppController', 'Controller');
                 'Page.status'=>array('archived', 'published')
             ),
             'fields'=>array(
+                'Page.id',
                 'Page.body',
                 'Page.object_type',
                 'Page.slug',
@@ -115,6 +116,34 @@ App::uses('AppController', 'Controller');
     }
 
     /**
+     * Displays a list of pages, including drafts
+     *
+     * @access public
+     * @return void
+     */
+    public function admin_index() {
+
+        //If we found the target blog, retrive an paginate its' posts
+        $this->paginate = array(
+                'conditions' => array(),
+                'fields'=>array(
+                        'Page.id',
+                        'Page.body',
+                        'Page.status',
+                        'Page.slug',
+                        'Page.syntax',
+                        'Page.title',
+                        'Page.url'
+                ),
+                'limit' => 10,
+                'order'=>'Page.title ASC'
+        );
+
+        $pages = $this->paginate('Page');
+        $this->set('pages', $pages);
+        $this->set('title_for_layout', 'Pages');
+    }
+    /**
      * Resirect short links to their proper url
      * @access public
      * @param string $shortCut
@@ -129,18 +158,71 @@ App::uses('AppController', 'Controller');
     }
 
     /**
-     * Displays a blog post
+     * Displays a webpage excludes drafts
      *
      * @param string $slug the slug of the page we want to view
      * @return void
      * @access public
      */
     public function view($slug) {
-        $page = $this->Page->getPageWith($slug);
 
-        if(empty($page)){
-           $this->redirect('/', '404');
-        }
+        $page = $this->Page->find(
+            'first',
+            array(
+                'conditions'=>array(
+                    'Page.slug'=>$slug,
+                    'Page.status'=>array('archived', 'published')
+                ),
+                'fields'=>array(
+                    'Page.id',
+                    'Page.title',
+                    'Page.canonical',
+                    'Page.syntax',
+                    'Page.body'
+                ),
+                'contain'=>array()
+            )
+        );
+
+        $this->_isResultSet($page);
+
+        $this->set('title_for_layout', $page['Page']['title']);
+        $this->set('canonical_for_layout', $page['Page']['canonical']);
+        $this->set('page', $page);
+
+        $this->set('tags', $this->Page->Tagged->find('cloud', array('limit' => 10)));
+    }
+
+
+    /**
+     * Displays a webpage, including drafts
+     *
+     * @param string $slug the slug of the page we want to view
+     * @return void
+     * @access public
+     */
+    public function admin_view($slug) {
+
+        $this->_validRecord('Page', $slug, 'slug');
+
+        $page = $this->Page->find(
+            'first',
+            array(
+                'conditions'=>array(
+                    'Page.slug'=>$slug
+                ),
+                'fields'=>array(
+                    'Page.id',
+                    'Page.title',
+                    'Page.canonical',
+                    'Page.syntax',
+                    'Page.body'
+                ),
+                'contain'=>array()
+            )
+        );
+
+        $this->_isResultSet($page);
 
         $this->set('title_for_layout', $page['Page']['title']);
         $this->set('canonical_for_layout', $page['Page']['canonical']);
@@ -214,22 +296,22 @@ App::uses('AppController', 'Controller');
             //If we are saving as Markdown just check the body for malice
             if ($this->data['Page']['syntax'] == 'markdown') {
                 $this->Page->Behaviors->attach(
-                        'Scrubable',
-                        array('Filters'=>array(
-                                    'trim'=>'*',
-                                    'safe' => array('body'),
-                                    'noHTML'=>array(
-                                        'canonical',
-                                        'title',
-                                        'description',
-                                        'id',
-                                        'keywords',
-                                        'short_cut',
-                                        'syntax'
-                                    ),
-                                )
-                            )
-                        );
+                'Scrubable',
+                array('Filters'=>array(
+                        'trim'=>'*',
+                        'safe' => array('body'),
+                        'noHTML'=>array(
+                            'canonical',
+                            'title',
+                            'description',
+                            'id',
+                            'keywords',
+                            'short_cut',
+                            'syntax'
+                        ),
+                    )
+                )
+                );
             }
 
             if($this->Page->saveAll($this->data)){

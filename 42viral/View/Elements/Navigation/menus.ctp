@@ -314,25 +314,36 @@ switch($section){
                     'actions_exclude'=>array('index')
                 ),
                 array(
+                    'text' => __('Pages (Admin View)'),
+                    'url' => "/admin/pages/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('admin_index'),
+                    'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
                     'text' => __('Create a new page'),
                     'url' => "/admin/pages/create/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('admin_edit')
+                    'actions_exclude'=>array('admin_edit'),
+                    'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
                     'text' => __('Edit this page'),
                     'url' => "/admin/pages/edit/{$pageId}/",
                     'options'=>array(),
-                    'actions_exclude'=>array('index', 'admin_create', 'admin_edit'),
-                    'confirm'=>null
+                    'actions_exclude'=>array('index', 'admin_create', 'admin_edit', 'admin_index'),
+                    'confirm'=>null,
+                    'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
                     'text' => __('Delete this page'),
                     'url' => "/admin/pages/delete/{$pageId}/",
                     'options'=>array(),
                     'confirm'=>Configure::read('System.purge_warning'),
-                    'actions'=>array('view', 'admin_edit')
+                    'actions'=>array('view', 'admin_edit'),
+                    'session_check'=>'Auth.User.employee:1'
                 )
             )
         );
@@ -350,53 +361,66 @@ switch($section){
                         'url' => "/admin/pages/create/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
                         'text' =>__('Pages'),
                         'url' => "/pages/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
                         'text' =>__('People'),
                         'url' => "/admin/people/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
                         'text' =>__('Users'),
                         'url' => "/admin/users/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
                         'text' =>__('Groups'),
                         'url' => "/admin/users/acl_groups/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
                         'text' =>__('Configuration'),
                         'url' => "/admin/configurations/",
                         'options'=>array(),
                         'confirm'=>null,
-                        'actions_exclude'=>array()
+                        'actions_exclude'=>array(),
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
-                        'text' =>__('Allot Invites'),
+                        'text' =>__('Allot invites'),
                         'url' => "/admin/users/allot_invites/",
                         'options'=>array(),
                         'confirm'=>null,
                         'actions_exclude'=>array(),
                         //'Configure.key:value'
-                        'configure_check'=>'Beta.private:1'
+                        'configure_check'=>'Beta.private:1',
+                        //'Session.key:value'
+                        'session_check'=>'Auth.User.employee:1'
                     ),
                 )
+            );
+        else:
+            $label = null;
+            $menu = array(
+                'Items'=>array()
             );
         endif;
 
