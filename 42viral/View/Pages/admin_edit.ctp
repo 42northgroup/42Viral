@@ -77,7 +77,6 @@ $(function () {
         <?php
         echo $this->Form->input('id');
         echo $this->Form->input('title', array('rows'=>1));
-        echo $this->Form->input('syntax', array('type' => 'hidden'));
         echo $this->Form->input('body', array('class'=>'content-edit'));
         ?>
 
