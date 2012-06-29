@@ -20,7 +20,11 @@ App::uses('Scrub', 'Lib');
     <div class="two-thirds column alpha">
         <div id="ResultsPage">
             <?php if(empty($pages)): ?>
-                <div class="result"><?php echo __("Sorry, we could not find any pages to display"); ?></div>
+                <div class="no-results">
+                    <div class="no-results-message">
+                        <?php echo __("I'm sorry, there are no results to display."); ?>
+                    </div>
+                </div>
             <?php endif; ?>
             <?php foreach($pages as $page): ?>
                 <div class="result">
