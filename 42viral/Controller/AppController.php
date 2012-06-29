@@ -224,16 +224,17 @@ class AppController extends Controller
     }
 
     /**
-     * Returns true
+     * Returns true if a target asset can be found in the Authenticated session
      * @param string $assetId
+     * @param string $asset
      * @throws ForbiddenException
      * @return boolean
      */
-    protected function _mine($assetId){
+    protected function _mine($assetId, $asset = 'Auth.User.id'){
 
         $deny = true;
 
-        if($this->Session->read('Auth.User.id') == $assetId){
+        if($this->Session->read($asset) == $assetId){
             $deny = false;
         }
 

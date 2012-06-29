@@ -105,6 +105,7 @@ App::uses('ProfileUtil', 'Lib');
     public function edit($profileId) {
 
         $this->_validRecord('Profile', $profileId);
+        $this->_mine($profileId, 'Auth.User.Profile.id');
 
         $this->data = $this->Profile->getProfileWith($profileId, 'person');
 
