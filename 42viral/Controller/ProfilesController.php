@@ -277,9 +277,9 @@ App::uses('ProfileUtil', 'Lib');
 
         if( !$this->Session->check('Auth.User.sm_list') ){
 
-            $sm_list = $this->Oauth->find('list', array(
-                'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id')),
-                'fields' => array('Oauth.oauth_id', 'Oauth.service')
+            $sm_list = $this->SocialNetwrok->find('list', array(
+                'conditions' => array('SocialNetwrok.model_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('SocialNetwrok.oauth_id', 'SocialNetwrok.network')
             ));
 
             $this->Session->write('Auth.User.sm_list', $sm_list);
@@ -323,15 +323,15 @@ App::uses('ProfileUtil', 'Lib');
 
 
 
-        $sm = $this->Oauth->find('all', array(
-            'conditions' => array('Oauth.person_id' => $this->Session->read('Auth.User.id'))
+        $sm = $this->SocialNetwork->find('all', array(
+            'conditions' => array('SocialNetwork.model_id' => $this->Session->read('Auth.User.id'))
         ));
 
         $statuses['posts'] = array();
 
         foreach($sm as $media){
 
-            switch($media['Oauth']['service']){
+            switch($media['SocialNetwork']['network']){
 
                 case 'facebook':
                     try{
@@ -370,7 +370,7 @@ App::uses('ProfileUtil', 'Lib');
                     try{
 
                         $statuses['posts'] = array_merge($statuses['posts'], $this->Tweet->find('all', array(
-                            'conditions' => array('username' => $media['Oauth']['oauth_id']),
+                            'conditions' => array('username' => $media['SocialNetwork']['oauth_id']),
                             'limit' => 5
                         )));
                     }catch (Exception $e){
@@ -386,7 +386,7 @@ App::uses('ProfileUtil', 'Lib');
 
                         $statuses['posts'] = array_merge($statuses['posts'], $this->GooglePlus->find('all', array(
                             'conditions' => array(
-                                'username' => $media['Oauth']['oauth_id'],
+                                'username' => $media['SocialNetwrok']['oauth_id'],
                                 'oauth_token' => $this->Session->read('GooglePlus.oauth_token')
                             ),
                             'limit' => 5

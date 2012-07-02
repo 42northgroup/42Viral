@@ -27,8 +27,8 @@
                     );
             echo $this->Form->input('model', array('value'=>$model, 'type'=>'hidden'));
             echo $this->Form->input('model_id', array('value'=>$modelId, 'type'=>'hidden'));
-
             echo $this->Form->input('network', array('empty'=>true));
+            echo $this->Form->input('profile_url');
 
             echo $this->Form->submit();
 
