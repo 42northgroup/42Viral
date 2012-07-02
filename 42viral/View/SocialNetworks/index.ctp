@@ -26,6 +26,7 @@
             <?php if(!empty($socialNetworks)): ?>
                 <?php foreach ($socialNetworks as $socialNetwork): ?>
                     <tr>
+                        <td><?php echo $socialNetwork['SocialNetwork']['profile_url']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['network']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['created']; ?></td>
                         <td><?php echo $socialNetwork['SocialNetwork']['modified']; ?></td>
