@@ -169,9 +169,34 @@ class PostsController extends AppController {
                 $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
             }
         }
-
+        'edit' => array(
+            'contain' => array(
+                'CreatedPerson' => array(
+                    'Profile' => array()
+                ),
+                'Sitemap',
+                'Tag'
+            ),
+            'conditions' => array()
+        ),
         //Now that we have saved the data, grab the latest copy and repopulate the page
-        $this->data = $this->Post->getPostWith($id, 'edit');
+        //$this->data = $this->Post->getPostWith($id, 'edit');
+        $this->data = $this->Post->find('first', array(
+			'conditions' => array(
+                'or' => array(
+                    'Post.id' => $id,
+                    'Post.slug' => $id,
+                    'Post.short_cut' => $id
+                )
+            ),
+            'contain' => array(
+                'CreatedPerson' => array(
+                    'Profile' => array()
+                ),
+                'Sitemap',
+                'Tag'
+            )
+        ));
 
         $this->set('statuses', $this->Blog->listPublicationStatus());
 
@@ -219,6 +244,7 @@ class PostsController extends AppController {
      */
     public function short_cut($shortCut) {
 
+        //@@ is this supposed to be getPostWith?
         $post = $this->Post->getPageWith($shortCut, 'nothing');
 
         //Avoid Google duplication penalties by using a 301 redirect
@@ -235,7 +261,26 @@ class PostsController extends AppController {
     public function view($slug) {
         $mine = false;
 
-        $post = $this->Post->getPostWith($slug, 'standard');
+        //$post = $this->Post->getPostWith($slug, 'standard');
+        $post = $this->Post->find('first', array(
+			'conditions' => array(
+                'or' => array(
+                    'Post.id' => $slug,
+                    'Post.slug' => $slug,
+                    'Post.short_cut' => $slug
+                )
+            ),
+    		'contain' => array(
+                'Conversation' => array(
+                    'CreatedPerson' => array(
+                        'Profile' => array()
+                    )
+                ),
+                'CreatedPerson' => array(
+                    'Profile' => array()
+                )
+            )
+        ));
 
         if(empty($post)){
            $this->redirect('/', '404');

@@ -567,7 +567,18 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-        $user = $this->User->getUserWith($userId, 'session_data');
+        //$user = $this->User->getUserWith($userId, 'session_data');
+        $user = $this->User->find('first', array(
+            'conditions' => array('or' => array(
+                'User.id' => $userId,
+                'User.username' => $userId,
+                'User.email' => $userId
+            )),
+            'contain' => array(
+                'Profile' => array(),
+                'UserSetting' => array(),
+            )
+        ));
 
         if(empty($user)){
 

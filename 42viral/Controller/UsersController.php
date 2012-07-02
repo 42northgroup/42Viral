@@ -136,7 +136,15 @@ App::uses('CakeEmail', 'Network/Email');
         $error = true;
 
         if(!empty($this->data)) {
-            $user = $this->User->getUserWith($this->data['User']['username'], 'nothing');
+            //$user = $this->User->getUserWith($this->data['User']['username'], 'nothing');
+            $user = $this->User->find('first', array(
+                'conditions'=>array('or' => array(
+                    'User.id' => $this->data['User']['username'],
+                    'User.username' => $this->data['User']['username'],
+                    'User.email' => $this->data['User']['username']
+                )),
+                'contain' => array()
+            ));
 
             if(empty($user)) {
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -201,7 +209,18 @@ App::uses('CakeEmail', 'Network/Email');
         $error = true;
         if(!empty($this->data)){
 
-            $user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
+            //$user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
+            $user = $this->User->find('first', array(
+                'conditions'=>array('or' => array(
+                    'User.id' => $this->data['User']['username'],
+                    'User.username' => $this->data['User']['username'],
+                    'User.email' => $this->data['User']['username']
+                )),
+                'contain' => array(
+                    'Profile' => array(),
+                    'UserSetting' => array()
+                )
+            ));
 
             if(empty($user)){
                 $this->log("User not found {$this->data['User']['username']}", 'weekly_user_login');
@@ -358,7 +377,18 @@ App::uses('CakeEmail', 'Network/Email');
                     }
 
                     //Log the new user into the system
-                    $user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
+                    //$user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
+                    $user = $this->User->find('first', array(
+                        'conditions'=>array('or' => array(
+                            'User.id' => $this->data['User']['username'],
+                            'User.username' => $this->data['User']['username'],
+                            'User.email' => $this->data['User']['username']
+                        )),
+                        'contain' => array(
+                            'Profile' => array(),
+                            'UserSetting' => array()
+                        )
+                    ));
 
                     $oldPassword['OldPassword']['person_id'] = $user['User']['id'];
                     $oldPassword['OldPassword']['password'] = $user['User']['password'];
@@ -439,7 +469,14 @@ App::uses('CakeEmail', 'Network/Email');
      */
     public function admin_index()
     {
-        $users = $this->User->fetchUsersWith('profile');
+        //$users = $this->User->fetchUsersWith('profile');
+        $users = $this->User->find('all', array(
+            'conditions' => array(),
+        	'contain' => array(
+                'Profile' => array()
+            )
+        ));
+
         $this->set('users', $users);
         $this->set('title_for_layout', __('All users in the system'));
     }
@@ -545,7 +582,30 @@ App::uses('CakeEmail', 'Network/Email');
         }
 
         //Get the user data
-        $user = $this->User->getUserWith($token, 'full_profile');
+        //$user = $this->User->getUserWith($token, 'full_profile');
+        $user = $this->User->find('first', array(
+            'conditions' => array('or' => array(
+                'User.id' => $token,
+                'User.username' => $token,
+                'User.email' => $token
+            )),
+            'contain' => array(
+                'Address' => array(),
+                'EmailAddress' => array(
+                    'conditions' => array(
+                        'EmailAddress.access' => 'public'
+                    )
+                ),
+                'PhoneNumber' => array(
+                    'conditions' => array(
+                        'PhoneNumber.access' => 'public'
+                    )
+                ),
+                'Profile' => array('SocialNetwork'),
+                'Upload' => array(),
+                'UserSetting' => array()
+            )
+        ));
 
         //Does the user really exist?
         if(empty($user)) {

@@ -107,7 +107,13 @@ App::uses('ProfileUtil', 'Lib');
         $this->_validRecord('Profile', $profileId);
         $this->_mine($profileId, 'Auth.User.Profile.id');
 
-        $this->data = $this->Profile->getProfileWith($profileId, 'person');
+        //$this->data = $this->Profile->getProfileWith($profileId, 'person');
+        $this->data = $this->Profile->find('first', array(
+			'conditions' => array('Profile.id' => $profileId),
+			'contain' =>    array(
+                'Person' => array()
+            )
+        ));
 
         /* Restructure the Profile data to fit the the userProfile hook */
         $userProfile = array();
@@ -134,7 +140,30 @@ App::uses('ProfileUtil', 'Lib');
         $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
-        $user = $this->User->getUserWith($token, 'full_profile');
+        //$user = $this->User->getUserWith($token, 'full_profile');
+        $user = $this->User->find('first', array(
+            'conditions'=>array('or' => array(
+                'User.id' => $token,
+                'User.username' => $token,
+                'User.email' => $token
+            )),
+            'contain' =>    array(
+                'Address'=>array(),
+                'EmailAddress'=>array(
+                    'conditions'=>array(
+                        'EmailAddress.access'=>'public'
+                    )
+                ),
+                'PhoneNumber'=>array(
+                    'conditions'=>array(
+                        'PhoneNumber.access'=>'public'
+                    )
+                ),
+                'Profile'=>array('SocialNetwork'),
+                'Upload'=>array(),
+                'UserSetting'=>array()
+            )
+        ));
 
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
