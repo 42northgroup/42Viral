@@ -107,13 +107,25 @@ App::uses('ProfileUtil', 'Lib');
         $this->_validRecord('Profile', $profileId);
         $this->_mine($profileId, 'Auth.User.Profile.id');
 
-        //$this->data = $this->Profile->getProfileWith($profileId, 'person');
-        $this->data = $this->Profile->find('first', array(
-			'conditions' => array('Profile.id' => $profileId),
-			'contain' =>    array(
-                'Person' => array()
+        if(!empty($this->data)){
+            if($this->Profile->saveAll($this->data)){
+                $this->Session->setFlash(__('Your profile has been updated'), 'success');
+            }else{
+                $this->Session->setFlash(__('Your profile has been updated'), 'serror');
+            }
+        }
+
+        $this->data = $this->Profile->find(
+            'first',
+            array(
+    			'conditions' => array(
+    			    'Profile.id' => $profileId
+    		    ),
+    			'contain' =>    array(
+                    'Person' => array()
+                )
             )
-        ));
+        );
 
         /* Restructure the Profile data to fit the the userProfile hook */
         $userProfile = array();
