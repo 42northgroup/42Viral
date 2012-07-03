@@ -377,7 +377,7 @@ class Content extends AppModel
      * @param string $token
      * @return array
      */
-    public function fetchContentsWith($with = 'public', $token = null){
+    public function fetchContentsWith($with = 'public', $token = null){ //@@
 
         //Used for variable injection
         switch('mine'){

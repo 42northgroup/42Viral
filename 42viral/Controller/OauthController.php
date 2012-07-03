@@ -43,7 +43,7 @@ App::uses('HttpSocket', 'Network/Http');
         'Tweet',
         'Linkedin',
         'Facebook',
-        'Oauth',
+        'SocialNetwork',
         'People',
         'User'
     );
@@ -180,9 +180,11 @@ App::uses('HttpSocket', 'Network/Http');
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-
+        
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('Twitter.oauth_token', $response['oauth_token']);
+
+        $profile_url = "https://twitter.com/#!/{$response['screen_name']}";
 
         /*
         if($get_token != null){
@@ -193,23 +195,26 @@ App::uses('HttpSocket', 'Network/Http');
 
         if($this->Session->check('Auth.User.id')){
 
-            if($this->Oauth->doesOauthExist('twitter', $response['user_id'], $this->Session->read('Auth.User.id'))){
+            if($this->SocialNetwork->doesOauthExist('twitter',
+                                                    $response['user_id'],
+                                                    $this->Session->read('Auth.User.id'))){
 
                 $this->Aro->deleteAll(array('Aro.alias' => 'twitter_'.$response['user_id']));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
-                $oauthUserId = $this->Oauth->oauthed('twitter',
-                                                    $response['user_id'],
-                                                    null,
-                                                    $this->Session->read('Auth.User.id')
-                                                );
+                $oauthUserId = $this->SocialNetwork->oauthed('twitter',
+                                                              $response['user_id'],
+                                                              null,
+                                                              $this->Session->read('Auth.User.id'),
+                                                              $profile_url);
+
                 $this->__auth($oauthUserId, $response, 'Twitter');
             }
 
         }else{
 
-            $oauthUserId = $this->Oauth->oauthed('twitter', $response['user_id']);
+            $oauthUserId = $this->SocialNetwork->oauthed('twitter', $response['user_id'], null, null, $profile_url);
             $this->__auth($oauthUserId, $response, 'Twitter');
         }
 
@@ -313,7 +318,7 @@ App::uses('HttpSocket', 'Network/Http');
             'uri' => array(
                 'scheme' => 'http',
                 'host' => 'api.linkedin.com',
-                'path' => '/v1/people/~'
+                'path' => '/v1/people/~:public'
             ),
             'method' => 'GET',
             'auth' => array(
@@ -321,8 +326,6 @@ App::uses('HttpSocket', 'Network/Http');
                 'oauth_consumer_key' => Configure::read('LinkedIn.consumer_key'),
                 'oauth_consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
                 'oauth_token' => $response['oauth_token'],
-                //'oauth_verifier' => $this->params['url']['oauth_verifier'],
-
                 'oauth_token_secret' => $response['oauth_token_secret']
             ),
             'header' => array(
@@ -331,33 +334,42 @@ App::uses('HttpSocket', 'Network/Http');
         );
 
         $response1 = $this->HttpSocketOauth->request($request1);
+        $xml_response1 = simplexml_load_string($response1);
         parse_str($response1, $response1);
 
         $response1['user_id'] = $response1['amp;key'];
 
-
+        $publicProfileUrl = 'public-profile-url';
+        $response1['public_url'] = (String)$xml_response1->$publicProfileUrl;
 
         if($this->Session->check('Auth.User.id')){
 
-            if($this->Oauth->doesOauthExist('linked_in', $response1['user_id'], $this->Session->read('Auth.User.id'))){
+            if($this->SocialNetwork->doesOauthExist('linked_in',
+                                                     $response1['user_id'],
+                                                     $this->Session->read('Auth.User.id'))){
 
                 $this->Aro->deleteAll(array('Aro.alias' => 'linked_in_'.$response1['user_id']));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
 
-                $oauthUserId = $this->Oauth->oauthed('linked_in',
-                                                    $response1['user_id'],
-                                                    null,
-                                                    $this->Session->read('Auth.User.id')
-                                                );
+                $oauthUserId = $this->SocialNetwork->oauthed('linked_in',
+                                                                $response1['user_id'],
+                                                                null,
+                                                                $this->Session->read('Auth.User.id'),
+                                                                $response1['public_url']);
 
                 $this->__auth($oauthUserId, $response, 'LinkedIn');
             }
 
         }else{
 
-            $oauthUserId = $this->Oauth->oauthed('linked_in', $response1['user_id']);
+            $oauthUserId = $this->SocialNetwork->oauthed('linked_in',
+                                                        $response1['user_id'],
+                                                        null,
+                                                        null,
+                                                        $response1['public_url']);
+
             $this->__auth($oauthUserId, $response, 'LinkedIn');
         }
 
@@ -431,24 +443,25 @@ App::uses('HttpSocket', 'Network/Http');
 
         if($this->Session->check('Auth.User.id')){
 
-            if($this->Oauth->doesOauthExist('facebook', $user->id, $this->Session->read('Auth.User.id'))){
+            if($this->SocialNetwork->doesOauthExist('facebook', $user->id, $this->Session->read('Auth.User.id'))){
 
                 $this->Aro->deleteAll(array('Aro.alias' => 'facebook_'.$user->id));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
 
-                $oauthUserId = $this->Oauth->oauthed('facebook',
-                                                    $user->id,
-                                                    $params['access_token'],
-                                                    $this->Session->read('Auth.User.id')
-                                                );
+                $oauthUserId = $this->SocialNetwork->oauthed('facebook',
+                                                                $user->id,
+                                                                $params['access_token'],
+                                                                $this->Session->read('Auth.User.id'),
+                                                                $user->link);
+
                 $this->__auth($oauthUserId, $response, 'Facebook');
             }
 
         }else{
 
-            $oauthUserId = $this->Oauth->oauthed('facebook', $user->id, $params['access_token']);
+            $oauthUserId = $this->SocialNetwork->oauthed('facebook', $user->id, $params['access_token'], $user->link);
             $this->__auth($oauthUserId, $response, 'Facebook');
         }
 
@@ -534,24 +547,25 @@ App::uses('HttpSocket', 'Network/Http');
 
         if($this->Session->check('Auth.User.id')){
 
-            if($this->Oauth->doesOauthExist('google_plus', $user->id, $this->Session->read('Auth.User.id'))){
+            if($this->SocialNetwork->doesOauthExist('google_plus', $user->id, $this->Session->read('Auth.User.id'))){
 
                 $this->Aro->deleteAll(array('Aro.alias' => 'google_plus_'.$user->id));
                 $this->Session->setFlash('You have been authenticated', 'success');
                 $this->redirect($this->Auth->redirect());
             }else{
 
-                $oauthUserId = $this->Oauth->oauthed('google_plus',
-                                                    $user->id,
-                                                    $params->access_token,
-                                                    $this->Session->read('Auth.User.id')
-                                                );
+                $oauthUserId = $this->SocialNetwork->oauthed('google_plus',
+                                                                $user->id,
+                                                                $params->access_token,
+                                                                $this->Session->read('Auth.User.id'),
+                                                                $user->url);
+
                 $this->__auth($oauthUserId, $response1, 'GooglePlus');
             }
 
         }else{
 
-            $oauthUserId = $this->Oauth->oauthed('google_plus', $user->id, $params->access_token);
+            $oauthUserId = $this->SocialNetwork->oauthed('google_plus', $user->id, $params->access_token, $user->url);
             $this->__auth($oauthUserId, $response1, 'GooglePlus');
         }
 
@@ -567,7 +581,18 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-        $user = $this->User->getUserWith($userId, 'session_data');
+        //$user = $this->User->getUserWith($userId, 'session_data');
+        $user = $this->User->find('first', array(
+            'conditions' => array('or' => array(
+                'User.id' => $userId,
+                'User.username' => $userId,
+                'User.email' => $userId
+            )),
+            'contain' => array(
+                'Profile' => array(),
+                'UserSetting' => array(),
+            )
+        ));
 
         if(empty($user)){
 

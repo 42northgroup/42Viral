@@ -140,17 +140,17 @@ class Person extends AppModel
             'conditions'=>array('model'=>'Person'),
             'dependent' => true
         ),
-        'FileUpload' => array(
-            'className' => 'FileUpload',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
+       // 'FileUpload' => array(
+      //      'className' => 'FileUpload',
+      //      'foreignKey' => 'created_person_id',
+      //      'dependent' => true
+      //  ),
 
-        'Image' => array(
-            'className' => 'Image',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
+       // 'Image' => array(
+       //     'className' => 'Image',
+       //     'foreignKey' => 'created_person_id',
+       //     'dependent' => true
+      //  ),
         'Page' => array(
             'className' => 'Page',
             'foreignKey' => 'created_person_id',

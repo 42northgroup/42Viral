@@ -65,7 +65,7 @@ class BlogsController extends AppController {
     }
 
     /**
-     * Displays a list of published blogs. The scop can be all published or all published blogs beloning to a single
+     * Displays a list of published blogs. The scope can be all published or all published blogs beloning to a single
      * user.
      *
      * @param string $username the username for any system user
@@ -77,10 +77,32 @@ class BlogsController extends AppController {
         $pageTitle = 'Blog Index';
 
         if(is_null($username)){
-            $blogs = $this->Blog->fetchBlogsWith();
+            $blogs = $this->Blog->find('all', array(
+                'conditions' => array('Blog.status'=>array('archived', 'published')),
+                'contain' => array(
+                    'Tag' => array()
+                )
+            ));
         }else{
 
-            $profile = $this->Person->getPersonWith($username, 'blog');
+            //$profile = $this->Person->getPersonWith($username, 'blog');
+            $profile = $this->Person->find('first', array(
+            	'conditions' => array('or' => array(
+                    'Person.id' => $username,
+                    'Person.username' => $username,
+                    'Person.email' => $username
+                )),
+                'contain' => array(
+                	'Profile' => array(),
+                	'Blog' => array(
+                        'conditions' => array(
+                            'Blog.object_type' => 'blog',
+                            'Blog.status' => 'published'
+                        ),
+                        'order' => array('Blog.title ASC')
+                    )
+                )
+            ));
 
             if (empty($profile)) {
                 throw new NotFoundException("{$username} " . __("doesn't seem to exist"));
@@ -104,8 +126,20 @@ class BlogsController extends AppController {
      * @param string $shortCut
      */
     public function short_cut($shortCut) {
+        //fetchBlogWith does not exist. Guessing it is supposed to be getBlogWith
+        //$blog = $this->Blog->fetchBlogWith($shortCut, 'nothing');
 
-        $blog = $this->Blog->fetchBlogWith($shortCut, 'nothing');
+        $blog = $this->Blog->find('first', array(
+            'conditions' => array(
+            	'Blog.status' => array('archived', 'published'),
+                array('or' => array(
+                	'Blog.id' => $shortCut,
+                	'Blog.slug' => $shortCut,
+                	'Blog.short_cut' => $shortCut
+                ))
+            ),
+            'contain' => array()
+        ));
 
         //Avoid Google duplication penalties by using a 301 redirect
         $this->redirect($blog['Blog']['canonical'], 301);
@@ -121,7 +155,25 @@ class BlogsController extends AppController {
         $mine = false;
 
         //Find the target blog
-        $blog = $this->Blog->getBlogWith($slug, 'view');
+       // $blog = $this->Blog->getBlogWith($slug, 'view');
+
+        $blog = $this->Blog->find('first', array(
+        	'conditions' => array('or' => array(
+                'Blog.id' => $slug,
+                'Blog.slug' => $slug,
+                'Blog.short_cut' => $slug
+            )),
+            'fields' => array(
+                'Blog.body',
+                'Blog.canonical',
+                'Blog.created',
+                'Blog.created_person_id',
+                'Blog.id',
+                'Blog.title',
+                'Blog.syntax'
+            ),
+            'contain' => array('CreatedPerson')
+        ));
 
         //Does the target blog exist
         if(empty($blog)){

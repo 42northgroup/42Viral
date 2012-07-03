@@ -144,14 +144,21 @@ App::uses('AppController', 'Controller');
         $this->set('title_for_layout', 'Pages');
     }
     /**
-     * Resirect short links to their proper url
+     * Redirect short links to their proper url
      * @access public
      * @param string $shortCut
      * @return void
      */
     public function short_cut($shortCut) {
-
-        $page = $this->Page->getPageWith($shortCut, 'nothing');
+        //$page = $this->Page->getPageWith($shortCut, 'nothing');
+        $page = $this->Page->find('first', array(
+            'conditions'=>array('or' => array(
+                'Page.id' => $shortCut,
+                'Page.slug' => $shortCut,
+                'Page.short_cut' => $shortCut
+            )),
+            'contain' => array()
+        ));
 
         //Avoid Google duplication penalties by using a 301 redirect
         $this->redirect($page['Page']['canonical'], 301);
@@ -294,7 +301,7 @@ App::uses('AppController', 'Controller');
         if(!empty($this->data)){
 
             //If we are saving as Markdown just check the body for malice
-            if ($this->data['Page']['syntax'] == 'markdown') {
+            if (isset($this->data['Page']['syntax']) && $this->data['Page']['syntax'] == 'markdown') {
                 $this->Page->Behaviors->attach(
                 'Scrubable',
                 array('Filters'=>array(
@@ -321,7 +328,18 @@ App::uses('AppController', 'Controller');
             }
         }
 
-        $this->data = $this->Page->getPageWith($id, 'edit');
+        //$this->data = $this->Page->getPageWith($id, 'edit');
+        $this->data = $this->Page->find('first', array(
+        	'conditions'=>array('or' => array(
+                'Page.id' => $id,
+                'Page.slug' => $id,
+                'Page.short_cut' => $id
+            )),
+            'contain' => array(
+                'Tag',
+                'Sitemap'
+            )
+        ));
 
         $this->set('statuses', $this->Page->listPublicationStatus());
         $this->set('title_for_layout', "Edit ({$this->data['Page']['title']})");

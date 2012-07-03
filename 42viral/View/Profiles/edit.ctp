@@ -28,10 +28,13 @@ echo $this->Asset->buildAssets('js', 'ck_editor', false);
 <div class="row">
     <div class="two-thirds column alpha">
         <?
-        echo $this->Form->create('Profile', array(
-            'action' => 'save',
-            'class'=>'responsive'
-        ));
+        echo $this->Form->create(
+            'Profile',
+            array(
+                'url' => $this->here,
+                'class'=>'responsive'
+            )
+        );
 
         echo $this->Form->input('id');
 

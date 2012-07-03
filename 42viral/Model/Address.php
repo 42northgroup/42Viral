@@ -341,7 +341,7 @@ class Address extends AppModel
     public function __construct($id=false, $table=null, $ds=null) {
         parent::__construct($id, $table, $ds);
         $this->virtualFields = array(
-            '_us_full_address' => "CONCAT(
+            'full_address' => "CONCAT(
                 `{$this->alias}`.`line1`, ' ',
                 `{$this->alias}`.`line2`, ' ',
                 `{$this->alias}`.`city`, ', ',

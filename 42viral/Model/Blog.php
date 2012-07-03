@@ -262,6 +262,7 @@ class Blog extends Content
     }
 
     /**
+     * Depricated
      * Returns a set of blogs using a predetermined data set
      * @access public
      * @param array $with The predefined dataset with which the blog will be retrived (default: public)

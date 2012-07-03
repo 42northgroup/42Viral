@@ -63,11 +63,20 @@ App::uses('Scrub', 'Lib');
      *
      */
     public function admin_view($username){
-       $person = $this->Person->getPersonWith($username, 'nothing');
-       $this->set('person', $person);
-       $this->set('userProfile', $person);
-       $this->set('title_for_layout',
-               $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
+       //$person = $this->Person->getPersonWith($username, 'nothing');
+        $person = $this->Person->find('first', array(
+			'conditions' => array('or' => array(
+                'Person.id' => $username,
+                'Person.username' => $username,
+                'Person.email' => $username
+            )),
+            'contain'=>array()
+        ));
+
+        $this->set('person', $person);
+        $this->set('userProfile', $person);
+        $this->set('title_for_layout',
+            $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
     }
 
     /**
