@@ -242,6 +242,8 @@ switch($section){
                 )
             )
         );
+    break;
+
     case 'user_setting':
 
         $personId = $this->Session->read('Auth.User.id');
