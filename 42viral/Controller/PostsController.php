@@ -169,16 +169,7 @@ class PostsController extends AppController {
                 $this->Session->setFlash(__('There was a problem posting to your blog'), 'error');
             }
         }
-        'edit' => array(
-            'contain' => array(
-                'CreatedPerson' => array(
-                    'Profile' => array()
-                ),
-                'Sitemap',
-                'Tag'
-            ),
-            'conditions' => array()
-        ),
+
         //Now that we have saved the data, grab the latest copy and repopulate the page
         //$this->data = $this->Post->getPostWith($id, 'edit');
         $this->data = $this->Post->find('first', array(
