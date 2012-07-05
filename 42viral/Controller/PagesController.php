@@ -150,7 +150,6 @@ App::uses('AppController', 'Controller');
      * @return void
      */
     public function short_cut($shortCut) {
-        //$page = $this->Page->getPageWith($shortCut, 'nothing');
         $page = $this->Page->find('first', array(
             'conditions'=>array('or' => array(
                 'Page.id' => $shortCut,
@@ -328,7 +327,6 @@ App::uses('AppController', 'Controller');
             }
         }
 
-        //$this->data = $this->Page->getPageWith($id, 'edit');
         $this->data = $this->Page->find('first', array(
         	'conditions'=>array('or' => array(
                 'Page.id' => $id,

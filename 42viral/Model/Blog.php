@@ -33,70 +33,6 @@ class Blog extends Content
     public $name = 'Blog';
 
     /**
-     * Predefined data sets, this provides the commonality for $with arguments
-     * @access public
-     * @var array
-     */
-    public $dataSet = array(
-
-        'admin'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            ),
-            'conditions' => array('Blog.status'=>array('archived', 'published'))
-        ),
-        'admin_nothing'=>array('contain'=>array()),
-        'nothing'=>array(
-            'contain'=>array(),
-            'conditions' => array('Blog.status'=>array('archived', 'published'))
-        ),
-        'public'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            ),
-            'conditions' => array('Blog.status'=>array('archived', 'published'))
-        ),
-        'sitemap'=>array(
-            'conditions' => array(
-                'Blog.status'=>array(
-                    'archived',
-                    'published'
-                )
-            ),
-            'contain'=>array(
-                'Sitemap'
-            ),
-            'fields' => array(
-                'Blog.canonical',
-                'Blog.modified',
-                'Sitemap.changefreq',
-                'Sitemap.priority'
-            )
-        ),
-        'standard'=>array(
-            'CreatedPerson'=>array(
-                'Profile'=>array()
-            ),
-            'Post'=>array(
-                'conditions'=>array('Blog.status'=>'published'),
-                'order'=>array('Blog.created DESC')
-            )
-        ),
-        'view'=>array(
-            'fields'=>array(
-                'Blog.body',
-                'Blog.canonical',
-                'Blog.created',
-                'Blog.created_person_id',
-                'Blog.id',
-                'Blog.title',
-                'Blog.syntax'
-            ),
-            'contain'=>array('CreatedPerson')
-        )
-    );
-
-    /**
      * Defines the has many relationships for the blog model
      * @access public
      * @var array
@@ -236,41 +172,5 @@ class Blog extends Content
      */
     public function listPostAccess($tags = null, $category = null, $categories = false){
         return $this->_listParser($this->__listPostAccess, $tags, $category, $categories);
-    }
-
-    /**
-     * Returns a specified blog with a predefined data set
-     * @access public
-     * @param string $token The identifier of a target blog. This may be an id, short_cut or slug
-     * @param array $with The predefined dataset with which the blog will be retrived (default: public)
-     * @return array
-     */
-    function getBlogWith($token, $with = 'public'){
-
-        $theToken = array(
-            'conditions'=>array('or' => array(
-                'Blog.id' => $token,
-                'Blog.slug' => $token,
-                'Blog.short_cut' => $token
-            ))
-        );
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-        $blog = $this->find('first', $finder);
-
-        return $blog;
-    }
-
-    /**
-     * Depricated
-     * Returns a set of blogs using a predetermined data set
-     * @access public
-     * @param array $with The predefined dataset with which the blog will be retrived (default: public)
-     * @return array
-     */
-    public function fetchBlogsWith($with = 'public'){
-        $finder = $this->dataSet[$with];
-        $blog = $this->find('all', $finder);
-        return $blog;
     }
 }

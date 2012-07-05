@@ -84,8 +84,6 @@ class BlogsController extends AppController {
                 )
             ));
         }else{
-
-            //$profile = $this->Person->getPersonWith($username, 'blog');
             $profile = $this->Person->find('first', array(
             	'conditions' => array('or' => array(
                     'Person.id' => $username,
@@ -126,9 +124,6 @@ class BlogsController extends AppController {
      * @param string $shortCut
      */
     public function short_cut($shortCut) {
-        //fetchBlogWith does not exist. Guessing it is supposed to be getBlogWith
-        //$blog = $this->Blog->fetchBlogWith($shortCut, 'nothing');
-
         $blog = $this->Blog->find('first', array(
             'conditions' => array(
             	'Blog.status' => array('archived', 'published'),
@@ -155,8 +150,6 @@ class BlogsController extends AppController {
         $mine = false;
 
         //Find the target blog
-       // $blog = $this->Blog->getBlogWith($slug, 'view');
-
         $blog = $this->Blog->find('first', array(
         	'conditions' => array('or' => array(
                 'Blog.id' => $slug,

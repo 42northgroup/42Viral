@@ -36,7 +36,24 @@ class SitemapShell extends AppShell {
      */
     public function main()
     {
-        $contents = $this->Content->fetchContentsWith('sitemap');
+        $contents = $this->Content->find('all', array(
+            'conditions' => array(
+                'Content.status'=>array(
+                    'archived',
+                    'published'
+                )
+            ),
+            'contain'=>array(
+                'Sitemap'
+            ),
+            'fields' => array(
+                'Content.canonical',
+                'Content.modified',
+                'Sitemap.changefreq',
+                'Sitemap.priority'
+            )
+        ));
+
         $xml = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>";
         $xml .= "<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">";
         foreach($contents as $content){

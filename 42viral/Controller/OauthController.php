@@ -180,7 +180,7 @@ App::uses('HttpSocket', 'Network/Http');
 
         $response = $this->HttpSocketOauth->request($request);
         parse_str($response, $response);
-        
+
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->Session->write('Twitter.oauth_token', $response['oauth_token']);
 
@@ -581,7 +581,6 @@ App::uses('HttpSocket', 'Network/Http');
      */
     private function __auth($userId, $response, $oauthKey)
     {
-        //$user = $this->User->getUserWith($userId, 'session_data');
         $user = $this->User->find('first', array(
             'conditions' => array('or' => array(
                 'User.id' => $userId,

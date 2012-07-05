@@ -152,7 +152,6 @@ App::uses('ProfileUtil', 'Lib');
         $this->_validRecord('Person', $token, 'username');
 
         //Get the user data
-        //$user = $this->User->getUserWith($token, 'full_profile');
         $user = $this->User->find('first', array(
             'conditions'=>array('or' => array(
                 'User.id' => $token,

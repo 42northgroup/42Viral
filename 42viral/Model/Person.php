@@ -37,40 +37,6 @@ class Person extends AppModel
     public $useTable = 'people';
 
     /**
-     * Predefined data sets
-     * @access public
-     * @var array
-     */
-    public $dataSet = array(
-        'blog'=>array(
-            'contain'=>array(
-                'Profile'=>array(),
-                'Blog'=>array(
-                    'conditions'=>array(
-                        'Blog.object_type'=>'blog',
-                        'Blog.status'=>'published'
-                        ),
-                        'order'=>array('Blog.title ASC')
-                    )
-            )
-        ),
-        'nothing'=>array(
-            'contain'=>array()
-        ),
-        'profile' => array(
-            'contain' => array('Profile'),
-            'conditions' => array()
-        ),
-        'upload' => array(
-            'contain' => array(
-                'Profile'=>array(),
-                'Upload'=>array()
-            ),
-            'conditions' => array()
-        )
-    );
-
-    /**
      * Specifies the behaviors invoked by the conversation model
      * @access public
      * @var array
@@ -245,30 +211,5 @@ class Person extends AppModel
             'image_read_path' => "CONCAT('{$imageReadPath}',`{$this->alias}`.`id` , '/')"
         );
 
-    }
-
-   /**
-    * Returns a person's profile data with the specified associated data.
-    * @access public
-    * @param string $token The id, username or email address for retreving records
-    * @param string|array $with What associated data do we want?
-    * @return array
-    */
-    public function getPersonWith($token, $with = 'nothing')
-    {
-
-        $theToken = array(
-                'conditions'=>array('or' => array(
-                    'Person.id' => $token,
-                    'Person.username' => $token,
-                    'Person.email' => $token
-                ))
-        );
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-
-        $person = $this->find('first', $finder);
-
-        return $person;
     }
 }

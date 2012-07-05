@@ -63,7 +63,6 @@ App::uses('Scrub', 'Lib');
      *
      */
     public function admin_view($username){
-       //$person = $this->Person->getPersonWith($username, 'nothing');
         $person = $this->Person->find('first', array(
 			'conditions' => array('or' => array(
                 'Person.id' => $username,

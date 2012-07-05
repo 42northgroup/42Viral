@@ -136,7 +136,6 @@ App::uses('CakeEmail', 'Network/Email');
         $error = true;
 
         if(!empty($this->data)) {
-            //$user = $this->User->getUserWith($this->data['User']['username'], 'nothing');
             $user = $this->User->find('first', array(
                 'conditions'=>array('or' => array(
                     'User.id' => $this->data['User']['username'],
@@ -208,8 +207,6 @@ App::uses('CakeEmail', 'Network/Email');
     {
         $error = true;
         if(!empty($this->data)){
-
-            //$user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
             $user = $this->User->find('first', array(
                 'conditions'=>array('or' => array(
                     'User.id' => $this->data['User']['username'],
@@ -377,7 +374,6 @@ App::uses('CakeEmail', 'Network/Email');
                     }
 
                     //Log the new user into the system
-                    //$user = $this->User->getUserWith($this->data['User']['username'], 'session_data');
                     $user = $this->User->find('first', array(
                         'conditions'=>array('or' => array(
                             'User.id' => $this->data['User']['username'],
@@ -469,11 +465,10 @@ App::uses('CakeEmail', 'Network/Email');
      */
     public function admin_index()
     {
-        //$users = $this->User->fetchUsersWith('profile');
         $users = $this->User->find('all', array(
             'conditions' => array(),
         	'contain' => array(
-                'Profile' => array()
+                'Profile'
             )
         ));
 
@@ -582,7 +577,6 @@ App::uses('CakeEmail', 'Network/Email');
         }
 
         //Get the user data
-        //$user = $this->User->getUserWith($token, 'full_profile');
         $user = $this->User->find('first', array(
             'conditions' => array('or' => array(
                 'User.id' => $token,

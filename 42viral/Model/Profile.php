@@ -41,24 +41,6 @@ class Profile extends AppModel
     public $useTable = 'profiles';
 
     /**
-     * Predefined data sets
-     * @var array
-     * @access public
-     */
-    public $dataSet = array(
-
-        'nothing'=>array(
-            'contain'=>array()
-        ),
-        'person' => array(
-            'contain' =>    array(
-                'Person'=>array()
-            ),
-            'conditions' => array()
-        )
-    );
-
-    /**
      * belongsTo
      * @var array
      * @access public
@@ -98,25 +80,6 @@ class Profile extends AppModel
             )
         )
     );
-
-    /**
-     * Returns a person's profile data with the specified associated data.
-     *
-     * @param string $token - The profile id
-     * @param string $with
-     * @return array
-     * @access public
-     */
-    public function getProfileWith($token, $with = 'nothing')
-    {
-        $theToken = array('conditions'=>array('Profile.id' => $token));
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-
-        $userProfile = $this->find('first', $finder);
-
-        return $userProfile;
-    }
 
    /**
     * Uses the information from the user profile to build an xCard

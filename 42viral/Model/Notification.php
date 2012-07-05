@@ -434,13 +434,3 @@ If asked, your invitation code is : %4$s',
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
