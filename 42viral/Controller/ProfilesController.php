@@ -264,7 +264,7 @@ App::uses('ProfileUtil', 'Lib');
                 )
              )
         );
-
+        
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);
@@ -288,9 +288,9 @@ App::uses('ProfileUtil', 'Lib');
 
         if( !$this->Session->check('Auth.User.sm_list') ){
 
-            $sm_list = $this->SocialNetwrok->find('list', array(
-                'conditions' => array('SocialNetwrok.model_id' => $this->Session->read('Auth.User.id')),
-                'fields' => array('SocialNetwrok.oauth_id', 'SocialNetwrok.network')
+            $sm_list = $this->SocialNetwork->find('list', array(
+                'conditions' => array('SocialNetwork.model_id' => $this->Session->read('Auth.User.id')),
+                'fields' => array('SocialNetwork.oauth_id', 'SocialNetwork.network')
             ));
 
             $this->Session->write('Auth.User.sm_list', $sm_list);
@@ -397,7 +397,7 @@ App::uses('ProfileUtil', 'Lib');
 
                         $statuses['posts'] = array_merge($statuses['posts'], $this->GooglePlus->find('all', array(
                             'conditions' => array(
-                                'username' => $media['SocialNetwrok']['oauth_id'],
+                                'username' => $media['SocialNetwork']['oauth_id'],
                                 'oauth_token' => $this->Session->read('GooglePlus.oauth_token')
                             ),
                             'limit' => 5
