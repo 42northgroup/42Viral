@@ -44,5 +44,5 @@ App::uses('Scrub', 'Lib');
             <?php endforeach; ?>
         </div>
     </div>
-    <div class="one-third column omega">asdf</div>
+    <div class="one-third column omega"></div>
 </div>

@@ -42,17 +42,28 @@
         $boxLinks .= ($x > 0?' | ':null) . $this->Html->link($value, "/notifications/index/{$key}/");
         $x++;
     endforeach;
+?>
 
+<div style="float:left" >
+<?php
     echo $this->Form->input(
         'Control.action',
         array(
             'legend'=>false,
             'type'=>'radio',
             'options'=>$listActionTypes,
-            'after'=>' ' . $this->Form->submit(__('Perform'), array('id'=>'ActionButton', 'div'=>false)) . $boxLinks
+            'after'=>'&nbsp;&nbsp;&nbsp;'
+                    .$this->Form->submit(__('Check\'em'), array('id'=>'ActionButton', 'div'=>false)),
+            'separator' => '&nbsp;&nbsp;&nbsp;'
         )
     );
 ?>
+</div>
+
+<div style="float:right" >
+    <?php echo $boxLinks ?>
+</div>
+
 <div class="rows">
     <div class="two-thirds column alpha">
         <table>

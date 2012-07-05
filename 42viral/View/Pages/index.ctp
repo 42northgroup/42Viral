@@ -22,7 +22,7 @@ App::uses('Scrub', 'Lib');
             <?php if(empty($pages)): ?>
                 <div class="no-results">
                     <div class="no-results-message">
-                        <?php echo __("I'm sorry, there are no results to display."); ?>
+                        <?php echo __("I'm sorry, there are no pages to display."); ?>
                     </div>
                 </div>
             <?php endif; ?>

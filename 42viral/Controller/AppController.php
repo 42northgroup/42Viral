@@ -179,8 +179,7 @@ class AppController extends Controller
                                     . $this->request->params['action'], '*'
                     )) {
                         //No, the user does not have access; bounce them out.
-                        $this->Session->setFlash('You can\'t do that!', 'error');
-                        $this->redirect('/users/login', '401');
+                        throw new ForbiddenException(__('You can\'t do that!'));
                     }
                 } else {
                     //Deny access.

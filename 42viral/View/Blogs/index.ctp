@@ -19,7 +19,7 @@ App::uses('Scrub', 'Lib');
 <div class="row">
     <div class="two-thirds column alpha">
 
-        <div id="ResultsPage" class="container">
+        <div id="ResultsPage">
 
                 <?php
                 if($showAll):
@@ -48,9 +48,13 @@ App::uses('Scrub', 'Lib');
                         <?php
                         endforeach;
 
-                    else:
-                        echo __('Their are no blogs to display');
-                    endif;
+                    else: ?>
+                        <div class="no-results">
+                            <div class="no-results-message">
+                                <?php echo __("I'm sorry, there are no blogs to display."); ?>
+                            </div>
+                        </div>
+              <?php endif;
 
                 else:
 
@@ -90,5 +94,7 @@ App::uses('Scrub', 'Lib');
         </div>
 
     </div>
-    <div class="one-third column omega"></div>
+    <div class="one-third column omega">
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'blog')); ?>
+    </div>
 </div>
