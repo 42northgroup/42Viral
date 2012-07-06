@@ -179,7 +179,8 @@ App::uses('ProfileUtil', 'Lib');
         //If we found the target blog, retrive an paginate its' posts
         $this->paginate = array(
             'conditions' => array(
-                'Content.status'=>array('archived', 'published')
+                'Content.status' => array('archived', 'published'),
+                'Content.created_person_id' => $token
             ),
             'fields'=>array(
                 'Content.body',
@@ -264,7 +265,7 @@ App::uses('ProfileUtil', 'Lib');
                 )
              )
         );
-        
+
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('contents', $contents);

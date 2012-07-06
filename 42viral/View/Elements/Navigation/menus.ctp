@@ -368,14 +368,14 @@ switch($section){
                     'url' => "/blogs/create/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('admin_edit'),
+                    'actions_exclude'=>array('edit'),
                     'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
                     'text' => __('Edit this blog'),
                     'url' => "/blogs/edit/{$blogId}/",
                     'options'=>array(),
-                    'actions_exclude'=>array('index', 'admin_create', 'admin_edit', 'admin_index'),
+                    'actions_exclude'=>array('index', 'create', 'edit', 'index'),
                     'confirm'=>null,
                     'session_check'=>'Auth.User.employee:1'
                 ),
@@ -384,7 +384,7 @@ switch($section){
                     'url' => "/blogs/delete/{$blogId}/",
                     'options'=>array(),
                     'confirm'=>Configure::read('System.purge_warning'),
-                    'actions'=>array('view', 'admin_edit'),
+                    'actions'=>array('view', 'edit'),
                     'session_check'=>'Auth.User.employee:1'
                 )
             )

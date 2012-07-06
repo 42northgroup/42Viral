@@ -111,7 +111,7 @@ Hello,<br>
 <p>Someone (hopefully you) has requested to reset your password for %2$s. If you did not request this reset, please ignore this message.</p>
 
 <p>To reset your password, please visit the following page:</p>
-<p>%1$spass_reset/%3$s</p>
+<p>%1$s/users/pass_reset/%3$s</p>
 
 <p>If asked, your password reset key is : %3$s</p>
 

@@ -139,7 +139,6 @@ App::uses('HttpSocket', 'Network/Http');
         // Redirect user to twitter to authorize  my application
         parse_str($response, $response);
 
-        //pr($response); die();
         $this->Session->write('Twitter.oauth_token_secret', $response['oauth_token_secret']);
         $this->redirect('http://api.twitter.com/oauth/authorize?oauth_token=' . $response['oauth_token']);
 

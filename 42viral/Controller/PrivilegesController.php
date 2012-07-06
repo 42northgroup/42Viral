@@ -223,7 +223,7 @@ App::uses('AppController', 'Controller');
         if(!empty ($this->data)){
             $aro = $this->Aro->findByAlias($this->data['JoinGroup']['user_alias']);
             $aro['Aro']['parent_id'] = $this->data['JoinGroup']['groups'];
-
+            
             unset($aro['Aro']['lft']);
             unset($aro['Aro']['rght']);
 

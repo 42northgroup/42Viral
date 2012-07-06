@@ -45,7 +45,8 @@ class PostsController extends AppController {
      */
     public $helpers = array(
         'Profile',
-        'Tags.TagCloud'
+        'Tags.TagCloud',
+        'Asset'
     );
 
     /**
