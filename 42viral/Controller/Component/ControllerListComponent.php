@@ -87,8 +87,8 @@ class ControllerListComponent extends Component {
                             unset($actions[$k]);
                         }
                     }
-                    
-                    $plugins[$plugin] = array_diff($actions, $parentActions);
+
+                    $plugins[$pluginDir][$plugin] = array_diff($actions, $parentActions);
                 }
             }
         }
@@ -104,7 +104,17 @@ class ControllerListComponent extends Component {
      */
     public function get_all()
     {
-        return array_merge($this->get(), $this->get_plugins());
+        $plugins = $this->get_plugins();
+
+        $pluginControllers = array();
+
+        foreach($plugins as $plugin){
+            foreach($plugin as $controller => $actions){
+                $pluginControllers[$controller] = $plugin[$controller];
+            }
+        }
+
+        return array_merge($this->get(), $pluginControllers);
     }
 }
 ?>

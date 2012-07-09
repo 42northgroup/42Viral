@@ -137,17 +137,19 @@ App::uses('AppController', 'Controller');
         }
 
         //loop through all Plugin controllers and their actions
-        foreach($plugins as $key => $val){
-            foreach($plugins[$key] as $index => $action){
+        foreach($plugins as $plugin){
+            foreach($plugin as $key => $val){
+                foreach($plugin[$key] as $index => $action){
 
-                //if controller_action ACL does not exist, create it
-                if( !in_array($key.'-'.$action, $acos) ){
-                    $this->Acl->Aco->create(array(
-                        'parent_id'=>1,
-                        'alias'=>$key.'-'.$action,0,0
-                    ));
+                    //if controller_action ACL does not exist, create it
+                    if( !in_array($key.'-'.$action, $acos) ){
+                        $this->Acl->Aco->create(array(
+                            'parent_id'=>1,
+                            'alias'=>$key.'-'.$action,0,0
+                        ));
 
-                    $this->Acl->Aco->save();
+                        $this->Acl->Aco->save();
+                    }
                 }
             }
         }
@@ -223,7 +225,7 @@ App::uses('AppController', 'Controller');
         if(!empty ($this->data)){
             $aro = $this->Aro->findByAlias($this->data['JoinGroup']['user_alias']);
             $aro['Aro']['parent_id'] = $this->data['JoinGroup']['groups'];
-            
+
             unset($aro['Aro']['lft']);
             unset($aro['Aro']['rght']);
 
