@@ -1,7 +1,7 @@
 <?php
 /**
  * PHP 5.3
- * 
+ *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -12,23 +12,24 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('Scrub', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
 <div class="row">
     <div class="two-thirds column alpha">
         <div>
-            <?php 
+            <?php
             switch($blog['Blog']['syntax']):
                 case 'markdown':
                     //Parse the markdown to HTML
                     //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
-                    echo Scrub::htmlMedia(Utility::markdown($blog['Blog']['body'])); 
+                    echo Scrub::htmlMedia(Utility::markdown($blog['Blog']['body']));
                 break;
 
                 default:
-                    echo $blog['Blog']['body']; 
-                break;        
+                    echo $blog['Blog']['body'];
+                break;
             endswitch;
             ?>
         </div>
@@ -41,36 +42,36 @@
                     </div>
                     <div class="result-right">
 
-                        <strong><?php echo $this->Html->link($post['Post']['title'], 
+                        <strong><?php echo $this->Html->link($post['Post']['title'],
                                 $post['Post']['url']); ?> </strong>
 
                         <div class="tease">
-                            <?php 
+                            <?php
                             switch($post['Post']['syntax']):
                                 case 'markdown':
                                     //echo Scrub::htmlMedia(
                                     echo Scrub::noHtml(
                                             Utility::markdown(
                                                 $this->Text->truncate(
-                                                        $post['Post']['body'], 180, array('html' => true))));                                      
+                                                        $post['Post']['body'], 180, array('html' => true))));
                                 break;
 
                                 default:
                                     echo Scrub::noHtml(
                                         $this->Text->truncate(
-                                                $post['Post']['body'], 180, array('html' => true)));  
-                                break;        
+                                                $post['Post']['body'], 180, array('html' => true)));
+                                break;
                             endswitch;
-                            ?> 
+                            ?>
                         </div>
                     </div>
-                </div>  
+                </div>
             <?php endforeach; ?>
         </div>
         <?php echo $this->element('paginate'); ?>
     </div>
     <div class="one-third column omega">
-    <?php 
+    <?php
 
             //Privides navigation for manageing an asset
             if($mine):
@@ -88,16 +89,16 @@
                         'url' => "/blogs/delete/{$blog['Blog']['id']}",
                         'options'=>array(),
                         'confirm'=>Configure::read('System.purge_warning')
-                    )                
+                    )
                 );
-                        
-                echo $this->element('Navigation' . DS . 'menus', 
-                            array('section'=>'post', 
+
+                echo $this->element('Navigation' . DS . 'menus',
+                            array('section'=>'post',
                                 'additional'=>$additional
                             )
                         );
-            endif; 
+            endif;
 
-        ?>        
+        ?>
     </div>
 </div>

@@ -40,58 +40,6 @@ class Content extends AppModel
     public $useTable = 'contents';
 
     /**
-     * Predefined data sets
-     * @var array
-     * @access public
-     */
-    public $dataSet = array(
-
-        'admin'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            )
-        ),
-
-        'admin_nothing'=>array('contain'=>array()),
-
-        'mine'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            )
-        ),
-
-        'nothing'=>array(
-            'contain'=>array(),
-            'conditions' => array('Content.status'=>array('archived', 'published'))
-        ),
-
-        'public'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            ),
-            'conditions' => array('Content.status'=>array('archived', 'published'))
-        ),
-
-        'sitemap'=>array(
-            'conditions' => array(
-                'Content.status'=>array(
-                    'archived',
-                    'published'
-                )
-            ),
-            'contain'=>array(
-                'Sitemap'
-            ),
-            'fields' => array(
-                'Content.canonical',
-                'Content.modified',
-                'Sitemap.changefreq',
-                'Sitemap.priority'
-            )
-        )
-    );
-
-    /**
      * Defines the default set of behaivors for all content.
      * @access public
      * @var array
@@ -368,32 +316,6 @@ class Content extends AppModel
      */
     public function listPublicationStatus($tags = null, $category = null, $categories = false){
         return $this->_listParser($this->__listPublicationStatuses, $tags, $category, $categories);
-    }
-
-    /**
-     * Returns all content based on predefined conditions
-     * @access public
-     * @param array $with
-     * @param string $token
-     * @return array
-     */
-    public function fetchContentsWith($with = 'public', $token = null){ //@@
-
-        //Used for variable injection
-        switch('mine'){
-            case 'mine':
-                $theToken = array('Content.created_person_id' => $token);
-                $finder = array_merge($this->dataSet[$with], $theToken);
-            break;
-
-            default:
-                $finder = $this->dataSet[$with];
-            break;
-        }
-
-
-        $content = $this->find('all', $finder);
-        return $content;
     }
 
     /**

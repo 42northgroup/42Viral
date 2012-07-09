@@ -77,7 +77,15 @@ App::uses('Handy', 'Lib');
      *
      */
     public function mine() {
-        $contents = $this->Content->fetchContentsWith('mine', $this->Session->read('Auth.User.id'));
+        $contents = $this->Content->find('all', array(
+            'conditions' => array(
+                'Content.created_person_id' => $this->Session->read('Auth.User.id')
+            ),
+            'contain' => array(
+                'Tag'
+            )
+        ));
+
         $this->set('contents', $contents);
         $this->set('title_for_layout', 'My Content');
     }

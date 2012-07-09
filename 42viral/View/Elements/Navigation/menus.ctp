@@ -351,6 +351,46 @@ switch($section){
         );
     break;
 
+    case 'blog':
+        $blogId = isset($blog['Blog']['id'])?$blog['Blog']['id']:null;
+        $label = 'Blog';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Blogs'),
+                    'url' => "/blogs/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index')
+                ),
+                array(
+                    'text' => __('Create a new blog'),
+                    'url' => "/blogs/create/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('edit'),
+                    'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Edit this blog'),
+                    'url' => "/blogs/edit/{$blogId}/",
+                    'options'=>array(),
+                    'actions_exclude'=>array('index', 'create', 'edit', 'index'),
+                    'confirm'=>null,
+                    'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Delete this blog'),
+                    'url' => "/blogs/delete/{$blogId}/",
+                    'options'=>array(),
+                    'confirm'=>Configure::read('System.purge_warning'),
+                    'actions'=>array('view', 'edit'),
+                    'session_check'=>'Auth.User.employee:1'
+                )
+            )
+        );
+    break;
+
     case 'admin':
         if($this->Session->read('Auth.User.employee') == 1):
             $personId = $this->Session->read('Auth.User.id');

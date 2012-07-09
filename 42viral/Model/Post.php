@@ -33,52 +33,6 @@ class Post extends Content
     public $name = 'Post';
 
     /**
-    * Predefined data sets
-    * @var array
-    * @access public
-    */
-    public $dataSet = array(
-
-        'created_person' => array(
-            'contain' =>    array(
-                'CreatedPerson'=>array(
-                    'Profile'=>array()
-                )
-            ),
-            'conditions' => array()
-        ),
-
-        'edit' => array(
-            'contain' => array(
-                'CreatedPerson' => array(
-                    'Profile' => array()
-                ),
-                'Sitemap',
-                'Tag'
-            ),
-            'conditions' => array()
-        ),
-
-        'nothing'=>array(
-            'contain'=>array()
-        ),
-
-        'standard' => array(
-            'contain' =>    array(
-                'Conversation'=>array(
-                    'CreatedPerson'=>array(
-                        'Profile'=>array()
-                    )
-                ),
-                'CreatedPerson'=>array(
-                    'Profile'=>array()
-                )
-            ),
-            'conditions' => array()
-        )
-    );
-
-    /**
      * belongsTo
      * @var array
      * @access public
@@ -176,29 +130,4 @@ class Post extends Content
         return $queryData;
     }
 
-    /**
-     * Retrives a post with optional additional data
-     *
-     * @param string $token
-     * @param string|array $with
-     * @return array
-     */
-    public function getPostWith($token, $with = null){
-
-        $theToken = array(
-            'conditions'=>array(
-                'or' => array(
-                    'Post.id' => $token,
-                    'Post.slug' => $token,
-                    'Post.short_cut' => $token
-                )
-            )
-        );
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-
-        $post = $this->find('first', $finder);
-
-        return $post;
-    }
 }

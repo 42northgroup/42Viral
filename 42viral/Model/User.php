@@ -35,51 +35,6 @@ class User extends Person
     public $name = 'User';
 
     /**
-     * Predefined data sets
-     * @access public
-     * @var array
-     */
-    public $dataSet = array(
-
-        'full_profile' => array(
-            'contain' =>    array(
-                'Address'=>array(),
-                'EmailAddress'=>array(
-                    'conditions'=>array(
-                        'EmailAddress.access'=>'public'
-                    )
-                ),
-                'PhoneNumber'=>array(
-                    'conditions'=>array(
-                        'PhoneNumber.access'=>'public'
-                    )
-                ),
-                'Profile'=>array('SocialNetwork'),
-                'Upload'=>array(),
-                'UserSetting'=>array()
-            ),
-            'conditions' => array()
-        ),
-        'nothing'=>array(
-            'contain'=>array()
-        ),
-        'profile' => array(
-            'contain' =>    array(
-                'Profile'=>array()
-            ),
-            'conditions' => array()
-        ),
-
-        'session_data' => array(
-            'contain' =>    array(
-                'Profile'=>array(),
-                'UserSetting'=>array(),
-            ),
-            'conditions' => array()
-        )
-    );
-
-    /**
      * Defines has one relationships for users
      * @access public
      * @var array
@@ -439,47 +394,6 @@ class User extends Person
         }else{
             return array();
         }
-    }
-
-
-    /**
-     * Finds a user by id, username or email and returns the requsted data set
-     * @access public
-     * @param string $token
-     * @param string $with
-     * @return array
-     */
-    public function getUserWith($token, $with)
-    {
-
-        $theToken = array(
-                'conditions'=>array('or' => array(
-                    'User.id' => $token,
-                    'User.username' => $token,
-                    'User.email' => $token
-                ))
-        );
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-
-        $user = $this->find('first', $finder);
-
-        return $user;
-    }
-
-    /**
-     * An alias for getUserWith
-     * @access public
-     * @param string $with
-     * @return array
-     */
-    public function fetchUsersWith($with)
-    {
-        $finder = $this->dataSet[$with];
-
-        $users = $this->find('all', $finder);
-
-        return $users;
     }
 
     /**

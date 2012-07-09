@@ -12,6 +12,7 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('Scrub', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
@@ -23,16 +24,16 @@
             'style'=>"border-bottom: 1px solid #EFEFEF; padding: 0 0 4px; margin: 0 0 6px;"
             ));
 
-        echo $this->Form->input('q', 
+        echo $this->Form->input('q',
                 array('type'=>'text', 'label'=>false));
 
-        echo $this->Form->submit('Search', 
+        echo $this->Form->submit('Search',
                 array(
                     'div'=>array('style'=>'text-align:left;'), 'style'=>'padding: 5px 8px;'));
         ?>
-        
+
         <div class="block top"></div>
-       
+
         <?php
         echo $this->Form->end();
 
@@ -47,7 +48,7 @@
                             </div>
                             <div class="result-right">
 
-                                <strong><?php echo $this->Html->link($content['Content']['title'], 
+                                <strong><?php echo $this->Html->link($content['Content']['title'],
                                         $content['Content']['url']); ?> </strong>
 
                                 <div class="tease">
@@ -56,7 +57,7 @@
                                                     $content['Content']['body'], 180, array('html' => true))); ?>
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                     <?php endforeach; ?>
                 </div>
             <?php

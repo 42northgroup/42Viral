@@ -45,7 +45,8 @@ class PostsController extends AppController {
      */
     public $helpers = array(
         'Profile',
-        'Tags.TagCloud'
+        'Tags.TagCloud',
+        'Asset'
     );
 
     /**
@@ -171,7 +172,6 @@ class PostsController extends AppController {
         }
 
         //Now that we have saved the data, grab the latest copy and repopulate the page
-        //$this->data = $this->Post->getPostWith($id, 'edit');
         $this->data = $this->Post->find('first', array(
 			'conditions' => array(
                 'or' => array(
@@ -235,8 +235,16 @@ class PostsController extends AppController {
      */
     public function short_cut($shortCut) {
 
-        //@@ is this supposed to be getPostWith?
-        $post = $this->Post->getPageWith($shortCut, 'nothing');
+        $post = $this->Post->find('first', array(
+        	'conditions' => array(
+                'or' => array(
+                    'Post.id' => $shortCut,
+                    'Post.slug' => $shortCut,
+                    'Post.short_cut' => $shortCut
+                )
+            ),
+            'contain' => array()
+        ));
 
         //Avoid Google duplication penalties by using a 301 redirect
         $this->redirect($post['Post']['canonical'], 301);
@@ -252,7 +260,6 @@ class PostsController extends AppController {
     public function view($slug) {
         $mine = false;
 
-        //$post = $this->Post->getPostWith($slug, 'standard');
         $post = $this->Post->find('first', array(
 			'conditions' => array(
                 'or' => array(

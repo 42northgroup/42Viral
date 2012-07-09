@@ -31,31 +31,6 @@ class Page extends Content
     public $name = 'Page';
 
     /**
-     * Predefined data sets
-     * @access public
-     * @var array
-     */
-    public $dataSet = array(
-
-        'edit' => array(
-            'contain' =>    array(
-                'Tag'=>array(),
-                'Sitemap'=>array()
-            ),
-            'conditions'=>array()
-        ),
-        'nothing'=>array(
-            'contain'=>array(),
-            'conditions' => array()
-        ),
-        'public'=>array(
-            'contain'=>array(
-                'Tag'=>array()
-            ),
-            'conditions' => array('Page.status'=>array('archived', 'published'))
-        )
-    );
-    /**
      * Defines the default has one data associations for all content
      * @access public
      * @var array
@@ -118,42 +93,5 @@ class Page extends Content
         $queryData['conditions'] = array_merge($queryData['conditions'], $pageFilter);
 
         return $queryData;
-    }
-
-    /**
-     * Returns a given page based on a given token and a with(query) array
-     * @access public
-     * @param string $token
-     * @param string $with
-     * @return array
-     */
-    public function getPageWith($token, $with = 'public'){
-
-        $theToken = array(
-            'conditions'=>array('or' => array(
-                'Page.id' => $token,
-                'Page.slug' => $token,
-                'Page.short_cut' => $token
-            ))
-        );
-
-        $finder = array_merge($this->dataSet[$with], $theToken);
-        $page = $this->find('first', $finder);
-
-        return $page;
-    }
-
-    /**
-     * Depricated - not used
-     * Returns a given page based predefinded conditions
-     * @access public
-     * @param string $with
-     * @return array
-     */
-    public function fetchPagesWith($with = 'public'){
-        $finder = $this->dataSet[$with];
-
-        $pages = $this->find('all', $finder);
-        return $pages;
     }
 }
