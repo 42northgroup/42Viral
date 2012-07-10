@@ -19,3 +19,9 @@
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
 	url = https://github.com/42northgroup/CakePHP-Audit-Log-Plugin
+[submodule "Plugin/ResumeWizard"]
+	path = Plugin/ResumeWizard
+	url = git@github.com:microtrain/42Viral-ResumeWizard-Plugin.git
+[submodule "Plugin/JobSearch"]
+	path = Plugin/JobSearch
+	url = git@github.com:microtrain/42Viral-JobSearch-Plugin.git

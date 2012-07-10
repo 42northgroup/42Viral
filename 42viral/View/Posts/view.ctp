@@ -87,6 +87,13 @@ App::uses('Scrub', 'Lib')
                         'url' => "/posts/delete/{$post['Post']['id']}",
                         'options'=>array(),
                         'confirm'=>Configure::read('System.purge_warning')
+                    ),
+                    array(
+                        'text' => __('Restore Points'),
+                        'url' => "/restore_points/restore_point_list/{$post['Post']['id']}/",
+                        'options'=>array(),
+                        'confirm'=>null
+                        //'session_check'=>'Auth.User.employee:1'
                     )
                 );
 

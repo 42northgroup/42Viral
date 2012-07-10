@@ -360,6 +360,19 @@ switch($section){
                         'pages:admin_edit'
                     ),
                     //'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Restore Points'),
+                    'url' => "/restore_points/restore_point_list/{$pageId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array(
+                    	'pages:index',
+                    	'pages:admin_index',
+                    	'pages:admin_create',
+                    	'pages:admin_edit'
+                    ),
+                    //'session_check'=>'Auth.User.employee:1'
                 )
             )
         );
@@ -409,9 +422,35 @@ switch($section){
                         'blogs:edit'
                     ),
                     //'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Restore Points'),
+                    'url' => "/restore_points/restore_point_list/{$blogId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('index', 'create', 'edit'),
+                    'session_check'=>'Auth.User.employee:1'
                 )
             )
         );
+    break;
+
+    case 'restore_point':
+
+        $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
+
+        $label = 'Restore Point';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Restore'),
+                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                )
+            )
+        );
+
     break;
 
     case 'admin':
@@ -521,6 +560,3 @@ if(!empty($pluginItems)){
 
 
 echo $this->Menu->side($menu);
-
-
-

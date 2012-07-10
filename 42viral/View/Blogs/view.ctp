@@ -90,6 +90,13 @@ App::uses('Scrub', 'Lib');
                         'url' => "/blogs/delete/{$blog['Blog']['id']}",
                         'options'=>array(),
                         'confirm'=>Configure::read('System.purge_warning')
+                    ),
+                    array(
+                        'text' => __('Restore Points'),
+                        'url' => "/restore_points/restore_point_list/{$blog['Blog']['id']}/",
+                        'options'=>array(),
+                        'confirm'=>null
+                        //'session_check'=>'Auth.User.employee:1'
                     )
                 );
 
