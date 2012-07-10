@@ -53,6 +53,7 @@ class AppController extends Controller
         'Asset',
         'Form',
         'Html',
+        'Menu',
         'Paginator',
         'Profile',
         'Session',
