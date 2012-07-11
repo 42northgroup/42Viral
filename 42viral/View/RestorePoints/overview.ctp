@@ -46,7 +46,7 @@ App::uses('Scrub', 'Lib');
     </div>
     <div class="one-third column omega">
         <?php echo $this->element('Navigation' . DS . 'menus',
-            array('section'=>strtolower($restore_point['RestorePoint']['model'])));
+            array('section'=>strtolower($restore_model)));
         ?>
     </div>
 </div>

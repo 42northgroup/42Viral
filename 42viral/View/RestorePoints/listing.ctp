@@ -29,11 +29,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                <?php foreach($restore_points as $point): ?>
+                <?php
+                    //We are removing the last restore point as it is the current state of the object.
+                    //Restoring to the current state does not make any sense.
+                    $rp_count = count($restore_points);
+                    $i = 1;
+                    foreach($restore_points as $point):
+                        if ($i < $rp_count) :
+                ?>
 							<tr>
 								<td>
 								    <a
-						href="/restore_points/restore_point_overview/<?php echo $point['RestorePoint']['id']; ?>">
+						href="/restore_points/overview/<?php echo $point['RestorePoint']['id']; ?>">
 						<?php echo $point['RestorePoint']['created']; ?>
 								    </a>
 								</td>
@@ -47,7 +54,7 @@
 								    <?php
 								        if (strtoupper($point['RestorePoint']['event']) == 'CREATE') {
 								            echo 'Record Created';
-								        }
+								        } //Delete audit can show up if object manually restored after delete.
 								        elseif (strtoupper($point['RestorePoint']['event']) == 'DELETE') {
 								            echo 'Record Removed';
 								        }
@@ -64,7 +71,11 @@
 								    ?>
 								</td>
 							</tr>
-                <?php endforeach; ?>
+                <?php
+                        endif;
+                        $i++;
+                    endforeach;
+                ?>
 						</tbody>
 					</table>
             <?php else: ?>
@@ -79,7 +90,7 @@
     </div>
     <div class="one-third column omega">
         <?php echo $this->element('Navigation' . DS . 'menus',
-            array('section'=>strtolower($point['RestorePoint']['model'])));
+            array('section'=>strtolower($restore_model)));
         ?>
     </div>
 </div>

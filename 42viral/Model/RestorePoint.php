@@ -44,8 +44,6 @@ class RestorePoint extends AppModel
      * @var array
      */
     public $actsAs = array(
-
-        //@@ May need to adjust this
         'Scrubable'=>array(
             'Filters'=>array(
                 'trim'=>'*',
@@ -88,5 +86,26 @@ class RestorePoint extends AppModel
      * @access public
      */
     public $validate = array();
+
+    /**
+     * Returns the requested restore point for restoring an objects previous state.
+     *
+     * @access public
+     * @param $id string - ID of the audit log entry.
+     */
+    public function getRestorePoint($id) {
+        return $this->find('first', array(
+            'conditions' => array(
+                'RestorePoint.id' => $id
+            ),
+            'fields' => array(
+                'RestorePoint.id',
+                'RestorePoint.model',
+            	'RestorePoint.entity_id',
+                'RestorePoint.json_object'
+            ),
+            'contain' => array()
+        ));
+    }
 
 }

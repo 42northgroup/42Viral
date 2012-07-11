@@ -371,7 +371,7 @@ switch($section){
                 ),
                 array(
                     'text' => __('Restore Points'),
-                    'url' => "/restore_points/restore_point_list/{$pageId}/",
+                    'url' => "/restore_points/listing/page/{$pageId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array(
@@ -379,17 +379,17 @@ switch($section){
                     	'pages:admin_index',
                     	'pages:admin_create',
                     	'pages:admin_edit',
-                        'restore_points:restore_point_list',
-                        'restore_points:restore_point_overview'
+                        'restore_points:listing',
+                        'restore_points:overview'
                     ),
                     //'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
                     'text' => __('Restore'),
-                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'url' => "/restore_points/restore/{$restoreId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions'=>array('restore_points:restore_point_overview'),
+                    'actions'=>array('restore_points:overview'),
                     //'session_check'=>'Auth.User.employee:1'
                 )
             )
@@ -450,24 +450,24 @@ switch($section){
                 ),
                 array(
                     'text' => __('Restore Points'),
-                    'url' => "/restore_points/restore_point_list/{$blogId}/",
+                    'url' => "/restore_points/listing/blog/{$blogId}/",
                     'options'=>array(),
                     'confirm'=>null,
                     'actions_exclude'=>array(
                     	'blogs:index',
                     	'blogs:create',
                     	'blogs:edit',
-                    	'restore_points:restore_point_list',
-                    	'restore_points:restore_point_overview'
+                    	'restore_points:listing',
+                    	'restore_points:overview'
                     )
                     //'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
                     'text' => __('Restore'),
-                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'url' => "/restore_points/restore/{$restoreId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions'=>array('restore_points:restore_point_overview')
+                    'actions'=>array('restore_points:overview')
                     //'session_check'=>'Auth.User.employee:1'
                 )
             )
@@ -489,25 +489,11 @@ switch($section){
                     'actions_exclude'=>array('posts:index')
                 ),
                 array(
-                    'text' => __('Restore Points'),
-                    'url' => "/restore_points/restore_point_list/{$postId}/",
-                    'options'=>array(),
-                    'confirm'=>null,
-                    'actions_exclude'=>array(
-                    	'posts:index',
-                    	'posts:create',
-                    	'posts:edit',
-                    	'restore_points:restore_point_list',
-                    	'restore_points:restore_point_overview'
-                    )
-                    //'session_check'=>'Auth.User.employee:1'
-                ),
-                array(
                     'text' => __('Restore'),
-                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'url' => "/restore_points/restore/{$restoreId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions'=>array('restore_points:restore_point_overview'),
+                    'actions'=>array('restore_points:overview'),
                     //'session_check'=>'Auth.User.employee:1'
                 )
             )

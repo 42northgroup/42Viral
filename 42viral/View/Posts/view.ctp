@@ -90,7 +90,7 @@ App::uses('Scrub', 'Lib')
                     ),
                     array(
                         'text' => __('Restore Points'),
-                        'url' => "/restore_points/restore_point_list/{$post['Post']['id']}/",
+                        'url' => "/restore_points/listing/post/{$post['Post']['id']}/",
                         'options'=>array(),
                         'confirm'=>null
                         //'session_check'=>'Auth.User.employee:1'

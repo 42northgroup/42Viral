@@ -68,7 +68,7 @@ App::uses('AppController', 'Controller');
      * @access public
      * @param string $id - ID of the object to list restore points.
      */
-    function restore_point_list ($id) {
+    function listing ($model, $id) {
         $restorePoints = $this->RestorePoint->find('all', array(
             'conditions' => array(
                 'RestorePoint.entity_id' => $id
@@ -83,6 +83,7 @@ App::uses('AppController', 'Controller');
         }
         else {
             $this->set('restore_points', $restorePoints);
+            $this->set('restore_model', $model);
         }
 
         $this->set('title_for_layout', 'Restore Points');
@@ -94,19 +95,8 @@ App::uses('AppController', 'Controller');
      * @access public
      * @param string $id - ID of the restore point to compare to the current object state.
      */
-    function restore_point_overview ($id) {
-        $restorePoint = $this->RestorePoint->find('first', array(
-            'conditions' => array(
-                'RestorePoint.id' => $id
-            ),
-            'fields' => array(
-                'RestorePoint.id',
-                'RestorePoint.model',
-            	'RestorePoint.entity_id',
-                'RestorePoint.json_object'
-            ),
-            'contain' => array()
-        ));
+    function overview ($id) {
+        $restorePoint = $this->RestorePoint->getRestorePoint($id);
 
         if ($restorePoint === false) {
             $this->Session->setFlash(__('Could not access restore point.'), 'error');
@@ -125,19 +115,8 @@ App::uses('AppController', 'Controller');
      * @access public
      * @param string $id - ID of the restore point to restore the object.
      */
-    function restore_point_restore ($id) {
-        $restorePoint = $this->RestorePoint->find('first', array(
-            'conditions' => array(
-                'RestorePoint.id' => $id
-            ),
-            'fields' => array(
-                'RestorePoint.id',
-                'RestorePoint.model',
-                'RestorePoint.entity_id',
-                'RestorePoint.json_object'
-            ),
-            'contain' => array()
-        ));
+    function restore ($id) {
+        $restorePoint = $this->RestorePoint->getRestorePoint($id);
 
         if ($restorePoint === false) {
             $this->Session->setFlash(__('Could not access restore point for restoration.'), 'error');

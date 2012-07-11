@@ -93,7 +93,7 @@ App::uses('Scrub', 'Lib');
                     ),
                     array(
                         'text' => __('Restore Points'),
-                        'url' => "/restore_points/restore_point_list/{$blog['Blog']['id']}/",
+                        'url' => "/restore_points/listing/blog/{$blog['Blog']['id']}/",
                         'options'=>array(),
                         'confirm'=>null
                         //'session_check'=>'Auth.User.employee:1'
