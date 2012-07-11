@@ -122,40 +122,6 @@ class Content extends AppModel
     /**
      * Defines various types of content
      *
-     * - tags
-     *     public - This is used to restrict publication status options such as draft from appearing on public pages
-     * such as search results.
-     *
-     * @access private
-     * @var array
-     */
-    private $__listPublicationStatuses = array(
-        'draft'=>array(
-            'label'=>'Draft',
-            '_ref'=>'draft',
-            '_inactive'=>false,
-            'category'=>'',
-            'tags'=>array()
-        ),
-        'published'=>array(
-            'label'=>'Published',
-            '_ref'=>'published',
-            '_inactive'=>false,
-            'category'=>'',
-            'tags'=>array('public')
-        ),
-        'archived'=>array(
-            'label'=>'Archived',
-            '_ref'=>'Archived',
-            '_inactive'=>false,
-            'category'=>'',
-            'tags'=>array('public')
-        )
-    );
-
-    /**
-     * Defines various types of content
-     *
      * @access private
      * @var array
      */
@@ -305,19 +271,6 @@ class Content extends AppModel
      */
     public function listContentTypes($tags = null, $category = null, $categories = false){
         return $this->_listParser($this->__listContentTypes, $tags, $category, $categories);
-    }
-
-    /**
-     * Returns a key to value publication statuses. This list can be flat, categorized or a partial list based on tags.
-     * @access public
-     * @param array $list
-     * @param array $tags
-     * @param string $catgory
-     * @param boolean $categories
-     * @return array
-     */
-    public function listPublicationStatus($tags = null, $category = null, $categories = false){
-        return $this->_listParser($this->__listPublicationStatuses, $tags, $category, $categories);
     }
 
     /**

@@ -185,6 +185,40 @@ class AppModel extends Model
         )
     );
 
+    /**
+     * Defines various types of data/content
+     *
+     * - tags
+     *     public - This is used to restrict publication status options such as draft from appearing on public pages
+     * such as search results.
+     *
+     * @access private
+     * @var array
+     */
+    private $__listPublicationStatuses = array(
+        'draft'=>array(
+            'label'=>'Draft',
+            '_ref'=>'draft',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array()
+        ),
+        'published'=>array(
+            'label'=>'Published',
+            '_ref'=>'published',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array('public')
+        ),
+        'archived'=>array(
+            'label'=>'Archived',
+            '_ref'=>'Archived',
+            '_inactive'=>false,
+            'category'=>'',
+            'tags'=>array('public')
+        )
+    );
+
 //// Picklist setters ////
     /**
      * Returns a key to value action types. This list can be flat, categorized or a partial list based on tags.
@@ -211,6 +245,19 @@ class AppModel extends Model
      */
     public function listCommentEngines($tags = null, $category = null, $categories = false){
         return $this->_listParser($this->__listCommentEngines, $tags, $category, $categories);
+    }
+
+    /**
+     * Returns a key to value publication statuses. This list can be flat, categorized or a partial list based on tags.
+     * @access public
+     * @param array $list
+     * @param array $tags
+     * @param string $catgory
+     * @param boolean $categories
+     * @return array
+     */
+    public function listPublicationStatus($tags = null, $category = null, $categories = false){
+        return $this->_listParser($this->__listPublicationStatuses, $tags, $category, $categories);
     }
 
     /**
