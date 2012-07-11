@@ -29,23 +29,8 @@ class MenuHelper extends AppHelper
      */
     public $helpers = array('Html' ,'Session');
 
-    public function side($menu){
+    public function side($menu , $section = null){
 
-        //find all of the plugins with a menu file
-/*
-        $menuElementPath = 'View' . DS . 'Elements' . DS . 'menus.ctp';
-        foreach(App::path('Plugin') as $pluginPath){
-            foreach(scandir($pluginPath) as $plugin){
-                if(is_file($pluginPath . $plugin . DS . $menuElementPath)){
-                    echo $plugin;
-                    // Create inject_menus.ctp
-                    // specify a section in menus.ctp - Main file
-                    //// Add the navigation arrays
-                    //// merge
-                }
-            }
-        }
-*/
         $menuDisplay = "<div class=\"column-block\">";
 
         //If this menu has a label, wrap it in h4 tags

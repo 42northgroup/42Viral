@@ -15,6 +15,9 @@
 //Provides an array of meta ata for building menus
 $menu = array();
 
+//initialize an array of items comming in from a plugin
+$pluginItems = array();
+
 //Configure menus
 
 switch($section){
@@ -496,8 +499,28 @@ switch($section){
     break;
 }
 
+//Add any additional items to the menu array
 if(isset($additional)){
     $menu['Items'] = array_merge($menu['Items'], $additional);
 }
 
+//Do any plugins want to use the navigation?
+$pluginMenuElementPath = 'View' . DS . 'Elements' . DS . 'menu_injection.ctp';
+foreach(App::path('Plugin') as $pluginPath){
+    foreach(scandir($pluginPath) as $plugin){
+        if(is_file($pluginPath . $plugin . DS . $pluginMenuElementPath)){
+            $pluginVars = unserialize($this->element("{$plugin}.menu_injection",array('section'=>$section)));
+            $pluginItems = $pluginVars['pluginItems'];
+        }
+    }
+}
+
+if(!empty($pluginItems)){
+    $menu['Items'] = array_merge($menu['Items'], $pluginItems);
+}
+
+
 echo $this->Menu->side($menu);
+
+
+
