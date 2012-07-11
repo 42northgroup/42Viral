@@ -12,23 +12,24 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('Scrub', 'Lib')
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
 <div class="row">
-    
+
     <div class="two-thirds column alpha">
-        <?php 
+        <?php
             switch($post['Post']['syntax']):
                 case 'markdown':
                     //Parse the markdown to HTML
                     //Make sure clever hackers haven't found a way to turn clean markdown into evil HTML
-                    echo Scrub::htmlMedia(Utility::markdown($post['Post']['body'])); 
+                    echo Scrub::htmlMedia(Utility::markdown($post['Post']['body']));
                 break;
 
                 default:
-                    echo $post['Post']['body']; 
-                break;        
+                    echo $post['Post']['body'];
+                break;
             endswitch;
         ?>
 
@@ -61,15 +62,15 @@
 
         <?php echo $this->element('Posts' . DS . 'post_comments'); ?>
     </div>
-    
+
     <div class="one-third column omega">
         <?php echo $this->element('Blocks' . DS . 'hcard', array('userProfile'=>$userProfile, 'allOpen'=>false)); ?>
-        
+
         <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'profile')); ?>
-        
+
         <?php echo $this->element('Blocks' . DS . 'tag_cloud'); ?>
-        
-        <?php 
+
+        <?php
             //Privides navigation for manageing an asset
             if($mine):
 
@@ -86,13 +87,13 @@
                         'url' => "/posts/delete/{$post['Post']['id']}",
                         'options'=>array(),
                         'confirm'=>Configure::read('System.purge_warning')
-                    )                
+                    )
                 );
-                        
+
                 echo $this->element('Navigation' . DS . 'menus', array('section'=>'post', 'additional'=>$additional));
-                
-            endif; 
+
+            endif;
         ?>
     </div>
-    
+
 </div>

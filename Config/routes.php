@@ -40,7 +40,7 @@ Router::connect('/post/:slug', array('controller' => 'posts', 'action' => 'view'
 Router::connect('/p/:username',
         array('controller' => 'profiles', 'action' => 'view'), array('pass' => array('username')));
 
-Router::parseExtensions();
+Router::parseExtensions('rss');
 
 /**
  * Load all plugin routes.  See the CakePlugin documentation on
