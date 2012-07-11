@@ -1,9 +1,6 @@
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
 	url = git@github.com:42northgroup/tags.git
-[submodule "Plugin/Migrations"]
-	path = Plugin/Migrations
-	url = git@github.com:42northgroup/migrations.git
 [submodule "Plugin/Search"]
 	path = Plugin/Search
 	url = git@github.com:42northgroup/search.git
@@ -19,9 +16,3 @@
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
 	url = https://github.com/42northgroup/CakePHP-Audit-Log-Plugin
-[submodule "Plugin/ResumeWizard"]
-	path = Plugin/ResumeWizard
-	url = git@github.com:microtrain/42Viral-ResumeWizard-Plugin.git
-[submodule "Plugin/JobSearch"]
-	path = Plugin/JobSearch
-	url = git@github.com:microtrain/42Viral-JobSearch-Plugin.git
