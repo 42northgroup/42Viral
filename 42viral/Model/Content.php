@@ -67,6 +67,7 @@ class Content extends AppModel
         'Tags.Taggable'
 
     );
+
     /**
      * belongsTo ralationship
      *
@@ -81,6 +82,7 @@ class Content extends AppModel
             'dependent' => true
         )
     );
+
     /**
      * Defines various types of content. These are the object_type's for the Content model.
      * @access private

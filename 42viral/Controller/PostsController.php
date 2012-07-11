@@ -299,7 +299,8 @@ class PostsController extends AppController {
         $userProfile['Person'] = $post['CreatedPerson'];
         $userProfile['Profile'] = $post['CreatedPerson']['Profile'];
         $this->set('userProfile', $userProfile);
-
+        $this->set('menuPerson', $userProfile);
+        
         $this->set('title_for_layout', $post['Post']['title']);
         $this->set('canonical_for_layout', $post['Post']['canonical']);
 

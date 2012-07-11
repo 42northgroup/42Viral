@@ -72,6 +72,7 @@ App::uses('Scrub', 'Lib');
     </div>
     <div class="one-third column omega">
     <?php
+            $additional = array();
 
             //Privides navigation for manageing an asset
             if($mine):
@@ -89,15 +90,30 @@ App::uses('Scrub', 'Lib');
                         'url' => "/blogs/delete/{$blog['Blog']['id']}",
                         'options'=>array(),
                         'confirm'=>Configure::read('System.purge_warning')
+                    ),
+                    array(
+                        'text' => __('Restore Points'),
+                        'url' => "/restore_points/restore_point_list/{$blog['Blog']['id']}/",
+                        'options'=>array(),
+                        'confirm'=>null
+                        //'session_check'=>'Auth.User.employee:1'
                     )
                 );
 
-                echo $this->element('Navigation' . DS . 'menus',
+            endif;
+
+            array_push($additional, array(
+                'text' => 'rss',
+                'url' => "/blog/{$blog['Blog']['slug']}.rss",
+                'options'=>array(),
+                'confirm'=>''
+            ));
+
+            echo $this->element('Navigation' . DS . 'menus',
                             array('section'=>'post',
                                 'additional'=>$additional
                             )
                         );
-            endif;
 
         ?>
     </div>

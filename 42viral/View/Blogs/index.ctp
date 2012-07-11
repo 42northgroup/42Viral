@@ -38,6 +38,9 @@ App::uses('Scrub', 'Lib');
                                 <strong><?php echo $this->Html->link($blog['Blog']['title'],
                                         $blog['Blog']['url']); ?> </strong>
 
+                                <?php echo $this->Html->image('/img/graphics/icons/source/rss/rss16.png',
+                                        array('url' => $blog['Blog']['url'].'.rss', 'alt' => 'rss' )); ?>
+
                                 <div class="tease">
                                     <?php echo Scrub::noHtml(
                                             $this->Text->truncate(

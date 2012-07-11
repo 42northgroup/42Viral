@@ -1,9 +1,6 @@
 [submodule "Plugin/Tags"]
 	path = Plugin/Tags
 	url = git@github.com:42northgroup/tags.git
-[submodule "Plugin/Migrations"]
-	path = Plugin/Migrations
-	url = git@github.com:42northgroup/migrations.git
 [submodule "Plugin/Search"]
 	path = Plugin/Search
 	url = git@github.com:42northgroup/search.git

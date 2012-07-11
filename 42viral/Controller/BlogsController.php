@@ -158,6 +158,7 @@ class BlogsController extends AppController {
             )),
             'fields' => array(
                 'Blog.body',
+                'Blog.slug',
                 'Blog.canonical',
                 'Blog.created',
                 'Blog.created_person_id',
@@ -171,6 +172,20 @@ class BlogsController extends AppController {
         //Does the target blog exist
         if(empty($blog)){
            $this->redirect('/', '404');
+        }
+
+        if ($this->RequestHandler->isRss() ) {
+
+            $posts = $this->Post->find('all', array(
+                'conditions' => array(
+                    'Post.parent_content_id'=>$blog['Blog']['id'],
+                    'Post.status'=>array('archived', 'published')
+                ),
+                'limit' => 10,
+                'order' => 'Post.created DESC'
+            ));
+
+            return $this->set(compact('posts'));
         }
 
         //If we found the target blog, retrive an paginate its' posts

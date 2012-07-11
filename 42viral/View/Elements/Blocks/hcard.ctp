@@ -16,7 +16,8 @@
 App::uses('Handy', 'Lib');
 
 //Do we want the image label to provide this page's h1 tag?
-$tag = $h1?'h1':'span';
+$h1 = isset($h1)?$h1:false;
+$tag = ($h1)?'h1':'span';
 
 ?>
 <?php if(isset($hcardPerson)):?>
