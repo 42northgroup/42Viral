@@ -84,20 +84,6 @@ class Content extends AppModel
     );
 
     /**
-     * hasMany ralationship
-     *
-     * @var array
-     * @access public
-     */
-    public $hasMany = array(
-        'Tag' => array(
-            'className' => 'Tags.Tag', //careful with this. it's a plugin.
-            'foreignKey' => 'id',
-            'dependent' => true
-        )
-    );
-
-    /**
      * Defines various types of content. These are the object_type's for the Content model.
      * @access private
      * @var array

@@ -51,11 +51,15 @@
 								        elseif (strtoupper($point['RestorePoint']['event']) == 'DELETE') {
 								            echo 'Record Removed';
 								        }
-								        else {
-								            foreach ($point['AuditDelta'] as $delta) {
-								                $print_deltas[] = ucwords($delta['property_name']);
+								        elseif (isset($point['AuditDelta'])) {
+								            $index = count($point['AuditDelta'])-1;
+								            if ($point['AuditDelta'][$index]['property_name'] == 'title' ||
+								                $point['AuditDelta'][$index]['property_name'] == 'body') {
+								                echo ucwords($point['AuditDelta'][$index]['property_name']);
 								            }
-								            echo implode(', ', $print_deltas);
+								            else {
+								                echo 'Other';
+								            }
 								        }
 								    ?>
 								</td>
@@ -74,6 +78,8 @@
 
     </div>
     <div class="one-third column omega">
-        <?php //echo $this->element('Navigation' . DS . 'menus', array('section'=>'blog')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus',
+            array('section'=>strtolower($point['RestorePoint']['model'])));
+        ?>
     </div>
 </div>

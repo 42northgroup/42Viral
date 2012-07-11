@@ -19,14 +19,13 @@ App::uses('Scrub', 'Lib');
 <div class="row">
     <div class="two-thirds column alpha">
 
-        <?php if(!empty($restore_point)): ?>
-			<?php
-               if (!empty($restore_point['RestorePoint']['json_object'])) {
+        <?php
+            if(!empty($restore_point)) {
+                if (!empty($restore_point['RestorePoint']['json_object'])) {
                    $restored = json_decode($restore_point['RestorePoint']['json_object']);
                    echo '<h1>' . $restored->{$restore_model}->title . '</h1>';
                     switch($restored->{$restore_model}->syntax):
                         case 'markdown':
-                            //Parse the markdown to HTML
                             echo Scrub::htmlMedia(Utility::markdown($restored->{$restore_model}->body));
                         break;
 
@@ -34,18 +33,20 @@ App::uses('Scrub', 'Lib');
                             echo $restored->{$restore_model}->body;
                         break;
                     endswitch;
-               }
-			?>
-        <?php else: ?>
-            <div class="no-results">
-                <div class="no-results-message">
-                    <?php echo __("I'm sorry, there is no restore point to display."); ?>
+                }
+            }
+	        else { ?>
+                <div class="no-results">
+                    <div class="no-results-message">
+                        <?php echo __("I'm sorry, there is no restore point to display."); ?>
+                    </div>
                 </div>
-            </div>
-        <?php endif; ?>
+        <?php } ?>
 
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'restore_point')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus',
+            array('section'=>strtolower($restore_point['RestorePoint']['model'])));
+        ?>
     </div>
 </div>

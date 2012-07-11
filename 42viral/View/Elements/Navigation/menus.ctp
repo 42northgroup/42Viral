@@ -311,6 +311,7 @@ switch($section){
 
     case 'page':
         $pageId = isset($page['Page']['id'])?$page['Page']['id']:null;
+        $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
         $label = 'Page';
         $menu = array(
             'Items'=>array(
@@ -334,7 +335,11 @@ switch($section){
                     'url' => "/admin/pages/create/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('pages:admin_edit'),
+                    'actions_exclude'=>array(
+                    	'pages:admin_edit',
+                        'restore_points:restore_point_list',
+                        'restore_points:restore_point_overview'
+                    ),
                     //'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
@@ -345,7 +350,9 @@ switch($section){
                         'pages:index',
                         'pages:admin_create',
                         'pages:admin_edit',
-                        'pages:admin_index'
+                        'pages:admin_index',
+                        'restore_points:restore_point_list',
+                        'restore_points:restore_point_overview'
                     ),
                     'confirm'=>null,
                     //'session_check'=>'Auth.User.employee:1'
@@ -370,8 +377,18 @@ switch($section){
                     	'pages:index',
                     	'pages:admin_index',
                     	'pages:admin_create',
-                    	'pages:admin_edit'
+                    	'pages:admin_edit',
+                        'restore_points:restore_point_list',
+                        'restore_points:restore_point_overview'
                     ),
+                    //'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Restore'),
+                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions'=>array('restore_points:restore_point_overview'),
                     //'session_check'=>'Auth.User.employee:1'
                 )
             )
@@ -380,6 +397,7 @@ switch($section){
 
     case 'blog':
         $blogId = isset($blog['Blog']['id'])?$blog['Blog']['id']:null;
+        $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
         $label = 'Blog';
         $menu = array(
             'Items'=>array(
@@ -396,7 +414,11 @@ switch($section){
                     'url' => "/blogs/create/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('blogs:edit'),
+                    'actions_exclude'=>array(
+                    	'blogs:edit',
+                        'restore_points:restore_point_list',
+                        'restore_points:restore_point_overview'
+                    ),
                     //'session_check'=>'Auth.User.employee:1'
                 ),
                 array(
@@ -407,7 +429,9 @@ switch($section){
                         'blogs:index',
                         'blogs:create',
                         'blogs:edit',
-                        'blogs:index'
+                        'blogs:index',
+                        'restore_points:restore_point_list',
+                        'restore_points:restore_point_overview'
                     ),
                     'confirm'=>null,
                     //'session_check'=>'Auth.User.employee:1'
@@ -428,29 +452,64 @@ switch($section){
                     'url' => "/restore_points/restore_point_list/{$blogId}/",
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions_exclude'=>array('index', 'create', 'edit'),
-                    'session_check'=>'Auth.User.employee:1'
-                )
-            )
-        );
-    break;
-
-    case 'restore_point':
-
-        $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
-
-        $label = 'Restore Point';
-        $menu = array(
-            'Items'=>array(
+                    'actions_exclude'=>array(
+                    	'blogs:index',
+                    	'blogs:create',
+                    	'blogs:edit',
+                    	'restore_points:restore_point_list',
+                    	'restore_points:restore_point_overview'
+                    )
+                    //'session_check'=>'Auth.User.employee:1'
+                ),
                 array(
                     'text' => __('Restore'),
                     'url' => "/restore_points/restore_point_restore/{$restoreId}/",
                     'options'=>array(),
                     'confirm'=>null,
+                    'actions'=>array('restore_points:restore_point_overview')
+                    //'session_check'=>'Auth.User.employee:1'
                 )
             )
         );
+    break;
 
+    case 'post':
+        $postId = isset($post['Post']['id']) ? $post['Post']['id'] : null;
+        $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
+        $label = 'Post';
+        $menu = array(
+            'Items'=>array(
+                array(
+                    'text' => __('Posts'),
+                    'url' => "/blogs/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array('posts:index')
+                ),
+                array(
+                    'text' => __('Restore Points'),
+                    'url' => "/restore_points/restore_point_list/{$postId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions_exclude'=>array(
+                    	'posts:index',
+                    	'posts:create',
+                    	'posts:edit',
+                    	'restore_points:restore_point_list',
+                    	'restore_points:restore_point_overview'
+                    )
+                    //'session_check'=>'Auth.User.employee:1'
+                ),
+                array(
+                    'text' => __('Restore'),
+                    'url' => "/restore_points/restore_point_restore/{$restoreId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions'=>array('restore_points:restore_point_overview'),
+                    //'session_check'=>'Auth.User.employee:1'
+                )
+            )
+        );
     break;
 
     case 'admin':

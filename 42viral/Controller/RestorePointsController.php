@@ -160,7 +160,7 @@ App::uses('AppController', 'Controller');
             }
         }
 
-        $this->set('title_for_layout', 'Restore Point Restore');
+        $this->set('title_for_layout', 'Restore Point Restoration');
     }
 
 }
