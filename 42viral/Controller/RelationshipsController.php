@@ -374,4 +374,13 @@ App::uses('AppController', 'Controller');
 
         $this->redirect($this->referer());
     }
+
+    public function my_relationships()
+    {
+        $personId = $this->Session->read('Auth.User.id');
+        $myRealtionships = $this->Relationship->fetchProccessedRelationships($personId);
+        
+        $this->set('myRealtionships', $myRealtionships);
+        $this->set('title_for_layout', 'My Relationships');
+    }
 }

@@ -53,7 +53,13 @@ $userId = $this->Session->read('Auth.User.id');
                     <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
                     <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Relationships'),'/relationships/'); ?></div>
+                    <div class="navigation">
+                        <a href="#">Relationships</a>
+                        <div class="subnavigation">
+                            <?php echo $this->Html->link(__('Search People'),'/relationships/'); ?>
+                            <?php echo $this->Html->link(__('My Relationships'),'/relationships/my_relationships/'); ?>
+                        </div>
+                    </div>
                     <div class="navigation">
                         <?php
                         $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";

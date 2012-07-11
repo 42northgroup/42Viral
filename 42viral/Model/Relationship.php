@@ -62,10 +62,25 @@ class Relationship extends AppModel
                     'Relationship.person1_id' => $personId,
                     'Relationship.person2_id' => $personId
                 )
-            )
+            ),
+            'contain' => array()
         ));
 
         return $relationships;
+    }
+
+    public function fetchProccessedRelationships($personId)
+    {
+        $relationships = $this->find('all', array(
+            'conditions' => array(
+                'OR' => array(
+                    'Relationship.person1_id' => $personId,
+                    'Relationship.person2_id' => $personId
+                )
+            )
+        ));
+
+        return $this->processRelationships($personId, $relationships);
     }
 
     public function fetchPersonRelationshipsList($personId, $with = array())
@@ -82,7 +97,8 @@ class Relationship extends AppModel
                         'Relationship.person2_id' => $with
                     )
                 )
-            )
+            ),
+            'contain' => array()
         ));
 
         $count = count($relationships);
@@ -100,82 +116,121 @@ class Relationship extends AppModel
         return $relationships;
     }
 
-    public function fetchPersonRelationshipTypesList($personId, $with = array())
+    public function processRelationships($personId, $relationships)
     {
-        $relationships = $this->find('all', array(
-            'conditions' => array(
-                'OR' => array(
-                    'Relationship.person1_id' => $personId,
-                    'Relationship.person2_id' => $personId
-                )
-            )
-        ));
+        $processedRelationships = array();
 
-        $filtered['followed'] = array();
-        $filtered['following'] = array();
-        $filtered['friends'] = array();
-        $filtered['blocked'] = array();
-        $filtered['blocking'] = array();
-        $filtered['response_pending'] = array();
-        $filtered['request_pending'] = array();
+        foreach($relationships as $relationship){
 
-        $count = count($relationships);
+            if($relationship['Relationship']['person1_id'] == $personId){
 
-        for($i=0; $i < $count; $i++){
-            if($relationships[$i]['Relationship']['person1_id'] == $personId){
-                if($relationships[$i]['Relationship']['person1_to_person2_follow'] == 1){
-                    array_push($filtered['following'], $relationships[$i]);
+                $id = $relationship['Relationship']['person2_id'];
+                $processedRelationships[$id] = array();
+
+                if(isset($relationship['Person2'])){
+                    $processedRelationships[$id] = $relationship['Person2'];
+                }else{
+                    $processedRelationships[$id]['id'] = $id;
                 }
 
-                if($relationships[$i]['Relationship']['person2_to_person1_follow'] == 1){
-                    array_push($filtered['followed'], $relationships[$i]);
+                if($relationship['Relationship']['person1_to_person2_follow'] == 1){
+                    $processedRelationships[$id]['status']['following'] = 1;
+                    $processedRelationships[$id]['actions']['unfollow'] = '/relationships/unfollow/'.$id;
                 }
 
-                if($relationships[$i]['Relationship']['person1_to_person2_block'] == 1){
-                    array_push($filtered['blocking'], $relationships[$i]);
+                if($relationship['Relationship']['person2_to_person1_follow'] == 1){
+                    $processedRelationships[$id]['status']['follower'] = 1;
                 }
 
-                if($relationships[$i]['Relationship']['person2_to_person1_block'] == 1){
-                    array_push($filtered['blocked'], $relationships[$i]);
+                if($relationship['Relationship']['person1_to_person2_block'] == 1){
+                    $processedRelationships[$id]['status']['blocking'] = 1;
+                    $processedRelationships[$id]['actions']['unblock'] = '/relationships/unblock/'.$id;
+                }else{
+                    $processedRelationships[$id]['actions']['block'] = '/relationships/block/'.$id;
                 }
 
-                if($relationships[$i]['Relationship']['friends'] == 1){
-                    array_push($filtered['friends'], $relationships[$i]);
-                }
-            }else{
-                if($relationships[$i]['Relationship']['person2_to_person1_follow'] == 1){
-                    array_push($filtered['following'], $relationships[$i]);
+                if($relationship['Relationship']['person2_to_person1_block'] == 1){
+                    $processedRelationships[$id]['status']['blocked'] = 1;
                 }
 
-                if($relationships[$i]['Relationship']['person1_to_person2_follow'] == 1){
-                    array_push($filtered['followed'], $relationships[$i]);
+                if($relationship['Relationship']['friend_request'] != null){
+                    if($relationship['Relationship']['friend_request'] == $personId){
+                        $processedRelationships[$id]['status']['response_pending'] = 1;
+                    }else{
+                        $processedRelationships[$id]['status']['request_pending'] = 1;
+                        $processedRelationships[$id]['actions']['deny_friend_request'] =
+                                                                            '/relationships/deny_friend_request/'.$id;
+
+                        $processedRelationships[$id]['actions']['accept_friend_request'] =
+                                                                            '/relationships/accept_friend_request/'.$id;
+                    }
+                }else{
+                    if($relationship['Relationship']['friends'] == 1){
+                        $processedRelationships[$id]['status']['friends'] = 1;
+                        $processedRelationships[$id]['actions']['unfriend'] = '/relationships/unfriend/'.$id;
+                    }else{
+                        $processedRelationships[$id]['actions']['send_friend_request'] =
+                                                                            '/relationships/send_friend_request/'.$id;
+                    }
                 }
 
-                if($relationships[$i]['Relationship']['person2_to_person1_block'] == 1){
-                    array_push($filtered['blocking'], $relationships[$i]);
-                }
-
-                if($relationships[$i]['Relationship']['person1_to_person2_block'] == 1){
-                    array_push($filtered['blocked'], $relationships[$i]);
-                }
-
-                if($relationships[$i]['Relationship']['friends'] == 1){
-                    array_push($filtered['friends'], $relationships[$i]);
-                }
             }
 
-            if($relationships[$i]['Relationship']['friend_request'] == $personId){
-                array_push($filtered['response_pending'], $relationships[$i]);
-            }
+            if($relationship['Relationship']['person2_id'] == $personId){
 
-            if($relationships[$i]['Relationship']['friend_request'] != $personId
-                    && $relationships[$i]['Relationship']['friend_request'] != null){
-                array_push($filtered['request_pending'], $relationships[$i]);
-            }
+                $id = $relationship['Relationship']['person1_id'];
+                $processedRelationships[$id] = array();
 
-            unset($relationships[$i]);
+                if(isset($relationship['Person1'])){
+                    $processedRelationships[$id] = $relationship['Person1'];
+                }else{
+                    $processedRelationships[$id]['id'] = $id;
+                }
+
+                if($relationship['Relationship']['person2_to_person1_follow'] == 1){
+                    $processedRelationships[$id]['status']['following'] = 1;
+                    $processedRelationships[$id]['actions']['unfollow'] = '/relationships/unfollow/'.$id;
+                }
+
+                if($relationship['Relationship']['person1_to_person2_follow'] == 1){
+                    $processedRelationships[$id]['status']['follower'] = 1;
+                }
+
+                if($relationship['Relationship']['person2_to_person1_block'] == 1){
+                    $processedRelationships[$id]['status']['blocking'] = 1;
+                    $processedRelationships[$id]['actions']['unblock'] = '/relationships/unblock/'.$id;
+                }else{
+                    $processedRelationships[$id]['actions']['block'] = '/relationships/block/'.$id;
+                }
+
+                if($relationship['Relationship']['person1_to_person2_block'] == 1){
+                    $processedRelationships[$id]['status']['blocked'] = 1;
+                }
+
+                if($relationship['Relationship']['friend_request'] != null){
+                    if($relationship['Relationship']['friend_request'] == $personId){
+                        $processedRelationships[$id]['status']['response_pending'] = 1;
+                    }else{
+                        $processedRelationships[$id]['status']['request_pending'] = 1;
+                        $processedRelationships[$id]['actions']['accept_friend_request'] =
+                                                                            '/relationships/accept_friend_request/'.$id;
+
+                        $processedRelationships[$id]['actions']['deny_friend_request'] =
+                                                                            '/relationships/deny_friend_request/'.$id;
+                    }
+                }else{
+                    if($relationship['Relationship']['friends'] == 1){
+                        $processedRelationships[$id]['status']['friends'] = 1;
+                        $processedRelationships[$id]['actions']['unfriend'] = '/relationships/unfriend/'.$id;
+                    }else{
+                        $processedRelationships[$id]['actions']['send_friend_request'] =
+                                                                            '/relationships/send_friend_request/'.$id;
+                    }
+                }
+            }
         }
 
-        return $filtered;
+        return $processedRelationships;
+
     }
 }
