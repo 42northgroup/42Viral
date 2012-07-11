@@ -15,4 +15,4 @@
 	url = https://github.com/42northgroup/htmlpurifier.git
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
-	url = https://github.com/42northgroup/CakePHP-Audit-Log-Plugin
+	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
