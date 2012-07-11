@@ -223,8 +223,8 @@ switch($section){
         $userId = $this->Session->read('Auth.User.id');
 
         $menu = array(
+            'label' => 'Email Addresses',
             'Items'=>array(
-                'label' => 'Email Addresses',
                 array(
                     'text' => __('Your Email Addresses'),
                     'url' => "/email_addresses/index/person/{$userId}/",
@@ -256,8 +256,8 @@ switch($section){
         $profileId = $this->Session->read('Auth.User.Profile.id');
 
         $menu = array(
+            'label' => 'Settings',
             'Items'=>array(
-                'label' => 'Settings',
                 array(
                     'text' => __('Settings'),
                     'url' => "/user_settings/index/person/{$personId}/",
@@ -288,8 +288,8 @@ switch($section){
         $personId = $this->Session->read('Auth.User.id');
 
         $menu = array(
+            'label' => 'Uploads',
             'Items'=>array(
-                'label' => 'Uploads',
                 array(
                     'text' => __('Your Uploads'),
                     'url' => "/uploads/index/person/{$personId}/",
@@ -312,8 +312,9 @@ switch($section){
     case 'page':
         $pageId = isset($page['Page']['id'])?$page['Page']['id']:null;
         $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
-        $label = 'Page';
+        //$label = 'Page';
         $menu = array(
+            'label' => 'Page',
             'Items'=>array(
                 array(
                     'text' => __('Pages'),
@@ -398,10 +399,10 @@ switch($section){
     case 'blog':
         $blogId = isset($blog['Blog']['id'])?$blog['Blog']['id']:null;
         $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
-        $label = 'Blog';
+        //$label = 'Blog';
         $menu = array(
+            'label' => 'Blog',
             'Items'=>array(
-                'label' => 'Blog',
                 array(
                     'text' => __('Blogs'),
                     'url' => "/blogs/",
@@ -476,8 +477,9 @@ switch($section){
     case 'post':
         $postId = isset($post['Post']['id']) ? $post['Post']['id'] : null;
         $restoreId = isset($restore_point['RestorePoint']['id']) ? $restore_point['RestorePoint']['id'] : null;
-        $label = 'Post';
+        //$label = 'Post';
         $menu = array(
+            'label' => 'Post',
             'Items'=>array(
                 array(
                     'text' => __('Posts'),
