@@ -133,9 +133,14 @@ class Relationship extends AppModel
                     $processedRelationships[$id]['id'] = $id;
                 }
 
+                $processedRelationships[$id]['status'] = array();
+                $processedRelationships[$id]['actions'] = array();
+
                 if($relationship['Relationship']['person1_to_person2_follow'] == 1){
                     $processedRelationships[$id]['status']['following'] = 1;
                     $processedRelationships[$id]['actions']['unfollow'] = '/relationships/unfollow/'.$id;
+                }else{
+                    $processedRelationships[$id]['actions']['follow'] = '/relationships/follow/'.$id;
                 }
 
                 if($relationship['Relationship']['person2_to_person1_follow'] == 1){
@@ -174,6 +179,8 @@ class Relationship extends AppModel
                     }
                 }
 
+
+
             }
 
             if($relationship['Relationship']['person2_id'] == $personId){
@@ -187,9 +194,14 @@ class Relationship extends AppModel
                     $processedRelationships[$id]['id'] = $id;
                 }
 
+                $processedRelationships[$id]['status'] = array();
+                $processedRelationships[$id]['actions'] = array();
+
                 if($relationship['Relationship']['person2_to_person1_follow'] == 1){
                     $processedRelationships[$id]['status']['following'] = 1;
                     $processedRelationships[$id]['actions']['unfollow'] = '/relationships/unfollow/'.$id;
+                }else{
+                    $processedRelationships[$id]['actions']['follow'] = '/relationships/follow/'.$id;
                 }
 
                 if($relationship['Relationship']['person1_to_person2_follow'] == 1){

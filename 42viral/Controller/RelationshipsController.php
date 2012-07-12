@@ -256,6 +256,12 @@ App::uses('AppController', 'Controller');
                                                                                                             'success');
             }else{
                 $relationship['Relationship']['friend_request'] = $requester;
+
+                if($relationship['Relationship']['person1_id'] == $requester){
+                    $relationship['Relationship']['person1_to_person2_block'] = 0;
+                }else{
+                    $relationship['Relationship']['person2_to_person1_block'] = 0;
+                }
             }
         }else{
             $relationship['Relationship']['person1_id'] = $requester;
@@ -294,6 +300,13 @@ App::uses('AppController', 'Controller');
                 $this->Session->setFlash(_('This person has not sent a friend request for you to accept'), 'error');
 
             }else{
+
+                if($relationship['Relationship']['person1_id'] == $accepter){
+                    $relationship['Relationship']['person1_to_person2_block'] = 0;
+                }else{
+                    $relationship['Relationship']['person2_to_person1_block'] = 0;
+                }
+
                 $relationship['Relationship']['friend_request'] = null;
                 $relationship['Relationship']['friends'] = 1;
 
@@ -328,7 +341,7 @@ App::uses('AppController', 'Controller');
             if($relationship['Relationship']['friend_request'] != null){
 
                 $relationship['Relationship']['friend_request'] = null;
-                if($this->Relatioship->save($relationship)){
+                if($this->Relationship->save($relationship)){
                     $this->Session->setFlash(_('You have denied the friend request'), 'success');
                 }else{
                     $this->Session->setFlash(_('Friend request could not be denied'), 'success');
@@ -379,7 +392,7 @@ App::uses('AppController', 'Controller');
     {
         $personId = $this->Session->read('Auth.User.id');
         $myRealtionships = $this->Relationship->fetchProccessedRelationships($personId);
-        
+
         $this->set('myRealtionships', $myRealtionships);
         $this->set('title_for_layout', 'My Relationships');
     }

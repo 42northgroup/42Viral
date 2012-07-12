@@ -12,6 +12,7 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('ProfileUtil', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
@@ -23,9 +24,7 @@
         <table>
             <thead>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                    <th>Name</th>
                     <th>Relationship Status</th>
                     <th>Actions</th>
                 </tr>
@@ -34,27 +33,23 @@
                 <?php foreach($myRealtionships as $relationship): ?>
                 <tr>
                     <td>
-                        <?php echo $relationship['first_name'] ?>
+                        <?php echo $this->Html->link(ProfileUtil::name($relationship),
+                                '/p/'.$relationship['username']); ?>
                     </td>
                     <td>
-                        <?php echo $relationship['last_name'] ?>
-                    </td>
-                    <td>
-                        <?php echo $relationship['username'] ?>
-                    </td>
-                    <td>
-                        <?php
-                        foreach($relationship['status'] as $key => $val):
-                            echo Inflector::humanize($key).' | ';
-                        endforeach;
-                        ?>
+                        <?php echo implode(' | ', array_keys($relationship['status'])); ?>
                     </td>
 
                     <td>
-                        <?php foreach($relationship['actions'] as $key => $val): ?>
+                        <?php $firstKey = key($relationship['actions']);
+                        foreach($relationship['actions'] as $key => $val): ?>
+
+                        <?php echo $key!=$firstKey?' | ':''; ?>
+
                         <a href="<?php echo $val; ?>" >
                             <?php echo Inflector::humanize($key); ?>
-                        </a> | 
+                        </a>
+
                         <?php endforeach; ?>
                     </td>
                 </tr>

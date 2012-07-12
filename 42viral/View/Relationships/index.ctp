@@ -12,6 +12,7 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+App::uses('ProfileUtil', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 
@@ -40,9 +41,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Username</th>
+                                <th>Name</th>
                                 <th>Relationship Status</th>
                                 <th>Actions</th>
                             </tr>
@@ -52,15 +51,7 @@
 
                             <tr>
                                 <td>
-                                    <?php echo $person['Person']['first_name']!=null?
-                                                                        $person['Person']['first_name']:"N/A "; ?>
-                                </td>
-                                <td>
-                                    <?php echo $person['Person']['last_name']!=null?
-                                                                            $person['Person']['last_name']:"N/A"; ?>
-                                </td>
-                                <td>
-                                    <strong><?php echo $this->Html->link($person['Person']['username'],
+                                    <strong><?php echo $this->Html->link(ProfileUtil::name($person['Person']),
                                                 '/p/'.$person['Person']['username']); ?> </strong>
                                 </td>
                                 <td>
