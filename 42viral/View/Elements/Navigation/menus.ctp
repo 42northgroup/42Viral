@@ -12,7 +12,8 @@
  * @link          http://42viral.org 42Viral(tm)
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
-//Provides an array of meta ata for building menus
+
+//Provides an array of meta data for building menus
 $menu = array();
 
 //initialize an array of items comming in from a plugin
@@ -604,6 +605,5 @@ foreach(App::path('Plugin') as $pluginPath){
 if(!empty($pluginItems)){
     $menu['Items'] = array_merge($menu['Items'], $pluginItems);
 }
-
 
 echo $this->Menu->side($menu);

@@ -46,49 +46,7 @@ $userId = $this->Session->read('Auth.User.id');
                     <span class="icon-bar"></span>
                 </a>
             </div>
-
-            <?php if($this->Session->check('Auth.User.id')): ?>
-                <div id="Navigation">
-                    <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
-                    <div class="navigation">
-                        <a href="#">Relationships</a>
-                        <div class="subnavigation">
-                            <?php echo $this->Html->link(__('Search People'),'/relationships/'); ?>
-                            <?php echo $this->Html->link(__('My Relationships'),'/relationships/my_relationships/'); ?>
-                        </div>
-                    </div>
-                    <div class="navigation">
-                        <?php
-                        $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";
-                        echo $this->Html->link(__('Inbox') . $messageBadge, '/notifications/'); ?>
-                    </div>
-                    <div class="navigation">
-                        <a href="#">Share</a>
-                        <div class="subnavigation">
-                            <div><?php echo $this->Html->link(__('Socialize'), '/users/social_media/'); ?></div>
-                            <div><?php echo $this->Html->link(__('Create a blog'), '/blogs/create/'); ?></div>
-                            <div><?php echo $this->Html->link(__('Create a post'), '/posts/create/'); ?></div>
-                        </div>
-                    </div>
-                    <div class="navigation">
-
-                        <a href="<?php echo "/profiles/view/{$username}/"; ?>">My Account</a>
-                        <div class="subnavigation">
-                            <div><?php echo $this->Html->link(__('Invite a friend'), '/people/invite/'); ?></div>
-                            <div><?php echo $this->Html->link(__('Logout'), '/users/logout/'); ?></div>
-                        </div>
-                    </div>
-
-                </div>
-            <?php
-                echo $this->element('Navigation' . DS . 'menu_header');
-            else:
-                echo $this->element('Navigation' . DS . 'menu_header');
-            endif;
-            ?>
+            <?php echo $this->element('Navigation' . DS . 'menu_header'); ?>
         </div>
 
     </div>
