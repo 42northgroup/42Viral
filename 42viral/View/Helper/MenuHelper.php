@@ -131,7 +131,7 @@ class MenuHelper extends AppHelper
         // menu item
         if(isset($item['session_check'])):
             $chunks = explode(':', $item['session_check']);
-            if($this->Session->read($chunks[0]) != $chunks[1]):
+            if($this->Session->read($chunks[0]) != $chunks[1] && $chunks[1] != '*'):
                 unset($item);
             endif;
         endif;
