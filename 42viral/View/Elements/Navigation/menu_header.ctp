@@ -1,6 +1,8 @@
 <?php
 
-    if($this->Session->check('Auth.User.id')):
+$headerMenu = array();
+
+if($this->Session->check('Auth.User.id')):
 
     $username = $this->Session->read('Auth.User.username');
     $messageBadge = empty($unreadMessageCount)?'':" ({$unreadMessageCount})";
@@ -152,44 +154,4 @@ else:
 
 endif;
 
-$menuDisplay = "<div id=\"Navigation\">"; #1
-
-//Loop through this sections menu items
-foreach($headerMenu['Items'] as $item):
-
-    $item = $this->Menu->item($item);
-
-    //If $item is still set, show the link
-    if($item):
-        $menuDisplay .= "<div class=\"navigation\">"; #2
-            $menuDisplay .= $this->Html->link(
-                $item['text'],
-                $item['url'],
-                $item['options'],
-                $item['confirm']
-            );
-
-            if(isset($item['SubNavigation'])):
-                $menuDisplay .= "<div class=\"subnavigation\">"; #3
-                foreach($item['SubNavigation'] as $subItem):
-                    $subItem = $this->Menu->item($subItem);
-                    $menuDisplay .= "<div>"; #4
-                    $menuDisplay .= $this->Html->link(
-                        $subItem['text'],
-                        $subItem['url'],
-                        $subItem['options'],
-                        $subItem['confirm']
-                    );
-                    $menuDisplay .= "</div>"; #/4
-                endforeach;
-                $menuDisplay .= "</div>"; #/3
-            endif;
-
-        $menuDisplay .= "</div>"; #/2
-    endif;
-
-endforeach;
-
-$menuDisplay .= "</div>"; #/1
-
-echo $menuDisplay;
+echo serialize(array('headerMenu' => $headerMenu));

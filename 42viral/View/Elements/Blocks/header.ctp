@@ -39,6 +39,7 @@ $userId = $this->Session->read('Auth.User.id');
         </div>
 
         <div id="NavigationContainer">
+
             <div id="NavigationHeader">
                 <a id="NavigationTrigger" class="btn btn-navbar">
                     <span class="icon-bar"></span>
@@ -46,8 +47,64 @@ $userId = $this->Session->read('Auth.User.id');
                     <span class="icon-bar"></span>
                 </a>
             </div>
-            <?php echo $this->element('Navigation' . DS . 'menu_header'); ?>
-        </div>
 
+            <div id="Navigation">
+            <?php
+                $headerMenuVars = unserialize($this->element('Navigation' . DS . 'menu_header'));
+                $headerMenu = $headerMenuVars['headerMenu'];
+
+                //Do any plugins want to use the navigation?
+                $pluginMenuElementPath = 'View' . DS . 'Elements' . DS . 'menu_header_injection.ctp';
+                foreach(App::path('Plugin') as $pluginPath){
+                    foreach(scandir($pluginPath) as $plugin){
+                        if(is_file($pluginPath . $plugin . DS . $pluginMenuElementPath)){
+                            $pluginVars = unserialize($this->element("{$plugin}.menu_header_injection"));
+                            $pluginItems = $pluginVars['pluginItems'];
+                        }
+                    }
+                }
+
+                if(!empty($pluginItems)){
+                    $headerMenu['Items'] = array_merge($headerMenu['Items'], $pluginItems);
+                }
+
+                //Loop through this sections menu items
+                foreach($headerMenu['Items'] as $item):
+
+                    $item = $this->Menu->item($item);
+
+                    //If $item is still set, show the link
+                    if($item):
+                        echo "<div class=\"navigation\">"; #2
+                        echo $this->Html->link(
+                            $item['text'],
+                            $item['url'],
+                            $item['options'],
+                            $item['confirm']
+                        );
+
+                        if(isset($item['SubNavigation'])):
+                            echo "<div class=\"subnavigation\">"; #3
+                                foreach($item['SubNavigation'] as $subItem):
+                                    $subItem = $this->Menu->item($subItem);
+                                    echo "<div>"; #4
+                                    echo $this->Html->link(
+                                        $subItem['text'],
+                                        $subItem['url'],
+                                        $subItem['options'],
+                                        $subItem['confirm']
+                                    );
+                                    echo "</div>"; #/4
+                                endforeach;
+                            echo "</div>"; #/3
+                        endif;
+
+                    echo "</div>"; #/2
+                    endif;
+
+                endforeach;
+            ?>
+            </div>
+        </div>
     </div>
 </div>
