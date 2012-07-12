@@ -48,10 +48,14 @@ App::uses('AppController', 'Controller');
 
     /**
      * Helpers
+     *
      * @var array
      * @access public
      */
-    public $helpers = array();
+    public $helpers = array(
+        'Html',
+        'Session'
+    );
 
     /**
      * beforeFilter

@@ -541,6 +541,33 @@ switch($section){
         );
     break;
 
+    case 'note':
+        $noteId = isset($note['Note']['id']) ? $note['Note']['id'] : null;
+        //Make sure vars are at least null so we don't get notice messages.
+        $modelId = isset($modelId) ? $modelId : null;
+        $model = isset($model) ? $model : null;
+
+        $menu = array(
+            'label' => 'Notes',
+            'Items'=>array(
+                array(
+                    'text' => __('Go Back'),
+                    'url' => "/{$model}/{$modelId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions'=>array('notes:create')
+                ),
+                array(
+                    'text' => __('Delete'),
+                    'url' => "/notes/delete/{$noteId}/",
+                    'options'=>array(),
+                    'confirm'=>null,
+                    'actions'=>array('notes:edit')
+                )
+            )
+        );
+    break;
+
     case 'admin':
         if($this->Session->read('Auth.User.employee') == 1):
             $personId = $this->Session->read('Auth.User.id');
