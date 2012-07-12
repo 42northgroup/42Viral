@@ -83,16 +83,12 @@ $userId = $this->Session->read('Auth.User.id');
                     </div>
 
                 </div>
-            <?php else: ?>
-                <div id="Navigation">
-                    <div class="navigation"><?php echo $this->Html->link(__('Search'), '/searches/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Blogs'), '/blogs/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Profiles'), '/profiles/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Pages'), '/pages/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('New Account'), '/users/create/'); ?></div>
-                    <div class="navigation"><?php echo $this->Html->link(__('Login'), '/users/login/'); ?></div>
-                </div>
-            <?php endif; ?>
+            <?php
+                echo $this->element('Navigation' . DS . 'menu_header');
+            else:
+                echo $this->element('Navigation' . DS . 'menu_header');
+            endif;
+            ?>
         </div>
 
     </div>

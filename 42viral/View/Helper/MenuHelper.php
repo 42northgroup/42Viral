@@ -42,69 +42,7 @@ class MenuHelper extends AppHelper
                     //Loop through this sections menu items
                     foreach($menu['Items'] as $item):
 
-                        //check the inactive flag
-                        if(isset($item['inactive'])):
-                            if($item['inactive']):
-                                unset($item);
-                            endif;
-                        endif;
-
-                        //Removes all items that are not allowed for; or specified for this section. Lack of an actions
-                        //or actions_exclude array assume all actions to be allowed.
-                        if(isset($item['actions'])):
-                            $thisController = false;
-                            $thisAction = false;
-                            foreach($item['actions'] as $action):
-
-                                $chunks = explode(':', $action); //controller:action
-
-                                if($chunks[0] == $this->params['controller']): //filter the controller
-                                    $thisController = true;
-                                endif;
-
-                                if($chunks[1] == $this->params['action']): //filter the action
-                                    $thisAction = true;
-                                endif;
-
-                            endforeach;
-
-                            if(!$thisController || !$thisAction){
-                                unset($item);
-                            }
-
-                        endif;
-
-                        //Remove any items that are listed an "Not Showable" against a target actions
-                        if(isset($item['actions_exclude'])):
-
-                            foreach($item['actions_exclude'] as $exclude):
-                                $chunks = explode(':', $exclude); //controller:action
-                                if($chunks[0] == $this->params['controller']): //filter the controller
-                                    if($chunks[1] == $this->params['action'] || $chunks[1] == '*'): //filter the action
-                                        unset($item);
-                                    endif;
-                                endif;
-                            endforeach;
-
-                        endif;
-
-                        // Check Configure values, if the session check key does not match the desired value, unset the
-                        // menu item
-                        if(isset($item['configure_check'])):
-                            $chunks = explode(':', $item['configure_check']);
-                            if(Configure::read($chunks[0]) != $chunks[1]):
-                                unset($item);
-                            endif;
-                        endif;
-
-                        // Check Session values, if the session check key does not match the desired value, unset the
-                        // menu item
-                        if(isset($item['session_check'])):
-                            $chunks = explode(':', $item['session_check']);
-                            if($this->Session->read($chunks[0]) != $chunks[1]):
-                                unset($item);
-                            endif;
-                        endif;
+                        $item = $this->item($item);
 
                         //If $item is still set, show the link
                         if(isset($item)):
@@ -126,5 +64,79 @@ class MenuHelper extends AppHelper
         $menuDisplay .= "</div>";
 
         return $menuDisplay;
+    }
+
+    /**
+     * Validate a navigation item
+     * @param unknown_type $item
+     * @return Ambigous <boolean, unknown>
+     */
+    function item($item){
+
+        //check the inactive flag
+        if(isset($item['inactive'])):
+            if($item['inactive']):
+                unset($item);
+            endif;
+        endif;
+
+        //Removes all items that are not allowed for; or specified for this section. Lack of an actions
+        //or actions_exclude array assume all actions to be allowed.
+        if(isset($item['actions'])):
+            $thisController = false;
+            $thisAction = false;
+            foreach($item['actions'] as $action):
+
+                $chunks = explode(':', $action); //controller:action
+
+                if($chunks[0] == $this->params['controller']): //filter the controller
+                    $thisController = true;
+                endif;
+
+                if($chunks[1] == $this->params['action']): //filter the action
+                    $thisAction = true;
+                endif;
+
+            endforeach;
+
+            if(!$thisController || !$thisAction){
+                unset($item);
+            }
+
+        endif;
+
+        //Remove any items that are listed an "Not Showable" against a target actions
+        if(isset($item['actions_exclude'])):
+
+            foreach($item['actions_exclude'] as $exclude):
+                $chunks = explode(':', $exclude); //controller:action
+                if($chunks[0] == $this->params['controller']): //filter the controller
+                    if($chunks[1] == $this->params['action'] || $chunks[1] == '*'): //filter the action
+                        unset($item);
+                    endif;
+                endif;
+            endforeach;
+
+        endif;
+
+        // Check Configure values, if the session check key does not match the desired value, unset the
+        // menu item
+        if(isset($item['configure_check'])):
+            $chunks = explode(':', $item['configure_check']);
+            if(Configure::read($chunks[0]) != $chunks[1]):
+                unset($item);
+            endif;
+        endif;
+
+        // Check Session values, if the session check key does not match the desired value, unset the
+        // menu item
+        if(isset($item['session_check'])):
+            $chunks = explode(':', $item['session_check']);
+            if($this->Session->read($chunks[0]) != $chunks[1]):
+                unset($item);
+            endif;
+        endif;
+
+        return isset($item)?$item:false;
     }
 }
