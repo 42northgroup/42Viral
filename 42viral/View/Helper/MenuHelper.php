@@ -43,9 +43,8 @@ class MenuHelper extends AppHelper
                     foreach($menu['Items'] as $item):
 
                         $item = $this->item($item);
-
                         //If $item is still set, show the link
-                        if(isset($item)):
+                        if($item):
                             $menuDisplay .= $this->Html->link(
                                 $item['text'], $item['url'], $item['options'], $item['confirm']);
                         endif;
