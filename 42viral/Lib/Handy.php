@@ -17,7 +17,7 @@ App::uses('Session', 'Component');
 /**
  * Container for handy functions
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
- * @author Jason D Snider <jason.snider@42viral.org> 
+ * @author Jason D Snider <jason.snider@42viral.org>
  * @package 42viral\Lib
  */
 class Handy
@@ -41,81 +41,86 @@ class Handy
 
         return $arr;
     }
-    
+
     /**
      * A wrapper for PHP native date() function. This adds a validation check to prevent the date from falling back
      * to the epoch
-     * 
+     *
      * ### format:
      *
      * - `DATE` 02/25/2000
      * - `DATETIME` 02/25/2000 09:56 pm
      * - `TIME` 09:56 pm
      * - `REALTIME` 21:25:56:21
-     * - `MYSQL` 2000-02-25 21:25:56:21
-     * 
+     * - `MYSQL_TIMESTAMP` 2000-02-25 21:25:56:21
+     * - `MYSQL_DATE` 2000-02-25
+     *
      * @param int $time a unix time stamp
      * @param string $format DateTime format
-     * @param string $nullMessage the "Not Set" message 
+     * @param string $nullMessage the "Not Set" message
      * @return string either a formatted DateTime string or a "Not Set" message
      */
     public static function date($time, $format = 'DATETIME', $nullMessage = 'Not Set') {
-        
+
         $time = self::validTime($time);
-        
+
         //Deterime the format
         switch($format){
-            
+
             case 'DATE':
                 $format = 'm/d/y';
-            break;    
+            break;
 
             case 'DATETIME':
                 $format = 'm/d/y h:i a';
-            break;            
+            break;
 
             case 'TIME':
                 $format = 'h:i a';
-            break; 
+            break;
 
             case 'REALTIME':
                 $format = 'H:i:s';
-            break; 
-        
-            case 'MYSQL':
+            break;
+
+            case 'MYSQL_TIMESTAMP':
                 $format = 'Y-m-d H:i:s';
-            break;    
-            
+            break;
+
+            case 'MYSQL_DATE':
+                $format = 'Y-m-d';
+            break;
+
             default:
                 $format = $format;
-            break;    
+            break;
         }
-        
+
         if($time){
             return date($format, $time);
         }else{
             return $nullMessage;
         }
     }
-   
+
     /**
      * Prevents bad timestamps from defaulting to the epoch
      * @param string $time
-     * @return string 
-     * 
+     * @return string
+     *
      * @see http://stackoverflow.com/questions/2224097/prevent-php-date-from-defaulting-to-12-31-1969
      */
     public static function validTime($time)
-    { 
-        
+    {
+
         $time = strtotime($time);
-        
+
         $date = ($time === false) ? false : $time;
-        
+
         return $date;
-        
+
     }
-    
+
     /**
      * Generates a random string of a specified length and character set
      * @param integer $length The length of the string
@@ -123,37 +128,37 @@ class Handy
      * @param boolean $lower Add the a-z character set
      * @param boolean $numeric Add the numeric character set
      * @param boolean $special Add the special character set
-     * @return string 
+     * @return string
      */
     public static function random($length = 5, $upper = false, $lower = true, $numeric = true, $special = false){
-        
+
         $characters = '';
-        $string = ''; 
+        $string = '';
 
         if($numeric){
             $characters .= '0123456789';
         }
-        
+
         if($lower){
             $characters .= 'abcdefghijklmnopqrstuvwxyz';
         }
-        
+
         if($upper){
             $characters .= 'ABCDEFGHIKLMNOPQRSTUVWXYZ';
         }
-        
+
         if($special){
             $characters .= '!@#$%^&*()-_=+;:\'"<>,./?\\`~';
-        }        
-           
+        }
+
         $size = strlen( $characters );
         for( $i = 0; $i < $length; $i++ ) {
                 $string .= $characters[ rand( 0, $size - 1 ) ];
         }
-        
+
         return $string;
     }
-    
+
     /**
      * Truncates text.
      *
@@ -205,12 +210,12 @@ class Handy
                 }
                 $truncate .= $tag[1];
 
-                $contentLength = 
+                $contentLength =
                     mb_strlen(preg_replace('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', ' ', $tag[3]));
                 if ($contentLength + $totalLength > $length) {
                     $left = $length - $totalLength;
                     $entitiesLength = 0;
-                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities, 
+                    if (preg_match_all('/&[0-9a-z]{2,8};|&#[0-9]{1,7};|&#x[0-9a-f]{1,6};/i', $tag[3], $entities,
                                 PREG_OFFSET_CAPTURE)) {
                         foreach ($entities[0] as $entity) {
                             if ($entity[1] + 1 - $entitiesLength <= $left) {
@@ -286,38 +291,38 @@ class Handy
 
         }
     }
-    
+
     /**
      * Provides standard formatting for phone numbers
      * @param integer $phoneNumber
      * @param array $options
-     * @return string 
-     * 
+     * @return string
+     *
      * @todo How do we detect the system dialer?
      */
     function phoneNumber($phoneNumber, $options = array()){
-        
+
         $defaultOptions = array(
             'international' => false,
             'doNotCall'     => false
         );
-        
+
         $settings = array_merge($defaultOptions, $options);
-        
+
         //initialize $plusOne for international numbers
         $plusOne = null;
-        
+
         //detect the systems dialer
         $dialer = null;
-        
+
         //initialize the dialer protocol
         $protocol = null;
-        
+
         //if the person is flagged as DO NOT CALL then don't
         if($settings['doNotCall']) {
             return '<span class="grayed-out">Do not call</span>';
         }
-        
+
         //if the person is flagged as DO NOT CALL then don't
         if($settings['international']) {
             $plusOne = "+1";
@@ -328,7 +333,7 @@ class Handy
 
         //if we have a phone number, build the phone number string
         if ($phoneNumber != "") {
-            
+
             //Make sure we only have 10 digits
             if(strlen($phoneNumber > 10) && strpos($phoneNumber, '1') == 0) {
                 $phoneNumber = preg_replace('/^1/', '', $phoneNumber);
@@ -338,7 +343,7 @@ class Handy
             $num1 = substr($phoneNumber, 0, 3);
             $num2 = substr($phoneNumber, 3, 3);
             $num3 = substr($phoneNumber, 6, 4);
-            
+
             //check the settings to determine whether to use a protocol
             if($this->Session->read('Auth.User.Settings.phone_number_protocol_type') != null){
                 $protocol = $this->Session->read('Auth.User.Settings.phone_number_protocol');
@@ -346,16 +351,16 @@ class Handy
             }else{
                 return "<span class=\"tel\">({$num1}) {$num2}-{$num3}</span>";
             }
-            
+
         } else {
             return "N/A";
         }
-    }    
-    
+    }
+
     /**
     * Provides standard formatting for email
     * @param string $email
-    * @return string 
+    * @return string
     */
     function email($email){
 
@@ -364,8 +369,8 @@ class Handy
         } else {
             return "N/A";
         }
-    }  
-    
+    }
+
     /**
      * Detects weather you are usign a mobile browser or a standard one
      * @return boolean
@@ -374,17 +379,17 @@ class Handy
     {
         $mobile_browser = '0';
 
-        if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android)/i', 
+        if (preg_match('/(up.browser|up.link|mmp|symbian|smartphone|midp|wap|phone|android)/i',
             strtolower($_SERVER['HTTP_USER_AGENT']))) {
-            
+
             $mobile_browser++;
         }
 
-        if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') > 0) 
+        if ((strpos(strtolower($_SERVER['HTTP_ACCEPT']),'application/vnd.wap.xhtml+xml') > 0)
                 || ((isset($_SERVER['HTTP_X_WAP_PROFILE']) or isset($_SERVER['HTTP_PROFILE'])))) {
-            
+
             $mobile_browser++;
-        }    
+        }
 
         $mobile_ua = strtolower(substr($_SERVER['HTTP_USER_AGENT'], 0, 4));
         $mobile_agents = array(
@@ -415,13 +420,13 @@ class Handy
         }
         else {
            return false;
-        }   
-        
+        }
+
     }
-    
+
     /**
      * Generate a Lorem Ipsum string of a given length
-     * 
+     *
      * @access public
      * @static
      * @param integer $length Length of the required lorem ipsum string (default = 100 characters)

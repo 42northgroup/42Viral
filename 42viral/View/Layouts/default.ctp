@@ -22,40 +22,54 @@
         <?php
             echo $this->Html->meta('icon');
 
-            $this->Asset->addAssets(array(
-            	CURRENT_JQUERY,
-                CURRENT_MODERNIZR,
+            $this->Asset->addAssets(
+                array(
+                	'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery-1.7.2.js',
+                    'vendors' . DS . 'jquery-ui' . DS . 'js' . DS . 'jquery-ui-1.8.21.custom.min.js',
+                    'vendors' . DS . 'js' . DS . 'jquery-ui-timepicker-addon.js',
+                    'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
+                    'js' . DS . 'startup.js',
 
-                'js' . DS . 'startup.js',
+
+                    'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
+                    'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
+                    'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
+
+                    'css' . DS . 'cake.stripped.css',
+                    'css' . DS . 'basics.css',
 
 
-                'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
-                'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
-                'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
+                    'css' . DS . 'responsive-layout.css',
+                    'css' . DS . 'responsive-elements.css',
 
-                'css' . DS . 'cake.stripped.css',
-                'css' . DS . 'basics.css',
+                    'css' . DS . 'responsive-header.css',
+                    'css' . DS . 'responsive-navigation.css',
+                    'css' . DS . 'responsive-form.css',
 
-                'css' . DS . 'responsive-layout.css',
-                'css' . DS . 'responsive-elements.css',
+                    'css' . DS . 'hcard.css',
 
-                'css' . DS . 'responsive-header.css',
-                'css' . DS . 'responsive-navigation.css',
-                'css' . DS . 'responsive-form.css',
+                    'css' . DS . 'tables.css',
+                    'css' . DS . 'messages.css',
 
-                'css' . DS . 'hcard.css',
+                    'css' . DS . 'controls.css',
+                    'css' . DS . 'controls.social.css',
 
-                'css' . DS . 'tables.css',
-                'css' . DS . 'messages.css',
-
-                'css' . DS . 'controls.css',
-                'css' . DS . 'controls.social.css',
-
-                'css' . DS . 'fonts.css'
-            ));
+                    'css' . DS . 'fonts.css'
+                )
+            );
 
             echo $this->Asset->buildAssets('js');
             echo $this->Asset->buildAssets('css');
+
+            echo $this->Html->css(
+                array(
+                    DS . 'vendors' .
+                    DS . 'jquery-ui' .
+                    DS . 'css' .
+                    DS . 'ui-lightness' .
+                    DS . 'jquery-ui-1.8.21.custom.css'
+                )
+            );
         ?>
     </head>
     <body>

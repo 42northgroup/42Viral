@@ -208,6 +208,18 @@ var Startup = {
      */
     _setupUi: function() {
         $('textarea').autogrow();
+    	$(function() {
+    		$( "input.datepicker" ).datepicker({
+    			changeMonth: true,
+    			changeYear: true
+    		});
+    		
+    		$( "input.datetimepicker" ).datetimepicker({
+    			changeMonth: true,
+    			changeYear: true,
+    			ampm:true
+    		});    		
+    	});
     },
 
     /**
