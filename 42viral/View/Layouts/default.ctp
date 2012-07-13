@@ -26,7 +26,7 @@
                 array(
                 	'vendors' . DS . 'jquery' . DS . 'js' . DS . 'jquery-1.7.2.js',
                     'vendors' . DS . 'jquery-ui' . DS . 'js' . DS . 'jquery-ui-1.8.21.custom.min.js',
-                    'vendors' . DS . 'js' . DS . 'jquery-ui-timepicker-addon.js',
+                    'vendors' . DS . 'jquery-ui-timepicker-addon' . DS . 'js' . DS . 'jquery-ui-timepicker-addon.js',
                     'vendors' . DS . 'modernizr' . DS . 'js' . DS . 'modernizr.js',
                     'js' . DS . 'startup.js',
 
@@ -37,7 +37,6 @@
 
                     'css' . DS . 'cake.stripped.css',
                     'css' . DS . 'basics.css',
-
 
                     'css' . DS . 'responsive-layout.css',
                     'css' . DS . 'responsive-elements.css',
@@ -54,7 +53,9 @@
                     'css' . DS . 'controls.css',
                     'css' . DS . 'controls.social.css',
 
-                    'css' . DS . 'fonts.css'
+                    'css' . DS . 'fonts.css',
+
+                    'vendors' . DS . 'jquery-ui-timepicker-addon' . DS . 'css' . DS . 'jquery-ui-timepicker-addon.css'
                 )
             );
 
