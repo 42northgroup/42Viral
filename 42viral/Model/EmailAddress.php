@@ -68,6 +68,12 @@ class  EmailAddress extends AppModel
      * @access public
      */
     public $validate = array(
+        'access' => array(
+            'notEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => 'Please who can view the email address'
+            )
+        ),
         'type' => array(
             'notEmpty' => array(
                 'rule' => 'notEmpty',

@@ -17,33 +17,35 @@
 
 <div class="row">
     <div class="two-thirds column alpha">
-        <table>
-            <thead>
-                <tr>
-                    <th><?php echo $this->Paginator->sort('label');?></th>
-                    <th><?php echo $this->Paginator->sort('email_address');?></th>
-                    <th class="actions"><?php echo __d('tags', 'Actions');?></th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php if(!empty($emailAddresses)): ?>
-                <?php foreach ($emailAddresses as $emailAddress): ?>
-                <tr>
-                    <td><?php echo $emailAddress['EmailAddress']['label']; ?></td>
-                    <td><?php echo $emailAddress['EmailAddress']['email_address']; ?></td>
-                    <td class="actions">
-                        <?php echo $this->Html->link(__('Edit'),
-                                "/email_addresses/edit/{$emailAddress['EmailAddress']['id']}"); ?>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr>
-                    <td colspan="3"><?php echo __('There are no email addresses associated with this record'); ?></td>
-                </tr>
-            <?php endif; ?>
-            </tbody>
-        </table>
+        <?php if(empty($emailAddresses)): ?>
+            <div class="no-results">
+                <div class="no-results-message">
+                    <?php echo __("I'm sorry, there are no results to display."); ?>
+                </div>
+            </div>
+        <?php else: ?>
+            <table>
+                <thead>
+                    <tr>
+                        <th><?php echo $this->Paginator->sort('label');?></th>
+                        <th><?php echo $this->Paginator->sort('email_address');?></th>
+                        <th class="actions"><?php echo __d('tags', 'Actions');?></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php foreach ($emailAddresses as $emailAddress): ?>
+                    <tr>
+                        <td><?php echo $emailAddress['EmailAddress']['label']; ?></td>
+                        <td><?php echo $emailAddress['EmailAddress']['email_address']; ?></td>
+                        <td class="actions">
+                            <?php echo $this->Html->link(__('Edit'),
+                                    "/email_addresses/edit/{$emailAddress['EmailAddress']['id']}"); ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                </tbody>
+            </table>
+        <?php endif; ?>
         <?php echo $this->element('paginate'); ?>
     </div>
     <div class="one-third column omega">

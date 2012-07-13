@@ -50,6 +50,6 @@
         ?>
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'contact_detail')); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'phone_number')); ?>
     </div>
 </div>
