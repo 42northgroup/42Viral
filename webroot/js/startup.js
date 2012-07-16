@@ -125,6 +125,46 @@ var HeaderNavigation = {
     }
 };
 
+var Geolocation = {
+    /**
+     * 
+     *
+     * @property {boolean}
+     * @access private
+     */		
+	latitude: null,
+	
+    /**
+     * 
+     *
+     * @property {boolean}
+     * @access private
+     */	
+	longitude: null,
+	
+	/**
+	 * Prepares functionality for use in the UI
+	 * @access private
+	 */
+	_getCoordinates: function() {
+		var self = this;
+		navigator.geolocation.getCurrentPosition(function(position) {  
+			self.latitude = position.coords.latitude;
+			self.longitude = position.coords.longitude;  
+		});  
+	},
+
+	/**
+	 * Builds the UI interactions
+	 *
+	 * @access public
+	 * @return void
+	 */
+	init: function() {
+	    this._getCoordinates();
+	}
+}
+
 /**
  * Loads the desired editor
  * @todo finalize or remove
@@ -207,6 +247,9 @@ var Startup = {
      * @access private
      */
     _setupUi: function() {
+    	
+    	//@@ rewrite autogrow to our standards
+    	
         $('textarea').autogrow();
     	$(function() {
     		$( "input.datepicker" ).datepicker({
@@ -238,4 +281,5 @@ var Startup = {
 $(function(){
 	Startup.init();
     HeaderNavigation.init();
+    Geolocation.init();
 });
