@@ -52,19 +52,35 @@ App::uses('AppController', 'Controller');
         $this->auth(array('*'));
     }
 
-    public function ajax_form(){}
+    public function ajax_form(){
+
+
+    }
 
     public function process_ajax_form(){
-        //Configure::write('debug', 0);
-        $this->layout = 'ajax';
-        //$this->autoRender = false;
+        $data = $this->data;
+        $this->autoRender = false;
+        Configure::write('debug', 0);
+        if ($this->RequestHandler->isAjax()) {
+            $this->layout = 'ajax';
+        }
 
         if(!empty($this->data)){
             if($this->Content->save($this->data)){
-                //json_encode(array('response'=>array('ServerError'=>false, 'ServerMessage'=>'Success')));
-            }else{
-                //json_encode(array('response'=>array('ServerError'=>true, 'ServerMessage'=>'Error')));
+
+
+
             }
         }
+        $responseData = array('response'=>array(
+        'serverError' => false,
+        'serverMsg' => 'The ticket has been updated',
+        //'returnData' => $programs
+        ));
+
+        echo json_encode($responseData);
+
+        die();
+        //$this->set('json', $responseData);
     }
  }
