@@ -73,9 +73,13 @@ App::uses('AppController', 'Controller');
      * @param $model string - model that the call to this method is coming from.
      * @param $model_id string - foreign key - ID of model record that has ownership of this note.
      */
-    public function create($model, $modelId) {
+    public function create($model, $modelId, $plugin = null) {
 
         $classifiedModel = $this->_validAssociation($model, $modelId);
+
+        //if (isset($plugin)) {
+        //
+        //}
 
         if(!empty($this->data)) {
             if($this->Note->save($this->data)) {
@@ -88,7 +92,7 @@ App::uses('AppController', 'Controller');
         }
 
         $this->set('model', $classifiedModel);
-        $this->set('modelId', $model_id);
+        $this->set('modelId', $modelId);
 
         $this->set('title_for_layout', __('Create a Note'));
 

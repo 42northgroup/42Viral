@@ -19,18 +19,20 @@
 <div class="row">
     <div class="two-thirds column alpha">
         <?php
-            echo $this->Form->create('Page', array(
+            echo $this->Form->create('Note', array(
                 'url' => $this->here,
                 'class' => 'responsive'
             ));
 
-            echo $this->Form->input('id', array('type' => 'hidden'));
+            echo $this->Form->input('id', array(
+            	'type' => 'hidden',
+            	'value' => $note['Note']['id']
+            ));
 
             echo $this->Form->input('note', array(
                 'label' => 'Note',
             	'type' => 'textarea',
                 'value' => $note['Note']['note'],
-                'placeholder' => 'Enter your note here...',
                 'rows' => 10,
                 'cols' => 96
             ));

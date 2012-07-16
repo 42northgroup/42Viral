@@ -57,7 +57,7 @@ class Note extends AppModel
     );
 
     /**
-     * belongsTo ralationship
+     * belongsTo relationship
      *
      * @var array
      * @access public

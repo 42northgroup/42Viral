@@ -19,9 +19,19 @@
 <div class="row">
     <div class="two-thirds column alpha">
         <?php
-            echo $this->Form->create('Page', array(
+            echo $this->Form->create('Note', array(
                 'url' => $this->here,
                 'class' => 'responsive'
+            ));
+
+            echo $this->Form->input('model', array(
+            	'type' => 'hidden',
+                'value' => $model
+            ));
+
+            echo $this->Form->input('model_id', array(
+            	'type' => 'hidden',
+                'value' => $modelId
             ));
 
             echo $this->Form->input('note', array(
