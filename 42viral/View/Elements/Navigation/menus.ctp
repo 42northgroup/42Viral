@@ -24,9 +24,22 @@ $pluginItems = array();
 switch($section){
 
     case 'profile':
+
+        $userId = $this->Session->read('Auth.User.id');
+        $personId = $menuPerson['Person']['id'];
+
         $menu = array(
             'label' => null,
             'Items'=>array(
+                //If it's your profile and you have been authed, we will give you an edit button
+                array(
+                    'text'=>"Edit My Profile",
+                    'url'=>"/profiles/edit/{$profileId}",
+                    'options' => array(),
+                    'confirm'=>null,
+                    'session_check'=>"Auth.User.id:{$userId}",
+                    'inactive'=>($personId == $userId)?false:true
+                ),
                 array(
                     'text' =>__('Profile'),
                     'url' => $menuPerson['Person']['url'],
@@ -36,12 +49,37 @@ switch($section){
                 ),
                 array(
                     'text' => __('Uploads'),
-                    'url' => "/uploads/index/person/{$menuPerson['Person']['id']}/",
+                    'url' => "/uploads/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Social Networks'),
+                    'url' => "/social_networks/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Addresses'),
+                    'url' => "/addresses/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Email Addresses'),
+                    'url' => "/email_addresses/index/person/{$personId}/",
+                    'options'=>array(),
+                    'confirm'=>null
+                ),
+                array(
+                    'text' => __('Phone Numbers'),
+                    'url' => "/phone_numbers/index/person/{$personId}/",
                     'options'=>array(),
                     'confirm'=>null
                 )
             )
         );
+
     break;
 
     case 'manage_profile':

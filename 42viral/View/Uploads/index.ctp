@@ -17,7 +17,13 @@
 
 <div class="row">
     <div class="two-thirds column alpha">
-    <?php if(!empty($uploads)): ?>
+    <?php if(empty($uploads)): ?>
+        <div class="no-results">
+            <div class="no-results-message">
+                <?php echo __("I'm sorry, there are no results to display."); ?>
+            </div>
+        </div>
+    <?php else: ?>
         <?php foreach($uploads as $upload): ?>
             <div class="image-frame" style="margin: 0 4px 6px 0">
                 <?php
@@ -40,10 +46,6 @@
                 ?>
             </div>
         <?php endforeach; ?>
-    <?php else: ?>
-    <div class="image-frame" style="width: 100%;">
-        <?php echo __('There are no uploads associated with this record'); ?>
-    </div>
     <?php endif; ?>
     </div>
     <div class="one-third column omega">

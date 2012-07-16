@@ -239,7 +239,7 @@ class AppController extends Controller
         }
 
         if($deny){
-            throw new ForbiddenException(__('The record you are trying to access does not belong to you!'));
+            throw new ForbiddenException(__('The data you are trying to access does not belong to you!'));
         }
 
         return true;

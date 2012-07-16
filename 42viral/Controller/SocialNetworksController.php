@@ -1,7 +1,5 @@
 <?php
 /**
- * Provides controll logic for managing users
- *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
  *
@@ -15,6 +13,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('ProfileUtil', 'Lib');
 /**
  * Provides controll logic for managing social networks
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -29,6 +28,7 @@ App::uses('AppController', 'Controller');
      * @access public
      */
     public $uses = array(
+        'Person',
         'SocialNetwork'
     );
 
@@ -137,8 +137,25 @@ App::uses('AppController', 'Controller');
 
         $socialNetworks = $this->paginate('SocialNetwork');
 
+        $person = $this->Person->find(
+            'first',
+            array(
+                'conditions'=>array(
+                    'Person.id'=>$modelId
+                ),
+                'fields'=>array(
+                    'Person.username',
+                    'Person.name'
+                )
+            )
+        );
+
+        $this->set('person', $person);
+
+        $this->set('mine', ($person['Person']['id']==$this->Session->read('Auth.User.id')?true:false));
+
         $this->set('socialNetworks', $socialNetworks);
-        $this->set('title_for_layout', __('Your Social Networks'));
+        $this->set('title_for_layout', ProfileUtil::name($person['Person']). "'s Social Networks");
     }
 
     /**

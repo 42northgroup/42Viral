@@ -63,28 +63,14 @@ App::uses('Scrub', 'Lib');
                         )
                     );
 
-            //Privides navigation for manageing an asset
-            if($mine):
+            echo $this->element(
+                'Navigation' . DS . 'menus',
+                array(
+                    'section'=>'profile',
+                    'menuPerson'=>$person
+                )
+            );
 
-                //If it's your post you'll be provided CMS links
-                $additional = array(
-                    array(
-                        'text'=>"Edit Profile",
-                        'url'=>"/profiles/edit/{$profileId}",
-                        'options' => array(),
-                        'confirm'=>null
-                    )
-                );
-
-                echo $this->element(
-                    'Navigation' . DS . 'menus',
-                    array(
-                        'section'=>'profile',
-                        'additional'=>$additional,
-                        'menuPerson'=>$person
-                    )
-                );
-            endif;
         ?>
 
     </div>
