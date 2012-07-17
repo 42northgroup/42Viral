@@ -78,7 +78,7 @@ class Content extends AppModel
         'Sitemap' => array(
             'className' => 'Sitemap',
             'foreignKey' => 'model_id',
-            'conditions'=>array('Sitemap.model_id LIKE "Content"'),
+            'conditions'=>array('Sitemap.model LIKE "Content"'),
             'dependent' => true
         )
     );
