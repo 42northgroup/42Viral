@@ -104,6 +104,15 @@ class ScrubableBehavior extends ModelBehavior
     }
 
     /**
+     * A wrapper for Scrub.htmlMarkdown
+     * @param string $value
+     * @return string
+     */
+    public function htmlMarkdown($value){
+        return Scrub::htmlMarkdown($value);
+    }
+
+    /**
      * A wrapper for Scrub.htmlStrict
      * @param string $value
      * @return string

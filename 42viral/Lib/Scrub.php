@@ -97,6 +97,39 @@ class Scrub
     }
 
     /**
+     * Same as htmlMedia but without AutoFormat.AutoParagraph
+     * @param string $value
+     * @return string
+     * @access public
+     */
+    public static function htmlMarkdown($value)
+    {
+        $HTMLPurifier = new HTMLPurifier();
+
+        $config = HTMLPurifier_Config::createDefault();
+
+        //Standard scrubbing and repair
+        $config->set('HTML.TidyLevel', 'heavy');
+        $config->set('HTML.Doctype', 'XHTML 1.0 Transitional');
+        $config->set('Core.Encoding', Configure::read('App.encoding'));
+
+        //Strips useless jiberish, typically this is cruft left over from WYSIWYG formatting
+        $config->set('AutoFormat.RemoveEmpty.RemoveNbsp', true);
+        //Remove empty conflicts with iFrames, I'd like to find a fix for this
+        //$config->set('AutoFormat.RemoveEmpty', true);
+        $config->set('AutoFormat.RemoveSpansWithoutAttributes', true);
+
+        //Autolink text based links into html tags
+        $config->set('AutoFormat.Linkify', true);
+
+        //Allow iframes for YouTube and such
+        $config->set('HTML.SafeIframe', true);
+        $config->set('URI.SafeIframeRegexp', "%^https://(www.youtube.com/embed/|player.vimeo.com/video/)%");
+
+        return $HTMLPurifier->purify($value, $config);
+    }
+
+    /**
      * Purifies, creates html and fixes broken HTML and removes unwanted crap
      * A less permissive version of self::html(), recommended for public facing WYSIWYG editors and content
      * @param string $value
