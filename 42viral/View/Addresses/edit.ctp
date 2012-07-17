@@ -55,7 +55,6 @@
             echo $this->Form->input(
                 'access',
                 array(
-                    //'options'=>$listAccessTypes,
                     'type'=>'radio'
                 )
             );
