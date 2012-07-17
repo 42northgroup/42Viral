@@ -176,11 +176,13 @@ App::uses('ProfileUtil', 'Lib');
             )
         ));
 
-        //If we found the target blog, retrive an paginate its' posts
+        //Return a paginated list of a users content, perhaps from a sharing/social media perspective we only care about
+        //blog posts?
         $this->paginate = array(
             'conditions' => array(
                 'Content.status' => array('archived', 'published'),
-                'Content.created_person_id' => $token
+                'Content.created_person_id' => $token,
+                'Content.object_type'=>array('Post')
             ),
             'fields'=>array(
                 'Content.body',
@@ -226,11 +228,9 @@ App::uses('ProfileUtil', 'Lib');
                             'Address.zip',
                             'Address.country'
                         ),
-                            /*
                         'conditions'=>array(
                             'Address.access'=>'public'
                         )
-                        */
                     ),
                     'EmailAddress'=>array(
                         'fields'=>array(
