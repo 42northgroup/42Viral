@@ -52,6 +52,13 @@
                     'options'=>$contries
                 )
             );
+            echo $this->Form->input(
+                'access',
+                array(
+                    //'options'=>$listAccessTypes,
+                    'type'=>'radio'
+                )
+            );
             //echo $this->Form->input('latitude');
             //echo $this->Form->input('longitude');
             echo $this->Form->submit();

@@ -53,6 +53,7 @@ switch($section){
                     'options'=>array(),
                     'confirm'=>null
                 ),
+                /*
                 array(
                     'text' => __('Social Networks'),
                     'url' => "/social_networks/index/person/{$personId}/",
@@ -77,6 +78,7 @@ switch($section){
                     'options'=>array(),
                     'confirm'=>null
                 )
+                */
             )
         );
 

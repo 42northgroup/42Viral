@@ -115,6 +115,7 @@ App::uses('AppController', 'Controller');
             );
         }
 
+        $this->set('accesses', $this->Adress->listAccessTypes());
         $this->set('contries', $this->Address->listCountries('US'));
         $this->set('states', $this->Address->listStates('US'));
         $this->set('addressTypes', $this->Address->listAddressTypes());

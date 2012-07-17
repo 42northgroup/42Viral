@@ -15,6 +15,7 @@
  */
 
 App::uses('AppController', 'Controller');
+App::uses('ProfileUtil', 'Lib');
 /**
  * @author Jason D Snider <jason.snider@42viral.org>
  * @package 42viral\Uploads
@@ -74,8 +75,21 @@ App::uses('AppController', 'Controller');
             )
         );
 
+        $person = $this->Person->find(
+            'first',
+            array(
+                'conditions'=>array(
+                    'Person.id'=>$modelId
+                ),
+                'fields'=>array(
+                    'Person.name',
+                    'Person.username'
+                )
+            )
+        );
+
         $this->set('uploads', $uploads);
-        $this->set('title_for_layout', __('Uploads'));
+        $this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Uploads");
     }
 
     /**
