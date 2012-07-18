@@ -126,8 +126,13 @@ class AppController extends Controller
      * @access public
      */
     public function blackHoleHandler($type) {
-        pr($type);
-        exit;
+        if(Configure::read('debug') > 0) {
+            echo '<h1>' . pr($type) . '</h1>';
+            exit;
+        }
+        else {
+            $this->response->statusCode(403);
+        }
     }
 
     /**

@@ -42,6 +42,6 @@
     </div>
 
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>strtolower($note['Note']['model']))); ?>
+        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>strtolower($model))); ?>
     </div>
 </div>

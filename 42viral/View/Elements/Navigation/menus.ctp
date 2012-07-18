@@ -555,14 +555,10 @@ switch($section){
                     'url' => $uri,
                     'options'=>array(),
                     'confirm'=>null,
-                    'actions'=>array('notes:create')
-                ),
-                array(
-                    'text' => __('Delete'),
-                    'url' => "/notes/delete/{$noteId}/",
-                    'options'=>array(),
-                    'confirm'=>null,
-                    'actions'=>array('notes:edit')
+                    'actions'=>array(
+                    	'notes:create',
+                        'notes:edit'
+                    )
                 )
             )
         );

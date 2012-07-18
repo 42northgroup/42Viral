@@ -73,15 +73,15 @@ App::uses('AppController', 'Controller');
      * @param $model string - model that the call to this method is coming from.
      * @param $model_id string - foreign key - ID of model record that has ownership of this note.
      */
-    public function create($model, $modelId, $returnURI = null) {
+    public function create($model, $modelId, $refer = null) {
 
         $classifiedModel = $this->_validAssociation($model, $modelId);
 
-        if (isset($returnURI)) {
-            $uri = '/' . str_replace('-', '/', $returnURI);
+        if ($refer === null) {
+            $uri = $this->referer();
         }
         else {
-            $uri = '/';
+            $uri = '/' . str_replace('_2A_0_', '/', $refer);
         }
 
         if(!empty($this->data)) {
@@ -108,12 +108,19 @@ App::uses('AppController', 'Controller');
      * @access public
      * @param $id string - ID of the note to be edited.
      */
-    public function edit($id) {
+    public function edit($id, $refer = null) {
+
+        if ($refer === null) {
+            $uri = $this->referer();
+        }
+        else {
+            $uri = '/' . str_replace('_2A_0_', '/', $refer);
+        }
 
         if(!empty($this->data)) {
             if($this->Note->save($this->data)) {
                 $this->Session->setFlash(__('Your note has been saved'), 'success');
-                $this->redirect(strtolower("/{$classifiedModel}/{$model_id}"));
+                $this->redirect($uri);
             }
             else {
                 $this->Session->setFlash(__('There was a problem saving your note'), 'error');
@@ -123,7 +130,8 @@ App::uses('AppController', 'Controller');
         $note = $this->Note->find('first',
             array(
                 'conditions' => array(
-                    'created_person_id' => $this->Session->read('Auth.User.id')
+                    'Note.created_person_id' => $this->Session->read('Auth.User.id'),
+                    'Note.id' => $id
                 ),
                 'fields' => array(
                     'Note.id',
@@ -136,6 +144,8 @@ App::uses('AppController', 'Controller');
         );
 
         $this->set('note', $note);
+        $this->set('model', 'Note');
+        $this->set('uri', $uri);
 
         $this->set('title_for_layout', __('Edit a Note'));
 
