@@ -63,7 +63,7 @@ App::uses('AppController', 'Controller');
      */
     public function beforeFilter() {
         parent::beforeFilter();
-        $this->auth();
+        $this->auth('*');
     }
 
     /**
@@ -73,18 +73,21 @@ App::uses('AppController', 'Controller');
      * @param $model string - model that the call to this method is coming from.
      * @param $model_id string - foreign key - ID of model record that has ownership of this note.
      */
-    public function create($model, $modelId, $plugin = null) {
+    public function create($model, $modelId, $returnURI = null) {
 
         $classifiedModel = $this->_validAssociation($model, $modelId);
 
-        //if (isset($plugin)) {
-        //
-        //}
+        if (isset($returnURI)) {
+            $uri = '/' . str_replace('-', '/', $returnURI);
+        }
+        else {
+            $uri = '/';
+        }
 
         if(!empty($this->data)) {
             if($this->Note->save($this->data)) {
                 $this->Session->setFlash(__('Your note has been saved'), 'success');
-                $this->redirect(strtolower("/{$classifiedModel}/{$model_id}"));
+                $this->redirect($uri);
             }
             else {
                 $this->Session->setFlash(__('There was a problem saving your note'), 'error');
@@ -93,6 +96,7 @@ App::uses('AppController', 'Controller');
 
         $this->set('model', $classifiedModel);
         $this->set('modelId', $modelId);
+        $this->set('uri', $uri);
 
         $this->set('title_for_layout', __('Create a Note'));
 

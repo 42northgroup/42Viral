@@ -552,7 +552,7 @@ switch($section){
             'Items'=>array(
                 array(
                     'text' => __('Go Back'),
-                    'url' => "/{$model}/{$modelId}/",
+                    'url' => $uri,
                     'options'=>array(),
                     'confirm'=>null,
                     'actions'=>array('notes:create')

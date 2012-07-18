@@ -207,7 +207,7 @@ class Scrub
 
         //Strips all extra whitespace, images, scripts and stylesheets. Hopefully we are left with nothing but clean
         //HTML tags. PHP should have no issue getting rid of this.
-        $purify = Sanitize::stripAll($purify);
+        //$purify = Sanitize::stripAll($purify);
 
         //Strips all remaining HTML tags
         $purify = strip_tags($purify);

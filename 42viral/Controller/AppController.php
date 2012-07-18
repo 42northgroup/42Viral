@@ -82,6 +82,8 @@ class AppController extends Controller
      */
     public function beforeFilter()
     {
+        $this->Security->blackHoleCallback = 'blackHoleHandler';
+
         //If the setup isn't complete, force it to be completed
         if (!isSetupComplete()) {
             $this->redirect('/install.php');
@@ -115,6 +117,17 @@ class AppController extends Controller
                 }
             }
         }
+    }
+
+    /**
+     * Security blackhole callback method for security error handling.
+     *
+     * @param $type string - Error type.
+     * @access public
+     */
+    public function blackHoleHandler($type) {
+        pr($type);
+        exit;
     }
 
     /**
