@@ -63,7 +63,7 @@ App::uses('ProfileUtil', 'Lib');
             'all',
             array(
                 'conditions'=>array(
-                    'Upload.model'=>$model,
+                    'Upload.model'=>$classifiedModel,
                     'Upload.model_id'=>$modelId,
                 ),
                 'fields'=>array(
@@ -75,11 +75,12 @@ App::uses('ProfileUtil', 'Lib');
             )
         );
 
+        /*
         $person = $this->Person->find(
             'first',
             array(
                 'conditions'=>array(
-                    'Person.id'=>$modelId
+                    'Person.id'=>$this->Session->read("Auth.User.id")
                 ),
                 'fields'=>array(
                     'Person.name',
@@ -87,9 +88,12 @@ App::uses('ProfileUtil', 'Lib');
                 )
             )
         );
+         *
+         */
 
         $this->set('uploads', $uploads);
-        $this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Uploads");
+        $this->set('title_for_layout', "'s Uploads");
+        //$this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Uploads");
     }
 
     /**

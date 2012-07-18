@@ -59,7 +59,10 @@ $userId = $this->Session->read('Auth.User.id');
                     foreach(scandir($pluginPath) as $plugin){
                         if(is_file($pluginPath . $plugin . DS . $pluginMenuElementPath)){
                             $pluginVars = unserialize($this->element("{$plugin}.menu_header_injection"));
-                            $pluginItems = $pluginVars['pluginItems'];
+
+                            foreach($pluginVars['pluginItems'] as $pluginItem){
+                                $pluginItems[] = $pluginItem;
+                            }
                         }
                     }
                 }

@@ -257,17 +257,25 @@ class AppController extends Controller
      */
     protected function _validAssociation($model, $modelId){
 
-    	$classifiedModel = Inflector::classify($model);
+        if(stripos($model, '-') !== false){
+            $pluginModel = explode('-', $model);
+            $modelToLoad = Inflector::classify($pluginModel[0]).'.'.Inflector::classify($pluginModel[1]);
+            $modelToQuerry = Inflector::classify($pluginModel[1]);
+        }else{
+            $classifiedModel = Inflector::classify($model);
+            $modelToLoad = $classifiedModel;
+            $modelToQuerry = $classifiedModel;
+        }
 
     	//Does the entitiy to which we want to attach the address exist? If not throw a 403 error.
-    	$this->loadModel($classifiedModel);
-    	$association = $this->$classifiedModel->find('first',
+    	$this->loadModel($modelToLoad);
+    	$association = $this->$modelToQuerry->find('first',
 	    		array(
 		    		'conditions'=>array(
-		    			"{$classifiedModel}.id"=>$modelId
+		    			"{$modelToQuerry}.id"=>$modelId
 	    			),
 	    			'contain'=>array(),
-	    			'fields'=>array("{$classifiedModel}.id")
+	    			'fields'=>array("{$modelToQuerry}.id")
     			)
     		);
 
@@ -275,7 +283,7 @@ class AppController extends Controller
     		throw new BadRequestException(__('The requested association does not exist!'));
     	}
 
-    	return $classifiedModel;
+    	return $modelToQuerry;
     }
 
 	/**
