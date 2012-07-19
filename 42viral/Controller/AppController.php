@@ -17,6 +17,7 @@
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('Scrubable', 'Lib');
+App::uses('ProfileUtil', 'Lib');
 /**
  * 42Viral's parent controller layer
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -332,6 +333,86 @@ class AppController extends Controller
             throw new NotFoundException(__('The requested record does not exist!'));
         }
         return true;
+    }
+
+    /**
+     * Provides functionality for auto-populating $title_for_layout
+     * @access protected
+     * @param string $fixedTitle
+     * @param string $model
+     * @param string $modelId
+     */
+    protected function _autoPageTitle($fixedTitle, $model, $modelId){
+
+        switch($model){
+            case 'Person':
+                $this->loadModel($model);
+                $person = $this->Person->find(
+                    'first',
+                    array(
+                        'conditions'=>array(
+                            'Person.id'=>$modelId
+                        ),
+                        'fields'=>array(
+                            'Person.name',
+                            'Person.username'
+                        )
+                    )
+                );
+
+                $this->set('title_for_layout', ProfileUtil::name($person['Person']) . $fixedTitle);
+            break;
+
+            default:
+                $pluginModel = $this->_classifyModel($model);
+                debug($pluginModel);
+                if(!empty($pluginModel['plugin'])){
+                    App::import('Controller', $fullString);
+                    $class = new ShoppingCartAppController();
+
+                    debug($class->autoPageTitle('test', $pluginModel['fullString'], $modelId));
+                }
+                $this->set('title_for_layout', $fixedTitle);
+            break;
+        }
+
+    }
+
+    /**
+     * Returns a Plugin and Classified Model if applicable, else it just return a ClassifiedModel
+     * @access protected
+     * @param string $model
+     * @return array
+     */
+    protected function _classifyModel($model){
+        $plugin = null;
+        $classifiedModel = null;
+        $pluginClass = null;
+        $fullString = null;
+
+        $chunks = explode('-', $model);
+
+        if(count($chunks) > 1){
+            $plugin = $chunks[0];
+            $pluginClass = Inflector::classify($plugin);
+            $classifiedModel = Inflector::classify($chunks[1]);
+            $fullString = "{$pluginClass}.{$classifiedModel}";
+
+            App::import('Controller', $fullString);
+            $class = new ShoppingCartAppController();
+
+            debug($class->autoPageTitle('test', $fullString, '1'));
+
+        }else{
+            $classifiedModel = Inflector::classify($classifiedModel);
+        }
+
+        return array(
+            'plugin'=>$plugin,
+            'pluginClass'=>$pluginClass,
+            'model'=>$classifiedModel,
+            'string'=>$fullString
+        );
     }
 
 }
