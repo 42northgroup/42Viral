@@ -11,25 +11,25 @@ if($this->Session->check('Auth.User.id')):
         'Items'=>array(
             array(
                 'text'=>__('Search'),
-                'url'=>"#",
+                'url'=>"/searches/",
                 'options'=>array(),
                 'confirm'=>null
             ),
             array(
                 'text'=>__('Blogs'),
-                'url'=>"#",
+                'url'=>"/blogs/",
                 'options'=>array(),
                 'confirm'=>null
             ),
             array(
                 'text'=>__('Profiles'),
-                'url'=>"#",
+                'url'=>"/profiles/",
                 'options'=>array(),
                 'confirm'=>null
             ),
             array(
                 'text'=>__('Pages'),
-                'url'=>"#",
+                'url'=>"/pages/",
                 'options'=>array(),
                 'confirm'=>null
             ),
@@ -41,7 +41,7 @@ if($this->Session->check('Auth.User.id')):
             ),
             array(
                 'text'=>__('Relationships'),
-                'url'=>"#",
+                'url'=>"/Relationships/",
                 'options'=>array(),
                 'confirm'=>null,
                 'SubNavigation'=>array(
