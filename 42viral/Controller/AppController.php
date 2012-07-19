@@ -364,15 +364,17 @@ class AppController extends Controller
             break;
 
             default:
-                $pluginModel = $this->_classifyModel($model);
-                debug($pluginModel);
-                if(!empty($pluginModel['plugin'])){
-                    App::import('Controller', $fullString);
-                    $class = new ShoppingCartAppController();
 
-                    debug($class->autoPageTitle('test', $pluginModel['fullString'], $modelId));
+                $parsedModel = $this->_classifyModel($model);
+
+                //If the model belongs to a plugin, checkout the plugin for the autoPageTitle() method
+                if($parsedModel['isPlugin']){
+                    App::import('Controller', $parsedModel['fullString']);
+                    eval('$class = new ' . $parsedModel['pluginClassString'] . 'AppController();');
+                    $title = $class->autoPageTitle($fixedTitle, $parsedModel['fullString'], $modelId);
+                    $this->set('title_for_layout', $title);
                 }
-                $this->set('title_for_layout', $fixedTitle);
+
             break;
         }
 
@@ -389,29 +391,30 @@ class AppController extends Controller
         $classifiedModel = null;
         $pluginClass = null;
         $fullString = null;
+        $isPlugin = false;
 
         $chunks = explode('-', $model);
 
         if(count($chunks) > 1){
+
             $plugin = $chunks[0];
             $pluginClass = Inflector::classify($plugin);
             $classifiedModel = Inflector::classify($chunks[1]);
             $fullString = "{$pluginClass}.{$classifiedModel}";
-
-            App::import('Controller', $fullString);
-            $class = new ShoppingCartAppController();
-
-            debug($class->autoPageTitle('test', $fullString, '1'));
+            $isPlugin = true;
 
         }else{
+
             $classifiedModel = Inflector::classify($classifiedModel);
+
         }
 
         return array(
-            'plugin'=>$plugin,
-            'pluginClass'=>$pluginClass,
-            'model'=>$classifiedModel,
-            'string'=>$fullString
+            'pluginString' => $plugin,
+            'pluginClassString' => $pluginClass,
+            'modelString' => $classifiedModel,
+            'fullString' => $fullString,
+            'isPlugin' => $isPlugin
         );
     }
 

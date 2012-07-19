@@ -57,7 +57,7 @@ App::uses('ProfileUtil', 'Lib');
      */
     public function index($model, $modelId)
     {
-        //$classifiedModel = $this->_validAssociation($model, $modelId);
+        $classifiedModel = $this->_validAssociation($model, $modelId);
 
         $uploads = $this->Upload->find(
             'all',
@@ -74,10 +74,6 @@ App::uses('ProfileUtil', 'Lib');
                 'contain'=>array()
             )
         );
-
-        //$this->set('uploads', $uploads);
-        //$this->set('title_for_layout', "'s Uploads");
-        //$this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Uploads");
 
         $this->set('uploads', $uploads);
         $this->_autoPageTitle("'s Uploads", $model, $modelId);
