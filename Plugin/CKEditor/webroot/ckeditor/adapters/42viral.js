@@ -19,7 +19,7 @@
 /**
  *If we are going to combine and minify, this file must be called before ckeditor 
  */
-var CKEDITOR_BASEPATH = "/vendors/ckeditor/";
+var CKEDITOR_BASEPATH = "/CKEditor/ckeditor/";
 
 /**
  * Define the basic "CMS" configuration

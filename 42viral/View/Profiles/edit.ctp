@@ -17,9 +17,9 @@ App::uses('Handy', 'Lib');
 ?>
 <?php
 $this->Asset->addAssets(array(
-    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-    'vendors' . DS . 'ckeditor' . DS . 'ckeditor.js',
-    'vendors' . DS . 'ckeditor' . DS . 'adapters' . DS . 'jquery.js'
+    'CKEditor' . DS . 'webroot' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
+    'CKEditor' . DS . 'webroot' . DS . 'ckeditor.js',
+    'CKEditor' . DS . 'webroot' . DS . 'adapters' . DS . 'jquery.js'
 ), 'ck_editor');
 
 echo $this->Asset->buildAssets('js', 'ck_editor', false);

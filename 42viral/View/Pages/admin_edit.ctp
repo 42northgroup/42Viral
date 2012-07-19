@@ -22,7 +22,8 @@ $(function() {
 
 <h1><?php echo $title_for_layout; ?></h1>
 
-<?php echo $this->Asset->buildAssetPackage('ck_editor'); ?>
+<?php echo $this->element('Blocks' . DS . 'editor'); ?>
+
 <?php echo $this->Asset->buildAssetPackage('selectit'); ?>
 
 <?php
