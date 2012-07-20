@@ -159,21 +159,6 @@ class AppSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
-	public $elevator_pitches = array(
-		'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'model' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 200, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'model_id' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'title' => array('type' => 'string', 'null' => true, 'default' => NULL, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'body' => array('type' => 'text', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'status' => array('type' => 'string', 'null' => false, 'default' => 'draft', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'access' => array('type' => 'string', 'null' => false, 'default' => 'private', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
-		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
-		'modified_person_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
-	);
 	public $email_addresses = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'model' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
