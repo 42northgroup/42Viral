@@ -15,15 +15,9 @@
 
 App::uses('Handy', 'Lib');
 ?>
-<?php
-$this->Asset->addAssets(array(
-    'CKEditor' . DS . 'webroot' . DS . 'ckeditor' . DS . 'adapters' . DS . '42viral.js',
-    'CKEditor' . DS . 'webroot' . DS . 'ckeditor.js',
-    'CKEditor' . DS . 'webroot' . DS . 'adapters' . DS . 'jquery.js'
-), 'ck_editor');
 
-echo $this->Asset->buildAssets('js', 'ck_editor', false);
-?>
+<?php echo $this->element('Blocks' . DS . 'editor'); ?>
+
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
     <div class="two-thirds column alpha">
