@@ -660,7 +660,10 @@ foreach(App::path('Plugin') as $pluginPath){
     foreach(scandir($pluginPath) as $plugin){
         if(is_file($pluginPath . $plugin . DS . $pluginMenuElementPath)){
             $pluginVars = unserialize($this->element("{$plugin}.menu_injection",array('section'=>$section)));
-            $pluginItems = $pluginVars['pluginItems'];
+
+            foreach($pluginVars['pluginItems'] as $pluginItem){
+                $pluginItems[] = $pluginItem;
+            }
         }
     }
 }

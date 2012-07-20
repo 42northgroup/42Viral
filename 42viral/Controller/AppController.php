@@ -127,7 +127,7 @@ class AppController extends Controller
      */
     public function blackHoleHandler($type) {
         if(Configure::read('debug') > 0) {
-            echo '<h1>' . pr($type) . '</h1>';
+            echo '<h2>' . pr($type) . '</h2>';
             exit;
         }
         else {

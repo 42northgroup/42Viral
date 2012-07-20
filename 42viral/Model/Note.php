@@ -57,20 +57,6 @@ class Note extends AppModel
     );
 
     /**
-     * belongsTo relationship
-     *
-     * @var array
-     * @access public
-     */
-    public $hasOne = array(
-       // 'JobLead' => array(
-       //     'className' => 'JobLead',
-       //     'foreignKey' => 'model_id',
-       //     'dependent' => true
-       // )
-    );
-
-    /**
      * Specifies validation rules
      * @access public
      * @var array
