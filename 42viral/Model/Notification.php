@@ -157,7 +157,7 @@ The IP address of the person requesting this password reset is: %3$s'
 
 '<p>%1$s has invited you to join %2$s</p>
 <p>Click the link below to join 42Viral:</p>
-<p>/%3$susers/create/invite:/%4$s</p>
+<p>/%3$susers/create/invite:%4$s</p>
 <p>If asked, your invitation code is : %4$s</p>',
 
                             'text_body'=>
