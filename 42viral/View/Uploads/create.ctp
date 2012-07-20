@@ -53,6 +53,15 @@
                 'rows'=>1
             )
         );
+
+        echo $this->Form->input(
+            'avatar',
+            array(
+                'type'=>'checkbox',
+                'label'=>"Set as Avatar"
+            )
+        );
+
         echo $this->Form->submit('Submit');
         echo $this->Form->end();
     ?>

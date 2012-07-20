@@ -33,7 +33,15 @@
                             array(
                                 'url'=>$upload['Upload']['uri']
                             )
-                    );
+                    )."<br/>";
+
+                    if($upload['Upload']['avatar'] == 0):
+                        echo $this->Html->link('Set as Avatar', "/uploads/make_avatar/".$upload['Upload']['model']
+                                                                                    ."/".$upload['Upload']['model_id']
+                                                                                    ."/".$upload['Upload']['id']);
+                    else:
+                        echo "Avatar";
+                    endif;
                 else:
                     echo $this->Html->link(
                             __('No Document Preview'),

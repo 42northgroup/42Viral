@@ -69,7 +69,11 @@ App::uses('ProfileUtil', 'Lib');
                 'fields'=>array(
                     'Upload.uri',
                     'Upload.thumbnail_image_uri',
-                    'Upload.object_type'
+                    'Upload.object_type',
+                    'Upload.id',
+                    'Upload.model',
+                    'Upload.model_id',
+                    'Upload.avatar'
                 ),
                 'contain'=>array()
             )
@@ -92,6 +96,20 @@ App::uses('ProfileUtil', 'Lib');
 
         if(!empty($this->data)){
             if($this->Upload->process($this->data)){
+                if($this->data['Upload']['avatar'] == 1){
+                    $this->Upload->updateAll(
+                            array(
+                                'Upload.avatar'=>0
+                            ),
+                            array(
+                                'Upload.avatar'=>1,
+                                "Upload.id NOT LIKE '{$this->Upload->id}'",
+                                "Upload.model LIKE '{$model}'",
+                                "Upload.model_id LIKE '{$modelId}'"
+                            )
+                        );
+                }
+
                 $this->Session->setFlash(__('The file has been uploaded'), 'success');
                 $this->redirect("/uploads/index/{$model}/{$modelId}");
             }else{
@@ -102,5 +120,39 @@ App::uses('ProfileUtil', 'Lib');
         $this->set('model', $classifiedModel);
         $this->set('modelId', $modelId);
         $this->set('title_for_layout', __('Upload a File'));
+    }
+
+    /**
+     * Sets an image as an avatar, makes the avatar flag 0 for all other file related to that model, modelId
+     *
+     * @access public
+     * @param string $model
+     * @param string $modelId
+     * @param string $uploadId
+     */
+    public function make_avatar($model, $modelId, $uploadId)
+    {
+        $uploads = $this->Upload->find('all', array(
+            'conditions' => array(
+                'Upload.model' => $model,
+                'Upload.model_id' => $modelId
+            )
+        ));
+
+        foreach($uploads as &$upload){
+            if($upload['Upload']['id'] == $uploadId){
+                $upload['Upload']['avatar'] = 1;
+            }else{
+                $upload['Upload']['avatar'] = 0;
+            }
+        }
+
+        if($this->Upload->saveAll($uploads)){
+            $this->Session->setFlash(_('Your avatar has been set'), 'success');
+        }else{
+            $this->Session->setFlash(_('There was a problem, we could not set you avatar'), 'error');
+        }
+
+        $this->redirect($this->referer());
     }
 }

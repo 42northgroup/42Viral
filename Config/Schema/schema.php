@@ -449,6 +449,7 @@ class AppSchema extends CakeSchema {
 		'size' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 		'saved_file_ext' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 6, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'access' => array('type' => 'string', 'null' => false, 'default' => 'public', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+                'avatar' => array('type' => 'string', 'null' => false, 'default' => '0', 'length' => 1, 'collate' => 'latin1_swedish_ci', 'comment' => 'Set to 1 if the image is to be used as avatar', 'charset' => 'latin1'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
 		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => NULL),
