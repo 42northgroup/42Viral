@@ -346,8 +346,8 @@ class SetupShell extends AppShell
 
 
         $configurations = array(
-            'cipher' => array('type' => 'string', 'value' => $cipher),
-            'salt' => array('type' => 'string', 'value' => $salt)
+            'Security.cipherSeed' => array('type' => 'string', 'value' => $cipher),
+            'Security.salt' => array('type' => 'string', 'value' => $salt)
         );
 
         $configureString = "<?php\n";
@@ -815,7 +815,7 @@ class SetupShell extends AppShell
         system('stty -echo');
         $password = $this->in('DB password: ', null, 'password');
         system('stty echo');
-        
+
         $database = $this->in('DB name: ', null, $defaultDBName);
         $prefix = $this->in('DB table prefix: ', null, '');
 
