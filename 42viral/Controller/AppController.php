@@ -362,6 +362,8 @@ class AppController extends Controller
      */
     protected function _autoPageTitle($fixedTitle, $model, $modelId){
 
+        $titleForLayout = null;
+
         switch($model){
             case 'Person':
                 $this->loadModel($model);
@@ -378,7 +380,7 @@ class AppController extends Controller
                     )
                 );
 
-                $this->set('title_for_layout', ProfileUtil::name($person['Person']) . $fixedTitle);
+                $titleForLayout = ProfileUtil::name($person['Person']) . $fixedTitle;
             break;
 
             default:
@@ -390,11 +392,13 @@ class AppController extends Controller
                     App::import('Controller', $parsedModel['fullString']);
                     eval('$class = new ' . $parsedModel['pluginClassString'] . 'AppController();');
                     $title = $class->autoPageTitle($fixedTitle, $parsedModel['fullString'], $modelId);
-                    $this->set('title_for_layout', $title);
+                    $titleForLayout = $title;
                 }
 
             break;
         }
+
+        $this->set('title_for_layout', $titleForLayout);
 
     }
 
