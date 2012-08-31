@@ -43,42 +43,6 @@ App::uses('Scrub', 'Lib');
     }
 
     /**
-     * Retrives all users in the system
-     *
-     * @access public
-     *
-     */
-    public function admin_index()
-    {
-        $people = $this->Person->find('all');
-        $this->set('people', $people);
-        $this->set('title_for_layout', 'People (CRM)');
-    }
-
-    /**
-     * Retrieves a person's details
-     *
-     * @access public
-     * @param string $username unique identifier
-     *
-     */
-    public function admin_view($username){
-        $person = $this->Person->find('first', array(
-			'conditions' => array('or' => array(
-                'Person.id' => $username,
-                'Person.username' => $username,
-                'Person.email' => $username
-            )),
-            'contain'=>array()
-        ));
-
-        $this->set('person', $person);
-        $this->set('userProfile', $person);
-        $this->set('title_for_layout',
-            $person['Person']['name']==''?$person['Person']['username']:$person['Person']['name']);
-    }
-
-    /**
     * Sends an ivite to all emais passed through the form
     *
     * @access public
