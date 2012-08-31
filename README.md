@@ -2,7 +2,8 @@
 
 [Documentation](http://the-42viral-project.readthedocs.org)
 
-A full CMS and blogging platform to provide a scalable and robust "kick start" for projects of any size.
+The goal is to provide scalable and robust "kick start" for projects of any size. 
+Provides an out of the box installer, user and privledge management and some common features and libraies that are usefull for secure and robust web development.
 
 ## Third Party Support
 
