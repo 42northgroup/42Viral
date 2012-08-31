@@ -16,3 +16,6 @@
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
 	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
+[submodule "Plugin/Content"]
+	path = Plugin/Content
+	url = git@github.com:jasonsnider/42viral-Content-Plugin.git

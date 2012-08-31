@@ -84,53 +84,16 @@ class Person extends AppModel
             'conditions' => array('Address.model' => 'Person'),
             'dependent' => true
         ),
-
-        'Blog' => array(
-            'className' => 'Blog',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
-        'Content' => array(
-            'className' => 'Content',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
-        'Conversation' => array(
-            'className' => 'Conversation',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
         'EmailAddress' => array(
             'className' => 'EmailAddress',
             'foreignKey' => 'model_id',
             'conditions'=>array('model'=>'Person'),
             'dependent' => true
         ),
-       // 'FileUpload' => array(
-      //      'className' => 'FileUpload',
-      //      'foreignKey' => 'created_person_id',
-      //      'dependent' => true
-      //  ),
-
-       // 'Image' => array(
-       //     'className' => 'Image',
-       //     'foreignKey' => 'created_person_id',
-       //     'dependent' => true
-      //  ),
-        'Page' => array(
-            'className' => 'Page',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
-        ),
         'PhoneNumber' => array(
             'className' => 'PhoneNumber',
             'foreignKey' => 'model_id',
             'conditions'=>array('model'=>'Person'),
-            'dependent' => true
-        ),
-        'Post' => array(
-            'className' => 'Post',
-            'foreignKey' => 'created_person_id',
             'dependent' => true
         ),
         'SocialNetwork' => array(

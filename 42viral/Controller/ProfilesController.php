@@ -45,7 +45,6 @@ App::uses('ProfileUtil', 'Lib');
         'Tweet',
         'GooglePlus',
         'Oauth',
-        'Content',
         'EmailAddress',
         'Image',
         'Profile',
@@ -175,27 +174,6 @@ App::uses('ProfileUtil', 'Lib');
                 'UserSetting'=>array()
             )
         ));
-
-        //Return a paginated list of a users content, perhaps from a sharing/social media perspective we only care about
-        //blog posts?
-        $this->paginate = array(
-            'conditions' => array(
-                'Content.status' => array('archived', 'published'),
-                'Content.created_person_id' => $token,
-                'Content.object_type'=>array('Post')
-            ),
-            'fields'=>array(
-                'Content.body',
-                'Content.object_type',
-                'Content.slug',
-                'Content.title',
-                'Content.url'
-            ),
-            'limit' => 10,
-            'order'=>'Content.title ASC'
-        );
-
-        $contents = $this->paginate('Content');
 
         // Mine
         if($this->Session->read('Auth.User.username') == $token){
