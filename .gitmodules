@@ -19,3 +19,9 @@
 [submodule "Plugin/Content"]
 	path = Plugin/Content
 	url = git@github.com:jasonsnider/42viral-Content-Plugin.git
+[submodule "Connect"]
+	path = Connect
+	url = git@github.com:jasonsnider/42viral-Connect-Plugin.git
+[submodule "Plugin/Connect"]
+	path = Plugin/Connect
+	url = git@github.com:jasonsnider/42viral-Connect-Plugin.git
