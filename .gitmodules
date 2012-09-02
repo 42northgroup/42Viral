@@ -18,10 +18,7 @@
 	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
 [submodule "Plugin/Content"]
 	path = Plugin/Content
-	url = git@github.com:jasonsnider/42viral-Content-Plugin.git
-[submodule "Connect"]
-	path = Connect
-	url = git@github.com:jasonsnider/42viral-Connect-Plugin.git
+	url = git@github.com:42northgroup/42viral-Content-Plugin.git
 [submodule "Plugin/Connect"]
 	path = Plugin/Connect
-	url = git@github.com:jasonsnider/42viral-Connect-Plugin.git
+	url = git@github.com:42northgroup/42viral-Connect-Plugin.git

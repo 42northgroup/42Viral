@@ -20,6 +20,18 @@
  * @since         CakePHP(tm) v 0.2.9
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
+
+/**
+ * Here, we are connecting '/' (base path) to controller called 'Pages',
+ * its action called 'display', and we pass a param to select the view file
+ * to use (in this case, /app/View/Pages/home.ctp)...
+ */
+Router::connect('/', array( 'controller' => 'profiles', 'action' => 'index'));
+/**
+ * ...and connect the rest of 'Pages' controller's urls.
+ */
+Router::connect('/pages/*', array('controller' => 'pages', 'action' => 'display'));
+
 //a convenience route for accesing a profile
 Router::connect('/p/:username',
         array('controller' => 'profiles', 'action' => 'view'), array('pass' => array('username')));
