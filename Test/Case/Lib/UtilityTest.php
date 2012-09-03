@@ -20,7 +20,7 @@ App::uses('Utility', 'Lib');
  * @author Jason D Snider <root@jasonsnider.com>
  * @package       Test\42viral\Lib
  */
-class HandyTest extends CakeTestCase {
+class UtilityTest extends CakeTestCase {
   /**
    * Fixtures associated with this test case
    *
@@ -28,33 +28,33 @@ class HandyTest extends CakeTestCase {
    * @access public
    */
     public $fixtures = array();
-  
+
   /**
    * Method executed before each test
-   * 
+   *
    * @return void
    * @access public
    */
     public function startTest() {}
-  
+
   /**
    * Method executed after each test
-   * 
+   *
    * @return void
    * @access public
    */
     public function endTest() {
         ClassRegistry::flush();
     }
-    
+
 /*
  * Phone Number Tests
  * =============================================================
- */  
-    
+ */
+
     /**
      * Tests the conversion of a standard 10 digit integer
-     * 
+     *
      * @return void
      * @access public
      */
@@ -65,10 +65,10 @@ class HandyTest extends CakeTestCase {
         $this->assertEquals($expected, $result);
 
     }
-  
+
     /**
      * Tests the conversion of a preformatted phone number
-     * 
+     *
      * @return void
      * @access public
      */
@@ -79,10 +79,10 @@ class HandyTest extends CakeTestCase {
         $this->assertEquals($expected, $result);
 
     }
-    
+
     /**
      * Tests the conversion of an international number
-     * 
+     *
      * @return void
      * @access public
      */
@@ -92,17 +92,17 @@ class HandyTest extends CakeTestCase {
         $expected = '<a href="tel:+10123456789">(012) 345-6789</a>';
         $this->assertEquals($expected, $result);
 
-    }    
-    
-    
+    }
+
+
 /*
  * Email Tests
  * =============================================================
- */    
-    
+ */
+
     /**
      * Tests the conversion of an international number
-     * 
+     *
      * @return void
      * @access public
      */
@@ -112,5 +112,5 @@ class HandyTest extends CakeTestCase {
         $expected = '<a href="mailto:test@example.com">test@example.com</a>';
         $this->assertEquals($expected, $result);
 
-    }    
+    }
 }

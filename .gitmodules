@@ -1,24 +1,3 @@
-[submodule "Plugin/Tags"]
-	path = Plugin/Tags
-	url = git@github.com:42northgroup/tags.git
-[submodule "Plugin/Search"]
-	path = Plugin/Search
-	url = git@github.com:42northgroup/search.git
-[submodule "42viral/Vendor/Imagine"]
-	path = 42viral/Vendor/Imagine
-	url = git@github.com:42northgroup/Imagine.git
-[submodule "Plugin/DebugKit"]
-	path = Plugin/DebugKit
-	url = git@github.com:42northgroup/debug_kit.git
-[submodule "42viral/Vendor/HtmlPurifier"]
-	path = 42viral/Vendor/HtmlPurifier
-	url = https://github.com/42northgroup/htmlpurifier.git
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
 	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
-[submodule "Plugin/Content"]
-	path = Plugin/Content
-	url = git@github.com:42northgroup/42viral-Content-Plugin.git
-[submodule "Plugin/Connect"]
-	path = Plugin/Connect
-	url = git@github.com:42northgroup/42viral-Connect-Plugin.git

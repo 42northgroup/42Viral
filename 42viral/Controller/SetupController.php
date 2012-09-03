@@ -18,7 +18,7 @@
 App::uses('AppController', 'Controller');
 App::uses('Parser', 'Lib');
 App::uses('Sec', 'Lib');
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 /**
  * Provides a web interface for running the intial system setup
  * @author Jason D Snider <jason.snider@42viral.org>

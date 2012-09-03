@@ -14,7 +14,7 @@
  * @package 42viral
  */
 
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 
 /**
  * Generates a unique random string against a specified field
@@ -112,11 +112,11 @@ class RandomBehavior extends ModelBehavior
         //Adjust randomization parameters for various fields.
         switch($field){
             case 'short_cut':
-                $randomString = Handy::random(4);
+                $randomString = Utility::random(4);
             break;
         
             default:
-               $randomString = Handy::random(); 
+               $randomString = Utility::random(); 
             break;    
         }
         

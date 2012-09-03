@@ -14,55 +14,85 @@
  */
 
 App::uses('Scrub', 'Lib');
+App::uses('Utility', 'Lib');
 ?>
 
 <div class="row">
 
     <div class="two-thirds column alpha">
-        <div class="icon-bar">
-            <?php echo $this->SocialMedia->landingPage($person, $networks); ?>
-        </div>
-        <div class="h1shim"></div>
-        <div id="ResultsPage">
-            <h2><?php echo ProfileUtil::name($person['Person']); ?>'s Content</h2>
+        <section>
+            <h1>Profile</h1>
+            <div><?php echo $person['Profile']['bio']; ?></div>
+        </section>
 
-            <?php foreach($contents as $content):?>
-                <div class="clearfix result" style="width: 100%;">
-                    <div class="result-left">
-                        <?php echo Inflector::humanize($content['Content']['object_type']); ?>
-                    </div>
-                    <div class="result-right">
+        <section>
+            <h2>Address</h2>
+            <?php foreach($person['Address'] as $address): ?>
+                <div>Label: <?php echo !empty($address['label'])?$address['label']:$address['label']; ?></div>
+                <div><?php echo !empty($address['line1'])?$address['line1']:$address['line1']; ?></div>
+                <div><?php echo !empty($address['line2'])?$address['line2']:$address['line2']; ?></div>
+                <div>
+                    <?php
 
-                        <strong><?php echo $this->Html->link($content['Content']['title'],
-                                $content['Content']['url']); ?> </strong>
+                        echo !empty($address['city'])?$address['city']:$address['city'];
 
-                        <div class="tease">
-                            <?php echo Scrub::noHtml(
-                                    $this->Text->truncate(
-                                            $content['Content']['body'], 180, array('html' => true))); ?>
-                        </div>
-                    </div>
+                        if(!empty($address['state'])){
+                            echo (!empty($address['city']) && !empty($address['state']))?', ':'';
+                            echo $address['state'];
+                        }
+                        echo (!empty($address['city']) && !empty($address['state']))?' ':'';
+                        echo !empty($address['zip'])?$address['zip']:$address['zip'];
+                   ?>
+                </div>
+                <div>
+                    <?php
+                        echo !empty($address['country'])?$address['country']:$address['country'];
+                        //echo (!empty($address['country']) && !empty($address['planet']))?', ':'';
+                        //echo !empty($address['planet'])?$address['planet']:$address['planet'];
+                    ?>
                 </div>
             <?php endforeach; ?>
-            <?php echo $this->element('paginate'); ?>
-        </div>
+        </section>
+
+        <section>
+            <h2>Email Addresses</h2>
+            <?php foreach($person['EmailAddress'] as $emailAddress): ?>
+                <div>
+                <?php
+                    echo $emailAddress['label'] . ': ';
+                    echo $emailAddress['email_address'];
+                ?>
+                </div>
+            <?php endforeach; ?>
+        </section>
+
+        <section>
+            <h2>Phone Numbers</h2>
+            <?php foreach($person['PhoneNumber'] as $phoneNumbers): ?>
+                <div>
+                <?php
+                    echo $phoneNumbers['label'] . ': ';
+                    echo $phoneNumbers['phone_number'];
+                ?>
+                </div>
+            <?php endforeach; ?>
+        </section>
+
+        <section>
+            <h2>Social Networks</h2>
+            <?php foreach($person['SocialNetwork'] as $socialNetwork): ?>
+                <div>
+                <?php
+                    echo $this->Html->link($socialNetwork['network'], $socialNetwork['profile_url']);
+                ?>
+                </div>
+            <?php endforeach; ?>
+        </section>
     </div>
 
     <div class="one-third column omega">
 
         <?php
-            echo $this->element(
-                    'Blocks' . DS . 'hcard',
-                    array(
-                            'hcardPerson'=>$person,
-                            'hcardProfile'=>$person['Profile'],
-                            'hcardPhoneNumbers'=>$person['PhoneNumber'],
-                            'hcardEmailAddresses'=>$person['EmailAddress'],
-                            'hcardAddresses'=>$person['Address'],
-                            'h1'=>true
-                        )
-                    );
-
             echo $this->element(
                 'Navigation' . DS . 'menus',
                 array(
@@ -70,7 +100,6 @@ App::uses('Scrub', 'Lib');
                     'menuPerson'=>$person
                 )
             );
-
         ?>
 
     </div>

@@ -1,6 +1,6 @@
 <?php
 /**
- * Provides controll logic for managing user profile actions
+ * Allows a user of the system to manage his/her profile
  *
  * 42Viral(tm) : The 42Viral Project (http://42viral.org)
  * Copyright 2009-2012, 42 North Group Inc. (http://42northgroup.com)
@@ -17,7 +17,7 @@
 App::uses('AppController', 'Controller');
 App::uses('ProfileUtil', 'Lib');
 /**
- * Provides controll logic for managing user profile actions
+ * Allows a user of the system to manage his/her profile
  *
  * @author Zubin Khavarian (https://github.com/zubinkhavarian)
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -40,13 +40,7 @@ App::uses('ProfileUtil', 'Lib');
      */
     public $uses = array(
         'Address',
-        'Facebook',
-        'Linkedin',
-        'Tweet',
-        'GooglePlus',
-        'Oauth',
         'EmailAddress',
-        'Image',
         'Profile',
         'Person',
         'PhoneNumber',
@@ -170,7 +164,6 @@ App::uses('ProfileUtil', 'Lib');
                     )
                 ),
                 'Profile'=>array('SocialNetwork'),
-                'Upload'=>array(),
                 'UserSetting'=>array()
             )
         ));
@@ -246,162 +239,9 @@ App::uses('ProfileUtil', 'Lib');
 
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
-        $this->set('contents', $contents);
         $this->set('profileId', $person['Profile']['id']);
         $this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Profile");
 
-    }
-
-    /**
-     * Makes sure the all of the user's social media token are available and have not expired. If any of these tokens
-     * are unavailable or expired, renews them or if it has to, it reauthenticates the user with the social medias.
-     * once all the tokens are up to date, it the function the the user's statuses.
-     *
-     * @access public
-     * @param string $redirect_url if the function needs reathenticate the user with some social media this parameter
-     *        tell's it where to return after the user hass been reauthenticated
-     * @return boolean
-     */
-    public function social_media($redirect_url='profiles/social_media')
-    {
-
-        if( !$this->Session->check('Auth.User.sm_list') ){
-
-            $sm_list = $this->SocialNetwork->find('list', array(
-                'conditions' => array('SocialNetwork.model_id' => $this->Session->read('Auth.User.id')),
-                'fields' => array('SocialNetwork.oauth_id', 'SocialNetwork.network')
-            ));
-
-            $this->Session->write('Auth.User.sm_list', $sm_list);
-        }
-
-        foreach( $this->Session->read('Auth.User.sm_list') as $key => $val ){
-            switch ($val){
-
-                case 'facebook':
-                    if( !$this->Oauths->check_session_for_token('facebook', $redirect_url) ){
-
-                        $this->redirect('/oauth/facebook_connect/');
-                    }
-
-                    break;
-
-                case 'linked_in':
-                    if( !$this->Oauths->check_session_for_token('linked_in', $redirect_url) ){
-
-                        $this->redirect('/oauth/linkedin_connect/');
-                    }
-
-                    break;
-                case 'twitter':
-                    if( !$this->Oauths->check_session_for_token('twitter', $redirect_url) ){
-
-                        $this->redirect('/oauth/twitter_connect/');
-                    }
-
-                    break;
-
-                case 'google_plus':
-                    if( !$this->Oauths->check_session_for_token('google_plus', $redirect_url) ){
-
-                        $this->redirect('/oauth/google_connect/');
-                    }
-
-                    break;
-            }
-        }
-
-
-
-        $sm = $this->SocialNetwork->find('all', array(
-            'conditions' => array('SocialNetwork.model_id' => $this->Session->read('Auth.User.id'))
-        ));
-
-        $statuses['posts'] = array();
-
-        foreach($sm as $media){
-
-            switch($media['SocialNetwork']['network']){
-
-                case 'facebook':
-                    try{
-
-                        $statuses['posts'] = array_merge($statuses['posts'], $this->Facebook->find('all', array(
-                            'conditions' => array('oauth_token' => $this->Session->read('Facebook.oauth_token')),
-                            'limit'=>5
-                        )));
-                    }catch(Exception $e){
-
-                        $statuses['connection']['Facebook'] = false;
-                    }
-
-                    break;
-
-                case 'linked_in':
-
-                    try{
-
-                        $statuses['posts'] = array_merge($statuses['posts'], $this->Linkedin->find('all', array(
-                            'conditions' => array(
-                                'oauth_token' => $this->Session->read('LinkedIn.oauth_token'),
-                                'oauth_token_secret' => $this->Session->read('LinkedIn.oauth_token_secret')
-                            ),
-                            'limit' => 5
-                        )));
-                    }catch(Exception $e){
-
-                        $statuses['connection']['LinkedIn'] = false;
-                    }
-
-                    break;
-
-                case 'twitter':
-
-                    try{
-
-                        $statuses['posts'] = array_merge($statuses['posts'], $this->Tweet->find('all', array(
-                            'conditions' => array('username' => $media['SocialNetwork']['oauth_id']),
-                            'limit' => 5
-                        )));
-                    }catch (Exception $e){
-
-                        $statuses['connection']['Twitter'] = false;
-                    }
-
-                    break;
-
-                case 'google_plus':
-
-                    try{
-
-                        $statuses['posts'] = array_merge($statuses['posts'], $this->GooglePlus->find('all', array(
-                            'conditions' => array(
-                                'username' => $media['SocialNetwork']['oauth_id'],
-                                'oauth_token' => $this->Session->read('GooglePlus.oauth_token')
-                            ),
-                            'limit' => 5
-                        )));
-                    }catch (Exception $e){
-
-                        $statuses['connection']['GooglePlus'] = false;
-                    }
-
-                    break;
-
-            }
-        }
-
-        for($x = 0; $x < count($statuses['posts']); $x++) {
-          for($y = 0; $y < count($statuses['posts']); $y++) {
-            if($statuses['posts'][$x]['time'] > $statuses['posts'][$y]['time']) {
-                $hold = $statuses['posts'][$x];
-                $statuses['posts'][$x] = $statuses['posts'][$y];
-                $statuses['posts'][$y] = $hold;
-            }
-          }
-        }
-
-        return $statuses;
     }
 
 }

@@ -15,7 +15,7 @@
  */
 
 App::uses('AppModel', 'Model');
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 App::uses('CakeEmail', 'Network/Email');
 App::uses('Scrub', 'Lib/Scrub');
 /**

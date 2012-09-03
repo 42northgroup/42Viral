@@ -13,10 +13,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 ?>
-
-<?php echo $this->element('Blocks' . DS . 'editor'); ?>
 
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">

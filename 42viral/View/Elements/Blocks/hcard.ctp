@@ -13,7 +13,7 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 
 //Do we want the image label to provide this page's h1 tag?
 $h1 = isset($h1)?$h1:false;
@@ -47,7 +47,7 @@ $tag = ($h1)?'h1':'span';
                         <?php foreach ($hcardPhoneNumbers as $phoneNumber): ?>
                             <div class="tel">
                                 <span class="type"><?php echo $phoneNumber['label'] ?>: </span>
-                                <span class="value"><?php echo Handy::phoneNumber($phoneNumber['phone_number']) ?></span>
+                                <span class="value"><?php echo Utility::phoneNumber($phoneNumber['phone_number']) ?></span>
                             </div>
                         <?php endforeach; ?>
                     </div>

@@ -17,7 +17,7 @@
 App::uses('Folder', 'Utility');
 App::uses('File', 'Utility');
 App::uses('String', 'Utility');
-App::uses('Handy', 'Lib');
+App::uses('Utility', 'Lib');
 
 App::uses('ConnectionManager', 'Model');
 App::uses('MissingConnectionException', 'Error/exceptions');
@@ -328,7 +328,7 @@ class SetupShell extends AppShell
             $cipher = $this->in(
                 'Set a security cipher (Numbers only) (ENTER to accept default):',
                 null,
-                Handy::random(128, false, false, true)
+                Utility::random(128, false, false, true)
             );
 
             if(!intval($cipher)) {
@@ -341,7 +341,7 @@ class SetupShell extends AppShell
         $salt = $this->in(
             'Set a system salt (Mixed case and alphanumeric) (ENTER to accept default):',
             null,
-            Handy::random(128, true, true, true)
+            Utility::random(128, true, true, true)
         );
 
 

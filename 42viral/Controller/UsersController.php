@@ -596,7 +596,6 @@ App::uses('CakeEmail', 'Network/Email');
                     )
                 ),
                 'Profile' => array('SocialNetwork'),
-                'Upload' => array(),
                 'UserSetting' => array()
             )
         ));

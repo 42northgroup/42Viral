@@ -36,7 +36,7 @@
             <?php foreach ($phoneNumbers as $phoneNumber): ?>
                 <tr>
                     <td><?php echo $phoneNumber['PhoneNumber']['label']; ?></td>
-                    <td><?php echo Handy::phoneNumber($phoneNumber['PhoneNumber']['phone_number']); ?></td>
+                    <td><?php echo Utility::phoneNumber($phoneNumber['PhoneNumber']['phone_number']); ?></td>
                     <td class="actions">
                         <?php echo $this->Html->link(__('Edit'),
                                 "/phone_numbers/edit/{$phoneNumber['PhoneNumber']['id']}"); ?>

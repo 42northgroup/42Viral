@@ -101,11 +101,6 @@ class Person extends AppModel
             'foreignKey' => 'model_id',
             'conditions'=>array('model'=>'Person'),
             'dependent' => true
-        ),
-        'Upload' => array(
-            'className' => 'Upload',
-            'foreignKey' => 'created_person_id',
-            'dependent' => true
         )
     );
 
