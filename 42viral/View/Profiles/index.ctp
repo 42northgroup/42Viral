@@ -14,6 +14,7 @@
  */
 
 App::uses('Scrub', 'Lib');
+App::uses('ProfileUtility', 'Lib');
 ?>
 <h1><?php echo $title_for_layout; ?></h1>
 <div class="row">
@@ -23,9 +24,9 @@ App::uses('Scrub', 'Lib');
                 <div class="result">
                     <div>
                         <div class="image-frame" style="vertical-align: top; margin-right: 6px;">
-                            <?php echo $this->Profile->avatar($user['User'], 64); ?>
+                            <?php echo ProfileUtility::avatar($user['User'], 64); ?>
                         </div>
-                        <strong><?php echo $this->Profile->displayName($user['User']); ?></strong>
+                        <strong><?php echo ProfileUtility::displayName($user['User']); ?></strong>
                         <?php
                         echo Scrub::noHtml(
                             $this->Text->truncate(

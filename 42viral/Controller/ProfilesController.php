@@ -15,7 +15,7 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('ProfileUtil', 'Lib');
+App::uses('ProfileUtility', 'Lib');
 /**
  * Allows a user of the system to manage his/her profile
  *
@@ -240,7 +240,7 @@ App::uses('ProfileUtil', 'Lib');
         $this->set('person', $person);
         $this->set('networks', $this->SocialNetwork->getSocialNetworks());
         $this->set('profileId', $person['Profile']['id']);
-        $this->set('title_for_layout', ProfileUtil::name($person['Person']) . "'s Profile");
+        $this->set('title_for_layout', ProfileUtility::name($person['Person']) . "'s Profile");
 
     }
 

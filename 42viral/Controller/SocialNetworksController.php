@@ -13,7 +13,7 @@
  */
 
 App::uses('AppController', 'Controller');
-App::uses('ProfileUtil', 'Lib');
+App::uses('ProfileUtility', 'Lib');
 /**
  * Provides controll logic for managing social networks
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -155,7 +155,7 @@ App::uses('ProfileUtil', 'Lib');
         $this->set('mine', ($person['Person']['id']==$this->Session->read('Auth.User.id')?true:false));
 
         $this->set('socialNetworks', $socialNetworks);
-        $this->set('title_for_layout', ProfileUtil::name($person['Person']). "'s Social Networks");
+        $this->set('title_for_layout', ProfileUtility::name($person['Person']). "'s Social Networks");
     }
 
     /**

@@ -21,6 +21,8 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+//A convenience route for accessing admin sections
+Router::connect('/admin', array('prefix'=>'admin', 'controller' => 'admin', 'action' => 'index'));
 /**
  * Here, we are connecting '/' (base path) to controller called 'Pages',
  * its action called 'display', and we pass a param to select the view file

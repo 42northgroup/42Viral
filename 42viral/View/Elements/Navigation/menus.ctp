@@ -318,30 +318,6 @@ switch($section){
                 'label'=>'Admin',
                 'Items'=>array(
                     array(
-                        'text' =>__('Create a web page'),
-                        'url' => "/admin/pages/create/",
-                        'options'=>array(),
-                        'confirm'=>null,
-                        'actions_exclude'=>array(),
-                        //'session_check'=>'Auth.User.employee:1'
-                    ),
-                    array(
-                        'text' =>__('Pages'),
-                        'url' => "/pages/",
-                        'options'=>array(),
-                        'confirm'=>null,
-                        'actions_exclude'=>array(),
-                        //'session_check'=>'Auth.User.employee:1'
-                    ),
-                    array(
-                        'text' =>__('People'),
-                        'url' => "/admin/people/",
-                        'options'=>array(),
-                        'confirm'=>null,
-                        'actions_exclude'=>array(),
-                        //'session_check'=>'Auth.User.employee:1'
-                    ),
-                    array(
                         'text' =>__('Users'),
                         'url' => "/admin/users/",
                         'options'=>array(),

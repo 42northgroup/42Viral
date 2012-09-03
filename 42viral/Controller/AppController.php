@@ -17,7 +17,7 @@
 App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('Scrubable', 'Lib');
-App::uses('ProfileUtil', 'Lib');
+App::uses('ProfileUtility', 'Lib');
 /**
  * 42Viral's parent controller layer
  * @author Jason D Snider <jason.snider@42viral.org>
@@ -56,7 +56,6 @@ class AppController extends Controller
         'Html',
         'Menu',
         'Paginator',
-        'Profile',
         'Session',
         'SocialMedia',
         'Text'
@@ -380,7 +379,7 @@ class AppController extends Controller
                     )
                 );
 
-                $titleForLayout = ProfileUtil::name($person['Person']) . $fixedTitle;
+                $titleForLayout = ProfileUtility::name($person['Person']) . $fixedTitle;
             break;
 
             default:
