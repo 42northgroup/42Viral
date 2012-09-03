@@ -13,8 +13,7 @@
 App::uses('AppModel', 'Model');
 /**
  * GenericContent class
- * @package Plugin.Seo
- * @subpackage Plugin.Seo.Test.Cases.Behavior
+ * @package Seo
  * @author Jason D Snider <root@jasonsnider.com>
  */
 class GenericContent extends CakeTestModel {
@@ -81,8 +80,8 @@ class SeoBehaviorTest extends CakeTestCase {
    * @access public
    */
     public $fixtures = array(
-        'plugin.seo.GenericContent',
-        'plugin.seo.Article'
+        'GenericContent',
+        'Article'
     );
 
   /**
