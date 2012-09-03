@@ -1,3 +1,6 @@
 [submodule "Plugin/AuditLog"]
 	path = Plugin/AuditLog
 	url = git@github.com:42northgroup/CakePHP-Audit-Log-Plugin.git
+[submodule "Vendor/HtmlPurifier"]
+	path = Vendor/HtmlPurifier
+	url = git@github.com:42northgroup/htmlpurifier.git
