@@ -71,6 +71,7 @@ CakePlugin::loadAll();
  * path to override the 42viral path. To do this the native Cake paths must be placed first.
  * @var array
  */
+/*
 App::build(
     array(
 
@@ -78,66 +79,9 @@ App::build(
         	ROOT . DS . APP_DIR . DS . 'Controller' . DS,
             ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS
         ),
-
-        'Controller/Component' => array(
-        	ROOT . DS . APP_DIR . DS . 'Controller' . DS . 'Component' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Controller' . DS . 'Component' . DS,
-        ),
-
-        'Console' => array(
-        	ROOT . DS . APP_DIR . DS . 'Console' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS,
-        	//DebugKit has no Config, so we will add the console path here
-        	ROOT . DS . APP_DIR . DS . 'Plugin' . DS . 'DebugKit' . DS . 'Console' . DS
-        ),
-
-        'Console/Command' => array(
-        	ROOT . DS . APP_DIR . DS . 'Console' . DS . 'Command' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Console' . DS . 'Command' . DS
-        ),
-
-        'Lib' => array(
-            ROOT . DS . APP_DIR . DS . 'Lib' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Lib' . DS,
-        ),
-
-        'Model' => array(
-        	ROOT . DS . APP_DIR . DS . 'Model'  . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model'  . DS
-        ),
-
-        'Model/Behavior' => array(
-        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Behavior' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Behavior' . DS,
-        ),
-
-        'Model/Datasource' => array(
-        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Datasource' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS
-        ),
-
-        'Model/Datasource/Database' => array(
-        	ROOT . DS . APP_DIR . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Model' . DS . 'Datasource' . DS . 'Database' . DS
-        ),
-
-        'vendors' => array(
-        	ROOT . DS . APP_DIR . DS . 'Vendor' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'Vendor' . DS
-        ),
-
-        'View' => array(
-            ROOT . DS . APP_DIR . DS . 'View' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS,
-        ),
-
-        'View/Helper' => array(
-            ROOT . DS . APP_DIR . DS . 'View' . DS . 'Helper' . DS,
-            ROOT . DS . APP_DIR . DS . '42viral' . DS . 'View' . DS . 'Helper' . DS,
-        )
-
-    ));
-
+    )
+);
+*/
 /**
  * Encoding method to use for encoding and decoding the setup state array structure
  *

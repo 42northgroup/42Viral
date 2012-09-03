@@ -1,4 +1,4 @@
-<?php
+<?php 
 class AppSchema extends CakeSchema {
 
 	public function before($event = array()) {
@@ -71,39 +71,40 @@ class AppSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
-	/**
-	 * Schema for audit_deltas table
-	 *
-	 * @var array
-	 * @access public
-	 */
 	public $audit_deltas = array(
-    	'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'audit_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'property_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'old_value' => array('type' => 'text', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'new_value' => array('type' => 'text', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'audit_id' => array('column' => 'audit_id', 'unique' => 0)),
-    	'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'audit_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'index', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'property_name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'old_value' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'new_value' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1),
+			'audit_id' => array('column' => 'audit_id', 'unique' => 0)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
 	);
-
-	/**
-	 * Schema for audits table
-	 *
-	 * @var array
-	 * @access public
-	 */
 	public $audits = array(
-    	'id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'event' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'model' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'entity_id' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 36, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'json_object' => array('type' => 'text', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'description' => array('type' => 'text', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'source_id' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_general_ci', 'comment' => '', 'charset' => 'utf8'),
-    	'created' => array('type' => 'datetime', 'null' => false, 'default' => NULL, 'collate' => NULL, 'comment' => ''),
-    	'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
-    	'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'event' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'model' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'entity_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'json_object' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'description' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'source_id' => array('type' => 'string', 'null' => true, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'InnoDB')
+	);
+	public $cake_sessions = array(
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'data' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'expires' => array('type' => 'integer', 'null' => true, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
 	public $email_addresses = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
@@ -166,20 +167,35 @@ class AppSchema extends CakeSchema {
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
 	);
+	public $old_passwords = array(
+		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'salt' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
+		'indexes' => array(
+			'PRIMARY' => array('column' => 'id', 'unique' => 1)
+		),
+		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+	);
 	public $people = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'first_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'last_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'bio' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'email' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'username' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'salt' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password_expires' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'login_attempts' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 1),
 		'last_login_attempt' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 20),
 		'password_reset_token' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'comment' => 'Password reset token for when user requests a password reset (expires after a given period)', 'charset' => 'latin1'),
 		'password_reset_token_expiry' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'Password reset token\'s expiry time after which the token is considered invalid and a new one needs to be generated if needed'),
-		'salt' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'first_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'last_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'employee' => array('type' => 'string', 'null' => false, 'default' => '0', 'length' => 1, 'collate' => 'latin1_swedish_ci', 'comment' => 'Set to 1 if the person is an employee', 'charset' => 'latin1'),
+		'employee' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'Set to 1 if the person is an employee'),
+		'two_factor_on' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'When set to 1, this user will be forced to use two factor authentication'),
+		'two_factor_hash' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'comment' => 'The hash of the currently active second factor token', 'charset' => 'latin1'),
+		'two_factor_expiry' => array('type' => 'integer', 'null' => false, 'default' => null, 'comment' => 'The timestamp upon which the current second factor token expires'),
 		'object_type' => array('type' => 'string', 'null' => false, 'default' => 'prospect', 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'invitations_available' => array('type' => 'integer', 'null' => true, 'default' => null),
 		'access' => array('type' => 'string', 'null' => false, 'default' => 'public', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
@@ -187,7 +203,6 @@ class AppSchema extends CakeSchema {
 		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'modified_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'slug' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
@@ -209,25 +224,6 @@ class AppSchema extends CakeSchema {
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
 		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
-	);
-	public $profiles = array(
-		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'owner_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'bio' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'modified_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
-	);
-	public $cake_sessions = array(
-    	'id' => array('type'=>'string', 'null' => false, 'key' => 'primary'),
-    	'data' => array('type'=>'text', 'null' => true, 'default' => NULL),
-    	'expires' => array('type'=>'integer', 'null' => true, 'default' => NULL),
-    	'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1))
 	);
 	public $social_networks = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
