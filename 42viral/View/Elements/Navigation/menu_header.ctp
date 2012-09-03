@@ -2,6 +2,7 @@
 
 $headerMenu = array();
 
+//Place these links in the header if we have an active user session
 if($this->Session->check('Auth.User.id')):
 
     $username = $this->Session->read('Auth.User.username');
@@ -37,7 +38,7 @@ if($this->Session->check('Auth.User.id')):
     );
 
 else:
-
+//Place these links in the header if we DO NOT have an active user session
     $headerMenu = array(
         'Items'=>array(
             array(

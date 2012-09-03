@@ -5,35 +5,6 @@
 The goal is to provide scalable and robust "kick start" for projects of any size. 
 Provides an out of the box installer, user and privledge management and some common features and libraies that are usefull for secure and robust web development.
 
-## Third Party Support
-
-* Gravatar (Currently only avatars)
-* Disqus
-* Twitter
-* LinkedIn
-* Facebook
-* Google+
-* Yahoo! Local
-* Yelp
-
-## Data Portability
-
-We are working very hard to make all data as portable and as standards compliant as possible
-
-Profile data currently supports 
-
-* vacard
-* xcard
-* hcard
-
-## Development
-
-Agile, Test Driven Development.
-
-Models, Components, Helpers and Behaviors, should be responsible for everything. While the project will provide UI and 
-work-flows we should be able to drop all of the controllers (except those that provide web services) and views without 
-losing the ability to manage the data.
-
 # Installation
 
 _As we are still in alpha development, these install instructions are written for core development_
@@ -48,12 +19,12 @@ We recommend the advanced install options from the CakePHP Cookbook.
 
 Add the following to you php.ini file __Be sure to update this for both your server and CLI .ini files__
 
-    include_path = '.:/usr/share/php:/usr/share/cakephp-2.1/lib'
+    include_path = '.:/usr/share/php:/usr/share/cakephp-2.x/lib'
 
 Install CakePHP in the usr/share directory
 
     cd /usr/share
-    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.1
+    sudo git clone https://github.com/cakephp/cakephp.git cakephp-2.x
 
 Replace
 
@@ -61,7 +32,7 @@ Replace
 * /var/www/vhosts/ with your server path
 * httpdocs with whatever you want to call it
 
-__app is highly recommended, by default CakePHP will always look for the app directory__
+__The app directory is highly recommended__
 
     cd /[path/to/your-site.com/httpdocs]/app
 
@@ -165,6 +136,10 @@ authors
 * [Skeleton](http://www.getskeleton.com/)
 * [Google Webfonts](http://www.google.com/webfonts/)
 * [Google Closure](https://developers.google.com/closure/)
+
+## Additional Credits
+
+* WebFontKit
 
 ## License
 

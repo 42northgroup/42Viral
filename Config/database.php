@@ -57,77 +57,77 @@
  *
  */
 /**
- * Data source configuration. Modifieid from the original CakePHP database config file. See app/Config/app.php for 
+ * Data source configuration. Modifieid from the original CakePHP database config file. See app/Config/app.php for
  * setting the variables
  * @author Jason D Snider <jason.snider@42viral.org>
  ** @author CakePHP Developers <cakephp.org>
  * @see http://book.cakephp.org/view/922/Database-Configuration
  */
 class DATABASE_CONFIG {
-    
+
     /**
      * The default database
-     * @var type 
+     * @var type
      * @access public
      */
     public $default = array();
-    
+
     /**
      * The test database
-     * @var type 
+     * @var type
      * @access public
      */
     public $test = array();
-    
+
     /**
      * The test database
-     * @var type 
+     * @var type
      * @access public
      */
     public $no = array();
-    
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $twitter = array();
-    
+    //public $twitter = array();
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $linkedin = array();
-    
+    //public $linkedin = array();
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $facebook = array();
-    
+    //public $facebook = array();
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $google_plus = array();
-    
+    //public $google_plus = array();
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $yelp = array();
-    
+    //public $yelp = array();
+
     /**
-     * 
-     * @var type 
+     *
+     * @var type
      * @access public
      */
-    public $yahoo = array();
-    
+    //public $yahoo = array();
+
     public function __construct() {
 
         $this->default = array(
@@ -149,39 +149,39 @@ class DATABASE_CONFIG {
             'database' => Configure::read('DataSource.test.database'),
             'prefix' => Configure::read('DataSource.test.prefix')
         );
-        
+
         $this->no = array(
             'datasource' => 'No'
         );
-        
+        /*
         $this->twitter = array(
             'datasource' => 'TwitterSource',
             'consumer_key' => Configure::read('Twitter.consumer_key'),
             'consumer_secret' =>Configure::read('Twitter.consumer_secret'),
             'callback' => Configure::read('Twitter.callback')
         );
-        
+
         $this->linkedin = array(
             'datasource' => 'LinkedinSource',
             'consumer_key' => Configure::read('LinkedIn.consumer_key'),
             'consumer_secret' => Configure::read('LinkedIn.consumer_secret'),
             'callback' => Configure::read('LinkedIn.callback')
         );
-        
+
         $this->facebook = array(
             'datasource' => 'FacebookSource',
             'consumer_key' => Configure::read('Facebook.consumer_key'),
             'consumer_secret' => Configure::read('Facebook.consumer_secret'),
             'callback' => Configure::read('Facebook.callback')
         );
-        
+
         $this->google_plus = array(
             'datasource' => 'GooglePlusSource',
             'consumer_key' => Configure::read('GooglePlus.consumer_key'),
             'consumer_secret' => Configure::read('GooglePlus.consumer_secret'),
             'callback' => Configure::read('GooglePlus.callback')
         );
-        
+
         $this->yelp = array(
             'datasource' => 'YelpApiSource',
             'consumer_key' => Configure::read('Yelp.consumer_key'),
@@ -189,11 +189,11 @@ class DATABASE_CONFIG {
             'token' => Configure::read('Yelp.token'),
             'token_secret' => Configure::read('Yelp.token_secret')
         );
-        
+
         $this->yahoo = array(
             'datasource' => 'YahooApiSource',
             'app_id' => Configure::read('Yahoo.LocalSearch.app_id')
         );
-
+        */
     }
 }

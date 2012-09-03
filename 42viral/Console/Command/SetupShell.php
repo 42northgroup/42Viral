@@ -465,7 +465,7 @@ class SetupShell extends AppShell
             //$fixedAppPath .'tmp/cache/views',
 
             $fixedAppPath .'webroot/cache',
-            $fixedAppPath .'webroot/uploaded',
+            //$fixedAppPath .'webroot/uploaded',
             $fixedAppPath .'Config/Xml',
             $fixedAppPath .'Config/Includes',
             $fixedAppPath .'Config/Log',
@@ -604,12 +604,14 @@ class SetupShell extends AppShell
      */
     private function __runConfigurationShell()
     {
+
         $this->out('...... Running configuration shell for plugin configuration');
 
+        /* The configuration shell has been disbled
         $configurationShell = new ConfigurationShell();
         $configurationShell->startup();
         $configurationShell->main();
-
+        */
         $this->__updateSetupState('run_configuration_shell');
     }
 
