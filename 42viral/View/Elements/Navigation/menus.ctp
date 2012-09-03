@@ -334,14 +334,6 @@ switch($section){
                         //'session_check'=>'Auth.User.employee:1'
                     ),
                     array(
-                        'text' =>__('Configuration'),
-                        'url' => "/admin/configurations/",
-                        'options'=>array(),
-                        'confirm'=>null,
-                        'actions_exclude'=>array(),
-                        //'session_check'=>'Auth.User.employee:1'
-                    ),
-                    array(
                         'text' =>__('Allot invites'),
                         'url' => "/admin/users/allot_invites/",
                         'options'=>array(),

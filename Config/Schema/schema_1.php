@@ -1,7 +1,7 @@
 <?php 
 class AppSchema extends CakeSchema {
 
-	public $file = 'schema_2.php';
+	public $file = 'schema_1.php';
 
 	public function before($event = array()) {
 		return true;
@@ -171,17 +171,18 @@ class AppSchema extends CakeSchema {
 	);
 	public $people = array(
 		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'first_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'last_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'bio' => array('type' => 'text', 'null' => true, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'email' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'username' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 45, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
+		'salt' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'password_expires' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'login_attempts' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 1),
 		'last_login_attempt' => array('type' => 'integer', 'null' => true, 'default' => null, 'length' => 20),
 		'password_reset_token' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'comment' => 'Password reset token for when user requests a password reset (expires after a given period)', 'charset' => 'latin1'),
 		'password_reset_token_expiry' => array('type' => 'datetime', 'null' => true, 'default' => null, 'comment' => 'Password reset token\'s expiry time after which the token is considered invalid and a new one needs to be generated if needed'),
-		'salt' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'first_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'last_name' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 25, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'employee' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'Set to 1 if the person is an employee'),
 		'two_factor_on' => array('type' => 'boolean', 'null' => false, 'default' => '0', 'comment' => 'When set to 1, this user will be forced to use two factor authentication'),
 		'two_factor_hash' => array('type' => 'string', 'null' => true, 'default' => null, 'length' => 128, 'collate' => 'latin1_swedish_ci', 'comment' => 'The hash of the currently active second factor token', 'charset' => 'latin1'),
@@ -206,19 +207,6 @@ class AppSchema extends CakeSchema {
 		'label' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'phone_number' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 20, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'access' => array('type' => 'string', 'null' => false, 'default' => 'private', 'length' => 100, 'collate' => 'latin1_swedish_ci', 'comment' => 'Public, Protected or Private', 'charset' => 'latin1'),
-		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
-		'modified_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
-	);
-	public $profiles = array(
-		'id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'key' => 'primary', 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'owner_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
-		'bio' => array('type' => 'text', 'null' => false, 'default' => null, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'created' => array('type' => 'datetime', 'null' => false, 'default' => null),
 		'created_person_id' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 36, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1'),
 		'modified' => array('type' => 'datetime', 'null' => false, 'default' => null),
