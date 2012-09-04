@@ -31,8 +31,7 @@
                     'js' . DS . 'startup.js',
 
 
-                    'vendors' . DS . 'yui' . DS . 'css' . DS . 'yui.css',
-                    'vendors' . DS . 'html5boilerplate' . DS . 'css' . DS . 'style.css',
+                    'vendors' . DS . 'normalize' . DS . 'css' . DS . 'normalize.css',
                     'vendors' . DS . 'skeleton' . DS . 'css' . DS . 'skeleton.css',
 
                     'css' . DS . 'cake.stripped.css',
@@ -44,8 +43,6 @@
                     'css' . DS . 'responsive-header.css',
                     'css' . DS . 'responsive-navigation.css',
                     'css' . DS . 'responsive-form.css',
-
-                    'css' . DS . 'hcard.css',
 
                     'css' . DS . 'tables.css',
                     'css' . DS . 'messages.css',

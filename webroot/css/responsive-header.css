@@ -166,7 +166,8 @@
         float:left;
         position: absolute;
         border-bottom-left-radius: 6px;
-        right: 0;   
+        right: 0;
+        z-index: 999;
     }
 
     .navigation{

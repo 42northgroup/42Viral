@@ -11,12 +11,14 @@ if($this->Session->check('Auth.User.id')):
 
     $headerMenu = array(
         'Items'=>array(
+
             array(
                 'text'=>__('Inbox') . $messageBadge,
                 'url'=>"/notifications/",
                 'options'=>array(),
                 'confirm'=>null
             ),
+
             array(
                 'text'=>__('Logout'),
                 'url'=>"/users/logout/",
@@ -24,8 +26,10 @@ if($this->Session->check('Auth.User.id')):
                 'confirm'=>null,
             ),
             array(
-                'text'=>ProfileUtility::avatar($this->Session->read('Auth.User'), 32),
-                'url'=>"/people/view/{$username}/",
+                'text'=>ProfileUtility::avatar($this->Session->read('Auth.User'), 32)
+                //. ' ' . ProfileUtil::name($this->Session->read('Auth.User'))
+                ,
+                'url'=>"/profiles/home/",
                 'options'=>array(
                     'escape'=>false
                 ),
