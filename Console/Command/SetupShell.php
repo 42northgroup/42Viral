@@ -428,7 +428,7 @@ class SetupShell extends AppShell
         //Paths that require chmod 777
         $paths777 = array(
             ROOT . DS . APP_DIR . DS .
-                "42viral/Vendor/HtmlPurifier/library/HTMLPurifier/DefinitionCache/Serializer"
+                "Vendor/HtmlPurifier/library/HTMLPurifier/DefinitionCache/Serializer"
         );
 
         $paths = explode(PATH_SEPARATOR, ini_get('include_path'));
