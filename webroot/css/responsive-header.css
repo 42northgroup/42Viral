@@ -21,92 +21,29 @@
     #Mobile (Landscape) */
 
 
-
 /* #Base 960 Header
 ================================================== */
-#LogoContainer {
-    float: left;
-    color: #fff;
+#HeaderLogo{
+	float:left;
+	text-align: left;
+		
 }
 
-#LogoContainer a {
-    color: #fff;
+#HeaderNavigation{
+	float:right;
+	text-align: left;
 }
 
-#NavigationContainer {
-    float:right;
-    display: inline;
+.navigation,
+.logo-container{
+	display: inline;
+	padding: 0 5px;	
+	text-align: left;
 }
 
-#NavigationContainer a:link,
-#NavigationContainer a:visited {
-    color: #fff;
+#HeaderNavigationTrigger{
+	cursor: pointer;
 }
-
-#MobileHeader{
-    display: none;
-} 
-
-#NavigationHeader{
-    display: none;
-} 
-
-#Navigation{
-    width: auto;
-    display: block;
-}
-
-.navigation{
-    display:inline;
-    position: relative;
-}
-
-.navigation.active{
-    background: transparent;
-    padding: 12px 0;
-}
-
-.navigation a:link,
-.navigation a:visited{
-    color: white;
-    display: inline;
-    float: none;
-    height: 19px;
-    line-height: 19px;
-    margin: 0px;
-    padding:10px 10px 11px 10px;
-    text-decoration: none;
-    text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
-}
-
-.subnavigation{
-    width: 200px;
-    float: left;
-    position: absolute;
-    background: #000;
-    display: none;
-    z-index: 10000;
-    right: 0;
-    top: 38px;
-}
-
-.subnavigation strong {
-    display: block;
-    padding: 8px 10px;
-}
-
-.subnavigation a:link,
-.subnavigation a:visited{
-    background-image: -webkit-linear-gradient(top, #333, #222);
-    display: block;
-    float: none;
-    height: 16px;
-    line-height: 16px;
-    margin: 0px;
-    padding:10px 10px 11px 10px;
-    text-decoration: none;
-    text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
-} 
 
 /* Twitter Bootstrap */
 .btn-navbar .icon-bar + .icon-bar {
@@ -128,259 +65,103 @@
 
 /* #Tablet (Portrait)
 ================================================== */
+/* Note: Design for a width of 768px */
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	#HeaderLogo{
+		float:left;
+		text-align: left;
+	}
+	
+	#HeaderNavigation{
+		float:right;
+		text-align: left;
+	}
 
-    /* Note: Design for a width of 768px */
-
-    @media only screen and (min-width: 768px) and (max-width: 959px) {
-    #LogoContainer {
-        float: left;
-        color: #fff;
-    }
-
-    #LogoContainer a {
-        color: #fff;
-    }
-
-    #NavigationContainer{
-        float:right;
-        display:inline;
-    }
-
-    #NavigationContainer a:link,
-    #NavigationContainer a:visited{
-        color: #fff;
-    }
-
-    #MobileHeader{
-        display: none;
-    } 
-
-    #NavigationHeader{
-        display: block;
-    } 
-
-    #Navigation{
-        width: 200px;
-        background: #000;
-        display: none;
-        float:left;
-        position: absolute;
-        border-bottom-left-radius: 6px;
-        right: 0;
-        z-index: 999;
-    }
-
-    .navigation{
-        display:block;
-        position: relative;
-    }
-    
-    .navigation.active{
-        background: transparent;
-        padding:0;
-    }
-    
-    .navigation a:link,
-    .navigation a:visited{
-        background-image: -webkit-linear-gradient(top, #333, #222);
-        display: block;
-        float: none;
-        height: 19px;
-        line-height: 19px;
-        margin: 0px;
-        padding:10px 10px 11px 10px;
-        text-decoration: none;
-        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
-    }
-    .subnavigation{
-        width:100%;
-        background: #555;
-        float: none;
-        position: relative;
-        margin: 0 0 0 8px;
-        z-index: 10000;
-    }
-
-    .subnavigation a:link,
-    .subnavigation a:visited{
-        background: #555;
-        color: #fff;
-        font-size: 1.0em; 
-        padding: .3em 1.0em; 
-        display:block;
-    }   
+	.navigation,
+	.logo-container{
+		display: inline;
+		padding: 0 5px;	
+		text-align: left;
+	}
 }
+
 /*  #Mobile (Portrait)
 ================================================== */
 
 /* Note: Design for a width of 320px */
 @media only screen and (max-width: 767px) {
+	#HeaderLogo{
+		float:none;
+		text-align: center;
+		text-align: center;
+	}
+	
+	#HeaderNavigation{
+		float:none;
+		text-align: center;
+	}
 
-    #MobileHeader {
-        position: relative;
-        display: block;
-    }     
-
-    #LogoContainer {
-        display: none;
-    }
-
-    .logo-container {
-        float: left;
-    }
-
-    .logo-container a {
-        color: #fff;
-    }
-
-    #MobileNavigationTrigger{
-        float: right;
-    }
-
-    #NavigationContainer{
-        float: none;
-        display: block;
-    }
-
-    #NavigationHeader{
-        display: none;
-    } 
-
-    #Navigation{
-        width: 100%;
-        background: #000;
-        display: none;
-        float:none;
-        position: relative;
-        border-radius: 0; 
-        margin:0 -4px;
-    }
-
-    .navigation{
-        background: #555;
-        display:block;
-        position: relative;
-    }
-    
-    .navigation.active{
-        background: transparent;
-        padding:0;
-    }
-    
-    .navigation a:link,
-    .navigation a:visited{
-        background-image: -webkit-linear-gradient(top, #333, #222);
-        display: block;
-        float: none;
-        height: 19px;
-        line-height: 19px;
-        margin: 0px;
-        padding:10px 10px 11px 10px;
-        text-decoration: none;
-        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
-    }
-
-    .subnavigation{
-        width: 100%;
-        background: #555;
-        float: none;
-        position: relative;
-        margin: 0 0 0 8px;
-        z-index: 10000;
-    }
-
-    .subnavigation a:link,
-    .subnavigation a:visited{
-        background: #555;
-        color: #fff;
-        font-size: 1.0em; 
-        padding: .3em 1.0em; 
-        display:block;
-    } 
-    }
+	.navigation,
+	.logo-container{
+		padding: 6px 0;	
+		text-align: center;
+	}
+}
     
 /* #Mobile (Landscape)
 ================================================== */
 
-/* Note: Design for a width of 480px */
+/* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
-    /*@media screen and (max-width: 480px) {*/
-
-    #MobileHeader{
-        position:relative;
-        display: block;
-    }     
-
-    #LogoContainer{
-        display:none;
-    }
-
-    .logo-container{
-        float:left;
-    }
-
-    #MobileNavigationTrigger{
-        float:right;
-    }
-
-    #NavigationContainer{
-        float: none;
-        display:block;
-    }
-
-    #NavigationHeader{
-        display: none;
-    } 
-
-    #Navigation{
-        width: 100%;
-        background: #000;
-        display: none;
-        float:none;
-        position: relative;
-        border-radius: 0; 
-        margin:0 -4px;
-    }
-
-    .navigation{
-        background: #555;
-        display:block;
-        position: relative;
+    #Footer{
+        text-align: center;
+        margin: 12px 0 0;
+        padding: 4px 0;
+        color: #ccc;
     }
     
-    .navigation.active{
-        background: transparent;
-        padding:0;
-    }
-    
-    .navigation a:link,
-    .navigation a:visited{
-        background-image: -webkit-linear-gradient(top, #333, #222);
-        display: block;
-        float: none;
-        height: 19px;
-        line-height: 19px;
-        margin: 0px;
-        padding:10px 10px 11px 10px;
-        text-decoration: none;
-        text-shadow: rgba(0, 0, 0, 0.246094) 0px -1px 0px;
-    }
+	.desktop.block{
+		display: none;
+	}
+	
+	.desktop.inline{
+		display: none;
+	}
+	
+	.desktop.inline-block{
+		display: none;
+	}
+	
+	.mobile.block{
+		display: block;
+	}
+	
+	.mobile.inline{
+		display: inline;
+	}
+	
+	.mobile.inline-block{
+		display: inline-block;
+	}
+}
 
-    .subnavigation{
-        width: 100%;
-        background: #555;
-        float: none;
-        position: relative;
-        margin: 0 0 0 8px;
-        z-index: 10000;
-    }
+/* Note: Design for a width of 480px */
+@media screen and (max-width: 480px) {
+	#HeaderLogo{
+		float:none;
+		text-align: center;
+		text-align: center;
+	}
+	
+	#HeaderNavigation{
+		float:none;
+		text-align: center;
+	}
 
-    .subnavigation a:link,
-    .subnavigation a:visited{
-        background: #555;
-        color: #fff;
-        font-size: 1.0em; 
-        padding: .3em 1.0em; 
-        display:block;
-    } 
+	.navigation,
+	.logo-container{
+		display: block;
+		padding: 6px 0;	
+		text-align: center;
+	}
 }

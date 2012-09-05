@@ -20,35 +20,22 @@ $userId = $this->Session->read('Auth.User.id');
 
 <div id="Header">
     <div class="clearfix squeeze">
-        <div id="LogoContainer">
-            <a href="/">The 42Viral Project</a>
-        </div>
 
-        <div id="MobileHeader" class="clearfix">
-
-            <div class="logo-container">
-                <a href="/">The 42Viral Project</a>
+            <div id="HeaderLogo" class="clearfix">
+                <div class="logo-container" style="float:left;">
+                    <a href="/">The 42Viral Project</a>
+                </div>
+                <div id="HeaderNavigationTrigger" class="mobile block btn btn-navbar" style="float:right;">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </div>
             </div>
 
-            <a id="MobileNavigationTrigger" class="btn btn-navbar">
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </a>
 
-        </div>
 
-        <div id="NavigationContainer">
 
-            <div id="NavigationHeader">
-                <a id="NavigationTrigger" class="btn btn-navbar">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-            </div>
-
-            <div id="Navigation">
+            <div id="HeaderNavigation" class="desktop block">
             <?php
                 $headerMenuVars = unserialize($this->element('Navigation' . DS . 'menu_header'));
                 $headerMenu = $headerMenuVars['headerMenu'];
@@ -85,7 +72,7 @@ $userId = $this->Session->read('Auth.User.id');
                             $item['options'],
                             $item['confirm']
                         );
-
+/*
                         if(isset($item['SubNavigation'])):
                             echo "<div class=\"subnavigation\">"; #3
                                 foreach($item['SubNavigation'] as $subItem):
@@ -101,13 +88,13 @@ $userId = $this->Session->read('Auth.User.id');
                                 endforeach;
                             echo "</div>"; #/3
                         endif;
-
+*/
                     echo "</div>"; #/2
                     endif;
 
                 endforeach;
             ?>
             </div>
-        </div>
+
     </div>
 </div>

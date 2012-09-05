@@ -94,11 +94,13 @@ var HeaderNavigation = {
     setupUI: function() {
         
         //Controls clickable navigation on small devices
-        $("#NavigationTrigger, #MobileNavigationTrigger").click(function(){
-            if($('#Navigation').is(':visible')) {
-                $('#Navigation').attr('style', '');
+        $("#HeaderNavigationTrigger").click(function(){
+            if($('#HeaderNavigation').is(':visible')) {
+            	//$('#HeaderNavigation').hide();
+            	//// Clearing the style attribute works better with responsive css
+                $('#HeaderNavigation').attr('style', '');
             } else {
-                $('#Navigation').show();
+                $('#HeaderNavigation').show();
             }
         });
 
@@ -111,7 +113,18 @@ var HeaderNavigation = {
         $('#Navigation').delegate('.navigation', 'mouseleave',function() {
             $(this).removeClass('active');
             $(this).find('div.subnavigation:first').hide();
-        });           
+        });   
+        
+        //Controls clickable navigation on small devices
+        $("#AsideNavigationTrigger").click(function(){
+            if($('#AsideNavigation').is(':visible')) {
+            	//$('#AsideNavigation').hide();
+            	//// Clearing the style attribute works better with responsive css
+                $('#AsideNavigation').attr('style', '');
+            } else {
+                $('#AsideNavigation').show();
+            }
+        });
     },
 
     /**

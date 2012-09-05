@@ -12,6 +12,15 @@
  * @license       MIT License (http://www.opensource.org/licenses/mit-license.php)
  */
 
+/**
+ * Concepts and Usage
+ * ------------------
+ * mobile and destop classes
+ * Mobile and desktop classes are intended for use with responsive design (media queries) the mobile class will hide 
+ * it's element on the desktop and the desktop class will hide itself on mobile. These classes must be used with one of 
+ * of the following classes: inline, inlie-block or block. These tell the element which display style to use when 
+ * the mobile or desktop class is in an "active" mode.
+ */
 
 /* Table of Content
 ==================================================
@@ -26,53 +35,122 @@ body{
 } 
  
 #Header{
-    position:relative;
-    background-color: #2C2C2C;
-    background-image: linear-gradient(top, #333, #222);
-    background-repeat: repeat-x;
-    border-radius: 0px;
-    box-shadow: rgba(0, 0, 0, 0.246094) 0px 1px 3px 0px, rgba(0, 0, 0, 0.0976563) 0px -1px 0px 0px inset;
-    color: #fff;
-    display: block;
-    line-height: 18px;
-    padding: 11px 6px;
-    margin: 0 0 1em 0;
-    
+	min-height: 40px;
 }
 
 #Main{}
 
-#Footer{
-    text-align: right;
-    margin: 12px 0 0;
-    padding: 4px 0;
-    
-    color: #ccc;
-    text-shadow: rgba(0,0,0,0.3) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.3) 0 1px, rgba(0,0,0,0.3) -1px -1px;
-}
-
+#Footer{}
 
 .squeeze{
     margin: 0 auto; 
     max-width: 960px;
 }
 
-.block{
-    margin-bottom: 20px;
+.desktop.block{
+	display: block;
 }
 
-.block.top{
-    margin-top: 20px;
+.desktop.inline{
+	display: inline;
+}
+
+.desktop.inline-block{
+	display: inline-block;
+}
+
+.mobile.block{
+	display: none;
+}
+
+.mobile.inline{
+	display: none;
+}
+
+.mobile.inline-block{
+	display: none;
 }
 
 /* Smaller than standard 960 (devices and browsers) */
-@media only screen and (max-width: 959px) {}
+@media only screen and (max-width: 959px) {
+	.desktop.block{
+		display: block;
+	}
+	
+	.desktop.inline{
+		display: inline;
+	}
+	
+	.desktop.inline-block{
+		display: inline-block;
+	}
+	
+	.mobile.block{
+		display: none;
+	}
+	
+	.mobile.inline{
+		display: none;
+	}
+	
+	.mobile.inline-block{
+		display: none;
+	}
+}
 
 /* Tablet Portrait size to standard 960 (devices and browsers) */
-@media only screen and (min-width: 768px) and (max-width: 959px) {}
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.desktop.block{
+		display: block;
+	}
+	
+	.desktop.inline{
+		display: inline;
+	}
+	
+	.desktop.inline-block{
+		display: inline-block;
+	}
+	
+	.mobile.block{
+		display: none;
+	}
+	
+	.mobile.inline{
+		display: none;
+	}
+	
+	.mobile.inline-block{
+		display: none;
+	}
+}
 
 /* All Mobile Sizes (devices and browser) */
-@media only screen and (max-width: 767px) {}
+@media only screen and (max-width: 767px) {
+	.desktop.block{
+		display: none;
+	}
+	
+	.desktop.inline{
+		display: none;
+	}
+	
+	.desktop.inline-block{
+		display: none;
+	}
+	
+	.mobile.block{
+		display: block;
+	}
+	
+	.mobile.inline{
+		display: inline;
+	}
+	
+	.mobile.inline-block{
+		display: inline-block;
+	}
+}
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
@@ -84,6 +162,30 @@ body{
         color: #ccc;
         text-shadow: rgba(0,0,0,0.3) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.3) 0 1px, rgba(0,0,0,0.3) -1px -1px;
     }
+    
+	.desktop.block{
+		display: none;
+	}
+	
+	.desktop.inline{
+		display: none;
+	}
+	
+	.desktop.inline-block{
+		display: none;
+	}
+	
+	.mobile.block{
+		display: block;
+	}
+	
+	.mobile.inline{
+		display: inline;
+	}
+	
+	.mobile.inline-block{
+		display: inline-block;
+	}
 }
 
 /* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
@@ -96,4 +198,28 @@ body{
         color: #ccc;
         text-shadow: rgba(0,0,0,0.3) -1px 0, rgba(0,0,0,0.3) 0 -1px, rgba(255,255,255,0.3) 0 1px, rgba(0,0,0,0.3) -1px -1px;
     }
+    
+	.desktop.block{
+		display: none;
+	}
+	
+	.desktop.inline{
+		display: none;
+	}
+	
+	.desktop.inline-block{
+		display: none;
+	}
+	
+	.mobile.block{
+		display: block;
+	}
+	
+	.mobile.inline{
+		display: inline;
+	}
+	
+	.mobile.inline-block{
+		display: inline-block;
+	}
 }
