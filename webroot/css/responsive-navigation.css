@@ -22,6 +22,18 @@
 
 /* #Site Styles
 ================================================== */
+
+/*** NAVIGATION LAYOUT ***/
+#AsideNavigation{
+	float:none;
+	text-align: left;
+}
+
+#AsideNavigationTrigger{
+	cursor: pointer;
+}
+
+/*** NAVIGATION LINKS ***/
 div.column-block{
     margin: 0 0 20px;
 }
@@ -132,8 +144,7 @@ div.doc-index li.doc-index-item.doc-index-current {
     background-color: #eee;
 }
 
-/* #Pagination
-================================================== */
+/*** Pagination ***/
 .paginator{
     text-align:center;
 }
@@ -169,17 +180,17 @@ div.doc-index li.doc-index-item.doc-index-current {
     border: solid 1px #2E6AB1;
 }
 
-/* #Page Styles
+/* #Tablet (Portrait)
 ================================================== */
-
-/* #Media Queries
-================================================== */
-
-/* Smaller than standard 960 (devices and browsers) */
-@media only screen and (max-width: 959px) {}
-
-/* Tablet Portrait size to standard 960 (devices and browsers) */
+/* Note: Design for a width of 768px */
 @media only screen and (min-width: 768px) and (max-width: 959px) {
+	/*** NAVIGATION LAYOUT ***/
+	#AsideNavigation{
+		float:none;
+		text-align: left;
+	}
+	
+	/*** NAVIGATION LINKS ***/
     div.column-block:first-child{
         margin: 12px 0;
     }  
@@ -208,11 +219,21 @@ div.doc-index li.doc-index-item.doc-index-current {
         font-weight: bold;
         padding: 12px 14px;
         border: solid 1px #2E6AB1;
-    }      
+    }  
 }
 
-/* All Mobile Sizes (devices and browser) */
+/*  #Mobile (Portrait)
+================================================== */
+
+/* Note: Design for a width of 320px */
 @media only screen and (max-width: 767px) {
+	/*** NAVIGATION LAYOUT ***/
+	#AsideNavigation{
+		float:none;
+		text-align: center;
+	}
+	
+	/*** NAVIGATION LINKS ***/
     div.column-block:first-child{
         margin: 12px 0;
     }
@@ -245,11 +266,21 @@ div.doc-index li.doc-index-item.doc-index-current {
         font-weight: bold;
         padding: 12px 14px;
         border: solid 1px #2E6AB1;
-    }      
+    } 
 }
+    
+/* #Mobile (Landscape)
+================================================== */
 
 /* Mobile Landscape Size to Tablet Portrait (devices and browsers) */
 @media only screen and (min-width: 480px) and (max-width: 767px) {
+	/*** NAVIGATION LAYOUT ***/
+	#AsideNavigation{
+		float:none;
+		text-align: center;
+	}
+	
+	/*** NAVIGATION LINKS ***/
     div.column-block:first-child{
         margin: 12px 0;
     }
@@ -282,11 +313,16 @@ div.doc-index li.doc-index-item.doc-index-current {
         font-weight: bold;
         padding: 12px 14px;
         border: solid 1px #2E6AB1;
-    }      
+    }  	
 }
 
-/* Mobile Portrait Size to Mobile Landscape Size (devices and browsers) */
-@media only screen and (max-width: 479px) {
+/* Note: Design for a width of 480px */
+@media screen and (max-width: 479px) {
+	/*** NAVIGATION LAYOUT ***/
+	#AsideNavigation{
+		float:none;
+		text-align: center;
+	}
     div.column-block:first-child{
         margin: 12px 0;
     }
@@ -295,6 +331,7 @@ div.doc-index li.doc-index-item.doc-index-current {
         display: block;
     }
     
+    /*** NAVIGATION LINKS ***/
     .pagination-link, .pagination-link:link, .pagination-link:visited {
         padding: 12px 14px;
         margin:0 2px;
@@ -319,5 +356,5 @@ div.doc-index li.doc-index-item.doc-index-current {
         font-weight: bold;
         padding: 12px 14px;
         border: solid 1px #2E6AB1;
-    }    
+    } 
 }

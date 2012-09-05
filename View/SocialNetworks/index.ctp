@@ -51,6 +51,18 @@
         </div>
     </div>
     <div class="one-third column omega">
-        <?php echo $this->element('Navigation' . DS . 'menus', array('section'=>'social_network')); ?>
+        <?php echo $this->element(
+                'Blocks' . DS . 'aside',
+                array(
+                    'elements'=>array(
+                        ## Sample pass an element with no arguments
+                        ## 'Blocks' . DS . 'tag_cloud',
+                        ## OR Pass an element with arguments
+                        ## array('Navigation' . DS . 'menus', array('section'=>'social_network'))
+                        array('Navigation' . DS . 'menus', array('section'=>'social_network'))
+                    )
+                )
+            );
+        ?>
     </div>
 </div>
